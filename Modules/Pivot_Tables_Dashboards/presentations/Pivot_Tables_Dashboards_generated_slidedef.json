@@ -1,0 +1,174 @@
+{
+  "PresentationTitle": "Pivot Tables, Dashboards, and Power Query in Excel",
+  "Topic": "Introduction to Pivot Tables, Advanced Pivot Table Techniques, Building Dynamic Dashboards, Dashboard Interactivity and Visual Design, Introduction to Power Query, Data Transformation with Power Query, Automating Refresh Workflows",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "Pivot Tables, Dashboards, and Power Query in Excel",
+      "Bullets": [
+        "A professional guide to summarizing, visualizing, and automating data analysis in Excel."
+      ],
+      "SpeakerNotes": "Welcome students to the course. This presentation covers the full workflow from organizing raw data with pivot tables, building interactive dashboards, and automating data import and preparation using Power Query. By the end, students will be equipped to handle real-world data analysis tasks efficiently and professionally."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Introduction to Pivot Tables",
+      "Bullets": [
+        "A pivot table summarizes large datasets interactively without formulas.",
+        "Source data must be clean, structured, and consistently formatted.",
+        "Insert a pivot table by selecting your data and choosing a location.",
+        "The PivotTable Fields pane controls all field assignments.",
+        "Rows, Columns, and Values define the report\u0027s structure."
+      ],
+      "SpeakerNotes": "A pivot table is Excel\u0027s most powerful summarization tool. It allows users to group, aggregate, and explore data without altering the source. Before creating one, ensure data has headers in row one, no blank rows or columns, and consistent data types per column. Inserting is done via Insert \u003E PivotTable. The Fields pane on the right lets you drag fields into Rows, Columns, Values, or Filters areas to build the report layout you need."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "Navigating and Customizing Pivot Tables",
+      "Bullets": [
+        "Double-click a value cell to drill down into source records.",
+        "Click Refresh to update the pivot table after data changes.",
+        "Default aggregation is SUM for numbers, COUNT for text.",
+        "Change summary functions via Value Field Settings.",
+        "Apply number formatting to values for professional presentation."
+      ],
+      "SpeakerNotes": "Once a pivot table is built, users can double-click any value to see the underlying records in a new sheet \u2014 this is called drilling down. If the source data changes, right-click and choose Refresh or use the Data tab. By default, numeric fields use SUM and text fields use COUNT, but you can switch to AVERAGE, MAX, MIN, or others through Value Field Settings. Always format values with currency symbols or decimal places to improve readability."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "Advanced Pivot Table Techniques",
+      "Bullets": [
+        "Calculated fields add custom formula-based columns to pivot tables.",
+        "Grouping consolidates rows or columns into meaningful categories.",
+        "Date fields can be grouped by month, quarter, or year.",
+        "Report filters and field filters narrow displayed data subsets.",
+        "Slicers and Timeline slicers enable visual, interactive filtering."
+      ],
+      "SpeakerNotes": "Calculated fields let you create new metrics inside the pivot table \u2014 for example, dividing Revenue by Units to get Average Price \u2014 without touching the source data. Grouping is especially useful for dates: right-click a date field and group by month or quarter. Standard filters work like dropdown menus, but Slicers provide clickable buttons for faster filtering. Timeline slicers are a special slicer type built specifically for date fields, offering a scrollable time bar to filter by day, month, quarter, or year."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "Managing and Expanding Pivot Table Data",
+      "Bullets": [
+        "Expand or collapse field levels to explore data hierarchies.",
+        "Use Show Details to reveal records behind any summary value.",
+        "Change the data source range under PivotTable Analyze tab.",
+        "Refresh All updates every pivot table in the workbook at once.",
+        "Convert source data to an Excel Table for dynamic range expansion."
+      ],
+      "SpeakerNotes": "Multi-level pivot tables support hierarchical drilling \u2014 clicking the expand/collapse arrows lets users move between summary and detail views. To keep the pivot table range current as new data is added, convert the source to a Table (Ctrl\u002BT) so it expands automatically. If data is added outside the original range, use Change Data Source under PivotTable Analyze to update the reference. Refresh All under the Data tab ensures all pivot tables reflect the latest data simultaneously."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "Building Dynamic Dashboards",
+      "Bullets": [
+        "Plan dashboard layout before building \u2014 sketch key sections first.",
+        "Pivot charts link directly to pivot tables and update automatically.",
+        "Slicers connect to multiple pivot tables for unified interactivity.",
+        "Timeline slicers filter all connected charts by date period.",
+        "KPI cells display high-level metrics like total revenue prominently."
+      ],
+      "SpeakerNotes": "Dashboard design starts with planning: identify your audience, the key questions they need answered, and the metrics that matter most. Sketch a layout before opening Excel. Pivot charts are preferred because they inherit filters from their connected pivot table. Slicers can be linked to multiple pivot tables via Report Connections, so one click filters everything on the dashboard. KPI cells using formulas like GETPIVOTDATA or direct cell references pull summary values to display as prominent headline numbers."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "Formatting and Finalizing Dashboards",
+      "Bullets": [
+        "Apply consistent fonts, colors, and spacing across all elements.",
+        "Remove gridlines and sheet tabs for a clean dashboard canvas.",
+        "Format charts by simplifying legends and adding data labels.",
+        "Protect the sheet to prevent accidental edits by users.",
+        "Enable one-click refresh to keep all data current instantly."
+      ],
+      "SpeakerNotes": "A professional dashboard uses a consistent color palette \u2014 typically two to three brand-aligned colors \u2014 and a single font family. Turn off gridlines via the View tab and hide row/column headers for a cleaner look. Chart formatting best practices include removing unnecessary gridlines from charts, placing labels directly on bars or lines instead of using a legend when possible, and keeping chart titles concise. Use Review \u003E Protect Sheet, allowing users to interact with slicers and filters but not edit formulas or layout. Add a Refresh All button using a shape linked to a macro for one-click updates."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "Dashboard Interactivity and Visual Design",
+      "Bullets": [
+        "Slicers provide clickable filter buttons for instant data segmentation.",
+        "Timelines let users filter by month, quarter, or year visually.",
+        "Place key metrics at the top; supporting detail below.",
+        "Consistent color schemes signal professionalism and reduce distraction.",
+        "Protect and finalize the dashboard before sharing with users."
+      ],
+      "SpeakerNotes": "This topic deepens the design principles introduced in dashboard building. Slicers should be sized consistently and aligned to a grid for visual order. Timelines should be placed near the top or alongside slicers for a logical filtering section. Layout best practice follows the F-pattern of reading: most important KPIs top-left, charts in the center, detail tables at the bottom. Color consistency means using the same color for the same category across all charts. Once finalized, use sheet protection to lock cells while keeping slicers and timelines interactive."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "Introduction to Power Query",
+      "Bullets": [
+        "Power Query imports and transforms data from many sources automatically.",
+        "Supported sources include Excel, CSV, databases, web, and cloud.",
+        "Connect to external data through the Data tab Get Data menu.",
+        "The Power Query Editor is a dedicated data transformation workspace.",
+        "Refresh connections to re-import updated source data automatically."
+      ],
+      "SpeakerNotes": "Power Query is built into Excel and accessible via Data \u003E Get Data. It supports an extensive range of sources: local Excel or CSV files, SQL Server and other databases, SharePoint, web URLs, and cloud services like Azure. Once a source is connected, the Power Query Editor opens in a separate window where all transformations are applied visually. Critically, Power Query records every step so the entire process reruns automatically on refresh \u2014 eliminating repetitive manual data preparation. This makes it far more scalable and auditable than manual copy-paste workflows."
+    },
+    {
+      "SlideNumber": 10,
+      "Title": "Data Transformation with Power Query",
+      "Bullets": [
+        "Remove duplicates, blank rows, and error values with one click.",
+        "Split or merge columns to restructure raw data layouts.",
+        "Pivot and unpivot columns to reshape data for analysis.",
+        "Assign correct data types to ensure accurate calculations.",
+        "Add custom or conditional columns without writing sheet formulas."
+      ],
+      "SpeakerNotes": "The Power Query Editor provides a ribbon-based interface for all transformations. Common cleaning tasks include removing duplicates via Home \u003E Remove Rows, filling in blank cells, and replacing error values. Splitting columns by delimiter is useful for separating first and last names or date components. Pivoting reshapes rows into columns; unpivoting does the reverse \u2014 both are essential for normalizing data. Assigning data types correctly (number, date, text) is critical so that downstream pivot tables and charts interpret values accurately. Custom columns use a formula language called M, while conditional columns use a guided UI \u2014 no coding required."
+    },
+    {
+      "SlideNumber": 11,
+      "Title": "Automating Data Preparation with Power Query",
+      "Bullets": [
+        "Every transformation step is recorded and replayable on refresh.",
+        "Edit or reorder steps in the Applied Steps pane anytime.",
+        "Merge queries to combine data from multiple sources into one.",
+        "Append queries to stack rows from similar datasets together.",
+        "Load query output to a worksheet table or Data Model."
+      ],
+      "SpeakerNotes": "One of Power Query\u0027s most powerful features is the Applied Steps pane on the right side of the editor, which records every action taken. You can click any step to preview the data at that point, delete a step, or reorder steps. Merge (similar to SQL JOIN) combines two queries by a matching key column. Append stacks two queries with the same structure vertically, useful for combining monthly data files. When loading, you can load to a worksheet as a Table or directly to Excel\u0027s Data Model for use with pivot tables. Because all steps replay on refresh, the workflow is fully automated once configured."
+    },
+    {
+      "SlideNumber": 12,
+      "Title": "Automating Refresh Workflows",
+      "Bullets": [
+        "Data refresh pulls the latest source data into Excel automatically.",
+        "Set queries to refresh on workbook open via Connection Properties.",
+        "Schedule timed refresh intervals in Connection Properties settings.",
+        "Refresh All on the Data tab updates all queries simultaneously.",
+        "Pivot tables must connect to Power Query output tables to refresh."
+      ],
+      "SpeakerNotes": "Refresh is the mechanism that keeps Power Query-powered workbooks current. In Connection Properties (Data \u003E Queries \u0026 Connections \u003E right-click \u003E Properties), you can enable Refresh Every X minutes and Refresh data when opening the file. Refresh All triggers all queries and pivot tables at once, which is ideal for dashboards. For pivot tables to benefit from Power Query refresh, they must be built on top of the Power Query output table or the Data Model. This end-to-end connection ensures the full pipeline \u2014 from source data to dashboard \u2014 updates with minimal user effort."
+    },
+    {
+      "SlideNumber": 13,
+      "Title": "Advanced Refresh: VBA and Background Settings",
+      "Bullets": [
+        "VBA macros can trigger Power Query refresh programmatically.",
+        "Use Workbook_Open event to auto-refresh when file is opened.",
+        "Background refresh keeps Excel responsive during long query runs.",
+        "Disable background refresh when using VBA to avoid timing conflicts.",
+        "Test refresh workflows end-to-end before sharing with stakeholders."
+      ],
+      "SpeakerNotes": "For more advanced automation, VBA macros can call ThisWorkbook.Connections(\u0027QueryName\u0027).Refresh to programmatically trigger individual queries, or ActiveWorkbook.RefreshAll for all connections. The Workbook_Open event in the VBA editor runs code automatically when the file opens. Background refresh is enabled by default and keeps Excel responsive, but it can cause issues in VBA workflows because the macro may continue before the query finishes \u2014 disabling it ensures sequential execution. Always test the full refresh workflow by modifying source data and confirming the change flows correctly through Power Query, into the pivot table, and onto the dashboard before deploying to end users."
+    },
+    {
+      "SlideNumber": 14,
+      "Title": "Summary and Key Takeaways",
+      "Bullets": [
+        "Pivot tables summarize large datasets quickly without formulas.",
+        "Advanced features include calculated fields, grouping, and slicers.",
+        "Dashboards combine pivot charts, slicers, and KPI cells interactively.",
+        "Power Query imports and cleans data from diverse sources automatically.",
+        "Refresh workflows ensure dashboards always display the latest data."
+      ],
+      "SpeakerNotes": "To summarize the full course: Pivot tables are the foundation for fast, flexible data summarization. Advanced techniques like calculated fields, grouping, and slicers extend what pivot tables can do. Dashboards bring pivot tables, charts, and visual design together into a reporting tool that non-technical users can navigate. Power Query solves the data preparation problem by automating import, cleaning, and reshaping steps. Finally, configuring automatic refresh \u2014 through Connection Properties, Refresh All, or VBA \u2014 ensures the entire pipeline stays current with minimal manual effort. Students who master these tools will have a significant advantage in any data-driven professional environment."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T13:56:45.0494942-04:00",
+  "PptxFileName": ""
+}

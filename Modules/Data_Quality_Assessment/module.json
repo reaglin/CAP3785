@@ -1,0 +1,9 @@
+{
+  "Id": "e431d373-c797-460e-948d-baf6dad39291",
+  "Name": "Data Quality Assessment and Data Cleaning Fundamentals",
+  "Description": "This lesson focuses on identifying and resolving data quality issues such as missing values, duplicates, outliers, and inconsistencies. Students will learn systematic cleaning strategies and best practices for preparing raw datasets for reliable analysis.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.6437095-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.6444733-04:00",
+  "Actions": []
+}

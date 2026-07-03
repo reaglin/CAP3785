@@ -1,0 +1,9 @@
+{
+  "Id": "a8891fe5-973f-413d-9f5c-c2f49911637a",
+  "Name": "Introduction to Machine Learning for Business Analytics",
+  "Description": "This lesson introduces machine learning concepts including supervised versus unsupervised learning, common algorithms (linear regression, decision trees, k-means clustering), and model evaluation metrics. Students will connect ML techniques to practical business applications and complete an end-to-end exploratory analytics project.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.7412629-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.7421579-04:00",
+  "Actions": []
+}

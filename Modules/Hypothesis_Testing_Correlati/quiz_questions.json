@@ -1,0 +1,748 @@
+{
+  "ModuleFolderName": "Hypothesis_Testing_Correlati",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "LastModified": "2026-07-03T14:31:10.7946006-04:00",
+  "NextQuestionNumber": 21,
+  "Questions": [
+    {
+      "Id": "TEMP_001",
+      "Type": "MC",
+      "Title": "Purpose of statistical inference",
+      "QuestionText": "What is the primary purpose of statistical inference?",
+      "Hint": "Think about what we do when we cannot examine every individual in a population.",
+      "Feedback": "Statistical inference allows researchers to draw conclusions about a population based on sample data, rather than examining every individual observation.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7944997-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To draw conclusions about a population based on sample data",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To collect data from every member of a population",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To eliminate all uncertainty from data analysis",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To describe only the sample without making broader claims",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_002",
+      "Type": "MC",
+      "Title": "Null hypothesis definition",
+      "QuestionText": "Which of the following best describes the null hypothesis (H\u2080) in a hypothesis test?",
+      "Hint": "Consider which hypothesis represents the \u0027no effect\u0027 or \u0027no difference\u0027 position.",
+      "Feedback": "The null hypothesis is the default statement that assumes no effect, no difference, or no relationship. It is the claim the researcher seeks to find evidence against.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945015-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A statement asserting no effect or no difference between groups",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A statement that confirms the researcher\u0027s expected finding",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The hypothesis that is always accepted after data collection",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A statement that quantifies the size of the observed effect",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_003",
+      "Type": "MC",
+      "Title": "Role of a test statistic",
+      "QuestionText": "What does a test statistic measure in a hypothesis test?",
+      "Hint": "Consider how far the observed data are from what was expected under H\u2080.",
+      "Feedback": "A test statistic is a numerical value calculated from sample data that summarizes how far the observed result is from what would be expected if the null hypothesis were true.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945021-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "How far the observed result is from what is expected under the null hypothesis",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The probability that the null hypothesis is correct",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The size of the population from which data were sampled",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The confidence level chosen by the researcher",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_004",
+      "Type": "MC",
+      "Title": "Type I error definition",
+      "QuestionText": "A Type I error in hypothesis testing is best described as which of the following?",
+      "Hint": "Think about a \u0027false positive\u0027 \u2014 concluding there is an effect when there really is none.",
+      "Feedback": "A Type I error occurs when the null hypothesis is true but is incorrectly rejected, producing a false positive conclusion. Its probability is controlled by the significance level alpha.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945026-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Rejecting a true null hypothesis, resulting in a false positive",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Failing to reject a false null hypothesis, resulting in a false negative",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Selecting an inappropriate test statistic for the data",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Collecting an insufficient sample to detect an effect",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_005",
+      "Type": "MC",
+      "Title": "Meaning of a p-value",
+      "QuestionText": "What does a p-value of 0.03 mean in the context of hypothesis testing?",
+      "Hint": "Recall the definition of a p-value: a probability calculated assuming H\u2080 is true.",
+      "Feedback": "A p-value of 0.03 means there is a 3% probability of observing data at least as extreme as those obtained, assuming the null hypothesis is true. It does not mean there is a 3% chance that H\u2080 is true.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.794503-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "There is a 3% chance of observing data this extreme if H\u2080 is true",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "There is a 3% chance that the null hypothesis is true",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The effect size is 3% larger in the treatment group",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The researcher has a 97% chance of being correct",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_006",
+      "Type": "MC",
+      "Title": "Alpha level selection timing",
+      "QuestionText": "When should the significance threshold (alpha level) be chosen in a hypothesis test?",
+      "Hint": "Think about when choices should be made to avoid bias introduced by seeing the data first.",
+      "Feedback": "The significance threshold should be chosen before data collection begins. Choosing alpha after seeing the data is a source of bias known as p-hacking and invalidates the test\u0027s integrity.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945045-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Before data collection, based on the research context and consequences of errors",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "After data collection, once the p-value has been computed",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "After the alternative hypothesis has been confirmed",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Only when the sample size exceeds 1,000 observations",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_007",
+      "Type": "MC",
+      "Title": "Reducing Type II errors",
+      "QuestionText": "Which of the following is one of the most effective ways to reduce the probability of a Type II error?",
+      "Hint": "Consider what gives a test more power to detect a real effect.",
+      "Feedback": "Increasing sample size is one of the most effective ways to reduce Type II errors because larger samples provide more information, increasing the statistical power (1 \u2212 \u03B2) of the test.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.794505-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Increasing the sample size",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Lowering the alpha level",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Using a one-tailed instead of a two-tailed test structure",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Reporting only statistically significant results",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_008",
+      "Type": "MC",
+      "Title": "Best practice p-value reporting",
+      "QuestionText": "According to best practices, what should accompany a p-value when reporting statistical significance?",
+      "Hint": "Think about what additional information conveys the direction and magnitude of an effect.",
+      "Feedback": "Best practice requires reporting effect size measures (such as Cohen\u0027s d or R\u00B2) and confidence intervals alongside p-values to convey both the direction and magnitude of an effect, not just whether it crossed a significance threshold.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945054-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "An effect size measure and a confidence interval",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Only the sample size used in the analysis",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The raw data values for every observation",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A second p-value calculated with a different alpha level",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_009",
+      "Type": "MC",
+      "Title": "A/B testing control and treatment",
+      "QuestionText": "In an A/B test, what do the labels \u0027A\u0027 and \u0027B\u0027 represent?",
+      "Hint": "Think about the two versions being compared in a controlled business experiment.",
+      "Feedback": "In an A/B test, A represents the control (the existing version) and B represents the treatment (the new or modified version). The goal is to determine which version performs better on a defined metric.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.794506-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A is the control version and B is the treatment version",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A is the alternative hypothesis and B is the null hypothesis",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A is the larger sample group and B is the smaller sample group",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A is the post-test result and B is the pre-test result",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_010",
+      "Type": "MC",
+      "Title": "Peeking at A/B test results",
+      "QuestionText": "Why is \u0027peeking\u0027 at A/B test results before the planned end date considered a methodological error?",
+      "Hint": "Consider what peeking does to the fixed-sample test framework and error rates.",
+      "Feedback": "Peeking at results before the planned end date and potentially stopping early inflates the false-positive rate because the fixed-sample hypothesis test framework assumes data collection is complete before the test is evaluated.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.794507-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It inflates false-positive rates by invalidating the fixed-sample test framework",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It reduces the sample size below the minimum required threshold",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It changes the null hypothesis mid-experiment",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It forces researchers to use non-parametric tests instead of t-tests",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_011",
+      "Type": "MC",
+      "Title": "Effect size in A/B testing",
+      "QuestionText": "Why is effect size important in A/B testing decisions even when a result is statistically significant?",
+      "Hint": "Think about a situation where a tiny difference is detected only because the sample is very large.",
+      "Feedback": "Effect size quantifies the magnitude of the difference between groups. A statistically significant result with a very small effect size (e.g., a 0.1% lift in conversion) may be financially negligible, so effect size helps bridge the gap between statistical and practical significance.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945075-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It reveals whether the statistically significant difference is large enough to matter in practice",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It determines whether the null hypothesis should be accepted",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It replaces the need to calculate a p-value",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It confirms that the experimental design was properly randomized",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_012",
+      "Type": "MC",
+      "Title": "Pearson vs. Spearman correlation",
+      "QuestionText": "When should the Spearman rank correlation coefficient be preferred over the Pearson correlation coefficient?",
+      "Hint": "Think about what types of data or distributions make Pearson\u0027s r less appropriate.",
+      "Feedback": "Spearman\u0027s \u03C1 is preferred when data contain outliers, are not normally distributed, or are measured on an ordinal scale, because it is based on ranked order rather than raw values and is therefore non-parametric.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945081-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "When data contain outliers or are measured on an ordinal scale",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "When both variables are continuous and normally distributed",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "When the researcher wants to establish causation between variables",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "When the sample size is larger than 1,000 observations",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_013",
+      "Type": "MC",
+      "Title": "Correlation coefficient range",
+      "QuestionText": "What is the range of possible values for a correlation coefficient?",
+      "Hint": "Think about the extreme values that indicate perfect positive and perfect negative relationships.",
+      "Feedback": "Correlation coefficients range from -1 to \u002B1. A value of -1 indicates a perfect negative relationship, \u002B1 indicates a perfect positive relationship, and 0 indicates no linear relationship.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945086-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "-1 to \u002B1",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "0 to 1",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "-100 to \u002B100",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "0 to infinity",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_014",
+      "Type": "MC",
+      "Title": "Correlation versus causation",
+      "QuestionText": "Which of the following best illustrates why correlation does not imply causation?",
+      "Hint": "Think about two variables that both increase due to a third underlying factor rather than influencing each other directly.",
+      "Feedback": "The classic example is the correlation between ice cream sales and drowning rates \u2014 both rise in summer, but ice cream does not cause drowning. The confounding variable is hot weather. This illustrates that a shared cause can produce correlation without direct causation.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.794509-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Ice cream sales and drowning rates both rise in summer due to hot weather, not because one causes the other",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Hours studied and exam scores are positively correlated, proving studying causes higher grades",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A high R\u00B2 in regression proves the predictor variable causes changes in the outcome",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A p-value below 0.05 confirms a causal relationship between two variables",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_015",
+      "Type": "MC",
+      "Title": "OLS regression coefficient estimation",
+      "QuestionText": "What criterion does Ordinary Least Squares (OLS) use to estimate regression coefficients?",
+      "Hint": "Think about what OLS minimizes when fitting a line to data.",
+      "Feedback": "OLS estimates regression coefficients by minimizing the sum of squared differences between the observed values and the values predicted by the model, producing the best linear unbiased estimates (BLUE) under standard assumptions.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945095-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Minimizing the sum of squared differences between observed and predicted values",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Maximizing the R\u00B2 value of the fitted model",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Minimizing the absolute value of the correlation coefficient",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Maximizing the number of statistically significant predictors in the model",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_016",
+      "Type": "MC",
+      "Title": "Interpreting R-squared in regression",
+      "QuestionText": "If a simple linear regression model has an R\u00B2 of 0.85, what does this mean?",
+      "Hint": "R\u00B2 expresses explained variance as a proportion of total variance in the outcome variable.",
+      "Feedback": "An R\u00B2 of 0.85 means that 85% of the variance in the outcome variable Y is explained by the predictor variable X in the regression model. However, a high R\u00B2 alone does not guarantee the model is appropriate.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945101-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "85% of the variance in the outcome variable is explained by the predictor",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The predictor variable causes 85% of the changes in the outcome",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The model correctly predicts 85% of individual observations exactly",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "There is an 85% probability that the regression slope is statistically significant",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_017",
+      "Type": "MC",
+      "Title": "Multicollinearity detection tool",
+      "QuestionText": "Which diagnostic tool is the standard method for detecting multicollinearity in multiple regression?",
+      "Hint": "Think about the statistic calculated for each predictor that measures how much its variance is inflated by correlation with other predictors.",
+      "Feedback": "The Variance Inflation Factor (VIF) is the standard diagnostic tool for detecting multicollinearity. A VIF above 5 or 10 is commonly used as a threshold indicating problematic multicollinearity.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945105-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Variance Inflation Factor (VIF)",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Breusch-Pagan test",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Shapiro-Wilk test",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Adjusted R\u00B2",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_018",
+      "Type": "MC",
+      "Title": "Adjusted R\u00B2 versus R\u00B2",
+      "QuestionText": "Why is Adjusted R\u00B2 preferred over R\u00B2 when comparing multiple regression models with different numbers of predictors?",
+      "Hint": "Consider what happens to R\u00B2 every time a new predictor is added to the model, regardless of whether it is useful.",
+      "Feedback": "R\u00B2 always increases as predictors are added, even if those predictors add no real explanatory value. Adjusted R\u00B2 penalizes for the number of predictors included, making it a more appropriate measure for comparing models with different numbers of predictors.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945113-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Because R\u00B2 always increases when predictors are added, regardless of their usefulness",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because Adjusted R\u00B2 can exceed 1.0 for very well-fitting models",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because R\u00B2 cannot be calculated for models with more than two predictors",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because Adjusted R\u00B2 measures statistical significance directly",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_019",
+      "Type": "MC",
+      "Title": "Selecting the correct statistical test",
+      "QuestionText": "According to the module, which statistical method should be used when the goal is to predict a continuous outcome from one or more predictor variables?",
+      "Hint": "Think about the method that explicitly models the relationship between predictors and an outcome variable.",
+      "Feedback": "Regression analysis is the appropriate method when predicting a continuous outcome from one or more predictors. Correlation assesses relationships, and t-tests compare means between groups, but regression is designed for prediction and modeling.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945117-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Regression analysis",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Chi-square test",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Pearson correlation only",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Independent samples t-test",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_020",
+      "Type": "MC",
+      "Title": "Communicating results to stakeholders",
+      "QuestionText": "Which of the following tools is recommended to help non-technical stakeholders understand complex statistical relationships?",
+      "Hint": "Think about visual representations mentioned in the module that make results accessible to broad audiences.",
+      "Feedback": "The module recommends visualization tools such as scatter plots with regression lines, residual plots, and annotated bar charts to help non-technical stakeholders grasp complex statistical relationships quickly and clearly.",
+      "TopicTitle": "Foundations of Hypothesis Testing",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:31:10.7945121-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Scatter plots with regression lines, residual plots, and annotated bar charts",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Raw data tables listing every individual observation",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Mathematical derivations of the OLS estimator",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Detailed descriptions of the null and alternative hypotheses only",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    }
+  ]
+}

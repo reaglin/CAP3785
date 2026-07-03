@@ -1,0 +1,174 @@
+{
+  "PresentationTitle": "SQL Fundamentals: Queries, Filtering, and Sorting",
+  "Topic": "Introduction to SQL and Relational Databases, Writing Basic SELECT Queries, Filtering Data with WHERE, Sorting Results with ORDER BY, Limiting Output with LIMIT, Applying SQL to Business Questions",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "SQL Fundamentals: Queries, Filtering, and Sorting",
+      "Bullets": [
+        "A practical introduction to SQL syntax, data retrieval, and analytical query writing for college students."
+      ],
+      "SpeakerNotes": "Welcome everyone. This presentation covers the foundational skills needed to work with relational databases using SQL. We will progress from understanding what SQL is, through writing SELECT queries, filtering and sorting data, and finally applying these skills to real business questions. By the end, you should feel confident constructing multi-clause queries against actual datasets."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Introduction to SQL and Relational Databases",
+      "Bullets": [
+        "SQL is a standardized language for communicating with databases.",
+        "Relational databases store data in structured, interconnected tables.",
+        "Tables organize data into rows and columns.",
+        "Columns define data types; rows hold individual records.",
+        "SQL is the interface between users and database tables."
+      ],
+      "SpeakerNotes": "SQL stands for Structured Query Language and is the universal tool for querying relational databases. A relational database stores data across multiple tables that are linked through shared fields, allowing complex relationships to be represented efficiently. Each table is the fundamental unit of storage \u2014 think of it like a spreadsheet where columns define what kind of data is stored (e.g., name, price, date) and rows contain the actual data entries. SQL commands allow users to read, insert, update, and delete data within these tables."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "Primary Keys and Table Relationships",
+      "Bullets": [
+        "A primary key uniquely identifies every row in a table.",
+        "Primary keys prevent duplicate or ambiguous records.",
+        "Tables relate to each other through shared key columns.",
+        "Unique identification is critical for accurate data retrieval.",
+        "Well-structured keys are the foundation of relational design."
+      ],
+      "SpeakerNotes": "A primary key is a column or combination of columns whose values are unique across every row in a table \u2014 no two rows can share the same primary key value. This uniqueness is what allows SQL to pinpoint exactly one record. When tables share key values (for example, a customer ID appearing in both a customers table and an orders table), those tables are said to be related, which is the core principle behind relational databases. Understanding this concept is essential before writing any queries."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "Writing Basic SELECT Queries",
+      "Bullets": [
+        "SELECT retrieves data from one or more database tables.",
+        "Basic syntax: SELECT columns FROM table_name.",
+        "Specify column names to return only relevant fields.",
+        "Use SELECT * to return all columns in a table.",
+        "Correct clause order is required by the SQL engine."
+      ],
+      "SpeakerNotes": "The SELECT statement is the most commonly used SQL command. Its minimal required syntax is SELECT followed by column names and FROM followed by the table name. When you want every column returned, use the asterisk wildcard (SELECT *), which instructs SQL to include all columns without listing them individually. Specifying columns explicitly is a best practice in production environments because it reduces unnecessary data transfer and makes queries easier to read. Practicing against real datasets \u2014 such as sales or employee records \u2014 helps connect these syntax rules to meaningful outcomes."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "Filtering Data with WHERE",
+      "Bullets": [
+        "WHERE filters rows based on one or more conditions.",
+        "Comparison operators: =, \u003C\u003E, \u003C, \u003E, \u003C=, \u003E=.",
+        "Text values must be enclosed in single quotes.",
+        "Numeric columns support comparisons and range expressions.",
+        "AND narrows results; OR broadens them."
+      ],
+      "SpeakerNotes": "The WHERE clause is placed after FROM and before any ORDER BY or LIMIT clauses. It evaluates each row against the specified condition and returns only those where the condition is TRUE. Comparison operators are the building blocks: equals (=), not equal (\u003C\u003E), less than (\u003C), greater than (\u003E), and their inclusive variants. Text filtering requires single quotes around string values and supports pattern matching with LIKE and wildcards. Numeric filtering can leverage BETWEEN for range conditions. AND requires all conditions to be true; OR requires only one to be true, which significantly changes which rows are returned."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "Advanced Filtering: NOT and NULL",
+      "Bullets": [
+        "NOT negates a condition, returning rows where it is FALSE.",
+        "NOT IN, NOT LIKE, and NOT BETWEEN are common uses.",
+        "NULL represents a missing or unknown value.",
+        "Use IS NULL or IS NOT NULL to filter NULL values.",
+        "Standard operators like = cannot detect NULL values."
+      ],
+      "SpeakerNotes": "The NOT operator inverts a condition. For example, NOT IN excludes rows whose column value appears in a specified list, NOT LIKE excludes rows matching a text pattern, and NOT BETWEEN excludes rows falling within a numeric or date range. NULL values require special attention because NULL is not a value \u2014 it is the absence of a value. This means that writing WHERE column = NULL will never return results; instead, you must use WHERE column IS NULL or WHERE column IS NOT NULL. Failing to handle NULLs correctly is one of the most common sources of incorrect query results."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "Sorting Results with ORDER BY",
+      "Bullets": [
+        "ORDER BY controls the sequence of rows returned.",
+        "Without ORDER BY, row order is not guaranteed.",
+        "ASC sorts from smallest to largest (default behavior).",
+        "DESC sorts from largest to smallest, useful for rankings.",
+        "Multiple columns can each have their own sort direction."
+      ],
+      "SpeakerNotes": "ORDER BY is placed after the WHERE clause and before LIMIT. Without it, SQL databases are free to return rows in any order, which can vary between executions. ASC (ascending) is the default, so it can be omitted, but including it improves readability. DESC (descending) is essential for ranking queries \u2014 for instance, showing the highest-revenue products first. When sorting by multiple columns, SQL sorts by the first column listed and uses subsequent columns to break ties. For example, ORDER BY last_name ASC, first_name ASC would alphabetize by last name and then by first name within the same last name."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "ORDER BY: Column Position and Combined Clauses",
+      "Bullets": [
+        "Reference a column by its SELECT list position number.",
+        "Example: ORDER BY 2 sorts by the second selected column.",
+        "Combine WHERE and ORDER BY to filter then sort.",
+        "Add LIMIT after ORDER BY to return top or bottom rows.",
+        "Clause order matters: SELECT \u2192 FROM \u2192 WHERE \u2192 ORDER BY \u2192 LIMIT."
+      ],
+      "SpeakerNotes": "Most SQL databases support referencing columns in ORDER BY by their numeric position in the SELECT clause rather than by name \u2014 for example, ORDER BY 3 DESC sorts by the third column in the SELECT list. This shorthand is convenient but can reduce readability in complex queries. The correct clause order in a query is SELECT, FROM, WHERE, ORDER BY, and then LIMIT. Combining WHERE with ORDER BY and LIMIT is an extremely common pattern: WHERE filters the relevant rows, ORDER BY ranks them, and LIMIT caps the result set to only the most relevant records."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "Limiting Output with LIMIT",
+      "Bullets": [
+        "LIMIT restricts the number of rows a query returns.",
+        "Syntax: add LIMIT followed by a positive integer.",
+        "Reduces server load and speeds up exploratory queries.",
+        "Use LIMIT to quickly sample data structure and quality.",
+        "Combine ORDER BY and LIMIT for top-N business questions."
+      ],
+      "SpeakerNotes": "The LIMIT clause is the simplest way to cap query output. It is especially valuable during data exploration \u2014 running SELECT * FROM large_table LIMIT 10 lets you inspect column names and sample values without retrieving millions of rows. This also reduces load on the database server, which matters in shared or production environments. When combined with ORDER BY, LIMIT enables top-N queries: for example, ORDER BY revenue DESC LIMIT 5 returns the five highest-revenue records. Note that database systems differ in syntax \u2014 MySQL, PostgreSQL, and SQLite use LIMIT, while Microsoft SQL Server uses TOP and Oracle uses ROWNUM or FETCH FIRST."
+    },
+    {
+      "SlideNumber": 10,
+      "Title": "Translating Business Questions into SQL",
+      "Bullets": [
+        "Business questions must be rephrased as structured SQL queries.",
+        "Identify what data is needed and from which table.",
+        "Determine filtering criteria to map to WHERE conditions.",
+        "Decide if results need ranking or a row count cap.",
+        "This translation skill connects business intent to data retrieval."
+      ],
+      "SpeakerNotes": "Before writing any SQL, analysts must deconstruct the business question into its data components. For example, \u0027Which products generated the most revenue last quarter?\u0027 maps to: SELECT product_name, revenue FROM sales WHERE quarter = \u0027Q3\u0027 ORDER BY revenue DESC LIMIT 10. The translation process involves identifying the relevant table, the columns to display, the filter conditions, and whether results need sorting or capping. Practicing this decomposition is one of the most transferable analytical skills a data professional can develop."
+    },
+    {
+      "SlideNumber": 11,
+      "Title": "Combining Clauses for Business Insights",
+      "Bullets": [
+        "Pair SELECT and WHERE for targeted, filtered data retrieval.",
+        "ORDER BY surfaces ranked or sequenced business insights.",
+        "LIMIT focuses results on only the most relevant records.",
+        "Clause order: SELECT \u2192 FROM \u2192 WHERE \u2192 ORDER BY \u2192 LIMIT.",
+        "Multi-clause queries reflect real analytical workflows."
+      ],
+      "SpeakerNotes": "Most real business queries involve all four clauses working together. SELECT defines the output columns, FROM specifies the source table, WHERE narrows the rows to those meeting business criteria, ORDER BY arranges them meaningfully, and LIMIT caps the output. Writing these in the correct order is mandatory \u2014 SQL will return a syntax error otherwise. For example, a query answering \u0027Who are our top five customers by total spend this year?\u0027 would use all five clauses in sequence. Students should practice building queries clause by clause, verifying each step before adding the next."
+    },
+    {
+      "SlideNumber": 12,
+      "Title": "Common Analytical Query Patterns",
+      "Bullets": [
+        "Top-N: ORDER BY metric DESC LIMIT N.",
+        "Filtered lookup: WHERE category = \u0027value\u0027.",
+        "Date range filter: WHERE date BETWEEN x AND y.",
+        "Exclusion filter: WHERE status NOT IN (\u0027A\u0027, \u0027B\u0027).",
+        "Null check: WHERE column IS NULL or IS NOT NULL."
+      ],
+      "SpeakerNotes": "Certain query patterns appear repeatedly across industries and business functions. The top-N pattern ranks records by a numeric metric and returns the highest or lowest N results. Filtered lookups retrieve specific categories or segments. Date range filters isolate transactions or events within a time window using BETWEEN. Exclusion filters use NOT IN to omit unwanted categories. Null checks surface records with missing data that may need attention. Recognizing these patterns allows analysts to write queries faster and with fewer errors, because the structure becomes familiar even when the table names and column names change."
+    },
+    {
+      "SlideNumber": 13,
+      "Title": "Validating Query Results",
+      "Bullets": [
+        "Always verify results against the original business question.",
+        "Check row counts \u2014 too few or too many signals an issue.",
+        "Confirm column values align with expected data ranges.",
+        "Test edge cases: NULLs, duplicates, and boundary values.",
+        "Logical errors can exist even when syntax is correct."
+      ],
+      "SpeakerNotes": "After running a query, analysts should not assume the output is correct just because no error message appeared. SQL syntax validation only confirms the query was written correctly, not that it answers the right question. Validation steps include checking whether the number of rows returned makes sense, whether column values fall within expected ranges, and whether edge cases such as NULL values or duplicate rows have been handled properly. For example, if a query for last month\u0027s sales returns zero rows, the analyst should check whether the date filter matches the actual date format in the database. Building this verification habit early prevents costly analytical mistakes."
+    },
+    {
+      "SlideNumber": 14,
+      "Title": "Summary: SQL Fundamentals",
+      "Bullets": [
+        "SQL queries structured tables using rows, columns, and keys.",
+        "SELECT retrieves data; WHERE filters to relevant rows.",
+        "ORDER BY sorts results; LIMIT caps the row count.",
+        "Multi-clause queries answer real business questions efficiently.",
+        "Validate every query result against business expectations."
+      ],
+      "SpeakerNotes": "This presentation covered the full foundational stack of SQL querying skills. We began with the structure of relational databases \u2014 tables, rows, columns, and primary keys \u2014 and how SQL serves as the language to interact with them. We then built SELECT queries, added WHERE clauses to filter by text, numeric, and NULL conditions using comparison and logical operators, applied ORDER BY to sort results in ascending or descending order across single and multiple columns, and used LIMIT to control output size. Finally, we connected all these clauses to real business analytical questions, discussed common query patterns, and emphasized the importance of validating results. These skills form the foundation for all advanced SQL work."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T13:59:02.595995-04:00",
+  "PptxFileName": ""
+}

@@ -1,0 +1,186 @@
+{
+  "PresentationTitle": "Ethics, Data Types, and Data Sources in Analytics",
+  "Topic": "Ethical Foundations in Data Analytics, Privacy and Data Protection, Bias and Fairness in Data Analytics, Responsible and Ethical Use of Data, Structured and Unstructured Data Types, Common Data Sources and Repositories, Data Collection Methods and Web APIs",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "Ethics, Data Types, and Data Sources in Analytics",
+      "Bullets": [
+        "A foundational exploration of ethical principles, data classification, and responsible data acquisition for analytics professionals."
+      ],
+      "SpeakerNotes": "Welcome everyone. This presentation covers four interconnected pillars of modern data analytics practice: the ethical foundations that guide our work, privacy and data protection requirements, the challenge of bias and fairness, responsible use of analytical outputs, and the practical landscape of data types and data sources. These topics are essential for any analyst working in today\u0027s data-driven environment."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Ethical Foundations in Data Analytics",
+      "Bullets": [
+        "Ethics establishes the moral framework for data-driven decisions.",
+        "Fairness requires equitable treatment of all individuals and groups.",
+        "Transparency means being open about methods and conclusions.",
+        "Accountability holds analysts responsible for outcomes.",
+        "Privacy protects individuals\u0027 right to control their data."
+      ],
+      "SpeakerNotes": "This slide introduces the core ethical principles governing data analytics. Ethics matters because analytical decisions directly affect people\u0027s lives \u2014 from hiring to healthcare. Fairness means models must not produce discriminatory outcomes. Transparency requires disclosing how data is collected and how models reach conclusions. Accountability ensures that when harm occurs, responsible parties can be identified. Privacy is a cornerstone principle, limiting data use to agreed-upon purposes. Together, these principles form the moral foundation of professional analytics practice."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "Bias, Responsibility, and Ethical Use",
+      "Bullets": [
+        "Bias skews results against or in favor of certain groups.",
+        "Systematic errors arise from flawed data or methodology.",
+        "Recognizing bias is the first step toward mitigation.",
+        "Responsible use aligns findings with ethical principles.",
+        "Analytical outputs must support well-being, not undermine it."
+      ],
+      "SpeakerNotes": "Bias in analytics occurs when systematic errors cause results to favor or disadvantage particular groups. This can stem from how data is collected, how models are designed, or how results are interpreted. Recognizing bias requires deliberate scrutiny at every stage. Mitigating bias involves interventions at the data, algorithm, and organizational levels. Responsible use of data and analytical outputs means applying findings in ways consistent with ethical principles and the well-being of those affected \u2014 not simply optimizing for technical performance metrics."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "Privacy and Data Protection",
+      "Bullets": [
+        "Privacy is a fundamental right in data analytics.",
+        "Informed consent must precede any personal data collection.",
+        "Data minimization limits collection to necessary information only.",
+        "Regulations like GDPR formalize privacy rights and obligations.",
+        "Anonymization and pseudonymization reduce re-identification risk."
+      ],
+      "SpeakerNotes": "Privacy is not just a legal obligation \u2014 it is an ethical imperative. Individuals have expectations about how their personal data is used, and analysts must respect those expectations. Informed consent means people knowingly agree to data collection before it occurs. Data minimization, a privacy-by-design principle, restricts collection to what is strictly necessary. Key regulations such as GDPR, CCPA, and HIPAA impose formal requirements on organizations handling personal data. Anonymization removes identifying information entirely, while pseudonymization replaces it with artificial identifiers \u2014 both techniques enable analysis while reducing privacy risk."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "Best Practices for Protecting Personal Data",
+      "Bullets": [
+        "Adopt a privacy-first mindset throughout the analytics workflow.",
+        "Limit data access to authorized personnel only.",
+        "Encrypt sensitive data in transit and at rest.",
+        "Regularly audit data handling practices for compliance.",
+        "Build trust by going beyond minimum legal requirements."
+      ],
+      "SpeakerNotes": "Legal compliance sets the floor, not the ceiling, for data protection. Organizations and analysts should proactively adopt best practices that reduce harm and build stakeholder trust. A privacy-first mindset means considering privacy implications at every stage of the analytics workflow \u2014 from data collection to reporting. Access controls, encryption, regular audits, and clear data retention policies are practical tools for protecting personal information. Going beyond compliance demonstrates organizational commitment to ethical data stewardship and strengthens public confidence in analytical work."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "Bias and Fairness in the Analytics Pipeline",
+      "Bullets": [
+        "Bias can enter at collection, modeling, or interpretation stages.",
+        "Sampling and measurement errors are common collection biases.",
+        "Biased models cause harm in hiring, lending, and healthcare.",
+        "Detecting bias requires examining data composition and outcomes.",
+        "Multiple competing fairness definitions involve ethical trade-offs."
+      ],
+      "SpeakerNotes": "Bias is not a single problem \u2014 it can infiltrate the analytics pipeline at multiple points. During data collection, sampling bias, survivorship bias, and measurement bias are frequent culprits. During modeling, algorithmic choices can amplify existing disparities. Interpretive bias occurs when results are selectively communicated. The real-world impact of biased analytics is significant: discriminatory outcomes in criminal justice, healthcare, and financial services have been well documented. Detecting bias requires deliberate analysis of data composition and model behavior across demographic subgroups. Importantly, there is no single universal definition of fairness \u2014 different frameworks, such as demographic parity, equalized odds, and individual fairness, make different trade-offs, and selecting among them is itself an ethical decision."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "Strategies for Fair and Responsible Analytics",
+      "Bullets": [
+        "Mitigate bias at data, algorithm, and organizational levels.",
+        "Embed fairness checks into standard analytical workflows.",
+        "Use diverse teams to surface blind spots early.",
+        "Treat fairness as ongoing governance, not a one-time fix.",
+        "Document fairness decisions transparently for accountability."
+      ],
+      "SpeakerNotes": "Reducing bias requires a multi-layered approach. At the data level, analysts can resample, reweight, or augment datasets to improve representativeness. At the algorithm level, fairness constraints can be incorporated into model training objectives. At the organizational level, governance structures, diverse teams, and ethics review processes are essential. Fairness must be treated as a continuous process embedded in the analytics culture \u2014 not a checkbox completed at model launch. Transparent documentation of fairness-related decisions enables accountability and supports external auditing when needed."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "Responsible and Ethical Use of Data",
+      "Bullets": [
+        "Data professionals have a duty of care to the public.",
+        "Avoid misrepresentation, even when individual facts are accurate.",
+        "Consider how findings affect communities and policy decisions.",
+        "Use structured ethical frameworks to guide complex decisions.",
+        "Follow professional codes of ethics as baseline standards."
+      ],
+      "SpeakerNotes": "Data professionals carry responsibilities that extend beyond their employers and clients to the broader public. Misrepresentation is a serious ethical violation \u2014 presenting technically accurate facts in misleading ways is still dishonest. Analysts must consider the societal impact of their work, recognizing that analytical findings influence policies, resource allocation, and individual opportunities at scale. Ethical frameworks such as utilitarianism, deontological ethics, and virtue ethics offer principled approaches for navigating difficult decisions. Professional organizations including the American Statistical Association and ACM publish codes of ethics that establish baseline conduct standards for practitioners."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "Transparency, Explainability, and Ethical Culture",
+      "Bullets": [
+        "Communicate methods, assumptions, and limitations clearly.",
+        "Explainability allows stakeholders to appropriately trust findings.",
+        "Organizations must embed ethical norms into processes and culture.",
+        "Leadership commitment is essential for ethical data governance.",
+        "Individual responsibility and organizational structures reinforce each other."
+      ],
+      "SpeakerNotes": "Transparent reporting means disclosing not just results but the methods, assumptions, and limitations behind them. This allows stakeholders \u2014 including non-technical decision-makers \u2014 to appropriately calibrate their trust in analytical outputs. Explainability is especially critical when models influence high-stakes decisions. Beyond individual practice, building an ethical data culture requires organizational commitment: clear policies, ethics training, leadership modeling, and accountability mechanisms. Ethical data practice is not solely an individual obligation \u2014 it must be institutionalized through governance structures and organizational norms to be effective at scale."
+    },
+    {
+      "SlideNumber": 10,
+      "Title": "Structured and Unstructured Data",
+      "Bullets": [
+        "Structured data uses predefined formats stored in relational databases.",
+        "Unstructured data lacks schema \u2014 text, images, video, audio.",
+        "Structured data is fast to query and compatible with many tools.",
+        "Unstructured data captures richer, nuanced human behavior.",
+        "Unstructured data requires more preprocessing and computation."
+      ],
+      "SpeakerNotes": "Structured data is organized in rows and columns with consistent formatting, making it straightforward to store, search, and analyze using SQL and traditional business intelligence tools. Examples include sales records, financial transactions, and survey responses. Unstructured data \u2014 such as social media posts, images, audio recordings, and video \u2014 lacks a predefined schema, making it harder to process but richer in content. Unstructured data now accounts for the vast majority of data generated globally. Analyzing it requires natural language processing, computer vision, and other advanced techniques, along with significantly greater computational resources. Effective analytics often requires combining both data types to answer complex research questions."
+    },
+    {
+      "SlideNumber": 11,
+      "Title": "Choosing the Right Data Type and Source",
+      "Bullets": [
+        "Match data type to the specific research question.",
+        "Structured data suits quantitative, transactional analysis.",
+        "Unstructured data suits sentiment, image, or text analysis.",
+        "Align data source scope and granularity with project needs.",
+        "Evaluate ethical constraints when selecting data types."
+      ],
+      "SpeakerNotes": "Choosing between structured and unstructured data is not purely a technical decision \u2014 it should be driven by the research question. Structured data is ideal for quantitative analysis, trend tracking, and operational reporting. Unstructured data unlocks insights into customer sentiment, emerging topics, and visual patterns. Analysts must also consider the appropriateness of a data source relative to project requirements: scope, granularity, format, and ethical constraints all matter. Using overly broad data when narrow data would suffice raises privacy and data minimization concerns. The best analytical solutions often integrate multiple data types."
+    },
+    {
+      "SlideNumber": 12,
+      "Title": "Common Data Sources and Repositories",
+      "Bullets": [
+        "Government and research institutions publish public datasets.",
+        "Open data repositories aggregate datasets from multiple contributors.",
+        "Organizational databases store transactional and operational data.",
+        "Web APIs provide programmatic access to real-time data.",
+        "Evaluate quality, reliability, and credibility before use."
+      ],
+      "SpeakerNotes": "Data analysts draw from a wide landscape of sources. Publicly available datasets from governments, international organizations, and research institutions \u2014 such as data.gov, the World Bank, and the U.S. Census Bureau \u2014 are freely accessible starting points. Open data repositories like Kaggle, UCI Machine Learning Repository, and Humanitarian Data Exchange aggregate curated datasets. Organizations maintain internal databases containing transactional and operational data that form the backbone of business analytics. Web APIs \u2014 such as those provided by Twitter, Google Maps, or financial data providers \u2014 allow real-time, programmatic data retrieval. Before using any source, analysts must assess its quality, reliability, and credibility through criteria such as documentation completeness, publisher transparency, and data freshness."
+    },
+    {
+      "SlideNumber": 13,
+      "Title": "Data Collection Methods",
+      "Bullets": [
+        "Analysts collect data via APIs, scraping, and database queries.",
+        "APIs offer structured, authorized access to external data.",
+        "HTTP requests retrieve data from API endpoints in JSON or XML.",
+        "Web scraping extracts data from HTML when no API exists.",
+        "SQL queries retrieve structured data from internal databases."
+      ],
+      "SpeakerNotes": "Data collection is a foundational analytical skill. Web APIs are the preferred method for accessing external data \u2014 they provide structured, authorized, and often documented access to datasets from online platforms and services. API interaction involves sending HTTP requests to an endpoint and parsing the returned JSON or XML response. When no API is available, web scraping can programmatically extract data from HTML pages, though analysts must consider legal and ethical constraints before scraping. Internal relational databases are accessed using SQL, which allows analysts to filter, join, and aggregate large volumes of structured organizational data efficiently. Public data repositories complement these methods by offering pre-curated datasets for download."
+    },
+    {
+      "SlideNumber": 14,
+      "Title": "Comparing Data Collection Methods",
+      "Bullets": [
+        "Each method involves trade-offs in automation and data quality.",
+        "APIs are reliable but may have rate limits and access costs.",
+        "Web scraping is flexible but legally and ethically sensitive.",
+        "Database queries are powerful but require internal access.",
+        "Public repositories are convenient but may lack timeliness."
+      ],
+      "SpeakerNotes": "No single data collection method is universally superior. APIs offer reliability and structure but may impose rate limits, require authentication, or charge for access. Web scraping provides flexibility when APIs are unavailable, but analysts must carefully evaluate terms of service and privacy implications before scraping personal data. Internal database queries give analysts deep access to granular organizational data, but require system permissions and knowledge of database schema. Public repositories are convenient and often well-documented, but datasets may be outdated or not granular enough for specific needs. Analysts should evaluate each method against the dimensions of automation potential, data quality, access complexity, legal permissibility, and ethical appropriateness."
+    },
+    {
+      "SlideNumber": 15,
+      "Title": "Summary: Ethics, Data Types, and Data Sources",
+      "Bullets": [
+        "Ethics \u2014 fairness, transparency, accountability \u2014 guides all analytics.",
+        "Privacy protection and informed consent are non-negotiable obligations.",
+        "Bias must be identified and mitigated throughout the pipeline.",
+        "Structured and unstructured data each serve distinct analytical needs.",
+        "Quality, credibility, and ethical fit govern data source selection."
+      ],
+      "SpeakerNotes": "To summarize: ethical practice is the foundation upon which responsible analytics is built. The core principles \u2014 fairness, transparency, accountability, and privacy \u2014 must be embedded into every stage of the analytics workflow, from data collection through reporting. Bias is a pervasive challenge that demands ongoing attention at the data, model, and organizational levels. Understanding the distinction between structured and unstructured data, and knowing when to use each, is a fundamental analytical competency. Finally, selecting data sources requires evaluating quality, reliability, credibility, and ethical appropriateness \u2014 not just availability. As future data professionals, you are responsible for ensuring that your analytical work serves both organizational goals and the broader public good."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T13:52:25.0637046-04:00",
+  "PptxFileName": ""
+}

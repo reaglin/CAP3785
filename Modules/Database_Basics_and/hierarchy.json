@@ -1,0 +1,1316 @@
+{
+  "ModuleFolderName": "Database_Basics_and",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:26:59.1837179-04:00",
+  "ModifiedDate": "2026-07-03T11:29:32.1542126-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "f522f297-2390-4cde-ab55-4af44319ab59",
+      "Title": "Introduction to Databases",
+      "Summary": "This topic covers what databases are, why they are used, and how they differ from other data storage methods such as spreadsheets or flat files.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "ModifiedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "Elements": [
+        {
+          "Id": "6606bc4e-eec2-4e25-bc48-d1fe13f0097e",
+          "TopicId": "f522f297-2390-4cde-ab55-4af44319ab59",
+          "Title": "What Is a Database?",
+          "BodyText": "A database is an organized collection of structured data stored and managed so it can be easily accessed, updated, and retrieved.",
+          "Notes": "Think of a database as a highly organized digital filing system designed not just to store information but to make that information instantly queryable and actionable.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "ModifiedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "Items": [
+            {
+              "Id": "8696aca9-0987-4ed2-b629-1541868a412a",
+              "Text": "Databases store data in a structured format that follows defined rules, making retrieval consistent and reliable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ec6187fa-60cf-4ea3-8772-7c55b12d48f1",
+              "Text": "They are managed by software called a Database Management System (DBMS), which handles storage, security, and access.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5d62064d-7192-4161-991c-b87a0f2272d7",
+              "Text": "Unlike a simple list or document, a database is designed to handle large volumes of data efficiently.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cadd8c4e-fa03-4d96-9bda-b2a884bfacc7",
+              "Text": "Databases support simultaneous access by multiple users without corrupting the data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3c3d8eff-fe81-4d86-83d9-9107c2e8cc26",
+          "TopicId": "f522f297-2390-4cde-ab55-4af44319ab59",
+          "Title": "Why Databases Are Used",
+          "BodyText": "Databases solve critical problems around data volume, consistency, and multi-user access that simpler storage methods cannot handle.",
+          "Notes": "Organizations ranging from small businesses to global enterprises rely on databases to power applications, generate reports, and drive decision-making.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "ModifiedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "Items": [
+            {
+              "Id": "43ccc1ac-654d-4ef6-8659-2b5c579edef5",
+              "Text": "Databases enforce data integrity, ensuring that stored values meet defined rules and constraints.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b5cb24c1-c21a-4893-951b-fe0d70e65201",
+              "Text": "They enable fast searching and filtering across millions of records in fractions of a second.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eedd1827-4ee0-45e1-ac37-215546a05eea",
+              "Text": "Databases support concurrent access, allowing many users or applications to read and write data simultaneously.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c35f02b7-addc-4b8b-8c8c-b271b10e87f4",
+              "Text": "They provide mechanisms for backup, recovery, and security that protect critical business information.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b1076e45-1e77-4e62-9637-c23534f95bca",
+          "TopicId": "f522f297-2390-4cde-ab55-4af44319ab59",
+          "Title": "Databases vs. Spreadsheets",
+          "BodyText": "Spreadsheets such as Microsoft Excel are familiar data tools, but they differ fundamentally from databases in purpose, scale, and capability.",
+          "Notes": "Spreadsheets are excellent for analysis and ad hoc calculations performed by one user, while databases are built for persistent, structured, multi-user data management.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "ModifiedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "Items": [
+            {
+              "Id": "1d6db049-16ab-4822-9ebd-ae36bc6a20bd",
+              "Text": "Spreadsheets store data in a grid format optimized for human reading and formula-based calculations, not for structured querying.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4781fbec-b728-4133-873f-fc7cd7aacabc",
+              "Text": "Databases can handle millions or billions of rows efficiently, whereas spreadsheets degrade in performance at much smaller scales.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "032071be-a209-4e03-a847-79a2fc913e77",
+              "Text": "Spreadsheets lack built-in mechanisms to enforce data types or relationships between datasets, leading to inconsistency.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d4e5d3ba-47bc-4eb6-ba47-df4ff91d823e",
+              "Text": "Multiple users editing a spreadsheet simultaneously often causes conflicts, while databases manage concurrency automatically.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f65236b8-e032-4ff2-ba5d-1b7b8abdc4a1",
+          "TopicId": "f522f297-2390-4cde-ab55-4af44319ab59",
+          "Title": "Databases vs. Flat Files",
+          "BodyText": "Flat files, such as CSV or plain-text files, store data as simple sequences of records with no built-in structure or relationships.",
+          "Notes": "A CSV export from a database is a flat file \u2014 useful for data transfer, but lacking the querying power and integrity controls of the original database.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "ModifiedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "Items": [
+            {
+              "Id": "9d7d155c-9f28-4d3a-ad3b-953ea5cabafd",
+              "Text": "Flat files store all data in a single table-like structure with no ability to express relationships between different data entities.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d95499bc-7c0b-4768-8b15-4d65f921c509",
+              "Text": "They have no enforcement of data types, uniqueness, or referential integrity, making inconsistency easy to introduce.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7f345342-5700-4757-8f4d-13ea16183382",
+              "Text": "Querying a flat file requires reading through the entire file, which becomes extremely slow as data grows.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2e6b792b-51f7-4d88-8869-d6f2de9d963d",
+              "Text": "Databases overcome these limitations by organizing data into related structures with indexes and enforced rules.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3e402713-1874-4d3b-a9c1-91dd4d61ca23",
+          "TopicId": "f522f297-2390-4cde-ab55-4af44319ab59",
+          "Title": "Types of Databases",
+          "BodyText": "There are several categories of databases, each designed for different use cases, with relational databases being the most widely used in business contexts.",
+          "Notes": "This module focuses on relational databases, but awareness of other types helps learners understand when different tools are appropriate.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "ModifiedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "Items": [
+            {
+              "Id": "b8426c67-77a6-4ec7-bd1d-3c2e75c3336c",
+              "Text": "Relational databases organize data into tables with defined relationships and are queried using SQL.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5f04c4a3-f187-4e77-a01a-9c872d4bd145",
+              "Text": "NoSQL databases store data in formats such as documents, key-value pairs, or graphs, suited for unstructured or rapidly changing data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "087fb042-0869-4c28-97af-b944b56131f1",
+              "Text": "In-memory databases prioritize speed by storing data in RAM rather than on disk, used for caching and real-time processing.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6b302849-d71f-43b0-b54d-6b68377c9b9e",
+              "Text": "Cloud databases are hosted and managed by cloud providers, offering scalability and reduced infrastructure overhead.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1ea19a9a-c994-4d51-94c7-1ea2bd43b12f",
+          "TopicId": "f522f297-2390-4cde-ab55-4af44319ab59",
+          "Title": "Key Characteristics of a Well-Designed Database",
+          "BodyText": "Effective databases share a set of core characteristics that distinguish them from informal data storage and make them reliable for business use.",
+          "Notes": "These characteristics are goals that database designers work toward and that relational database systems are specifically built to support.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "ModifiedDate": "2026-07-03T11:27:21.2465039-04:00",
+          "Items": [
+            {
+              "Id": "5cc3d2d9-5802-4663-8086-cdb7f75e83cb",
+              "Text": "Data is stored without unnecessary duplication, reducing storage costs and the risk of conflicting information.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "84b262a0-9ea9-44d1-af4d-450cdf85755f",
+              "Text": "Relationships between different data entities are explicitly defined and enforced by the system.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f4837cc8-2689-40be-9316-4c4beef2d1f5",
+              "Text": "Access controls ensure that only authorized users can view or modify sensitive data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5eb89236-a41f-4304-8443-c42c8043f260",
+              "Text": "The database maintains consistency even when errors, crashes, or concurrent operations occur.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "d0d93769-0ca6-44e7-a224-12171677d4b6",
+      "Title": "Relational Database Concepts",
+      "Summary": "This topic introduces the relational model, explaining how data is organized into structured tables and how this model supports efficient data management.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "ModifiedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "Elements": [
+        {
+          "Id": "b27167c4-68ad-4b0f-b75a-6be5d282fe7a",
+          "TopicId": "d0d93769-0ca6-44e7-a224-12171677d4b6",
+          "Title": "The Relational Model",
+          "BodyText": "The relational model is a framework for organizing data into structured tables that relate to one another through shared values.",
+          "Notes": "Introduced by E.F. Codd in 1970, this model became the foundation for most modern database systems and remains the dominant approach for structured data storage.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "ModifiedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "Items": [
+            {
+              "Id": "9f38650e-3bb2-47ce-b282-99b66496fd66",
+              "Text": "Data is represented as a collection of tables, each storing information about a specific entity or concept.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5528cf0f-0de9-4634-b524-b3f10a23f9a3",
+              "Text": "Tables are logically independent but can be connected through shared data values, enabling complex queries across multiple tables.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b937676a-f062-46b0-a796-47532e745fe4",
+              "Text": "The relational model separates the logical structure of data from its physical storage, making databases easier to design and maintain.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7b695705-a18d-48d9-bce3-f32f6a1c7f3f",
+          "TopicId": "d0d93769-0ca6-44e7-a224-12171677d4b6",
+          "Title": "Tables, Rows, and Columns",
+          "BodyText": "A table is the fundamental building block of a relational database, organizing data into rows and columns in a grid-like structure.",
+          "Notes": "For example, a \u0027Customers\u0027 table might have columns for CustomerID, Name, and Email, with each row representing one individual customer record.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "ModifiedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "Items": [
+            {
+              "Id": "52d0675d-1394-4db3-821e-b6b345555ae3",
+              "Text": "Each column (also called a field or attribute) defines a specific category of data and has a designated data type, such as text, number, or date.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7739bd8c-129b-4525-9377-a06810682652",
+              "Text": "Each row (also called a record or tuple) represents a single instance of the entity described by the table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "038354e3-1323-412e-816a-8102eccb747c",
+              "Text": "The intersection of a row and a column holds a single data value, keeping data atomic and well-organized.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ffcacc21-1ded-483b-9d9a-0b77468aefb3",
+          "TopicId": "d0d93769-0ca6-44e7-a224-12171677d4b6",
+          "Title": "Keys: Primary and Foreign",
+          "BodyText": "Keys are special columns used to uniquely identify records and establish relationships between tables.",
+          "Notes": "For example, an \u0027Orders\u0027 table might contain a CustomerID foreign key that references the CustomerID primary key in the \u0027Customers\u0027 table, linking each order to a specific customer.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "ModifiedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "Items": [
+            {
+              "Id": "062e2400-40d1-4772-a40b-84572f2f4604",
+              "Text": "A primary key is a column or combination of columns that uniquely identifies every row in a table; no two rows can share the same primary key value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6545f4d9-bbe0-4f47-90a9-f8bad03a46e7",
+              "Text": "A foreign key is a column in one table that references the primary key of another table, creating a link between the two.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "30cd5821-00e5-4eb1-9f95-b6bf0af742fd",
+              "Text": "Using keys enforces data integrity by ensuring that relationships between tables remain consistent and valid.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "dc86db17-cafb-4fc5-aea5-464addea0f8e",
+          "TopicId": "d0d93769-0ca6-44e7-a224-12171677d4b6",
+          "Title": "Schemas and Database Structure",
+          "BodyText": "A schema is the formal blueprint of a database, defining the tables, columns, data types, and relationships that make up its structure.",
+          "Notes": "Think of a schema as the architectural plan of a database \u2014 it describes what data will be stored and how it is organized, without containing the data itself.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "ModifiedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "Items": [
+            {
+              "Id": "16164838-1e56-4950-b456-82c1b84a2d89",
+              "Text": "The schema specifies the name and data type of every column in every table, enforcing consistency in how data is entered and stored.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "513222f7-a200-4d21-9c53-2027f5c3a7a0",
+              "Text": "A well-designed schema reduces data redundancy and makes it easier to retrieve accurate information.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3947bc7a-deb0-4078-953d-bdb70a23b610",
+              "Text": "Schemas can be modified over time as business needs change, though changes must be managed carefully to avoid breaking existing data or queries.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ae867221-9232-4d3f-bb71-5b27e9f8f4a5",
+          "TopicId": "d0d93769-0ca6-44e7-a224-12171677d4b6",
+          "Title": "Relationships Between Tables",
+          "BodyText": "Relationships define how tables are connected to each other and are a core feature of the relational model that enables data to be linked across multiple tables.",
+          "Notes": "Common relationship types include one-to-one (one customer has one profile), one-to-many (one customer can have many orders), and many-to-many (many students can enroll in many courses).",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "ModifiedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "Items": [
+            {
+              "Id": "71197dbf-c37f-4923-843e-d769663aa55b",
+              "Text": "A one-to-many relationship is the most common type, where a single record in one table is associated with multiple records in another.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ec38d08f-e2f7-498d-a124-8630d48c55ac",
+              "Text": "A many-to-many relationship requires an intermediary junction table to properly represent the connection between two tables.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4ac83847-14ac-45af-bb4d-5e553fd18d08",
+              "Text": "Defining relationships explicitly in the schema allows the database to enforce referential integrity, preventing orphaned or mismatched records.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "52c66113-707a-42df-bb6c-d47aaae92e76",
+          "TopicId": "d0d93769-0ca6-44e7-a224-12171677d4b6",
+          "Title": "Benefits of the Relational Model for Data Management",
+          "BodyText": "The relational model supports efficient data management by reducing redundancy, improving data integrity, and enabling flexible querying.",
+          "Notes": "These advantages make relational databases the go-to choice for business applications, analytics platforms, and any system that requires reliable, structured data storage.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "ModifiedDate": "2026-07-03T11:27:41.2759932-04:00",
+          "Items": [
+            {
+              "Id": "4263671a-143a-4c59-a0e8-1af31349b6a2",
+              "Text": "Storing each piece of information in one place minimizes data duplication and makes updates easier, since a change in one table is automatically reflected wherever that data is referenced.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cd88d1d8-87fe-4d70-b984-b5a346aa1516",
+              "Text": "The model\u0027s structured nature makes it straightforward to apply rules and constraints that keep data accurate and consistent.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "98d16a2f-8163-4aa4-b1eb-57f8423716a6",
+              "Text": "Relationships between tables allow users to combine and analyze data from multiple sources with SQL queries, making the system highly flexible for reporting and analysis.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "e2bef325-0bac-43a9-9a02-20cea742108b",
+      "Title": "Tables, Rows, and Columns",
+      "Summary": "This topic explores the fundamental building blocks of relational databases, including how tables are structured with rows representing records and columns representing attributes.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "ModifiedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "Elements": [
+        {
+          "Id": "5c279276-8aee-41c3-b29c-42bb50364a0e",
+          "TopicId": "e2bef325-0bac-43a9-9a02-20cea742108b",
+          "Title": "What Is a Table?",
+          "BodyText": "A table is the primary structure used to organize and store data in a relational database, similar in appearance to a spreadsheet.",
+          "Notes": "For example, a database for an online store might contain separate tables for Customers, Orders, and Products, each holding a distinct category of information.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "ModifiedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "Items": [
+            {
+              "Id": "129bdd0c-e918-4e81-b258-bb51c0503f3b",
+              "Text": "A table groups related data about a single subject or entity into one organized structure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "38f42d98-105b-4baa-a8b4-22975a153130",
+              "Text": "Each database typically contains multiple tables, and those tables work together to represent the full scope of stored information.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9bd91774-cc92-45ba-87b5-2954f50e72e7",
+              "Text": "Tables are given descriptive names that reflect the type of data they hold, such as \u0027Employees\u0027 or \u0027Invoices\u0027.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "89e028ee-6420-408c-9093-29242a429eac",
+          "TopicId": "e2bef325-0bac-43a9-9a02-20cea742108b",
+          "Title": "Rows as Records",
+          "BodyText": "Each row in a table represents a single, complete record \u2014 one specific instance of the entity the table describes.",
+          "Notes": "In a Customers table, one row might contain all the information for a customer named Jane Smith: her ID, name, email address, and city.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "ModifiedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "Items": [
+            {
+              "Id": "6fd21591-2def-4c8e-8ba1-16dc4ae01aca",
+              "Text": "A row collects all the relevant data points for one individual entry, keeping them together in a single horizontal line.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f637874f-0014-4a18-94f2-0a9f064c5a62",
+              "Text": "Tables can contain any number of rows, from zero (an empty table) to millions of records in large systems.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2a517c44-0c65-4c8f-9bf8-79fd8baf7d68",
+              "Text": "Rows are sometimes referred to as \u0027tuples\u0027 or \u0027records\u0027 in formal database terminology.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "57ed9566-f91f-4062-87db-1b4b3fdc905c",
+          "TopicId": "e2bef325-0bac-43a9-9a02-20cea742108b",
+          "Title": "Columns as Attributes",
+          "BodyText": "Each column in a table represents a specific attribute or characteristic shared by every record in that table.",
+          "Notes": "For instance, a Products table might have columns named ProductID, ProductName, Price, and StockQuantity \u2014 each column capturing a different property of every product.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "ModifiedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "Items": [
+            {
+              "Id": "e14e3d9b-a641-4237-ace3-1c7df9fe4746",
+              "Text": "Columns are defined when the table is created and apply uniformly to every row in that table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f1b84eed-3980-497c-9f6d-f15f938f41a9",
+              "Text": "Each column holds only one type of data, such as text, numbers, or dates, ensuring consistency across all records.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "44a310fc-b6b1-4441-8bf9-2ce68330481d",
+              "Text": "Columns are also called \u0027fields\u0027 and are identified by a unique name within their table.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0d5af6e3-3a08-44af-a287-829e8385d0dc",
+          "TopicId": "e2bef325-0bac-43a9-9a02-20cea742108b",
+          "Title": "The Intersection: Cells",
+          "BodyText": "The specific location where a single row meets a single column is called a cell, and it holds one individual data value.",
+          "Notes": "For example, the cell at the intersection of row 3 and the \u0027Email\u0027 column contains exactly one email address for that particular customer.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "ModifiedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "Items": [
+            {
+              "Id": "764f6ecc-ce73-4870-9029-fee1d3320853",
+              "Text": "Every cell in a table stores a single, atomic piece of information relevant to both its row and its column.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "18287fce-4b41-41bc-a684-f4639be3dd0e",
+              "Text": "A cell may sometimes be empty (NULL) if that particular value is unknown or not applicable for that record.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c38f217a-e5f3-4e3f-a93e-9e7fe639cce8",
+              "Text": "Understanding cells helps clarify how row-level records and column-level attributes combine to form complete data entries.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "60cd4cc0-bcf6-4ca4-bdcd-31028255a8fc",
+          "TopicId": "e2bef325-0bac-43a9-9a02-20cea742108b",
+          "Title": "Table Structure and Consistency",
+          "BodyText": "All rows in a table share the same column structure, enforcing a uniform and predictable format for every record stored.",
+          "Notes": "This consistency is one of the key advantages of relational databases \u2014 you always know exactly what type of data to expect in any given column, regardless of which row you examine.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "ModifiedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "Items": [
+            {
+              "Id": "5c1709f1-0309-49ad-b04e-cd36d9c4acbd",
+              "Text": "Because every row follows the same column layout, databases can efficiently search, sort, and compare records.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c4393479-40d5-422f-a109-7beba5ed7433",
+              "Text": "Adding a new record means supplying values (or nulls) for the same set of columns that all other rows use.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "71a7e2e7-0cac-40c7-a03e-442190486930",
+              "Text": "This rigid structure distinguishes relational tables from less structured formats like plain text files or spreadsheets with irregular layouts.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bfff61f6-fac6-48a2-86ba-9cc4ad095160",
+          "TopicId": "e2bef325-0bac-43a9-9a02-20cea742108b",
+          "Title": "Real-World Analogy: The Spreadsheet Comparison",
+          "BodyText": "Relational database tables are often compared to spreadsheet worksheets because both organize data into rows and columns in a grid format.",
+          "Notes": "While the visual layout is similar, database tables enforce stricter rules around data types, relationships, and integrity \u2014 making them far more powerful for managing large, interconnected datasets.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "ModifiedDate": "2026-07-03T11:28:03.6980305-04:00",
+          "Items": [
+            {
+              "Id": "562f8062-f881-488f-8233-3981fdd0ba91",
+              "Text": "Like a spreadsheet, a table has column headers at the top that label each attribute, with data entries filling the rows below.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3726805b-9e36-4906-8034-54248b2cb713",
+              "Text": "Unlike a typical spreadsheet, database tables are governed by defined data types and constraints that prevent inconsistent entries.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "053fb550-a6eb-49e0-8f9a-7ac466816c85",
+              "Text": "This analogy is useful for beginners but should be understood as a simplification \u2014 databases offer capabilities well beyond what spreadsheets provide.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+      "Title": "Keys and Identifiers",
+      "Summary": "This topic explains primary keys, foreign keys, and unique identifiers, and how they are used to uniquely identify records and link data across tables.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "ModifiedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "Elements": [
+        {
+          "Id": "38bd5088-8cf1-4548-a294-0a4c0e439d5b",
+          "TopicId": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+          "Title": "What Is a Primary Key?",
+          "BodyText": "A primary key is a column or set of columns that uniquely identifies each record in a database table.",
+          "Notes": "For example, a \u0027CustomerID\u0027 column in a Customers table ensures no two customers share the same identifier, even if they have the same name.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "ModifiedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "Items": [
+            {
+              "Id": "7f099389-5e9e-46a8-90ec-eb248e3e7b43",
+              "Text": "Every table should have a primary key to guarantee that each row can be distinctly identified.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "edad3b92-51fe-4f67-9272-d7aee03695c5",
+              "Text": "Primary key values must be unique across all rows and cannot be NULL.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9eb5ef24-00dd-4e50-aeab-18211e17236f",
+              "Text": "A primary key can be a single column (simple key) or a combination of columns (composite key).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f5a79b2b-85bf-4581-b672-0b3e88e20535",
+              "Text": "Databases enforce primary key constraints automatically, rejecting any duplicate or null entries.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9a3dc14d-f7d7-4c0a-8a5a-568c6686b069",
+          "TopicId": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+          "Title": "Natural Keys vs. Surrogate Keys",
+          "BodyText": "Primary keys can be derived from real-world data (natural keys) or artificially generated by the database system (surrogate keys).",
+          "Notes": "A natural key example is a Social Security Number used to identify a person. A surrogate key example is an auto-incremented integer ID like 1, 2, 3 assigned by the database.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "ModifiedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "Items": [
+            {
+              "Id": "7c7a21c8-8224-4ec6-9434-bcd2ab226e3b",
+              "Text": "Natural keys carry meaningful information from the real world, such as an email address or product code.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "92647036-39db-4852-829f-7c60db7ab884",
+              "Text": "Surrogate keys are system-generated identifiers with no inherent business meaning, making them stable even if business data changes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9c75311b-2eaa-457f-b957-933293ca7401",
+              "Text": "Surrogate keys are often preferred because natural keys can change over time or contain sensitive information.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "97837052-214d-40cb-8779-aeba84d356ea",
+              "Text": "Choosing the right key type depends on the stability and uniqueness of the data being modeled.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e4736d38-7cc7-489c-b29f-739d84ef94b7",
+          "TopicId": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+          "Title": "What Is a Foreign Key?",
+          "BodyText": "A foreign key is a column in one table that references the primary key of another table, establishing a link between the two tables.",
+          "Notes": "For example, an Orders table might contain a \u0027CustomerID\u0027 column that references the primary key in the Customers table, connecting each order to the customer who placed it.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "ModifiedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "Items": [
+            {
+              "Id": "6dfd0bc4-f1f2-463b-88c5-70a20f1ea2dc",
+              "Text": "Foreign keys create relationships between tables, enabling data to be spread across multiple tables without redundancy.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e641db22-d080-413c-a098-9540511f6058",
+              "Text": "A foreign key value must match an existing primary key value in the referenced table, or be NULL if the relationship is optional.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ac4c9ae0-c635-4e21-b7a9-3524dda51658",
+              "Text": "Databases enforce referential integrity through foreign key constraints, preventing orphaned records.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2b073de6-0775-46aa-9dc2-6cd26391c88c",
+              "Text": "One table can have multiple foreign keys, each linking to a different parent table.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d163ebe6-402f-4e27-8eb4-a099d1b6b950",
+          "TopicId": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+          "Title": "Referential Integrity",
+          "BodyText": "Referential integrity is the rule that ensures foreign key values always correspond to valid primary key values in the related table.",
+          "Notes": "If referential integrity is enforced, deleting a customer record that still has associated orders would be blocked or would cascade the deletion to related records, depending on the database configuration.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "ModifiedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "Items": [
+            {
+              "Id": "93ede8d8-ce18-4432-b87b-76229fd4416f",
+              "Text": "Referential integrity prevents data inconsistencies such as orders that reference non-existent customers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "94618186-d36d-4f81-93ed-50ac0f30e1a1",
+              "Text": "Database systems can enforce integrity through actions like CASCADE (automatically delete related rows) or RESTRICT (block the operation).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d2148f62-4c62-48a2-8ab0-adac79e2140e",
+              "Text": "Maintaining referential integrity is essential for reliable data analysis and reporting.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4abbfc49-6480-4915-b611-05e7ecbbafa2",
+              "Text": "Violations of referential integrity often indicate data quality problems that must be resolved before querying.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "be87433f-4842-44f9-9591-2be99fa484bd",
+          "TopicId": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+          "Title": "Unique Constraints and Unique Identifiers",
+          "BodyText": "A unique constraint ensures that all values in a column are distinct, similar to a primary key but without necessarily serving as the table\u0027s main identifier.",
+          "Notes": "For example, an email address column in a Users table might have a unique constraint to prevent duplicate accounts, even though the primary key is a surrogate UserID.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "ModifiedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "Items": [
+            {
+              "Id": "b633e197-683b-4a0c-aeb8-248ec49769ad",
+              "Text": "Unlike primary keys, a column with a unique constraint can contain NULL values in some database systems.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "636397b2-e19f-481c-ad0c-0a839ee983f5",
+              "Text": "A table can have multiple unique constraints but only one primary key.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "17994bef-0030-4103-a934-100c0f016e16",
+              "Text": "Unique constraints are useful for enforcing business rules, such as ensuring no two products share the same SKU.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a94c1d3b-362a-480d-bc08-c3c6c926e5f3",
+              "Text": "Unique identifiers improve data quality and make it easier to join or look up specific records.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "afbaea50-cc95-442a-a9b9-48df99f0f112",
+          "TopicId": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+          "Title": "Composite Keys",
+          "BodyText": "A composite key uses two or more columns together to uniquely identify a record when no single column is sufficient on its own.",
+          "Notes": "An example is an enrollment table that tracks which students are in which courses; neither StudentID nor CourseID alone is unique, but the combination of both is.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "ModifiedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "Items": [
+            {
+              "Id": "9f1e482a-16a5-486c-930c-0872facb5801",
+              "Text": "Composite keys are commonly used in junction tables that represent many-to-many relationships.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6136636a-cc29-4977-8108-27501eb4d04d",
+              "Text": "All columns in a composite key must together produce a unique value for every row in the table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e5521066-bc64-4d8c-b2e3-6c280fe5869c",
+              "Text": "Composite keys can make queries and joins more complex compared to single-column primary keys.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a07b7f6c-c1b5-4ffb-8f54-d2c2923b2b7f",
+              "Text": "When a surrogate key is added to a table with a natural composite key, the composite columns may be demoted to a unique constraint.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "977b6f51-b085-4f9a-a312-0563b6da9818",
+          "TopicId": "70328aca-b5a5-464d-997a-c8eb72eb53db",
+          "Title": "How Keys Link Data Across Tables",
+          "BodyText": "Keys are the foundation of relational databases, enabling data stored in separate tables to be connected and queried together meaningfully.",
+          "Notes": "In SQL, JOIN operations use primary and foreign key relationships to combine rows from multiple tables, allowing analysts to retrieve related data in a single query.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "ModifiedDate": "2026-07-03T11:28:28.0267037-04:00",
+          "Items": [
+            {
+              "Id": "cadda3bb-fb2c-4777-952a-f30de1a003fb",
+              "Text": "Primary keys in one table are referenced as foreign keys in related tables, forming the backbone of relational data structure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "16e2a813-7de4-41ae-8b12-e8d534c154c1",
+              "Text": "Proper key design reduces data duplication by allowing shared information to be stored once and referenced many times.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f95c24cd-361a-4773-b9a5-499772f16bd3",
+              "Text": "Understanding key relationships is essential before writing SQL queries that span multiple tables.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "571db5e2-32f8-4262-ab42-e77149dfda14",
+              "Text": "Well-designed keys improve query performance, data integrity, and the overall maintainability of the database schema.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "0548a76e-13f6-4ea3-ba98-2dda34c98a45",
+      "Title": "Database Schemas",
+      "Summary": "This topic covers what a database schema is, how it defines the structure and organization of a database, and how to interpret a schema diagram.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "ModifiedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "Elements": [
+        {
+          "Id": "492b7565-40c7-40bd-b1fd-40ce13c75bfc",
+          "TopicId": "0548a76e-13f6-4ea3-ba98-2dda34c98a45",
+          "Title": "What Is a Database Schema?",
+          "BodyText": "A database schema is a formal blueprint that defines the structure and organization of an entire database.",
+          "Notes": "Think of a schema as the architectural plan of a building \u2014 it does not contain the actual data (the furniture), but it defines all the rooms, walls, and layout.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:28:48.062209-04:00",
+          "ModifiedDate": "2026-07-03T11:28:48.062209-04:00",
+          "Items": [
+            {
+              "Id": "c4004b49-170b-4d7d-aa4a-c5d9174990d7",
+              "Text": "A schema specifies what tables exist in the database, what columns each table contains, and what data types those columns hold.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d901ddfd-ed6d-44ad-ad95-669f7d51999a",
+              "Text": "Schemas are created before data is inserted and serve as the governing structure for all data stored within the database.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dc79a903-7923-45b1-acc7-644ef5a18c20",
+              "Text": "The schema remains separate from the data itself \u2014 it is the definition, not the content.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "415b3191-f560-4fd5-b160-0ed86877589a",
+          "TopicId": "0548a76e-13f6-4ea3-ba98-2dda34c98a45",
+          "Title": "Components of a Schema",
+          "BodyText": "A schema is made up of several structural components that together describe how data is organized.",
+          "Notes": "For example, a schema for a retail database might define a \u0027Customers\u0027 table with columns: customer_id (INTEGER), name (VARCHAR), and email (VARCHAR).",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:28:48.062209-04:00",
+          "ModifiedDate": "2026-07-03T11:28:48.062209-04:00",
+          "Items": [
+            {
+              "Id": "1ea435fd-d83a-43db-b9db-ffb34f86af58",
+              "Text": "Tables (also called relations) are the primary components of a schema, each representing a distinct entity or concept.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c221db36-2959-4b32-81b7-d20d9f0ff93c",
+              "Text": "Columns (fields) define the specific attributes of each table, along with their assigned data types such as INTEGER, VARCHAR, or DATE.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "67367ed4-001c-4eca-b7fd-c3d72992954d",
+              "Text": "Constraints \u2014 such as NOT NULL, UNIQUE, or PRIMARY KEY \u2014 are also declared in the schema to enforce data integrity rules.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b5906f25-2ed8-4dc9-aed9-55605d2566f3",
+          "TopicId": "0548a76e-13f6-4ea3-ba98-2dda34c98a45",
+          "Title": "Schema vs. Database Instance",
+          "BodyText": "It is important to distinguish between the schema (structure) and the database instance (the actual data stored at a given moment).",
+          "Notes": "A class roster template is the schema; the list of students enrolled this semester is the instance.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:28:48.062209-04:00",
+          "ModifiedDate": "2026-07-03T11:28:48.062209-04:00",
+          "Items": [
+            {
+              "Id": "40e68c23-ce87-4b44-bc04-0b3c29791228",
+              "Text": "The schema is static and changes only when the database structure is deliberately altered by a database administrator.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "05e15f2d-479c-4963-b62a-841de6b73ab4",
+              "Text": "The database instance is dynamic, changing constantly as records are inserted, updated, or deleted.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f31929c-0f90-4490-b5bf-670385d159ae",
+              "Text": "Understanding this distinction helps clarify that querying a database retrieves data from the instance, while the schema defines what is possible to store.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "59c3a37d-02ff-41a2-a79c-9b80a5240b3c",
+          "TopicId": "0548a76e-13f6-4ea3-ba98-2dda34c98a45",
+          "Title": "Types of Schemas",
+          "BodyText": "Database schemas can be described at different levels of abstraction, from the physical storage level to the user-facing view.",
+          "Notes": "Most learners working with SQL interact primarily at the logical schema level, which is where table structures and relationships are defined.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:28:48.062209-04:00",
+          "ModifiedDate": "2026-07-03T11:28:48.062209-04:00",
+          "Items": [
+            {
+              "Id": "b228d63c-5d67-4c2a-ba5f-6bfc33cdeaa4",
+              "Text": "The physical schema describes how data is actually stored on disk, including file structures and indexing strategies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c2e12a8a-90b3-4792-acbc-c0b02f4928f6",
+              "Text": "The logical schema defines the tables, columns, data types, and relationships that structure the data \u2014 this is the most commonly referenced level.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "632360f4-51e8-486b-bfd2-9eff53d64b91",
+              "Text": "The view schema (or external schema) represents customized subsets of the database presented to specific users or applications.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f97714a6-ef98-452a-93ef-cc2713d0a297",
+          "TopicId": "0548a76e-13f6-4ea3-ba98-2dda34c98a45",
+          "Title": "Reading a Schema Diagram",
+          "BodyText": "A schema diagram (also called an Entity-Relationship diagram or ERD) is a visual representation of a database schema, showing tables and how they connect.",
+          "Notes": "Schema diagrams are widely used during database design and are essential for understanding an unfamiliar database before writing queries.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:28:48.062209-04:00",
+          "ModifiedDate": "2026-07-03T11:28:48.062209-04:00",
+          "Items": [
+            {
+              "Id": "350aee22-a911-45ba-bfa7-54c2e9ce5641",
+              "Text": "Each table is typically shown as a box with the table name at the top and column names listed below.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "da918265-d2d1-42d1-bf52-ab6c55e2cf37",
+              "Text": "Primary keys are usually highlighted or marked with a key symbol, indicating the unique identifier for each row in that table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a60ac29b-c3c0-4326-99a4-704ec699557e",
+              "Text": "Lines connecting tables represent relationships between them, showing how data in one table links to data in another through foreign keys.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b6cbd1c9-34d8-4a2b-bd03-daa5e4bb1204",
+          "TopicId": "0548a76e-13f6-4ea3-ba98-2dda34c98a45",
+          "Title": "Why Schemas Matter for Data Analysis",
+          "BodyText": "Understanding the schema of a database is a critical first step before performing any data querying or analysis.",
+          "Notes": "Experienced analysts routinely review schema documentation or diagrams before writing a single line of SQL to avoid errors and write more efficient queries.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:28:48.062209-04:00",
+          "ModifiedDate": "2026-07-03T11:28:48.062209-04:00",
+          "Items": [
+            {
+              "Id": "748633a8-c951-4d53-b319-17d4e77b875d",
+              "Text": "Knowing the schema tells you which tables contain the data you need and how those tables relate to one another.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "45b70c1b-ae33-41fa-a99d-4b5e66a471ed",
+              "Text": "Column names, data types, and constraints in the schema inform how you filter, join, and aggregate data correctly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "41bcf674-a0a6-4834-8be9-d19bf02e4955",
+              "Text": "Misunderstanding the schema is a common source of query errors, such as joining on the wrong columns or assuming incorrect data types.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "1d303dcf-8ae5-44ab-be1c-823aeb8b1a51",
+      "Title": "Relationships Between Tables",
+      "Summary": "This topic examines how tables relate to one another through one-to-one, one-to-many, and many-to-many relationships, and why these relationships are central to relational databases.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "ModifiedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "Elements": [
+        {
+          "Id": "9bd0c955-ffa7-466f-becf-f69cbcee00e0",
+          "TopicId": "1d303dcf-8ae5-44ab-be1c-823aeb8b1a51",
+          "Title": "What Is a Table Relationship?",
+          "BodyText": "A table relationship defines how rows in one table are logically connected to rows in another table within a relational database.",
+          "Notes": "Relationships are established using key columns \u2014 typically a primary key in one table matched to a foreign key in another. Without defined relationships, data across tables cannot be meaningfully combined.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "ModifiedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "Items": [
+            {
+              "Id": "4a973baa-7ccd-4579-8a6d-f73d2c85a17e",
+              "Text": "Relationships allow data to be split across multiple tables while still being queried together.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "85afc3c5-72da-49c2-acbb-914af08d8db6",
+              "Text": "They reduce redundancy by storing related data in separate, linked tables rather than repeating it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b9eb4bf7-2ca2-4e55-9418-de7e4275cdef",
+              "Text": "Relationships are a core principle of the relational model, making databases more organized and scalable.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "47bf09ee-f049-4bdb-8611-642efdbdc3a0",
+          "TopicId": "1d303dcf-8ae5-44ab-be1c-823aeb8b1a51",
+          "Title": "One-to-One Relationships",
+          "BodyText": "A one-to-one relationship means that each row in Table A corresponds to exactly one row in Table B, and vice versa.",
+          "Notes": "Example: A \u0027Users\u0027 table and a \u0027UserProfiles\u0027 table where each user has exactly one profile record. This structure is often used to separate sensitive or optional data from the main table.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "ModifiedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "Items": [
+            {
+              "Id": "448d4c33-e4fb-4032-ab80-970fa7fb06b7",
+              "Text": "Each record on both sides of the relationship is unique and paired with only one record on the other side.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4d64082c-4421-44a2-a332-e5f7c34dfa57",
+              "Text": "One-to-one relationships are less common but useful for security, performance, or organizational reasons.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4c1f062e-9460-4b6a-b361-1c344aef549e",
+              "Text": "They are implemented by placing the foreign key in either of the two tables and enforcing a unique constraint on it.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "714ad6ff-40b7-4840-96e3-c73c0176b5d7",
+          "TopicId": "1d303dcf-8ae5-44ab-be1c-823aeb8b1a51",
+          "Title": "One-to-Many Relationships",
+          "BodyText": "A one-to-many relationship is the most common type, where a single row in one table can be associated with multiple rows in another table.",
+          "Notes": "Example: A \u0027Customers\u0027 table and an \u0027Orders\u0027 table \u2014 one customer can place many orders, but each order belongs to only one customer. The foreign key is placed on the \u0027many\u0027 side of the relationship.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "ModifiedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "Items": [
+            {
+              "Id": "9276e76b-22a6-47d4-847a-302cdd2344db",
+              "Text": "The \u0027one\u0027 side holds the primary key, and the \u0027many\u0027 side holds the foreign key referencing it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1938455-a44e-4688-993e-c354811d43d7",
+              "Text": "This structure prevents data duplication by storing the customer\u0027s details once and referencing them across many order records.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a72ef699-e10b-4eb5-a8c6-67dbe7868035",
+              "Text": "Most real-world business data, such as products and sales or employees and departments, follows a one-to-many pattern.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5bb0690c-d933-405b-a35d-9b62d6c74024",
+          "TopicId": "1d303dcf-8ae5-44ab-be1c-823aeb8b1a51",
+          "Title": "Many-to-Many Relationships",
+          "BodyText": "A many-to-many relationship exists when multiple rows in Table A can relate to multiple rows in Table B, and vice versa.",
+          "Notes": "Example: \u0027Students\u0027 and \u0027Courses\u0027 \u2014 a student can enroll in many courses, and each course can have many students. This cannot be represented directly with just two tables.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "ModifiedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "Items": [
+            {
+              "Id": "babcdf9d-26bf-4e93-9f3d-e6c05aa0c4da",
+              "Text": "Many-to-many relationships require a third table, called a junction or bridge table, to resolve the relationship.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c21d84b2-13de-4fb4-8139-97dff0295785",
+              "Text": "The junction table holds foreign keys from both related tables, creating a pair of one-to-many relationships.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7f02aedf-bc6c-454a-914f-04d75e83e7cb",
+              "Text": "The junction table may also store additional attributes about the relationship itself, such as an enrollment date or grade.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b9ca9076-e8f9-4adc-a61e-4c75f2e9d8e5",
+          "TopicId": "1d303dcf-8ae5-44ab-be1c-823aeb8b1a51",
+          "Title": "Junction Tables and How They Work",
+          "BodyText": "A junction table (also called a linking or associative table) sits between two tables in a many-to-many relationship, storing the combinations of related rows.",
+          "Notes": "For a Students-Courses relationship, the junction table \u0027Enrollments\u0027 would contain StudentID and CourseID columns, each acting as a foreign key. Together they often form a composite primary key.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "ModifiedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "Items": [
+            {
+              "Id": "e06caf12-e171-499c-8e01-2fcfeca56ce4",
+              "Text": "Each row in the junction table represents one specific association between a record in each of the two main tables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6efc8bf5-f843-4503-8636-e0fe9b3dbff8",
+              "Text": "Junction tables convert a many-to-many relationship into two manageable one-to-many relationships.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9f3d8376-e371-4015-9ec5-cb6c0e93fc8e",
+              "Text": "They can be extended with additional columns to capture metadata about the relationship, enriching the data model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d9c18e3e-849f-4a81-8532-021b0317ad72",
+          "TopicId": "1d303dcf-8ae5-44ab-be1c-823aeb8b1a51",
+          "Title": "Why Relationships Are Central to Relational Databases",
+          "BodyText": "Relationships are the defining feature of relational databases, enabling data from multiple tables to be combined accurately and efficiently.",
+          "Notes": "Without relationships, data would need to be duplicated across tables, leading to inconsistency and maintenance problems. Relationships enforce data integrity and provide the foundation for SQL JOIN operations.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "ModifiedDate": "2026-07-03T11:29:08.1773141-04:00",
+          "Items": [
+            {
+              "Id": "430d0538-4a1c-4dd0-ac05-7ec0f7eecb72",
+              "Text": "Properly defined relationships ensure referential integrity, meaning a foreign key value must match an existing primary key.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "30be530d-cf50-4ea7-bf06-aa120d0d07ff",
+              "Text": "They allow complex questions to be answered by joining related tables, which is fundamental to SQL querying.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6d4a489d-f7be-4833-aecf-5e911fcc1b08",
+              "Text": "Relationships support normalization \u2014 the process of structuring data to minimize redundancy and dependency.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "cadbdaa1-8548-4457-b4e2-d9d0f148fc11",
+      "Title": "Foundations for SQL Querying",
+      "Summary": "This topic connects relational database concepts to practical SQL use, preparing students to query and analyze structured data by understanding how data is stored and linked.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "ModifiedDate": "2026-07-03T11:26:59.1837179-04:00",
+      "Elements": [
+        {
+          "Id": "eaa4bd92-aae7-42e8-ab7a-c69e88728dbc",
+          "TopicId": "cadbdaa1-8548-4457-b4e2-d9d0f148fc11",
+          "Title": "From Tables to Queries: Bridging Structure and Retrieval",
+          "BodyText": "Understanding how data is organized in tables is the essential first step before writing any SQL query.",
+          "Notes": "Think of a table as a spreadsheet: columns define what data is captured, and rows hold each individual record. SQL queries navigate this structure to extract meaningful information.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "ModifiedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "Items": [
+            {
+              "Id": "3f565905-7a0e-4d35-b658-57fc8bdce135",
+              "Text": "Every SQL SELECT statement targets at least one table, making table familiarity non-negotiable before querying.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e4b15a80-6221-408a-aba8-93f845aef169",
+              "Text": "Knowing column names and data types in a table lets you write accurate, efficient queries.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e3797136-3c9d-4511-821f-7b6c309e3eb8",
+              "Text": "A well-structured table ensures that queries return consistent, predictable results.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ab024436-4a60-4740-ae3c-e0c3aec17ef2",
+          "TopicId": "cadbdaa1-8548-4457-b4e2-d9d0f148fc11",
+          "Title": "Primary Keys and Unique Row Identification",
+          "BodyText": "A primary key is a column or combination of columns that uniquely identifies each row in a table, and SQL queries rely on this uniqueness to retrieve precise records.",
+          "Notes": "For example, a CustomerID column in a Customers table ensures no two customers share the same identifier. SQL WHERE clauses often filter by primary key values for exact lookups.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "ModifiedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "Items": [
+            {
+              "Id": "ff80c921-0e2f-4d84-980a-15b3111d5472",
+              "Text": "Primary keys prevent duplicate rows, ensuring data integrity across the entire table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "58850013-42cd-41c5-bbc8-cbabadf92bd7",
+              "Text": "SQL queries that filter on a primary key column are highly efficient and return at most one matching row.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bd90b100-f0dc-4dc8-a6e7-a0fb009c3bde",
+              "Text": "Understanding which column serves as the primary key helps you anchor queries and joins correctly.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a4d7b766-1540-4222-98f9-c9f93e3d7b1d",
+          "TopicId": "cadbdaa1-8548-4457-b4e2-d9d0f148fc11",
+          "Title": "Foreign Keys and Querying Across Related Tables",
+          "BodyText": "Foreign keys are columns that reference the primary key of another table, creating the links that make relational databases powerful for multi-table queries.",
+          "Notes": "For example, an Orders table may contain a CustomerID foreign key pointing to the Customers table. SQL JOIN operations use these foreign key relationships to combine data from both tables in a single query result.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "ModifiedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "Items": [
+            {
+              "Id": "56237bc3-8e11-48a1-bfe7-6527cab76f9a",
+              "Text": "A foreign key establishes a relationship between two tables that SQL JOINs can traverse.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b51a3da0-c853-4aa7-9bc2-c81bc78ac074",
+              "Text": "Before joining tables, identify which column in one table references the primary key in the other.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f86abb1-f508-46ca-b920-38aa0051e9a6",
+              "Text": "Foreign key relationships define the logical paths available when querying across multiple tables.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "35658cbf-a7a8-406d-b187-12708b4685a3",
+          "TopicId": "cadbdaa1-8548-4457-b4e2-d9d0f148fc11",
+          "Title": "Reading a Database Schema Before Writing Queries",
+          "BodyText": "A schema is a blueprint of the database that documents all tables, columns, data types, and relationships, and reviewing it is a critical pre-query step.",
+          "Notes": "Many database tools display schemas visually as entity-relationship diagrams (ERDs). Analysts who read schemas first write fewer errors and more targeted queries.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "ModifiedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "Items": [
+            {
+              "Id": "322c5b38-dceb-4a14-a770-961b9b800a35",
+              "Text": "The schema tells you every available table name and column name you can legally reference in a query.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bf37adff-50f7-48b8-9658-935353850794",
+              "Text": "Data types shown in the schema (e.g., INTEGER, VARCHAR, DATE) determine how you filter and compare values in SQL conditions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d47845ab-b7e2-4eeb-ac8e-b9f6dfaff3f8",
+              "Text": "Relationship lines in a schema diagram reveal which tables can be joined and on which columns.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "17e51054-3cd6-4ec1-8f46-7537dfc28331",
+              "Text": "Consulting the schema prevents referencing non-existent columns or making incorrect type comparisons.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f6de252a-3f2d-4528-bbdf-762bd2fb0b80",
+          "TopicId": "cadbdaa1-8548-4457-b4e2-d9d0f148fc11",
+          "Title": "Structured Data and Why SQL Is the Right Tool",
+          "BodyText": "Relational databases store structured data \u2014 data organized into rows and columns with defined types \u2014 which is precisely the format SQL is designed to query.",
+          "Notes": "Structured data differs from unstructured data (like images or free text) in that every value has a defined place and type. This predictability is what allows SQL to apply consistent logic across millions of rows.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "ModifiedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "Items": [
+            {
+              "Id": "8c4c13d9-c3bb-4de4-ba89-f50f9b561cb3",
+              "Text": "SQL is purpose-built for structured, tabular data, making relational databases its natural environment.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5f1ae139-7418-454a-b30d-6db8a7bf6eb2",
+              "Text": "The consistent row-and-column format means SQL operations like filtering, sorting, and aggregating apply uniformly across all records.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fe602811-ab1a-4360-bc8c-c36889634363",
+              "Text": "Understanding that each column holds one specific type of value helps you write correct comparison and calculation logic in queries.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e569978d-ad8a-4393-8301-9ba97c6b3dd8",
+          "TopicId": "cadbdaa1-8548-4457-b4e2-d9d0f148fc11",
+          "Title": "How Relationships Shape Query Logic",
+          "BodyText": "The one-to-many and many-to-many relationships defined in a relational database directly determine how you structure JOIN operations in SQL.",
+          "Notes": "In a one-to-many relationship, one customer can have many orders. A SQL JOIN on this relationship will return one row per order, with customer details repeated for each. Recognizing the relationship type helps you anticipate and interpret query output correctly.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "ModifiedDate": "2026-07-03T11:29:32.1541046-04:00",
+          "Items": [
+            {
+              "Id": "0e1334e7-46e1-48ef-83cf-3302b3e831f0",
+              "Text": "A one-to-many relationship means joining the two tables will expand results toward the \u0027many\u0027 side.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ff84b90a-582c-4be8-838d-8dd661ad5fc9",
+              "Text": "Many-to-many relationships typically require a junction table, and querying them involves joining through that intermediary.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "97854e01-e563-45ef-9833-dc7cf05680b3",
+              "Text": "Misunderstanding a relationship type can lead to unintentional row duplication or data loss in query results.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ffd4449e-0288-4caf-99e1-ad7e996548d2",
+              "Text": "Mapping relationships before querying allows you to plan how many JOIN clauses you will need.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 43
+}

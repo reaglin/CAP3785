@@ -1,0 +1,748 @@
+{
+  "ModuleFolderName": "Pivot_Tables_Dashboards",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "LastModified": "2026-07-03T14:22:38.0550924-04:00",
+  "NextQuestionNumber": 21,
+  "Questions": [
+    {
+      "Id": "TEMP_001",
+      "Type": "MC",
+      "Title": "What is a pivot table in Excel?",
+      "QuestionText": "Which of the following best describes a pivot table in Excel?",
+      "Hint": "Think about what makes pivot tables different from regular formulas.",
+      "Feedback": "A pivot table is an interactive Excel tool that summarizes, groups, and analyzes large datasets without writing formulas or altering the original data.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550824-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "An interactive tool that summarizes and analyzes large datasets without writing formulas or altering the original data.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A formula-based function that calculates totals across multiple worksheets.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A chart type used to display trends over time.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A data validation tool that restricts user input in spreadsheet cells.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_002",
+      "Type": "MC",
+      "Title": "Data preparation before creating pivot tables",
+      "QuestionText": "Which of the following is a requirement for properly structured source data before creating a pivot table?",
+      "Hint": "Think about what conditions the data table must meet.",
+      "Feedback": "A well-structured table has no blank rows or columns, no merged cells, and each column has a unique, descriptive header in the first row.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.055083-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Each column must have a unique, descriptive header in the first row with no blank rows or merged cells.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "All numeric data must be pre-sorted in ascending order before inserting the pivot table.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The dataset must be converted to a chart before a pivot table can be created.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Data must be stored on a separate workbook from the pivot table.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_003",
+      "Type": "MC",
+      "Title": "Default summary function for numeric fields",
+      "QuestionText": "When a numeric field is added to the Values area of a pivot table, which aggregation function does Excel use by default?",
+      "Hint": "Consider what Excel does automatically before you change any settings.",
+      "Feedback": "By default, Excel uses SUM for numeric fields and COUNT for text fields in the Values area of a pivot table.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550832-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "SUM",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "AVERAGE",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "COUNT",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "MAX",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_004",
+      "Type": "MC",
+      "Title": "Purpose of calculated fields in pivot tables",
+      "QuestionText": "What is the primary purpose of a calculated field in a pivot table?",
+      "Hint": "Think about creating new data without changing the original source.",
+      "Feedback": "Calculated fields allow users to create new data columns within a pivot table using custom formulas based on existing fields, without altering the source data.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550834-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To create new data columns based on custom formulas using existing fields without changing the source data.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To automatically sort rows in the pivot table alphabetically.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To protect specific cells in the pivot table from being edited.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To link the pivot table to an external database query.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_005",
+      "Type": "MC",
+      "Title": "Grouping date fields in pivot tables",
+      "QuestionText": "What is a common use case for grouping a date field in a pivot table?",
+      "Hint": "Think about how time-based data is organized for analysis.",
+      "Feedback": "A common use case for grouping is consolidating a date field by Month, Quarter, and Year to enable drill-down or roll-up time-based analysis with a single click.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550836-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Grouping dates by Month, Quarter, and Year to enable drill-down or roll-up time-based analysis.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Converting all date values into text strings for display purposes.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Splitting a date column into separate First Name and Last Name columns.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Removing duplicate date entries from the pivot table automatically.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_006",
+      "Type": "MC",
+      "Title": "Slicers connected to multiple pivot tables",
+      "QuestionText": "What is a key advantage of using slicers in a dashboard with multiple pivot tables?",
+      "Hint": "Think about how slicers can control more than one element at a time.",
+      "Feedback": "A single slicer can be connected to multiple pivot tables simultaneously, keeping all visuals in sync when a filter is applied.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.055084-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A single slicer can be connected to multiple pivot tables simultaneously, keeping all visuals in sync.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Slicers automatically write formulas to update all worksheets in the workbook.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Slicers convert pivot tables into static images to prevent accidental edits.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Slicers increase the number of rows a pivot table can process.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_007",
+      "Type": "MC",
+      "Title": "Timeline slicers and date data type",
+      "QuestionText": "What condition must be met for a timeline slicer to be available in a pivot table?",
+      "Hint": "Think about the data type of the field you want to filter.",
+      "Feedback": "Timeline slicers are only available when the pivot table contains a field formatted as a date data type.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550842-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "The pivot table must contain a field formatted as a date data type.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The workbook must be saved in the .xlsm macro-enabled format.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The pivot table must have at least three fields in the Columns area.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The data source must be connected to a SQL Server database.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_008",
+      "Type": "MC",
+      "Title": "Double-clicking a pivot table value cell",
+      "QuestionText": "What happens when you double-click a value cell in a pivot table?",
+      "Hint": "Think about the auditing feature mentioned in the module.",
+      "Feedback": "Double-clicking a value cell in a pivot table generates a new worksheet showing the individual records that make up that summary figure, which is useful for auditing.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550844-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A new worksheet is generated showing the underlying detail records that contribute to that aggregated value.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The cell is locked to prevent further edits to that summary value.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A dialog box opens allowing the user to change the summary function applied.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The pivot table automatically refreshes its data connection.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_009",
+      "Type": "MC",
+      "Title": "GETPIVOTDATA formula use in dashboards",
+      "QuestionText": "Why are GETPIVOTDATA formulas used to populate KPI cells in a dashboard?",
+      "Hint": "Think about what happens to KPI values when the pivot table refreshes.",
+      "Feedback": "GETPIVOTDATA formulas pull specific values from pivot tables into styled KPI cells, ensuring the values update automatically whenever the pivot table refreshes.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550846-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "They pull specific values from pivot tables into KPI cells that update automatically when the pivot table refreshes.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They convert text-based pivot table values into numeric formats for display.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They protect KPI cells from being overwritten by slicer selections.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They create calculated fields directly inside the pivot table without using the PivotTable Fields pane.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_010",
+      "Type": "MC",
+      "Title": "Hiding gridlines for dashboard appearance",
+      "QuestionText": "Which Excel option is used to hide gridlines and give a dashboard a clean, app-like appearance?",
+      "Hint": "Think about the View tab settings mentioned in the module.",
+      "Feedback": "Gridlines can be hidden via View \u003E Show \u003E Gridlines. Hiding row and column headers also contributes to a clean, professional dashboard appearance.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550848-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "View \u003E Show \u003E Gridlines",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Home \u003E Cells \u003E Format \u003E Hide \u0026 Unhide",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Page Layout \u003E Sheet Options \u003E Hide All",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Insert \u003E Shapes \u003E Remove Background Grid",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_011",
+      "Type": "MC",
+      "Title": "What is Power Query in Excel?",
+      "QuestionText": "Which of the following best describes Power Query in Excel?",
+      "Hint": "Think about the tab where Power Query is located and its main purpose.",
+      "Feedback": "Power Query is a built-in Excel tool for importing, connecting, and transforming data from a wide variety of sources with minimal manual effort. It is available under the Data tab in the Get \u0026 Transform Data group.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.055085-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A built-in Excel tool that imports, connects, and transforms data from various sources with minimal manual effort.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A macro programming language used to automate repetitive formatting tasks in Excel.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "An add-in that creates pivot charts automatically from selected data ranges.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A charting tool that connects Excel to external business intelligence platforms.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_012",
+      "Type": "MC",
+      "Title": "Applied Steps pane in Power Query Editor",
+      "QuestionText": "What is the purpose of the Applied Steps pane in the Power Query Editor?",
+      "Hint": "Think about what is recorded as you make changes in the Editor.",
+      "Feedback": "The Applied Steps pane logs every transformation action taken in the Power Query Editor, allowing users to revisit or delete any step at any time.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550851-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It logs every transformation action taken, allowing users to revisit or delete any step at any time.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It displays a list of all pivot tables connected to the current data source.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It shows a preview of the final chart that will be generated from the query.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It provides a summary of the number of rows and errors found in the workbook.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_013",
+      "Type": "MC",
+      "Title": "Removing duplicates in Power Query",
+      "QuestionText": "In Power Query, how can a user remove duplicate rows from a column?",
+      "Hint": "Think about what happens when you right-click a column header in the Editor.",
+      "Feedback": "Right-clicking a column header in Power Query exposes options including \u0027Remove Duplicates\u0027, \u0027Remove Blank Rows\u0027, and \u0027Replace Errors\u0027, which become repeatable steps applied on every refresh.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550852-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Right-click the column header and select \u0027Remove Duplicates\u0027.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Use the UNIQUE formula in the worksheet after loading the data.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Apply conditional formatting to highlight duplicates, then delete them manually.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Sort the column alphabetically and delete repeated values one by one.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_014",
+      "Type": "MC",
+      "Title": "Unpivoting columns in Power Query",
+      "QuestionText": "Which Power Query operation would convert wide data with multiple month columns into a long format suitable for pivot tables?",
+      "Hint": "Think about reshaping data from columns into rows.",
+      "Feedback": "The Unpivot Columns operation in Power Query converts wide data with multiple column headers into a long format with a single column for the attribute and one for the value, which is suitable for pivot table analysis.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550854-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Unpivot Columns",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Split Column",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Merge Queries",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Group By",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_015",
+      "Type": "MC",
+      "Title": "Configuring automatic refresh on workbook open",
+      "QuestionText": "Where in Excel can you configure a Power Query connection to refresh automatically when the workbook is opened?",
+      "Hint": "Think about the properties dialog accessible from the Queries \u0026 Connections pane.",
+      "Feedback": "Automatic refresh settings, including refresh on workbook open, are configured in Excel\u0027s Connection Properties dialog, accessed via Data \u003E Queries \u0026 Connections, then right-clicking a query and selecting Properties.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550855-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Data \u003E Queries \u0026 Connections, right-click the query, and select Properties.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "File \u003E Options \u003E Advanced \u003E Refresh Settings.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Insert \u003E PivotTable \u003E Options \u003E Refresh on Open.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Review \u003E Workbook Protection \u003E Auto Refresh.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_016",
+      "Type": "MC",
+      "Title": "Refresh All command behavior in Excel",
+      "QuestionText": "What does the Refresh All command on the Data tab do in Excel?",
+      "Hint": "Think about what happens to all queries and pivot tables at once.",
+      "Feedback": "The Refresh All command triggers a simultaneous refresh of every Power Query connection and pivot table in the workbook.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550856-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It triggers a simultaneous refresh of every Power Query connection and pivot table in the workbook.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It saves the workbook and closes all open connections to external data sources.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It resets all pivot tables to their default configuration and clears any applied filters.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It updates only the active worksheet\u0027s data while leaving other sheets unchanged.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_017",
+      "Type": "MC",
+      "Title": "VBA method for triggering refresh",
+      "QuestionText": "Which VBA method is commonly used to trigger a refresh of all Power Query connections and pivot tables in a workbook?",
+      "Hint": "Think about the object and method name mentioned in the module.",
+      "Feedback": "The ThisWorkbook.RefreshAll method is a common starting point for macro-based refresh automation, often used with the Workbook_Open event.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550857-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "ThisWorkbook.RefreshAll",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "ActiveSheet.Calculate",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Workbook.UpdateLinks",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Application.ScreenRefresh",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_018",
+      "Type": "MC",
+      "Title": "Background refresh and macro conflicts",
+      "QuestionText": "Why is it often necessary to disable background refresh when using VBA macros that depend on query results?",
+      "Hint": "Think about the timing relationship between the macro and the completed query.",
+      "Feedback": "Disabling background refresh is necessary when macros depend on completed query results before executing subsequent steps, because background refresh allows Excel to continue running while the query updates, which can cause conflicts.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550859-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Because background refresh allows Excel to continue running while the query updates, which can cause macros to execute before the query is complete.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because background refresh prevents slicers from functioning while data is loading.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because macros cannot access data from Power Query when background refresh is enabled.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because background refresh permanently locks the data source connection.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_019",
+      "Type": "MC",
+      "Title": "Dashboard layout best practice for KPIs",
+      "QuestionText": "According to the module, where should summary KPI metrics be placed in a well-structured dashboard layout?",
+      "Hint": "Think about the top-to-bottom layout principle described in the module.",
+      "Feedback": "A common layout principle is to place summary KPIs at the top of the dashboard, charts in the middle section, and detailed tables at the bottom.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.055086-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "At the top of the dashboard, with charts in the middle and detailed tables at the bottom.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "At the bottom of the dashboard so users read through the charts before reaching conclusions.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "On a separate worksheet that is linked to the main dashboard tab.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "In the center of the dashboard surrounded by slicers on all four sides.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_020",
+      "Type": "MC",
+      "Title": "Power Query benefit over manual data cleaning",
+      "QuestionText": "What is the primary workflow advantage Power Query offers compared to manually cleaning data each reporting cycle?",
+      "Hint": "Think about the one-time setup concept described in the module.",
+      "Feedback": "Power Query transforms data preparation from a repetitive manual task into a one-time setup effort that reruns automatically whenever the source data changes, saving significant time each reporting cycle.",
+      "TopicTitle": "Introduction to Pivot Tables",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:22:38.0550861-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It converts data preparation into a one-time setup effort that reruns automatically whenever the source data changes.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It eliminates the need for pivot tables by summarizing data directly in the Power Query Editor.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It automatically generates charts and dashboards from raw imported data without any configuration.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It stores a permanent backup of the original source data inside the Excel workbook.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    }
+  ]
+}

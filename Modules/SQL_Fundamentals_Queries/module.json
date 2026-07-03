@@ -1,0 +1,9 @@
+{
+  "Id": "87a0a630-a0be-4a26-aa0c-e1e7436cef6f",
+  "Name": "SQL Fundamentals: Queries, Filtering, and Sorting",
+  "Description": "This lesson introduces SQL syntax and covers foundational query operations including SELECT, WHERE, ORDER BY, and LIMIT to extract and filter data from relational databases. Students will practice writing queries against real datasets to answer specific business questions.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.6864095-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.6870446-04:00",
+  "Actions": []
+}

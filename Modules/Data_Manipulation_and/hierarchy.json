@@ -1,0 +1,1537 @@
+{
+  "ModuleFolderName": "Data_Manipulation_and",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:47:02.4955157-04:00",
+  "ModifiedDate": "2026-07-03T11:50:14.0507692-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+      "Title": "Introduction to NumPy for Data Manipulation",
+      "Summary": "Introduces the NumPy library and its core data structures, focusing on arrays and vectorized operations that enable efficient numerical computation and data handling.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "ModifiedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "Elements": [
+        {
+          "Id": "6e56d7d5-fbdd-4bd6-a0eb-fcbdf7e41fb2",
+          "TopicId": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+          "Title": "What is NumPy?",
+          "BodyText": "NumPy (Numerical Python) is a foundational open-source library for scientific computing in Python, providing support for large, multi-dimensional arrays and a collection of mathematical functions to operate on them.",
+          "Notes": "NumPy is the backbone of many other data science libraries, including Pandas, SciPy, and scikit-learn, making it essential to understand before working with more complex tools.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "ModifiedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "Items": [
+            {
+              "Id": "d153f0cf-358f-413a-9a46-22ff8565b14e",
+              "Text": "NumPy was designed to overcome the performance limitations of Python\u0027s built-in lists for numerical computation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1314a837-af7b-47ff-8888-b1443743fa7b",
+              "Text": "It provides a high-performance multidimensional array object called ndarray as its core data structure.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d3ceee4a-d79e-4eca-b70f-16503c5173eb",
+              "Text": "NumPy operations are implemented in C under the hood, making them significantly faster than equivalent pure Python code.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e7df986c-974e-420c-9335-2ce8cf1e2a05",
+          "TopicId": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+          "Title": "NumPy Arrays (ndarray)",
+          "BodyText": "The ndarray is NumPy\u0027s primary data structure \u2014 a fixed-type, N-dimensional array that stores elements of the same data type in contiguous memory for maximum performance.",
+          "Notes": "Unlike Python lists, all elements in a NumPy array must be of the same dtype (e.g., int32, float64). This homogeneity enables memory efficiency and fast computation.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "ModifiedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "Items": [
+            {
+              "Id": "2edf89be-e6d3-4ae3-82d6-3f3f1be4520a",
+              "Text": "Arrays can be one-dimensional (vectors), two-dimensional (matrices), or higher-dimensional tensors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c3ec1447-4ef1-4bc0-affc-6de9936b5a6e",
+              "Text": "Each array has attributes such as shape, dtype, and ndim that describe its structure and data type.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f71de0f2-c31d-4188-89bb-8e26830dc657",
+              "Text": "Arrays are created using functions like np.array(), np.zeros(), np.ones(), np.arange(), and np.linspace().",
+              "SortOrder": 2
+            },
+            {
+              "Id": "15a15ee2-9f31-4811-85c1-b71061e88d19",
+              "Text": "The contiguous memory layout of ndarrays allows NumPy to perform batch operations without Python-level looping overhead.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bfa23d17-fd1a-42dd-bbcb-2076a2e4afb6",
+          "TopicId": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+          "Title": "Vectorized Operations",
+          "BodyText": "Vectorized operations allow mathematical computations to be applied element-wise across entire arrays at once, eliminating the need for explicit Python loops and dramatically improving performance.",
+          "Notes": "For example, adding two NumPy arrays with \u0060a \u002B b\u0060 applies addition to every pair of elements simultaneously, whereas a Python list would require a for-loop to achieve the same result.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "ModifiedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "Items": [
+            {
+              "Id": "fa789b16-5215-4a37-8873-7e0277fac1ed",
+              "Text": "Arithmetic operators (\u002B, -, *, /) applied to arrays perform element-wise operations automatically.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "45a4cd9c-3f48-4d07-b89d-d626756f8296",
+              "Text": "Vectorization leverages low-level optimizations and parallelism, making it orders of magnitude faster than equivalent loop-based code.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5ae26ff5-cd82-4ebc-ac10-7eae67a9c133",
+              "Text": "NumPy also supports broadcasting, which allows operations between arrays of different but compatible shapes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bf44a21d-f18f-4a56-b7ce-97ef9ca4c91a",
+          "TopicId": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+          "Title": "Array Indexing and Slicing",
+          "BodyText": "NumPy provides powerful and flexible ways to access and modify array elements using integer indexing, slicing, boolean masks, and fancy indexing.",
+          "Notes": "Boolean indexing is particularly useful for data filtering \u2014 for example, \u0060arr[arr \u003E 5]\u0060 returns all elements greater than 5 without writing an explicit loop.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "ModifiedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "Items": [
+            {
+              "Id": "5beda06e-dd8b-4edb-b808-672b470c3e35",
+              "Text": "Basic slicing uses the [start:stop:step] syntax, similar to Python lists, but extended to multiple dimensions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "81b4cf64-82b9-4797-96c5-a11baedfd0ca",
+              "Text": "Boolean (mask) indexing allows you to select elements that satisfy a logical condition.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e0e427f4-8ad1-46a0-a449-7d62954f33fd",
+              "Text": "Fancy indexing lets you select arbitrary rows or columns using integer arrays or lists of indices.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "19466595-7931-4a55-ac39-f026c810bf34",
+              "Text": "Slices in NumPy return views, not copies, meaning modifications to a slice will affect the original array.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2c616c00-b89e-4cf9-9f3f-334ebb3fc523",
+          "TopicId": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+          "Title": "Universal Functions (ufuncs)",
+          "BodyText": "Universal functions, or ufuncs, are NumPy functions that operate element-wise on arrays and are optimized for speed, supporting operations like trigonometry, exponentiation, logarithms, and aggregation.",
+          "Notes": "Examples include np.sqrt(), np.exp(), np.log(), np.sin(), np.mean(), np.sum(), and np.max(). These replace the need for custom loops when performing mathematical transformations on data.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "ModifiedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "Items": [
+            {
+              "Id": "246d6cb2-c998-415c-92fb-b899d3eb4281",
+              "Text": "Ufuncs can operate on arrays of any shape and automatically broadcast across dimensions where applicable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "832b6d9e-18a0-40e7-b888-e6ab12fec605",
+              "Text": "Aggregation ufuncs such as np.sum(), np.min(), and np.mean() can reduce arrays along a specified axis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ebcd9158-e31c-400f-90a3-fa3d240b5363",
+              "Text": "Using ufuncs instead of Python loops results in cleaner, more readable code and significant performance gains.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "87943981-3dae-41ae-80a2-42eeb2c12db4",
+          "TopicId": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+          "Title": "Array Reshaping and Manipulation",
+          "BodyText": "NumPy provides tools to change the shape, structure, and layout of arrays without copying data, which is essential for preparing data for numerical algorithms and machine learning models.",
+          "Notes": "For instance, a 1D array of 12 elements can be reshaped into a 3\u00D74 matrix using arr.reshape(3, 4), provided the total number of elements remains the same.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "ModifiedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "Items": [
+            {
+              "Id": "238955d2-973e-4ebb-91d6-90333e8beaec",
+              "Text": "The reshape() method returns a new view of the array with a different shape while preserving all data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e13affc8-67cf-4a40-b208-4341f66d4343",
+              "Text": "flatten() and ravel() convert multi-dimensional arrays into 1D arrays, with ravel returning a view when possible.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "63532cb9-a3ce-4ff5-a548-2ae8a0fdf92b",
+              "Text": "np.concatenate(), np.stack(), np.hstack(), and np.vstack() allow combining multiple arrays along specified axes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a5aa78a6-c2d0-478f-aca5-05ec52ecc027",
+              "Text": "Transposing an array with arr.T or np.transpose() swaps its axes, commonly used when working with matrices.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "94f0a3a0-3db1-4f77-b56e-ebfa39cbbad3",
+          "TopicId": "1b91029a-cd8c-4c06-8ba1-49eb65f93d66",
+          "Title": "Why NumPy for Data Manipulation?",
+          "BodyText": "NumPy serves as the computational engine for data manipulation workflows, providing memory-efficient storage and fast mathematical operations that make it indispensable for handling numerical datasets.",
+          "Notes": "In practical data workflows, NumPy arrays are frequently used as the underlying data format for Pandas DataFrames and as input to machine learning frameworks like TensorFlow and PyTorch.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "ModifiedDate": "2026-07-03T11:47:29.4229205-04:00",
+          "Items": [
+            {
+              "Id": "0ea56cdd-5fd1-43b5-a6c4-e442603213f5",
+              "Text": "NumPy handles large datasets more efficiently than native Python structures due to its compact memory representation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1e2ecc40-98de-4dda-860a-c0b1e8388864",
+              "Text": "It enables reproducible numerical computations with features like random number generation via np.random.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f04135fa-03bd-4406-bfc5-9e3f39927aa5",
+              "Text": "Understanding NumPy is a prerequisite for effectively using Pandas, as many Pandas operations delegate computation to NumPy under the hood.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "5ca72c7b-0905-41f4-afb3-ced0d94a5826",
+      "Title": "Getting Started with Pandas DataFrames",
+      "Summary": "Covers the foundational concepts of Pandas, including Series and DataFrame creation, structure, and basic operations for organizing and inspecting data.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "ModifiedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "Elements": [
+        {
+          "Id": "2c50fc7a-b128-454e-92c5-595ed6f042df",
+          "TopicId": "5ca72c7b-0905-41f4-afb3-ced0d94a5826",
+          "Title": "Introduction to Pandas and Its Core Data Structures",
+          "BodyText": "Pandas is a powerful Python library built on top of NumPy that provides flexible data structures for data manipulation and analysis.",
+          "Notes": "Pandas is especially popular in data science workflows because it bridges the gap between raw numerical computation and practical data wrangling tasks like cleaning, transforming, and exploring datasets.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "ModifiedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "Items": [
+            {
+              "Id": "d23c26b3-5538-4406-a1a1-9ea4c3df6293",
+              "Text": "Pandas introduces two primary data structures: Series (one-dimensional) and DataFrame (two-dimensional).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "11bb9add-a4c1-4c7f-a3bf-ea45296b6b5f",
+              "Text": "These structures are designed to handle labeled data, making it easy to reference rows and columns by name rather than just by index.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6c1ff0cf-271e-413a-9692-b335062aa574",
+              "Text": "Pandas integrates seamlessly with NumPy, allowing vectorized operations and efficient memory usage.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d30b218e-c959-4689-b4f5-87ac45eb9635",
+              "Text": "It is commonly imported with the alias \u0027pd\u0027 using: import pandas as pd.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d735c105-7ef4-49b6-8d47-3e056ae376d4",
+          "TopicId": "5ca72c7b-0905-41f4-afb3-ced0d94a5826",
+          "Title": "Understanding the Pandas Series",
+          "BodyText": "A Pandas Series is a one-dimensional labeled array capable of holding any data type, such as integers, strings, or floats.",
+          "Notes": "Think of a Series as a single column from a spreadsheet, where each value has an associated label (index). Example: pd.Series([10, 20, 30], index=[\u0027a\u0027, \u0027b\u0027, \u0027c\u0027]).",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "ModifiedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "Items": [
+            {
+              "Id": "a3dd0ee8-229d-417b-bb37-c17795cf20e8",
+              "Text": "A Series consists of two components: the data values and an index that labels each value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "29809551-d891-4043-b2c8-8936510db1e0",
+              "Text": "If no index is specified during creation, Pandas assigns a default integer index starting from 0.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "33b857b2-013d-4617-b7f9-dd2ac44e1a14",
+              "Text": "Series support element-wise operations and can be created from lists, dictionaries, or scalar values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5f66ec55-73d4-4998-b379-dea8f0ddf44a",
+              "Text": "When created from a dictionary, the dictionary keys automatically become the index labels.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a4a001ee-fd60-4f2c-ae7d-7e758b1756fd",
+          "TopicId": "5ca72c7b-0905-41f4-afb3-ced0d94a5826",
+          "Title": "Creating a Pandas DataFrame",
+          "BodyText": "A DataFrame is a two-dimensional, table-like data structure with labeled rows and columns, similar to a spreadsheet or SQL table.",
+          "Notes": "DataFrames can be created in multiple ways depending on the source of your data. Example: pd.DataFrame({\u0027Name\u0027: [\u0027Alice\u0027, \u0027Bob\u0027], \u0027Age\u0027: [25, 30]}) creates a DataFrame from a dictionary.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "ModifiedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "Items": [
+            {
+              "Id": "5a20290d-8c9a-4ab7-ab2b-e901826c3563",
+              "Text": "DataFrames can be constructed from dictionaries, lists of dictionaries, NumPy arrays, or by reading external files such as CSV or Excel.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f9c65558-5b6f-48f9-b787-0850020fa7bf",
+              "Text": "Each column in a DataFrame is essentially a Series, sharing the same index.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2cf5f3b9-a6f7-4a6d-b27c-77a1d2bdea17",
+              "Text": "Column names and row indices can be explicitly defined at creation time using the \u0027columns\u0027 and \u0027index\u0027 parameters.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e6d4aa58-76e2-4a39-8e8f-174df63d41e1",
+              "Text": "When using a dictionary to create a DataFrame, the keys become column headers and the values become column data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1c1c8ec7-fc1e-4591-ace1-a732318bda01",
+          "TopicId": "5ca72c7b-0905-41f4-afb3-ced0d94a5826",
+          "Title": "Understanding DataFrame Structure: Index, Columns, and Values",
+          "BodyText": "Every DataFrame has three fundamental components \u2014 an index (row labels), columns (column labels), and the underlying data values.",
+          "Notes": "Accessing these attributes helps you quickly understand the shape and composition of your dataset before performing any operations.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "ModifiedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "Items": [
+            {
+              "Id": "facdf988-8865-47e1-a7f7-d7b341736931",
+              "Text": "The \u0027df.index\u0027 attribute returns the row labels, which default to integers but can be customized to meaningful labels.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7bc2a2aa-c155-4a4a-b95b-dab63820acbf",
+              "Text": "The \u0027df.columns\u0027 attribute returns the column names as an Index object, which can be iterated or converted to a list.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b708c593-1afd-45b1-b6bd-4950da7052ad",
+              "Text": "The \u0027df.values\u0027 attribute returns the underlying data as a NumPy array, stripping away labels.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "708991f2-4380-460d-bbb1-7ca00c51aad1",
+              "Text": "The \u0027df.shape\u0027 attribute returns a tuple representing the number of rows and columns, useful for quick size checks.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6a415cbc-28ee-4817-9705-e8152dd168bd",
+          "TopicId": "5ca72c7b-0905-41f4-afb3-ced0d94a5826",
+          "Title": "Inspecting and Exploring a DataFrame",
+          "BodyText": "Pandas provides several built-in methods to quickly inspect and summarize a DataFrame, which is an essential first step in any data analysis workflow.",
+          "Notes": "These inspection methods help you identify data types, spot missing values early, and understand the overall distribution of your data without manually scanning the entire dataset.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "ModifiedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "Items": [
+            {
+              "Id": "878cbad5-108f-409a-919c-6464f4810ed9",
+              "Text": "The \u0027df.head(n)\u0027 method returns the first n rows (default 5), giving a quick preview of the data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ccd9e48b-b61a-4e8f-99f2-299f9bcc448f",
+              "Text": "The \u0027df.tail(n)\u0027 method returns the last n rows, useful for checking the end of a dataset.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b8532c18-070e-4ebd-92ed-4c80d908f19d",
+              "Text": "The \u0027df.info()\u0027 method displays column names, non-null counts, and data types, helping identify potential issues like missing values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c9c7c6f7-9d47-427d-88a8-5dec732f48bf",
+              "Text": "The \u0027df.describe()\u0027 method generates summary statistics (mean, std, min, max, etc.) for all numerical columns.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "31e7dc08-b0d8-4128-b01b-33e1e5674359",
+              "Text": "The \u0027df.dtypes\u0027 attribute shows the data type of each column, which is critical before performing type-sensitive operations.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "84cd5658-66f6-4318-8987-423a74865b33",
+          "TopicId": "5ca72c7b-0905-41f4-afb3-ced0d94a5826",
+          "Title": "Basic DataFrame Operations: Adding, Selecting, and Organizing Data",
+          "BodyText": "Pandas makes it straightforward to select subsets of data, add new columns, and reorganize a DataFrame to suit analysis needs.",
+          "Notes": "Mastering basic selection and assignment operations forms the backbone of all subsequent data manipulation tasks in Pandas.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "ModifiedDate": "2026-07-03T11:47:51.9603914-04:00",
+          "Items": [
+            {
+              "Id": "6c505ec3-4fea-4e18-b006-5adbc5300e53",
+              "Text": "A single column can be selected using bracket notation (df[\u0027column_name\u0027]), which returns a Series.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bd73b5e8-24d6-41c6-9011-ed58d7ce55b8",
+              "Text": "Multiple columns can be selected by passing a list of column names: df[[\u0027col1\u0027, \u0027col2\u0027]].",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8742c9bb-7279-4d51-915e-ed2c34ec10da",
+              "Text": "New columns can be added by simply assigning values to a new column name: df[\u0027new_col\u0027] = values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7075bd11-894e-428b-a263-7995067f7dee",
+              "Text": "Columns can be dropped using \u0027df.drop(columns=[\u0027col_name\u0027])\u0027, which returns a new DataFrame by default unless \u0027inplace=True\u0027 is specified.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "eec30820-a541-40e2-8022-36203211ee84",
+              "Text": "The \u0027df.rename()\u0027 method allows renaming columns or index labels for clarity and consistency.",
+              "SortOrder": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+      "Title": "Indexing and Selecting Data",
+      "Summary": "Explores label-based and position-based indexing techniques in Pandas, including loc, iloc, and conditional filtering to access and manipulate specific subsets of data.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "ModifiedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "Elements": [
+        {
+          "Id": "f6db99b4-16f4-4615-9464-81c26a0ecff5",
+          "TopicId": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+          "Title": "Label-Based Indexing with loc",
+          "BodyText": "The loc accessor enables selection of rows and columns by their explicit labels or index names, making it intuitive for working with named data.",
+          "Notes": "Example: df.loc[\u0027row_label\u0027, \u0027column_name\u0027] or df.loc[0:5, [\u0027Name\u0027, \u0027Age\u0027]] to select a range of rows and specific columns by label.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "ModifiedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "Items": [
+            {
+              "Id": "54294b74-7db2-4887-9ac8-3a1e21c57c8f",
+              "Text": "loc uses the actual index labels of the DataFrame, not integer positions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b05c6bb7-5d81-4867-b534-4867a40fa34b",
+              "Text": "Both row and column selections can be single labels, lists of labels, or label-based slices.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9c212433-2f91-425a-9e90-625fd389306e",
+              "Text": "When slicing with loc, the stop label is inclusive, unlike Python\u0027s standard slicing behavior.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c88427f4-57d9-4f2f-bd4b-b6281e6bf538",
+              "Text": "loc can also accept boolean arrays to filter rows based on conditions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2047ea7b-2e5d-4bfb-aaf2-ca075391e49a",
+          "TopicId": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+          "Title": "Position-Based Indexing with iloc",
+          "BodyText": "The iloc accessor selects data purely by integer position, similar to how standard Python list or NumPy array indexing works.",
+          "Notes": "Example: df.iloc[0:3, 1:4] selects the first three rows and columns at positions 1 through 3. This is useful when label names are unknown or irrelevant.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "ModifiedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "Items": [
+            {
+              "Id": "b1606207-e512-43df-9420-580ffb48f81a",
+              "Text": "iloc always uses zero-based integer positions for both rows and columns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d4c6d762-42e1-4851-a481-c67ea28d351a",
+              "Text": "Slicing with iloc follows standard Python conventions where the stop index is exclusive.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1e4be8e3-a505-4ea0-9c59-c6584d5dfa6f",
+              "Text": "Single integers, lists of integers, and integer slices are all valid inputs for iloc.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b56b309b-3f96-4376-b8c9-df6156cdb626",
+              "Text": "iloc is particularly useful when iterating over DataFrames programmatically or when the index is not sequential.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ed1c85da-6d16-437a-bbec-33326f642b14",
+          "TopicId": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+          "Title": "Conditional (Boolean) Filtering",
+          "BodyText": "Conditional filtering allows you to select rows that satisfy one or more logical conditions, returning a subset of the DataFrame that meets the criteria.",
+          "Notes": "Example: df[df[\u0027Age\u0027] \u003E 30] returns all rows where the Age column value exceeds 30. Multiple conditions can be combined using \u0026 (and) or | (or).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "ModifiedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "Items": [
+            {
+              "Id": "f24a0977-378e-41c1-959a-b6bf689e2d5b",
+              "Text": "A boolean condition applied to a DataFrame column produces a Series of True/False values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "487adb3f-05a9-4ced-babc-37f984e709c7",
+              "Text": "Passing that boolean Series back into the DataFrame brackets filters to only the True rows.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b907988d-5449-4abc-bc31-fbf80c08628e",
+              "Text": "Multiple conditions must each be wrapped in parentheses and combined with bitwise operators \u0026 or |.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "80010ab9-93f1-42ca-bcfa-606915f78165",
+              "Text": "The isin() method is a convenient way to filter rows where a column value matches any item in a list.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "1358aa2f-de74-4978-844d-19bc6f90fa2e",
+              "Text": "The ~ operator can be used to negate a condition, selecting rows that do not meet the criteria.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "040fca07-2673-4cea-9fd9-b19469e73838",
+          "TopicId": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+          "Title": "Selecting Single Columns and Rows",
+          "BodyText": "Before using loc or iloc, Pandas offers simpler bracket and dot notation shortcuts for selecting individual columns or rows from a DataFrame.",
+          "Notes": "Example: df[\u0027column_name\u0027] or df.column_name returns a Series for a single column. df.iloc[0] returns the first row as a Series.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "ModifiedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "Items": [
+            {
+              "Id": "ac30e0fb-71ff-42dc-b900-6bdfbcd2c490",
+              "Text": "Single-bracket notation df[\u0027col\u0027] returns a Pandas Series, while double-bracket df[[\u0027col\u0027]] returns a single-column DataFrame.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4429a334-a3c7-4bc6-890a-1f79f0d74f10",
+              "Text": "Dot notation (df.col) is a shorthand for column access but does not work when column names contain spaces or match existing method names.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7dfb68d5-9b0a-42ac-afa7-350bda7a7a3a",
+              "Text": "Selecting multiple columns simultaneously requires passing a list of column names inside double brackets.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ec863ac4-2bf1-4eb1-95f7-0698c7a4bd50",
+          "TopicId": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+          "Title": "Setting and Resetting the Index",
+          "BodyText": "The index of a DataFrame controls how labels are used in loc-based selection, and managing it correctly is essential for effective label-based indexing.",
+          "Notes": "Example: df.set_index(\u0027StudentID\u0027) makes StudentID the row index, enabling df.loc[\u0027S001\u0027] to retrieve that student\u0027s record directly.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "ModifiedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "Items": [
+            {
+              "Id": "c9bda222-d706-4600-97ca-83a3c6173173",
+              "Text": "set_index() assigns one or more existing columns as the DataFrame\u0027s row index.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "06d179b2-f33f-4442-846f-fcb28fbc2297",
+              "Text": "reset_index() reverts the index back to the default integer range and optionally re-inserts the old index as a column.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "85380d13-8dd6-453f-9f09-04e864f5b95f",
+              "Text": "A meaningful index (such as a unique ID or date) makes loc-based access faster and more readable.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a9bb08a5-2dc6-43e5-9ea1-7f65317d3b91",
+              "Text": "Multi-level (hierarchical) indexes can be created by passing a list of column names to set_index().",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6c8b614f-9252-4a2e-9e2b-c48384ca5e94",
+          "TopicId": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+          "Title": "Slicing Rows with Basic Bracket Notation",
+          "BodyText": "DataFrames support direct row slicing using bracket notation with integer ranges, which is a quick alternative to iloc for simple row selections.",
+          "Notes": "Example: df[10:20] returns rows at positions 10 through 19. This does not work for individual row selection by a single integer.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "ModifiedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "Items": [
+            {
+              "Id": "2c3fb4c0-5636-40ad-a2f0-dc0ec4baa969",
+              "Text": "Row slicing with df[start:stop] follows standard Python exclusive-stop slicing rules.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ba7d2d41-a7de-4780-93f1-fa483685e592",
+              "Text": "This method operates on positional indices regardless of the DataFrame\u0027s actual index labels.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "232705fc-fea2-4a42-a2e6-291e9c68c0b8",
+              "Text": "For more complex or mixed row-column selection, loc or iloc should be preferred over basic bracket slicing.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b8091d2d-3c5d-46a5-a58b-9ee30f8d3215",
+          "TopicId": "ff7531fb-1a8b-44f3-b8c4-41fcaa0cdb17",
+          "Title": "Combining Indexing with Data Manipulation",
+          "BodyText": "Indexing and selection are not just read operations \u2014 they are also the foundation for updating, deleting, and transforming specific subsets of data within a DataFrame.",
+          "Notes": "Example: df.loc[df[\u0027Score\u0027] \u003C 50, \u0027Grade\u0027] = \u0027F\u0027 updates the Grade column only for rows where Score is below 50.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "ModifiedDate": "2026-07-03T11:48:21.1335862-04:00",
+          "Items": [
+            {
+              "Id": "05915bce-eff0-4f87-b1e8-930afeccd6bb",
+              "Text": "Assigning a value to a loc or iloc selection updates the underlying DataFrame in place.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "03cb6729-ac97-47a8-95a4-e97622c30d63",
+              "Text": "Chained indexing (e.g., df[\u0027col\u0027][0]) can produce unpredictable results and should be avoided in favor of a single loc or iloc call.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bb695b79-14aa-4b79-9ed8-9843a4f732f9",
+              "Text": "Using .copy() when creating a subset prevents unintended modifications to the original DataFrame.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6f05de93-091f-4693-87b8-0859b6eeebb9",
+              "Text": "Combining conditional filtering with column assignment is a powerful pattern for targeted data cleaning and transformation.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+      "Title": "Merging, Joining, and Concatenating Data",
+      "Summary": "Examines methods for combining multiple datasets using merge, join, and concatenation operations to integrate data from different sources into a unified structure.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "ModifiedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "Elements": [
+        {
+          "Id": "34c79646-b7bd-4057-bc76-a6c7e07294ea",
+          "TopicId": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+          "Title": "Concatenating DataFrames with pd.concat()",
+          "BodyText": "The pd.concat() function stacks multiple DataFrames together along a specified axis, either row-wise or column-wise.",
+          "Notes": "Example: pd.concat([df1, df2], axis=0) stacks rows vertically, while axis=1 aligns columns side by side. The ignore_index=True parameter resets the index of the resulting DataFrame.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "ModifiedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "Items": [
+            {
+              "Id": "cbd6623b-f010-4d7f-bb2c-c9625c0926d0",
+              "Text": "Use axis=0 to concatenate DataFrames vertically, appending rows from one DataFrame below another.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "358ac9a0-9905-4dd1-ae75-6a47b64466b4",
+              "Text": "Use axis=1 to concatenate DataFrames horizontally, aligning them side by side by index.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "daeaa463-0e5e-4654-8292-975e3215a923",
+              "Text": "The keys parameter can be used to create a hierarchical index identifying the source of each row.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ca303219-fd1f-4e1a-8f9f-e1d716ff18fe",
+              "Text": "Mismatched columns during vertical concatenation result in NaN values for missing entries.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5e2b9027-45b4-45e4-9be7-840a054a95ae",
+          "TopicId": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+          "Title": "Merging DataFrames with pd.merge()",
+          "BodyText": "pd.merge() combines two DataFrames based on common columns or indices, similar to SQL JOIN operations.",
+          "Notes": "Example: pd.merge(df1, df2, on=\u0027customer_id\u0027) joins both DataFrames wherever the \u0027customer_id\u0027 column matches. The \u0027on\u0027 parameter specifies the key column(s) to join on.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "ModifiedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "Items": [
+            {
+              "Id": "f65e97c7-0214-4959-b583-2c87ea69373e",
+              "Text": "The \u0027on\u0027 parameter specifies one or more column names that serve as the join key present in both DataFrames.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "56b08c5c-41d5-4626-8072-d6e03bdb66bd",
+              "Text": "Use \u0027left_on\u0027 and \u0027right_on\u0027 when the key columns have different names in each DataFrame.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "70f29f22-cfff-4704-8f21-d00ca4deaddf",
+              "Text": "The \u0027how\u0027 parameter controls the type of join: \u0027inner\u0027, \u0027outer\u0027, \u0027left\u0027, or \u0027right\u0027.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "69cfb1fc-396d-4a77-946e-4460dfbee561",
+              "Text": "An inner merge retains only rows with matching keys in both DataFrames, discarding unmatched rows.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a09667fb-d72f-42d5-ba69-a4634b0afe6f",
+          "TopicId": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+          "Title": "Types of Joins: Inner, Outer, Left, and Right",
+          "BodyText": "The \u0027how\u0027 parameter in pd.merge() determines which rows from each DataFrame are included in the result based on key matches.",
+          "Notes": "Choosing the wrong join type is a common source of data loss or unintended NaN inflation. Always verify row counts after merging to confirm the expected result.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "ModifiedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "Items": [
+            {
+              "Id": "26211daf-26a1-4e20-a8b9-8effab3c725e",
+              "Text": "An inner join returns only rows where the key exists in both DataFrames, producing the intersection of keys.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d45d7bfb-6cf1-4a55-9efb-54ebee795df3",
+              "Text": "An outer join returns all rows from both DataFrames, filling missing values with NaN where keys do not match.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a4635c76-e4df-4007-9858-d70e7efb51ac",
+              "Text": "A left join retains all rows from the left DataFrame and matches what it can from the right, filling gaps with NaN.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "065cbf96-0e58-4cfe-bb65-272e4df7ad64",
+              "Text": "A right join retains all rows from the right DataFrame and matches what it can from the left, filling gaps with NaN.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "73ef788d-702c-4859-8501-7ee7cb556dfb",
+          "TopicId": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+          "Title": "Joining DataFrames Using the .join() Method",
+          "BodyText": "The DataFrame .join() method is a convenient shortcut for combining DataFrames based on their index rather than a column.",
+          "Notes": "Example: df1.join(df2, how=\u0027left\u0027) aligns df2 to df1 using both DataFrames\u0027 indices. It is most efficient when the joining keys are already set as the DataFrame index.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "ModifiedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "Items": [
+            {
+              "Id": "65c4f872-8705-4c4f-8893-3f867ee30308",
+              "Text": "By default, .join() performs a left join on the calling DataFrame\u0027s index against the other DataFrame\u0027s index.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2190b1e0-1944-4702-b362-692b85a1068f",
+              "Text": "The \u0027on\u0027 parameter allows joining on a column of the calling DataFrame against the index of the other DataFrame.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a560de8f-a4bd-47a2-bc04-94e7068b9942",
+              "Text": "The \u0027lsuffix\u0027 and \u0027rsuffix\u0027 parameters resolve column name conflicts when both DataFrames share column names.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2e7eb286-e54c-44b1-a1c0-417740764672",
+              "Text": "For joining multiple DataFrames at once, a list of DataFrames can be passed to .join().",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e13ceae2-3550-4690-961c-dfa666369197",
+          "TopicId": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+          "Title": "Merging on Multiple Keys",
+          "BodyText": "Multiple columns can be used as composite keys in a merge to ensure more precise matching between DataFrames.",
+          "Notes": "Example: pd.merge(df1, df2, on=[\u0027store_id\u0027, \u0027date\u0027]) matches rows only when both the store_id and date columns agree, preventing incorrect cross-matches.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "ModifiedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "Items": [
+            {
+              "Id": "a3237189-6707-45bb-8108-e2bb57de13fc",
+              "Text": "Pass a list of column names to the \u0027on\u0027 parameter to define a composite key for the merge.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "51b2c42c-db68-4996-8686-b6ebc6b84bfe",
+              "Text": "Composite keys are essential when a single column is not unique enough to correctly identify matching rows.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ee88ad82-d479-4859-8350-bbde1de5d2c9",
+              "Text": "All specified key columns must be present in both DataFrames unless using \u0027left_on\u0027 and \u0027right_on\u0027 separately.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f5ba9e6c-ac3b-4a60-9e2f-616dae2ab484",
+              "Text": "Rows must match on every key column simultaneously to be included in an inner merge result.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c27156bf-7add-4983-aac7-cf996e64ee62",
+          "TopicId": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+          "Title": "Handling Duplicate Columns and Suffixes After Merging",
+          "BodyText": "When two DataFrames share non-key column names, pd.merge() automatically appends suffixes to distinguish them in the merged result.",
+          "Notes": "Example: If both DataFrames have a \u0027value\u0027 column, the merged result will contain \u0027value_x\u0027 and \u0027value_y\u0027 by default. Custom suffixes can be set with the suffixes=(\u0027_left\u0027, \u0027_right\u0027) parameter.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "ModifiedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "Items": [
+            {
+              "Id": "bcf92c4d-bfa0-4538-83f9-aedfee09b728",
+              "Text": "By default, Pandas appends \u0027_x\u0027 and \u0027_y\u0027 suffixes to overlapping non-key column names after a merge.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2c8f7e0b-e614-4e01-ad6a-9db8d182610e",
+              "Text": "Use the suffixes parameter to assign meaningful custom suffix strings that reflect the data source.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2241728f-5925-4674-a5ba-38b62ec7d2dd",
+              "Text": "After merging, inspect the resulting columns to identify and rename or drop any redundant duplicate columns.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6bfe86a4-81d6-436e-a95f-89604823223e",
+              "Text": "Failing to handle duplicate columns can cause confusion and errors in downstream data analysis steps.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b871f6ba-3ad6-4365-aeff-7008edee9e2f",
+          "TopicId": "28bafe8a-f75d-4696-9ba2-603076db0cf3",
+          "Title": "Validating and Verifying Merge Results",
+          "BodyText": "After combining datasets, it is important to validate the merge output to confirm data integrity and expected row counts.",
+          "Notes": "The validate parameter in pd.merge() accepts values like \u00271:1\u0027, \u00271:m\u0027, \u0027m:1\u0027, or \u0027m:m\u0027 and raises an error if the actual relationship does not match, helping catch accidental row duplication.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "ModifiedDate": "2026-07-03T11:48:48.3274849-04:00",
+          "Items": [
+            {
+              "Id": "ac7bfd03-9adf-4ad8-b9d0-3a775f5e03a1",
+              "Text": "Check the shape of the merged DataFrame against expectations to detect unintended row multiplication or loss.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "edf6185f-cad5-476d-90ee-ecc7c7e2d4d3",
+              "Text": "Use the validate parameter to enforce the expected cardinality of the merge relationship.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "972ffa4a-f122-4cfa-a8e7-6822ce544354",
+              "Text": "Inspect NaN counts in merged columns to identify keys that failed to match across the two datasets.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3ffd8be3-7e6f-49ef-8f06-113c5536c764",
+              "Text": "The indicator=True parameter adds a \u0027_merge\u0027 column showing whether each row came from \u0027left_only\u0027, \u0027right_only\u0027, or \u0027both\u0027.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "f7efad25-d9a0-4e1d-9e9e-939f9544a82d",
+      "Title": "Reshaping and Transforming Data",
+      "Summary": "Covers techniques for restructuring datasets through pivoting, melting, stacking, and grouping operations to prepare data for analysis and reporting.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "ModifiedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "Elements": [
+        {
+          "Id": "41b3ff41-79e1-48e5-ac31-d17199f5f43e",
+          "TopicId": "f7efad25-d9a0-4e1d-9e9e-939f9544a82d",
+          "Title": "Pivoting Data with pivot() and pivot_table()",
+          "BodyText": "Pivoting restructures a DataFrame by turning unique values from one column into new column headers, making it easier to compare and analyze data across categories.",
+          "Notes": "Use pivot_table() when your data contains duplicate entries for the index/column combination, as it supports aggregation functions like mean, sum, or count. Example: df.pivot_table(index=\u0027Region\u0027, columns=\u0027Product\u0027, values=\u0027Sales\u0027, aggfunc=\u0027sum\u0027).",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "ModifiedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "Items": [
+            {
+              "Id": "19621a07-88cb-4402-9e13-311ee95aa786",
+              "Text": "pivot() requires unique index/column combinations and raises an error when duplicates exist.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ba9cf72e-07b2-40c1-8ad3-5e7e38d83793",
+              "Text": "pivot_table() handles duplicates by applying an aggregation function, defaulting to the mean.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bd0a3d10-6f52-45b9-b26b-cdb2fe0753ba",
+              "Text": "The fill_value parameter in pivot_table() replaces NaN entries that arise when a combination does not exist in the original data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "38937d43-7cb3-4210-81a1-01dc89ececeb",
+              "Text": "Pivoted tables are commonly used for cross-tabulation reporting and summary dashboards.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f1be2db2-6ecf-4ff7-8dd0-65042f2123e6",
+          "TopicId": "f7efad25-d9a0-4e1d-9e9e-939f9544a82d",
+          "Title": "Melting Data with melt()",
+          "BodyText": "Melting is the inverse of pivoting \u2014 it transforms wide-format data into long-format data by unpivoting columns into rows, which is often required for tidy data analysis.",
+          "Notes": "Example: pd.melt(df, id_vars=[\u0027Country\u0027], value_vars=[\u00272021\u0027, \u00272022\u0027, \u00272023\u0027], var_name=\u0027Year\u0027, value_name=\u0027Sales\u0027). This is especially useful when preparing data for visualization libraries like Seaborn or ggplot that expect long-format input.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "ModifiedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "Items": [
+            {
+              "Id": "5be7a97d-1ff3-4965-b94e-3d000f3bf1ac",
+              "Text": "id_vars specifies the columns to keep as identifier variables that are not unpivoted.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "935b91f0-5ada-4dfc-a9e7-e22c1418c0e0",
+              "Text": "value_vars specifies which columns to unpivot into rows; omitting it melts all remaining columns.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ccd22324-eee4-44ab-9528-a9e58ef0aafc",
+              "Text": "var_name and value_name allow you to rename the resulting variable and value columns for clarity.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0b1ee873-228e-4b02-b508-6cd288df9a3f",
+              "Text": "Melted data follows the tidy data principle where each variable is a column and each observation is a row.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4d6f53d3-39f8-46f0-82a5-766748c669b2",
+          "TopicId": "f7efad25-d9a0-4e1d-9e9e-939f9544a82d",
+          "Title": "Stacking and Unstacking with MultiIndex",
+          "BodyText": "Stacking moves the innermost column level into the innermost row index, while unstacking does the opposite, both producing hierarchical (MultiIndex) structures useful for multi-dimensional data.",
+          "Notes": "These operations are particularly powerful when working with DataFrames that already have a MultiIndex. Example: df.stack() compresses columns into rows; df.unstack() expands row index levels into columns.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "ModifiedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "Items": [
+            {
+              "Id": "31f24aa0-be58-491d-9f81-266faa1addca",
+              "Text": "stack() reduces the number of columns by moving column labels into the row index, creating a Series or DataFrame with a MultiIndex.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7142b728-4aea-4140-9122-01f6ffdfca74",
+              "Text": "unstack() is the inverse, pivoting a level of the row index into column headers.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9ca81fc0-7eb3-4abf-803d-1bdb9665d2a8",
+              "Text": "The level parameter in both methods controls which index level is moved, allowing fine-grained control over hierarchical data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6045245a-d6d7-49a8-84f3-2b417aeb7772",
+              "Text": "Stacking is often used to tidy up results from pivot tables before further aggregation or visualization.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5311af3e-6f5f-47bb-8976-5cb9f93760f0",
+          "TopicId": "f7efad25-d9a0-4e1d-9e9e-939f9544a82d",
+          "Title": "Grouping Data with groupby()",
+          "BodyText": "The groupby() method splits a DataFrame into groups based on one or more columns, enabling aggregation, transformation, and filtering operations on each group independently.",
+          "Notes": "Grouping follows a split-apply-combine pattern: the data is split into groups, a function is applied to each group, and the results are combined back into a DataFrame. Example: df.groupby(\u0027Category\u0027)[\u0027Revenue\u0027].sum().",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "ModifiedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "Items": [
+            {
+              "Id": "f5db408b-f280-4a53-af62-3bdcc1e4b5cd",
+              "Text": "You can group by a single column name, a list of column names, or even a custom function or dictionary.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "292d3713-3009-4c33-ae28-dc001a813521",
+              "Text": "Aggregation methods like sum(), mean(), count(), min(), and max() summarize each group into a single value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "be3db360-8ba8-4b80-bbe2-d224f04d90de",
+              "Text": "The transform() method returns a result with the same shape as the input, useful for adding group-level statistics back to the original DataFrame.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9083fd4c-6413-4f98-8de2-f80e67320a35",
+              "Text": "The filter() method discards groups that do not meet a specified condition, returning only the rows belonging to qualifying groups.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "63b3bfe9-6f8b-4bd0-85c0-2959ca2af2d3",
+              "Text": "Using as_index=False in groupby() keeps group keys as regular columns instead of promoting them to the index.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "031291da-0686-41b3-a132-3f69a89ef316",
+          "TopicId": "f7efad25-d9a0-4e1d-9e9e-939f9544a82d",
+          "Title": "Applying Functions with apply() and agg()",
+          "BodyText": "apply() and agg() extend groupby() by allowing custom or multiple aggregation functions to be applied to grouped or individual DataFrame columns simultaneously.",
+          "Notes": "agg() is preferred when you want to apply different functions to different columns in one operation. Example: df.groupby(\u0027Region\u0027).agg({\u0027Sales\u0027: \u0027sum\u0027, \u0027Profit\u0027: \u0027mean\u0027}). apply() is more flexible but can be slower on large datasets.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "ModifiedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "Items": [
+            {
+              "Id": "6578b4c5-b960-4d16-9045-19ccad556e8f",
+              "Text": "apply() passes each group (or column/row) as a DataFrame or Series to a user-defined function, making it highly flexible.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "74c2b59a-a85c-45b0-b4b2-954059d799b7",
+              "Text": "agg() accepts a dictionary mapping column names to aggregation functions, enabling column-specific summarization in a single step.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "69f95862-ab6a-42eb-bd89-baeedf829e18",
+              "Text": "Named aggregation using the syntax df.groupby(\u0027X\u0027).agg(NewCol=(\u0027OldCol\u0027, \u0027func\u0027)) produces cleaner, explicitly named output columns.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "21e113c8-d555-480f-9329-2102fdc844d3",
+              "Text": "Lambda functions can be passed to apply() for concise inline transformations without defining a separate function.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bc83abb9-50c8-46db-a0c0-0f570cd2f25f",
+          "TopicId": "f7efad25-d9a0-4e1d-9e9e-939f9544a82d",
+          "Title": "Reshaping Arrays with NumPy reshape() and transpose()",
+          "BodyText": "NumPy provides reshape() and transpose() to restructure array dimensions without copying data, which is essential when preparing numerical datasets for machine learning pipelines or matrix operations.",
+          "Notes": "Example: arr.reshape(3, 4) converts a 12-element 1D array into a 3x4 matrix. Using -1 as a dimension argument lets NumPy infer the correct size automatically, e.g., arr.reshape(-1, 1).",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "ModifiedDate": "2026-07-03T11:49:16.4586886-04:00",
+          "Items": [
+            {
+              "Id": "8ee152e7-cccc-4e47-b316-e9de9978e4c8",
+              "Text": "reshape() changes the shape of an array while keeping the total number of elements constant; incompatible shapes raise a ValueError.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "04492ae0-09ac-4fb0-a158-6a0468de3d71",
+              "Text": "transpose() reverses or permutes the axes of an array, converting rows to columns and vice versa in 2D arrays.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "08e26e28-2ecf-47fe-827a-24ed4fc4d8a6",
+              "Text": "The np.ravel() function flattens a multi-dimensional array into a 1D array in row-major (C) order by default.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b519ce20-7fac-4f4a-b76c-0294f9d75e6f",
+              "Text": "reshape() returns a view when possible, meaning changes to the reshaped array may affect the original, so use copy() when independent modification is needed.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "9ad5df17-c083-4810-8a6e-916b7042bca6",
+      "Title": "Handling Missing Data",
+      "Summary": "Addresses strategies for detecting, removing, and imputing missing values in datasets to ensure data quality and integrity before analysis.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "ModifiedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "Elements": [
+        {
+          "Id": "74277a07-8e1c-4782-8684-786ebbee7a3c",
+          "TopicId": "9ad5df17-c083-4810-8a6e-916b7042bca6",
+          "Title": "Detecting Missing Values",
+          "BodyText": "Before addressing missing data, you must first identify where it exists in your dataset using Pandas detection methods.",
+          "Notes": "Use df.info() for a quick overview of non-null counts per column, and df.isnull().sum() to get a column-by-column count of missing entries.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "ModifiedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "Items": [
+            {
+              "Id": "bce1329c-547c-48aa-af4c-c8169e791b9b",
+              "Text": "df.isnull() returns a boolean DataFrame marking every missing value as True.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b8609f8e-4685-4f13-9bb3-5d00fff5a438",
+              "Text": "df.notnull() is the inverse, returning True for all present values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2241fd5c-6094-467e-be38-91f5c6f1fcd5",
+              "Text": "Chaining .sum() after .isnull() gives a total count of missing values per column.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ae2578fe-b7db-4f06-b4fa-d3efb0ac80e0",
+              "Text": "df.isnull().mean() calculates the proportion of missing values, useful for deciding on a handling strategy.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e3090008-2189-41ec-b555-f0562550e3f2",
+          "TopicId": "9ad5df17-c083-4810-8a6e-916b7042bca6",
+          "Title": "Understanding NaN and None in NumPy and Pandas",
+          "BodyText": "Missing data in Pandas is typically represented as NaN (Not a Number) from NumPy, or as Python\u0027s None, and understanding the distinction is important for correct handling.",
+          "Notes": "np.nan is a float, so columns containing it may be cast to float dtype. None is a Python object and is treated as missing in object-type columns.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "ModifiedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "Items": [
+            {
+              "Id": "f0f6f0d6-f9fb-4ff9-9280-df12b8511ed2",
+              "Text": "NumPy\u0027s np.nan is the standard sentinel for missing numerical data in Pandas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9edb4970-51db-4fa5-b223-ae6e4ef19e8a",
+              "Text": "Pandas also recognizes Python\u0027s None as a missing value, particularly in object columns.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fca89c0e-2ad9-4362-bf6e-f8169f133b20",
+              "Text": "Arithmetic operations involving NaN propagate NaN by default, which can silently affect calculations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a03a6f38-a4a1-43ee-99d5-e089bcd11ca9",
+              "Text": "Pandas 1.0\u002B introduced pd.NA as a more consistent missing value indicator across all data types.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e7634102-9fc9-4467-92a5-35e381c49d4f",
+          "TopicId": "9ad5df17-c083-4810-8a6e-916b7042bca6",
+          "Title": "Removing Missing Values with dropna()",
+          "BodyText": "The simplest strategy for handling missing data is to remove rows or columns that contain missing values using the dropna() method.",
+          "Notes": "Dropping data is best when missing values are few and random. Over-dropping can reduce dataset size significantly and introduce bias if data is not missing at random.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "ModifiedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "Items": [
+            {
+              "Id": "f0ccc8c5-9379-4393-ae8e-aaaa4b96ac25",
+              "Text": "df.dropna() removes any row that contains at least one missing value by default.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b1b4d74d-5f28-403f-b9f7-770ae5db294d",
+              "Text": "The axis parameter controls whether rows (axis=0) or columns (axis=1) are dropped.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c26b1090-951e-478d-9bbf-731c4868ebee",
+              "Text": "The how parameter accepts \u0027any\u0027 (drop if any NaN exists) or \u0027all\u0027 (drop only if all values are NaN).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7acd305d-d057-44de-95d4-3950603d8817",
+              "Text": "The thresh parameter allows you to keep rows that have at least a specified number of non-NaN values.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "80cfc616-0511-44a6-a3e2-16baf452518c",
+          "TopicId": "9ad5df17-c083-4810-8a6e-916b7042bca6",
+          "Title": "Imputing Missing Values with fillna()",
+          "BodyText": "Imputation replaces missing values with substituted estimates, allowing you to retain rows and preserve dataset size.",
+          "Notes": "Common scalar fill values include 0, the column mean, median, or mode. The choice depends on the data distribution and the potential impact on downstream analysis.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "ModifiedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "Items": [
+            {
+              "Id": "67b53cb9-8d41-4e37-ac46-aefdd236287d",
+              "Text": "df.fillna(value) replaces all NaN entries with the specified scalar value or dictionary of column-specific values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "77cc5716-b16f-4cd8-bf3d-002eb4d87dd4",
+              "Text": "Forward fill (method=\u0027ffill\u0027) propagates the last valid observation forward, useful for time-series data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "695b5424-6a2a-4f80-8bd8-fec96fbff636",
+              "Text": "Backward fill (method=\u0027bfill\u0027) uses the next valid observation to fill gaps.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d0ce96bd-0afc-4b7c-a0f6-6aac0f90ff47",
+              "Text": "Statistical imputation using df.fillna(df.mean()) replaces NaNs with the column mean, reducing distributional distortion.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b7fde0a6-66f8-4093-9b1a-2c05e095e908",
+          "TopicId": "9ad5df17-c083-4810-8a6e-916b7042bca6",
+          "Title": "Interpolation for Missing Values",
+          "BodyText": "Pandas provides an interpolate() method that estimates missing values based on surrounding data points, making it well-suited for ordered or time-indexed datasets.",
+          "Notes": "Linear interpolation is the default and assumes equal spacing between points. More advanced methods such as \u0027polynomial\u0027 or \u0027spline\u0027 are available for non-linear trends.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "ModifiedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "Items": [
+            {
+              "Id": "cf48a15b-aab7-4323-8539-707bb03c2f8c",
+              "Text": "df.interpolate() fills NaN values by computing a value that fits linearly between the neighboring valid points.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e38a2071-275d-4389-bc62-e42be2c9193f",
+              "Text": "The method parameter supports options like \u0027linear\u0027, \u0027time\u0027, \u0027polynomial\u0027, and \u0027spline\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "daff85e2-8d30-4188-a3b4-8f4b28a1a351",
+              "Text": "The limit parameter restricts the number of consecutive NaN values that will be filled.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b5e5bb08-d856-4c77-89c2-af0c71ba6ceb",
+              "Text": "Interpolation is inappropriate for categorical data or when missingness is not related to order.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0aba00b9-4515-4ab4-b8d5-8c28aaac664f",
+          "TopicId": "9ad5df17-c083-4810-8a6e-916b7042bca6",
+          "Title": "Strategy Selection Based on Missingness Type",
+          "BodyText": "Choosing the right missing data strategy depends on understanding why data is missing, categorized as Missing Completely at Random (MCAR), Missing at Random (MAR), or Missing Not at Random (MNAR).",
+          "Notes": "Misidentifying the missingness mechanism can introduce systematic bias. Exploratory analysis and domain knowledge are key inputs to this decision.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "ModifiedDate": "2026-07-03T11:49:40.6746922-04:00",
+          "Items": [
+            {
+              "Id": "0aeb0fd4-3128-48a0-95ea-b209559f4ca1",
+              "Text": "MCAR data can be safely dropped or imputed with minimal bias introduced into the analysis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e06244b5-ff89-4ab0-bc63-dd607e35272d",
+              "Text": "MAR data can often be imputed using other observed variables as predictors in more advanced imputation techniques.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2271cd4d-2088-47b3-a7ae-cb0473baf7cc",
+              "Text": "MNAR data requires careful handling, as the missingness is related to the unobserved value itself, potentially requiring domain-specific solutions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5d0da5b3-a370-46e9-b137-e8355b2fe72f",
+              "Text": "Visualizing missingness patterns with tools like the missingno library can help identify relationships between missing fields.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a28f5280-a02e-4517-82bf-832d49807e79",
+      "Title": "Cleaning and Transforming Real-World Datasets",
+      "Summary": "Applies NumPy and Pandas tools to practical, complex datasets, guiding students through end-to-end data cleaning and transformation workflows used in professional data science contexts.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "ModifiedDate": "2026-07-03T11:47:02.4955157-04:00",
+      "Elements": [
+        {
+          "Id": "fcf1d351-d38e-43b5-9708-aad4066b4986",
+          "TopicId": "a28f5280-a02e-4517-82bf-832d49807e79",
+          "Title": "Establishing an End-to-End Cleaning Workflow",
+          "BodyText": "Professional data cleaning follows a structured sequence of steps to ensure consistency, reproducibility, and accuracy across complex datasets.",
+          "Notes": "A typical workflow includes: loading data, inspecting structure, handling missing values, correcting data types, removing duplicates, transforming columns, and validating results. Documenting each step is critical in team environments.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "ModifiedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "Items": [
+            {
+              "Id": "6719bf15-b735-4d77-ae0c-43c4794d22af",
+              "Text": "Begin every project by auditing the dataset with df.info(), df.describe(), and df.head() to understand shape, types, and distributions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1e5b45a1-6a4b-494f-9e29-9291f893faa7",
+              "Text": "Define a repeatable pipeline so the same cleaning logic can be applied to new data batches without manual intervention.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f7cb106-7ad6-48b9-9304-02d2d07857bb",
+              "Text": "Validate outputs at each stage by asserting expected row counts, column names, and value ranges before proceeding.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "65b1bc95-989a-4c61-b612-5e9b2e53625b",
+          "TopicId": "a28f5280-a02e-4517-82bf-832d49807e79",
+          "Title": "Diagnosing and Handling Missing Data at Scale",
+          "BodyText": "Real-world datasets routinely contain missing values that must be identified and addressed systematically before any analysis or modeling.",
+          "Notes": "Use df.isnull().sum() and a heatmap (e.g., seaborn.heatmap) to visualize missingness patterns. Distinguish between MCAR, MAR, and MNAR patterns to choose the most appropriate strategy.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "ModifiedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "Items": [
+            {
+              "Id": "d1c7f2db-6e25-48e2-9a6e-adee0521afa5",
+              "Text": "Quantify missingness per column with df.isnull().mean() to decide whether to impute or drop based on a threshold (e.g., drop columns missing more than 40% of values).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "de96d7ac-c8da-4e3f-a99a-2c98447cf9ad",
+              "Text": "Apply mean, median, or mode imputation with fillna() for numerical and categorical columns, respectively, when data is missing at random.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6c3c80c8-6dec-4a2d-a734-7b559628c181",
+              "Text": "Use forward-fill (ffill) or backward-fill (bfill) for time-ordered data where the previous or next observation is the best estimate.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "228ae2f1-96c0-4d41-a0ab-3359fa7a96aa",
+              "Text": "For complex patterns, consider interpolation with df.interpolate() or model-based imputation using Pandas in conjunction with scikit-learn.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c79e9c66-cc5f-40f8-a3c1-a3c9289ebd50",
+          "TopicId": "a28f5280-a02e-4517-82bf-832d49807e79",
+          "Title": "Correcting and Converting Data Types",
+          "BodyText": "Incorrect data types are one of the most common sources of errors in real-world datasets and must be corrected before transformations or aggregations can proceed reliably.",
+          "Notes": "Pandas often reads numeric columns as objects when mixed with strings or special characters. Always inspect dtypes early and fix them explicitly.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "ModifiedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "Items": [
+            {
+              "Id": "72433938-7be3-4d0e-b484-2333c5865090",
+              "Text": "Use df[\u0027col\u0027].astype() to cast columns to the appropriate type (e.g., int64, float64, datetime64, category).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f977f41b-1c4d-43bd-935b-7d054f55ca04",
+              "Text": "Parse date strings into datetime objects with pd.to_datetime(), specifying the format parameter to avoid ambiguity.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5150c753-b5a5-436b-965b-8030a26d6c30",
+              "Text": "Convert high-cardinality string columns to the category dtype to reduce memory usage and speed up groupby operations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a1178e12-3dbd-4cb4-869c-2a90a45033c9",
+              "Text": "Use pd.to_numeric() with errors=\u0027coerce\u0027 to safely convert columns that contain non-numeric noise, turning invalid entries into NaN for later handling.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a8dea664-40fe-46d5-bb49-73818e04f8d7",
+          "TopicId": "a28f5280-a02e-4517-82bf-832d49807e79",
+          "Title": "Detecting and Removing Duplicates and Outliers",
+          "BodyText": "Duplicate records and statistical outliers can distort analysis results and must be identified and handled with deliberate, justifiable strategies.",
+          "Notes": "Outlier handling should be domain-driven; in some contexts (e.g., fraud detection) outliers are the signal, not noise. Always document the rationale for removal or retention.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "ModifiedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "Items": [
+            {
+              "Id": "b9b10c05-2a9d-4cc9-be75-41eedca0b218",
+              "Text": "Identify duplicate rows with df.duplicated() and remove them with df.drop_duplicates(), specifying subset columns when full-row duplicates are not expected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a5536e7-6969-4de4-abcb-42840c98fb21",
+              "Text": "Detect numerical outliers using the IQR method: flag values below Q1 \u2212 1.5\u00D7IQR or above Q3 \u002B 1.5\u00D7IQR as candidates for review.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a16f314a-e412-42c4-a8df-70cf72ebc212",
+              "Text": "Use NumPy\u0027s np.where() or Pandas clip() to cap extreme values at defined boundaries rather than dropping rows, preserving sample size.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3d2055c2-9029-4610-af98-84480eae4e24",
+              "Text": "Visualize outlier distribution with box plots or z-score histograms to make evidence-based decisions about treatment.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5074460c-7197-4419-8629-f867a754daf0",
+          "TopicId": "a28f5280-a02e-4517-82bf-832d49807e79",
+          "Title": "String Cleaning and Feature Extraction",
+          "BodyText": "Text columns in real-world datasets frequently contain inconsistent formatting, extra whitespace, and embedded information that must be standardized or extracted.",
+          "Notes": "Pandas\u0027 str accessor provides a full suite of vectorized string methods, avoiding slow Python loops over large datasets.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "ModifiedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "Items": [
+            {
+              "Id": "8ed4f0d8-5598-44ff-be25-408b017c2afd",
+              "Text": "Standardize case and strip whitespace with df[\u0027col\u0027].str.strip().str.lower() to eliminate common inconsistencies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c0037396-bca3-438f-9ef3-6919b28e63ef",
+              "Text": "Use df[\u0027col\u0027].str.replace() with regex patterns to remove special characters, currency symbols, or formatting artifacts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d7ae55b1-d649-4be4-9107-03e3121240f3",
+              "Text": "Extract structured information from free-text fields with df[\u0027col\u0027].str.extract() and named capture groups to create new, analysis-ready columns.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c2e16274-38fe-4e62-b4c2-faef2dc4a4b6",
+              "Text": "Split compound fields (e.g., \u0027FirstName LastName\u0027) into separate columns using df[\u0027col\u0027].str.split(expand=True).",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "150ad244-96c5-431a-9e7a-979aefee6de0",
+          "TopicId": "a28f5280-a02e-4517-82bf-832d49807e79",
+          "Title": "Reshaping and Aggregating for Analysis-Ready Structure",
+          "BodyText": "Raw datasets are rarely in the shape required for analysis; Pandas provides powerful tools to pivot, melt, and aggregate data into the correct structure.",
+          "Notes": "The choice between wide and long format depends on downstream requirements: most statistical models prefer long format, while many reporting tools expect wide format.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "ModifiedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "Items": [
+            {
+              "Id": "7bec7cbb-2fcf-4aac-917e-3cb8aad1b40f",
+              "Text": "Use df.melt() to convert wide-format tables to long format, making datasets compatible with groupby operations and visualization libraries.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5d869d6f-8533-43f2-aca3-69cb140bf688",
+              "Text": "Apply df.pivot_table() to create summary tables with custom aggregation functions such as mean, sum, or count across multiple dimensions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "93987a90-585b-455e-9e8d-5db9a5d1f98f",
+              "Text": "Leverage groupby().agg() with a dictionary of functions to compute multiple statistics per group in a single, efficient pass.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "78ac508d-cb63-4b45-9d08-8158cf04a89c",
+              "Text": "Combine reshape operations with reset_index() to produce clean, flat DataFrames that are ready for export or downstream modeling.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7bbaf837-db2b-4055-bc12-d12244e2e139",
+          "TopicId": "a28f5280-a02e-4517-82bf-832d49807e79",
+          "Title": "Validating and Exporting the Cleaned Dataset",
+          "BodyText": "The final stage of any cleaning workflow involves validating that all transformations produced the expected output and persisting the cleaned data in a reusable format.",
+          "Notes": "Automated validation with assert statements or libraries like Great Expectations catches regressions when the workflow is re-run on new data.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "ModifiedDate": "2026-07-03T11:50:14.0499051-04:00",
+          "Items": [
+            {
+              "Id": "86ca8022-d879-4f79-a2dd-90c7b38547d3",
+              "Text": "Assert critical invariants after cleaning, such as no remaining nulls in key columns, correct value ranges, and expected row counts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ce073f98-cafe-4c72-ac63-5b450a3b595d",
+              "Text": "Profile the cleaned dataset with df.describe() and compare distributions against the raw data to confirm transformations behaved as intended.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "35785ce1-02ff-4abc-a379-77962fcb91b9",
+              "Text": "Export the final DataFrame with df.to_csv() or df.to_parquet(), using parquet for large datasets due to its compression efficiency and type preservation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9ebc1b23-3060-42ed-b5c0-b7f0489ba941",
+              "Text": "Save the cleaning script or notebook as a reproducible artifact so the pipeline can be audited, version-controlled, and reapplied to future data.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 46
+}

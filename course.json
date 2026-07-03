@@ -1,0 +1,85 @@
+{
+  "Id": "8e550cc8-87f2-4ff6-86c2-e57f4e831f20",
+  "Name": "CAP3785 - Data Analytics and Visualization",
+  "Description": "This course gives a broad overview of the various aspects of data analytics and visualizations. Students will learn ways of accessing data from various sources such as web APIs and repositories, techniques of cleaning data and organizing data for analysis, using analytical methods to solve real-world problems, and create visualizations to aid the interpretation of analysis results. Students will have hands on training using relevant programming languages, and analytics and visualization tools",
+  "CreatedBy": "",
+  "CreatedDate": "2026-07-03T11:17:00.6105024-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.7426174-04:00",
+  "Modules": [
+    {
+      "ModuleName": "Introduction to Data Analytics and the Analytics Lifecycle",
+      "FolderName": "Introduction_to_Data",
+      "Order": 1
+    },
+    {
+      "ModuleName": "Ethics, Data Types, and Data Sources in Analytics",
+      "FolderName": "Ethics_Data_Types",
+      "Order": 2
+    },
+    {
+      "ModuleName": "Data Quality Assessment and Data Cleaning Fundamentals",
+      "FolderName": "Data_Quality_Assessment",
+      "Order": 3
+    },
+    {
+      "ModuleName": "Database Basics and Relational Data Concepts",
+      "FolderName": "Database_Basics_and",
+      "Order": 4
+    },
+    {
+      "ModuleName": "Advanced Excel Functions and Statistical Tools",
+      "FolderName": "Advanced_Excel_Functions",
+      "Order": 5
+    },
+    {
+      "ModuleName": "Pivot Tables, Dashboards, and Power Query in Excel",
+      "FolderName": "Pivot_Tables_Dashboards",
+      "Order": 6
+    },
+    {
+      "ModuleName": "Data Visualization Principles and Excel Charting",
+      "FolderName": "Data_Visualization_Principle",
+      "Order": 7
+    },
+    {
+      "ModuleName": "SQL Fundamentals: Queries, Filtering, and Sorting",
+      "FolderName": "SQL_Fundamentals_Queries",
+      "Order": 8
+    },
+    {
+      "ModuleName": "SQL Joins, Relationships, and Advanced Query Techniques",
+      "FolderName": "SQL_Joins_Relationships",
+      "Order": 9
+    },
+    {
+      "ModuleName": "Python Basics for Data Analysis",
+      "FolderName": "Python_Basics_for",
+      "Order": 10
+    },
+    {
+      "ModuleName": "Data Manipulation and Cleaning with NumPy and Pandas",
+      "FolderName": "Data_Manipulation_and",
+      "Order": 11
+    },
+    {
+      "ModuleName": "Descriptive Statistics and Probability Distributions",
+      "FolderName": "Descriptive_Statistics_and",
+      "Order": 12
+    },
+    {
+      "ModuleName": "Hypothesis Testing, Correlation, and Regression Analysis",
+      "FolderName": "Hypothesis_Testing_Correlati",
+      "Order": 13
+    },
+    {
+      "ModuleName": "Advanced Data Visualization with Python Libraries",
+      "FolderName": "Advanced_Data_Visualization",
+      "Order": 14
+    },
+    {
+      "ModuleName": "Introduction to Machine Learning for Business Analytics",
+      "FolderName": "Introduction_to_Machine",
+      "Order": 15
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "Id": "96c440bc-f1c8-4115-b996-a8623fb1761f",
+  "Name": "Descriptive Statistics and Probability Distributions",
+  "Description": "This lesson reviews key descriptive statistics (mean, median, variance, standard deviation, skewness) and introduces probability distributions relevant to data analysis including normal, binomial, and Poisson distributions. Students will compute and interpret these measures using Python.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.7192674-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.7198146-04:00",
+  "Actions": []
+}

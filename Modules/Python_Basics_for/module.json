@@ -1,0 +1,9 @@
+{
+  "Id": "1174886a-e3da-408c-8579-0eeb04ac9b99",
+  "Name": "Python Basics for Data Analysis",
+  "Description": "This lesson introduces Python programming fundamentals in the context of data analytics, covering data types, control structures, functions, and file I/O. Students will set up their analytics environment and write foundational Python scripts to read and process datasets.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.7026528-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.7030935-04:00",
+  "Actions": []
+}

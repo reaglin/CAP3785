@@ -1,0 +1,748 @@
+{
+  "ModuleFolderName": "SQL_Joins_Relationships",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "LastModified": "2026-07-03T14:25:53.5527142-04:00",
+  "NextQuestionNumber": 21,
+  "Questions": [
+    {
+      "Id": "TEMP_001",
+      "Type": "MC",
+      "Title": "What defines a relational database?",
+      "QuestionText": "Which statement best describes a relational database?",
+      "Hint": "Think about how data is structured and stored across multiple entities.",
+      "Feedback": "A relational database organizes data into multiple structured tables, each representing a distinct entity or concept, rather than storing everything in one large table.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527041-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It organizes data into multiple structured tables, each representing a distinct entity or concept.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It stores all data in a single spreadsheet for easy access.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It uses only one table with all columns needed for every record.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It organizes data in hierarchical folders rather than tables.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_002",
+      "Type": "MC",
+      "Title": "Purpose of a primary key",
+      "QuestionText": "What is the primary purpose of a primary key in a database table?",
+      "Hint": "Consider what makes each row uniquely identifiable.",
+      "Feedback": "A primary key is a column or set of columns that uniquely identifies each row within a table, ensuring no two rows share the same identifier.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527045-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To uniquely identify each row within a table",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To link two tables together through a shared column",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To store the most frequently queried column for faster lookups",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To enforce that a column cannot contain any numeric values",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_003",
+      "Type": "MC",
+      "Title": "Foreign key relationship example",
+      "QuestionText": "In a database with a Customers table and an Orders table, what role does the CustomerID column in the Orders table play?",
+      "Hint": "Think about which table \u0027owns\u0027 the original identifier and which table references it.",
+      "Feedback": "The CustomerID in the Orders table is a foreign key \u2014 it references the primary key in the Customers table, establishing a link between each order and its corresponding customer.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527047-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It is a foreign key that references the primary key in the Customers table.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It is a primary key that uniquely identifies each order.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It is an alias used to improve query readability.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It is a derived column calculated from other order fields.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_004",
+      "Type": "MC",
+      "Title": "Why split data across tables?",
+      "QuestionText": "Why is data typically split across multiple tables in a relational database rather than stored in one large table?",
+      "Hint": "Think about what happens when the same piece of information needs to be updated in many rows.",
+      "Feedback": "Storing all data in one table leads to repetition, inconsistency, and maintenance difficulties. Splitting data means a change like updating an address only needs to be made in one place.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527049-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To reduce repetition, maintain consistency, and simplify updates",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To make queries longer and more complex for security purposes",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To ensure each table has exactly the same number of rows",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To prevent the use of aggregate functions across columns",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_005",
+      "Type": "MC",
+      "Title": "INNER JOIN result behavior",
+      "QuestionText": "What happens to a row in the left table when no matching record exists in the right table during an INNER JOIN?",
+      "Hint": "Consider what \u0027matching rows only\u0027 means for unmatched records.",
+      "Feedback": "An INNER JOIN returns only rows where a match exists in both tables. If a row in the left table has no corresponding match in the right table, it is excluded from the result set entirely.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527051-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It is excluded from the result set entirely.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It is included with NULL values in the right table\u0027s columns.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It is duplicated for every row in the right table.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It causes a query error and stops execution.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_006",
+      "Type": "MC",
+      "Title": "INNER JOIN syntax placement",
+      "QuestionText": "Where is the INNER JOIN clause placed within a SELECT statement?",
+      "Hint": "Think about the structural section of a SELECT query that specifies the data source.",
+      "Feedback": "The INNER JOIN clause is placed in the FROM section of a SELECT statement, followed by an ON condition that specifies which columns to match.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527053-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "In the FROM section, followed by an ON condition",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "In the SELECT list, before the column names",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "In the WHERE clause, after the filter conditions",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "In the ORDER BY clause, after the GROUP BY clause",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_007",
+      "Type": "MC",
+      "Title": "Purpose of table aliases",
+      "QuestionText": "What is the main benefit of using table aliases in a SQL JOIN query?",
+      "Hint": "Think about how long table names can make column references harder to read.",
+      "Feedback": "Aliases assign short, readable names to tables within a query, simplifying syntax when referencing columns from multiple tables and making the query easier to read and write.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527056-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "They simplify syntax by assigning short, readable names to tables.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They permanently rename the tables in the database schema.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They improve query performance by indexing the joined columns.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They replace the ON condition when joining more than two tables.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_008",
+      "Type": "MC",
+      "Title": "Using WHERE with INNER JOIN",
+      "QuestionText": "What is the effect of adding a WHERE clause after an INNER JOIN in a query?",
+      "Hint": "Consider that the JOIN already filters to matched rows \u2014 what does WHERE do additionally?",
+      "Feedback": "A WHERE clause appended after an INNER JOIN further narrows the result set based on additional conditions beyond the join predicate, such as filtering for only shipped orders.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527059-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "It further narrows the result set beyond the join matching condition.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It replaces the ON condition and defines the join logic.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It converts the INNER JOIN into a LEFT JOIN automatically.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "It groups the results by the specified column.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_009",
+      "Type": "MC",
+      "Title": "LEFT OUTER JOIN behavior",
+      "QuestionText": "Which result set does a LEFT OUTER JOIN produce?",
+      "Hint": "Think about which table\u0027s rows are always preserved, even without a match.",
+      "Feedback": "A LEFT OUTER JOIN returns all rows from the left table and only the matching rows from the right table, filling unmatched right-side columns with NULL.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.552706-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "All rows from the left table and only matching rows from the right table, with NULLs for unmatched right columns",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Only rows where a match exists in both tables",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "All rows from both tables regardless of matches",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "All rows from the right table and only matching rows from the left table",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_010",
+      "Type": "MC",
+      "Title": "FULL OUTER JOIN and MySQL",
+      "QuestionText": "Which statement is true about FULL OUTER JOIN in MySQL?",
+      "Hint": "Think about whether MySQL has native support for this join type.",
+      "Feedback": "MySQL does not natively support FULL OUTER JOIN. It can be simulated using a UNION of a LEFT JOIN and a RIGHT JOIN.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527063-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "MySQL does not natively support FULL OUTER JOIN; it must be simulated using a UNION of LEFT and RIGHT JOINs.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "MySQL supports FULL OUTER JOIN with the same syntax as other databases.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "MySQL replaces FULL OUTER JOIN with CROSS JOIN automatically.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "FULL OUTER JOIN is not a valid SQL operation in any database system.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_011",
+      "Type": "MC",
+      "Title": "NULL values in OUTER JOINs",
+      "QuestionText": "How can you use a WHERE clause after an OUTER JOIN to find records that have no match in the joined table?",
+      "Hint": "Think about what value fills the columns of the table that lacks a matching record.",
+      "Feedback": "After an OUTER JOIN, unmatched rows have NULL in the columns from the table with no match. Using IS NULL in the WHERE clause filters for only those unmatched (orphaned) records, a pattern called an exclusion join.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527064-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Filter with IS NULL on a column from the table that would have no matching record.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Filter with = 0 on the primary key column of the right table.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Use NOT IN with the entire result set of the joined table.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Add a DISTINCT keyword before the SELECT to remove unmatched rows.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_012",
+      "Type": "MC",
+      "Title": "What is a subquery?",
+      "QuestionText": "What is a subquery in SQL?",
+      "Hint": "Think about nesting one SQL statement inside another.",
+      "Feedback": "A subquery is a SELECT statement nested inside another SQL statement, enclosed in parentheses. It is evaluated before the outer query and its result is used as input to the outer query.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527066-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A SELECT statement nested inside another SQL statement, evaluated before the outer query",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A stored procedure that runs on a scheduled basis",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A JOIN operation that links more than three tables simultaneously",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A view that permanently stores a query result in the database",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_013",
+      "Type": "MC",
+      "Title": "Correlated vs. non-correlated subqueries",
+      "QuestionText": "What distinguishes a correlated subquery from a non-correlated subquery?",
+      "Hint": "Consider how many times each type of subquery executes relative to the outer query.",
+      "Feedback": "A correlated subquery references columns from the outer query and executes once for every row processed by the outer query, while a non-correlated subquery is independent and executes only once.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527068-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A correlated subquery references outer query columns and runs once per row; a non-correlated subquery runs only once.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A correlated subquery runs only once; a non-correlated subquery runs once per row in the outer query.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A correlated subquery is placed in the FROM clause; a non-correlated subquery is placed in the WHERE clause.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A correlated subquery uses JOINs internally; a non-correlated subquery does not use any JOINs.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_014",
+      "Type": "MC",
+      "Title": "EXISTS operator behavior",
+      "QuestionText": "What does the EXISTS operator test in a correlated subquery?",
+      "Hint": "Think about what condition causes EXISTS to return true.",
+      "Feedback": "The EXISTS operator tests whether a correlated subquery returns at least one row. It is often faster than IN for large datasets because the database can stop evaluating once the first matching row is found.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527069-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Whether the correlated subquery returns at least one row",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Whether the correlated subquery returns a NULL value",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Whether all rows in the outer query have a matching row in the subquery",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Whether the subquery result set is sorted in ascending order",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_015",
+      "Type": "MC",
+      "Title": "GROUP BY clause requirement",
+      "QuestionText": "When using GROUP BY with aggregate functions in a SELECT statement, which columns must appear in the GROUP BY clause?",
+      "Hint": "Think about the rule that applies to non-aggregated columns in the SELECT list.",
+      "Feedback": "Every column in the SELECT list that is not part of an aggregate function must appear in the GROUP BY clause. This ensures the database knows how to group the non-aggregated values.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527071-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Every column in the SELECT list that is not an aggregate function",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Only the primary key column of the main table",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "All columns used in any JOIN condition within the query",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Only the columns that contain numeric values",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_016",
+      "Type": "MC",
+      "Title": "HAVING vs. WHERE filtering",
+      "QuestionText": "What is the key difference between the WHERE clause and the HAVING clause in an aggregation query?",
+      "Hint": "Think about the stage of query execution at which each clause filters data.",
+      "Feedback": "WHERE filters individual rows before grouping occurs, while HAVING filters aggregated groups after the GROUP BY clause has been applied. They operate at different stages of query execution.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527073-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "WHERE filters individual rows before grouping; HAVING filters aggregated groups after grouping.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "WHERE filters aggregated groups; HAVING filters individual rows before grouping.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "WHERE is used only with JOINs; HAVING is used only with subqueries.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "WHERE and HAVING are interchangeable and can be used in place of each other.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_017",
+      "Type": "MC",
+      "Title": "Derived table in subquery",
+      "QuestionText": "What is a derived table in the context of SQL subqueries?",
+      "Hint": "Think about where a subquery can be placed to act as a temporary data source.",
+      "Feedback": "A derived table (also called an inline view) is a subquery placed in the FROM clause, creating a temporary result set that the outer query can reference and query against.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527074-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "A temporary result set created by placing a subquery in the FROM clause",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A permanent table created automatically when an INNER JOIN is executed",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A table generated by the GROUP BY clause for each aggregated group",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A backup copy of a table created before a DELETE operation",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_018",
+      "Type": "MC",
+      "Title": "Choosing JOIN type for completeness",
+      "QuestionText": "A report requires every product to be listed with its total sales, including products that have never been sold. Which JOIN type is most appropriate?",
+      "Hint": "Think about which join type preserves all rows from one table even without a match.",
+      "Feedback": "A LEFT JOIN with the products table on the left is appropriate here. It returns every product regardless of whether a sales record exists, with NULL or zero for products with no sales \u2014 unlike INNER JOIN, which would exclude unsold products.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527084-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "LEFT JOIN with the products table on the left side",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "INNER JOIN between products and sales tables",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "RIGHT JOIN with the sales table on the left side",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "FULL OUTER JOIN is always required when including products with no sales",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_019",
+      "Type": "MC",
+      "Title": "Validating multi-table query results",
+      "QuestionText": "After running a complex multi-table query, which technique helps verify that the results are logically correct?",
+      "Hint": "Think about how you might independently confirm aggregate totals.",
+      "Feedback": "Cross-checking aggregate totals against known figures, or running simpler queries on individual tables and comparing sums, are practical techniques for catching join duplication or missing rows in complex queries.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527085-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Run simpler queries on individual tables and compare aggregate totals to the complex query results.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Add an ORDER BY clause to the query to sort results alphabetically.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Replace all JOINs with subqueries to verify the logic separately.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Check that the number of columns in the result matches the number of tables joined.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_020",
+      "Type": "MC",
+      "Title": "Decomposing a complex business question",
+      "QuestionText": "According to the module, what is the recommended first step before writing SQL for a complex analytical question?",
+      "Hint": "Think about the planning phase before any code is written.",
+      "Feedback": "Before writing any SQL, it is essential to break a complex business question into smaller, answerable sub-problems that map to specific tables and operations, making the overall query easier to design and verify.",
+      "TopicTitle": "Relational Database Foundations",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:25:53.5527087-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Break the question into smaller sub-problems that map to specific tables and operations.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Write the SELECT clause first and add JOIN conditions afterward.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Choose the aggregate function to use before identifying which tables are needed.",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Create a temporary table to hold all relevant data before querying it.",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    }
+  ]
+}

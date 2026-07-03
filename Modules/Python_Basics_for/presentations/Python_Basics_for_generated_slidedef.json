@@ -1,0 +1,185 @@
+{
+  "PresentationTitle": "Python Basics for Data Analysis",
+  "Topic": "Setting Up the Analytics Environment, Python Data Types and Structures, Control Structures and Logic, Writing and Using Functions, File Input and Output for Data, Writing Foundational Data Analysis Scripts",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "Python Basics for Data Analysis",
+      "Bullets": [
+        "A foundational course in Python programming for college-level data analytics students."
+      ],
+      "SpeakerNotes": "Welcome students to the course. This presentation covers the essential Python skills needed to set up a working analytics environment, understand core data types, write control logic, build functions, handle files, and construct complete data analysis scripts. By the end, students will have the practical foundation needed to tackle real-world data problems using Python."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Setting Up the Analytics Environment",
+      "Bullets": [
+        "Install Python from python.org as the first step.",
+        "Use pip to install essential analytics libraries quickly.",
+        "Create virtual environments to isolate project dependencies.",
+        "Choose a code editor or IDE such as VS Code.",
+        "Install and launch Jupyter Notebook for interactive coding."
+      ],
+      "SpeakerNotes": "Before writing any code, students need a properly configured environment. Start by downloading and installing Python from python.org. Once installed, pip \u2014 Python\u0027s package manager \u2014 can install libraries like NumPy and pandas with a single command. Virtual environments (created with \u0027python -m venv\u0027) isolate dependencies so different projects don\u0027t conflict. A good IDE like VS Code or PyCharm provides syntax highlighting, debugging tools, and terminal access. Jupyter Notebook is especially popular in analytics because it allows students to write and run code in cells and see output inline in the browser."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "Verifying Your Environment",
+      "Bullets": [
+        "Run a test script to confirm all libraries are installed.",
+        "Import pandas, NumPy, and matplotlib to check availability.",
+        "Resolve errors before moving on to writing scripts.",
+        "A passing test script means your environment is ready."
+      ],
+      "SpeakerNotes": "After setup, it is critical to verify the environment by running a simple test script. The script should import key libraries such as pandas, NumPy, and matplotlib and print a confirmation message. If an ImportError appears, students should use pip to reinstall the missing library. This verification step prevents frustrating errors later and ensures every student begins coding on a stable foundation. Encourage students to troubleshoot errors methodically by reading the error message carefully."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "Python Data Types and Structures",
+      "Bullets": [
+        "Integers and floats store whole and decimal numeric values.",
+        "Strings represent text data like labels and categories.",
+        "Lists are ordered, mutable collections of mixed data types.",
+        "Tuples are ordered and immutable \u2014 ideal for fixed data.",
+        "Dictionaries store key-value pairs for fast structured lookups."
+      ],
+      "SpeakerNotes": "Python offers several built-in data types that are fundamental to analytics. Integers (int) store whole numbers; floats store decimals \u2014 both are essential for quantitative calculations. Strings hold textual data such as column names, categories, or identifiers. Lists allow you to store multiple items and change them over time, making them versatile for data collections. Tuples behave like lists but cannot be modified after creation \u2014 useful when data should remain constant. Dictionaries map keys to values and enable fast, named access to structured records, similar to a row in a dataset."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "Choosing the Right Data Structure",
+      "Bullets": [
+        "Choose lists for ordered, changeable collections of records.",
+        "Use tuples for fixed sequences that should not change.",
+        "Use dictionaries when data requires named key-value access.",
+        "Match data structure to the operation for best performance.",
+        "Poor structure choices cause errors and slow down scripts."
+      ],
+      "SpeakerNotes": "Selecting the right data structure is a critical skill in analytics programming. Lists are best when you need to add, remove, or reorder items. Tuples are preferred when data integrity matters \u2014 for example, storing coordinate pairs or configuration values. Dictionaries excel when you need to look up values by a meaningful key, such as accessing a student\u0027s grade by name. Remind students that choosing the wrong structure can lead to bugs or inefficient code, especially when working with large datasets."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "Control Structures and Logic",
+      "Bullets": [
+        "Use if, elif, and else to direct program decision-making.",
+        "Logical operators (and, or, not) combine Boolean conditions.",
+        "Comparison operators build conditions that return True or False.",
+        "for loops iterate over lists, tuples, and other iterables.",
+        "while loops repeat code until a condition becomes False."
+      ],
+      "SpeakerNotes": "Control structures determine how a Python program flows. Conditional statements use if, elif, and else to execute different code paths based on whether a condition is true. Logical operators (and, or, not) let you combine multiple conditions in a single expression. Comparison operators like ==, !=, \u003E, and \u003C evaluate relationships between values and return Boolean results. The for loop is the workhorse of data processing \u2014 it steps through each element in a list or other iterable. The while loop is used when the number of iterations is unknown, repeating as long as a condition remains True."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "Loop Control and Nested Logic",
+      "Bullets": [
+        "break exits a loop immediately when a condition is met.",
+        "continue skips the current iteration and moves to the next.",
+        "pass is a placeholder that does nothing in a block.",
+        "Nested loops handle multi-dimensional or hierarchical data.",
+        "Nested conditionals inside loops enable complex data filtering."
+      ],
+      "SpeakerNotes": "Python provides three loop control statements that offer finer execution control. break immediately terminates the loop \u2014 useful when a target value is found. continue skips the rest of the current iteration and proceeds to the next one \u2014 helpful for skipping invalid records. pass is a null operation used as a placeholder when a code block is syntactically required but no action is needed yet. Nesting a loop inside another loop allows processing of multi-dimensional data such as a list of lists. Placing conditionals inside loops enables row-level filtering logic in data scripts."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "Writing and Using Functions",
+      "Bullets": [
+        "Define functions using the def keyword and a clear name.",
+        "Parameters receive input; arguments supply the actual values.",
+        "The return statement sends computed results back to the caller.",
+        "Call a function by name with required arguments in parentheses.",
+        "Docstrings document a function\u0027s purpose, inputs, and outputs."
+      ],
+      "SpeakerNotes": "Functions are reusable blocks of code defined with the def keyword. The function name should be descriptive of its task. Parameters listed in the function signature act as placeholders, and arguments are the values passed when the function is called. The return statement allows the function to output a value for use elsewhere in the script \u2014 without it, the function returns None. Calling a function is as simple as writing its name followed by parentheses and any arguments. Docstrings \u2014 written as triple-quoted strings directly below the def line \u2014 are a professional practice that helps others (and your future self) understand the function\u0027s behavior."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "Organizing Code with Functions",
+      "Bullets": [
+        "Modular functions separate distinct tasks into focused units.",
+        "Single-purpose functions are easier to test and maintain.",
+        "Variables inside functions are local and do not affect globals.",
+        "Reusable functions reduce code duplication across scripts.",
+        "Well-named functions make scripts self-documenting and clear."
+      ],
+      "SpeakerNotes": "Good function design is a hallmark of professional Python programming. Modular functions \u2014 each responsible for one specific task \u2014 make scripts easier to read, debug, and extend. Variable scope is an important concept: variables declared inside a function are local, meaning they exist only within that function and do not interfere with variables in the broader script. This isolation prevents unintended side effects. Encourage students to think of each function as a mini-program with a clear input and output. Reusing functions rather than repeating code blocks also reduces errors and makes future updates simpler."
+    },
+    {
+      "SlideNumber": 10,
+      "Title": "File Input and Output for Data",
+      "Bullets": [
+        "Use open() to access files; always close them properly.",
+        "Read file contents with read(), readline(), or readlines().",
+        "Write results to files using write mode (\u0027w\u0027) or append (\u0027a\u0027).",
+        "Python\u0027s csv module simplifies reading and writing tabular data.",
+        "Specify correct file paths \u2014 relative or absolute \u2014 to locate files."
+      ],
+      "SpeakerNotes": "File I/O is how Python scripts interact with real-world datasets. The built-in open() function opens a file in a specified mode: \u0027r\u0027 for reading, \u0027w\u0027 for writing, and \u0027a\u0027 for appending. Using a with statement ensures the file is properly closed even if an error occurs. Python offers read(), readline(), and readlines() for reading file contents with varying levels of granularity. Writing processed data back to a file allows you to save results and share outputs. The csv module handles the complexities of comma-separated files \u2014 such as quoted fields \u2014 automatically. Understanding file paths (relative vs. absolute) is essential for locating data stored in different directories."
+    },
+    {
+      "SlideNumber": 11,
+      "Title": "Parsing and Cleaning Data from Files",
+      "Bullets": [
+        "Convert string values to int or float during file reading.",
+        "Handle missing values by detecting and replacing empty fields.",
+        "Strip whitespace and fix formatting inconsistencies in records.",
+        "Build cleaning logic into the file-reading step for efficiency.",
+        "Clean data at load time reduces downstream errors in scripts."
+      ],
+      "SpeakerNotes": "Raw data files are rarely perfect. When reading files, students should apply data cleaning logic immediately \u2014 for example, using int() or float() to convert numeric strings, and conditional checks to handle empty or malformed fields. Stripping extra whitespace with .strip() prevents subtle comparison errors. Integrating cleaning into the file-reading loop means data arrives in a usable state before any analysis begins. This proactive approach reduces bugs during processing and ensures that summary statistics and outputs are based on consistent, well-formed data."
+    },
+    {
+      "SlideNumber": 12,
+      "Title": "Writing Foundational Data Analysis Scripts",
+      "Bullets": [
+        "Structure scripts with imports, loading, processing, and output.",
+        "Read datasets from CSV or text files using file I/O.",
+        "Apply loops and conditionals to filter and transform records.",
+        "Define functions to compute totals, averages, and counts.",
+        "Use correct data types to prevent type mismatch errors."
+      ],
+      "SpeakerNotes": "A complete data analysis script follows a predictable, professional structure. Begin with import statements, then load data from external files, process it using loops and conditionals, apply functions for calculations, and finish with formatted output. Reading data from CSV files using the csv module or open() makes real-world datasets available for analysis. Loops with conditionals enable row-by-row filtering and transformation. Custom functions that compute summary statistics \u2014 such as average() or total_sales() \u2014 make the script modular and reproducible. Correct use of data types (e.g., ensuring numeric fields are stored as floats, not strings) is essential for accurate calculations."
+    },
+    {
+      "SlideNumber": 13,
+      "Title": "Outputting and Presenting Results",
+      "Bullets": [
+        "Print results to the console with clear, labeled formatting.",
+        "Write summarized output to a file for sharing or review.",
+        "Format numbers and text for readability using f-strings.",
+        "Communicate findings clearly \u2014 output is the analyst\u0027s product.",
+        "Effective output transforms raw results into actionable insight."
+      ],
+      "SpeakerNotes": "The final step of any analysis script is presenting the results clearly. Using print() with descriptive labels helps readers interpret console output. F-strings (f\u0027Average: {avg:.2f}\u0027) allow formatted, readable output that looks professional. Writing results to an output file \u2014 such as a summary CSV or text report \u2014 makes them shareable and reusable. Remind students that the output is what stakeholders see; clean, well-labeled results communicate competence and clarity. Encourage them to think about their audience when designing output formats."
+    },
+    {
+      "SlideNumber": 14,
+      "Title": "End-to-End Script Workflow",
+      "Bullets": [
+        "Combine all concepts into one cohesive analysis script.",
+        "Step 1: Set up environment and import required libraries.",
+        "Step 2: Read and clean data from an external file.",
+        "Step 3: Process data with loops, conditionals, and functions.",
+        "Step 4: Output formatted summary results to screen or file."
+      ],
+      "SpeakerNotes": "Bringing all concepts together into a single end-to-end script is the capstone skill of this course. Students should be able to: configure their environment, import libraries, read a CSV dataset, clean and validate the data during loading, iterate over records with loops, apply conditionals for filtering, call custom functions to compute statistics, and print or write the results clearly. Practicing this full workflow builds both technical competence and the habits of professional data analysts. Encourage students to build a personal script template they can reuse across future projects."
+    },
+    {
+      "SlideNumber": 15,
+      "Title": "Summary and Key Takeaways",
+      "Bullets": [
+        "A properly configured environment is the foundation of analytics.",
+        "Python\u0027s data types and structures organize data effectively.",
+        "Control structures and functions enable scalable data processing.",
+        "File I/O connects Python scripts to real-world datasets.",
+        "End-to-end scripts integrate all skills into practical workflows."
+      ],
+      "SpeakerNotes": "This slide summarizes the five major topic areas covered in the course. Students should leave with a clear understanding of how to set up Python and Jupyter, work with core data types and structures, apply control logic and functions, read and write data files, and assemble complete analysis scripts. These foundational skills form the basis for all advanced analytics work \u2014 including data visualization, statistical analysis, and machine learning. Encourage students to practice by building their own scripts using real datasets. The best way to reinforce these concepts is through consistent, hands-on coding."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T14:01:34.3819111-04:00",
+  "PptxFileName": ""
+}

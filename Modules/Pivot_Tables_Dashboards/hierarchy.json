@@ -1,0 +1,1469 @@
+{
+  "ModuleFolderName": "Pivot_Tables_Dashboards",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:32:10.5924612-04:00",
+  "ModifiedDate": "2026-07-03T11:35:28.0917412-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+      "Title": "Introduction to Pivot Tables",
+      "Summary": "Students learn the fundamentals of pivot tables, including how to create, configure, and navigate them to summarize and explore large datasets efficiently.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "ModifiedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "Elements": [
+        {
+          "Id": "aa82b89c-ac75-4ec9-88d0-81a57181c483",
+          "TopicId": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+          "Title": "What Is a Pivot Table?",
+          "BodyText": "A pivot table is an interactive Excel tool that allows users to summarize, group, and analyze large datasets without writing formulas or altering the original data.",
+          "Notes": "For example, a sales dataset with thousands of rows can be instantly summarized by region, product, or month using a pivot table.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "ModifiedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "Items": [
+            {
+              "Id": "95907c77-14cf-479d-b41a-ec7096972b88",
+              "Text": "Pivot tables condense large amounts of raw data into a compact, readable summary format.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "da11d61a-37d8-4f56-985f-5898dbbb57e0",
+              "Text": "They are dynamic, meaning the summary updates automatically when the underlying data changes or when the user rearranges fields.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cfde0715-fd27-428f-9534-e5411e5c80e2",
+              "Text": "No programming or complex formulas are required to generate meaningful insights from data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9754e122-ea1c-4590-aece-e41b924ee87e",
+          "TopicId": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+          "Title": "Preparing Your Data for a Pivot Table",
+          "BodyText": "Before creating a pivot table, the source data must be properly structured to ensure accurate and reliable results.",
+          "Notes": "A well-structured table has no blank rows or columns, no merged cells, and each column has a unique, descriptive header in the first row.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "ModifiedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "Items": [
+            {
+              "Id": "89967a8c-1c0f-47e1-884d-f550a5db6f00",
+              "Text": "Each column in the dataset should have a clear, unique header that will become a field name in the pivot table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "042fc7de-55f7-418f-bca3-165225c6b89c",
+              "Text": "The data should be organized in a flat, tabular format with one record per row and no subtotal rows embedded within it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "099d2982-39b8-436c-a103-82b9512dc1ff",
+              "Text": "Formatting the source data as an Excel Table (Insert \u003E Table) makes it easier to manage and ensures the pivot table captures new data automatically.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2caa9394-a18c-492f-8928-266217c014f4",
+          "TopicId": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+          "Title": "Creating a Pivot Table",
+          "BodyText": "Inserting a pivot table in Excel is a straightforward process that begins by selecting your data source and choosing where the pivot table will be placed.",
+          "Notes": "Excel will detect the data range automatically if the cursor is placed within the dataset before inserting.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "ModifiedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "Items": [
+            {
+              "Id": "179713bd-cc09-446b-8ac6-72ec96ad12d7",
+              "Text": "Navigate to Insert \u003E PivotTable and confirm or adjust the data range in the dialog box.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cf7d695f-0932-4ad4-b729-ca3d44de1725",
+              "Text": "Choose to place the pivot table in a new worksheet or an existing worksheet location.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e8baeacb-6210-4901-b8e6-4004130bc229",
+              "Text": "Excel generates an empty pivot table shell and opens the PivotTable Fields pane on the right side of the screen.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9b02f39d-4ad0-4480-933b-9d3fefe71424",
+          "TopicId": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+          "Title": "Understanding the PivotTable Fields Pane",
+          "BodyText": "The PivotTable Fields pane is the control center for configuring a pivot table, allowing users to assign data fields to specific areas of the report.",
+          "Notes": "Experimenting by dragging different fields into each area is the fastest way to understand how the layout changes the summary output.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "ModifiedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "Items": [
+            {
+              "Id": "33045aa7-2ba9-4728-903a-3f291a545b68",
+              "Text": "The pane displays all available column headers from the source data as draggable fields.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ac1cd17f-70d0-4f0c-bd82-50cb11808c17",
+              "Text": "Fields can be placed into four areas: Filters, Columns, Rows, and Values, each controlling a different dimension of the summary.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b66fe8f5-e3de-41b4-b94b-43b20578e95a",
+              "Text": "The Values area determines what is calculated (e.g., Sum, Count, Average), while Rows and Columns define how data is grouped and displayed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4bc7d2dd-ef36-4979-b344-531b1fadd12c",
+          "TopicId": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+          "Title": "Configuring Rows, Columns, and Values",
+          "BodyText": "Assigning fields to the Rows, Columns, and Values areas defines the structure and content of the pivot table summary.",
+          "Notes": "For instance, placing \u0027Region\u0027 in Rows, \u0027Product Category\u0027 in Columns, and \u0027Revenue\u0027 in Values produces a cross-tabulation of revenue by region and category.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "ModifiedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "Items": [
+            {
+              "Id": "4e606e07-aba9-4945-b049-e7af2fa0cb8e",
+              "Text": "Fields placed in Rows appear as row labels on the left side of the pivot table, grouping data vertically.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4a96e3e6-5883-4e44-9e6a-b2b02e79ca31",
+              "Text": "Fields placed in Columns appear as column headers across the top, grouping data horizontally.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9bb9a10f-6f09-451d-baa9-543cdf90a308",
+              "Text": "The Values field applies an aggregation function\u2014such as SUM, COUNT, or AVERAGE\u2014to the numeric data within each group intersection.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e7316497-453e-483f-9f87-0adafa6c432c",
+              "Text": "Multiple fields can be added to the Rows or Columns area to create hierarchical groupings.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2c11c347-310f-49a1-aa66-d6a84dcf8df3",
+          "TopicId": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+          "Title": "Navigating and Refreshing a Pivot Table",
+          "BodyText": "Once created, pivot tables offer interactive navigation features that allow users to drill down into data and keep summaries up to date.",
+          "Notes": "Double-clicking a value cell in a pivot table generates a new sheet showing the individual records that make up that summary figure\u2014a useful auditing feature.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "ModifiedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "Items": [
+            {
+              "Id": "b7bd264d-159d-4cd1-86f2-31afbc342486",
+              "Text": "Users can expand or collapse row and column groupings to show or hide detail levels within the summary.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "78179156-fb2e-469e-b176-6e128870ed3a",
+              "Text": "Clicking the dropdown arrows on row or column labels enables filtering to display only selected categories.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "90df3c67-29da-45a8-a01a-9f99cd7d25b4",
+              "Text": "When source data is updated, the pivot table must be refreshed manually by right-clicking and selecting Refresh, or by using the Analyze tab.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "304070bd-21cf-4c1f-9533-4b4fa5853728",
+              "Text": "The Refresh All option under the Data tab updates all pivot tables in the workbook at once.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "982c6145-ff91-4aa3-bf5d-624ed95e2c59",
+          "TopicId": "416875d7-6ec6-45ed-94a2-c8e39489a69f",
+          "Title": "Changing Summary Functions and Formatting Values",
+          "BodyText": "By default, Excel uses SUM for numeric fields and COUNT for text fields, but these aggregation functions can be changed to better suit the analysis goal.",
+          "Notes": "For example, switching from SUM to AVERAGE in a sales pivot table reveals the average transaction value per category instead of the total.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "ModifiedDate": "2026-07-03T11:32:37.3675736-04:00",
+          "Items": [
+            {
+              "Id": "bcb408c1-ecb7-4425-a836-e32da78747e0",
+              "Text": "Right-click any value cell and select \u0027Summarize Values By\u0027 to choose from functions such as Sum, Count, Average, Max, Min, or others.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "83b2cf81-ab98-4de1-b934-f941fc2ac9e5",
+              "Text": "The \u0027Show Values As\u0027 option allows calculated displays such as % of Grand Total, % of Row Total, or Running Total for comparative analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "25760a73-e76a-4386-877f-99b05b5629cf",
+              "Text": "Number formatting can be applied to value cells via \u0027Value Field Settings\u0027 to add currency symbols, decimal places, or percentage signs.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+      "Title": "Advanced Pivot Table Techniques",
+      "Summary": "This topic covers advanced pivot table features such as calculated fields, grouping, filtering, and slicers to enable deeper and more flexible data analysis.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "ModifiedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "Elements": [
+        {
+          "Id": "56303b5f-8643-46be-8ae5-d840a3380d48",
+          "TopicId": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+          "Title": "Calculated Fields in Pivot Tables",
+          "BodyText": "Calculated fields allow you to create new data columns within a pivot table by writing custom formulas based on existing fields, without altering the source data.",
+          "Notes": "For example, you could create a \u0027Profit Margin\u0027 calculated field by dividing a Profit field by a Revenue field directly inside the pivot table.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "ModifiedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "Items": [
+            {
+              "Id": "676a945c-1336-4589-be59-35d100a42347",
+              "Text": "To insert a calculated field, go to PivotTable Analyze \u003E Fields, Items \u0026 Sets \u003E Calculated Field.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cd707c56-9488-4b8b-a959-cb51c50de48b",
+              "Text": "Formulas in calculated fields reference other field names and support standard Excel arithmetic operators.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d11c7ff3-8147-4969-922f-89ad7cb3eb92",
+              "Text": "Calculated fields are dynamic and automatically update when the underlying source data changes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0d4b840b-5b3a-46a0-b28c-12bc6963c1a6",
+              "Text": "They are useful for deriving ratios, percentages, or adjusted metrics without modifying the original dataset.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4ebf9c5b-1d30-429f-96a5-069f9b63f7eb",
+          "TopicId": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+          "Title": "Grouping Data in Pivot Tables",
+          "BodyText": "Grouping enables you to consolidate rows or columns into meaningful categories, making large datasets easier to analyze at different levels of granularity.",
+          "Notes": "A common use case is grouping a date field by Month, Quarter, and Year so you can drill down or roll up time-based analysis with a single click.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "ModifiedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "Items": [
+            {
+              "Id": "23f2fdd5-0bd4-46bc-b615-7e11d70755ba",
+              "Text": "Right-click a field value and select \u0027Group\u0027 to define grouping intervals for numeric or date fields.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ba7852a9-ff31-4257-9465-11171895c868",
+              "Text": "Date fields can be grouped by days, months, quarters, or years, enabling time-series analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2beb2070-2806-47d4-bf7f-9ca4e5ea7804",
+              "Text": "Numeric fields can be grouped into custom ranges, such as age brackets or sales tiers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5414123a-78bc-454a-8ab0-39956cdb9ed7",
+              "Text": "Grouping does not change source data; it only affects how data is displayed in the pivot table.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8d84971e-a699-4c56-b0e4-8dcd59850207",
+          "TopicId": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+          "Title": "Filtering Data Within Pivot Tables",
+          "BodyText": "Pivot table filters let you narrow the displayed data to specific subsets, helping you focus your analysis on relevant records.",
+          "Notes": "The Report Filter area (formerly Page Field) is particularly useful when you want to switch the entire pivot table view by a single dimension, such as a region or product category.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "ModifiedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "Items": [
+            {
+              "Id": "d60bf71a-15a4-4270-8341-6c1eed9deb06",
+              "Text": "Drag a field to the Filters area to add a report-level filter that applies across the entire pivot table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5d271e75-da7a-4f2b-b32e-7ea769b2fc58",
+              "Text": "Row and column label filters allow you to show only the top N items, items matching a condition, or specific selections.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5569d923-f6df-4c37-9dd4-c0a1f2a8a3ca",
+              "Text": "Value filters enable filtering based on numeric thresholds, such as showing only products with sales greater than a specified amount.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c90f3288-c02d-4fe5-a506-4e0c5f086450",
+              "Text": "Multiple filters can be combined to create highly targeted views of your data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a78a2893-df57-4525-ae62-94f65aa85eca",
+          "TopicId": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+          "Title": "Using Slicers for Interactive Filtering",
+          "BodyText": "Slicers are visual, clickable filter controls that make it easy to interactively segment pivot table data without navigating dropdown menus.",
+          "Notes": "Slicers are especially powerful in dashboards because a single slicer can be connected to multiple pivot tables simultaneously, keeping all visuals in sync.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "ModifiedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "Items": [
+            {
+              "Id": "929f2a38-54f0-4e10-8e0d-8d8baaeaa12b",
+              "Text": "Insert a slicer via PivotTable Analyze \u003E Insert Slicer, then select the fields you want to filter by.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fab79481-6b3e-4fd8-93de-65423a86cbb8",
+              "Text": "Slicers display all available values as buttons, making the current filter state immediately visible to the user.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b3ffb31b-f905-45f8-ac5c-ccaa2ce76eea",
+              "Text": "Multiple slicers can be added to a worksheet to allow filtering across several dimensions at once.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e8b8a0e3-809f-49ce-85c5-72eb0a3575ec",
+              "Text": "Use \u0027Report Connections\u0027 to link one slicer to multiple pivot tables, enabling synchronized filtering across a dashboard.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3f58d46f-b1fe-43d5-acd7-8456de1c3d30",
+          "TopicId": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+          "Title": "Timeline Slicers for Date-Based Filtering",
+          "BodyText": "Timeline slicers are a specialized slicer type designed specifically for filtering date fields, providing an intuitive scrollable time bar.",
+          "Notes": "Timelines are ideal for dashboards that track performance over time, allowing users to drag handles to select custom date ranges such as a specific quarter or month.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "ModifiedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "Items": [
+            {
+              "Id": "d3737138-fc10-4ea9-8d9f-a7ee0af4335b",
+              "Text": "Insert a timeline via PivotTable Analyze \u003E Insert Timeline, and select a date field from your data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8d433f0a-9e91-449e-8ee9-5ed9a7d9ea0e",
+              "Text": "Users can switch the timeline granularity between years, quarters, months, and days using a dropdown on the timeline control.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1a606435-99f9-40ce-bebb-9de929de706c",
+              "Text": "Timelines update all connected pivot tables and charts in real time as the selected range changes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ca8c025d-ee70-42ed-bb0a-dea1d0cf9d16",
+              "Text": "Like slicers, timelines can be connected to multiple pivot tables through Report Connections.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fa67c680-063f-4971-a4b2-d6aa901dae8b",
+          "TopicId": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+          "Title": "Drilling Down and Expanding Pivot Table Data",
+          "BodyText": "Pivot tables support multi-level hierarchies that allow you to expand or collapse data levels for top-down exploration of your dataset.",
+          "Notes": "Double-clicking a value cell in a pivot table generates a new worksheet showing the underlying detail records that contribute to that aggregated value, which is useful for auditing.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "ModifiedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "Items": [
+            {
+              "Id": "01767d16-1df6-470a-aa1e-83e9ae4eea12",
+              "Text": "Add multiple fields to the Rows or Columns area to create nested hierarchies for deeper breakdowns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9dc15f50-7076-4933-a587-bbb55d45974d",
+              "Text": "Use the expand (\u002B) and collapse (\u2212) buttons to show or hide sub-levels within the pivot table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ba9cb6dd-8ca2-4410-b356-3ca0d0f94d0e",
+              "Text": "The \u0027Drill Down\u0027 feature (double-clicking a cell) extracts and displays the source rows behind any summarized figure.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "71f61019-e45b-4bf3-b9ea-2f8c8c8e8e53",
+              "Text": "Collapsing levels is useful for presenting high-level summaries while retaining the ability to reveal detail when needed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "850a7de4-5e3a-4f64-bff4-c0a5211b03c8",
+          "TopicId": "2d3fdf7a-651f-459f-8ba1-8eef6448f49a",
+          "Title": "Refreshing and Managing Pivot Table Data Sources",
+          "BodyText": "Keeping pivot tables up to date requires understanding how to refresh data and manage the connection to the underlying data source.",
+          "Notes": "If new rows are added beyond the original data range, you may need to update the data source range manually unless the source is an Excel Table, which expands automatically.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "ModifiedDate": "2026-07-03T11:33:07.5200676-04:00",
+          "Items": [
+            {
+              "Id": "124654e8-4704-488e-b142-89c660ed7ba0",
+              "Text": "Right-click the pivot table and select \u0027Refresh\u0027 to pull in any changes made to the source data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7e6f4462-b788-48f3-84e1-4570d40af589",
+              "Text": "Use PivotTable Analyze \u003E Change Data Source to update the range or connection if the source data has grown or moved.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "35da334c-aedb-4562-9a98-705fd35b784e",
+              "Text": "Basing your source data on an Excel Table (Ctrl\u002BT) ensures the pivot table automatically includes new rows upon refresh.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b86a04c6-bb50-4793-8b33-e9bbdd94a78e",
+              "Text": "The \u0027Refresh All\u0027 option under the Data tab refreshes all pivot tables and data connections in the workbook at once.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+      "Title": "Building Dynamic Dashboards",
+      "Summary": "Students learn how to design and assemble interactive Excel dashboards by combining pivot tables, charts, and visual elements into a cohesive reporting layout.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "ModifiedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "Elements": [
+        {
+          "Id": "0b00d3c9-07c1-4815-9691-1b64f6858ed4",
+          "TopicId": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+          "Title": "Planning the Dashboard Layout",
+          "BodyText": "Before building a dashboard, effective planning ensures all required information is organized logically and the layout serves the intended audience.",
+          "Notes": "Sketch a wireframe on paper or in Excel using cell borders to map out sections before adding data elements. Consider what decisions the dashboard needs to support.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "ModifiedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "Items": [
+            {
+              "Id": "3a99ddbd-a9cb-4870-8868-1633e16eb7f9",
+              "Text": "Identify the key metrics and KPIs that the dashboard must communicate to its audience.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4f4b17ef-5b1d-4cc0-a87d-4a4e433c5acb",
+              "Text": "Divide the worksheet into distinct zones such as a header, filters area, charts section, and summary table section.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f18e3d9b-3b02-4b78-9a88-cac3f9afb043",
+              "Text": "Use a separate sheet for raw data and pivot tables, keeping the dashboard sheet clean and presentation-ready.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9998f539-b328-4731-9111-72cd5ad6975d",
+              "Text": "Plan for consistent sizing and alignment of all visual elements to create a professional appearance.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "278396ed-5b55-4906-bff6-8b46b1c9de4b",
+          "TopicId": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+          "Title": "Connecting Pivot Tables to Dashboard Charts",
+          "BodyText": "Pivot charts are directly linked to pivot tables, making them the ideal chart type for a dynamic dashboard because they update automatically when data or filters change.",
+          "Notes": "Insert a pivot chart by selecting the pivot table and choosing Insert \u003E PivotChart. The chart will share the same filters and slicers as its source pivot table.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "ModifiedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "Items": [
+            {
+              "Id": "7fbf095c-3282-4af9-a000-e03e8f314b17",
+              "Text": "Create pivot charts from existing pivot tables to ensure the visual automatically reflects any data refresh or filter change.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aff5a0c6-6a86-4e2d-8829-da7bfaf6d08a",
+              "Text": "Choose chart types that best represent the data, such as bar charts for comparisons, line charts for trends, and pie charts for proportions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1a24d889-fa0d-4276-b112-7bd5a5cd4eb8",
+              "Text": "Remove pivot chart field buttons from the chart view to maintain a clean, dashboard-friendly appearance.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "eedd21db-b6dc-47bf-8085-abb5fa78d6b7",
+              "Text": "Position pivot charts on the dedicated dashboard sheet by cutting and pasting or by holding Alt while dragging to snap elements to cell gridlines.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "09316787-9fc9-47e8-ba56-25a2e308ec7a",
+          "TopicId": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+          "Title": "Adding Slicers for Interactivity",
+          "BodyText": "Slicers are visual filter controls that allow dashboard users to segment data with a single click, making the dashboard interactive without requiring any formula knowledge.",
+          "Notes": "Insert slicers via PivotTable Analyze \u003E Insert Slicer. Style them using Slicer Tools Options to match the dashboard color scheme.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "ModifiedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "Items": [
+            {
+              "Id": "838b71ad-8898-47d9-90d5-d2cbaba9d48a",
+              "Text": "Insert slicers for dimensions such as Region, Product Category, or Date to give users control over what data is displayed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "967b0f71-1081-4711-99cb-e866d4a6459b",
+              "Text": "Connect a single slicer to multiple pivot tables by right-clicking the slicer and selecting Report Connections, ensuring all charts update simultaneously.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "db99741c-44d1-4fe0-bec1-b24c7bce8010",
+              "Text": "Customize slicer size, number of columns, and color style to fit the dashboard layout and branding.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2813c95e-fce2-4285-9e87-fe9271efbc8c",
+              "Text": "Place slicers in a dedicated filter panel at the top or side of the dashboard so users always know where to apply filters.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3f721d4f-41c6-409e-8096-089671e6be7f",
+          "TopicId": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+          "Title": "Using Timeline Slicers for Date Filtering",
+          "BodyText": "Timeline slicers provide a specialized interactive control for filtering data by date periods such as months, quarters, or years.",
+          "Notes": "Timelines are only available when the pivot table contains a field formatted as a date data type. Insert them via PivotTable Analyze \u003E Insert Timeline.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "ModifiedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "Items": [
+            {
+              "Id": "c3d012a4-d509-4290-9c06-735a89a76e01",
+              "Text": "Insert a timeline slicer to allow users to scroll through and select specific time periods without manually entering date criteria.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2a978042-89cb-40f8-8dc5-8eae12d5a907",
+              "Text": "Switch between day, month, quarter, and year granularity directly within the timeline control to change the level of date detail displayed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "065e7da8-a7bd-4102-b454-6dbd491d476d",
+              "Text": "Connect the timeline to all relevant pivot tables using Report Connections so every chart on the dashboard reflects the selected date range.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "345749eb-a5f4-4b2b-89f3-3c4006caf28f",
+              "Text": "Resize and style the timeline to match the overall dashboard design for a cohesive look.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "14c405c0-cc31-4472-9049-f83ca02740c1",
+          "TopicId": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+          "Title": "Incorporating Summary KPI Cells",
+          "BodyText": "Key performance indicator cells display single high-level metrics such as total revenue, average order value, or year-over-year growth prominently on the dashboard.",
+          "Notes": "Use GETPIVOTDATA formulas to pull specific values from pivot tables into styled KPI cells, ensuring the values update whenever the pivot table refreshes.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "ModifiedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "Items": [
+            {
+              "Id": "56b50105-db1d-4909-b80e-50611f3ac14b",
+              "Text": "Use the GETPIVOTDATA function to extract specific summary values from a pivot table into a formatted KPI display cell.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "38f7ef5f-9702-4dd0-8979-f7e7fabbce9e",
+              "Text": "Apply bold fonts, large text sizes, colored backgrounds, or icon sets to KPI cells to make them visually prominent and immediately readable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e4fae9ed-15ee-43d6-a320-3929801c3b53",
+              "Text": "Add a descriptive label above or below each KPI value so viewers instantly understand what the number represents.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6f5e811b-b6ae-495b-a743-4ea0707333dd",
+              "Text": "Group related KPI cells together in a summary band at the top of the dashboard for at-a-glance executive reporting.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "09422d7d-4e6b-485c-845c-1d292fd3fc9e",
+          "TopicId": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+          "Title": "Formatting and Polishing the Dashboard",
+          "BodyText": "A well-formatted dashboard communicates professionalism and makes data easier to interpret by applying consistent design principles throughout the layout.",
+          "Notes": "Hide gridlines via View \u003E Show \u003E Gridlines and hide row and column headers to give the dashboard a clean, app-like appearance.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "ModifiedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "Items": [
+            {
+              "Id": "f10547b6-08ae-4b73-bc6f-6164c2d14e9a",
+              "Text": "Remove Excel gridlines, row numbers, and column letters from the dashboard sheet to create a presentation-quality visual surface.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6137c8f5-f1a1-4f75-a308-13adf66fbb68",
+              "Text": "Apply a consistent color palette across all charts, slicers, and KPI cells that aligns with organizational branding or a chosen theme.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "be3a5d6f-381b-49a3-bc82-b64ea96e86c4",
+              "Text": "Use cell shading and borders to create visual separation between dashboard sections such as the filter area, charts, and KPI summary.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d964def0-dce1-4d40-9915-b8491851248e",
+              "Text": "Lock the dashboard sheet to prevent accidental movement of charts or editing of layout cells, while still allowing slicer interaction.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "fd1bd570-9637-45db-a808-f5941f4c1584",
+              "Text": "Test the dashboard at different zoom levels and screen sizes to ensure all elements remain visible and properly aligned.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "f7b6ac69-3df2-4f16-bb1e-6a57d5fc1b57",
+          "TopicId": "0454304b-a073-4c7f-abe5-86bf8791b19f",
+          "Title": "Enabling One-Click Data Refresh",
+          "BodyText": "A truly dynamic dashboard updates all its pivot tables and charts instantly when the underlying data changes, requiring minimal manual intervention from the user.",
+          "Notes": "If the data source is managed by Power Query, refreshing the query automatically updates all connected pivot tables and charts in one step.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "ModifiedDate": "2026-07-03T11:33:39.2961405-04:00",
+          "Items": [
+            {
+              "Id": "f8235378-fd1b-468f-b119-d08fe9f33c96",
+              "Text": "Use the Refresh All button under the Data tab to update every pivot table and connected chart on the dashboard simultaneously.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a238dfc1-bd6c-465b-949b-5f909630cdb9",
+              "Text": "Enable the option to refresh pivot tables automatically when the workbook is opened via PivotTable Options \u003E Data \u003E Refresh data when opening the file.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b3c3183c-3ed5-4ae3-8216-09ca7ea607a0",
+              "Text": "When data is sourced through Power Query, a single Refresh All command updates the query, the pivot tables, and all dashboard visuals in sequence.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4b552afc-0266-4852-8cfb-d19b2f6d0dde",
+              "Text": "Communicate to end users exactly how and when to refresh the dashboard so reports always reflect current data.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "db9914bb-3167-4c1a-a1a0-11b03d89b8d5",
+      "Title": "Dashboard Interactivity and Visual Design",
+      "Summary": "This topic focuses on enhancing dashboards with slicers, timelines, and formatting best practices to make them intuitive and visually compelling for end users.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "ModifiedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "Elements": [
+        {
+          "Id": "7d8b13e9-888f-4511-8057-ffc3171c2999",
+          "TopicId": "db9914bb-3167-4c1a-a1a0-11b03d89b8d5",
+          "Title": "Adding Slicers to Dashboards",
+          "BodyText": "Slicers are visual filter buttons that allow users to interactively filter pivot table data with a single click, making dashboards more intuitive and user-friendly.",
+          "Notes": "Slicers can be connected to multiple pivot tables simultaneously, meaning one slicer can control an entire dashboard\u0027s data display at once.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "ModifiedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "Items": [
+            {
+              "Id": "6e02b018-8314-408c-be5b-6b4094c87325",
+              "Text": "Insert slicers via the PivotTable Analyze tab by selecting \u0027Insert Slicer\u0027 and choosing the desired fields.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "474e0b97-ffd6-4c3c-b8f6-0baa2936602c",
+              "Text": "Slicers can be resized, repositioned, and styled to match the overall dashboard color scheme.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0f9a9644-f928-45ed-acbb-58cb4556a6d7",
+              "Text": "A single slicer can be linked to multiple pivot tables by using the \u0027Report Connections\u0027 option, ensuring consistent filtering across charts and tables.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "da29ce16-d26b-468d-902d-0a7fd80a91cf",
+              "Text": "Clearing a slicer selection restores all data, giving users full control over what is displayed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b37c000a-73a6-4381-a9da-3c7827a1520f",
+          "TopicId": "db9914bb-3167-4c1a-a1a0-11b03d89b8d5",
+          "Title": "Using Timelines for Date-Based Filtering",
+          "BodyText": "Timelines are a specialized type of slicer designed specifically for date fields, enabling users to filter data by time periods such as months, quarters, or years.",
+          "Notes": "Timelines are especially useful in financial or sales dashboards where trends over time are a primary area of analysis.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "ModifiedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "Items": [
+            {
+              "Id": "1f408218-c603-4570-bd40-f3998f541fe0",
+              "Text": "Timelines are inserted from the PivotTable Analyze tab and require a date field to be present in the data source.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "38d61a4c-751a-40f9-bed0-24d72c5a5670",
+              "Text": "Users can drag the timeline handle to select a custom date range, or click a specific period such as a quarter or month.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5be60abd-d6a6-4833-872c-bd1b2daf5383",
+              "Text": "The timeline display level can be switched between days, months, quarters, and years using the dropdown in the upper-right corner of the timeline control.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "65735b21-9135-4b6c-a8aa-120e52250d68",
+              "Text": "Like slicers, timelines can be connected to multiple pivot tables to synchronize time-based filtering across the dashboard.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "45400ed7-2a83-43e1-96ac-955d30064742",
+          "TopicId": "db9914bb-3167-4c1a-a1a0-11b03d89b8d5",
+          "Title": "Laying Out a Dashboard for Usability",
+          "BodyText": "A well-structured dashboard layout guides the user\u0027s eye naturally through the most important information, placing key metrics prominently and supporting details below or to the side.",
+          "Notes": "A common layout principle is to place summary KPIs at the top, charts in the middle section, and detailed tables at the bottom.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "ModifiedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "Items": [
+            {
+              "Id": "a69441f3-070b-4f76-b932-4929865d4460",
+              "Text": "Group related charts and tables together so users can draw comparisons without excessive scrolling or searching.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "36029f81-0ee3-4193-baea-5a9eafa25ecb",
+              "Text": "Align elements using Excel\u0027s Align and Distribute tools to create a clean, professional appearance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0697e66c-c0e4-4bb9-8478-030f01251173",
+              "Text": "Use consistent spacing between elements to avoid a cluttered look and improve overall readability.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "699f8b69-c4a6-427a-9cfa-fb340a2f4913",
+              "Text": "Reserve a dedicated area for slicers and timelines, typically at the top or left side, so controls are immediately visible to users.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cae10eb6-6321-4d46-8325-c0af176bb562",
+          "TopicId": "db9914bb-3167-4c1a-a1a0-11b03d89b8d5",
+          "Title": "Applying Consistent Color Schemes and Fonts",
+          "BodyText": "Visual consistency in color and typography signals professionalism and helps users focus on data rather than being distracted by design inconsistencies.",
+          "Notes": "Limiting the palette to two or three colors, often aligned with organizational branding, is a widely recommended best practice.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "ModifiedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "Items": [
+            {
+              "Id": "667f8791-166e-4ff1-a980-8334a64b17d1",
+              "Text": "Choose a primary color for key highlights and a neutral background color to reduce visual fatigue during extended use.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d7922e5-0c7e-4546-9058-44d08c12db7a",
+              "Text": "Apply the same font family and size to all chart titles, axis labels, and data labels throughout the dashboard.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d508a222-58b3-4a99-926c-36869ac9d35b",
+              "Text": "Use color purposefully to encode meaning, such as green for positive performance and red for negative, rather than for decoration.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6ed206f7-99e1-4466-9ef8-addea3c08b14",
+              "Text": "Excel\u0027s built-in themes under the Page Layout tab provide coordinated color and font sets that can be applied consistently across all elements.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0bae7118-b10d-420e-8923-d057a8e39d13",
+          "TopicId": "db9914bb-3167-4c1a-a1a0-11b03d89b8d5",
+          "Title": "Formatting Charts for Clarity",
+          "BodyText": "Chart formatting choices such as removing gridlines, simplifying legends, and adding data labels directly to chart elements can significantly improve how quickly users interpret data.",
+          "Notes": "Removing unnecessary chart elements such as borders, excessive gridlines, and default gray backgrounds is often called \u0027reducing chart junk,\u0027 a concept from data visualization best practices.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "ModifiedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "Items": [
+            {
+              "Id": "f84d344d-27c2-48da-943f-dd86f583663b",
+              "Text": "Remove or lighten gridlines so they do not compete visually with the data series being displayed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6da30ca0-daeb-421c-83e1-1f2989122a18",
+              "Text": "Add direct data labels to bars or lines where precise values are important, reducing the need for users to reference axes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f2c87cdb-f52f-4487-a854-84ab22236393",
+              "Text": "Keep chart titles concise and descriptive, clearly stating what the chart shows rather than using generic labels like \u0027Chart 1.\u0027",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e745f60c-f390-462e-9776-8f892484af9d",
+              "Text": "Limit the number of data series per chart to avoid overcrowding, splitting complex data into multiple focused charts if necessary.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e6745081-7ca6-45d3-8082-7a500958fec4",
+          "TopicId": "db9914bb-3167-4c1a-a1a0-11b03d89b8d5",
+          "Title": "Protecting and Finalizing the Dashboard",
+          "BodyText": "Once a dashboard is complete, protecting certain elements prevents accidental edits while still allowing users to interact with slicers, timelines, and filters.",
+          "Notes": "Sheet protection can be configured to allow specific actions such as selecting cells or using slicers, while locking pivot tables and charts from modification.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "ModifiedDate": "2026-07-03T11:34:04.5386166-04:00",
+          "Items": [
+            {
+              "Id": "60b67e99-abfa-4f5f-bc9b-dc66aa542ccf",
+              "Text": "Use Excel\u0027s Protect Sheet feature under the Review tab to lock charts, labels, and layout elements from being moved or deleted.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a2ce4106-3fe8-48c0-a96e-89a0dc8a0238",
+              "Text": "Configure protection settings to explicitly allow slicer and timeline interaction so end users retain full filtering capability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5fa87d2e-df20-4247-b9a0-362f06ab576b",
+              "Text": "Hide unnecessary rows, columns, and worksheets to present a clean, focused interface that only shows the dashboard.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9231a636-744e-4a8c-a3d9-53c4d9512f21",
+              "Text": "Consider hiding the formula bar and row/column headers using View tab settings to give the dashboard a more polished, application-like appearance.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "11f0cb50-2c16-4270-813e-00713d0c4e5e",
+      "Title": "Introduction to Power Query",
+      "Summary": "Students are introduced to Power Query as a tool for importing data from multiple sources and automating the process of connecting Excel to external datasets.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "ModifiedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "Elements": [
+        {
+          "Id": "66195878-e273-4252-9a06-3b6346407119",
+          "TopicId": "11f0cb50-2c16-4270-813e-00713d0c4e5e",
+          "Title": "What Is Power Query?",
+          "BodyText": "Power Query is a built-in Excel tool designed to help users import, connect, and transform data from a wide variety of sources with minimal manual effort.",
+          "Notes": "Power Query is available in Excel 2016 and later under the \u0027Data\u0027 tab in the \u0027Get \u0026 Transform Data\u0027 group. It eliminates the need to manually copy and paste data from external sources.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "ModifiedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "Items": [
+            {
+              "Id": "04fa4817-2ce4-40e6-bb41-8def9e8243fc",
+              "Text": "Power Query acts as an ETL (Extract, Transform, Load) engine directly within Excel.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ae19431d-8d45-45f9-a919-b95d0ee11971",
+              "Text": "It records every transformation step, allowing users to reapply them automatically when data is refreshed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "db808256-4023-4119-9103-e61ae3fedb1d",
+              "Text": "Power Query reduces reliance on manual data preparation, saving time and reducing human error.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e59a48a6-e74e-4074-848f-99c428ecf36b",
+          "TopicId": "11f0cb50-2c16-4270-813e-00713d0c4e5e",
+          "Title": "Supported Data Sources",
+          "BodyText": "Power Query can connect Excel to a broad range of external data sources, making it a versatile tool for data import workflows.",
+          "Notes": "Common sources include Excel workbooks, CSV files, databases such as SQL Server, web pages, SharePoint, and cloud services. The \u0027Get Data\u0027 button in Excel provides a full list of available connectors.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "ModifiedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "Items": [
+            {
+              "Id": "f244f692-049a-46d0-b4a1-ea3b609564c3",
+              "Text": "Users can import data from flat files such as CSV, TXT, and Excel workbooks.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "036d5079-bd56-4950-bc08-aa7f50aa0967",
+              "Text": "Power Query supports connections to relational databases, including Microsoft SQL Server, Access, and MySQL.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5a9aeb08-1846-4956-a308-69fb28e491b2",
+              "Text": "Web-based and cloud sources, such as SharePoint lists and online tables, can also be connected directly.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "578bf8ff-eaf0-4b63-8da7-391bdba3caf4",
+          "TopicId": "11f0cb50-2c16-4270-813e-00713d0c4e5e",
+          "Title": "Connecting Excel to an External Dataset",
+          "BodyText": "Establishing a connection to an external dataset is the first step in using Power Query, and it is done through a guided interface that requires no coding.",
+          "Notes": "To connect, navigate to Data \u003E Get Data, choose the appropriate source type, and follow the prompts to locate and load the file or database. A preview of the data is shown before it is loaded into Excel.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "ModifiedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "Items": [
+            {
+              "Id": "844f5d93-3b36-49dc-b94c-163adbef7e42",
+              "Text": "Select \u0027Get Data\u0027 from the Data tab to open the source selection menu.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "98db20c5-0c6f-43ab-ab3c-fe6c1e088934",
+              "Text": "After choosing a source, Power Query presents a preview of the data, allowing users to confirm it looks correct before loading.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fddbf90e-1232-4155-bdef-23ddf3596ed7",
+              "Text": "The connection details are saved within the workbook, enabling future refreshes without repeating the setup process.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2e5c93d9-f1b1-45ad-a456-a910f9efb67e",
+          "TopicId": "11f0cb50-2c16-4270-813e-00713d0c4e5e",
+          "Title": "The Power Query Editor",
+          "BodyText": "Once a data source is connected, the Power Query Editor opens as a dedicated workspace where users can inspect and begin transforming their data.",
+          "Notes": "The Editor displays the data in a table view and shows the Applied Steps pane on the right, which logs every action taken. Users can revisit or delete any step at any time.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "ModifiedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "Items": [
+            {
+              "Id": "f87978d6-89ba-491a-8bd7-ab3267f3ad17",
+              "Text": "The Power Query Editor provides a visual, spreadsheet-like interface for viewing imported data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "24df4216-6443-401b-83ac-36b19f083a88",
+              "Text": "The Applied Steps pane on the right side records every transformation, creating a replayable sequence of actions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "59f78da4-bd04-4312-bf62-31acf7791733",
+              "Text": "Users can rename columns, change data types, and filter rows directly within the Editor before loading data to Excel.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3e3903dc-18c5-49ba-89f6-d633cd71be3a",
+          "TopicId": "11f0cb50-2c16-4270-813e-00713d0c4e5e",
+          "Title": "Automating Data Import with Refresh",
+          "BodyText": "One of Power Query\u0027s most powerful features is the ability to refresh data connections, automatically re-importing and re-transforming updated data from the source.",
+          "Notes": "Users can refresh manually by right-clicking a query and selecting Refresh, or they can configure automatic refresh intervals. This is especially useful when working with regularly updated datasets such as weekly sales reports.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "ModifiedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "Items": [
+            {
+              "Id": "b5a800e5-179e-4cf6-a778-ad2f192dd4b8",
+              "Text": "Clicking \u0027Refresh\u0027 re-runs the full sequence of recorded steps against the current version of the data source.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bf0edcf0-19c6-4f89-b4b5-514481e3cb20",
+              "Text": "Automatic refresh can be scheduled so Excel updates the dataset each time the workbook is opened.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "566b9158-01f9-4dbb-aa30-9b6331a89d5a",
+              "Text": "This automation means dashboards and pivot tables built on Power Query data stay current without manual re-import.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d07265a5-faed-4ace-abb1-fc2deac35f33",
+          "TopicId": "11f0cb50-2c16-4270-813e-00713d0c4e5e",
+          "Title": "Why Power Query Improves Data Workflows",
+          "BodyText": "Power Query transforms the data import process from a repetitive manual task into a repeatable, auditable workflow that scales with the complexity of the data.",
+          "Notes": "Before Power Query, analysts often spent significant time manually cleaning and reformatting data each reporting cycle. Power Query moves this work to a one-time setup effort that runs automatically thereafter.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "ModifiedDate": "2026-07-03T11:34:26.9231716-04:00",
+          "Items": [
+            {
+              "Id": "5eccc4ed-829f-4f40-90eb-5c1135471742",
+              "Text": "Transformation steps are recorded and reusable, eliminating the need to redo data cleaning each time new data arrives.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a7435047-cebe-4a5b-a0d2-c046551978be",
+              "Text": "Multiple data sources can be combined within a single query, supporting more complex analytical workflows.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fcea121f-d7b2-4619-bb66-137498fec1c6",
+              "Text": "Power Query creates a clear audit trail of all data preparation steps, improving transparency and reproducibility.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6928d863-963a-4a43-bc63-f006313637d8",
+      "Title": "Data Transformation with Power Query",
+      "Summary": "This topic covers how to clean, reshape, and transform raw data using Power Query\u0027s built-in tools, reducing the need for manual data preparation steps.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "ModifiedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "Elements": [
+        {
+          "Id": "efba67da-6c6c-4c32-81fe-e173a7fd7b7d",
+          "TopicId": "6928d863-963a-4a43-bc63-f006313637d8",
+          "Title": "Introduction to the Power Query Editor",
+          "BodyText": "The Power Query Editor is Excel\u0027s dedicated environment for loading, cleaning, and shaping data before it enters your worksheets or data model.",
+          "Notes": "Access Power Query via the Data tab by selecting \u0027Get Data\u0027 or \u0027Launch Power Query Editor\u0027. Every transformation step you apply is recorded in the Applied Steps pane on the right.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "ModifiedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "Items": [
+            {
+              "Id": "e1646ca7-f16b-4657-a379-4ba448dffa55",
+              "Text": "The editor provides a visual, step-by-step interface so you can see exactly how your data is being modified at each stage.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b2f906b0-4d25-4512-ad17-3cfa5e006cb1",
+              "Text": "All transformations are non-destructive \u2014 the original data source remains unchanged, and you can remove or reorder steps at any time.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4b3e5f0b-5685-4381-a60c-39b5696d1e05",
+              "Text": "The formula bar displays the underlying M language code for each step, allowing advanced users to edit transformations directly.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c85441a8-1522-488f-b89c-99b3940fdffc",
+          "TopicId": "6928d863-963a-4a43-bc63-f006313637d8",
+          "Title": "Connecting to and Importing Raw Data Sources",
+          "BodyText": "Power Query can connect to a wide variety of data sources, including Excel files, CSV files, databases, web pages, and cloud services.",
+          "Notes": "Using \u0027Get Data\u0027 from the Data tab, you can browse available connectors. Once connected, Power Query loads a preview of the data before any transformation is applied.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "ModifiedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "Items": [
+            {
+              "Id": "58735d18-5a56-459c-af72-13614c383b15",
+              "Text": "Supported sources include local files (Excel, CSV, XML), relational databases (SQL Server, Access), and online services (SharePoint, Power BI).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d7e6e730-b1e9-4dd6-a5ae-031d4aae9f37",
+              "Text": "You can combine multiple data sources into a single query using append or merge operations, reducing the need to manually consolidate files.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d126b4ca-b6e1-42ce-81d9-932b3871511a",
+              "Text": "Establishing a parameterized connection allows the same query to pull from different files or folders with minimal reconfiguration.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ca9f7b9e-323e-4e63-ba94-bb6d9cfa6fa1",
+          "TopicId": "6928d863-963a-4a43-bc63-f006313637d8",
+          "Title": "Cleaning Data: Removing Errors, Duplicates, and Blanks",
+          "BodyText": "One of Power Query\u0027s most practical uses is automating the removal of common data quality issues such as duplicate rows, blank cells, and error values.",
+          "Notes": "Right-clicking a column header exposes options like \u0027Remove Duplicates\u0027, \u0027Remove Blank Rows\u0027, and \u0027Replace Errors\u0027. These become repeatable steps applied automatically on every refresh.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "ModifiedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "Items": [
+            {
+              "Id": "01626c87-f6e1-4ddc-8f4b-27e18c2a9a08",
+              "Text": "Use \u0027Remove Duplicates\u0027 on a selected column or the entire table to eliminate redundant records without manual filtering.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4b27397f-59e4-4856-9f91-38d435323f62",
+              "Text": "Blank rows and null values can be removed or replaced with default values to ensure calculations and pivot tables are not distorted.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a5d1d6cd-7f72-4417-b5e6-1fa8850db9ec",
+              "Text": "Error values (such as division errors imported from a source system) can be replaced with null or a custom value using \u0027Replace Errors\u0027.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8c64c674-0920-496a-9c9d-597a6355766a",
+          "TopicId": "6928d863-963a-4a43-bc63-f006313637d8",
+          "Title": "Reshaping Data: Splitting, Merging, and Pivoting Columns",
+          "BodyText": "Power Query provides tools to restructure columns so that raw data conforms to the layout needed for analysis, without altering the source file.",
+          "Notes": "For example, a single \u0027Full Name\u0027 column can be split into \u0027First Name\u0027 and \u0027Last Name\u0027 columns automatically using a delimiter. Similarly, wide data with month columns can be unpivoted into a long format suitable for pivot tables.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "ModifiedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "Items": [
+            {
+              "Id": "6855fefe-1591-4b7a-b8b8-23abb188f181",
+              "Text": "The \u0027Split Column\u0027 feature divides a column into multiple columns based on a delimiter (e.g., comma, space) or a fixed character position.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e01adb24-68a8-4685-b3ae-38e5a2c8c145",
+              "Text": "The \u0027Merge Columns\u0027 feature concatenates two or more columns into one, with a custom separator inserted between values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5efd1679-e38a-4188-86df-d45988f52ad3",
+              "Text": "The \u0027Unpivot Columns\u0027 operation converts wide-format tables (where categories are column headers) into tall-format tables, which are ideal for pivot table analysis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "32788b66-ea21-4da6-b6e5-98371448e6be",
+              "Text": "The \u0027Pivot Column\u0027 operation performs the reverse, turning unique row values into column headers to create a summary layout.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "23cf8743-93d7-485c-85b7-234ddcf54442",
+          "TopicId": "6928d863-963a-4a43-bc63-f006313637d8",
+          "Title": "Changing Data Types and Formatting Values",
+          "BodyText": "Assigning correct data types to each column ensures that Excel treats numbers, dates, and text appropriately during analysis and visualization.",
+          "Notes": "A common issue when importing CSV files is that numeric or date columns are imported as text. Power Query detects data types automatically but allows manual override.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "ModifiedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "Items": [
+            {
+              "Id": "58168aa6-aad3-47b7-98a3-222a866bbe59",
+              "Text": "Click the data type icon at the top left of any column header to change its type to Whole Number, Decimal, Date, Date/Time, Text, or Boolean.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0c12456c-d79d-484d-9f63-3634c076663f",
+              "Text": "Date columns must be correctly typed to enable time-intelligence functions in pivot tables and charts, such as grouping by month or year.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e7991167-4ac4-4be1-812f-8695cfbc96a7",
+              "Text": "The \u0027Format\u0027 options under the Transform tab allow text standardization such as Trim (remove extra spaces), Clean (remove non-printable characters), Uppercase, Lowercase, and Capitalize Each Word.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "372b5e20-5049-486d-8394-cd64e6e25492",
+          "TopicId": "6928d863-963a-4a43-bc63-f006313637d8",
+          "Title": "Adding Custom and Conditional Columns",
+          "BodyText": "Power Query allows you to create new calculated columns based on existing data, using either a formula or a set of conditional rules \u2014 without writing complex Excel formulas on the sheet.",
+          "Notes": "Custom columns use the M language syntax, while conditional columns are built through a guided dialog that requires no coding knowledge.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "ModifiedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "Items": [
+            {
+              "Id": "ecd67c53-909f-4a8d-b216-5979f067ad17",
+              "Text": "Use \u0027Add Column \u003E Custom Column\u0027 to write an M language expression that computes a new value for every row, such as combining fields or performing arithmetic.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "67e42438-b2f7-4b1f-9384-37d1d0113111",
+              "Text": "Use \u0027Add Column \u003E Conditional Column\u0027 to create an if-then-else logic column through a point-and-click interface, similar to a nested IF formula in Excel.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8a9a0550-fe5d-4588-94b9-6b2f2d028349",
+              "Text": "Adding columns in Power Query means the logic is applied automatically every time the query refreshes, eliminating the need to manually extend formulas down a spreadsheet.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fbf370f0-aa27-4fa9-beb4-3db1a0c5e442",
+          "TopicId": "6928d863-963a-4a43-bc63-f006313637d8",
+          "Title": "Refreshing Queries and Automating Data Preparation",
+          "BodyText": "Because Power Query records every transformation as a repeatable sequence of steps, the entire data preparation workflow reruns automatically whenever the source data changes.",
+          "Notes": "This is particularly valuable for recurring reports \u2014 once the query is built, analysts simply update the source file and click Refresh rather than repeating all manual cleaning steps.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "ModifiedDate": "2026-07-03T11:34:59.3701597-04:00",
+          "Items": [
+            {
+              "Id": "706de9b2-5f4e-4bd8-af05-8ba147107c53",
+              "Text": "Click \u0027Refresh\u0027 or \u0027Refresh All\u0027 on the Data tab to rerun all queries and reload transformed data into the worksheet or data model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d0294037-69ec-402b-9f2f-a700f8cae803",
+              "Text": "Queries can be configured to refresh automatically when the workbook is opened by enabling the option in the query\u0027s Connection Properties.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "10377d9e-347c-42a9-bb86-445606726d66",
+              "Text": "When data sources change structure (e.g., a new column is added), Applied Steps can be reviewed and updated in the editor to accommodate the change without rebuilding the query from scratch.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+      "Title": "Automating Refresh Workflows",
+      "Summary": "Students learn how to configure Power Query to refresh data automatically, ensuring that pivot tables and dashboards always reflect the most current information.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "ModifiedDate": "2026-07-03T11:32:10.5924612-04:00",
+      "Elements": [
+        {
+          "Id": "3b79a5a3-37e1-4dc2-ac63-f8a5200231ed",
+          "TopicId": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+          "Title": "Understanding Data Refresh in Power Query",
+          "BodyText": "Data refresh is the process of updating a Power Query connection so that the latest source data is pulled into Excel, keeping pivot tables and dashboards current.",
+          "Notes": "Refresh can be triggered manually or configured to run automatically, depending on workflow needs.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "ModifiedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "Items": [
+            {
+              "Id": "64c59c4f-201d-420d-b179-ce62c932e41d",
+              "Text": "When source data changes, a refresh re-runs the Power Query steps and loads updated results into the worksheet or data model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1b733903-b1e7-4d3d-b01a-b3e92bf02cac",
+              "Text": "Without regular refreshes, dashboards and pivot tables display stale data that may lead to incorrect analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "20ea51a1-4e6c-42bf-9c64-0825e126594c",
+              "Text": "Power Query tracks the full transformation logic, so every refresh applies the same cleaning and shaping steps to the new data automatically.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "87f72c72-48c3-45e2-9723-7d660fec3f79",
+          "TopicId": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+          "Title": "Configuring Connection Properties for Automatic Refresh",
+          "BodyText": "Excel\u0027s Connection Properties dialog allows you to set a query to refresh at a defined time interval or whenever the workbook is opened.",
+          "Notes": "Access Connection Properties via Data \u003E Queries \u0026 Connections, right-clicking a query, and selecting Properties.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "ModifiedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "Items": [
+            {
+              "Id": "957fa31a-1c93-4351-ba43-c848360ce343",
+              "Text": "The \u0027Refresh every X minutes\u0027 option instructs Excel to re-query the data source on a recurring schedule while the workbook is open.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "984d6dc9-246e-41bd-9274-d0e77ad12a50",
+              "Text": "Enabling \u0027Refresh data when opening the file\u0027 ensures users always see up-to-date information the moment they open the workbook.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dbe780b9-6a9f-4110-b5b2-f0b01b756364",
+              "Text": "These settings are configured per connection, so different queries in the same workbook can have independent refresh schedules.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "46085885-11d4-443a-a07d-51e33116dec0",
+          "TopicId": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+          "Title": "Refresh All: Updating Multiple Queries at Once",
+          "BodyText": "The Refresh All command on the Data tab triggers a simultaneous refresh of every Power Query connection and pivot table in the workbook.",
+          "Notes": "Assigning Refresh All to a macro or Quick Access Toolbar button can streamline repetitive reporting workflows.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "ModifiedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "Items": [
+            {
+              "Id": "62cbecf8-8621-482b-a985-a3bd42a9e8c7",
+              "Text": "Using Refresh All saves time compared to refreshing each query or pivot table individually.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cb10f38b-8f2c-41d5-92ca-d191431cb300",
+              "Text": "The order in which queries refresh matters when queries are dependent on each other; Power Query respects dependency order automatically.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "052d1df8-9520-4907-9e82-46a209edddcd",
+              "Text": "Users can also use the keyboard shortcut Ctrl\u002BAlt\u002BF5 to trigger Refresh All quickly.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c3c75898-bcbd-4f3d-86c3-8e5a5820f6c2",
+          "TopicId": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+          "Title": "Linking Pivot Tables to Power Query Outputs",
+          "BodyText": "For automatic refresh to flow through to pivot tables and dashboards, pivot tables must be connected to the same data model or table that Power Query loads into.",
+          "Notes": "Loading a query \u0027To Table\u0027 or \u0027To Data Model\u0027 determines how pivot tables consume refreshed data.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "ModifiedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "Items": [
+            {
+              "Id": "8aeb3978-172c-4725-9641-eb04e3945b16",
+              "Text": "When a Power Query loads data into an Excel table, any pivot table sourced from that table will reflect new data after a refresh.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b00a3039-43b9-45f3-ba64-5ec90a60ae7b",
+              "Text": "Loading data to the Data Model (Power Pivot) allows multiple pivot tables and charts across the workbook to update from a single refresh.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "492124cd-b4a3-4e78-b3a2-7d3aa8db7b01",
+              "Text": "Ensuring pivot tables are set to refresh when the data source refreshes eliminates the need for a separate manual pivot table refresh step.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1a0af45d-c197-410e-9e88-a771269b6ec7",
+          "TopicId": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+          "Title": "Automating Refresh with VBA Macros",
+          "BodyText": "VBA macros can be used to trigger Power Query refreshes programmatically, enabling event-driven or scheduled automation within Excel.",
+          "Notes": "The Workbook_Open event and the ThisWorkbook.RefreshAll method are common starting points for macro-based refresh automation.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "ModifiedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "Items": [
+            {
+              "Id": "21cdd4fb-7dd6-4c71-a3bd-6f5479d3c0a8",
+              "Text": "A Workbook_Open macro can call ActiveWorkbook.RefreshAll to automatically update all queries each time the file is opened.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fa1473d7-8f41-4f33-acce-55dceb63d1af",
+              "Text": "Macros can be combined with Windows Task Scheduler to open a workbook, refresh data, save, and close it on a set schedule without user intervention.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e80f9495-51d7-4616-9aaa-fd09dd0dbc6e",
+              "Text": "Error handling in VBA macros ensures that failed connections are logged or reported rather than silently producing outdated data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5d298bfc-2dd9-4868-bfa5-7e60455ee43a",
+          "TopicId": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+          "Title": "Managing Background Refresh and Performance",
+          "BodyText": "Background refresh allows Excel to continue responding to user input while a query updates, but it requires careful management to avoid conflicts in automated workflows.",
+          "Notes": "Disabling background refresh is often necessary when macros depend on completed query results before executing subsequent steps.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "ModifiedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "Items": [
+            {
+              "Id": "3ee67bfc-8d25-436a-bdbc-5d63c36e4cb0",
+              "Text": "With background refresh enabled, Excel does not wait for the query to finish before moving to the next line of VBA code, which can cause timing errors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "20659881-080c-44c0-9d06-f421ba9ff4e4",
+              "Text": "Disabling background refresh for a connection forces Excel to complete the data load before proceeding, ensuring data integrity in automated scripts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6aad5c07-24d5-4ada-9449-631072d13e95",
+              "Text": "Large datasets may increase refresh times, so scheduling refreshes during off-peak hours helps maintain workbook performance for end users.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "08191d35-025d-4f9b-8749-73c7f16c49e5",
+          "TopicId": "41b8d9ca-7dc6-4d07-87d1-23a84aaf8540",
+          "Title": "Testing and Validating Refresh Workflows",
+          "BodyText": "After configuring automatic refresh settings, it is essential to test the full workflow to confirm that updated source data correctly propagates to dashboards and pivot tables.",
+          "Notes": "Validation checks prevent silent failures where refresh appears to succeed but data does not actually update.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "ModifiedDate": "2026-07-03T11:35:28.0916606-04:00",
+          "Items": [
+            {
+              "Id": "0859366f-94c9-4bf8-b3fb-6daa2567fae5",
+              "Text": "Modify a known value in the source data and trigger a refresh to verify the change appears correctly in the connected pivot table or chart.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3644f8d4-0379-427f-9d49-e4724e281782",
+              "Text": "Check the query load date and time stamp (visible in Queries \u0026 Connections pane) to confirm the refresh completed at the expected time.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f723bfb-65ba-4b5c-b0be-af0e47d49631",
+              "Text": "Document the refresh schedule and data source path so that team members can troubleshoot connection issues if the source file or database location changes.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 47
+}

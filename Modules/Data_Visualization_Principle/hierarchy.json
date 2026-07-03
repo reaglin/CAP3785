@@ -1,0 +1,1225 @@
+{
+  "ModuleFolderName": "Data_Visualization_Principle",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:35:43.8936959-04:00",
+  "ModifiedDate": "2026-07-03T11:38:33.5385451-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "95c87d35-7f88-4698-9bc9-daa1af283b37",
+      "Title": "Foundations of Data Visualization",
+      "Summary": "Introduces the purpose and importance of data visualization in communicating information effectively. Covers the core principles that guide good visual design decisions.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "ModifiedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "Elements": [
+        {
+          "Id": "d0082a11-9996-44df-ad5a-972d4e0fe824",
+          "TopicId": "95c87d35-7f88-4698-9bc9-daa1af283b37",
+          "Title": "The Purpose of Data Visualization",
+          "BodyText": "Data visualization transforms raw numbers and information into visual formats that make patterns, trends, and insights easier to understand and communicate.",
+          "Notes": "A well-designed chart can convey in seconds what a table of numbers might take minutes to interpret. Visualization bridges the gap between data and decision-making.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "ModifiedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "Items": [
+            {
+              "Id": "18dd9a77-60ff-49b2-8dfc-9822d2f98e70",
+              "Text": "Visualization allows audiences to quickly grasp complex information without needing to analyze raw data directly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8e4883f9-47ee-4de0-9458-51c5101f31e3",
+              "Text": "Effective visuals support storytelling by highlighting the most important findings within a dataset.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f70ee0fb-5391-4e14-85fc-c724d822e26e",
+              "Text": "The primary goal is always clarity \u2014 helping the viewer understand the message the data is conveying.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "98736a11-f3c5-4b9c-93c7-9b33e228a3bc",
+          "TopicId": "95c87d35-7f88-4698-9bc9-daa1af283b37",
+          "Title": "Choosing the Right Chart Type",
+          "BodyText": "Selecting an appropriate chart type is one of the most critical decisions in data visualization, as the wrong choice can obscure meaning or mislead viewers.",
+          "Notes": "For example, a pie chart works well for showing parts of a whole with few categories, while a line chart is better suited for displaying trends over time.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "ModifiedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "Items": [
+            {
+              "Id": "e2a8dbd6-a2ed-49e5-a524-d3ebce0c6078",
+              "Text": "Different chart types serve different analytical purposes, such as comparison, composition, distribution, or relationship.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2b93d4e7-30d9-4852-976e-04758282583f",
+              "Text": "Matching the chart type to the nature of your data ensures the visual accurately represents the underlying information.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "81fd22c5-0cd4-42ec-b2e6-2211068bfcca",
+              "Text": "Using an inappropriate chart type \u2014 such as a bar chart for continuous time-series data \u2014 can distort the viewer\u0027s interpretation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2748670a-6244-42fd-aff9-26b9fb51456b",
+          "TopicId": "95c87d35-7f88-4698-9bc9-daa1af283b37",
+          "Title": "Visual Hierarchy and Emphasis",
+          "BodyText": "Visual hierarchy guides the viewer\u0027s eye to the most important elements first, ensuring the key message is communicated before supporting details.",
+          "Notes": "Hierarchy is achieved through size, color contrast, placement, and typography. A chart title, for instance, should be prominent enough to immediately orient the viewer.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "ModifiedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "Items": [
+            {
+              "Id": "1f0eeb8e-1674-4540-acf6-302224ddfafa",
+              "Text": "Elements with greater size, bolder color, or central placement naturally draw attention before smaller or lighter elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a04a8559-03a2-42ff-8135-74dcaf08d04e",
+              "Text": "Establishing a clear hierarchy prevents visual clutter and helps viewers process information in the intended order.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d3aaa2cf-021d-47c9-9b2f-f2c0b03ea10a",
+              "Text": "Every design choice \u2014 from font size to color intensity \u2014 contributes to or detracts from the overall hierarchy of a visualization.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ea58cb9b-8ed6-497b-9df7-060e47077eed",
+          "TopicId": "95c87d35-7f88-4698-9bc9-daa1af283b37",
+          "Title": "Core Principles of Good Visual Design",
+          "BodyText": "Effective data visualizations follow established design principles that prioritize accuracy, simplicity, and the honest representation of data.",
+          "Notes": "Edward Tufte\u0027s concept of \u0027data-ink ratio\u0027 is a foundational idea here \u2014 maximize the proportion of ink used to display actual data and minimize decorative or redundant elements.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "ModifiedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "Items": [
+            {
+              "Id": "93365074-b6b6-4840-8456-bc0ff424b8e7",
+              "Text": "Simplicity means removing any element that does not add informational value, such as unnecessary gridlines, decorative images, or redundant labels.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c707150c-48a5-42fe-807c-3c52658d221f",
+              "Text": "Consistency in color, scale, and formatting across a visualization reduces cognitive load and prevents confusion.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f590754d-ea66-4abb-88f3-0ae939440cc4",
+              "Text": "Accuracy requires that visual encodings \u2014 like bar heights or axis scales \u2014 faithfully represent the true proportions in the data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f6d96b6a-999d-449f-be2f-32cdcaaec82a",
+          "TopicId": "95c87d35-7f88-4698-9bc9-daa1af283b37",
+          "Title": "Avoiding Misleading Representations",
+          "BodyText": "Poorly designed or intentionally manipulated visualizations can distort perception and lead audiences to incorrect conclusions, even when the underlying data is accurate.",
+          "Notes": "A common example is truncating the y-axis of a bar chart to start at a value other than zero, which exaggerates differences between bars.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "ModifiedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "Items": [
+            {
+              "Id": "f3bd1dfa-0b81-455a-a2f5-f9c9440ae7d0",
+              "Text": "Truncated axes, inconsistent scales, and cherry-picked data ranges are among the most common sources of misleading visuals.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f8ea9e20-309e-4ace-81e9-8fae65bc56a7",
+              "Text": "Three-dimensional chart effects and excessive visual embellishments often distort proportions and make accurate comparison difficult.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "408aa800-d293-4336-a679-0e8205c6de06",
+              "Text": "Ethical data visualization requires transparency about data sources, scale choices, and any limitations in the dataset being displayed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f10aaea0-2fc5-49a8-8ada-b8dc2de501aa",
+          "TopicId": "95c87d35-7f88-4698-9bc9-daa1af283b37",
+          "Title": "The Relationship Between Data and Audience",
+          "BodyText": "Effective visualization requires understanding who will view the chart and what decisions or insights they need to take away from it.",
+          "Notes": "A visualization intended for a data-savvy analyst may include more detail and complexity, while one designed for a general audience should prioritize simplicity and clear labeling.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "ModifiedDate": "2026-07-03T11:36:05.4911616-04:00",
+          "Items": [
+            {
+              "Id": "618b3c06-1561-4b4c-a5bb-b029f5d617e8",
+              "Text": "Tailoring the level of detail, terminology, and chart complexity to the audience improves comprehension and engagement.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6e1192bf-5711-43de-b852-f984ecffe0f8",
+              "Text": "Understanding the audience\u0027s goals helps determine which aspects of the data deserve emphasis and which can be omitted.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2a8dd97f-1fb9-4714-8d9c-acc856671d54",
+              "Text": "Context provided through titles, annotations, and captions helps any audience correctly interpret and apply the information presented.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "62905bf4-0b02-4290-b056-000894e52635",
+      "Title": "Choosing the Right Chart Type",
+      "Summary": "Explores the major chart types and the specific data relationships each is best suited to represent. Provides a framework for selecting the most appropriate visualization for a given dataset.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "ModifiedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "Elements": [
+        {
+          "Id": "0b7550e4-0b94-4a25-9ffd-3b728f93a289",
+          "TopicId": "62905bf4-0b02-4290-b056-000894e52635",
+          "Title": "Understanding the Purpose of Chart Selection",
+          "BodyText": "Choosing the right chart type begins with identifying the specific data relationship or message you want to communicate.",
+          "Notes": "Before opening Excel, ask: Am I comparing values, showing a trend, displaying a distribution, or illustrating part-to-whole relationships? The answer drives every chart decision.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "ModifiedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "Items": [
+            {
+              "Id": "e69448c4-559a-410e-a19d-4bdde0b60c5e",
+              "Text": "Every chart type is optimized for a particular kind of data relationship; using the wrong type obscures rather than clarifies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fd589d32-388d-4bce-8472-2716143f16e0",
+              "Text": "Define your communication goal first \u2014 comparison, composition, distribution, or relationship \u2014 then select the chart that serves that goal.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "01b2aaeb-f39d-4dc6-9c85-38494e813c01",
+              "Text": "Mismatched chart types can mislead audiences even when the underlying data is accurate.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6de9aa5c-a3b5-4d18-8d1f-f1fa9579577e",
+          "TopicId": "62905bf4-0b02-4290-b056-000894e52635",
+          "Title": "Bar and Column Charts for Comparisons",
+          "BodyText": "Bar and column charts are best suited for comparing discrete categories or ranking values against one another.",
+          "Notes": "Use a column chart when categories are along the horizontal axis and values are vertical; flip to a horizontal bar chart when category labels are long or when there are many categories to display.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "ModifiedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "Items": [
+            {
+              "Id": "0e4d1af1-aee3-4f09-96dd-a2af71cf1cc0",
+              "Text": "Column charts work well for comparing a small number of categories side by side, such as monthly sales figures across regions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "788b67cb-1de5-43b0-8fbd-23a355368e87",
+              "Text": "Horizontal bar charts improve readability when category names are lengthy or when more than six to eight categories are present.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "89d56986-da8e-4919-859d-451f6d7e9a89",
+              "Text": "Grouped and stacked variants allow secondary comparisons within each category, though stacked bars should be used carefully to avoid confusion.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "16129021-3a34-4ef2-82d3-9e7e6fcc0ecf",
+          "TopicId": "62905bf4-0b02-4290-b056-000894e52635",
+          "Title": "Line Charts for Trends Over Time",
+          "BodyText": "Line charts are the standard choice when showing how a continuous variable changes across an ordered sequence, most commonly time.",
+          "Notes": "Because the line implies continuity between data points, line charts should only be used when the x-axis represents an ordered, continuous dimension such as dates, hours, or sequential measurements.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "ModifiedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "Items": [
+            {
+              "Id": "bc86120f-238d-4d93-a9d0-d493819c1e26",
+              "Text": "Line charts emphasize the direction and rate of change, making rises and falls immediately visible to the viewer.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "34a5a46b-8021-4a4a-a4f4-5624f074bedc",
+              "Text": "Multiple lines can be plotted on the same chart to compare trends across different groups, provided the number of lines stays manageable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "441c145e-a5d1-4069-82c8-cc217398bac9",
+              "Text": "Avoid line charts for unordered categorical data, where the implied connection between points is meaningless.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "57771c9d-ccb3-42b7-87fe-aa8f3fcf6152",
+          "TopicId": "62905bf4-0b02-4290-b056-000894e52635",
+          "Title": "Pie and Donut Charts for Part-to-Whole Composition",
+          "BodyText": "Pie and donut charts show how individual parts contribute to a total, making them appropriate only when the segments sum to a meaningful whole.",
+          "Notes": "Pie charts are frequently overused. Limit them to situations with no more than five or six segments and when precise comparison between slices is not required \u2014 human eyes struggle to judge angular differences accurately.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "ModifiedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "Items": [
+            {
+              "Id": "cf2b71ea-23cb-4b51-9484-2f216894b872",
+              "Text": "Each slice represents a proportion of 100%, so pie charts are unsuitable when values do not form a complete, logical whole.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ccacb974-d7ae-4c5f-88ae-db77734c1e0c",
+              "Text": "When exact proportional comparison matters, a stacked bar chart is usually a clearer alternative to a pie chart.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b4f9a9a2-70d0-4b1a-9e69-5e15ea07b0b5",
+              "Text": "Donut charts function identically to pie charts but allow a central label area, which can reinforce the total value being represented.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b424d9b1-a936-44d3-80c8-cb5e266f1702",
+          "TopicId": "62905bf4-0b02-4290-b056-000894e52635",
+          "Title": "Scatter Plots for Relationships Between Variables",
+          "BodyText": "Scatter plots reveal correlations, clusters, or outliers by plotting two continuous numeric variables against each other on the x and y axes.",
+          "Notes": "A scatter plot does not imply causation \u2014 it shows association. Adding a trendline in Excel can help viewers interpret the direction and strength of the relationship.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "ModifiedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "Items": [
+            {
+              "Id": "1a162e67-d526-4856-aa34-5412fff18ae1",
+              "Text": "Each data point represents one observation, with its position determined by its values on both variables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f15a88a-627a-40df-88b9-fd16840fd7d7",
+              "Text": "Scatter plots are the correct choice when you need to answer questions like \u0027Does advertising spend correlate with revenue?\u0027",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7ec2f9e6-ff77-4b43-8880-830651b91775",
+              "Text": "Patterns such as positive correlation, negative correlation, or no relationship become visually apparent, as do unusual data points that warrant further investigation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "84c7d767-5b47-40e0-ad9c-7d7c64f3cc78",
+          "TopicId": "62905bf4-0b02-4290-b056-000894e52635",
+          "Title": "A Decision Framework for Chart Selection",
+          "BodyText": "A simple four-category framework \u2014 comparison, composition, distribution, relationship \u2014 helps analysts quickly narrow down the appropriate chart type for any dataset.",
+          "Notes": "Many data stories fit more than one category. When in doubt, sketch two candidate chart types and evaluate which communicates the key message more clearly to your intended audience.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "ModifiedDate": "2026-07-03T11:36:38.6949237-04:00",
+          "Items": [
+            {
+              "Id": "6aa50fec-d655-4f89-a936-3df7f484843f",
+              "Text": "Comparison questions (which is larger, how do categories rank?) point toward bar, column, or line charts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "61472b1b-fa6f-47ca-9c26-96cd44ff49bd",
+              "Text": "Composition questions (what share does each part hold?) point toward pie, donut, or stacked bar charts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "54d064c4-7e5e-4d32-a8e0-c55499506934",
+              "Text": "Distribution and relationship questions point toward histograms and scatter plots respectively.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "708090c7-b611-461e-b187-ac3b41d5a941",
+              "Text": "Always consider your audience\u0027s familiarity with chart types; a technically superior chart that confuses readers fails its communication purpose.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "adb050c3-82e6-4802-ad64-b42f61db75be",
+      "Title": "Visual Hierarchy and Design Principles",
+      "Summary": "Examines how layout, color, size, and emphasis guide a viewer\u0027s attention through a chart. Covers best practices for creating clear, readable, and well-organized visuals.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "ModifiedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "Elements": [
+        {
+          "Id": "1edf11c9-6130-401c-b6b9-c1a70e7f78f5",
+          "TopicId": "adb050c3-82e6-4802-ad64-b42f61db75be",
+          "Title": "Understanding Visual Hierarchy",
+          "BodyText": "Visual hierarchy is the principle of arranging chart elements so that the viewer\u0027s eye naturally moves from the most important information to supporting details.",
+          "Notes": "Think of a well-designed chart like a newspaper front page: the headline (your key data insight) is largest and boldest, while captions and footnotes recede into the background.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "ModifiedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "Items": [
+            {
+              "Id": "4165ca0e-3426-4fc5-b5d5-f0aa81a675bf",
+              "Text": "Hierarchy is established through size, weight, color, and position \u2014 elements that appear larger or bolder are perceived as more important.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e1dc384d-e618-4005-80e5-62f4b4e105f2",
+              "Text": "A clear hierarchy reduces cognitive load, allowing viewers to grasp the main message before processing secondary details.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f2796158-290b-4d57-a23e-d84c761aecaa",
+              "Text": "Without intentional hierarchy, all chart elements compete equally for attention, making the visual confusing and hard to read.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f1d7b02c-55a2-456f-bc7c-c6cd122f8974",
+          "TopicId": "adb050c3-82e6-4802-ad64-b42f61db75be",
+          "Title": "Using Color Purposefully",
+          "BodyText": "Color is one of the most powerful tools for directing attention and encoding meaning in a chart, but it must be applied with restraint and intention.",
+          "Notes": "A common best practice is the \u0027highlight color\u0027 technique: render most data series in neutral grays, then use a single accent color to draw attention to the key data point or trend you want the audience to notice.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "ModifiedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "Items": [
+            {
+              "Id": "b8b509fc-cd7e-4c3e-af1d-75dd5ac89104",
+              "Text": "Limit your palette to two or three colors; overuse of color creates visual noise and dilutes emphasis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "31ba142d-afe4-44f0-ae94-04af44de28ee",
+              "Text": "Use color consistently \u2014 the same color should always represent the same category or variable throughout a visualization.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ec8b413e-b7de-4563-9861-1b3651436754",
+              "Text": "Consider accessibility by avoiding red-green combinations, which are difficult to distinguish for viewers with color vision deficiencies.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "16d6d465-c9ad-4c16-87e0-ce8e71d04437",
+              "Text": "Neutral backgrounds and muted supporting colors allow the highlighted data to stand out clearly.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "20bc4baa-2ea6-46c5-9f05-2e3903d60e17",
+          "TopicId": "adb050c3-82e6-4802-ad64-b42f61db75be",
+          "Title": "Size and Scale as Emphasis Tools",
+          "BodyText": "Varying the size of chart elements \u2014 such as fonts, markers, or chart areas \u2014 signals relative importance and guides the viewer\u0027s focus.",
+          "Notes": "In Excel, adjusting the font size of a chart title versus axis labels is a simple but effective way to establish hierarchy through scale.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "ModifiedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "Items": [
+            {
+              "Id": "1dc27f6b-23db-4a03-8719-1b69196af50f",
+              "Text": "Larger elements are naturally perceived as more significant; use size differences deliberately to rank information.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "98b88b0b-ebe6-4f0a-97d5-690d6a081f74",
+              "Text": "Chart titles and key callouts should be noticeably larger than axis labels, tick marks, and footnotes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7071a817-1057-4be3-92b6-72e562362bf3",
+              "Text": "Avoid making all text or markers the same size, as uniformity flattens hierarchy and makes it harder to identify the primary message.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "678f6a19-14e7-432f-ad24-e138ee663e17",
+          "TopicId": "adb050c3-82e6-4802-ad64-b42f61db75be",
+          "Title": "Layout and Spatial Organization",
+          "BodyText": "The spatial arrangement of chart elements \u2014 titles, legends, axes, and data \u2014 determines how intuitively a viewer can read and interpret the visual.",
+          "Notes": "Placing the legend directly next to or within the data series it labels (rather than in a separate box) reduces the eye movement required to decode the chart, improving readability.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "ModifiedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "Items": [
+            {
+              "Id": "ae354af8-2dbf-43e0-80f2-acfed5545b16",
+              "Text": "Position the most critical element (usually the title or key insight) at the top-left, where Western readers naturally begin scanning.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "26477f5b-15d4-483e-acdc-fd57c3b52633",
+              "Text": "Group related elements together and use white space (empty space) to separate distinct sections and reduce clutter.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "700e53a8-3a02-453d-b854-d79785adfe50",
+              "Text": "Align labels, axes, and titles consistently; misalignment creates a disorganized appearance that undermines credibility.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d4ae3cd3-098d-451a-aae4-02c210550cf7",
+              "Text": "A clean, uncluttered layout lets the data itself take center stage rather than decorative or redundant chart elements.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fad70d16-2bfe-419d-bf82-5a5187befcdb",
+          "TopicId": "adb050c3-82e6-4802-ad64-b42f61db75be",
+          "Title": "Emphasis Through Contrast and Weight",
+          "BodyText": "Contrast \u2014 differences in color, tone, thickness, or typography \u2014 is the primary mechanism for making specific data points or messages stand out.",
+          "Notes": "Bold or italicized text for a chart title versus regular-weight axis labels is a subtle but effective use of typographic contrast to establish emphasis.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "ModifiedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "Items": [
+            {
+              "Id": "79b736fd-7cf4-40fe-be59-c366b5131730",
+              "Text": "High contrast between a highlighted element and its surroundings draws the eye immediately to that element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3985fc71-b213-41b9-9c19-a766430c9d73",
+              "Text": "Use line thickness or marker size variation to differentiate a primary data series from reference or comparison series.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0785bcc3-db72-4c0f-b68c-5254c9ad1f95",
+              "Text": "Typographic weight (bold vs. regular) is an easy way to create hierarchy in chart titles, subtitles, and annotations without adding color.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ee82eaf6-c9e8-4de1-b28a-4b14f4bafcbc",
+          "TopicId": "adb050c3-82e6-4802-ad64-b42f61db75be",
+          "Title": "Clarity and Readability Best Practices",
+          "BodyText": "A chart is only effective if its audience can read and understand it quickly; clarity should always take priority over decorative complexity.",
+          "Notes": "The \u0027five-second rule\u0027 is a useful test: if a viewer cannot identify the chart\u0027s main message within five seconds, the design needs simplification.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "ModifiedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "Items": [
+            {
+              "Id": "eaca6098-e170-4334-9586-fdf5fd8f80a4",
+              "Text": "Remove chartjunk \u2014 unnecessary gridlines, borders, 3D effects, and decorative images that add visual complexity without adding information.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "96d60448-792d-4556-a26b-128f28544a7c",
+              "Text": "Label data directly where possible instead of relying on a separate legend, reducing the mental effort required to decode the chart.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bfe23c7e-a9f3-4420-abf8-0692dbe3b3f8",
+              "Text": "Choose legible font sizes (generally no smaller than 10pt) and avoid decorative fonts that slow reading speed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f4b17cb7-06ce-49cd-9a73-0bdff79df441",
+              "Text": "Ensure axis labels and titles are descriptive enough that the chart can be understood without reading surrounding text.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "595580c6-fe98-4bbd-b2b1-d2ee8b19a202",
+          "TopicId": "adb050c3-82e6-4802-ad64-b42f61db75be",
+          "Title": "Applying Design Principles in Excel",
+          "BodyText": "Excel provides built-in formatting tools that allow designers to implement visual hierarchy and design best practices directly within the charting environment.",
+          "Notes": "Starting from a default Excel chart and systematically removing unnecessary elements (gridlines, borders, legends) before adding intentional emphasis is an effective workflow for applying these principles.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "ModifiedDate": "2026-07-03T11:37:08.7686057-04:00",
+          "Items": [
+            {
+              "Id": "b11d5e92-e928-4f14-861f-465de8de80cc",
+              "Text": "Use the \u0027Format Chart Area\u0027 and \u0027Format Data Series\u0027 panels to control color, size, and weight of individual chart elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "acc528d2-8386-46f7-81a1-b98ee72cb57f",
+              "Text": "Excel\u0027s chart style and color theme options provide a starting point, but manual adjustments are usually needed to achieve a clear visual hierarchy.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f583648-7fb5-4537-9597-270220fe7987",
+              "Text": "Apply consistent formatting across multiple charts in a workbook so the visual language remains coherent throughout a report or dashboard.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7dd20ec4-8a83-4eb9-827c-bfcb7fc61bfd",
+              "Text": "Use text boxes and callout shapes in Excel to add annotations that highlight key insights directly on the chart.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+      "Title": "Avoiding Misleading Representations",
+      "Summary": "Identifies common ways charts can distort or misrepresent data, such as truncated axes or inappropriate scaling. Teaches students to critically evaluate and ethically construct accurate visual displays.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "ModifiedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "Elements": [
+        {
+          "Id": "32e6358b-7823-4792-bcd0-982ea3f60894",
+          "TopicId": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+          "Title": "Truncated Axes and False Impressions",
+          "BodyText": "One of the most common ways charts mislead viewers is by starting the y-axis at a value other than zero, which exaggerates differences between data points.",
+          "Notes": "For example, a bar chart showing sales figures from 98 to 102 with a y-axis starting at 97 makes a 4-unit difference look enormous compared to the true scale.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "ModifiedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "Items": [
+            {
+              "Id": "2798ada4-fbfc-4b86-96bb-93a58a495fc9",
+              "Text": "Always consider whether your axis origin is appropriate for the data type and the story you are telling.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "96323bd3-1eee-44c1-9d43-5553d71930fd",
+              "Text": "Bar and column charts should generally start at zero, as bar length is the visual encoding and truncation directly distorts magnitude.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4378275b-79b1-49d5-9846-ea2dad1f6eae",
+              "Text": "Line charts may sometimes use a non-zero baseline when showing trends over a narrow range, but this must be clearly labeled.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f19f5341-7433-440d-b0fb-acbaff9991d1",
+              "Text": "Always label axis ranges explicitly so viewers can judge scale for themselves.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "940a4b45-19b2-4002-9b82-87526ec4f7a3",
+          "TopicId": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+          "Title": "Inappropriate Scaling and Dual Axes",
+          "BodyText": "Manipulating the scale of an axis or using dual axes with different scales can make unrelated trends appear correlated or disguise the true relationship between variables.",
+          "Notes": "A dual-axis chart comparing revenue in millions and customer complaints in hundreds can be scaled to make the two lines appear to move in perfect tandem, implying a causal link that may not exist.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "ModifiedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "Items": [
+            {
+              "Id": "14ed4e5e-5bf4-4187-ac7f-5e151d075cba",
+              "Text": "Dual-axis charts require careful labeling so readers understand each axis corresponds to a different variable and scale.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6591db7a-fe74-4a7b-bfa1-eaa7f84676f4",
+              "Text": "Avoid scaling axes in ways that visually align unrelated data series unless the relationship is explicitly explained.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "41d9f6e1-fa27-41b2-b262-568a8465d375",
+              "Text": "When comparing two datasets, consider whether a single normalized scale or separate charts would be more honest.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4b45c621-9e25-40ac-b752-74bc95474a92",
+          "TopicId": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+          "Title": "Cherry-Picking Data Ranges",
+          "BodyText": "Selecting only a convenient subset of the available data \u2014 such as a specific time window \u2014 can misrepresent long-term trends and mislead the audience.",
+          "Notes": "Showing only the three-month period in which sales spiked, while omitting the preceding year of decline, gives a false picture of overall performance.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "ModifiedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "Items": [
+            {
+              "Id": "8af7414a-c19f-4374-a4ee-90b91c22cbc0",
+              "Text": "Always disclose the full date or value range available and justify any subset shown.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d33275a8-8926-4a3e-bd91-6648d055f35e",
+              "Text": "Omitting outliers or inconvenient data points without explanation is a form of misrepresentation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "99d89021-e58e-45b9-8c02-74b706db0c39",
+              "Text": "Include source information and data collection dates so viewers can verify the completeness of the dataset.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ffbb7e8f-5981-4dbe-b040-fdc4a61888b0",
+          "TopicId": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+          "Title": "Distorted Proportions in Pie and Area Charts",
+          "BodyText": "Pie charts and area-based visualizations can distort perceived proportions when slices are exploded, 3D effects are applied, or areas are used instead of lengths to encode values.",
+          "Notes": "A 3D pie chart tilted toward the viewer makes front slices appear larger than their true percentage, directly misrepresenting the data.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "ModifiedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "Items": [
+            {
+              "Id": "4155c96e-e582-48c2-9755-6d6409469b48",
+              "Text": "Avoid 3D effects on pie, bar, and area charts \u2014 they add visual distortion without adding information.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "951aefe8-7862-4d49-a051-e2840aefa64d",
+              "Text": "Exploding pie slices draws attention to a segment and can make it appear more significant than its actual proportion.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2c519ed0-4a72-4fe0-8443-2d787b9515bf",
+              "Text": "When using bubble or area charts, ensure that area (not radius) is proportional to the data value to prevent size exaggeration.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5b845ad2-dcec-4274-8018-6e482a60260b",
+          "TopicId": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+          "Title": "Misleading Chart Type Selection",
+          "BodyText": "Choosing a chart type that does not match the nature of the data can inherently misrepresent relationships, trends, or comparisons.",
+          "Notes": "Using a pie chart to show changes over time, or a line chart to connect unordered categorical data, misleads viewers about the structure of the data.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "ModifiedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "Items": [
+            {
+              "Id": "6785e20f-c0fd-41cc-896b-062f152bfe3e",
+              "Text": "Pie charts should only be used for part-to-whole relationships with a small number of categories.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "98c506c2-83ec-4805-ba26-8e685aeb4d15",
+              "Text": "Line charts imply continuity and should only connect data points that represent a continuous or sequential variable such as time.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e0ef833b-06b9-4cf6-8f15-5d1ef299b2ca",
+              "Text": "Selecting the wrong chart type is not just a design error \u2014 it is an accuracy problem that can lead to incorrect conclusions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "195f6754-74d8-4459-a56e-4be53612fed3",
+          "TopicId": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+          "Title": "Ethical Responsibilities in Data Visualization",
+          "BodyText": "Constructing charts carries an ethical obligation to represent data honestly, especially when visualizations are used to inform decisions or influence opinion.",
+          "Notes": "Professionals in business, journalism, and science are expected to uphold standards of accuracy and transparency in how they present data visually.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "ModifiedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "Items": [
+            {
+              "Id": "9f11484c-4759-4059-ae92-737d600da15c",
+              "Text": "Always ask whether your chart accurately reflects the underlying data or whether design choices are shaping a narrative.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cc6accfb-a7d3-481c-9b93-60e0587455ec",
+              "Text": "Label all axes, include units of measurement, cite data sources, and note any transformations or filters applied to the data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1bb45b34-3e3a-450f-943d-ee5da34a564f",
+              "Text": "Critically evaluate charts you encounter by checking axis ranges, sample sizes, and whether the visual emphasis matches the actual data differences.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f8a06713-9c57-47a9-815c-c0ae29993cb3",
+              "Text": "Intentionally misleading visualizations can damage trust, lead to poor decisions, and in professional contexts may have legal or ethical consequences.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a1d9e53c-06b2-4410-8075-b03d49b1e6eb",
+          "TopicId": "e0b4ea73-a3f4-4358-8256-c4d0e834db5d",
+          "Title": "Critically Evaluating Charts You Encounter",
+          "BodyText": "Developing the skill to detect misleading visualizations in real-world media and reports is just as important as knowing how to build accurate ones.",
+          "Notes": "News articles, corporate reports, and social media posts frequently contain charts with subtle or overt distortions that a trained eye can identify.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "ModifiedDate": "2026-07-03T11:37:38.8763883-04:00",
+          "Items": [
+            {
+              "Id": "598f7b9d-e86f-4277-856f-d0013adec332",
+              "Text": "Check the y-axis starting point and scale before interpreting any trend or comparison shown in a chart.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "879e98b3-e446-47fc-a432-a01337cb154b",
+              "Text": "Look for missing labels, unlabeled axes, absent source citations, or suspiciously selective date ranges.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6a7ef132-7a7c-4739-9b55-868378abe882",
+              "Text": "Ask what data is not shown \u2014 omissions can be just as misleading as distortions in what is displayed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cbd14b08-0e70-485e-80cc-8f8256f29d2b",
+              "Text": "Compare the visual impression of the chart to the actual numbers in the data to see if they align.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+      "Title": "Creating Charts in Excel",
+      "Summary": "Provides step-by-step guidance on building and formatting charts using Excel\u0027s charting tools. Covers inserting chart types, adjusting data ranges, and applying formatting options.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "ModifiedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "Elements": [
+        {
+          "Id": "932e255a-dea9-4e8c-9ebe-952309bf37a0",
+          "TopicId": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+          "Title": "Inserting a Chart in Excel",
+          "BodyText": "Excel provides a straightforward process for inserting charts directly from your data using the Insert tab.",
+          "Notes": "Always select your data range before inserting a chart to ensure Excel correctly maps the data to the chart axes.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "ModifiedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "Items": [
+            {
+              "Id": "1b458abb-61da-44b0-bd13-92437c88cbe0",
+              "Text": "Select the cell range containing the data you want to visualize, including headers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fc9fdd9d-0f9f-4122-bd0c-b5fd5102f102",
+              "Text": "Navigate to the Insert tab on the Excel ribbon and locate the Charts group.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b057c313-228d-48f1-8ab1-3e60b62d7f70",
+              "Text": "Click the desired chart type icon or use \u0027Recommended Charts\u0027 to let Excel suggest appropriate options.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7d6b3bab-9232-4504-af0f-e87b990a5393",
+              "Text": "The chart is inserted as an embedded object on the current worksheet and can be moved or resized.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6a40eb5a-d73c-4d0d-a6c8-1a7a44713fd5",
+          "TopicId": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+          "Title": "Choosing the Right Chart Type",
+          "BodyText": "Excel offers a wide variety of chart types, and selecting the correct one is essential for accurately conveying your data\u0027s story.",
+          "Notes": "For example, use a column or bar chart for comparisons, a line chart for trends over time, and a pie chart for parts of a whole with a small number of categories.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "ModifiedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "Items": [
+            {
+              "Id": "648d14a3-eda3-4c4b-a872-06408dbf52fa",
+              "Text": "Column and bar charts are best suited for comparing values across discrete categories.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a61c8a26-ab17-43a0-a4d2-d5c5a06fd784",
+              "Text": "Line charts effectively display trends, changes, or patterns over a continuous time period.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ba3d0cff-63a7-4d57-a666-fb3e546d83ee",
+              "Text": "Pie and doughnut charts represent proportional relationships but should be limited to a few distinct categories.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f9ff4117-5129-4657-9c85-bf9e6fe83372",
+              "Text": "Scatter plots are ideal for showing the relationship or correlation between two numeric variables.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1cc8bcc2-5d04-4925-95e9-b59c98ae5c24",
+          "TopicId": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+          "Title": "Adjusting the Chart Data Range",
+          "BodyText": "After inserting a chart, you may need to modify the data range it references to correct errors or expand the visualization.",
+          "Notes": "The \u0027Select Data\u0027 dialog box shows both the series data and the horizontal axis labels, giving you full control over what the chart displays.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "ModifiedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "Items": [
+            {
+              "Id": "e0dc23a2-8a6a-4fb7-a4ea-a8e0ada77efb",
+              "Text": "Right-click the chart and choose \u0027Select Data\u0027 to open the Select Data Source dialog.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c53082de-7493-42df-8f9b-a1c851b75ee3",
+              "Text": "Use the \u0027Chart data range\u0027 field to manually enter or select a new range directly from the spreadsheet.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "39c5b8b3-0c70-4ca9-9921-71a64cfe5bb1",
+              "Text": "Add, edit, or remove individual data series using the Legend Entries panel within the dialog.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e1b6d4c9-c4e9-49e3-94d4-026e495243db",
+              "Text": "Switch rows and columns using the \u0027Switch Row/Column\u0027 button if Excel has mapped your data incorrectly.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "868f4c49-cc94-4d02-944e-c94c77fb16b3",
+          "TopicId": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+          "Title": "Applying Chart Layouts and Styles",
+          "BodyText": "Excel\u0027s Chart Design tab provides pre-built layouts and styles that quickly change the overall appearance of a chart.",
+          "Notes": "Quick Layouts control the placement of elements like titles, legends, and data labels, while Chart Styles apply color schemes and visual effects.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "ModifiedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "Items": [
+            {
+              "Id": "c04771bf-483a-48b5-aed6-32b6cac10c85",
+              "Text": "Select the chart to activate the Chart Design and Format contextual tabs on the ribbon.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "13f36160-a6ef-41d4-85aa-8ca6cbec9aad",
+              "Text": "Choose a Quick Layout from the Chart Layouts group to instantly rearrange chart elements such as titles and legends.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "727c9b35-0180-45b8-89ff-a8a5ca1aefb3",
+              "Text": "Apply a Chart Style from the Chart Styles gallery to change colors, fonts, and background formatting in one click.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c140a0ea-4032-4e7b-8cd0-dc9b3487b44b",
+              "Text": "Use the \u0027Change Colors\u0027 dropdown to apply a custom color palette that aligns with your presentation theme.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d8cef0d6-cf46-44b6-adc8-468c99065b4a",
+          "TopicId": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+          "Title": "Formatting Individual Chart Elements",
+          "BodyText": "Beyond preset styles, Excel allows you to format specific chart elements individually for precise control over the visualization\u0027s appearance.",
+          "Notes": "Double-clicking any chart element opens its Format pane on the right side of the screen, providing detailed formatting options specific to that element.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "ModifiedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "Items": [
+            {
+              "Id": "928b8b12-2ece-49d9-9f6d-44abc0a1ca99",
+              "Text": "Click once on any chart element\u2014such as a data series, axis, or legend\u2014to select it for formatting.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c75bce99-80d6-4a72-a4d4-5b04ab6788cc",
+              "Text": "Use the Format pane to adjust fill color, border style, font, and size for the selected element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "48852714-95c0-4d40-aac5-0f10cb41ad16",
+              "Text": "Format axes to control number formatting, tick mark intervals, minimum and maximum scale values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "90c14cea-cc14-43ac-9c11-e74be9164d6b",
+              "Text": "Apply data labels to individual series to display exact values directly on the chart for easier reading.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "24e46035-a0c8-4b51-8f96-b001ea2831f8",
+          "TopicId": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+          "Title": "Adding and Editing Chart Titles and Labels",
+          "BodyText": "Descriptive titles and axis labels are critical for making a chart self-explanatory and communicating context to the audience.",
+          "Notes": "A chart title can be linked dynamically to a cell value by typing an equals sign in the title field and referencing the cell, so it updates automatically.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "ModifiedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "Items": [
+            {
+              "Id": "0faf5aa5-ec0b-4ab0-99c5-6ebaf3426fd8",
+              "Text": "Click \u0027Add Chart Element\u0027 on the Chart Design tab to insert a chart title, axis titles, or data labels.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6c275687-da6b-4b76-9b20-9285fe387ea2",
+              "Text": "Double-click an existing title or label placeholder to enter edit mode and type your descriptive text.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "27cc7815-e566-438b-8bf3-55696625c9d8",
+              "Text": "Axis titles should clearly identify the unit of measurement or category being represented on each axis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2cc0aafa-75e4-4236-8d01-ecda15f0e4f7",
+              "Text": "Data labels can be positioned inside, outside, or at the end of bars and points depending on the chart type and design preference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5a73cb9d-fccf-4757-9eab-3f9a324a5195",
+          "TopicId": "87374b03-922a-4cb7-ac8f-d6977747f69e",
+          "Title": "Moving and Resizing Charts",
+          "BodyText": "Charts in Excel can be repositioned on the same worksheet or moved to a dedicated chart sheet for cleaner presentation.",
+          "Notes": "Placing a chart on its own chart sheet is useful when the chart will be printed separately or displayed in a full-screen dashboard view.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "ModifiedDate": "2026-07-03T11:38:05.8113565-04:00",
+          "Items": [
+            {
+              "Id": "5077c50d-4b93-44ef-b8ca-0e271b5640c8",
+              "Text": "Click and drag the chart border to reposition it anywhere on the current worksheet.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "51d858c5-0860-4e59-bfef-b2181c4e8222",
+              "Text": "Drag the corner or edge handles of the chart to resize it while maintaining or adjusting its proportions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2a519a2e-0b50-44b2-979b-f4f67a01c1d9",
+              "Text": "To move a chart to its own sheet, right-click the chart, select \u0027Move Chart,\u0027 and choose \u0027New sheet\u0027 in the dialog.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "61dedd39-f228-4cce-9081-1f17859591f4",
+              "Text": "Use the Size and Properties options in the Format Chart Area pane to set exact pixel dimensions for precise layout control.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+      "Title": "Building Effective Visual Summaries in Excel",
+      "Summary": "Demonstrates how to combine charts and supporting elements into cohesive visual summaries within Excel. Focuses on applying visualization principles to produce polished, professional outputs.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "ModifiedDate": "2026-07-03T11:35:43.8936959-04:00",
+      "Elements": [
+        {
+          "Id": "8b25571d-2de9-4978-997c-f4fcd41d69db",
+          "TopicId": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+          "Title": "Selecting the Right Chart Type for Your Summary",
+          "BodyText": "Choosing an appropriate chart type is the foundation of an effective visual summary in Excel.",
+          "Notes": "For example, use a bar chart to compare categories, a line chart to show trends over time, and a pie chart sparingly for part-to-whole relationships with few segments.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:38:33.53846-04:00",
+          "ModifiedDate": "2026-07-03T11:38:33.53846-04:00",
+          "Items": [
+            {
+              "Id": "2fc5ecfa-ada7-462a-8a7b-7b154b01e90c",
+              "Text": "Match the chart type to the nature of your data and the message you want to communicate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4a0783c1-6eeb-493d-94c9-d98f5f9de9a0",
+              "Text": "Avoid using complex or decorative chart types when a simpler format communicates the same information more clearly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f2b79612-3851-4b71-a5b1-dc048a75b42d",
+              "Text": "Excel\u0027s chart recommendation feature can suggest appropriate types based on selected data, but always evaluate suggestions critically against visualization principles.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f7893e32-a859-45e6-b702-032ca5dec755",
+          "TopicId": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+          "Title": "Applying Visual Hierarchy to Chart Elements",
+          "BodyText": "Visual hierarchy guides the viewer\u0027s eye to the most important information first within your Excel chart or dashboard.",
+          "Notes": "For instance, making the chart title larger and bolder than axis labels ensures readers understand the subject before interpreting the details.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:38:33.53846-04:00",
+          "ModifiedDate": "2026-07-03T11:38:33.53846-04:00",
+          "Items": [
+            {
+              "Id": "f74fc014-7b96-4342-b73b-57a862f7de8a",
+              "Text": "Use size, color, and font weight to emphasize key data points, titles, and takeaways over secondary labels and gridlines.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "89d712a7-8a81-4fba-a75d-4b2dedafb833",
+              "Text": "Position the most critical visual element \u2014 such as a highlighted bar or trend line \u2014 where the eye naturally travels first.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "492f1501-de35-4758-be0b-e435bc5351d4",
+              "Text": "Reduce visual noise by minimizing borders, redundant legends, and unnecessary gridlines that compete with the primary data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6ea2e435-e212-4d38-8f06-839efe072667",
+          "TopicId": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+          "Title": "Combining Multiple Chart Elements into a Cohesive Layout",
+          "BodyText": "A polished visual summary often integrates charts, titles, annotations, and supporting text into a unified Excel layout.",
+          "Notes": "Arranging charts and text boxes on a single Excel sheet or using a dedicated dashboard sheet allows all supporting elements to work together without clutter.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:38:33.53846-04:00",
+          "ModifiedDate": "2026-07-03T11:38:33.53846-04:00",
+          "Items": [
+            {
+              "Id": "fbbdb9c1-10de-405b-b6be-54d89c89a84d",
+              "Text": "Align chart borders, titles, and supporting elements using Excel\u0027s alignment and gridline snapping tools to create a clean, professional appearance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "657e5538-c094-4df3-ad93-b401bb240b44",
+              "Text": "Use consistent spacing between elements so the layout feels organized and intentional rather than crowded.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d9638daf-a0d6-48a3-88e4-c31fce33a508",
+              "Text": "Group related charts and labels so they can be moved or resized together without disrupting the overall layout.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "84b9d536-8383-43ed-820a-39b8e0afeb3f",
+          "TopicId": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+          "Title": "Using Color Purposefully and Consistently",
+          "BodyText": "Color is one of the most powerful yet frequently misused tools in data visualization, and Excel provides full control over chart color schemes.",
+          "Notes": "A common best practice is to use a single accent color to highlight the most important data series while keeping all other series in neutral tones such as gray.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:38:33.53846-04:00",
+          "ModifiedDate": "2026-07-03T11:38:33.53846-04:00",
+          "Items": [
+            {
+              "Id": "2fbbd7ca-080a-4ca8-9423-5f05037b682b",
+              "Text": "Apply a limited, consistent color palette across all charts in a summary to reinforce visual coherence and brand consistency.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "be6e6314-8a00-42ea-b9cc-2caff349ee96",
+              "Text": "Use color to encode meaning \u2014 for example, red for negative values and green for positive \u2014 rather than for purely decorative purposes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a4ed34e9-b609-49d7-82b0-a475af2b24e3",
+              "Text": "Ensure sufficient color contrast so that charts remain readable for viewers with color vision deficiencies, and avoid relying on color alone to distinguish data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "db57aa55-8bf9-4023-9a1c-1f991b9dfa62",
+          "TopicId": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+          "Title": "Adding Titles, Labels, and Annotations for Clarity",
+          "BodyText": "Descriptive titles, axis labels, and data annotations transform a raw chart into a self-explanatory visual summary.",
+          "Notes": "An annotation such as an arrow or text box pointing to a spike in a line chart can immediately communicate \u0027this is where the key event occurred\u0027 without requiring the viewer to hunt for the insight.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:38:33.53846-04:00",
+          "ModifiedDate": "2026-07-03T11:38:33.53846-04:00",
+          "Items": [
+            {
+              "Id": "f79240b7-818d-4af4-a0c3-6f39c1f2ba5c",
+              "Text": "Write chart titles as interpretive statements that convey the key insight rather than simply restating the data category, such as \u0027Sales Peaked in Q3\u0027 instead of \u0027Quarterly Sales\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9ccd0cca-d149-4bc9-a216-7f0a6f3950c7",
+              "Text": "Include axis titles and units wherever the scale or measurement type is not immediately obvious to the intended audience.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eaefb646-1e4f-4fe9-aeb4-f478ec364e43",
+              "Text": "Use Excel\u0027s text box and shape tools to add callout annotations that draw attention to significant data points or trends.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a8825046-389e-456e-8d0f-a7989fd8755f",
+          "TopicId": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+          "Title": "Avoiding Misleading Visual Representations",
+          "BodyText": "Professional visual summaries require careful attention to chart formatting choices that can unintentionally distort or misrepresent data.",
+          "Notes": "A classic example of a misleading chart is a bar chart whose y-axis starts at a value other than zero, making small differences appear dramatic.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:38:33.53846-04:00",
+          "ModifiedDate": "2026-07-03T11:38:33.53846-04:00",
+          "Items": [
+            {
+              "Id": "7abbd242-ccad-4f52-8556-486c7fe70c8e",
+              "Text": "Always start bar and column chart axes at zero to prevent exaggerating differences between data values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dcb7d9cf-c242-4a37-b66f-04464d90b380",
+              "Text": "Avoid using 3D chart effects, which can make it difficult to accurately read values and introduce visual distortion.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7e5655ce-165a-4497-8a45-42176fea9786",
+              "Text": "Ensure that any truncated axes or dual-axis charts are clearly labeled so viewers understand the scale and are not misled by the visual impression.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "45fc4e5d-c02b-4436-8a05-53d05347a77c",
+          "TopicId": "6ba3b7ce-052d-40a6-bb81-54f591320ccf",
+          "Title": "Reviewing and Refining for a Polished, Professional Output",
+          "BodyText": "The final step in building an effective visual summary is a deliberate review process to ensure clarity, consistency, and professional quality.",
+          "Notes": "Sharing a draft with a colleague unfamiliar with the data is a practical way to identify confusing elements before delivering the final output.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:38:33.53846-04:00",
+          "ModifiedDate": "2026-07-03T11:38:33.53846-04:00",
+          "Items": [
+            {
+              "Id": "a905b4a7-9ae1-44aa-94d2-af10d2089b7e",
+              "Text": "Check that all chart elements \u2014 titles, labels, legends, and annotations \u2014 are fully visible, legible, and free of truncation or overlap.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f109d2be-8b8d-4ff2-81a8-bb2f81fab3e0",
+              "Text": "Verify that formatting such as fonts, colors, and number formats is consistent across every chart and supporting element in the summary.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fef3780d-468d-4113-a84e-16dcd80380cf",
+              "Text": "Test the visual summary by asking whether a viewer unfamiliar with the data could understand the key message within a few seconds of viewing it.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 40
+}

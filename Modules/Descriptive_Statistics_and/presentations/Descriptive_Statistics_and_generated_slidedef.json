@@ -1,0 +1,114 @@
+{
+  "PresentationTitle": "Descriptive Statistics and Probability Distributions",
+  "Topic": "Measures of Central Tendency, Measures of Spread and Variability, Skewness and Distribution Shape, Introduction to Probability Distributions, The Normal Distribution, The Binomial Distribution, The Poisson Distribution",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "Descriptive Statistics and Probability Distributions",
+      "Bullets": [
+        "A comprehensive introduction to summarizing data and modeling uncertainty using statistical methods and Python."
+      ],
+      "SpeakerNotes": "Welcome students to this presentation on descriptive statistics and probability distributions. We will move from foundational concepts like the mean and median through measures of spread, skewness, and into key probability distributions including the normal, binomial, and Poisson. Python will be used throughout to reinforce practical computation and interpretation."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Measures of Central Tendency",
+      "Bullets": [
+        "The mean is the arithmetic average of all data values.",
+        "The median is the middle value in an ordered dataset.",
+        "Mean and median together reveal distributional shape and symmetry.",
+        "Python libraries compute both measures quickly and accurately.",
+        "Context determines which measure best represents the data."
+      ],
+      "SpeakerNotes": "Central tendency describes where data clusters. The mean is calculated by summing all values and dividing by the count of observations \u2014 it is sensitive to extreme values. The median, the middle value when data is sorted, is more robust to outliers. Comparing the two reveals symmetry or skew. In Python, NumPy\u0027s np.mean() and np.median() or the statistics module make these computations straightforward. Always interpret these values in the context of what the data represents \u2014 for example, median household income is often preferred over mean because extreme incomes can distort the mean."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "Measures of Spread and Variability",
+      "Bullets": [
+        "Spread quantifies how dispersed data values are from the center.",
+        "Variance averages the squared differences from the mean.",
+        "Standard deviation returns spread to the original data units.",
+        "Step-by-step calculation reinforces understanding and accuracy.",
+        "Python\u0027s NumPy computes variance and standard deviation efficiently."
+      ],
+      "SpeakerNotes": "Knowing only the center of a dataset is insufficient \u2014 two datasets can have identical means but very different spreads. Variance is computed by finding each value\u0027s squared deviation from the mean and averaging those squared differences. Because it is in squared units, it can be hard to interpret directly. Standard deviation, the square root of variance, returns the measure to the original units and is far more intuitive. When calculating by hand, subtract the mean from each value, square the result, sum them, and divide by n (population) or n-1 (sample). Always interpret these statistics relative to the scale of your data and the research question at hand. NumPy\u0027s np.var() and np.std() handle this computationally with a single function call."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "Skewness and Distribution Shape",
+      "Bullets": [
+        "Skewness measures the degree and direction of distributional asymmetry.",
+        "Positive skew: tail extends toward higher values on the right.",
+        "Negative skew: tail extends toward lower values on the left.",
+        "Skewness determines whether mean or median is more representative.",
+        "Histograms and density plots visually reveal distributional shape."
+      ],
+      "SpeakerNotes": "Skewness quantifies how asymmetric a distribution is relative to its mean. In a positively skewed distribution, the bulk of data concentrates on the left with a long tail to the right \u2014 income distributions are a common example. In a negatively skewed distribution, the tail extends left. Skewness directly impacts which central tendency measure to report: in skewed distributions, the median is generally more representative than the mean. Python\u0027s scipy.stats.skew() or pandas\u0027 .skew() method computes skewness numerically. Histograms plotted with matplotlib or seaborn allow students to visually confirm the skewness direction. Always pair numerical skewness values with a visual for clearer communication."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "Introduction to Probability Distributions",
+      "Bullets": [
+        "A probability distribution describes likelihoods of all possible outcomes.",
+        "Discrete distributions model countable outcomes; continuous model ranges.",
+        "Distributions model real-world variability and patterns mathematically.",
+        "Parameters like mean and variance define a distribution\u0027s shape.",
+        "Distributions underpin hypothesis testing and confidence intervals."
+      ],
+      "SpeakerNotes": "A probability distribution is a mathematical function assigning probabilities to each possible value of a random variable. Discrete distributions, like the binomial or Poisson, apply to countable outcomes such as the number of defects. Continuous distributions, like the normal, apply to measurements that can take any value within a range. Distributions serve as abstractions that capture real-world variability \u2014 they help us model phenomena like test scores, wait times, or product lifetimes. Each distribution is defined by parameters: for example, the normal distribution is defined by its mean and standard deviation. Critically, distributions form the theoretical foundation of inferential statistics, enabling us to test hypotheses and construct confidence intervals."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "The Normal Distribution",
+      "Bullets": [
+        "The normal distribution is symmetric and bell-shaped around the mean.",
+        "Mean (\u03BC) sets the center; standard deviation (\u03C3) controls spread.",
+        "The empirical rule: 68%, 95%, 99.7% within 1, 2, 3 standard deviations.",
+        "Python visualizes how changing \u03BC and \u03C3 reshapes the curve.",
+        "scipy.stats.norm computes exact probabilities and percentiles."
+      ],
+      "SpeakerNotes": "The normal distribution is one of the most important distributions in statistics due to its mathematical properties and widespread applicability. It is fully defined by two parameters: the mean, which determines where the curve is centered, and the standard deviation, which determines how wide or narrow the bell shape is. The empirical rule is a critical heuristic: approximately 68% of data falls within one standard deviation of the mean, 95% within two, and 99.7% within three. In Python, matplotlib and scipy can be used together to visualize the curve, and students should explore how shifting \u03BC moves the curve horizontally while changing \u03C3 compresses or stretches it. scipy.stats.norm.cdf() and .ppf() allow calculation of cumulative probabilities and inverse probabilities, respectively."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "The Binomial Distribution",
+      "Bullets": [
+        "Binomial models successes in a fixed number of independent trials.",
+        "Four conditions: fixed n, binary outcome, constant p, independence.",
+        "PMF formula: P(X=k) = C(n,k) \u00D7 p^k \u00D7 (1\u2212p)^(n\u2212k).",
+        "Mean = np; Variance = np(1\u2212p) \u2014 simple closed-form expressions.",
+        "scipy.stats.binom computes individual and cumulative probabilities."
+      ],
+      "SpeakerNotes": "The binomial distribution is applied when we count the number of successes across a fixed number of trials. The four conditions that must be satisfied are: a fixed number of trials (n), exactly two possible outcomes per trial (success or failure), a constant probability of success (p), and independence between trials. The probability mass function calculates the likelihood of observing exactly k successes. The mean of the binomial is simply n times p, and the variance is n times p times (1 minus p), making characterization very easy. Python\u0027s scipy.stats.binom.pmf() gives the probability of an exact outcome, while binom.cdf() gives cumulative probabilities. Practical applications include quality control, survey response modeling, and medical trial outcomes."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "The Poisson Distribution",
+      "Bullets": [
+        "Poisson models event counts in a fixed interval of time or space.",
+        "PMF: P(X=k) = (\u03BB^k \u00D7 e^\u2212\u03BB) / k!, where \u03BB is the average rate.",
+        "Mean and variance are both equal to \u03BB \u2014 a key property.",
+        "scipy.stats.poisson computes Poisson probabilities without manual calculation.",
+        "Interpret results by translating probabilities into actionable insights."
+      ],
+      "SpeakerNotes": "The Poisson distribution models the number of times an event occurs within a fixed interval, such as customer arrivals per hour or website errors per day, given that events occur independently and at a constant average rate \u03BB (lambda). The PMF formula uses the exponential constant e and the factorial of k. A distinctive and elegant property of the Poisson distribution is that both its mean and variance equal \u03BB \u2014 this makes it easy to characterize. Students can visualize how increasing \u03BB shifts the distribution rightward and makes it more symmetric using bar charts of the PMF. scipy.stats.poisson.pmf() and .cdf() handle computation efficiently. When interpreting results, go beyond the number \u2014 for instance, if P(X \u2265 5) = 0.03 for server crashes per day, communicate that such an event is unlikely but not impossible, informing operational planning."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "Summary and Key Takeaways",
+      "Bullets": [
+        "Mean and median summarize a dataset\u0027s center differently.",
+        "Variance and standard deviation measure data spread around the mean.",
+        "Skewness reveals asymmetry and guides choice of central tendency measure.",
+        "Probability distributions model real-world outcomes and underpin inference.",
+        "Python enables efficient computation and visualization across all topics."
+      ],
+      "SpeakerNotes": "This presentation covered the essential building blocks of descriptive statistics and probability distributions. We began with measures of central tendency \u2014 the mean and median \u2014 and learned how to compute and interpret them in context. We then explored variance and standard deviation as tools for quantifying spread, followed by skewness as a measure of distributional asymmetry. We introduced the concept of probability distributions, distinguishing discrete from continuous types, and examined three fundamental distributions: the normal, binomial, and Poisson. Throughout, Python was used as a practical tool for computation and visualization. Mastering these concepts provides a strong foundation for inferential statistics, data modeling, and applied data analysis in any field."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T14:03:27.5560067-04:00",
+  "PptxFileName": ""
+}

@@ -1,0 +1,186 @@
+{
+  "PresentationTitle": "SQL Joins, Relationships, and Advanced Query Techniques",
+  "Topic": "Relational Database Foundations, INNER JOIN and Matching Records, Outer JOINs: LEFT, RIGHT, and FULL, Subqueries and Nested SELECT Statements, Aggregation with GROUP BY and HAVING, Solving Multi-Table Analytical Problems",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "SQL Joins, Relationships, and Advanced Query Techniques",
+      "Bullets": [
+        "A comprehensive guide to multi-table queries, joins, subqueries, and aggregation for data analysis."
+      ],
+      "SpeakerNotes": "Welcome everyone. This presentation covers the foundational and advanced SQL concepts needed to query relational databases effectively. We will progress from understanding how tables relate to one another, through JOIN operations, subqueries, aggregation, and finally how to combine all these techniques to answer complex analytical questions. By the end, you should feel confident designing multi-table queries from scratch."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Relational Database Foundations",
+      "Bullets": [
+        "Data is organized into multiple structured tables, each representing one entity.",
+        "Primary keys uniquely identify every row within a table.",
+        "Foreign keys link one table to another\u0027s primary key.",
+        "Relationships are classified as one-to-one, one-to-many, or many-to-many.",
+        "Splitting data across tables reduces repetition and improves consistency."
+      ],
+      "SpeakerNotes": "A relational database stores data in separate tables rather than one large flat file. Each table focuses on a single entity such as customers, orders, or products. A primary key \u2014 often an integer ID \u2014 guarantees that every row can be uniquely identified. A foreign key in one table points to the primary key in another, creating a formal relationship. Relationships are typed: one customer can have many orders (one-to-many), or students and courses can have a many-to-many relationship managed through a junction table. Separating data this way eliminates redundancy and prevents update anomalies \u2014 for example, a customer\u0027s name is stored once, not repeated in every order row. This design is why JOIN operations become necessary: because the data you need for a single answer often lives in multiple tables."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "Why JOIN Operations Are Necessary",
+      "Bullets": [
+        "Related data lives in separate, purposefully divided tables.",
+        "A single query cannot span tables without a JOIN.",
+        "JOINs combine rows using matching column values.",
+        "Without JOINs, multi-table analysis would require multiple round trips.",
+        "JOINs are the primary tool for reassembling split data."
+      ],
+      "SpeakerNotes": "Once data is normalized across multiple tables, retrieving a complete picture \u2014 such as a customer\u0027s name alongside their order details \u2014 requires joining those tables back together at query time. SQL\u0027s JOIN clause is the mechanism that accomplishes this. It compares column values across tables and merges rows that satisfy the join condition into a unified result set. Understanding which type of JOIN to use, and on which columns, is one of the most important skills in SQL. The following slides cover each JOIN type in detail."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "INNER JOIN: Matching Records Only",
+      "Bullets": [
+        "INNER JOIN returns rows with a match in both tables.",
+        "Placed in the FROM clause with an ON condition specified.",
+        "Typically links a foreign key to its corresponding primary key.",
+        "Table aliases shorten syntax and improve query readability.",
+        "Chain multiple INNER JOINs to combine three or more tables."
+      ],
+      "SpeakerNotes": "The INNER JOIN is the most commonly used join type. Its syntax places the INNER JOIN keyword after the first table in the FROM clause, followed by the second table name and an ON condition: for example, ON orders.customer_id = customers.customer_id. Only rows where both sides satisfy the ON condition are included in the result; unmatched rows are silently excluded. Table aliases \u2014 such as giving \u0027customers\u0027 the alias \u0027c\u0027 \u2014 make longer queries cleaner and easier to maintain. To join three or more tables, simply add additional INNER JOIN clauses sequentially, each with its own ON condition. A WHERE clause can further filter the results after matching occurs, for example restricting results to a specific date range or region. INNER JOIN is ideal when you only care about records that have confirmed relationships, such as orders that are tied to an existing customer."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "INNER JOIN: Common Use Cases",
+      "Bullets": [
+        "Retrieve orders alongside customer names and contact details.",
+        "Link products to their categories for sales reporting.",
+        "Combine employee records with their assigned department data.",
+        "Filter results further using WHERE after the JOIN.",
+        "Use only when unmatched rows can safely be excluded."
+      ],
+      "SpeakerNotes": "INNER JOIN is appropriate whenever the analysis only makes sense for records that exist on both sides of the relationship. For example, a sales report that shows each order with the corresponding customer name would use an INNER JOIN between the orders and customers tables. If a customer has no orders, they would not appear \u2014 which is intentional. Similarly, joining products to categories ensures every product in the result has a valid category assignment. When chaining multiple joins, each additional INNER JOIN narrows the result to only rows that satisfy all join conditions simultaneously. Always confirm that using INNER JOIN is appropriate before assuming unmatched rows are irrelevant to your analysis."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "Outer JOINs: LEFT, RIGHT, and FULL",
+      "Bullets": [
+        "Outer JOINs return unmatched rows unlike INNER JOIN.",
+        "LEFT JOIN keeps all rows from the left table.",
+        "RIGHT JOIN keeps all rows from the right table.",
+        "FULL OUTER JOIN returns all rows from both tables.",
+        "Unmatched columns are filled with NULL values."
+      ],
+      "SpeakerNotes": "Outer JOINs extend the concept of joining by preserving rows from one or both tables even when no matching row exists on the other side. A LEFT OUTER JOIN (commonly written simply as LEFT JOIN) returns every row from the left table; if no match exists in the right table, the right-side columns appear as NULL. A RIGHT OUTER JOIN does the mirror image, preserving all right-table rows. A FULL OUTER JOIN combines both behaviors, returning all rows from both tables with NULLs wherever a match is absent. Choosing the correct outer join type depends on which dataset must remain complete. For example, to find all customers including those who have never placed an order, a LEFT JOIN from customers to orders is appropriate \u2014 customers without orders will appear with NULL in the order columns. Always account for NULLs in subsequent filtering and calculations when working with outer joins, as NULL values can cause unexpected behavior in conditions and aggregate functions."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "Choosing the Right Outer JOIN",
+      "Bullets": [
+        "LEFT JOIN: preserve all records from the primary dataset.",
+        "RIGHT JOIN: preserve all records from the secondary dataset.",
+        "FULL OUTER JOIN: audit completeness across both tables.",
+        "Use IS NULL to identify unmatched records after joining.",
+        "Match JOIN type to the business question being answered."
+      ],
+      "SpeakerNotes": "Selecting the appropriate outer join type is a business logic decision, not just a technical one. If the goal is to list all customers and show which ones have placed orders, LEFT JOIN is correct \u2014 customers are the primary dataset. If you need all products even those not yet ordered, LEFT JOIN from products to order items achieves that. RIGHT JOIN is functionally equivalent to LEFT JOIN with the tables reversed and is less commonly written in practice. FULL OUTER JOIN is most useful for reconciliation tasks, such as identifying records that exist in one system but not another. A common pattern after an outer join is to filter with WHERE right_table.id IS NULL to find specifically the unmatched rows \u2014 for example, customers who have never ordered. Understanding NULL propagation in calculations and WHERE conditions is essential when working with outer joins."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "Subqueries and Nested SELECT Statements",
+      "Bullets": [
+        "A subquery is a SELECT statement nested inside another statement.",
+        "WHERE clause subqueries filter rows using computed values.",
+        "FROM clause subqueries create derived tables for the outer query.",
+        "Non-correlated subqueries execute once and reuse their result.",
+        "Correlated subqueries re-execute for every outer query row."
+      ],
+      "SpeakerNotes": "A subquery embeds one SELECT statement inside another, allowing the result of an inner query to drive the logic of the outer query. When placed inside a WHERE clause, a subquery typically returns a value or list of values used for comparison \u2014 for example, finding all employees whose salary is above the company average. When placed in the FROM clause, the subquery acts as a derived table (also called an inline view), which the outer query treats like a regular table. Non-correlated subqueries are independent: they run once, produce a fixed result, and that result is applied to every row in the outer query. Correlated subqueries reference columns from the outer query, meaning they must re-run for each row the outer query evaluates \u2014 this makes them more powerful but potentially slower on large datasets. Understanding when to use each type is key to writing efficient and readable SQL."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "EXISTS, NOT EXISTS, and Subquery vs. JOIN",
+      "Bullets": [
+        "EXISTS returns true if a correlated subquery finds any row.",
+        "NOT EXISTS identifies rows with no matching related record.",
+        "Subqueries can improve readability for complex filtering logic.",
+        "JOINs often perform better and enable result-set aggregation.",
+        "Choose based on readability, performance, and query requirements."
+      ],
+      "SpeakerNotes": "The EXISTS operator is used with correlated subqueries to test whether at least one matching row exists in a related table \u2014 for example, finding customers for whom at least one order exists. NOT EXISTS is the inverse and is useful for finding records with no related rows, similar to the LEFT JOIN / IS NULL pattern. When deciding between subqueries and JOINs, consider both readability and performance. Subqueries can make complex filtering logic easier to understand by separating concerns into distinct steps. JOINs, particularly INNER JOINs, often allow the database engine to optimize execution more efficiently and naturally support scenarios where you need columns from both tables in the result. Many problems can be solved with either approach; the best choice depends on the specific database system, data volume, indexing, and how the query will be maintained over time."
+    },
+    {
+      "SlideNumber": 10,
+      "Title": "Aggregation with GROUP BY and HAVING",
+      "Bullets": [
+        "Aggregate functions summarize many rows into one value.",
+        "Common functions: COUNT, SUM, AVG, MIN, MAX.",
+        "GROUP BY divides rows into groups before aggregating.",
+        "HAVING filters groups based on aggregated values.",
+        "ORDER BY sorts the final aggregated result for presentation."
+      ],
+      "SpeakerNotes": "Aggregate functions are foundational to data analysis in SQL. COUNT counts rows, SUM totals a numeric column, AVG computes a mean, and MIN/MAX find extremes within a group. Without GROUP BY, an aggregate function collapses the entire result set into one row. Adding GROUP BY partitions the rows into groups \u2014 for example, one group per department or per product category \u2014 and applies the aggregate function to each group independently. HAVING works like a WHERE clause but operates after grouping, allowing you to filter out groups that do not meet a threshold, such as departments with fewer than five employees. The critical distinction: WHERE filters individual rows before grouping occurs, while HAVING filters groups after aggregation. Finally, ORDER BY can be combined with GROUP BY to sort the aggregated output in a logical order, such as highest sales first, making reports easier to interpret."
+    },
+    {
+      "SlideNumber": 11,
+      "Title": "WHERE vs. HAVING: A Critical Distinction",
+      "Bullets": [
+        "WHERE filters individual rows before grouping takes place.",
+        "HAVING filters groups after aggregate functions are applied.",
+        "Cannot use aggregate functions inside a WHERE clause.",
+        "Use both together to pre-filter rows and then filter groups.",
+        "Correct placement directly affects query accuracy."
+      ],
+      "SpeakerNotes": "A common mistake is attempting to use an aggregate function inside a WHERE clause, which SQL does not allow because WHERE executes before grouping occurs. For example, you cannot write WHERE COUNT(order_id) \u003E 5; instead, that condition belongs in the HAVING clause. However, you can use WHERE and HAVING together in the same query: WHERE first narrows the rows included in the grouping step, and HAVING then filters the resulting groups. For instance, you might use WHERE to restrict analysis to a specific year, then use HAVING to keep only customers who placed more than three orders within that year. Understanding the order of SQL clause execution \u2014 FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY \u2014 is essential for writing correct aggregation queries."
+    },
+    {
+      "SlideNumber": 12,
+      "Title": "Solving Multi-Table Analytical Problems",
+      "Bullets": [
+        "Decompose complex questions into smaller, answerable sub-problems.",
+        "Choose JOIN type based on which rows must be preserved.",
+        "Layer GROUP BY and HAVING to summarize joined data.",
+        "Use subqueries to pre-process or stage intermediate results.",
+        "Combine JOINs and subqueries within a single query when needed."
+      ],
+      "SpeakerNotes": "Real-world analytical questions rarely map to a single simple query. The first step is decomposition: break the business question into parts, identify which tables hold the needed data, and determine what operations each part requires. Then choose the appropriate JOIN type \u2014 if all customers must appear regardless of order history, a LEFT JOIN is needed; if only confirmed relationships matter, INNER JOIN suffices. After joining, apply GROUP BY to segment the data and HAVING to filter aggregated groups. Subqueries are valuable for staging intermediate results \u2014 for example, computing per-customer totals in a subquery and then joining that result back to the customers table to enrich the output. Combining JOINs and subqueries in one query is common in practice: a derived table in the FROM clause can serve as one side of a JOIN, allowing complex pre-processing before the final merge."
+    },
+    {
+      "SlideNumber": 13,
+      "Title": "Validating Multi-Table Query Results",
+      "Bullets": [
+        "Verify row counts match expected totals from source tables.",
+        "Check for unintended row duplication caused by JOIN logic.",
+        "Confirm NULL handling is correct in aggregations and filters.",
+        "Test edge cases: missing relationships, empty groups, zero values.",
+        "Trace results back to source data to confirm logical accuracy."
+      ],
+      "SpeakerNotes": "Writing syntactically valid SQL is only part of the job \u2014 verifying that the results are logically correct is equally important. A common issue is row multiplication: when a one-to-many join is not handled carefully, the same row can appear multiple times, inflating COUNT or SUM results. Always check that the row count in your result makes sense given the source data. Verify that NULLs from outer joins are handled intentionally in WHERE conditions and aggregate functions, as NULLs are excluded from most aggregates and can cause subtle bugs. Test edge cases such as customers with no orders, products with zero sales, or date ranges with no activity. Tracing a sample of rows from the output back to the source tables is one of the most reliable ways to confirm that join conditions and filters are working as intended."
+    },
+    {
+      "SlideNumber": 14,
+      "Title": "Query Design Decision-Making Framework",
+      "Bullets": [
+        "Start by identifying all required tables and their relationships.",
+        "Select JOIN types that preserve the correct rows for the analysis.",
+        "Apply WHERE early to reduce data volume before joining if possible.",
+        "Use subqueries for staged logic; JOINs for combined result sets.",
+        "Prioritize correctness first, then readability, then performance."
+      ],
+      "SpeakerNotes": "A systematic framework helps when facing complex analytical queries. Begin by mapping out which tables are involved and how they relate \u2014 this determines your JOIN structure. Choose JOIN types deliberately: INNER JOIN when only matched records matter, OUTER JOIN when completeness of one side is required. Push filtering as early as possible using WHERE to reduce the number of rows processed in subsequent joins and aggregations. Decide between subqueries and JOINs based on whether you need to stage intermediate results or directly combine tables \u2014 derived table subqueries in the FROM clause are especially useful for pre-aggregating data before a join. Always prioritize getting the right answer first; optimize for performance only after correctness is confirmed. Document complex queries with comments so future maintainers understand the design decisions made."
+    },
+    {
+      "SlideNumber": 15,
+      "Title": "Summary and Key Takeaways",
+      "Bullets": [
+        "Relational databases link tables via primary and foreign keys.",
+        "INNER JOIN returns only matched rows; OUTER JOINs preserve unmatched rows.",
+        "Subqueries embed queries inside queries for staged or filtered logic.",
+        "GROUP BY with HAVING summarizes and filters aggregated data.",
+        "Combine all techniques systematically to solve complex analytical problems."
+      ],
+      "SpeakerNotes": "To summarize: relational databases store data across multiple normalized tables connected through primary and foreign key relationships, making JOIN operations essential for multi-table queries. INNER JOIN retrieves only rows with confirmed matches on both sides, while LEFT, RIGHT, and FULL OUTER JOINs preserve unmatched rows from one or both tables. Subqueries allow you to nest SELECT statements to filter, compute, or stage intermediate results, and can be correlated or non-correlated depending on whether they reference the outer query. Aggregate functions combined with GROUP BY segment data into meaningful groups, and HAVING filters those groups based on computed values \u2014 distinct from WHERE, which filters individual rows before grouping. Finally, solving complex multi-table analytical problems requires decomposing the question, selecting the right join and subquery strategy, layering aggregation, validating results, and applying a systematic decision-making framework. These skills together form the core toolkit for professional-level SQL data analysis."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T14:00:29.0076826-04:00",
+  "PptxFileName": ""
+}

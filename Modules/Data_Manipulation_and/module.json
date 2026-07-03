@@ -1,0 +1,9 @@
+{
+  "Id": "22cd02c6-b401-48a2-b0ed-fc9d980be999",
+  "Name": "Data Manipulation and Cleaning with NumPy and Pandas",
+  "Description": "This lesson covers the NumPy and Pandas libraries for efficient data manipulation, including DataFrame operations, indexing, merging, reshaping, and handling missing data. Students will apply these tools to clean and transform complex real-world datasets programmatically.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.7115784-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.7120374-04:00",
+  "Actions": []
+}

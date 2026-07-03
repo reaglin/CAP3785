@@ -1,0 +1,186 @@
+{
+  "PresentationTitle": "Hypothesis Testing, Correlation, and Regression Analysis",
+  "Topic": "Foundations of Hypothesis Testing, P-Values and Statistical Significance, A/B Testing in Practice, Correlation Analysis, Simple Linear Regression, Multiple Linear Regression, Drawing Data-Driven Conclusions",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "Hypothesis Testing, Correlation, and Regression Analysis",
+      "Bullets": [
+        "A professional guide to inferential statistics, experimental design, and data-driven decision-making for college students."
+      ],
+      "SpeakerNotes": "Welcome everyone. This presentation covers the foundational and applied concepts of inferential statistics \u2014 from forming hypotheses and interpreting p-values, to running A/B tests, measuring correlation, and building regression models. By the end, you will be equipped to select appropriate methods, validate assumptions, and communicate findings clearly."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Foundations of Hypothesis Testing",
+      "Bullets": [
+        "Statistical inference draws conclusions about populations from sample data.",
+        "Every test begins with a null (H\u2080) and alternative (H\u2081) hypothesis.",
+        "A test statistic measures distance between observed data and H\u2080.",
+        "Reject H\u2080 when data would be very unlikely under H\u2080.",
+        "Errors are unavoidable: Type I (false positive) and Type II (false negative)."
+      ],
+      "SpeakerNotes": "Statistical inference allows us to make generalizations without measuring an entire population. The null hypothesis represents the status quo \u2014 no effect or no difference \u2014 while the alternative captures what we are trying to demonstrate. The test statistic quantifies how far our sample result deviates from what H\u2080 predicts. We reject H\u2080 using the logic of contradiction: if the data are extremely unlikely under H\u2080, we have evidence against it. Crucially, because we rely on probability, we can never be certain \u2014 Type I errors occur when we wrongly reject a true H\u2080, and Type II errors occur when we fail to detect a real effect. A well-structured hypothesis test follows a consistent sequence: state hypotheses, choose a significance level, collect data, compute the test statistic, and reach a decision."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "P-Values and Statistical Significance",
+      "Bullets": [
+        "A p-value is the probability of results as extreme as observed, given H\u2080.",
+        "Alpha (\u03B1) is the pre-defined threshold for rejecting H\u2080.",
+        "p \u2264 \u03B1 \u2192 reject H\u2080; p \u003E \u03B1 \u2192 retain H\u2080.",
+        "P-values do NOT measure effect size or practical importance.",
+        "Report effect sizes and confidence intervals alongside p-values."
+      ],
+      "SpeakerNotes": "The p-value answers: \u0027How often would I see data this extreme if H\u2080 were true?\u0027 A common alpha is 0.05, but it should be set before data collection. Type I error rate equals alpha \u2014 lowering alpha reduces false positives but increases false negatives (Type II errors). P-values are widely misunderstood: they do not represent the probability that H\u2080 is true, nor do they confirm practical significance. To calculate a p-value, you compute a test statistic from sample data and find the tail probability under the null distribution. Always accompany p-values with effect sizes and confidence intervals to provide a complete picture. Reporting significance without context can mislead stakeholders and inflate the importance of trivial findings."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "A/B Testing: Concepts and Design",
+      "Bullets": [
+        "A/B testing compares a control (A) and treatment (B) on a defined metric.",
+        "Define the hypothesis and success metric before launching the test.",
+        "Randomly assign users to groups to eliminate selection bias.",
+        "Calculate required sample size to achieve adequate statistical power.",
+        "Choose the statistical test based on metric type and data distribution."
+      ],
+      "SpeakerNotes": "A/B testing is hypothesis testing applied in business and product contexts. Version A is the control \u2014 the current state \u2014 and version B is the treatment being evaluated. Valid experimental design begins before data collection: define what you are measuring, set the null hypothesis (no difference between A and B), determine minimum detectable effect, and compute required sample size to achieve sufficient power (typically 80%). Random assignment is non-negotiable \u2014 it ensures that differences between groups reflect the treatment and not pre-existing differences. The appropriate statistical test depends on the metric: a two-sample t-test for continuous metrics like revenue, and a z-test or chi-square test for proportions like conversion rates."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "Interpreting A/B Test Results",
+      "Bullets": [
+        "Compare the p-value to alpha to assess statistical significance.",
+        "Effect size quantifies the magnitude of the difference between groups.",
+        "Statistical significance does not guarantee business relevance.",
+        "Avoid peeking at results before the predetermined sample size is reached.",
+        "Translate findings into a clear recommendation for stakeholders."
+      ],
+      "SpeakerNotes": "Once the test concludes, the p-value tells us how likely we are to see this difference if there is truly no effect. Comparing it to alpha guides the reject-or-retain decision. However, a statistically significant result with a negligible effect size may not justify deploying version B. Effect size metrics like Cohen\u0027s d or percentage lift provide practical context. Common pitfalls include peeking (stopping early when results look good, inflating false-positive rates), using multiple metrics without correction, and ignoring novelty effects. The final step is translating numbers into a recommendation: frame the finding in terms of the business impact, acknowledge uncertainty, and suggest next steps. Confidence intervals are valuable here for communicating the range of plausible effects."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "Correlation Analysis",
+      "Bullets": [
+        "Correlation quantifies the strength and direction of a relationship between two variables.",
+        "Pearson\u0027s r measures linear correlation for continuous, normally distributed data.",
+        "Spearman\u0027s \u03C1 is a non-parametric alternative based on ranked values.",
+        "Use Spearman when data are ordinal, skewed, or contain outliers.",
+        "Correlation coefficients range from \u22121 (perfect negative) to \u002B1 (perfect positive)."
+      ],
+      "SpeakerNotes": "Correlation is one of the most commonly reported statistics in data analysis. The Pearson correlation coefficient r measures the linear relationship between two continuous variables and assumes approximate normality. Spearman\u0027s rho converts raw values to ranks before computing the correlation, making it robust to outliers and appropriate for ordinal data or non-linear monotonic relationships. Choosing between them depends on data type, distribution shape, and the presence of outliers \u2014 when in doubt, check both. A coefficient near 0 suggests little to no linear relationship; values near \u00B11 indicate strong relationships. Always visualize the data with a scatter plot, since the same r can represent very different patterns (Anscombe\u0027s Quartet). Coefficients must be interpreted within their domain context \u2014 a correlation of 0.3 might be meaningful in social science but negligible in engineering."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "Correlation Does Not Imply Causation",
+      "Bullets": [
+        "A correlation shows association, not a cause-and-effect relationship.",
+        "Confounding variables can create spurious correlations between unrelated outcomes.",
+        "Establishing causation requires controlled experiments or causal inference methods.",
+        "Always ask: could a third variable explain this relationship?",
+        "Interpret correlations within the domain and research question."
+      ],
+      "SpeakerNotes": "This is one of the most critical principles in statistics. Two variables can move together \u2014 ice cream sales and drowning rates both rise in summer \u2014 but neither causes the other; a confounding variable (warm weather and increased outdoor activity) explains both. Spurious correlations arise from coincidence, data dredging, or shared underlying causes. To establish causation, researchers use randomized controlled experiments, natural experiments, or causal inference frameworks like instrumental variables and difference-in-differences. In practice, always scrutinize a correlation by asking what other variables might explain it, whether the direction of causality is clear, and whether there is a plausible mechanism linking the two variables."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "Simple Linear Regression",
+      "Bullets": [
+        "Models the linear relationship between one predictor and one outcome variable.",
+        "OLS estimates coefficients by minimizing the sum of squared residuals.",
+        "\u03B2\u2080 is the intercept; \u03B2\u2081 is the slope for the predictor variable.",
+        "R\u00B2 measures the proportion of outcome variance explained by the model.",
+        "A t-test on \u03B2\u2081 determines if the predictor is statistically significant."
+      ],
+      "SpeakerNotes": "Simple linear regression expresses the outcome Y as a linear function of one predictor X: Y = \u03B2\u2080 \u002B \u03B2\u2081X \u002B \u03B5. Ordinary Least Squares (OLS) finds the values of \u03B2\u2080 and \u03B2\u2081 that minimize the total squared difference between observed and predicted values. The slope \u03B2\u2081 tells us how much Y changes for a one-unit increase in X, and the intercept \u03B2\u2080 is the predicted value of Y when X equals zero. R\u00B2 (coefficient of determination) ranges from 0 to 1 and indicates how much variability in Y the model explains \u2014 higher values suggest better fit, but context matters. To test whether the relationship is statistically real, we run a t-test on \u03B2\u2081 under the null hypothesis that \u03B2\u2081 = 0. Before using the model for prediction, verify that regression assumptions hold: linearity, independence of errors, homoscedasticity, and normality of residuals."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "Checking Regression Assumptions",
+      "Bullets": [
+        "Linearity: the relationship between X and Y must be linear.",
+        "Independence: residuals should not be correlated with each other.",
+        "Homoscedasticity: residuals should have constant variance across fitted values.",
+        "Normality: residuals should be approximately normally distributed.",
+        "Violations can bias estimates and invalidate hypothesis tests."
+      ],
+      "SpeakerNotes": "Regression assumptions are not optional \u2014 violating them can render coefficients and p-values unreliable. Linearity is checked with scatter plots and residual-vs-fitted plots. Independence is especially important in time-series data; the Durbin-Watson test can detect autocorrelation. Homoscedasticity is assessed with a scale-location plot \u2014 a fan-shaped pattern indicates heteroscedasticity, which can be corrected with robust standard errors or data transformations. Normality of residuals is verified with a Q-Q plot or Shapiro-Wilk test, though this assumption becomes less critical with large samples due to the Central Limit Theorem. Once fitted, the model can be used to predict Y for new X values, with confidence and prediction intervals quantifying uncertainty around those predictions."
+    },
+    {
+      "SlideNumber": 10,
+      "Title": "Multiple Linear Regression",
+      "Bullets": [
+        "Extends simple regression by adding two or more predictor variables.",
+        "Each coefficient reflects the effect of one predictor, holding others constant.",
+        "Adjusted R\u00B2 penalizes for adding irrelevant predictors to the model.",
+        "An F-test assesses overall model significance across all predictors.",
+        "Multicollinearity inflates standard errors and distorts coefficient estimates."
+      ],
+      "SpeakerNotes": "Multiple linear regression is expressed as Y = \u03B2\u2080 \u002B \u03B2\u2081X\u2081 \u002B \u03B2\u2082X\u2082 \u002B ... \u002B \u03B2\u2096X\u2096 \u002B \u03B5. The key interpretive principle is ceteris paribus \u2014 each coefficient describes the change in Y for a one-unit increase in that predictor while all other predictors are held constant. Unlike simple R\u00B2, adjusted R\u00B2 accounts for the number of predictors and penalizes unnecessary complexity. The F-test evaluates whether at least one predictor significantly explains variance in Y. Multicollinearity \u2014 high correlation among predictors \u2014 makes individual coefficient estimates unstable without necessarily harming predictions. Detect it using the Variance Inflation Factor (VIF); values above 5\u201310 signal concern. The same assumptions from simple regression apply, plus the absence of severe multicollinearity. All assumptions should be verified before interpreting results."
+    },
+    {
+      "SlideNumber": 11,
+      "Title": "Improving Multiple Regression Models",
+      "Bullets": [
+        "Use variable selection methods: forward, backward, or stepwise selection.",
+        "Transform skewed variables to better satisfy linearity assumptions.",
+        "Remove or combine highly collinear predictors to stabilize estimates.",
+        "Validate the model on a held-out dataset to assess generalizability.",
+        "Balance model complexity with interpretability and predictive accuracy."
+      ],
+      "SpeakerNotes": "Model building is iterative. Variable selection methods help identify the most informative subset of predictors \u2014 forward selection starts with no predictors and adds them one at a time, while backward elimination starts with all predictors and removes the least significant. Information criteria like AIC and BIC can guide this process. Log transformations, square roots, and polynomial terms can address non-linearity or heteroscedasticity. When multicollinearity is severe, consider removing one of the correlated predictors, combining them into an index, or applying ridge regression. Cross-validation \u2014 splitting data into training and test sets \u2014 assesses whether the model generalizes beyond the sample used to fit it. The goal is a model that is both statistically sound and practically interpretable."
+    },
+    {
+      "SlideNumber": 12,
+      "Title": "Drawing Data-Driven Conclusions",
+      "Bullets": [
+        "Match the statistical method to the research question and data type.",
+        "Always validate assumptions before trusting model outputs.",
+        "Interpret p-values alongside effect sizes and confidence intervals.",
+        "Translate coefficients and correlations into plain-language business insights.",
+        "Communicate uncertainty honestly and accessibly to all audiences."
+      ],
+      "SpeakerNotes": "Choosing the right method starts with the research question: Are you comparing groups? Use a t-test or z-test. Testing association? Use correlation. Predicting an outcome? Use regression. Each method rests on assumptions \u2014 checking them is not optional; it determines whether your results are trustworthy. A p-value alone is insufficient for a complete conclusion; always accompany it with an effect size (Cohen\u0027s d, R\u00B2, percentage change) and a confidence interval. When translating regression coefficients, say \u0027for each additional year of experience, salary increases by approximately $3,000, holding other factors constant\u0027 rather than quoting numbers without context. In A/B testing contexts, frame results in terms of business impact: \u0027Version B increased conversion rate by 2.4 percentage points, which is statistically significant at \u03B1 = 0.05 and represents an estimated $120,000 in annual additional revenue.\u0027 Real datasets also require data cleaning and exploratory analysis before formal inference."
+    },
+    {
+      "SlideNumber": 13,
+      "Title": "Communicating Statistical Results Effectively",
+      "Bullets": [
+        "Tailor technical depth to the knowledge level of your audience.",
+        "Use visualizations to support, not replace, statistical explanations.",
+        "Lead with the business question, not the statistical method.",
+        "Acknowledge limitations and sources of uncertainty in your analysis.",
+        "Provide a clear recommendation with supporting evidence."
+      ],
+      "SpeakerNotes": "Effective communication is as important as the analysis itself. When presenting to executives or non-technical stakeholders, lead with the decision or recommendation, then provide supporting evidence. Avoid jargon \u2014 instead of \u0027the coefficient was statistically significant at p = 0.03,\u0027 say \u0027we are confident this effect is real and not due to chance.\u0027 Visualizations such as scatter plots, confidence interval plots, and bar charts make findings tangible. Always acknowledge what the analysis cannot tell us \u2014 confounding, sample limitations, or generalizability constraints. A common framework: state the business question, describe what was measured and how, present the key finding with uncertainty, and conclude with a recommended action. Honest, clear communication builds trust and enables better decisions."
+    },
+    {
+      "SlideNumber": 14,
+      "Title": "Applying Inferential Statistics to Real Data",
+      "Bullets": [
+        "Integrate data cleaning and EDA before conducting formal inference.",
+        "Check for outliers, missing values, and distributional issues first.",
+        "Use A/B testing frameworks to evaluate product or policy changes.",
+        "Regression and correlation reveal structure within observational datasets.",
+        "Document every analytical decision to ensure reproducibility."
+      ],
+      "SpeakerNotes": "In practice, applying inferential statistics is a workflow, not a single step. Real datasets are messy \u2014 missing values, outliers, and skewed distributions must be addressed before formal testing. Exploratory data analysis (EDA) using histograms, box plots, and scatter plots reveals patterns and informs method selection. In A/B testing contexts, ensure randomization was properly implemented and that the test ran for the predetermined duration. For observational data, regression and correlation can reveal meaningful structure while controlling for confounders. Document all preprocessing steps, analytical choices, and assumption checks so that results are transparent and reproducible. Open-source tools like Python (statsmodels, scipy) and R make it straightforward to implement and document the full inferential pipeline."
+    },
+    {
+      "SlideNumber": 15,
+      "Title": "Summary: Key Takeaways",
+      "Bullets": [
+        "Hypothesis testing provides a principled framework for evidence-based decisions.",
+        "P-values measure evidence against H\u2080; always pair them with effect sizes.",
+        "A/B testing applies these principles to controlled business experiments.",
+        "Correlation measures association; it does not establish causation.",
+        "Regression models relationships and enables prediction from data."
+      ],
+      "SpeakerNotes": "To summarize: statistical inference gives us tools to draw reliable conclusions from sample data. Hypothesis testing, anchored by p-values and significance thresholds, must account for both Type I and Type II errors. A/B testing operationalizes this framework in business settings, with careful design and interpretation being essential. Correlation quantifies the strength of association between variables, but causal claims require additional evidence. Simple and multiple linear regression model the relationship between predictors and outcomes, with OLS estimation, R\u00B2, and assumption checking forming the core workflow. Finally, drawing data-driven conclusions requires not just technical skill but the ability to validate assumptions, interpret results in context, and communicate findings clearly and honestly to drive action. These skills are foundational for any data analyst, scientist, or decision-maker working with quantitative information."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T14:04:51.7676128-04:00",
+  "PptxFileName": ""
+}

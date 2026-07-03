@@ -1,0 +1,9 @@
+{
+  "Id": "11da5598-0ab8-4da6-90ed-7da9a1844c68",
+  "Name": "SQL Joins, Relationships, and Advanced Query Techniques",
+  "Description": "This lesson explores SQL JOIN operations (INNER, LEFT, RIGHT, FULL) to combine data across multiple tables, as well as subqueries and aggregation with GROUP BY and HAVING clauses. Students will solve multi-table analytical problems representative of real-world database environments.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.695486-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.6965744-04:00",
+  "Actions": []
+}

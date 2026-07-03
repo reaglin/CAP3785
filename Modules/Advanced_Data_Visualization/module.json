@@ -1,0 +1,9 @@
+{
+  "Id": "5cf42b89-6a3d-4c6e-ac5b-570aa1018ab4",
+  "Name": "Advanced Data Visualization with Python Libraries",
+  "Description": "This lesson teaches students to create publication-quality visualizations using Matplotlib and Seaborn, applying best practices for storytelling with data. Students will build a range of chart types including heatmaps, pair plots, and interactive figures to communicate analytical findings effectively.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-07-03T11:17:00.7344637-04:00",
+  "LastModifiedDate": "2026-07-03T11:17:00.7349411-04:00",
+  "Actions": []
+}

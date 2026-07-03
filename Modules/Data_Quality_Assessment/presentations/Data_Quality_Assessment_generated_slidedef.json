@@ -1,0 +1,125 @@
+{
+  "PresentationTitle": "Data Quality Assessment and Data Cleaning Fundamentals",
+  "Topic": "Introduction to Data Quality, Identifying Missing Values, Handling Duplicate Data, Detecting and Managing Outliers, Resolving Data Inconsistencies, Systematic Data Cleaning Strategies, Preparing Clean Data for Analysis",
+  "Audience": "College Students",
+  "Tone": "Professional",
+  "Slides": [
+    {
+      "SlideNumber": 1,
+      "Title": "Data Quality Assessment and Data Cleaning Fundamentals",
+      "Bullets": [
+        "A structured guide to understanding, evaluating, and cleaning data for reliable analysis."
+      ],
+      "SpeakerNotes": "Welcome everyone. This presentation introduces the foundational principles of data quality and data cleaning \u2014 two of the most critical skills for any data analyst or data scientist. We will move through key concepts systematically, from understanding what data quality means, to identifying and resolving common data problems, and finally preparing a clean dataset for downstream analysis. These concepts are directly applicable to real-world analytical workflows."
+    },
+    {
+      "SlideNumber": 2,
+      "Title": "Introduction to Data Quality",
+      "Bullets": [
+        "Data quality measures how fit data is for its intended purpose.",
+        "Poor quality data leads to unreliable analysis and decisions.",
+        "Key dimensions: accuracy, completeness, consistency, and reliability.",
+        "All four dimensions are interconnected and must be assessed together."
+      ],
+      "SpeakerNotes": "Data quality refers to the degree to which a dataset is suitable for analysis, decision-making, or reporting. The reliability of any analysis depends entirely on the quality of the underlying data \u2014 garbage in, garbage out. Accuracy reflects how well data matches real-world values. Completeness measures whether all required values are present. Consistency ensures values are uniform across records and time. Reliability refers to whether a data source produces stable, trustworthy results under the same conditions. Importantly, these dimensions do not exist in isolation \u2014 a dataset can be accurate but incomplete, or consistent but inaccurate. A comprehensive quality assessment must evaluate all four together."
+    },
+    {
+      "SlideNumber": 3,
+      "Title": "Identifying Missing Values",
+      "Bullets": [
+        "Missing values appear as NULL, NaN, blanks, or placeholder codes.",
+        "Missingness types: MCAR, MAR, and MNAR carry different implications.",
+        "Quantify missing data by variable and row before acting.",
+        "Unaddressed missing data introduces bias and reduces statistical power.",
+        "Document missing data findings to communicate dataset limitations clearly."
+      ],
+      "SpeakerNotes": "Missing values occur when no data is recorded for a variable in an observation. They are classified into three mechanisms: MCAR (Missing Completely At Random) means missingness is unrelated to any variable; MAR (Missing At Random) means missingness is related to other observed variables; and MNAR (Missing Not At Random) means the missingness is related to the unobserved value itself \u2014 the hardest to handle. Before choosing a resolution strategy, analysts must detect and quantify missing data across all columns and rows. Ignoring missing values can distort summaries, bias model outputs, and reduce the effective sample size. Documenting which variables are affected, how much is missing, and why it is missing is essential for transparency with stakeholders."
+    },
+    {
+      "SlideNumber": 4,
+      "Title": "Handling Duplicate Data",
+      "Bullets": [
+        "Duplicates are repeated records \u2014 exact copies or near-identical rows.",
+        "Common causes include system merges, manual entry errors, and ETL bugs.",
+        "Detection requires automated tools combined with domain knowledge.",
+        "Resolution strategies depend on context, completeness, and business rules.",
+        "Unresolved duplicates distort counts, aggregations, and model training."
+      ],
+      "SpeakerNotes": "Duplicate records occur when the same data entry appears more than once, either as exact copies or near-identical rows with minor variations. They commonly arise from merging datasets from multiple systems, repeated manual data entry, or errors in ETL (Extract, Transform, Load) pipelines. Detection is the first critical phase and typically combines automated deduplication tools with analyst judgment and domain knowledge. Once identified, analysts must decide how to resolve duplicates \u2014 which record to keep, how to merge conflicting fields, and how business rules apply. Unresolved duplicates can inflate counts, skew averages, and cause machine learning models to overfit on repeated observations. Prevention through data governance and thorough documentation of all decisions is best practice."
+    },
+    {
+      "SlideNumber": 5,
+      "Title": "Detecting and Managing Outliers",
+      "Bullets": [
+        "Outliers deviate significantly from the rest of the dataset.",
+        "Statistical methods: Z-score, IQR, and modified Z-score techniques.",
+        "Visual methods: box plots, scatter plots, and histograms.",
+        "Removal, transformation, or retention depends on analytical context.",
+        "Document all outlier decisions to ensure reproducibility and defensibility."
+      ],
+      "SpeakerNotes": "Outliers are data points that fall far outside the expected distribution and can distort statistical summaries and model performance if not addressed. Statistical detection methods include the Z-score (values beyond \u00B13 standard deviations), the Interquartile Range (IQR) method, and the modified Z-score for skewed data. Visual techniques such as box plots, scatter plots, and histograms provide an intuitive complement to statistical methods. Removing outliers should never be automatic \u2014 it must be context-driven. In some cases, transformation techniques like log-scaling can reduce the influence of extreme values without discarding data. In fraud detection or rare event analysis, outliers are precisely what analysts are looking for and must be retained. Every decision should be documented."
+    },
+    {
+      "SlideNumber": 6,
+      "Title": "Resolving Data Inconsistencies",
+      "Bullets": [
+        "Inconsistencies occur when the same information is represented differently.",
+        "Formatting errors include non-uniform structures in otherwise correct data.",
+        "Conflicting values occur when fields logically contradict each other.",
+        "Standardize categorical labels and text to one consistent format.",
+        "Normalize dates, numbers, and units before analysis begins."
+      ],
+      "SpeakerNotes": "Data inconsistencies arise when the same concept is recorded in different or conflicting ways across a dataset. Formatting errors involve correct information stored in non-uniform styles \u2014 for example, dates recorded as MM/DD/YYYY in some rows and DD-MM-YYYY in others. Conflicting values occur when fields within the same record contradict each other, such as a birth date indicating an age of 5 while the age field shows 45. Standardizing categorical and text fields \u2014 for example, ensuring \u0027NY\u0027, \u0027New York\u0027, and \u0027new york\u0027 all map to a single value \u2014 is essential for reliable grouping and filtering. Normalizing numerical fields to consistent units and precision, and resolving date format variations, must occur before any analysis. Automated rule-based transformations and mapping dictionaries can handle large-scale inconsistencies efficiently. All corrections should be documented and validated."
+    },
+    {
+      "SlideNumber": 7,
+      "Title": "Systematic Data Cleaning Strategies",
+      "Bullets": [
+        "Begin with a thorough assessment of structure, size, and quality issues.",
+        "Address missing values, duplicates, and inconsistencies in sequence.",
+        "Detect and treat outliers after structural cleaning is complete.",
+        "Build scripted, repeatable workflows for consistent application.",
+        "Validate cleaned data against quality standards before use."
+      ],
+      "SpeakerNotes": "A systematic data cleaning strategy follows a defined sequence rather than an ad hoc approach. The process begins with an initial assessment \u2014 profiling the dataset to understand its structure, column types, size, and the nature and extent of quality problems. Missing values and duplicates are typically addressed first because they affect subsequent steps. Inconsistencies and formatting issues are corrected next to ensure standardized data. Outlier detection and treatment follow once the data is structurally sound. The entire workflow should be scripted \u2014 ideally in Python, R, or SQL \u2014 so that the same steps can be reproduced when new data arrives or the process is audited. Final validation checks confirm that the cleaned dataset meets predefined quality standards before it proceeds to analysis or modeling."
+    },
+    {
+      "SlideNumber": 8,
+      "Title": "Preparing Clean Data for Analysis",
+      "Bullets": [
+        "Run final validation checks to confirm all cleaning steps applied correctly.",
+        "Ensure columns are consistently typed, named, and organized.",
+        "Review remaining outliers for validity before finalizing the dataset.",
+        "Apply QA techniques to verify data meets predefined quality standards.",
+        "Format and split data to meet downstream tool or model requirements."
+      ],
+      "SpeakerNotes": "Preparing clean data for analysis is the final stage before a dataset is handed off for modeling, reporting, or visualization. Final validation checks confirm that missing values have been handled, duplicates removed, inconsistencies resolved, and all columns are in the expected format and type. Structural integrity checks ensure that column names are clear and consistent and that data types are correctly assigned. A final outlier review should confirm that extreme values are either valid or have been appropriately treated. Quality assurance techniques \u2014 such as automated test scripts, schema validation, and range checks \u2014 provide a systematic framework for catching any remaining errors. Comprehensive documentation of all cleaning decisions and data lineage must accompany the cleaned dataset. The data should then be formatted and split as required by the downstream analysis system, and ideally a repeatable cleaning pipeline should be established to apply these standards to future data updates."
+    },
+    {
+      "SlideNumber": 9,
+      "Title": "Documentation, Lineage, and Repeatable Pipelines",
+      "Bullets": [
+        "Document every cleaning decision to support reproducibility and trust.",
+        "Data lineage tracks the origin and transformation of each dataset.",
+        "Repeatable pipelines apply consistent standards to new incoming data.",
+        "Automation reduces human error and speeds up the cleaning process.",
+        "Clean, documented data enables confident, defensible analytical conclusions."
+      ],
+      "SpeakerNotes": "Documentation is not optional \u2014 it is a core component of professional data cleaning practice. Every decision made during cleaning, whether to impute a missing value, remove a duplicate, or cap an outlier, should be recorded with a clear rationale. Data lineage refers to the traceable record of where data came from, what transformations were applied, and how it arrived in its current state. This transparency is critical for auditing, peer review, and stakeholder trust. Building repeatable, automated cleaning pipelines ensures that quality standards are enforced consistently every time new data is introduced, reducing manual effort and the risk of human error. When data is well-documented and cleaning is reproducible, analysts can present their conclusions with confidence and defend their methodology to any audience."
+    },
+    {
+      "SlideNumber": 10,
+      "Title": "Summary and Key Takeaways",
+      "Bullets": [
+        "Data quality dimensions \u2014 accuracy, completeness, consistency, reliability \u2014 are foundational.",
+        "Missing values, duplicates, outliers, and inconsistencies must be systematically addressed.",
+        "Context drives decisions on how to handle each type of data problem.",
+        "Repeatable, documented workflows are essential for trustworthy analysis.",
+        "Clean, validated data is the prerequisite for every reliable analytical outcome."
+      ],
+      "SpeakerNotes": "To summarize: data quality is the foundation of all reliable analysis. The four key dimensions \u2014 accuracy, completeness, consistency, and reliability \u2014 must be evaluated together because they are interdependent. Analysts must be equipped to identify and handle missing values using knowledge of MCAR, MAR, and MNAR mechanisms; detect and remove duplicates arising from system errors or manual entry; manage outliers using both statistical and visual methods with context-informed decisions; and resolve inconsistencies through standardization and normalization. A systematic, scripted cleaning workflow \u2014 beginning with assessment and ending with validation and documentation \u2014 ensures reproducibility and builds trust in the final dataset. Ultimately, every high-quality analytical outcome depends on the quality of the data that feeds it. These fundamentals form the bedrock of professional data analysis practice."
+    }
+  ],
+  "GeneratedDate": "2026-07-03T13:53:18.105692-04:00",
+  "PptxFileName": ""
+}
