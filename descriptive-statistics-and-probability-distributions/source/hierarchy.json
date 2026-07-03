@@ -1,0 +1,1273 @@
+{
+  "ModuleFolderName": "Descriptive_Statistics_and",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:50:29.9439493-04:00",
+  "ModifiedDate": "2026-07-03T11:52:59.7868006-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "74339425-c2f1-4eaa-a628-9b90b0a664a2",
+      "Title": "Measures of Central Tendency",
+      "Summary": "Explores the mean and median as foundational descriptive statistics that summarize the center of a dataset. Students will learn how to compute and interpret these measures using Python.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "ModifiedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "Elements": [
+        {
+          "Id": "0c4cd53d-8f08-4d1c-811f-e751c7b1741b",
+          "TopicId": "74339425-c2f1-4eaa-a628-9b90b0a664a2",
+          "Title": "Understanding the Mean",
+          "BodyText": "The mean, or arithmetic average, is calculated by summing all values in a dataset and dividing by the number of observations.",
+          "Notes": "For example, given the dataset [4, 8, 6, 5, 3], the mean is (4\u002B8\u002B6\u002B5\u002B3)/5 = 5.2. The mean is sensitive to extreme values (outliers), which can skew its representation of the center.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "ModifiedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "Items": [
+            {
+              "Id": "efc97656-ec91-493e-ad45-3c5df09fe647",
+              "Text": "The mean uses every value in the dataset, making it a comprehensive measure of center.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ff8f9629-6b11-4fd2-8fbf-950c3e9a8be7",
+              "Text": "It is most appropriate for symmetric distributions without significant outliers.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8a072bcb-f099-4a4b-ac2a-e645530e3d48",
+              "Text": "In Python, the mean can be computed using numpy.mean() or statistics.mean().",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c6841e97-cf0f-4009-8c6e-82f614923f00",
+              "Text": "The mean is the foundation for many other statistical calculations, including variance and standard deviation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "32e12985-6c50-4877-af8b-5556985cd12f",
+          "TopicId": "74339425-c2f1-4eaa-a628-9b90b0a664a2",
+          "Title": "Understanding the Median",
+          "BodyText": "The median is the middle value of a dataset when the observations are arranged in ascending or descending order.",
+          "Notes": "For an odd number of values, the median is the single middle value. For an even number, it is the average of the two middle values. For example, the median of [3, 4, 5, 6, 8] is 5.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "ModifiedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "Items": [
+            {
+              "Id": "a3940199-9e19-4b0f-9f1e-3262a47bbb36",
+              "Text": "The median divides a dataset into two equal halves, with 50% of values falling above and 50% below.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f41b3447-02f4-4751-b8c4-6201130d6c65",
+              "Text": "Unlike the mean, the median is resistant to the influence of outliers and skewed data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "75c595d4-8fb3-4870-955b-fc182f83839a",
+              "Text": "In Python, the median can be computed using numpy.median() or statistics.median().",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4b2395ee-469b-4beb-9193-6f9c36a5fbff",
+              "Text": "The median is preferred as a measure of center when the data distribution is skewed or contains extreme values.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ffbfd5ec-1f96-4483-a976-27f9e021ab98",
+          "TopicId": "74339425-c2f1-4eaa-a628-9b90b0a664a2",
+          "Title": "Comparing Mean and Median",
+          "BodyText": "Examining the relationship between the mean and median provides insight into the shape and symmetry of a dataset\u0027s distribution.",
+          "Notes": "When the mean is greater than the median, the distribution is likely right-skewed (positive skew). When the mean is less than the median, it suggests left-skew (negative skew). A roughly equal mean and median indicates a symmetric distribution.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "ModifiedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "Items": [
+            {
+              "Id": "d8a9287b-82c4-4097-8a9f-e97c6707fd19",
+              "Text": "In a perfectly symmetric distribution, the mean and median are equal.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bacee656-b150-4324-9bd5-6a7e667aab02",
+              "Text": "The gap between mean and median is a practical signal for detecting skewness in data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ee5ba3b7-7234-4466-a756-78308d1e63c6",
+              "Text": "Choosing the appropriate measure of center depends on the nature of the data and the presence of outliers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f0272526-565e-4650-ad2a-49c2b8058bdf",
+              "Text": "Reporting both the mean and median together gives a more complete picture of a dataset\u0027s central tendency.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c150f953-31e2-4017-b0f1-4186c3b7ab80",
+          "TopicId": "74339425-c2f1-4eaa-a628-9b90b0a664a2",
+          "Title": "Computing Central Tendency in Python",
+          "BodyText": "Python provides multiple libraries that make computing the mean and median straightforward, enabling quick and accurate descriptive analysis.",
+          "Notes": "Common approaches include using NumPy (numpy.mean(), numpy.median()), the built-in statistics module (statistics.mean(), statistics.median()), and Pandas for DataFrame columns (df[\u0027column\u0027].mean(), df[\u0027column\u0027].median()).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "ModifiedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "Items": [
+            {
+              "Id": "5225f1f9-7a1f-46cd-93c6-65a19bf0a497",
+              "Text": "NumPy functions operate efficiently on arrays and are well-suited for large numerical datasets.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "10f43b8d-0bba-4d88-a3a7-6ceca1b3672e",
+              "Text": "The Pandas library allows you to compute these statistics directly on DataFrame columns, which is useful in data analysis workflows.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5f1ae578-72cd-4ac3-86e2-a05f78dd360b",
+              "Text": "The statistics module is part of Python\u0027s standard library and requires no additional installation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "34c11a19-6909-44e5-b494-b4c2c11bcbe0",
+              "Text": "Applying these functions to real datasets allows you to quickly summarize and interpret the center of your data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "de22758f-5c9c-4da5-9649-727333bbc496",
+          "TopicId": "74339425-c2f1-4eaa-a628-9b90b0a664a2",
+          "Title": "Interpreting Central Tendency in Context",
+          "BodyText": "Interpreting the mean and median correctly requires understanding the context of the data and what these values communicate about the dataset.",
+          "Notes": "For example, in income data, the median household income is often reported rather than the mean because a small number of very high earners can inflate the mean, making it unrepresentative of the typical household.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "ModifiedDate": "2026-07-03T11:50:50.5934857-04:00",
+          "Items": [
+            {
+              "Id": "0a971c85-864f-4fe2-a081-7bcaf7ad0f91",
+              "Text": "A measure of central tendency summarizes an entire dataset with a single representative value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "348cba12-94a7-42cb-9bc2-8068225866e0",
+              "Text": "The choice between reporting the mean or median should be guided by the data\u0027s distribution and the analytical question being answered.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "41ca1f3a-518c-41e3-bdc2-0998ec9979cd",
+              "Text": "Central tendency measures alone are insufficient; they should be paired with measures of spread for a full descriptive summary.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1820e478-339c-489d-999c-dcc4d9c0283b",
+              "Text": "Misinterpreting central tendency can lead to incorrect conclusions, especially in skewed or multimodal distributions.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b530f1aa-12c2-44fc-86a7-6a8f5af650e1",
+      "Title": "Measures of Spread and Variability",
+      "Summary": "Covers variance and standard deviation as key indicators of how data values are dispersed around the center. Students will calculate and interpret these statistics to understand data consistency and spread.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "ModifiedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "Elements": [
+        {
+          "Id": "acba0a60-6a55-4136-9a89-2819bc59200b",
+          "TopicId": "b530f1aa-12c2-44fc-86a7-6a8f5af650e1",
+          "Title": "Understanding Spread and Why It Matters",
+          "BodyText": "Measures of spread quantify how much data values differ from one another and from the center of a distribution. Knowing the center alone is insufficient to fully characterize a dataset.",
+          "Notes": "For example, two datasets can share the same mean yet have vastly different distributions \u2014 one tightly clustered and one widely scattered. Spread statistics reveal this hidden difference.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "ModifiedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "Items": [
+            {
+              "Id": "6c680c28-54a9-4b5e-957a-d1d2d9e18915",
+              "Text": "A measure of central tendency such as the mean describes where data is centered, but not how consistent or variable the data values are.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cf0dfd50-9b03-4f4d-a329-994af94e8789",
+              "Text": "High spread indicates data points are far from the center, suggesting inconsistency or high variability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b06d645a-022f-4437-aa94-d982aae44346",
+              "Text": "Low spread indicates data points are clustered near the center, suggesting consistency and predictability.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "743470dc-5e69-4603-8c36-1e5a0a2cf485",
+              "Text": "Spread measures are essential for comparing datasets and assessing the reliability of the mean as a representative value.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f1b1dd11-3258-4669-bfdb-6ccdabc96ce4",
+          "TopicId": "b530f1aa-12c2-44fc-86a7-6a8f5af650e1",
+          "Title": "Variance: Quantifying Average Squared Deviation",
+          "BodyText": "Variance measures the average squared difference between each data point and the mean, providing a single number that summarizes overall dispersion.",
+          "Notes": "Population variance uses N as the denominator, while sample variance uses N-1 (Bessel\u0027s correction) to produce an unbiased estimate of the population parameter. In Python, numpy.var() computes variance, with ddof=1 for sample variance.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "ModifiedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "Items": [
+            {
+              "Id": "7e1afec3-371d-4849-9ac6-15c6ae1727b6",
+              "Text": "To calculate variance, subtract the mean from each data value, square each result, sum all squared differences, and divide by the number of observations (or N-1 for a sample).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f712231f-5bad-49ab-b137-c23620fa21c6",
+              "Text": "Squaring the deviations ensures all values are positive and penalizes larger deviations more heavily than smaller ones.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3bf8c94c-e5bf-491a-a610-cef3df3d93dd",
+              "Text": "A variance of zero means all data points are identical; larger variance values indicate greater spread.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "00db50c9-9ac8-46a5-a998-956858a09b26",
+              "Text": "Because variance is expressed in squared units of the original data, it can be difficult to interpret directly alongside the raw values.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bd3382eb-e4a4-44f1-9295-52b464119739",
+          "TopicId": "b530f1aa-12c2-44fc-86a7-6a8f5af650e1",
+          "Title": "Standard Deviation: A More Interpretable Spread Metric",
+          "BodyText": "Standard deviation is the square root of the variance and returns the measure of spread to the original units of the data, making it more intuitive to interpret.",
+          "Notes": "In Python, numpy.std() computes standard deviation, and setting ddof=1 gives the sample standard deviation. Standard deviation is the most commonly reported measure of spread in practice.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "ModifiedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "Items": [
+            {
+              "Id": "c8545a74-d3e2-41cf-8f9e-99f87373b8b0",
+              "Text": "Taking the square root of the variance undoes the squaring step, so standard deviation is expressed in the same units as the original measurements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "218ed4e5-0ec2-45f9-8da6-96e296bf6f27",
+              "Text": "A small standard deviation indicates that data points tend to be close to the mean; a large standard deviation indicates they are spread out over a wider range.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "286abcb2-6048-48f8-a400-b3c943524804",
+              "Text": "Standard deviation can be used to describe how typical or atypical a single observation is relative to the rest of the dataset.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "80b3a0a3-ea53-40f9-8659-98b28eaee463",
+              "Text": "Like variance, standard deviation has both a population form (dividing by N) and a sample form (dividing by N-1).",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ac6fe2dd-fd92-4a49-93e5-f6664c7496a3",
+          "TopicId": "b530f1aa-12c2-44fc-86a7-6a8f5af650e1",
+          "Title": "Calculating Variance and Standard Deviation Step by Step",
+          "BodyText": "Following a systematic calculation procedure ensures accuracy when computing variance and standard deviation by hand or verifying computational results.",
+          "Notes": "Practicing manual calculation reinforces understanding of what these statistics represent before relying on library functions in Python.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "ModifiedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "Items": [
+            {
+              "Id": "a2264a16-5943-4f4f-bc2f-2c089f334f3c",
+              "Text": "Step 1: Compute the mean of the dataset by summing all values and dividing by the count.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a6502d80-d393-4798-8891-faa815bdc5d7",
+              "Text": "Step 2: Subtract the mean from each individual data value to find each deviation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "10ca85cb-f658-4e53-9331-9cae726563b1",
+              "Text": "Step 3: Square each deviation to eliminate negative signs and emphasize larger differences.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "69ebbe12-fda0-40ac-96fe-efe91fca0849",
+              "Text": "Step 4: Sum all squared deviations, then divide by N (population) or N-1 (sample) to obtain the variance.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "ad31d12a-3815-4562-bc11-f2df8ccd4ea9",
+              "Text": "Step 5: Take the square root of the variance to obtain the standard deviation.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "c7062016-8714-4dfd-aad1-278d0fd637e8",
+          "TopicId": "b530f1aa-12c2-44fc-86a7-6a8f5af650e1",
+          "Title": "Interpreting Variance and Standard Deviation in Context",
+          "BodyText": "Calculating these statistics is only meaningful when their values are interpreted in relation to the dataset\u0027s scale, units, and the question being answered.",
+          "Notes": "For instance, a standard deviation of 5 is negligible for heights measured in kilometers but highly significant for heights measured in centimeters. Context always governs interpretation.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "ModifiedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "Items": [
+            {
+              "Id": "083d45e0-16ee-4004-9609-1f0f690ad191",
+              "Text": "Compare the standard deviation to the mean to gauge relative variability; a standard deviation that is large relative to the mean suggests high inconsistency in the data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7f4cf205-bd0d-49fa-bbe3-bf64b430c70e",
+              "Text": "When comparing two datasets, the one with the smaller standard deviation is more consistent and its mean is a more reliable representative value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fa5260cf-b71d-4f47-ade5-038ca190fc93",
+              "Text": "Standard deviation is directly used in identifying outliers \u2014 values more than two or three standard deviations from the mean are often flagged as unusual.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "89328aa7-4c0e-4c4b-9cc0-c564963ac744",
+              "Text": "In quality control and data analysis, low variance is often desirable as it indicates a stable, predictable process or measurement.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0adf56a2-bc43-4743-82ce-a29454567f06",
+          "TopicId": "b530f1aa-12c2-44fc-86a7-6a8f5af650e1",
+          "Title": "Computing Spread Statistics in Python",
+          "BodyText": "Python\u0027s NumPy and statistics libraries provide efficient functions to calculate variance and standard deviation on datasets of any size.",
+          "Notes": "Using ddof=1 in numpy.var() and numpy.std() is critical when working with sample data to ensure unbiased estimates. Pandas also provides .var() and .std() methods on DataFrame columns, defaulting to sample statistics.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "ModifiedDate": "2026-07-03T11:51:16.6990567-04:00",
+          "Items": [
+            {
+              "Id": "d4c95d9b-e48e-4957-a1c9-4024cae2d8e3",
+              "Text": "numpy.var(data) computes population variance; numpy.var(data, ddof=1) computes sample variance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1d5b92de-6ed4-4156-97cf-1934501c139b",
+              "Text": "numpy.std(data) computes population standard deviation; numpy.std(data, ddof=1) computes sample standard deviation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "31d70689-3e45-4735-a80b-9b4d6e69c661",
+              "Text": "Pandas Series and DataFrame columns expose .var() and .std() methods that default to ddof=1, making them suitable for sample data analysis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e3d9bed0-bf65-4542-b8d4-023861ea2727",
+              "Text": "Verifying computed results against manual calculations on small datasets builds confidence in using these functions correctly on larger datasets.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "244c05cb-8060-4dfd-93dc-a6c64b29afbe",
+      "Title": "Skewness and Distribution Shape",
+      "Summary": "Introduces skewness as a measure of asymmetry in a data distribution and explains how it affects interpretation of central tendency. Students will identify and compute skewness in datasets using Python.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "ModifiedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "Elements": [
+        {
+          "Id": "51c3d080-63b5-4102-aefe-96b4386b4654",
+          "TopicId": "244c05cb-8060-4dfd-93dc-a6c64b29afbe",
+          "Title": "What Is Skewness?",
+          "BodyText": "Skewness is a statistical measure that quantifies the degree and direction of asymmetry in a data distribution relative to its mean.",
+          "Notes": "A perfectly symmetric distribution, like the normal distribution, has a skewness of zero. Skewness is the third standardized moment of a distribution.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:51:38.199836-04:00",
+          "ModifiedDate": "2026-07-03T11:51:38.199836-04:00",
+          "Items": [
+            {
+              "Id": "836d6afc-82b3-4aad-81c9-5c58c1529bcc",
+              "Text": "A skewness value of zero indicates a perfectly symmetric distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "569cec63-8fcd-4716-bb90-889f780ccbe7",
+              "Text": "Positive skewness means the distribution has a longer tail stretching to the right.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "80bc00ca-e71b-4352-9de0-c730434b1d79",
+              "Text": "Negative skewness means the distribution has a longer tail stretching to the left.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2ca8bb71-478c-44c4-a93b-12001c875d78",
+              "Text": "The further the skewness value is from zero, the more asymmetric the distribution.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "51ba53e8-5e19-402b-9333-110dbcf59675",
+          "TopicId": "244c05cb-8060-4dfd-93dc-a6c64b29afbe",
+          "Title": "Positive (Right) Skewness",
+          "BodyText": "A positively skewed distribution has a tail that extends toward higher values, with the bulk of data concentrated on the left side.",
+          "Notes": "Income distributions are a classic real-world example of positive skewness, where most people earn moderate incomes but a small number earn very high incomes, pulling the tail right.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:51:38.199836-04:00",
+          "ModifiedDate": "2026-07-03T11:51:38.199836-04:00",
+          "Items": [
+            {
+              "Id": "b2f9ed8d-6a84-4e97-a5f1-55b541e47eca",
+              "Text": "In a right-skewed distribution, the mean is typically greater than the median.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ba0826e5-bdfa-46a3-b472-557be68d82d7",
+              "Text": "The median is typically greater than the mode in a positively skewed distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9535010a-1002-49ad-90f4-36b07430cc58",
+              "Text": "Outliers on the high end of the scale are the primary driver of positive skewness.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "579e7fe8-025c-4cc0-b36f-71fb11217221",
+              "Text": "Skewness values greater than \u002B1 are generally considered highly positively skewed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "11f13d74-7b29-4961-afce-faa7c4bc44a4",
+          "TopicId": "244c05cb-8060-4dfd-93dc-a6c64b29afbe",
+          "Title": "Negative (Left) Skewness",
+          "BodyText": "A negatively skewed distribution has a tail that extends toward lower values, with the bulk of data concentrated on the right side.",
+          "Notes": "Exam scores where most students score high but a few score very low often exhibit negative skewness. This pattern is common when there is a natural upper boundary or ceiling effect.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:51:38.199836-04:00",
+          "ModifiedDate": "2026-07-03T11:51:38.199836-04:00",
+          "Items": [
+            {
+              "Id": "85bb14bc-86a7-404f-b4d2-b4a92931e278",
+              "Text": "In a left-skewed distribution, the mean is typically less than the median.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8a8549a5-46e8-4661-8786-3a4b51f465ff",
+              "Text": "The mode tends to be the highest of the three central tendency measures in a negatively skewed distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "febddb5a-c44b-466c-bcf6-a51c4203dc81",
+              "Text": "Outliers on the low end of the scale drive negative skewness.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "faf61251-f044-4193-af88-aac1423fc523",
+              "Text": "Skewness values less than -1 are generally considered highly negatively skewed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "71dc045c-ffc1-4d0d-9e67-f15babde1e9f",
+          "TopicId": "244c05cb-8060-4dfd-93dc-a6c64b29afbe",
+          "Title": "Skewness and the Interpretation of Central Tendency",
+          "BodyText": "Skewness directly affects which measure of central tendency best represents a dataset, making it essential context for interpreting mean and median.",
+          "Notes": "When a distribution is heavily skewed, the mean can be misleading as a summary statistic because it is pulled toward the tail. In such cases, the median is often a more robust and representative measure.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:51:38.199836-04:00",
+          "ModifiedDate": "2026-07-03T11:51:38.199836-04:00",
+          "Items": [
+            {
+              "Id": "a0f3404a-d973-44e6-b028-8d9cc383c313",
+              "Text": "In symmetric distributions, the mean, median, and mode are approximately equal and any can serve as a reliable center measure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c87009f9-a173-4de3-b2e2-be950e8390ab",
+              "Text": "In skewed distributions, the mean is pulled in the direction of the tail, making it less representative of the typical value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "15b80ec0-fa86-4b64-bd94-160246337ae0",
+              "Text": "The median is resistant to the influence of extreme values and is preferred as a central tendency measure for skewed data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "207019fa-9aef-4a65-a805-72f09d8114d5",
+              "Text": "Understanding skewness helps analysts choose appropriate statistical summaries and avoid misleading conclusions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "de96a751-f889-476c-b3e7-d68fe99672b3",
+          "TopicId": "244c05cb-8060-4dfd-93dc-a6c64b29afbe",
+          "Title": "Computing Skewness in Python",
+          "BodyText": "Python provides straightforward tools to calculate skewness numerically, allowing analysts to quantify distributional asymmetry from real datasets.",
+          "Notes": "The scipy.stats.skew() function and the pandas Series.skew() method both compute the sample skewness using Fisher\u0027s definition by default, which is the standard approach for data analysis.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:51:38.199836-04:00",
+          "ModifiedDate": "2026-07-03T11:51:38.199836-04:00",
+          "Items": [
+            {
+              "Id": "2d670e70-80bd-4c50-a6bc-c1cd1d73191f",
+              "Text": "Use scipy.stats.skew(data) to compute the skewness of a NumPy array or list.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "40ed9d24-ad50-4137-8972-2a33cf2f04d6",
+              "Text": "Use a pandas Series or DataFrame column with the .skew() method for convenient skewness calculation on tabular data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f4e2975-a423-4694-846e-161f0b773806",
+              "Text": "Both methods return a single float value representing the skewness coefficient of the dataset.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9fe277e7-a9fa-49da-8639-8c1c9d6ea328",
+              "Text": "Positive output values confirm right skew, negative values confirm left skew, and values near zero suggest approximate symmetry.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cda2586c-4da9-4933-8dc5-9ed83858e9ab",
+          "TopicId": "244c05cb-8060-4dfd-93dc-a6c64b29afbe",
+          "Title": "Visualizing Skewness",
+          "BodyText": "Visual tools such as histograms and density plots make it easy to identify and communicate the shape and skewness of a distribution.",
+          "Notes": "Overlaying the mean and median lines on a histogram is a particularly effective technique for visually demonstrating skewness, since the gap and relative positions of these two values reveal the direction and degree of asymmetry.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:51:38.199836-04:00",
+          "ModifiedDate": "2026-07-03T11:51:38.199836-04:00",
+          "Items": [
+            {
+              "Id": "67731da4-49d8-489c-a4ba-4e1be7e9ec76",
+              "Text": "A histogram with a longer right tail visually confirms positive skewness in the data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f662ec9-3f34-41a9-923b-945c3b6828c2",
+              "Text": "A histogram with a longer left tail visually confirms negative skewness in the data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2414a1f6-2969-4947-be03-89b6d721d867",
+              "Text": "Kernel Density Estimate (KDE) plots provide a smooth curve that makes distributional shape and skewness easier to assess than raw histograms.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9dabefd8-a9c3-458e-ae09-2881e8c03ac3",
+              "Text": "Plotting vertical lines for the mean and median on a histogram highlights how skewness separates these two central tendency measures.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3456461e-b85b-4606-9f90-6988438f2462",
+      "Title": "Introduction to Probability Distributions",
+      "Summary": "Provides a conceptual foundation for probability distributions and their role in statistical data analysis. Students will understand how distributions model real-world phenomena and form the basis for inference.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "ModifiedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "Elements": [
+        {
+          "Id": "b2a811c8-5a75-4e9a-8ff9-e692e8734f21",
+          "TopicId": "3456461e-b85b-4606-9f90-6988438f2462",
+          "Title": "What Is a Probability Distribution?",
+          "BodyText": "A probability distribution is a mathematical function that describes the likelihood of all possible outcomes for a random variable.",
+          "Notes": "Think of rolling a fair die: each face has a 1/6 probability. A probability distribution formalizes this idea for any random phenomenon, whether discrete or continuous.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "ModifiedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "Items": [
+            {
+              "Id": "baa83d54-1168-412a-b1e3-71207ae52518",
+              "Text": "A probability distribution assigns probabilities to every possible value or range of values a variable can take.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5bc8fb9c-1e46-41ba-a271-d24b739d97e9",
+              "Text": "The total probability across all outcomes always sums to 1, ensuring the model is complete and consistent.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5fea3257-a8b1-4f87-92e7-7f18e2d696b9",
+              "Text": "Distributions can describe simple experiments like coin flips or complex phenomena like patient recovery times.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f169790a-10c5-4016-9119-95b32e6ea65d",
+          "TopicId": "3456461e-b85b-4606-9f90-6988438f2462",
+          "Title": "Discrete vs. Continuous Distributions",
+          "BodyText": "Probability distributions are broadly classified as discrete or continuous depending on the nature of the random variable they model.",
+          "Notes": "Discrete examples include the number of customer arrivals per hour (Poisson) or the number of successes in trials (Binomial). Continuous examples include human height or temperature readings.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "ModifiedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "Items": [
+            {
+              "Id": "11607873-9116-4157-856c-0ee3b952facc",
+              "Text": "Discrete distributions model variables that take on countable, distinct values, such as whole numbers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "606224fb-4e31-4037-a89d-b372d75e19cb",
+              "Text": "Continuous distributions model variables that can take any value within a range, requiring probability density functions rather than probability mass functions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "de35e807-0ca8-4647-9bed-999b6a3c9c23",
+              "Text": "The choice between discrete and continuous distributions depends on how the underlying data is measured and collected.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "35e2ac23-1ab4-451c-b923-491fb1af08c9",
+          "TopicId": "3456461e-b85b-4606-9f90-6988438f2462",
+          "Title": "Role of Distributions in Modeling Real-World Phenomena",
+          "BodyText": "Probability distributions serve as mathematical abstractions that capture the patterns and variability observed in real-world data.",
+          "Notes": "For example, the normal distribution models many natural measurements like blood pressure or exam scores, while the Poisson distribution models rare event counts such as defects per product batch.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "ModifiedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "Items": [
+            {
+              "Id": "ac6d9201-454f-4ebc-a140-be724d59d8ef",
+              "Text": "Distributions allow analysts to summarize complex datasets with a small set of interpretable parameters, such as mean and variance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a85fc7f1-a6ca-4140-a0ac-00d1cdcc7f87",
+              "Text": "Selecting an appropriate distribution for your data ensures that statistical conclusions remain valid and meaningful.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "438f5331-5c39-4110-8205-20c4f5a51a35",
+              "Text": "Well-chosen distributions enable predictions about future observations or unseen data points.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2e4d653c-b4c6-4a05-b2df-5aec9566519c",
+          "TopicId": "3456461e-b85b-4606-9f90-6988438f2462",
+          "Title": "Key Parameters That Define a Distribution",
+          "BodyText": "Every probability distribution is characterized by one or more parameters that control its shape, center, and spread.",
+          "Notes": "For the normal distribution, the mean (\u03BC) controls location and the standard deviation (\u03C3) controls spread. For the binomial, parameters n (trials) and p (success probability) fully define the distribution.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "ModifiedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "Items": [
+            {
+              "Id": "30279bca-9791-4170-b2b9-fa39769f1198",
+              "Text": "Parameters such as mean, variance, and rate constants determine the exact form and behavior of a distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "28cf98cf-5a9a-4900-be3b-94e9e9cb4c0a",
+              "Text": "Changing a parameter shifts or reshapes the distribution, directly affecting the probabilities associated with different outcomes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6cb09d10-1e03-4a13-899d-a6199ea55c32",
+              "Text": "Understanding parameters bridges descriptive statistics\u2014like computed means and variances\u2014with the formal probability models used for inference.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3a15f10f-5ea5-4162-8cb9-a0592b9c2502",
+          "TopicId": "3456461e-b85b-4606-9f90-6988438f2462",
+          "Title": "Distributions as the Foundation for Statistical Inference",
+          "BodyText": "Probability distributions are not just descriptive tools; they form the theoretical backbone of statistical inference, including hypothesis testing and confidence intervals.",
+          "Notes": "When we test whether two group means differ, we rely on known sampling distributions (such as the t-distribution or normal distribution) to determine how surprising our observed data would be under a null hypothesis.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "ModifiedDate": "2026-07-03T11:51:56.7491145-04:00",
+          "Items": [
+            {
+              "Id": "f5fa94d4-ae9c-4620-84a3-91bf12762526",
+              "Text": "Inference methods assume that data or test statistics follow specific distributions, making distribution choice a critical step in analysis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fc2a658e-983d-43da-8f5a-cc08b0ec2c3d",
+              "Text": "Sampling distributions describe the behavior of statistics like the sample mean across repeated samples, enabling probability-based conclusions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9fe4cdb1-9fce-4a20-a5f3-73b7264d6f10",
+              "Text": "A solid grasp of probability distributions allows practitioners to correctly apply and interpret inferential procedures in data analysis.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "9028bbad-31eb-44ee-8c74-35632804aa8f",
+      "Title": "The Normal Distribution",
+      "Summary": "Examines the properties of the normal distribution including its bell-curve shape, mean, and standard deviation parameters. Students will apply and visualize the normal distribution using Python.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "ModifiedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "Elements": [
+        {
+          "Id": "dd1bcabe-bed6-44f2-b6e0-43b2dd7d84c7",
+          "TopicId": "9028bbad-31eb-44ee-8c74-35632804aa8f",
+          "Title": "Properties of the Normal Distribution",
+          "BodyText": "The normal distribution is a continuous probability distribution characterized by its symmetric, bell-shaped curve centered around the mean.",
+          "Notes": "The normal distribution is one of the most important distributions in statistics, appearing naturally in many real-world phenomena such as heights, test scores, and measurement errors.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "ModifiedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "Items": [
+            {
+              "Id": "4d2adfd1-3dcf-4c0e-99a2-e63f3da5820a",
+              "Text": "The distribution is perfectly symmetric about its mean, meaning the left and right halves are mirror images of each other.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d6dcce85-863a-4443-bdb8-7ed319a32161",
+              "Text": "The mean, median, and mode are all equal and located at the center of the distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "50f92ce9-c3d7-4bf6-ad84-4d45dae79519",
+              "Text": "The tails of the distribution extend infinitely in both directions but never touch the horizontal axis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7cb7f1d9-5c46-48db-8b81-04482282bfab",
+              "Text": "The total area under the normal curve equals 1, representing 100% of all probabilities.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bef6b3f3-6e8c-4343-9a7a-5f9b6e248944",
+          "TopicId": "9028bbad-31eb-44ee-8c74-35632804aa8f",
+          "Title": "Mean and Standard Deviation Parameters",
+          "BodyText": "The normal distribution is fully defined by two parameters: the mean (\u03BC) and the standard deviation (\u03C3), which control the location and spread of the curve respectively.",
+          "Notes": "Changing \u03BC shifts the entire curve left or right along the x-axis, while changing \u03C3 makes the curve wider (larger \u03C3) or narrower (smaller \u03C3) without altering its symmetric shape.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "ModifiedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "Items": [
+            {
+              "Id": "2c154bb3-f991-4d75-b2f2-0d439cae3d9a",
+              "Text": "The mean (\u03BC) determines the center of the distribution, positioning the peak of the bell curve on the number line.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "93280576-fae8-400b-995c-c22b16e68342",
+              "Text": "The standard deviation (\u03C3) measures the spread or dispersion of data around the mean; a larger \u03C3 produces a flatter, wider curve.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2050b625-de0a-40b3-93a0-eee04081b711",
+              "Text": "A normal distribution with \u03BC = 0 and \u03C3 = 1 is called the standard normal distribution, often denoted as Z.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d49f5790-48b3-4b80-b58e-0dbd0e17c7eb",
+          "TopicId": "9028bbad-31eb-44ee-8c74-35632804aa8f",
+          "Title": "The Empirical Rule (68-95-99.7 Rule)",
+          "BodyText": "The empirical rule describes the proportion of data that falls within one, two, and three standard deviations from the mean in a normal distribution.",
+          "Notes": "This rule is extremely useful for quickly assessing whether a value is typical or unusual within a normally distributed dataset, and it forms the basis for many statistical tests.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "ModifiedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "Items": [
+            {
+              "Id": "8c46a41a-1816-4ab1-a797-bfb918b9f7bb",
+              "Text": "Approximately 68% of data values fall within one standard deviation (\u03BC \u00B1 1\u03C3) of the mean.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1b00b9c5-bf25-438c-b0da-613fe29efc4a",
+              "Text": "Approximately 95% of data values fall within two standard deviations (\u03BC \u00B1 2\u03C3) of the mean.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a21aafa5-9a2c-4777-8048-dea6d80f8287",
+              "Text": "Approximately 99.7% of data values fall within three standard deviations (\u03BC \u00B1 3\u03C3) of the mean, leaving very little in the extreme tails.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0916f8c4-c0c0-4ba6-9e32-d5dd9428c4f8",
+          "TopicId": "9028bbad-31eb-44ee-8c74-35632804aa8f",
+          "Title": "Visualizing the Normal Distribution in Python",
+          "BodyText": "Python provides powerful libraries to generate and visualize normal distributions, allowing students to see how changes in parameters affect the curve\u0027s shape.",
+          "Notes": "Using matplotlib and scipy together gives both the visual representation and the underlying mathematical computation, which is a common workflow in data analysis.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "ModifiedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "Items": [
+            {
+              "Id": "fc554069-73b1-41e9-a478-84d6bc48a334",
+              "Text": "The scipy.stats.norm class can generate probability density function (PDF) values for a normal distribution with specified mean and standard deviation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "34d7c4b8-8cf1-4b7a-a54b-bf602c0e19f1",
+              "Text": "matplotlib.pyplot is used to plot the bell curve, enabling clear visualization of the distribution\u0027s shape, center, and spread.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aa53ade8-caab-4ce2-99e8-f4ad33d95856",
+              "Text": "Overlaying multiple normal curves with different \u03BC or \u03C3 values on the same plot helps illustrate the effect of each parameter visually.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1f136b8c-5760-47b6-b0b8-a4437e3dbbc0",
+              "Text": "Histograms of sampled data can be plotted alongside the theoretical normal curve to assess how well the data fits a normal distribution.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9780fc87-a4a7-4143-9ff4-2f9b89c56c5f",
+          "TopicId": "9028bbad-31eb-44ee-8c74-35632804aa8f",
+          "Title": "Computing Normal Distribution Probabilities in Python",
+          "BodyText": "Beyond visualization, Python can calculate exact probabilities and percentiles associated with normal distributions using built-in statistical functions.",
+          "Notes": "For example, scipy.stats.norm.cdf(1) returns approximately 0.841, meaning about 84.1% of values in a standard normal distribution fall below 1.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "ModifiedDate": "2026-07-03T11:52:14.9646934-04:00",
+          "Items": [
+            {
+              "Id": "01a393d0-7079-4cb6-985e-ba07322f27a0",
+              "Text": "The cumulative distribution function (CDF), accessed via scipy.stats.norm.cdf(), returns the probability that a value falls below a specified threshold.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e72eadb8-a362-4105-af4c-ae99a1985937",
+              "Text": "The percent-point function (PPF), accessed via scipy.stats.norm.ppf(), is the inverse of the CDF and returns the value at a given percentile.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f6ce90fe-a1ad-408a-b819-aa01ef032cc4",
+              "Text": "These functions accept mean and standard deviation arguments, enabling probability calculations for any normal distribution without manual standardization.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f241c285-f492-4345-aae4-6bde0d3369cc",
+              "Text": "Probabilities between two values can be computed by subtracting two CDF values, representing the area under the curve between those points.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "23eda258-d7b1-4c45-a8d7-20d1e804c4c2",
+      "Title": "The Binomial Distribution",
+      "Summary": "Introduces the binomial distribution for modeling the probability of discrete outcomes in a fixed number of trials. Students will compute binomial probabilities and explore practical applications using Python.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "ModifiedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "Elements": [
+        {
+          "Id": "916084d2-82a7-4249-842e-032fae32a39a",
+          "TopicId": "23eda258-d7b1-4c45-a8d7-20d1e804c4c2",
+          "Title": "What Is the Binomial Distribution?",
+          "BodyText": "The binomial distribution models the probability of obtaining a specific number of successes in a fixed number of independent trials, each with the same probability of success.",
+          "Notes": "Classic examples include flipping a coin 10 times and counting heads, or testing 50 products and counting defectives.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "Items": [
+            {
+              "Id": "bbd70d63-5089-4b4e-9260-d64bde5b4d90",
+              "Text": "It applies when there are exactly two possible outcomes per trial, conventionally labeled \u0027success\u0027 and \u0027failure\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "94342723-6da4-4a10-bde1-4349191f59c5",
+              "Text": "The trials must be independent, meaning the outcome of one trial does not affect any other.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "18133c79-46fc-4cce-947c-3eb45a5b737b",
+              "Text": "The probability of success p remains constant across all trials.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0cf1f891-a67c-47ad-aac5-46bb893a0b77",
+              "Text": "The distribution is fully described by two parameters: n (number of trials) and p (probability of success).",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5f154b4e-d6ea-4180-aeb5-0662b175456a",
+          "TopicId": "23eda258-d7b1-4c45-a8d7-20d1e804c4c2",
+          "Title": "Key Conditions for Binomial Experiments",
+          "BodyText": "Before applying the binomial distribution, four specific conditions must be satisfied to ensure the model is appropriate.",
+          "Notes": "Violating any condition \u2014 such as sampling without replacement from a small population \u2014 may require a different distribution such as the hypergeometric.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "Items": [
+            {
+              "Id": "6050972c-289e-4cce-a962-cee90798754c",
+              "Text": "The experiment consists of a fixed number of trials, n.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f46503bb-b849-4677-b680-d3eb9457116f",
+              "Text": "Each trial results in one of only two mutually exclusive outcomes: success or failure.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c6bd226f-f0cc-4f1e-8cfa-124cf20085cf",
+              "Text": "All trials are statistically independent of one another.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9bbde087-c130-4ca3-b6f6-8dd2d93c3966",
+              "Text": "The probability of success p is the same for every trial.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4cdc79b1-808e-46d4-8b51-94df9b5041f3",
+          "TopicId": "23eda258-d7b1-4c45-a8d7-20d1e804c4c2",
+          "Title": "The Binomial Probability Formula",
+          "BodyText": "The probability of observing exactly k successes in n trials is calculated using the binomial probability mass function (PMF).",
+          "Notes": "The term C(n, k) \u2014 read as \u0027n choose k\u0027 \u2014 counts the number of ways to arrange k successes among n trials and is computed as n! / (k!(n-k)!).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "Items": [
+            {
+              "Id": "e1079762-48df-4fbe-95ef-c8ab87289b31",
+              "Text": "The formula is P(X = k) = C(n, k) * p^k * (1-p)^(n-k).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "454a7840-f700-4c6f-b0da-57f7b153ac33",
+              "Text": "p^k represents the probability of the k successes occurring, and (1-p)^(n-k) represents the probability of the remaining failures.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "025a7512-6c0b-4d57-bb63-2b8bbebc0b67",
+              "Text": "The combinatorial coefficient C(n, k) accounts for all distinct orderings of successes and failures.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b6ab2548-73d4-49bf-8445-6c5d751222f9",
+              "Text": "The probabilities for all possible values of k (from 0 to n) must sum to exactly 1.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0bb02877-e904-4f78-8cd6-a0287b76b1ee",
+          "TopicId": "23eda258-d7b1-4c45-a8d7-20d1e804c4c2",
+          "Title": "Mean and Variance of the Binomial Distribution",
+          "BodyText": "The binomial distribution has simple closed-form expressions for its mean and variance, making it easy to characterize the distribution without computing the full PMF.",
+          "Notes": "For example, if n = 100 and p = 0.3, the expected number of successes is 30, and the standard deviation is approximately 4.58.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "Items": [
+            {
+              "Id": "a0dafacf-f100-4c16-820b-7c105d56fa00",
+              "Text": "The mean (expected value) of a binomial random variable is \u03BC = n * p.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8095e4d8-37a7-45ff-8bc7-26bb7bd78d90",
+              "Text": "The variance is \u03C3\u00B2 = n * p * (1 - p), and the standard deviation is \u03C3 = \u221A(n * p * (1 - p)).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "552102ea-6c72-49e4-95e2-514227dfdd40",
+              "Text": "As p approaches 0.5, the distribution becomes more symmetric; it skews right when p is small and left when p is large.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9e7d8590-6795-4243-96d8-40b684de2b87",
+              "Text": "These summary statistics allow quick interpretation of the center and spread of the distribution.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "18df1c15-c71d-4d46-9766-ef44554a2cec",
+          "TopicId": "23eda258-d7b1-4c45-a8d7-20d1e804c4c2",
+          "Title": "Computing Binomial Probabilities in Python",
+          "BodyText": "Python\u0027s scipy.stats library provides built-in functions for computing binomial probabilities efficiently, both for individual outcomes and cumulative ranges.",
+          "Notes": "For example: from scipy.stats import binom; binom.pmf(k=3, n=10, p=0.5) returns the probability of exactly 3 heads in 10 fair coin flips.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "Items": [
+            {
+              "Id": "3d8ae39c-c270-4857-9556-93ee5e2e5692",
+              "Text": "Use binom.pmf(k, n, p) to compute the probability of exactly k successes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ccdd255c-9245-4261-9af8-0dd0e080ef82",
+              "Text": "Use binom.cdf(k, n, p) to compute the cumulative probability P(X \u2264 k), useful for finding probabilities over a range of outcomes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "14640aec-23b8-4e6e-81dd-b6d327cbc2e5",
+              "Text": "Use binom.rvs(n, p, size=N) to generate random samples from a binomial distribution for simulation purposes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c248c049-7f13-42fe-837a-c67f64143be5",
+              "Text": "Plotting the PMF with matplotlib helps visualize how the distribution changes with different values of n and p.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7c1b6367-28ec-4b8a-b044-2b8262eef9db",
+          "TopicId": "23eda258-d7b1-4c45-a8d7-20d1e804c4c2",
+          "Title": "Practical Applications of the Binomial Distribution",
+          "BodyText": "The binomial distribution is widely used across business, science, and engineering to model real-world scenarios involving counts of binary outcomes.",
+          "Notes": "In quality control, a manufacturer might use the binomial distribution to determine the probability that fewer than 5 items in a batch of 100 are defective, given a known defect rate.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:36.3556657-04:00",
+          "Items": [
+            {
+              "Id": "739b5a8e-2af4-4bff-b086-13e769f9cd28",
+              "Text": "In healthcare, it can model the probability that a certain number of patients respond positively to a treatment given a known response rate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "31dfb28a-93d0-41a6-a3b0-1b36f72b8223",
+              "Text": "In marketing, it estimates the likelihood that a specific number of customers in a campaign will make a purchase.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "81571535-1699-452a-92a9-bad1009bf504",
+              "Text": "In software testing, it helps predict how many test cases will fail given a historical bug rate.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "543bc76a-e37a-4782-a7a0-7ba1a1081a6a",
+              "Text": "Understanding the binomial distribution builds a foundation for more advanced distributions such as the Poisson and normal distributions.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "1d80351c-c503-48bd-a4ab-285cc25f8cc1",
+      "Title": "The Poisson Distribution",
+      "Summary": "Covers the Poisson distribution for modeling the frequency of events occurring within a fixed interval of time or space. Students will calculate Poisson probabilities and interpret results using Python.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "ModifiedDate": "2026-07-03T11:50:29.9439493-04:00",
+      "Elements": [
+        {
+          "Id": "206ad670-a5f1-4c41-9ac6-b3a0e5e13f5a",
+          "TopicId": "1d80351c-c503-48bd-a4ab-285cc25f8cc1",
+          "Title": "What Is the Poisson Distribution?",
+          "BodyText": "The Poisson distribution models the number of times an event occurs within a fixed interval of time or space, given that events happen independently and at a constant average rate.",
+          "Notes": "Common real-world examples include the number of customer arrivals per hour, the number of emails received per day, or the number of defects per meter of fabric.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:52:59.786657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:59.786657-04:00",
+          "Items": [
+            {
+              "Id": "af0f0f2c-bef9-4a47-b2bd-36bf51bad780",
+              "Text": "It is a discrete probability distribution, meaning it applies to count data (0, 1, 2, 3, ...).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a7df9a40-12fe-4b30-a34a-f84d02410ffe",
+              "Text": "The distribution is defined by a single parameter, lambda (\u03BB), which represents the average number of events in the interval.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ce195281-f8d3-4a60-9348-a5befef88a09",
+              "Text": "Events must occur independently of one another and cannot happen simultaneously.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "42edbd7b-a1fd-461a-bfd1-40dc2ab76aad",
+          "TopicId": "1d80351c-c503-48bd-a4ab-285cc25f8cc1",
+          "Title": "The Poisson Probability Formula",
+          "BodyText": "The probability of observing exactly k events in an interval is calculated using the Poisson probability mass function (PMF).",
+          "Notes": "For example, if a call center receives an average of 5 calls per minute (\u03BB = 5), the probability of receiving exactly 3 calls in a given minute can be computed directly from this formula.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:52:59.786657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:59.786657-04:00",
+          "Items": [
+            {
+              "Id": "535e1a16-36a7-4170-9f33-ad51ad75cd35",
+              "Text": "The formula is P(X = k) = (e^(-\u03BB) * \u03BB^k) / k!, where e is Euler\u0027s number (~2.718), \u03BB is the mean rate, and k is the desired count.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "99cc2d81-83a3-44d9-9638-1a66ccd8a901",
+              "Text": "The factorial term k! accounts for the number of ways k events can be arranged.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7a88405f-2c8d-46cd-9359-ea0d8f6d8d1b",
+              "Text": "As \u03BB increases, the distribution shifts rightward and becomes more symmetric, resembling a normal distribution.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bce916d6-cfd5-4321-8185-ecc1bcd76091",
+          "TopicId": "1d80351c-c503-48bd-a4ab-285cc25f8cc1",
+          "Title": "Key Properties of the Poisson Distribution",
+          "BodyText": "The Poisson distribution has several distinctive mathematical properties that make it easy to work with and interpret.",
+          "Notes": "The equality of mean and variance is a useful diagnostic tool: if your data\u0027s mean and variance are approximately equal, the Poisson distribution may be an appropriate model.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:52:59.786657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:59.786657-04:00",
+          "Items": [
+            {
+              "Id": "713b8b20-138c-448e-a1da-1a39dc380858",
+              "Text": "Both the mean and the variance of a Poisson-distributed variable equal \u03BB, making \u03BB the sole descriptor of the distribution\u0027s shape and spread.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b97ac770-dc1d-4c8c-832f-1e0a51d2e62a",
+              "Text": "The standard deviation is therefore the square root of \u03BB.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7814284f-09eb-424d-878e-cb5596a18b3d",
+              "Text": "The distribution is right-skewed for small values of \u03BB and approaches symmetry as \u03BB grows large.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "72a0265e-9665-495b-b29e-bcd0669e7633",
+          "TopicId": "1d80351c-c503-48bd-a4ab-285cc25f8cc1",
+          "Title": "Calculating Poisson Probabilities in Python",
+          "BodyText": "Python\u0027s scipy.stats library provides built-in functions to compute Poisson probabilities efficiently without manual formula application.",
+          "Notes": "Using scipy.stats.poisson.pmf(k, mu=\u03BB) computes the exact probability for a single count k, while poisson.cdf(k, mu=\u03BB) computes the cumulative probability P(X \u2264 k).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:52:59.786657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:59.786657-04:00",
+          "Items": [
+            {
+              "Id": "62939a51-cabf-4ad6-8f27-37b882c04cba",
+              "Text": "Import the Poisson distribution with: from scipy.stats import poisson.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "55882974-0c16-43ba-b299-4b6f3b8307d1",
+              "Text": "Use poisson.pmf(k, mu) to calculate the probability of exactly k events occurring when the mean rate is mu.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "674501a2-1c1f-4069-bcc7-7620a8e3c6a2",
+              "Text": "Use poisson.cdf(k, mu) to calculate the probability of k or fewer events, which is useful for answering questions like \u0027What is the probability of at most 3 arrivals?\u0027",
+              "SortOrder": 2
+            },
+            {
+              "Id": "38e24612-ef12-41d0-8b80-85d5a4a5226c",
+              "Text": "Use 1 - poisson.cdf(k, mu) to find the probability of more than k events occurring.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "add60cd0-b718-455f-b674-dce50603cc9d",
+          "TopicId": "1d80351c-c503-48bd-a4ab-285cc25f8cc1",
+          "Title": "Visualizing the Poisson Distribution",
+          "BodyText": "Plotting the Poisson PMF helps students see how the distribution changes shape with different values of \u03BB and interpret the likelihood of various event counts.",
+          "Notes": "In Python, matplotlib\u0027s bar chart (plt.bar) is well-suited for visualizing discrete distributions like the Poisson, with k values on the x-axis and their probabilities on the y-axis.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:52:59.786657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:59.786657-04:00",
+          "Items": [
+            {
+              "Id": "b0e0befb-a668-49a3-8156-92471f9f60da",
+              "Text": "Plotting multiple PMFs with different \u03BB values on the same chart reveals how increasing \u03BB shifts the distribution\u0027s center and reduces its relative skewness.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "086f06d1-7151-4224-9ed4-62c84e5abd6e",
+              "Text": "The tallest bar in the PMF plot indicates the most probable number of events (the mode), which equals floor(\u03BB) for non-integer \u03BB.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "07d1bfa4-1864-42a7-b951-53462c819ab4",
+              "Text": "Visualizations help confirm whether an assumed \u03BB is a reasonable fit for observed count data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ad2b8d7d-4300-40c8-b538-9107468033a9",
+          "TopicId": "1d80351c-c503-48bd-a4ab-285cc25f8cc1",
+          "Title": "Interpreting Poisson Results in Context",
+          "BodyText": "After computing Poisson probabilities, the analyst must translate numerical results into meaningful business or scientific insights.",
+          "Notes": "For instance, if P(X \u2265 10) = 0.03 for a support queue with \u03BB = 6, a manager might conclude that staffing for 10\u002B simultaneous requests is only necessary about 3% of the time.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:52:59.786657-04:00",
+          "ModifiedDate": "2026-07-03T11:52:59.786657-04:00",
+          "Items": [
+            {
+              "Id": "cb96fc83-8d1b-4759-ad1a-5244d0c3c8b5",
+              "Text": "A low probability for a specific count (e.g., P(X = 0) near zero) suggests that the event rarely goes unobserved in a given interval.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a8e5697f-0570-458e-8982-92ff961c3ca3",
+              "Text": "Cumulative probabilities (CDFs) are particularly useful for capacity planning, risk assessment, and setting service-level thresholds.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c598d6e9-bcb7-4c92-b8b3-445332f1d659",
+              "Text": "Comparing observed event counts to expected Poisson probabilities can reveal whether the assumed rate \u03BB accurately represents real-world data.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 39
+}

@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Manipulation and Cleaning with NumPy and Pandas — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Data Manipulation and Cleaning with NumPy and Pandas</a></div>
+<h1>Data Manipulation and Cleaning with NumPy and Pandas — Module Topics</h1>
+<h2>Introduction to NumPy for Data Manipulation</h2>
+<div class="summary">Introduces the NumPy library and its core data structures, focusing on arrays and vectorized operations that enable efficient numerical computation and data handling.</div>
+<ul>
+<li><strong>What is NumPy?</strong> <span class="el-body">— NumPy (Numerical Python) is a foundational open-source library for scientific computing in Python, providing support for large, multi-dimensional arrays and a collection of mathematical functions to operate on them.</span></li>
+<li><strong>NumPy Arrays (ndarray)</strong> <span class="el-body">— The ndarray is NumPy&#39;s primary data structure — a fixed-type, N-dimensional array that stores elements of the same data type in contiguous memory for maximum performance.</span></li>
+<li><strong>Vectorized Operations</strong> <span class="el-body">— Vectorized operations allow mathematical computations to be applied element-wise across entire arrays at once, eliminating the need for explicit Python loops and dramatically improving performance.</span></li>
+<li><strong>Array Indexing and Slicing</strong> <span class="el-body">— NumPy provides powerful and flexible ways to access and modify array elements using integer indexing, slicing, boolean masks, and fancy indexing.</span></li>
+<li><strong>Universal Functions (ufuncs)</strong> <span class="el-body">— Universal functions, or ufuncs, are NumPy functions that operate element-wise on arrays and are optimized for speed, supporting operations like trigonometry, exponentiation, logarithms, and aggregation.</span></li>
+<li><strong>Array Reshaping and Manipulation</strong> <span class="el-body">— NumPy provides tools to change the shape, structure, and layout of arrays without copying data, which is essential for preparing data for numerical algorithms and machine learning models.</span></li>
+<li><strong>Why NumPy for Data Manipulation?</strong> <span class="el-body">— NumPy serves as the computational engine for data manipulation workflows, providing memory-efficient storage and fast mathematical operations that make it indispensable for handling numerical datasets.</span></li>
+</ul>
+<h2>Getting Started with Pandas DataFrames</h2>
+<div class="summary">Covers the foundational concepts of Pandas, including Series and DataFrame creation, structure, and basic operations for organizing and inspecting data.</div>
+<ul>
+<li><strong>Introduction to Pandas and Its Core Data Structures</strong> <span class="el-body">— Pandas is a powerful Python library built on top of NumPy that provides flexible data structures for data manipulation and analysis.</span></li>
+<li><strong>Understanding the Pandas Series</strong> <span class="el-body">— A Pandas Series is a one-dimensional labeled array capable of holding any data type, such as integers, strings, or floats.</span></li>
+<li><strong>Creating a Pandas DataFrame</strong> <span class="el-body">— A DataFrame is a two-dimensional, table-like data structure with labeled rows and columns, similar to a spreadsheet or SQL table.</span></li>
+<li><strong>Understanding DataFrame Structure: Index, Columns, and Values</strong> <span class="el-body">— Every DataFrame has three fundamental components — an index (row labels), columns (column labels), and the underlying data values.</span></li>
+<li><strong>Inspecting and Exploring a DataFrame</strong> <span class="el-body">— Pandas provides several built-in methods to quickly inspect and summarize a DataFrame, which is an essential first step in any data analysis workflow.</span></li>
+<li><strong>Basic DataFrame Operations: Adding, Selecting, and Organizing Data</strong> <span class="el-body">— Pandas makes it straightforward to select subsets of data, add new columns, and reorganize a DataFrame to suit analysis needs.</span></li>
+</ul>
+<h2>Indexing and Selecting Data</h2>
+<div class="summary">Explores label-based and position-based indexing techniques in Pandas, including loc, iloc, and conditional filtering to access and manipulate specific subsets of data.</div>
+<ul>
+<li><strong>Label-Based Indexing with loc</strong> <span class="el-body">— The loc accessor enables selection of rows and columns by their explicit labels or index names, making it intuitive for working with named data.</span></li>
+<li><strong>Position-Based Indexing with iloc</strong> <span class="el-body">— The iloc accessor selects data purely by integer position, similar to how standard Python list or NumPy array indexing works.</span></li>
+<li><strong>Conditional (Boolean) Filtering</strong> <span class="el-body">— Conditional filtering allows you to select rows that satisfy one or more logical conditions, returning a subset of the DataFrame that meets the criteria.</span></li>
+<li><strong>Selecting Single Columns and Rows</strong> <span class="el-body">— Before using loc or iloc, Pandas offers simpler bracket and dot notation shortcuts for selecting individual columns or rows from a DataFrame.</span></li>
+<li><strong>Setting and Resetting the Index</strong> <span class="el-body">— The index of a DataFrame controls how labels are used in loc-based selection, and managing it correctly is essential for effective label-based indexing.</span></li>
+<li><strong>Slicing Rows with Basic Bracket Notation</strong> <span class="el-body">— DataFrames support direct row slicing using bracket notation with integer ranges, which is a quick alternative to iloc for simple row selections.</span></li>
+<li><strong>Combining Indexing with Data Manipulation</strong> <span class="el-body">— Indexing and selection are not just read operations — they are also the foundation for updating, deleting, and transforming specific subsets of data within a DataFrame.</span></li>
+</ul>
+<h2>Merging, Joining, and Concatenating Data</h2>
+<div class="summary">Examines methods for combining multiple datasets using merge, join, and concatenation operations to integrate data from different sources into a unified structure.</div>
+<ul>
+<li><strong>Concatenating DataFrames with pd.concat()</strong> <span class="el-body">— The pd.concat() function stacks multiple DataFrames together along a specified axis, either row-wise or column-wise.</span></li>
+<li><strong>Merging DataFrames with pd.merge()</strong> <span class="el-body">— pd.merge() combines two DataFrames based on common columns or indices, similar to SQL JOIN operations.</span></li>
+<li><strong>Types of Joins: Inner, Outer, Left, and Right</strong> <span class="el-body">— The &#39;how&#39; parameter in pd.merge() determines which rows from each DataFrame are included in the result based on key matches.</span></li>
+<li><strong>Joining DataFrames Using the .join() Method</strong> <span class="el-body">— The DataFrame .join() method is a convenient shortcut for combining DataFrames based on their index rather than a column.</span></li>
+<li><strong>Merging on Multiple Keys</strong> <span class="el-body">— Multiple columns can be used as composite keys in a merge to ensure more precise matching between DataFrames.</span></li>
+<li><strong>Handling Duplicate Columns and Suffixes After Merging</strong> <span class="el-body">— When two DataFrames share non-key column names, pd.merge() automatically appends suffixes to distinguish them in the merged result.</span></li>
+<li><strong>Validating and Verifying Merge Results</strong> <span class="el-body">— After combining datasets, it is important to validate the merge output to confirm data integrity and expected row counts.</span></li>
+</ul>
+<h2>Reshaping and Transforming Data</h2>
+<div class="summary">Covers techniques for restructuring datasets through pivoting, melting, stacking, and grouping operations to prepare data for analysis and reporting.</div>
+<ul>
+<li><strong>Pivoting Data with pivot() and pivot_table()</strong> <span class="el-body">— Pivoting restructures a DataFrame by turning unique values from one column into new column headers, making it easier to compare and analyze data across categories.</span></li>
+<li><strong>Melting Data with melt()</strong> <span class="el-body">— Melting is the inverse of pivoting — it transforms wide-format data into long-format data by unpivoting columns into rows, which is often required for tidy data analysis.</span></li>
+<li><strong>Stacking and Unstacking with MultiIndex</strong> <span class="el-body">— Stacking moves the innermost column level into the innermost row index, while unstacking does the opposite, both producing hierarchical (MultiIndex) structures useful for multi-dimensional data.</span></li>
+<li><strong>Grouping Data with groupby()</strong> <span class="el-body">— The groupby() method splits a DataFrame into groups based on one or more columns, enabling aggregation, transformation, and filtering operations on each group independently.</span></li>
+<li><strong>Applying Functions with apply() and agg()</strong> <span class="el-body">— apply() and agg() extend groupby() by allowing custom or multiple aggregation functions to be applied to grouped or individual DataFrame columns simultaneously.</span></li>
+<li><strong>Reshaping Arrays with NumPy reshape() and transpose()</strong> <span class="el-body">— NumPy provides reshape() and transpose() to restructure array dimensions without copying data, which is essential when preparing numerical datasets for machine learning pipelines or matrix operations.</span></li>
+</ul>
+<h2>Handling Missing Data</h2>
+<div class="summary">Addresses strategies for detecting, removing, and imputing missing values in datasets to ensure data quality and integrity before analysis.</div>
+<ul>
+<li><strong>Detecting Missing Values</strong> <span class="el-body">— Before addressing missing data, you must first identify where it exists in your dataset using Pandas detection methods.</span></li>
+<li><strong>Understanding NaN and None in NumPy and Pandas</strong> <span class="el-body">— Missing data in Pandas is typically represented as NaN (Not a Number) from NumPy, or as Python&#39;s None, and understanding the distinction is important for correct handling.</span></li>
+<li><strong>Removing Missing Values with dropna()</strong> <span class="el-body">— The simplest strategy for handling missing data is to remove rows or columns that contain missing values using the dropna() method.</span></li>
+<li><strong>Imputing Missing Values with fillna()</strong> <span class="el-body">— Imputation replaces missing values with substituted estimates, allowing you to retain rows and preserve dataset size.</span></li>
+<li><strong>Interpolation for Missing Values</strong> <span class="el-body">— Pandas provides an interpolate() method that estimates missing values based on surrounding data points, making it well-suited for ordered or time-indexed datasets.</span></li>
+<li><strong>Strategy Selection Based on Missingness Type</strong> <span class="el-body">— Choosing the right missing data strategy depends on understanding why data is missing, categorized as Missing Completely at Random (MCAR), Missing at Random (MAR), or Missing Not at Random (MNAR).</span></li>
+</ul>
+<h2>Cleaning and Transforming Real-World Datasets</h2>
+<div class="summary">Applies NumPy and Pandas tools to practical, complex datasets, guiding students through end-to-end data cleaning and transformation workflows used in professional data science contexts.</div>
+<ul>
+<li><strong>Establishing an End-to-End Cleaning Workflow</strong> <span class="el-body">— Professional data cleaning follows a structured sequence of steps to ensure consistency, reproducibility, and accuracy across complex datasets.</span></li>
+<li><strong>Diagnosing and Handling Missing Data at Scale</strong> <span class="el-body">— Real-world datasets routinely contain missing values that must be identified and addressed systematically before any analysis or modeling.</span></li>
+<li><strong>Correcting and Converting Data Types</strong> <span class="el-body">— Incorrect data types are one of the most common sources of errors in real-world datasets and must be corrected before transformations or aggregations can proceed reliably.</span></li>
+<li><strong>Detecting and Removing Duplicates and Outliers</strong> <span class="el-body">— Duplicate records and statistical outliers can distort analysis results and must be identified and handled with deliberate, justifiable strategies.</span></li>
+<li><strong>String Cleaning and Feature Extraction</strong> <span class="el-body">— Text columns in real-world datasets frequently contain inconsistent formatting, extra whitespace, and embedded information that must be standardized or extracted.</span></li>
+<li><strong>Reshaping and Aggregating for Analysis-Ready Structure</strong> <span class="el-body">— Raw datasets are rarely in the shape required for analysis; Pandas provides powerful tools to pivot, melt, and aggregate data into the correct structure.</span></li>
+<li><strong>Validating and Exporting the Cleaned Dataset</strong> <span class="el-body">— The final stage of any cleaning workflow involves validating that all transformations produced the expected output and persisting the cleaned data in a reusable format.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

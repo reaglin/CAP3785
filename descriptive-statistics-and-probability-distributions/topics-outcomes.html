@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descriptive Statistics and Probability Distributions — Topics &amp; Learning Outcomes</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.25rem;margin-top:30px;color:#1a3c6e;border-bottom:1px solid #ececec;padding-bottom:4px}
+h3{font-size:1.05rem;margin-top:22px;color:#1a3c6e}
+.toc{border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:14px 0 6px;display:flex;gap:18px;flex-wrap:wrap}
+.toc a{color:#1a3c6e;font-weight:600;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.prefix{color:#555;font-style:italic;margin:6px 0 14px}
+.mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
+.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .statement{font-weight:600;margin:4px 0 8px}
+.meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
+.meta .map{background:#eaf6ec;color:#137333}
+.co{margin:7px 0}
+.co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Descriptive Statistics and Probability Distributions</a></div>
+<h1>Descriptive Statistics and Probability Distributions — Topics &amp; Learning Outcomes</h1>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
+
+<h2 id="topics">Module Topics</h2>
+<h3>Measures of Central Tendency</h3>
+<div class="summary">Explores the mean and median as foundational descriptive statistics that summarize the center of a dataset. Students will learn how to compute and interpret these measures using Python.</div>
+<ul>
+<li><strong>Understanding the Mean</strong> <span class="el-body">— The mean, or arithmetic average, is calculated by summing all values in a dataset and dividing by the number of observations.</span></li>
+<li><strong>Understanding the Median</strong> <span class="el-body">— The median is the middle value of a dataset when the observations are arranged in ascending or descending order.</span></li>
+<li><strong>Comparing Mean and Median</strong> <span class="el-body">— Examining the relationship between the mean and median provides insight into the shape and symmetry of a dataset&#39;s distribution.</span></li>
+<li><strong>Computing Central Tendency in Python</strong> <span class="el-body">— Python provides multiple libraries that make computing the mean and median straightforward, enabling quick and accurate descriptive analysis.</span></li>
+<li><strong>Interpreting Central Tendency in Context</strong> <span class="el-body">— Interpreting the mean and median correctly requires understanding the context of the data and what these values communicate about the dataset.</span></li>
+</ul>
+<h3>Measures of Spread and Variability</h3>
+<div class="summary">Covers variance and standard deviation as key indicators of how data values are dispersed around the center. Students will calculate and interpret these statistics to understand data consistency and spread.</div>
+<ul>
+<li><strong>Understanding Spread and Why It Matters</strong> <span class="el-body">— Measures of spread quantify how much data values differ from one another and from the center of a distribution. Knowing the center alone is insufficient to fully characterize a dataset.</span></li>
+<li><strong>Variance: Quantifying Average Squared Deviation</strong> <span class="el-body">— Variance measures the average squared difference between each data point and the mean, providing a single number that summarizes overall dispersion.</span></li>
+<li><strong>Standard Deviation: A More Interpretable Spread Metric</strong> <span class="el-body">— Standard deviation is the square root of the variance and returns the measure of spread to the original units of the data, making it more intuitive to interpret.</span></li>
+<li><strong>Calculating Variance and Standard Deviation Step by Step</strong> <span class="el-body">— Following a systematic calculation procedure ensures accuracy when computing variance and standard deviation by hand or verifying computational results.</span></li>
+<li><strong>Interpreting Variance and Standard Deviation in Context</strong> <span class="el-body">— Calculating these statistics is only meaningful when their values are interpreted in relation to the dataset&#39;s scale, units, and the question being answered.</span></li>
+<li><strong>Computing Spread Statistics in Python</strong> <span class="el-body">— Python&#39;s NumPy and statistics libraries provide efficient functions to calculate variance and standard deviation on datasets of any size.</span></li>
+</ul>
+<h3>Skewness and Distribution Shape</h3>
+<div class="summary">Introduces skewness as a measure of asymmetry in a data distribution and explains how it affects interpretation of central tendency. Students will identify and compute skewness in datasets using Python.</div>
+<ul>
+<li><strong>What Is Skewness?</strong> <span class="el-body">— Skewness is a statistical measure that quantifies the degree and direction of asymmetry in a data distribution relative to its mean.</span></li>
+<li><strong>Positive (Right) Skewness</strong> <span class="el-body">— A positively skewed distribution has a tail that extends toward higher values, with the bulk of data concentrated on the left side.</span></li>
+<li><strong>Negative (Left) Skewness</strong> <span class="el-body">— A negatively skewed distribution has a tail that extends toward lower values, with the bulk of data concentrated on the right side.</span></li>
+<li><strong>Skewness and the Interpretation of Central Tendency</strong> <span class="el-body">— Skewness directly affects which measure of central tendency best represents a dataset, making it essential context for interpreting mean and median.</span></li>
+<li><strong>Computing Skewness in Python</strong> <span class="el-body">— Python provides straightforward tools to calculate skewness numerically, allowing analysts to quantify distributional asymmetry from real datasets.</span></li>
+<li><strong>Visualizing Skewness</strong> <span class="el-body">— Visual tools such as histograms and density plots make it easy to identify and communicate the shape and skewness of a distribution.</span></li>
+</ul>
+<h3>Introduction to Probability Distributions</h3>
+<div class="summary">Provides a conceptual foundation for probability distributions and their role in statistical data analysis. Students will understand how distributions model real-world phenomena and form the basis for inference.</div>
+<ul>
+<li><strong>What Is a Probability Distribution?</strong> <span class="el-body">— A probability distribution is a mathematical function that describes the likelihood of all possible outcomes for a random variable.</span></li>
+<li><strong>Discrete vs. Continuous Distributions</strong> <span class="el-body">— Probability distributions are broadly classified as discrete or continuous depending on the nature of the random variable they model.</span></li>
+<li><strong>Role of Distributions in Modeling Real-World Phenomena</strong> <span class="el-body">— Probability distributions serve as mathematical abstractions that capture the patterns and variability observed in real-world data.</span></li>
+<li><strong>Key Parameters That Define a Distribution</strong> <span class="el-body">— Every probability distribution is characterized by one or more parameters that control its shape, center, and spread.</span></li>
+<li><strong>Distributions as the Foundation for Statistical Inference</strong> <span class="el-body">— Probability distributions are not just descriptive tools; they form the theoretical backbone of statistical inference, including hypothesis testing and confidence intervals.</span></li>
+</ul>
+<h3>The Normal Distribution</h3>
+<div class="summary">Examines the properties of the normal distribution including its bell-curve shape, mean, and standard deviation parameters. Students will apply and visualize the normal distribution using Python.</div>
+<ul>
+<li><strong>Properties of the Normal Distribution</strong> <span class="el-body">— The normal distribution is a continuous probability distribution characterized by its symmetric, bell-shaped curve centered around the mean.</span></li>
+<li><strong>Mean and Standard Deviation Parameters</strong> <span class="el-body">— The normal distribution is fully defined by two parameters: the mean (μ) and the standard deviation (σ), which control the location and spread of the curve respectively.</span></li>
+<li><strong>The Empirical Rule (68-95-99.7 Rule)</strong> <span class="el-body">— The empirical rule describes the proportion of data that falls within one, two, and three standard deviations from the mean in a normal distribution.</span></li>
+<li><strong>Visualizing the Normal Distribution in Python</strong> <span class="el-body">— Python provides powerful libraries to generate and visualize normal distributions, allowing students to see how changes in parameters affect the curve&#39;s shape.</span></li>
+<li><strong>Computing Normal Distribution Probabilities in Python</strong> <span class="el-body">— Beyond visualization, Python can calculate exact probabilities and percentiles associated with normal distributions using built-in statistical functions.</span></li>
+</ul>
+<h3>The Binomial Distribution</h3>
+<div class="summary">Introduces the binomial distribution for modeling the probability of discrete outcomes in a fixed number of trials. Students will compute binomial probabilities and explore practical applications using Python.</div>
+<ul>
+<li><strong>What Is the Binomial Distribution?</strong> <span class="el-body">— The binomial distribution models the probability of obtaining a specific number of successes in a fixed number of independent trials, each with the same probability of success.</span></li>
+<li><strong>Key Conditions for Binomial Experiments</strong> <span class="el-body">— Before applying the binomial distribution, four specific conditions must be satisfied to ensure the model is appropriate.</span></li>
+<li><strong>The Binomial Probability Formula</strong> <span class="el-body">— The probability of observing exactly k successes in n trials is calculated using the binomial probability mass function (PMF).</span></li>
+<li><strong>Mean and Variance of the Binomial Distribution</strong> <span class="el-body">— The binomial distribution has simple closed-form expressions for its mean and variance, making it easy to characterize the distribution without computing the full PMF.</span></li>
+<li><strong>Computing Binomial Probabilities in Python</strong> <span class="el-body">— Python&#39;s scipy.stats library provides built-in functions for computing binomial probabilities efficiently, both for individual outcomes and cumulative ranges.</span></li>
+<li><strong>Practical Applications of the Binomial Distribution</strong> <span class="el-body">— The binomial distribution is widely used across business, science, and engineering to model real-world scenarios involving counts of binary outcomes.</span></li>
+</ul>
+<h3>The Poisson Distribution</h3>
+<div class="summary">Covers the Poisson distribution for modeling the frequency of events occurring within a fixed interval of time or space. Students will calculate Poisson probabilities and interpret results using Python.</div>
+<ul>
+<li><strong>What Is the Poisson Distribution?</strong> <span class="el-body">— The Poisson distribution models the number of times an event occurs within a fixed interval of time or space, given that events happen independently and at a constant average rate.</span></li>
+<li><strong>The Poisson Probability Formula</strong> <span class="el-body">— The probability of observing exactly k events in an interval is calculated using the Poisson probability mass function (PMF).</span></li>
+<li><strong>Key Properties of the Poisson Distribution</strong> <span class="el-body">— The Poisson distribution has several distinctive mathematical properties that make it easy to work with and interpret.</span></li>
+<li><strong>Calculating Poisson Probabilities in Python</strong> <span class="el-body">— Python&#39;s scipy.stats library provides built-in functions to compute Poisson probabilities efficiently without manual formula application.</span></li>
+<li><strong>Visualizing the Poisson Distribution</strong> <span class="el-body">— Plotting the Poisson PMF helps students see how the distribution changes shape with different values of λ and interpret the likelihood of various event counts.</span></li>
+<li><strong>Interpreting Poisson Results in Context</strong> <span class="el-body">— After computing Poisson probabilities, the analyst must translate numerical results into meaningful business or scientific insights.</span></li>
+</ul>
+<h2 id="outcomes">Student Learning Outcomes</h2>
+<p class="prefix">By the end of this module, students will be able to:</p>
+<div class="mo">
+<div class="code">MO1</div>
+<div class="statement">Calculate measures of central tendency, spread, and skewness for a dataset using Python</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO2</div>
+<div class="statement">Interpret the relationship between mean, median, and skewness to characterize the shape of a data distribution</div>
+<div class="meta"><span>Level: Analyze</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO3</div>
+<div class="statement">Distinguish between discrete and continuous probability distributions by classifying the normal, binomial, and Poisson distributions according to their defining conditions and parameters</div>
+<div class="meta"><span>Level: Analyze</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO4</div>
+<div class="statement">Compute probabilities for the normal, binomial, and Poisson distributions using Python&#39;s statistical libraries</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO5</div>
+<div class="statement">Select an appropriate probability distribution to model a described real-world scenario based on the nature of the random variable and the conditions present</div>
+<div class="meta"><span>Level: Evaluate</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<h3>Course Outcomes (reference)</h3>
+<p class="empty">No course outcomes have been defined.</p>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

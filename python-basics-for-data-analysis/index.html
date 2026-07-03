@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Basics for Data Analysis – CAP3785</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #f4f6f9;
+      --color-surface: #ffffff;
+      --color-border: #dde2ea;
+      --color-primary: #1a4f8a;
+      --color-primary-dark: #133a68;
+      --color-accent: #2d7dd2;
+      --color-accent-hover: #1c5fa0;
+      --color-text: #1e2430;
+      --color-text-muted: #5a6376;
+      --color-badge-bg: #e8eef6;
+      --color-badge-text: #1a4f8a;
+      --color-tag-bg: #eef4fb;
+      --color-tag-border: #b8d0ed;
+      --radius: 10px;
+      --shadow: 0 2px 8px rgba(26, 79, 138, 0.08);
+      --shadow-hover: 0 6px 20px rgba(26, 79, 138, 0.14);
+      --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, #1c6aad 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #ddeeff;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 640px;
+      line-height: 1.65;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 960px;
+      margin: 2.25rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-heading {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.4rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+      border-color: #b8cfe8;
+    }
+
+    /* ── Card top row: type badge + filetype tag ── */
+    .card-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-type {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--color-badge-bg);
+      color: var(--color-badge-text);
+      border-radius: 4px;
+      padding: 0.22rem 0.6rem;
+    }
+
+    .tag-filetype {
+      font-size: 0.7rem;
+      font-weight: 600;
+      font-family: 'Courier New', Courier, monospace;
+      color: var(--color-text-muted);
+      background: var(--color-tag-bg);
+      border: 1px solid var(--color-tag-border);
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Card title row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.15rem;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .card-name a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .card-name a:hover {
+      color: var(--color-accent-hover);
+      text-decoration: underline;
+    }
+
+    .link-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .link-source:hover {
+      background: var(--color-badge-bg);
+      border-color: #9ab8d8;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .link-source-icon {
+      font-size: 0.65rem;
+    }
+
+    /* ── Card description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ── Divider line in card ── */
+    .card-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 0.1rem 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      padding: 1.25rem 1rem 2rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 500px) {
+      header {
+        padding: 2rem 1.1rem 1.75rem;
+      }
+
+      .card {
+        padding: 1.1rem 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>Python Basics for Data Analysis</h1>
+      <p>
+        This module introduces foundational Python concepts essential for data analytics work.
+        Learners will set up their development environment, explore core Python data types and
+        structures, and apply control structures — building the practical skills needed to begin
+        analyzing and visualizing data with confidence.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-heading">Module Artifacts &mdash; 3 items</h2>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <article class="card">
+        <div class="card-meta-top">
+          <span class="badge-type">Module Topics</span>
+          <span class="tag-filetype">.json</span>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="link-source" href="source/hierarchy.json" title="View source file">
+            <span class="link-source-icon">&#x2913;</span> source file
+          </a>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's three main topic areas — environment setup,
+          Python data types and structures, and control structures — that serves as a navigation
+          guide for both learners and instructors to understand the scope and sequence of the module.
+        </p>
+      </article>
+
+      <!-- Card 2: Presentation -->
+      <article class="card">
+        <div class="card-meta-top">
+          <span class="badge-type">Presentation</span>
+          <span class="tag-filetype">.pptx</span>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="presentation/Python_Basics_for_generated.pptx">Python_Basics_for_generated.pptx</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A slide deck introducing Python basics for data analytics students, covering environment
+          setup (installing Python, pip, and virtual environments), verification of the setup, and
+          foundational Python concepts, intended for use as lecture material or a self-paced visual
+          reference.
+        </p>
+      </article>
+
+      <!-- Card 3: Quiz Question Bank -->
+      <article class="card">
+        <div class="card-meta-top">
+          <span class="badge-type">Quiz</span>
+          <span class="tag-filetype">.json</span>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="link-source" href="source/quiz_questions.json" title="View source file">
+            <span class="link-source-icon">&#x2913;</span> source file
+          </a>
+        </div>
+        <p class="card-description">
+          A 20-question bank assessing learners on Python environment setup (recommended version,
+          pip, virtual environments), Jupyter Notebook features, and key analytics libraries such
+          as pandas and NumPy, for use in quizzes or knowledge checks throughout the module.
+        </p>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp; Python Basics for Data Analysis
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Excel Functions and Statistical Tools — Topics &amp; Learning Outcomes</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.25rem;margin-top:30px;color:#1a3c6e;border-bottom:1px solid #ececec;padding-bottom:4px}
+h3{font-size:1.05rem;margin-top:22px;color:#1a3c6e}
+.toc{border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:14px 0 6px;display:flex;gap:18px;flex-wrap:wrap}
+.toc a{color:#1a3c6e;font-weight:600;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.prefix{color:#555;font-style:italic;margin:6px 0 14px}
+.mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
+.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .statement{font-weight:600;margin:4px 0 8px}
+.meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
+.meta .map{background:#eaf6ec;color:#137333}
+.co{margin:7px 0}
+.co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Excel Functions and Statistical Tools</a></div>
+<h1>Advanced Excel Functions and Statistical Tools — Topics &amp; Learning Outcomes</h1>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
+
+<h2 id="topics">Module Topics</h2>
+<h3>Lookup Functions: VLOOKUP and INDEX-MATCH</h3>
+<div class="summary">This topic introduces VLOOKUP and INDEX-MATCH as core tools for retrieving data across tables. Students will learn the syntax, use cases, and key differences between these two lookup approaches.</div>
+<ul>
+<li><strong>Introduction to VLOOKUP</strong> <span class="el-body">— VLOOKUP (Vertical Lookup) is a built-in Excel function that searches for a value in the leftmost column of a table and returns a corresponding value from a specified column to the right.</span></li>
+<li><strong>VLOOKUP Use Cases and Limitations</strong> <span class="el-body">— VLOOKUP is widely used for tasks such as merging datasets, retrieving prices from product lists, or pulling employee information from a master table.</span></li>
+<li><strong>Introduction to INDEX-MATCH</strong> <span class="el-body">— INDEX-MATCH is a powerful combination of two Excel functions — INDEX and MATCH — that together provide a more flexible alternative to VLOOKUP for data retrieval.</span></li>
+<li><strong>INDEX-MATCH Use Cases and Advantages</strong> <span class="el-body">— INDEX-MATCH is preferred in professional settings because it supports left-side lookups, is less prone to breaking when columns are added or removed, and can handle more complex retrieval scenarios.</span></li>
+<li><strong>Key Differences Between VLOOKUP and INDEX-MATCH</strong> <span class="el-body">— While both functions retrieve data from tables, they differ significantly in flexibility, robustness, and structural requirements.</span></li>
+<li><strong>Applying Lookup Functions to Real-World Datasets</strong> <span class="el-body">— Practical application of VLOOKUP and INDEX-MATCH involves retrieving data across multiple related tables, which is a common requirement in business data analysis and reporting.</span></li>
+</ul>
+<h3>Conditional Aggregation Functions</h3>
+<div class="summary">This topic covers functions such as SUMIF, COUNTIF, and AVERAGEIF for performing calculations based on specific criteria. Students will apply these functions to summarize data subsets within real-world datasets.</div>
+<ul>
+<li><strong>Introduction to Conditional Aggregation</strong> <span class="el-body">— Conditional aggregation functions allow you to perform calculations only on data that meets one or more specified criteria, rather than on an entire dataset.</span></li>
+<li><strong>SUMIF: Summing Values Based on a Condition</strong> <span class="el-body">— The SUMIF function adds values in a range that meet a single specified criterion, making it ideal for targeted totals within a dataset.</span></li>
+<li><strong>COUNTIF: Counting Cells That Meet a Condition</strong> <span class="el-body">— COUNTIF counts the number of cells within a range that satisfy a single criterion, enabling quick frequency analysis of specific values.</span></li>
+<li><strong>AVERAGEIF: Averaging Values Based on a Condition</strong> <span class="el-body">— The AVERAGEIF function calculates the arithmetic mean of cells in a range that meet a specified criterion, providing conditional averages for data subsets.</span></li>
+<li><strong>Writing Effective Criteria in Conditional Functions</strong> <span class="el-body">— The criteria argument is the core of conditional aggregation functions, and understanding how to write it correctly determines the accuracy of your results.</span></li>
+<li><strong>Applying Conditional Aggregation to Real-World Datasets</strong> <span class="el-body">— In practice, SUMIF, COUNTIF, and AVERAGEIF are used together to build comprehensive summaries and dashboards from raw business or research data.</span></li>
+</ul>
+<h3>Built-in Statistical Functions</h3>
+<div class="summary">This topic explores Excel&#39;s native statistical functions including AVERAGE, MEDIAN, STDEV, and related tools. Students will use these functions to compute descriptive statistics and interpret distributional characteristics of data.</div>
+<ul>
+<li><strong>AVERAGE and AVERAGEIF Functions</strong> <span class="el-body">— The AVERAGE function computes the arithmetic mean of a range of values, while AVERAGEIF extends this by calculating the mean only for cells meeting a specified condition.</span></li>
+<li><strong>MEDIAN and MODE Functions</strong> <span class="el-body">— MEDIAN returns the middle value of a sorted dataset, and MODE identifies the most frequently occurring value, providing alternative measures of central tendency beyond the mean.</span></li>
+<li><strong>Standard Deviation Functions: STDEV.S and STDEV.P</strong> <span class="el-body">— Excel provides STDEV.S for calculating the sample standard deviation and STDEV.P for the population standard deviation, both measuring the spread or variability of data around the mean.</span></li>
+<li><strong>Variance Functions: VAR.S and VAR.P</strong> <span class="el-body">— Variance functions VAR.S and VAR.P calculate the squared average deviation from the mean for sample and population data respectively, forming the mathematical basis for standard deviation.</span></li>
+<li><strong>MIN, MAX, and LARGE/SMALL Functions</strong> <span class="el-body">— MIN and MAX identify the smallest and largest values in a dataset, while LARGE and SMALL allow retrieval of any ranked value, supporting range and distributional analysis.</span></li>
+<li><strong>COUNT, COUNTA, and COUNTIF Functions</strong> <span class="el-body">— COUNT tallies numeric entries, COUNTA counts all non-empty cells, and COUNTIF counts cells meeting a specific condition, enabling frequency and data completeness analysis.</span></li>
+<li><strong>Interpreting Descriptive Statistics Output</strong> <span class="el-body">— Once computed, descriptive statistics such as mean, median, standard deviation, and range must be interpreted together to characterize the distribution and variability of a dataset.</span></li>
+</ul>
+<h3>Data Summarization Techniques</h3>
+<div class="summary">This topic focuses on organizing and consolidating large datasets using Excel&#39;s summarization capabilities, including PivotTables and structured table features. Students will learn how to transform raw data into meaningful summaries for analysis.</div>
+<ul>
+<li><strong>Introduction to PivotTables</strong> <span class="el-body">— PivotTables are one of Excel&#39;s most powerful tools for summarizing large datasets quickly and interactively.</span></li>
+<li><strong>Structuring Data as Excel Tables</strong> <span class="el-body">— Converting raw data into a formal Excel Table provides a structured foundation that enhances summarization accuracy and efficiency.</span></li>
+<li><strong>Grouping and Aggregating Data in PivotTables</strong> <span class="el-body">— PivotTables support multiple aggregation functions that allow users to summarize data in various meaningful ways beyond simple totals.</span></li>
+<li><strong>Using Conditional Aggregation Functions</strong> <span class="el-body">— Functions like SUMIF, COUNTIF, and AVERAGEIF allow users to summarize data based on specific criteria directly within spreadsheet formulas.</span></li>
+<li><strong>Slicers and Filters for Interactive Summarization</strong> <span class="el-body">— Slicers and PivotTable filters enable users to create interactive, user-friendly dashboards that allow on-the-fly data exploration.</span></li>
+<li><strong>Refreshing and Maintaining Summarized Data</strong> <span class="el-body">— Keeping summarized data current is essential when working with datasets that are regularly updated or expanded.</span></li>
+</ul>
+<h3>Applying Analytical Functions to Real-World Datasets</h3>
+<div class="summary">This topic brings together the learned functions and tools through practical application on real-world datasets. Students will integrate lookup, conditional, and statistical functions to answer analytical questions and derive insights.</div>
+<ul>
+<li><strong>Integrating Lookup Functions for Data Consolidation</strong> <span class="el-body">— Real-world datasets often span multiple tables or sheets, requiring lookup functions to consolidate information into a unified view for analysis.</span></li>
+<li><strong>Using Conditional Aggregations to Answer Business Questions</strong> <span class="el-body">— Conditional aggregation functions such as SUMIF, COUNTIF, and AVERAGEIF allow analysts to compute metrics for specific subsets of data, directly answering targeted business questions.</span></li>
+<li><strong>Applying Statistical Functions to Describe Dataset Characteristics</strong> <span class="el-body">— Excel&#39;s built-in statistical functions enable analysts to summarize the distribution and variability of real-world data, providing foundational descriptive insights.</span></li>
+<li><strong>Structuring an Analytical Workflow on a Real Dataset</strong> <span class="el-body">— Effective analysis requires a structured workflow that moves from data preparation through calculation to interpretation, ensuring reproducibility and clarity.</span></li>
+<li><strong>Deriving and Communicating Insights from Function Outputs</strong> <span class="el-body">— The ultimate goal of applying analytical functions is to translate numerical outputs into meaningful insights that inform decisions.</span></li>
+</ul>
+<h2 id="outcomes">Student Learning Outcomes</h2>
+<p class="prefix">By the end of this module, students will be able to:</p>
+<div class="mo">
+<div class="code">MO1</div>
+<div class="statement">Distinguish between VLOOKUP and INDEX-MATCH by comparing their syntax, structural requirements, and limitations when retrieving data from tables</div>
+<div class="meta"><span>Level: Analyze</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO2</div>
+<div class="statement">Construct SUMIF, COUNTIF, and AVERAGEIF formulas with correctly written criteria arguments to aggregate targeted subsets of a dataset</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO3</div>
+<div class="statement">Calculate descriptive statistics — including mean, median, standard deviation, and variance — using Excel&#39;s built-in statistical functions on a provided dataset</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO4</div>
+<div class="statement">Interpret descriptive statistics output to characterize the distribution and variability of a real-world dataset</div>
+<div class="meta"><span>Level: Analyze</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO5</div>
+<div class="statement">Build a PivotTable that consolidates and aggregates raw data into a structured summary suitable for business analysis</div>
+<div class="meta"><span>Level: Create</span><span>Type: Behavioral</span><span class="map">Course mapping: —</span></div>
+</div>
+<h3>Course Outcomes (reference)</h3>
+<p class="empty">No course outcomes have been defined.</p>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

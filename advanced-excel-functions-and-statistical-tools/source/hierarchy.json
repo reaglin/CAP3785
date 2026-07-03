@@ -1,0 +1,1005 @@
+{
+  "ModuleFolderName": "Advanced_Excel_Functions",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:29:47.1744854-04:00",
+  "ModifiedDate": "2026-07-03T11:31:56.2053786-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "b9a30a56-51a8-4879-b6d2-552a944afce3",
+      "Title": "Lookup Functions: VLOOKUP and INDEX-MATCH",
+      "Summary": "This topic introduces VLOOKUP and INDEX-MATCH as core tools for retrieving data across tables. Students will learn the syntax, use cases, and key differences between these two lookup approaches.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "ModifiedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "Elements": [
+        {
+          "Id": "bbfb59f7-ca51-48bf-b642-c15382c74fac",
+          "TopicId": "b9a30a56-51a8-4879-b6d2-552a944afce3",
+          "Title": "Introduction to VLOOKUP",
+          "BodyText": "VLOOKUP (Vertical Lookup) is a built-in Excel function that searches for a value in the leftmost column of a table and returns a corresponding value from a specified column to the right.",
+          "Notes": "Example: =VLOOKUP(A2, B2:D100, 3, FALSE) searches for the value in A2 within the first column of the range B2:D100 and returns the value from the 3rd column of that range.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "ModifiedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "Items": [
+            {
+              "Id": "488bde53-7157-44d7-a478-6969d85862c4",
+              "Text": "The VLOOKUP syntax is: =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup]).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2d989ee0-6641-4724-9a6d-dc328dbe4612",
+              "Text": "The \u0027range_lookup\u0027 argument accepts TRUE for approximate match or FALSE for an exact match; FALSE is recommended for most data retrieval tasks.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6571eea5-4e4a-4dea-b07b-74390c628b70",
+              "Text": "VLOOKUP always searches the leftmost column of the defined table array, which constrains how the data must be structured.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8326f5fe-d6d5-44e4-a7bd-b134b027b800",
+              "Text": "It is best suited for straightforward lookups where the search column is fixed on the left side of the dataset.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f2ca0725-9dbb-494b-8485-61bd2ff4609d",
+          "TopicId": "b9a30a56-51a8-4879-b6d2-552a944afce3",
+          "Title": "VLOOKUP Use Cases and Limitations",
+          "BodyText": "VLOOKUP is widely used for tasks such as merging datasets, retrieving prices from product lists, or pulling employee information from a master table.",
+          "Notes": "A common real-world use case is matching customer IDs in a sales report to a customer name or region stored in a separate reference table.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "ModifiedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "Items": [
+            {
+              "Id": "3421549c-322f-48a5-b2a1-c54559608400",
+              "Text": "VLOOKUP works well when lookup values are in the leftmost column and the return column is to the right of it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4689aa76-6c7f-4c15-b6dc-b8545dc673d1",
+              "Text": "It cannot look to the left of the search column, limiting flexibility when data is not structured with the key column on the far left.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "77e78290-f8da-4695-9091-d7edd506b603",
+              "Text": "When columns are inserted or deleted in the table array, hard-coded column index numbers can break the formula, making maintenance difficult.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b19d762a-3da7-424a-adc2-e109180cea2d",
+              "Text": "VLOOKUP retrieves only the first matching value, so it is not suitable for datasets with duplicate lookup keys where multiple results are needed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "021ecf0c-7e59-4817-9cb1-33ac8eda7319",
+          "TopicId": "b9a30a56-51a8-4879-b6d2-552a944afce3",
+          "Title": "Introduction to INDEX-MATCH",
+          "BodyText": "INDEX-MATCH is a powerful combination of two Excel functions \u2014 INDEX and MATCH \u2014 that together provide a more flexible alternative to VLOOKUP for data retrieval.",
+          "Notes": "INDEX returns the value of a cell at a given row and column position in a range, while MATCH returns the relative position of a value within a range.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "ModifiedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "Items": [
+            {
+              "Id": "22a558cf-6a26-4f1e-9543-b9db47ba0911",
+              "Text": "The MATCH function syntax is: =MATCH(lookup_value, lookup_array, [match_type]), where match_type 0 finds an exact match.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3616945d-78ce-4e19-b0cc-2c71b73c8a5f",
+              "Text": "The INDEX function syntax is: =INDEX(return_array, row_num, [col_num]), used to retrieve a value from a specific position.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ffd74092-5478-4f74-96d9-e0b4d3e2be56",
+              "Text": "Combined, the formula looks like: =INDEX(return_range, MATCH(lookup_value, lookup_range, 0)), where MATCH provides the row number to INDEX.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c4e900c8-7304-4e7c-ab6a-982ba0b4808e",
+              "Text": "This combination allows the lookup column and the return column to be specified independently, removing the left-column restriction of VLOOKUP.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3a3c88bc-dc2b-4030-913a-b482994d3608",
+          "TopicId": "b9a30a56-51a8-4879-b6d2-552a944afce3",
+          "Title": "INDEX-MATCH Use Cases and Advantages",
+          "BodyText": "INDEX-MATCH is preferred in professional settings because it supports left-side lookups, is less prone to breaking when columns are added or removed, and can handle more complex retrieval scenarios.",
+          "Notes": "For example, if you need to look up a value by matching criteria in a column that is to the right of your return column, INDEX-MATCH handles this natively while VLOOKUP cannot.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "ModifiedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "Items": [
+            {
+              "Id": "205beb82-6d99-4509-be81-de542a973edc",
+              "Text": "INDEX-MATCH can look left, right, or in any direction relative to the lookup column, making it adaptable to any table structure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e5b4f227-95e7-4ed4-a5e2-cc1ae8b9efea",
+              "Text": "Because the return range is referenced directly rather than by a column number, adding or deleting columns does not break the formula.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5a6b48d4-7e20-4eb7-a64a-15d40d33edb5",
+              "Text": "It can be extended to perform two-way lookups by nesting two MATCH functions \u2014 one for the row and one for the column.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "64711b32-6668-4953-a0fc-b0cbaf7a5298",
+              "Text": "INDEX-MATCH generally performs faster than VLOOKUP on very large datasets because MATCH searches only the specified lookup column rather than the entire table array.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cf0cd198-a5f6-463d-85b5-bca339500ff2",
+          "TopicId": "b9a30a56-51a8-4879-b6d2-552a944afce3",
+          "Title": "Key Differences Between VLOOKUP and INDEX-MATCH",
+          "BodyText": "While both functions retrieve data from tables, they differ significantly in flexibility, robustness, and structural requirements.",
+          "Notes": "Choosing between them often depends on the data structure: VLOOKUP is quicker to write for simple tasks, while INDEX-MATCH is more reliable for complex or evolving datasets.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "ModifiedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "Items": [
+            {
+              "Id": "6b8ece33-8a73-4544-bef2-a897dddb7672",
+              "Text": "VLOOKUP requires the lookup column to be the leftmost column in the table array; INDEX-MATCH has no such restriction.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5f887976-5e37-4f39-aaeb-dbe6027d8b74",
+              "Text": "VLOOKUP uses a positional column index number that can break if the table structure changes; INDEX-MATCH references ranges directly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c96abe44-e605-4f21-b330-39d134b6ee94",
+              "Text": "INDEX-MATCH requires nesting two functions, making the formula slightly more complex to write and read for beginners.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "df568a11-5c57-4435-9847-d534bed40e8f",
+              "Text": "Both functions return only the first match by default; for multiple matches, more advanced techniques such as array formulas are required.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "82173c2f-1058-4a12-9697-6588691219a4",
+          "TopicId": "b9a30a56-51a8-4879-b6d2-552a944afce3",
+          "Title": "Applying Lookup Functions to Real-World Datasets",
+          "BodyText": "Practical application of VLOOKUP and INDEX-MATCH involves retrieving data across multiple related tables, which is a common requirement in business data analysis and reporting.",
+          "Notes": "In a sales dataset, for instance, a lookup function might be used to pull product category or unit price from a product reference table into the main transaction table for further analysis.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "ModifiedDate": "2026-07-03T11:30:16.4259946-04:00",
+          "Items": [
+            {
+              "Id": "e3bc8c2e-1b3b-4af1-9cf4-c5ac67e1952c",
+              "Text": "Before writing a lookup formula, confirm that the lookup values in both tables share a consistent format \u2014 mismatches in data type (text vs. number) are a frequent source of errors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d4ced234-8d36-48fa-aaf5-b2c2d554e4cc",
+              "Text": "Using absolute cell references (e.g., $B$2:$D$100) in the table array or range arguments allows formulas to be copied down a column without shifting the reference.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "45c5ec8d-cc87-43c0-85b8-04ccbaedcfe4",
+              "Text": "Testing the formula with a known value first helps verify correctness before applying it to an entire dataset.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "debb127e-c636-4c3c-b1af-67a7bc8cc1a0",
+              "Text": "Combining lookup functions with conditional or aggregation functions enables more advanced tasks, such as summing sales for a specific product category retrieved from another table.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6ccd6bc6-369e-4082-93b8-f8be7647d302",
+      "Title": "Conditional Aggregation Functions",
+      "Summary": "This topic covers functions such as SUMIF, COUNTIF, and AVERAGEIF for performing calculations based on specific criteria. Students will apply these functions to summarize data subsets within real-world datasets.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "ModifiedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "Elements": [
+        {
+          "Id": "586e1309-8652-4a67-b0b3-2d0093ad742b",
+          "TopicId": "6ccd6bc6-369e-4082-93b8-f8be7647d302",
+          "Title": "Introduction to Conditional Aggregation",
+          "BodyText": "Conditional aggregation functions allow you to perform calculations only on data that meets one or more specified criteria, rather than on an entire dataset.",
+          "Notes": "For example, instead of summing all sales figures, you can sum only the sales from a specific region or product category.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "ModifiedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "Items": [
+            {
+              "Id": "e2aaeb67-7294-403d-bb7a-b6fca81dbb0e",
+              "Text": "These functions evaluate each cell in a range against a condition before including it in the calculation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4058ce9c-73fc-4c84-b74a-f19588933011",
+              "Text": "They are essential for summarizing subsets of data within larger, real-world datasets.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "189fcf35-4178-41d1-bc8f-203a2a73a3ae",
+              "Text": "Mastering conditional aggregation reduces the need for manual filtering before performing calculations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "34462dd3-c9cf-4ec7-a2b3-c30d2c6ae464",
+          "TopicId": "6ccd6bc6-369e-4082-93b8-f8be7647d302",
+          "Title": "SUMIF: Summing Values Based on a Condition",
+          "BodyText": "The SUMIF function adds values in a range that meet a single specified criterion, making it ideal for targeted totals within a dataset.",
+          "Notes": "Syntax: =SUMIF(range, criteria, sum_range). For example, =SUMIF(B2:B100, \u0022North\u0022, C2:C100) sums all sales in column C where the region in column B is \u0027North\u0027.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "ModifiedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "Items": [
+            {
+              "Id": "0de300c6-d587-41db-8f6d-8227d34ddfe9",
+              "Text": "The \u0027range\u0027 argument is the column or row evaluated against your criterion.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0fd340c6-6084-4d76-9e17-ef2781d6af73",
+              "Text": "The \u0027criteria\u0027 argument can be a number, text string, expression, or cell reference.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "497fbc2a-6dc3-43d9-8d18-55f1cf6469a6",
+              "Text": "The optional \u0027sum_range\u0027 specifies the actual cells to add; if omitted, Excel sums the range itself.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6613d3be-b47a-4564-8b07-c91bcac34bf7",
+              "Text": "Wildcard characters such as * and ? can be used in text-based criteria for partial matches.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ad3958e7-d34a-461e-bdb0-f7a8e7d0d7c8",
+          "TopicId": "6ccd6bc6-369e-4082-93b8-f8be7647d302",
+          "Title": "COUNTIF: Counting Cells That Meet a Condition",
+          "BodyText": "COUNTIF counts the number of cells within a range that satisfy a single criterion, enabling quick frequency analysis of specific values.",
+          "Notes": "Syntax: =COUNTIF(range, criteria). For example, =COUNTIF(D2:D200, \u0022Completed\u0022) counts how many project statuses in column D are marked \u0027Completed\u0027.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "ModifiedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "Items": [
+            {
+              "Id": "a76d5124-280e-4511-aed7-bdd912cc7258",
+              "Text": "COUNTIF works with both numeric and text criteria, including comparison operators like \u003E and \u003C.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ab59d8bb-9e56-4d68-86ca-ba0eb635437f",
+              "Text": "It is particularly useful for auditing datasets, such as counting duplicate entries or flagging specific categories.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e6dd07f9-1e89-4bb6-b736-8d54c663f0fe",
+              "Text": "Like SUMIF, it supports wildcards for flexible text-based counting.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2161c648-cb08-4e29-b3a8-c9904b994e91",
+          "TopicId": "6ccd6bc6-369e-4082-93b8-f8be7647d302",
+          "Title": "AVERAGEIF: Averaging Values Based on a Condition",
+          "BodyText": "The AVERAGEIF function calculates the arithmetic mean of cells in a range that meet a specified criterion, providing conditional averages for data subsets.",
+          "Notes": "Syntax: =AVERAGEIF(range, criteria, average_range). For example, =AVERAGEIF(A2:A50, \u0022Q1\u0022, B2:B50) averages all values in column B where column A equals \u0027Q1\u0027.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "ModifiedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "Items": [
+            {
+              "Id": "f5b95f6c-187e-40ea-9f90-ade7b62c6b9c",
+              "Text": "AVERAGEIF ignores cells that do not meet the criterion, so the average reflects only the qualifying subset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d73313dc-0d8c-4a0e-b711-2a2feebd6976",
+              "Text": "The \u0027average_range\u0027 argument is optional; if omitted, the function averages the values in the \u0027range\u0027 argument itself.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b237d1e5-9a76-41eb-b9b8-36fe7d6becbb",
+              "Text": "This function is valuable for comparing performance across categories, such as average revenue per region or department.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c8303ddb-9cb3-4937-9307-ed7531758750",
+          "TopicId": "6ccd6bc6-369e-4082-93b8-f8be7647d302",
+          "Title": "Writing Effective Criteria in Conditional Functions",
+          "BodyText": "The criteria argument is the core of conditional aggregation functions, and understanding how to write it correctly determines the accuracy of your results.",
+          "Notes": "Criteria can be hardcoded as strings (e.g., \u0022\u003E500\u0022) or referenced from a cell (e.g., E1), which makes formulas dynamic and easier to update.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "ModifiedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "Items": [
+            {
+              "Id": "5d449eef-faac-4c5e-bd86-f9161aaa4c60",
+              "Text": "Text criteria must be enclosed in double quotation marks (e.g., \u0022Sales\u0022).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "61788213-fc2e-44bd-b7aa-cced3fee46cd",
+              "Text": "Comparison operators combined with numbers must also be quoted (e.g., \u0022\u003E100\u0022 or \u0022\u003C=\u0022\u0026E1).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6c10a10f-9fe2-4450-ad18-028883e9188e",
+              "Text": "Using cell references as criteria instead of hardcoded values makes spreadsheets more flexible and maintainable.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ece0bffb-b13c-4b3e-b6b2-457599d430a2",
+              "Text": "Wildcards (* for any sequence of characters, ? for a single character) expand matching capability for text criteria.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "39e8c6e3-c16c-444a-83a1-8819f4c31e8a",
+          "TopicId": "6ccd6bc6-369e-4082-93b8-f8be7647d302",
+          "Title": "Applying Conditional Aggregation to Real-World Datasets",
+          "BodyText": "In practice, SUMIF, COUNTIF, and AVERAGEIF are used together to build comprehensive summaries and dashboards from raw business or research data.",
+          "Notes": "A common application is a sales summary table where each row represents a product category and columns display total sales (SUMIF), number of transactions (COUNTIF), and average order value (AVERAGEIF).",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "ModifiedDate": "2026-07-03T11:30:39.7635784-04:00",
+          "Items": [
+            {
+              "Id": "d214ce12-e377-48bd-ae80-874e102f926a",
+              "Text": "Combining multiple conditional aggregation functions in one worksheet allows for multi-dimensional analysis of a single dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fa70dea9-0e15-4952-99df-55db22fbaef0",
+              "Text": "These functions pair well with structured Excel tables, where column headers serve as intuitive range references.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "18914fd0-6add-4c79-ae13-7cff4e97702c",
+              "Text": "Results can feed directly into charts or pivot-style summaries to support data-driven decision making.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c274fb29-c8cc-459e-aa92-f5a0af4c3055",
+              "Text": "Always verify that the range and sum_range (or average_range) cover the same number of rows to avoid incorrect results.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "0266b75e-4657-4870-a310-d7286bf3bd17",
+      "Title": "Built-in Statistical Functions",
+      "Summary": "This topic explores Excel\u0027s native statistical functions including AVERAGE, MEDIAN, STDEV, and related tools. Students will use these functions to compute descriptive statistics and interpret distributional characteristics of data.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "ModifiedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "Elements": [
+        {
+          "Id": "380eb9d4-675d-4f51-93ba-0e8b72bf51eb",
+          "TopicId": "0266b75e-4657-4870-a310-d7286bf3bd17",
+          "Title": "AVERAGE and AVERAGEIF Functions",
+          "BodyText": "The AVERAGE function computes the arithmetic mean of a range of values, while AVERAGEIF extends this by calculating the mean only for cells meeting a specified condition.",
+          "Notes": "Example: =AVERAGE(B2:B100) returns the mean of all values in that range. =AVERAGEIF(A2:A100,\u0022North\u0022,B2:B100) returns the mean of B values only where column A equals \u0027North\u0027.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "ModifiedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "Items": [
+            {
+              "Id": "61587bc3-c4e8-489f-9079-eabdf6f7b257",
+              "Text": "AVERAGE ignores empty cells and text values, calculating the sum divided by the count of numeric entries.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1d723525-ecb5-4f68-b0bb-0ac69386f0ab",
+              "Text": "AVERAGEIF requires three arguments: the criteria range, the condition, and the average range.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "23795f85-7ed9-4811-ac79-361127ba6919",
+              "Text": "AVERAGEIFS allows multiple criteria to be applied simultaneously for more targeted conditional averaging.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "880848c2-4fa7-496b-affe-1d26eb249e74",
+              "Text": "These functions are foundational for summarizing central tendency across segmented datasets.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c2c8cd65-a779-4783-85b8-eb77e1bb0091",
+          "TopicId": "0266b75e-4657-4870-a310-d7286bf3bd17",
+          "Title": "MEDIAN and MODE Functions",
+          "BodyText": "MEDIAN returns the middle value of a sorted dataset, and MODE identifies the most frequently occurring value, providing alternative measures of central tendency beyond the mean.",
+          "Notes": "For skewed distributions, the median is often more representative than the mean. Example: =MEDIAN(C2:C50) returns the midpoint value of the range.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "ModifiedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "Items": [
+            {
+              "Id": "7c150732-4e48-414c-aae9-0ec12923fecc",
+              "Text": "MEDIAN is resistant to outliers, making it preferable for skewed or non-normal distributions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "13e66055-dfd4-4591-8e06-6846a736aa59",
+              "Text": "MODE.SNGL returns a single most common value, while MODE.MULT returns an array of all modes if multiple values tie.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9f9ad55-647f-45f7-9e64-e86ed3503a19",
+              "Text": "Comparing the mean and median helps identify whether a distribution is symmetric or skewed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5b44d686-0845-4dcd-8f68-a1f4a4879499",
+              "Text": "These functions together give a fuller picture of where data values cluster.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "dce2e92f-3c8e-421b-95a1-151812ba446c",
+          "TopicId": "0266b75e-4657-4870-a310-d7286bf3bd17",
+          "Title": "Standard Deviation Functions: STDEV.S and STDEV.P",
+          "BodyText": "Excel provides STDEV.S for calculating the sample standard deviation and STDEV.P for the population standard deviation, both measuring the spread or variability of data around the mean.",
+          "Notes": "Use STDEV.S when working with a sample drawn from a larger population (applying Bessel\u0027s correction with n-1). Use STDEV.P only when you have data for the entire population.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "ModifiedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "Items": [
+            {
+              "Id": "2171a643-dd69-456e-88e9-474dc33c5dd5",
+              "Text": "STDEV.S divides by (n-1), correcting for the bias introduced when estimating population variability from a sample.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c950be43-c1cd-4ab6-a856-1b29e079607f",
+              "Text": "STDEV.P divides by n and is appropriate only when the dataset represents the complete population.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d33336cd-4269-47e8-9e4b-f944d83ded6f",
+              "Text": "A higher standard deviation indicates greater data dispersion; a lower value indicates values clustered near the mean.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e8ca03e1-13a0-44b3-a37d-4701410f9a59",
+              "Text": "The legacy STDEV function defaults to sample standard deviation and is equivalent to STDEV.S.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7e5079ad-39aa-46cc-9d5a-93bd43712c9e",
+          "TopicId": "0266b75e-4657-4870-a310-d7286bf3bd17",
+          "Title": "Variance Functions: VAR.S and VAR.P",
+          "BodyText": "Variance functions VAR.S and VAR.P calculate the squared average deviation from the mean for sample and population data respectively, forming the mathematical basis for standard deviation.",
+          "Notes": "Variance is the square of the standard deviation. Example: =VAR.S(D2:D80) returns the sample variance for the data in that range.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "ModifiedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "Items": [
+            {
+              "Id": "d2037b47-d1f0-4e4e-aa9f-f977cb6b626b",
+              "Text": "VAR.S computes sample variance using n-1 in the denominator, consistent with STDEV.S.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b3973f8f-b95b-4568-a479-449b50e8f363",
+              "Text": "VAR.P computes population variance using n in the denominator, consistent with STDEV.P.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a45a3966-2457-48e5-9b6e-3ef2d4924511",
+              "Text": "Variance is useful in comparing spread across different datasets but is expressed in squared units, making standard deviation more interpretable for reporting.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b9027ea3-f873-4b11-a09f-b00f7d53882f",
+              "Text": "Understanding variance is essential for more advanced statistical analyses such as ANOVA and regression.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3806b1ed-19f0-4037-ba74-ace69882ab70",
+          "TopicId": "0266b75e-4657-4870-a310-d7286bf3bd17",
+          "Title": "MIN, MAX, and LARGE/SMALL Functions",
+          "BodyText": "MIN and MAX identify the smallest and largest values in a dataset, while LARGE and SMALL allow retrieval of any ranked value, supporting range and distributional analysis.",
+          "Notes": "Example: =LARGE(E2:E100,3) returns the third-largest value in the range. These functions are useful for identifying outliers and understanding the full spread of data.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "ModifiedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "Items": [
+            {
+              "Id": "15035436-1c76-48d4-b835-cb8ad7137977",
+              "Text": "MIN and MAX provide a quick view of the data range, helping detect potential outliers at the extremes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dcc2a8d3-43e2-4bdc-8c19-58ffc0a2f580",
+              "Text": "LARGE(range, k) returns the k-th largest value; SMALL(range, k) returns the k-th smallest value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "806e5e90-05cb-4775-9988-5d99ad9fc475",
+              "Text": "These functions are valuable for percentile-style analysis without needing full sorting of the dataset.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8a5715b5-f429-4e23-a1ff-2465dc9b8292",
+              "Text": "Combining MIN, MAX, LARGE, and SMALL with AVERAGE and MEDIAN gives a robust summary of distributional shape.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "db4fdbc8-2b62-4287-b5a6-5dd8f7e3ef65",
+          "TopicId": "0266b75e-4657-4870-a310-d7286bf3bd17",
+          "Title": "COUNT, COUNTA, and COUNTIF Functions",
+          "BodyText": "COUNT tallies numeric entries, COUNTA counts all non-empty cells, and COUNTIF counts cells meeting a specific condition, enabling frequency and data completeness analysis.",
+          "Notes": "Example: =COUNTIF(A2:A100,\u0022Completed\u0022) counts how many cells in the range contain the word \u0027Completed\u0027. These functions are essential for validating dataset integrity before statistical analysis.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "ModifiedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "Items": [
+            {
+              "Id": "cc0f7d14-f32e-4a4b-8cdb-d15ee5008b8f",
+              "Text": "COUNT only counts cells containing numbers, making it useful for verifying numeric data completeness.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c7d57529-6760-49a9-ae45-5b1db710488d",
+              "Text": "COUNTA counts any non-empty cell regardless of data type, helpful for assessing overall record counts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f1994d65-8002-444f-a58b-60a9d8204e7c",
+              "Text": "COUNTIF and COUNTIFS allow frequency counting based on one or multiple criteria, supporting categorical summaries.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "18f238e2-230f-4e49-bfe1-504984ce18d3",
+              "Text": "These functions serve as a foundation for computing relative frequencies and simple probability estimates within Excel.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "269d29a7-e2b0-4ec0-bb5e-bfbd35e65e51",
+          "TopicId": "0266b75e-4657-4870-a310-d7286bf3bd17",
+          "Title": "Interpreting Descriptive Statistics Output",
+          "BodyText": "Once computed, descriptive statistics such as mean, median, standard deviation, and range must be interpreted together to characterize the distribution and variability of a dataset.",
+          "Notes": "A dataset where mean \u003E median typically indicates right skew, while mean \u003C median suggests left skew. Standard deviation relative to the mean (coefficient of variation) contextualizes spread.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "ModifiedDate": "2026-07-03T11:31:07.5179604-04:00",
+          "Items": [
+            {
+              "Id": "fee13de7-b5fa-4f62-96db-10690a2a7fd4",
+              "Text": "Comparing mean and median reveals symmetry or skewness in the data distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "81507f0d-d09f-463f-a4e9-ee9ce8601028",
+              "Text": "Standard deviation and variance quantify how consistently or variably data points are distributed around the central value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "123b58a6-01d1-48b7-904b-b97c4f1ac0f1",
+              "Text": "MIN, MAX, and LARGE/SMALL values help identify the range and detect potential outliers that may distort the mean.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "86ba9097-47e7-4e73-acba-2c1b3dea06ad",
+              "Text": "Interpreting these statistics together, rather than in isolation, provides a complete and accurate picture of dataset characteristics.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b2fb8e7e-234c-4be4-9bd4-0f6c984a9356",
+      "Title": "Data Summarization Techniques",
+      "Summary": "This topic focuses on organizing and consolidating large datasets using Excel\u0027s summarization capabilities, including PivotTables and structured table features. Students will learn how to transform raw data into meaningful summaries for analysis.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "ModifiedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "Elements": [
+        {
+          "Id": "b1e1d8bb-55ca-4445-a167-f91a4c87d8a4",
+          "TopicId": "b2fb8e7e-234c-4be4-9bd4-0f6c984a9356",
+          "Title": "Introduction to PivotTables",
+          "BodyText": "PivotTables are one of Excel\u0027s most powerful tools for summarizing large datasets quickly and interactively.",
+          "Notes": "For example, a sales dataset with thousands of rows can be summarized into regional totals or monthly trends in seconds using a PivotTable.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "ModifiedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "Items": [
+            {
+              "Id": "6a261aec-3e5f-4d51-8ca6-c71d68fe302c",
+              "Text": "A PivotTable allows users to group, count, sum, or average data across multiple dimensions without writing formulas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0c2ce183-3526-4a92-916d-c46418cc9330",
+              "Text": "PivotTables are created from structured data ranges or Excel Tables and update dynamically when refreshed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4b025b77-d671-4626-b89f-c2029b5d49ba",
+              "Text": "Rows, columns, values, and filters are the four core areas that define how data is arranged and summarized in a PivotTable.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "087dfe73-2e01-4b50-9c5e-78f598ca1930",
+              "Text": "Drag-and-drop functionality makes it easy to reorganize the summary layout to answer different analytical questions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8baab1f7-48ce-42bc-9192-45c6f89631ce",
+          "TopicId": "b2fb8e7e-234c-4be4-9bd4-0f6c984a9356",
+          "Title": "Structuring Data as Excel Tables",
+          "BodyText": "Converting raw data into a formal Excel Table provides a structured foundation that enhances summarization accuracy and efficiency.",
+          "Notes": "Excel Tables automatically expand to include new rows and columns, keeping formulas and PivotTables up to date without manual adjustment.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "ModifiedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "Items": [
+            {
+              "Id": "221d7abb-1af1-4cca-9f70-dde3d3611de5",
+              "Text": "Use Ctrl\u002BT or the Insert \u003E Table command to convert a data range into an Excel Table with named columns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7a3f7b41-245a-4f17-8a21-1e489e38b2e2",
+              "Text": "Table headers become named references that make formulas easier to read and less prone to reference errors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ac1d7260-3168-4346-aa8f-1d4a53c8a658",
+              "Text": "Structured references such as Table1[Sales] can be used in formulas to refer to entire columns dynamically.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6a76c76f-732f-499e-aa87-3edc1234f95d",
+              "Text": "Excel Tables support automatic filtering and sorting, making initial data exploration faster before deeper summarization.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bbfa7c69-44b9-4c29-9704-8e90f4ffbed9",
+          "TopicId": "b2fb8e7e-234c-4be4-9bd4-0f6c984a9356",
+          "Title": "Grouping and Aggregating Data in PivotTables",
+          "BodyText": "PivotTables support multiple aggregation functions that allow users to summarize data in various meaningful ways beyond simple totals.",
+          "Notes": "Switching from SUM to AVERAGE or COUNT within a PivotTable value field can instantly reveal different insights from the same dataset.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "ModifiedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "Items": [
+            {
+              "Id": "1628b553-e7f4-48e1-b6ce-79a5b4ca53f5",
+              "Text": "Value field settings allow users to choose aggregation types including SUM, COUNT, AVERAGE, MAX, MIN, and more.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3325c621-92c2-414c-b87c-ea9f5ef36c69",
+              "Text": "Grouping features enable date fields to be rolled up by day, month, quarter, or year for time-based analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "628dd46e-457c-4eda-a03a-c9f553bcf442",
+              "Text": "Multiple value fields can be added simultaneously to compare metrics such as total sales alongside average sales.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "465a74f3-3f3d-4ea0-8e8b-a01d8bcb4e7f",
+              "Text": "Percentage calculations, such as \u0027% of Column Total\u0027, can be applied to show relative contributions within a summary.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2a5bd81a-2dce-40ff-9ac2-1535ebb30ade",
+          "TopicId": "b2fb8e7e-234c-4be4-9bd4-0f6c984a9356",
+          "Title": "Using Conditional Aggregation Functions",
+          "BodyText": "Functions like SUMIF, COUNTIF, and AVERAGEIF allow users to summarize data based on specific criteria directly within spreadsheet formulas.",
+          "Notes": "For example, =SUMIF(Region, \u0027North\u0027, Sales) will total only the sales values where the corresponding region is \u0027North\u0027.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "ModifiedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "Items": [
+            {
+              "Id": "6cbcda28-1f7f-4902-8d78-173b4b50f0f1",
+              "Text": "SUMIF and SUMIFS aggregate numeric values that meet one or multiple criteria across a dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "27fcd19b-fc51-4f90-a84e-db8cf128893f",
+              "Text": "COUNTIF and COUNTIFS count the number of records that satisfy defined conditions, useful for frequency analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ab5c395a-8432-4d70-af0f-e6afe431f1fc",
+              "Text": "AVERAGEIF calculates the mean of values in a range that correspond to a matching criterion in another range.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "70c10e25-6268-4ed4-adb9-7ce56f7d60f4",
+              "Text": "These functions work well alongside PivotTables to provide formula-driven summaries that update automatically with data changes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "85b080dd-3ccb-4fc0-bdb0-2e65d039ccfd",
+          "TopicId": "b2fb8e7e-234c-4be4-9bd4-0f6c984a9356",
+          "Title": "Slicers and Filters for Interactive Summarization",
+          "BodyText": "Slicers and PivotTable filters enable users to create interactive, user-friendly dashboards that allow on-the-fly data exploration.",
+          "Notes": "Slicers are particularly useful in presentation settings where stakeholders want to filter summaries without modifying the underlying data structure.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "ModifiedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "Items": [
+            {
+              "Id": "b390c314-2e2e-4a33-b30b-33319aa9b22c",
+              "Text": "Slicers are visual filter buttons that can be inserted into a workbook to control which data is displayed in a PivotTable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "03f335fb-aa15-4b7b-8888-c877e7fb9f0a",
+              "Text": "Timeline slicers provide a specialized control for filtering date-based data by specific time periods.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "83ef22a1-91b1-4cbc-9958-eafdd929ed85",
+              "Text": "A single slicer can be connected to multiple PivotTables simultaneously, enabling synchronized filtering across an entire report.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "542a83bc-34cb-400a-a92c-848c29ab4422",
+              "Text": "Report filters within PivotTables offer an alternative method to slice data by one or more field values at the top of the table.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1e0708fc-55db-4b83-bfc6-4d4f5b87febd",
+          "TopicId": "b2fb8e7e-234c-4be4-9bd4-0f6c984a9356",
+          "Title": "Refreshing and Maintaining Summarized Data",
+          "BodyText": "Keeping summarized data current is essential when working with datasets that are regularly updated or expanded.",
+          "Notes": "Setting a PivotTable to refresh automatically when the workbook is opened ensures stakeholders always view the most current summary without manual intervention.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "ModifiedDate": "2026-07-03T11:31:33.1801481-04:00",
+          "Items": [
+            {
+              "Id": "0bbb16ac-84ad-4dbc-9207-e82441ed3153",
+              "Text": "PivotTables must be manually refreshed or set to auto-refresh to reflect changes made to the source data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "468550aa-cd22-49e5-a814-f34f26667b05",
+              "Text": "Using an Excel Table as the PivotTable source ensures that newly added rows are included upon the next refresh.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "06c6db93-42f9-469a-a552-90327f60fe8b",
+              "Text": "The \u0027Change Data Source\u0027 option allows users to update the range a PivotTable references if the dataset location changes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5af2cf82-09f3-4acd-b743-f217642fda1a",
+              "Text": "Conditional aggregation formulas update automatically when source data changes, making them lower-maintenance than static PivotTables in some scenarios.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "2045e8db-0e21-45f1-943b-84326f2865d1",
+      "Title": "Applying Analytical Functions to Real-World Datasets",
+      "Summary": "This topic brings together the learned functions and tools through practical application on real-world datasets. Students will integrate lookup, conditional, and statistical functions to answer analytical questions and derive insights.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "ModifiedDate": "2026-07-03T11:29:47.1744854-04:00",
+      "Elements": [
+        {
+          "Id": "cc35fea6-a488-42e8-bc34-0fdd8880e26a",
+          "TopicId": "2045e8db-0e21-45f1-943b-84326f2865d1",
+          "Title": "Integrating Lookup Functions for Data Consolidation",
+          "BodyText": "Real-world datasets often span multiple tables or sheets, requiring lookup functions to consolidate information into a unified view for analysis.",
+          "Notes": "For example, combining a sales transactions table with a product reference table using VLOOKUP or INDEX-MATCH to enrich each row with product category and price information.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "ModifiedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "Items": [
+            {
+              "Id": "1b717423-382f-49c5-8481-01d403082c92",
+              "Text": "Use VLOOKUP or INDEX-MATCH to pull related attributes from reference tables into your working dataset before performing analysis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f5b96486-2404-463a-baa7-7ab211f057e9",
+              "Text": "INDEX-MATCH is preferred over VLOOKUP when reference columns may shift or when you need to look up values to the left of the key column.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a73d11ec-2696-49ed-922b-61bf00a22a5f",
+              "Text": "Nesting lookup functions within other formulas allows you to build dynamic, self-updating analytical reports.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3cde705c-5c69-4412-9b51-a353d2ae26b3",
+              "Text": "Always validate lookup results by cross-checking a sample of returned values against the source table to catch mismatches or errors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6c04b9e6-6ec0-47e7-a404-c12283ec5ffc",
+          "TopicId": "2045e8db-0e21-45f1-943b-84326f2865d1",
+          "Title": "Using Conditional Aggregations to Answer Business Questions",
+          "BodyText": "Conditional aggregation functions such as SUMIF, COUNTIF, and AVERAGEIF allow analysts to compute metrics for specific subsets of data, directly answering targeted business questions.",
+          "Notes": "Example: Use SUMIF to calculate total revenue per region, or COUNTIFS to count the number of transactions that meet multiple criteria such as date range and product category.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "ModifiedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "Items": [
+            {
+              "Id": "472caa32-afe7-410e-b377-c93800740fb2",
+              "Text": "SUMIF and SUMIFS enable you to aggregate numeric values based on one or more criteria, such as summing sales for a specific product line.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2dc6a5d8-4091-4d2f-852e-3e5e4bc4a168",
+              "Text": "COUNTIF and COUNTIFS help quantify how frequently certain conditions occur, supporting frequency and segmentation analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b53aa4b5-6885-4e79-b7ff-9024381a9fa1",
+              "Text": "AVERAGEIF can reveal performance differences across categories, such as average order value by customer segment.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a2af718a-4c47-4517-bc57-de1d5cfc317b",
+              "Text": "Combining conditional aggregation functions with absolute cell references allows criteria to be changed dynamically without rewriting formulas.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a2690150-deb8-4cff-9546-e3d38369d054",
+          "TopicId": "2045e8db-0e21-45f1-943b-84326f2865d1",
+          "Title": "Applying Statistical Functions to Describe Dataset Characteristics",
+          "BodyText": "Excel\u0027s built-in statistical functions enable analysts to summarize the distribution and variability of real-world data, providing foundational descriptive insights.",
+          "Notes": "For instance, applying STDEV, MEDIAN, and PERCENTILE to a dataset of customer purchase amounts can reveal the spread and central tendency of spending behavior.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "ModifiedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "Items": [
+            {
+              "Id": "3b78d7a4-8036-49dd-8a91-ef6324a9bb65",
+              "Text": "Functions such as AVERAGE, MEDIAN, and MODE describe the central tendency of a dataset and can highlight skewness when they differ significantly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c4711754-bc3d-407e-8061-2c56d5a40314",
+              "Text": "STDEV and VAR measure data spread, helping identify how consistently values cluster around the mean.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a23c392c-a072-4b25-b764-f8cf9318226e",
+              "Text": "PERCENTILE and QUARTILE functions allow you to identify threshold values, such as the top 25% of sales performers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cb0dd343-b952-476c-9e56-2df7f9208a2e",
+              "Text": "MIN, MAX, and LARGE or SMALL functions help surface outliers and boundary values that may require further investigation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "39a4300b-d427-4d6f-882e-de555367236a",
+          "TopicId": "2045e8db-0e21-45f1-943b-84326f2865d1",
+          "Title": "Structuring an Analytical Workflow on a Real Dataset",
+          "BodyText": "Effective analysis requires a structured workflow that moves from data preparation through calculation to interpretation, ensuring reproducibility and clarity.",
+          "Notes": "A practical workflow might begin with cleaning raw data, then using lookup functions to enrich it, followed by conditional aggregations for summary metrics, and finally statistical functions to characterize distributions.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "ModifiedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "Items": [
+            {
+              "Id": "3848a170-b35a-4986-bad7-bf88b2f85d5c",
+              "Text": "Begin by auditing the dataset for missing values, duplicates, and inconsistent formatting before applying any analytical functions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9c3f6b34-a8fe-4c68-82a6-472a1c166d7b",
+              "Text": "Layer functions progressively: first enrich data with lookups, then aggregate with conditional functions, then apply statistical summaries.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "05c55d32-daf1-4030-86ca-4418f0d0a195",
+              "Text": "Document each formula\u0027s purpose with cell comments or a companion notes sheet to support review and future updates.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bcba9a2f-0a89-488b-ab00-01728556575d",
+              "Text": "Organize results into clearly labeled summary sections so that insights are immediately interpretable by stakeholders.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6b9a9123-56ec-4f16-a656-6e9a0d9769a9",
+          "TopicId": "2045e8db-0e21-45f1-943b-84326f2865d1",
+          "Title": "Deriving and Communicating Insights from Function Outputs",
+          "BodyText": "The ultimate goal of applying analytical functions is to translate numerical outputs into meaningful insights that inform decisions.",
+          "Notes": "For example, identifying that the top 10% of customers account for 60% of revenue using PERCENTILE and SUMIFS together directly supports a customer prioritization strategy.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "ModifiedDate": "2026-07-03T11:31:56.2017793-04:00",
+          "Items": [
+            {
+              "Id": "dcab6192-d0a3-4b11-ac10-cd002c636382",
+              "Text": "Compare conditional aggregation results across categories or time periods to identify trends, anomalies, or opportunities.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a8b62d0f-3fd9-4369-9073-98829e5f8000",
+              "Text": "Use statistical outputs such as standard deviation alongside averages to communicate not just performance levels but also consistency and risk.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4c803ffa-1863-4c34-8b3b-da05b3d0d498",
+              "Text": "Frame insights in the context of the original business question to ensure findings are actionable rather than purely descriptive.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "acb9447f-afb0-4ee3-a024-f71b432032fc",
+              "Text": "Pair function-derived metrics with simple visualizations, such as bar charts or histograms, to make patterns more accessible to non-technical audiences.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 30
+}

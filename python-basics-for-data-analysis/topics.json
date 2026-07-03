@@ -1,0 +1,1253 @@
+{
+  "ModuleFolderName": "Python_Basics_for",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:44:12.8105488-04:00",
+  "ModifiedDate": "2026-07-03T11:46:46.8648522-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "eeeb8830-66b9-4aba-8c0f-a7d1e64baf41",
+      "Title": "Setting Up the Analytics Environment",
+      "Summary": "Students learn how to install and configure Python and essential data analytics tools. This topic covers setting up the development environment so learners are ready to write and run Python scripts.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "ModifiedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "Elements": [
+        {
+          "Id": "bfcd1fc5-f6ab-4a32-b123-3871e90050aa",
+          "TopicId": "eeeb8830-66b9-4aba-8c0f-a7d1e64baf41",
+          "Title": "Installing Python",
+          "BodyText": "The first step in setting up your analytics environment is installing Python on your machine.",
+          "Notes": "It is recommended to install Python 3.x, as Python 2 is no longer supported. The official installer can be downloaded from python.org.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "ModifiedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "Items": [
+            {
+              "Id": "56be9ddb-74d4-4a8b-94b9-ba127353b19d",
+              "Text": "Download the latest Python 3 installer from the official Python website (python.org).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b927f4f0-23d5-426e-9846-ca7559813acd",
+              "Text": "During installation, ensure you check the option to add Python to your system PATH so it can be accessed from the command line.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "95eb28be-aeaa-4637-9c97-c22750082b67",
+              "Text": "Verify the installation by opening a terminal or command prompt and running \u0027python --version\u0027 or \u0027python3 --version\u0027.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b1cb457b-75b4-48ba-a1e1-9d4e6b29279b",
+          "TopicId": "eeeb8830-66b9-4aba-8c0f-a7d1e64baf41",
+          "Title": "Using Package Managers to Install Analytics Libraries",
+          "BodyText": "Python\u0027s package manager, pip, allows you to install essential data analytics libraries quickly and efficiently.",
+          "Notes": "Core libraries for data analytics include pandas for data manipulation, NumPy for numerical computing, and Matplotlib for visualization. These can all be installed via pip.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "ModifiedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "Items": [
+            {
+              "Id": "eaed2cdf-ab7b-42fe-9624-f6dd4b88a283",
+              "Text": "Use the command \u0027pip install pandas numpy matplotlib\u0027 to install the most commonly used data analytics packages.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d11b2247-fcd3-4ace-be8a-1fbb4baeea74",
+              "Text": "Run \u0027pip list\u0027 to view all currently installed packages and confirm your libraries are available.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8a13205c-6019-4e9e-984e-6257f4284394",
+              "Text": "Keep packages up to date using \u0027pip install --upgrade \u003Cpackage-name\u003E\u0027 to access the latest features and bug fixes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0ef8cb76-553e-49ed-b92a-eef1a691baf4",
+          "TopicId": "eeeb8830-66b9-4aba-8c0f-a7d1e64baf41",
+          "Title": "Setting Up a Virtual Environment",
+          "BodyText": "Virtual environments allow you to create isolated Python environments for different projects, preventing dependency conflicts.",
+          "Notes": "Using virtual environments is considered a best practice in Python development, especially when working on multiple projects with different library requirements.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "ModifiedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "Items": [
+            {
+              "Id": "e86991aa-1551-4f56-9b6a-0dc2f888140b",
+              "Text": "Create a virtual environment using the command \u0027python -m venv env_name\u0027, replacing \u0027env_name\u0027 with your preferred environment name.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "faa69765-1c96-4aa4-b04a-c5860ef72a2b",
+              "Text": "Activate the environment on Windows with \u0027env_name\\Scripts\\activate\u0027 or on macOS/Linux with \u0027source env_name/bin/activate\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1df0e8a6-753b-4872-9edd-69ed01884aa1",
+              "Text": "Install project-specific packages within the activated environment to keep dependencies isolated from other projects.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f4e92771-c4f9-46de-a4dd-e52bbb9cbb76",
+          "TopicId": "eeeb8830-66b9-4aba-8c0f-a7d1e64baf41",
+          "Title": "Choosing and Installing a Code Editor or IDE",
+          "BodyText": "A suitable code editor or Integrated Development Environment (IDE) makes writing, running, and debugging Python scripts much easier.",
+          "Notes": "Popular choices include VS Code (lightweight and extensible), PyCharm (feature-rich IDE), and Jupyter Notebook (ideal for data analysis workflows).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "ModifiedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "Items": [
+            {
+              "Id": "47a90fd2-ee52-431f-820b-5af566d211f6",
+              "Text": "Visual Studio Code is a free, lightweight editor with strong Python support via extensions such as the official Python extension by Microsoft.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f4135340-1fb4-4865-b757-0dda4db95d92",
+              "Text": "PyCharm offers advanced features like code completion, debugging tools, and built-in support for virtual environments.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8283e175-7a8a-4146-b282-157769b23b5e",
+              "Text": "Jupyter Notebook provides an interactive, cell-based environment particularly well-suited for writing and testing data analytics scripts.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4bcea710-22ec-4789-af06-1e14f5e737ca",
+          "TopicId": "eeeb8830-66b9-4aba-8c0f-a7d1e64baf41",
+          "Title": "Installing and Launching Jupyter Notebook",
+          "BodyText": "Jupyter Notebook is a widely used tool in data analytics that allows you to write and execute Python code interactively in a browser-based interface.",
+          "Notes": "Jupyter Notebooks combine code, output, and narrative text in a single document, making them excellent for exploratory data analysis and sharing results.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "ModifiedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "Items": [
+            {
+              "Id": "df982df4-0e79-474b-bf98-627dc66c10be",
+              "Text": "Install Jupyter Notebook using pip with the command \u0027pip install notebook\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "454c32d2-feef-4529-8945-3c141127d3a2",
+              "Text": "Launch Jupyter Notebook by running \u0027jupyter notebook\u0027 in the terminal, which opens the interface in your default web browser.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3942cd75-6005-462d-96a9-ae64c5375a0b",
+              "Text": "Create a new notebook by clicking \u0027New\u0027 and selecting \u0027Python 3\u0027 to start writing and running Python code interactively.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "17c4565b-df4c-4d25-ba7c-a65254a35f9b",
+          "TopicId": "eeeb8830-66b9-4aba-8c0f-a7d1e64baf41",
+          "Title": "Verifying the Environment with a Test Script",
+          "BodyText": "After installation, it is important to verify that all tools and libraries are correctly configured by running a simple test script.",
+          "Notes": "A quick verification step catches configuration errors early, saving time before you begin working on actual data analytics tasks.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "ModifiedDate": "2026-07-03T11:44:31.4178906-04:00",
+          "Items": [
+            {
+              "Id": "156789e8-70de-4ee6-897b-1b37ffce443c",
+              "Text": "Open your editor or Jupyter Notebook and write a short script that imports key libraries such as pandas and NumPy to confirm they are installed correctly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0bec6c62-ed86-42ba-8f38-c69283082331",
+              "Text": "Run a simple operation, such as creating a pandas DataFrame or a NumPy array, to ensure the libraries function as expected.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8978fe84-594e-459d-a68f-7a9c391f9cb6",
+              "Text": "If any import errors occur, use pip to reinstall the missing packages or check that the correct virtual environment is activated.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "03e903ec-6833-4100-8028-3587a9ce5594",
+      "Title": "Python Data Types and Structures",
+      "Summary": "This topic explores Python\u0027s core data types including integers, floats, strings, lists, dictionaries, and tuples. Learners understand how to select and use appropriate data structures for analytics tasks.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "ModifiedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "Elements": [
+        {
+          "Id": "34479eae-392b-44d3-8b4a-0ab1f22e7cd4",
+          "TopicId": "03e903ec-6833-4100-8028-3587a9ce5594",
+          "Title": "Numeric Data Types: Integers and Floats",
+          "BodyText": "Python provides two primary numeric types \u2014 integers and floats \u2014 which are fundamental for storing and computing quantitative data in analytics workflows.",
+          "Notes": "Example: age = 30 (integer), temperature = 98.6 (float). Floats are used when precision with decimal values is required, such as calculating averages or percentages.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "ModifiedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "Items": [
+            {
+              "Id": "3018446f-d1f9-43ef-a4e4-8e542be759de",
+              "Text": "Integers (int) store whole numbers without decimal points and are commonly used for counts, indices, and categorical codes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f9cabf6-6857-4690-a508-0e6b3d93bfc4",
+              "Text": "Floats (float) store decimal numbers and are essential for statistical calculations, measurements, and financial data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e07c4c25-a35c-47db-8550-bac1268cad95",
+              "Text": "Python automatically handles arithmetic between integers and floats, typically returning a float when both types are combined.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e9870a6e-bff8-49d0-8364-7c9afea415f5",
+              "Text": "Understanding the distinction helps analysts avoid precision errors and choose the correct type for data storage and computation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d8d1ab7f-50c8-40b7-9f24-81a8e3f64447",
+          "TopicId": "03e903ec-6833-4100-8028-3587a9ce5594",
+          "Title": "Strings and Text Data",
+          "BodyText": "Strings are sequences of characters used to represent textual data, such as labels, categories, and identifiers commonly found in datasets.",
+          "Notes": "Example: name = \u0027Alice\u0027, category = \u0022Electronics\u0022. String methods like .strip(), .lower(), and .split() are heavily used in data cleaning tasks.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "ModifiedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "Items": [
+            {
+              "Id": "dd0b085f-b91a-435a-a3db-c1cc2d45d774",
+              "Text": "Strings are defined using single or double quotes and can contain letters, numbers, spaces, and special characters.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e5e409ee-c5c1-476c-adb6-f52666c4ce46",
+              "Text": "Python offers a rich set of built-in string methods that support data cleaning operations such as trimming whitespace, changing case, and splitting text.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7381637d-ff99-4d18-b5c6-4b4e5106eed0",
+              "Text": "String formatting techniques, including f-strings, allow analysts to construct readable output and dynamic messages from variable data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5468d57b-4851-41fb-8337-3a3fdbe1c165",
+              "Text": "Strings are immutable in Python, meaning their content cannot be changed in place \u2014 a new string must be created when modification is needed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "62c4e346-4260-483d-8c65-b3934d02707d",
+          "TopicId": "03e903ec-6833-4100-8028-3587a9ce5594",
+          "Title": "Lists: Ordered and Mutable Collections",
+          "BodyText": "Lists are ordered, mutable sequences that can hold multiple items of any data type, making them one of the most versatile structures for data analysis tasks.",
+          "Notes": "Example: scores = [85, 92, 78, 95]. Lists are frequently used to store rows of data, feature values, or results before converting to more specialized structures.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "ModifiedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "Items": [
+            {
+              "Id": "30e53068-6bf6-4b93-a320-bc4b66b8d894",
+              "Text": "Lists are created using square brackets and can contain mixed data types, including numbers, strings, and even other lists.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e86c5b40-67c5-4e8d-b337-9c18bf0cba2a",
+              "Text": "Elements in a list are accessed by their zero-based index, and slicing allows analysts to extract subsets of data efficiently.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "981a0863-896c-4502-b77e-80cdcf187851",
+              "Text": "Lists support common operations such as append(), remove(), sort(), and len(), which are useful for managing and transforming data collections.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ef6faf03-f741-44f4-8320-02ef6808e906",
+              "Text": "Because lists are mutable, their contents can be updated, added to, or deleted without creating a new object.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "33a4a5ba-09f1-48d3-935f-6a1d64cf382f",
+          "TopicId": "03e903ec-6833-4100-8028-3587a9ce5594",
+          "Title": "Tuples: Ordered and Immutable Sequences",
+          "BodyText": "Tuples are similar to lists but are immutable, meaning their elements cannot be changed after creation, making them ideal for storing fixed collections of data.",
+          "Notes": "Example: coordinates = (40.7128, -74.0060). Tuples are often used to represent records or return multiple values from a function.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "ModifiedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "Items": [
+            {
+              "Id": "c6487f2d-47ff-4e9e-b620-0fa18b56de47",
+              "Text": "Tuples are defined using parentheses and can hold multiple items of any data type, just like lists.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "adcda0a6-d58b-4acb-bb1c-269f1ea61715",
+              "Text": "Their immutability makes tuples a safer choice when data should remain constant throughout a program, such as configuration settings or geographic coordinates.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "28c59978-6555-485b-a324-e323a3371bfa",
+              "Text": "Tuples support indexing and slicing in the same way as lists, allowing element access without modification.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "25a7821d-07ff-4de6-83b0-2826b2e7834c",
+              "Text": "Because they are immutable, tuples are slightly more memory-efficient and faster than lists for read-only data scenarios.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "66a26def-29e8-4c9a-bc22-740bbeae72c1",
+          "TopicId": "03e903ec-6833-4100-8028-3587a9ce5594",
+          "Title": "Dictionaries: Key-Value Data Storage",
+          "BodyText": "Dictionaries store data as key-value pairs, enabling fast lookups and making them highly effective for representing structured records and mappings in analytics.",
+          "Notes": "Example: record = {\u0027name\u0027: \u0027Alice\u0027, \u0027age\u0027: 30, \u0027score\u0027: 95.5}. Dictionaries are commonly used to represent a single row of tabular data or to map categorical labels to numeric codes.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "ModifiedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "Items": [
+            {
+              "Id": "d46fdb90-581c-415d-b321-c2e2f9ccc194",
+              "Text": "Dictionaries are created using curly braces with keys and values separated by colons, and each key must be unique within the dictionary.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8aa2e115-63eb-46c6-a098-87baef614ed4",
+              "Text": "Values can be retrieved, added, or updated using the key as an identifier, providing O(1) average-time complexity for lookups.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6dd77b80-e7ac-4ca1-b722-a0f32e4c1f02",
+              "Text": "Built-in methods such as .keys(), .values(), and .items() make it easy to iterate over dictionary contents during data processing.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "27051e65-c747-45db-ba26-c423b241d85a",
+              "Text": "Dictionaries are mutable, so analysts can dynamically build or update records as new data fields are encountered.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b2864b3e-33aa-4a44-822e-f93b2f630375",
+          "TopicId": "03e903ec-6833-4100-8028-3587a9ce5594",
+          "Title": "Choosing the Right Data Structure for Analytics",
+          "BodyText": "Selecting the appropriate data structure depends on the nature of the data, the operations required, and performance considerations \u2014 a critical skill for efficient analytics scripting.",
+          "Notes": "A general guideline: use lists for ordered sequences you will modify, tuples for fixed collections, dictionaries for labeled records, and strings for textual data. This selection directly impacts code readability and execution speed.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "ModifiedDate": "2026-07-03T11:44:56.7661932-04:00",
+          "Items": [
+            {
+              "Id": "3e47c63f-2035-496d-b14f-1819cc702d09",
+              "Text": "Use lists when you need an ordered, changeable collection of items that will be iterated over or transformed during analysis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "59bfa988-6432-4dca-b03f-87cf0a4e0f98",
+              "Text": "Use tuples when the data represents a fixed record or should be protected from accidental modification.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "98f26a68-f997-4e5e-a165-5ae0e462a8a2",
+              "Text": "Use dictionaries when data has named attributes or when fast key-based retrieval is more important than maintaining order.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c7542c63-0b8e-41c4-8f3d-f80e6e1cdfc7",
+              "Text": "Understanding the trade-offs between mutability, ordering, and lookup speed helps analysts write cleaner, more performant Python scripts for data processing tasks.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "d319d7d5-23cb-4847-b779-adc408e4f099",
+      "Title": "Control Structures and Logic",
+      "Summary": "Students examine conditional statements, loops, and logical operators that control the flow of a Python program. These constructs form the basis for processing and filtering data programmatically.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "ModifiedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "Elements": [
+        {
+          "Id": "5a5a35fa-0418-4a90-b139-d9bbc0cbba32",
+          "TopicId": "d319d7d5-23cb-4847-b779-adc408e4f099",
+          "Title": "Conditional Statements with if, elif, and else",
+          "BodyText": "Conditional statements allow a Python program to make decisions by executing different blocks of code depending on whether a condition evaluates to True or False.",
+          "Notes": "Example: checking whether a sales figure exceeds a threshold \u2014 if sales \u003E 10000: print(\u0027High performer\u0027) elif sales \u003E 5000: print(\u0027Mid performer\u0027) else: print(\u0027Low performer\u0027).",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "ModifiedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "Items": [
+            {
+              "Id": "66c2b4b4-da21-4d9e-b0c7-b19fd15de650",
+              "Text": "The if statement evaluates a condition and runs its indented block only when that condition is True.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "47f5acd7-98dd-4290-967f-e8e7a5728816",
+              "Text": "elif (else if) provides additional conditions to check when the preceding if condition is False.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f6286d09-eb5b-4783-830f-abb3ae9caf4c",
+              "Text": "else acts as a catch-all block that executes when none of the preceding conditions are True.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c15dce74-27ba-4db7-862b-f1c9f91f3f46",
+              "Text": "Proper indentation is mandatory in Python and defines which lines of code belong to each conditional branch.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "297262f2-419f-4609-82cf-f14a64862609",
+          "TopicId": "d319d7d5-23cb-4847-b779-adc408e4f099",
+          "Title": "Logical Operators: and, or, not",
+          "BodyText": "Logical operators combine or modify Boolean expressions, enabling more complex conditions to be evaluated in a single statement.",
+          "Notes": "In data filtering, logical operators are frequently used together \u2014 for example, selecting records where age \u003E 18 and income \u003E 30000 narrows a dataset to a specific subgroup.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "ModifiedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "Items": [
+            {
+              "Id": "3bad1574-78cf-46b8-8708-56844ef07405",
+              "Text": "The and operator returns True only when both conditions on either side are True.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "33c7d0e4-b4b2-4bf7-929c-4365bc13d5d1",
+              "Text": "The or operator returns True when at least one of the conditions is True.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1b1b8a04-9c29-4504-92e4-7ea2a4b031b8",
+              "Text": "The not operator negates a Boolean expression, turning True into False and vice versa.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9a71d5f7-cefc-4777-a469-9145ab82f4f1",
+              "Text": "Logical operators can be chained together, but using parentheses to group sub-expressions improves readability and prevents logic errors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9fd0c6eb-2357-4bd9-b49c-4056c9922d0c",
+          "TopicId": "d319d7d5-23cb-4847-b779-adc408e4f099",
+          "Title": "Comparison Operators for Building Conditions",
+          "BodyText": "Comparison operators evaluate the relationship between two values and return a Boolean result, forming the building blocks of conditional and loop expressions.",
+          "Notes": "Common comparisons in data analysis include checking for missing sentinel values (value == -1), verifying ranges (0 \u003C= score \u003C= 100), or confirming string categories (category != \u0027Unknown\u0027).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "ModifiedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "Items": [
+            {
+              "Id": "fb3c803a-b21b-4787-b060-5611fa2ca591",
+              "Text": "Python supports six comparison operators: == (equal), != (not equal), \u003E, \u003C, \u003E= (greater than or equal), and \u003C= (less than or equal).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "457c2fbe-669e-4f70-a285-34d6438d90c6",
+              "Text": "Comparisons can be applied to numbers, strings, and other comparable data types.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ff8ca549-0eb4-473a-9446-2fd3a39ed008",
+              "Text": "Chained comparisons such as 0 \u003C x \u003C 100 are valid Python syntax and behave as expected mathematically.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6ce4c7c1-3e5c-4a40-9498-d24de0002772",
+          "TopicId": "d319d7d5-23cb-4847-b779-adc408e4f099",
+          "Title": "The for Loop for Iterating Over Data",
+          "BodyText": "A for loop repeats a block of code for each item in an iterable object such as a list, tuple, or range, making it essential for processing collections of data records.",
+          "Notes": "Example: iterating over a list of temperatures to convert each from Celsius to Fahrenheit \u2014 for temp in temperatures: print(temp * 9/5 \u002B 32).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "ModifiedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "Items": [
+            {
+              "Id": "3c1a4e04-0c8c-4748-bcc6-461f162e3ebb",
+              "Text": "The loop variable takes on the value of each element in the iterable one at a time across successive iterations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "79b40128-ef9a-40d4-83fd-7c1d3da15fdc",
+              "Text": "The built-in range() function generates a sequence of integers and is commonly used when a loop needs to run a specific number of times.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3603d896-97cc-495c-8b4a-0194d5167974",
+              "Text": "The enumerate() function pairs each item with its index, useful when both position and value are needed during iteration.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e3d4b4b4-d4cb-47d5-9757-ee3f1315c644",
+              "Text": "For loops can iterate over rows of data structures, enabling programmatic inspection or transformation of every record in a dataset.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a4be4539-2b4f-4b73-97a7-ef8494f79ed0",
+          "TopicId": "d319d7d5-23cb-4847-b779-adc408e4f099",
+          "Title": "The while Loop for Condition-Based Repetition",
+          "BodyText": "A while loop continues executing its block of code as long as a specified condition remains True, making it suitable for situations where the number of iterations is not known in advance.",
+          "Notes": "A common data-processing use case is reading chunks of a file or stream until no more data is available, where the stopping condition depends on the data itself rather than a fixed count.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "ModifiedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "Items": [
+            {
+              "Id": "27bafb5b-bd98-40c4-94d6-bb61bbf5f769",
+              "Text": "The condition is evaluated before each iteration; if it is False at the outset, the loop body never executes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d0b46486-8d40-4d54-9bfa-2e8fa6ff4119",
+              "Text": "A loop variable or counter must be updated inside the loop body to avoid creating an infinite loop.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "47132186-a289-4952-9100-b9a7a20071b5",
+              "Text": "The break statement immediately exits a while loop regardless of whether the condition is still True.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e55994e4-683a-47ce-bb24-076fa8b1cf23",
+              "Text": "The continue statement skips the remainder of the current iteration and re-evaluates the loop condition.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0c14f926-6aea-4667-8934-6ed0dad49052",
+          "TopicId": "d319d7d5-23cb-4847-b779-adc408e4f099",
+          "Title": "Loop Control: break, continue, and pass",
+          "BodyText": "Python provides three statements \u2014 break, continue, and pass \u2014 that give finer control over loop execution, which is particularly useful when filtering or searching through data.",
+          "Notes": "In data analysis, break is often used to stop scanning once a target record is found; continue is used to skip rows that fail a quality check without terminating the entire loop.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "ModifiedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "Items": [
+            {
+              "Id": "2a93bef9-ff26-4d98-8f06-86bd91aa6fef",
+              "Text": "break terminates the innermost loop immediately, transferring control to the first statement after the loop.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8fa4bf67-afa7-43bd-85ea-dd51af2f130d",
+              "Text": "continue skips the rest of the current iteration and moves directly to the next one, effectively filtering out unwanted items.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "856ad312-b3e9-42a6-b340-0ba7274a88cc",
+              "Text": "pass is a no-operation placeholder that allows syntactically required blocks to remain empty during development.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "64711e68-3d3d-4bd2-a32c-b7b47b3682e1",
+              "Text": "These control statements work inside both for and while loops and can be combined with conditionals for precise flow management.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "40f510cd-2d5e-4827-864f-39c8b4a270b3",
+          "TopicId": "d319d7d5-23cb-4847-b779-adc408e4f099",
+          "Title": "Nested Control Structures for Multi-Level Logic",
+          "BodyText": "Control structures can be nested inside one another \u2014 placing a loop within a loop or a conditional within a loop \u2014 to handle multi-dimensional or hierarchically organized data.",
+          "Notes": "Example: a for loop iterating over multiple datasets, each containing a nested for loop iterating over individual records, with an inner if statement flagging anomalies.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "ModifiedDate": "2026-07-03T11:45:25.2668533-04:00",
+          "Items": [
+            {
+              "Id": "0e3a8cc1-ec4e-42f1-8b8f-9485d85e3d38",
+              "Text": "Each level of nesting requires an additional level of indentation, which helps visually communicate the structure of the logic.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "166ed8c5-3f03-430a-91d8-1c1443d2d9e3",
+              "Text": "Nested loops are commonly used to process two-dimensional data such as tables or matrices, where rows and columns must each be traversed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "af9a6eb6-2504-41aa-9a86-647729ef2df9",
+              "Text": "Deeply nested structures can reduce readability; refactoring inner logic into functions is a best practice for maintaining clean code.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "626a8d9c-39ac-49d2-aac5-e11640fad678",
+              "Text": "Care must be taken with break and continue inside nested loops, as they only affect the innermost loop in which they appear.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+      "Title": "Writing and Using Functions",
+      "Summary": "This topic introduces how to define, call, and organize reusable blocks of code as functions. Learners apply functions to modularize data processing logic and improve script readability.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "ModifiedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "Elements": [
+        {
+          "Id": "8715171e-2e46-496e-a08b-78a3665a4bb3",
+          "TopicId": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+          "Title": "Defining a Function with def",
+          "BodyText": "In Python, functions are defined using the def keyword followed by the function name, parentheses, and a colon.",
+          "Notes": "Example: def calculate_mean(values): \u2014 this line declares a function named calculate_mean that accepts one parameter.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "ModifiedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "Items": [
+            {
+              "Id": "c59ed0ea-5d0b-4412-bc0b-64e3511de919",
+              "Text": "The function body must be indented consistently, typically by four spaces.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "91b3ada1-9084-4e19-836e-dfbfd207ceaa",
+              "Text": "A function definition only declares the code block; it does not execute it until the function is called.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "355937dc-5bce-4c8e-8d72-00dc88a49d63",
+              "Text": "Descriptive function names improve script readability and make data processing logic self-documenting.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d1d5f2c4-c057-48b3-81f6-68e504c38f47",
+          "TopicId": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+          "Title": "Parameters and Arguments",
+          "BodyText": "Parameters are the variable placeholders defined in the function signature, while arguments are the actual values passed when calling the function.",
+          "Notes": "For example, def filter_records(data, threshold): defines two parameters; calling filter_records(sales_list, 500) passes two arguments.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "ModifiedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "Items": [
+            {
+              "Id": "f8711aa5-ceb0-4bb0-96f6-55373fecf749",
+              "Text": "Functions can accept multiple parameters, allowing flexible, reusable data processing logic.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3ff409ba-ab2e-4fcf-b974-a1616479b558",
+              "Text": "Default parameter values can be assigned (e.g., def summarize(data, decimals=2):), making some arguments optional.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e2bc2f06-3bef-4588-96dd-d36c8a22a00c",
+              "Text": "Positional arguments are matched by order, while keyword arguments are matched by name, improving call-site clarity.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3a4850af-fbf3-49f5-a929-859f353a07c1",
+          "TopicId": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+          "Title": "Returning Values with return",
+          "BodyText": "The return statement sends a value back to the caller, making function output available for further use in the script.",
+          "Notes": "Example: def get_max(values): return max(values) \u2014 the result can be stored as result = get_max(dataset).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "ModifiedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "Items": [
+            {
+              "Id": "5e50e1d8-68ed-4a76-94b8-653d975f1808",
+              "Text": "A function without an explicit return statement returns None by default.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "51fdf3ca-a12d-4e65-9f5a-a77715bbdb0d",
+              "Text": "Multiple values can be returned as a tuple: return mean, median, mode.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7b5a33af-4861-47ce-8bc6-38b13b1b7e14",
+              "Text": "Capturing return values in variables allows the results of data transformations to feed into subsequent processing steps.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1dcd62a1-de3b-4b80-a8db-fd34a94e107f",
+          "TopicId": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+          "Title": "Calling Functions",
+          "BodyText": "A function is executed by writing its name followed by parentheses containing any required arguments.",
+          "Notes": "Functions can be called multiple times with different arguments, which is the primary benefit of encapsulating logic in a reusable block.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "ModifiedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "Items": [
+            {
+              "Id": "725b254f-7ad1-4de6-8ccb-04c9900285c4",
+              "Text": "Calling a function that has not yet been defined will raise a NameError, so definitions should appear before calls in a script.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "252ca512-4439-43cd-9927-66ced543112e",
+              "Text": "Functions can be called inside other functions, enabling layered, modular data processing pipelines.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2360b699-9a2d-430b-9823-5dbe8882ab21",
+              "Text": "Storing a function call\u0027s result \u2014 e.g., cleaned = clean_data(raw) \u2014 keeps the main script logic concise and readable.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f1d97d46-82da-4a48-9254-c4ddf15f8500",
+          "TopicId": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+          "Title": "Organizing Code with Modular Functions",
+          "BodyText": "Breaking a data processing script into focused, single-purpose functions improves readability, testing, and maintenance.",
+          "Notes": "A common pattern in data analysis scripts is to define separate functions for loading data, cleaning data, and computing summaries, then call them in sequence from a main block.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "ModifiedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "Items": [
+            {
+              "Id": "759e0391-c99b-4fdb-b48a-51001bf61159",
+              "Text": "Each function should ideally perform one well-defined task, such as reading a file or computing a statistic.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "06872413-72bc-48e5-8f71-ecd6845fe986",
+              "Text": "Modular functions can be reused across different scripts or datasets without rewriting logic.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e67f281e-9b48-4ac8-8f97-2fffd5b9bf45",
+              "Text": "Grouping related functions together and naming them clearly serves as inline documentation for the overall workflow.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "22203eac-fe10-401c-b7a0-dbeeedeae5be",
+          "TopicId": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+          "Title": "Docstrings for Function Documentation",
+          "BodyText": "A docstring is a string literal placed as the first statement inside a function to describe its purpose, parameters, and return value.",
+          "Notes": "Example: def load_csv(filepath): \u0022\u0022\u0022Load a CSV file and return a list of rows.\u0022\u0022\u0022 \u2014 this string is accessible via help(load_csv).",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "ModifiedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "Items": [
+            {
+              "Id": "1834c3d6-520d-4e89-acf7-e779cb81bf49",
+              "Text": "Docstrings follow the function signature line and are enclosed in triple quotes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f5fffce3-4e6c-44ba-a975-66a969afccac",
+              "Text": "Well-written docstrings explain what the function does, what each parameter expects, and what is returned.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "127972f6-3006-430a-83ef-b3db0e956326",
+              "Text": "Adding docstrings is especially valuable in data analytics projects where functions may be shared across a team.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9939baca-8be2-4583-bf37-cd540a864133",
+          "TopicId": "63b7fe83-39dd-4409-af13-47f9593fddf0",
+          "Title": "Variable Scope Inside Functions",
+          "BodyText": "Variables created inside a function are local to that function and are not accessible outside it, which prevents unintended side effects in data scripts.",
+          "Notes": "If a variable with the same name exists both inside and outside a function, the local version takes precedence within the function body.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "ModifiedDate": "2026-07-03T11:45:47.6965129-04:00",
+          "Items": [
+            {
+              "Id": "55bcf50c-1dfc-4012-85d6-9685d9a8c29b",
+              "Text": "Local scope means that temporary variables used during data processing do not pollute the global namespace.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a4186d12-8f1c-49a7-b54b-6b491a702543",
+              "Text": "To use a global variable inside a function, it must be explicitly declared with the global keyword, though this is generally discouraged.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ce9eb557-b286-4086-9383-2753dd4f6d92",
+              "Text": "Understanding scope helps avoid bugs where a function unexpectedly modifies data that should remain unchanged elsewhere in the script.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "2c72c54a-c989-4cf3-8f69-a3e40144ec3b",
+      "Title": "File Input and Output for Data",
+      "Summary": "Students learn how to read from and write to external files, including CSV and text formats commonly used in data analytics. This topic establishes foundational skills for loading real-world datasets into Python scripts.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "ModifiedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "Elements": [
+        {
+          "Id": "11975b89-b2fd-4887-9700-27a90f4a02ec",
+          "TopicId": "2c72c54a-c989-4cf3-8f69-a3e40144ec3b",
+          "Title": "Opening and Closing Text Files",
+          "BodyText": "Python provides a built-in \u0060open()\u0060 function to access external files for reading or writing. Properly managing file connections ensures data integrity and prevents resource leaks.",
+          "Notes": "Always close a file after use, either explicitly with \u0060.close()\u0060 or automatically using a \u0060with\u0060 statement. The \u0060with\u0060 block is the recommended best practice in data analytics workflows.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "ModifiedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "Items": [
+            {
+              "Id": "9ed203d5-2292-4f7a-a0cc-e8bca96e8a02",
+              "Text": "Use \u0060open(\u0027filename.txt\u0027, \u0027r\u0027)\u0060 to open a file in read mode; modes include \u0027r\u0027 (read), \u0027w\u0027 (write), and \u0027a\u0027 (append).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "87d6d300-710d-487d-9821-7d5d58c53188",
+              "Text": "The \u0060with open(...) as f:\u0060 syntax automatically closes the file when the block exits, even if an error occurs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "71a3aaa6-6321-42b6-8ec8-75752ccaec3c",
+              "Text": "Failing to close files can cause data corruption or lock files from other processes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "74314b58-00a9-45f4-aee2-f1ab540ae8a9",
+              "Text": "Always verify the file path is correct relative to your script\u0027s working directory to avoid FileNotFoundError.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7121e8ea-dc6c-4091-8599-3886ce4eded2",
+          "TopicId": "2c72c54a-c989-4cf3-8f69-a3e40144ec3b",
+          "Title": "Reading Data from Text Files",
+          "BodyText": "Once a file is open, Python offers several methods to read its contents into your script for processing. Choosing the right read method depends on the size and structure of your data.",
+          "Notes": "For large files, reading line by line with a loop is memory-efficient compared to loading the entire file at once.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "ModifiedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "Items": [
+            {
+              "Id": "dea0e3b6-19aa-4366-b282-7e63331334ac",
+              "Text": "\u0060.read()\u0060 loads the entire file content as a single string, suitable for small files.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d42e8a3-fd56-4f50-a877-1924e198a054",
+              "Text": "\u0060.readline()\u0060 reads one line at a time, while \u0060.readlines()\u0060 returns a list where each element is one line.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5b21a9a5-be19-47d7-8ae3-0086c5130540",
+              "Text": "Iterating directly over the file object (\u0060for line in f:\u0060) is the most memory-efficient approach for large datasets.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a9989104-de96-4510-8895-575f9b18bab2",
+              "Text": "Strip trailing newline characters from lines using \u0060.strip()\u0060 to clean raw text data before processing.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ca16289e-d191-424a-946f-948f0fa8d014",
+          "TopicId": "2c72c54a-c989-4cf3-8f69-a3e40144ec3b",
+          "Title": "Writing Data to Text Files",
+          "BodyText": "Python scripts can write processed results back to text files, allowing you to save outputs, logs, or transformed datasets. Understanding write modes prevents accidental data loss.",
+          "Notes": "Opening a file in \u0027w\u0027 mode will overwrite existing content. Use \u0027a\u0027 mode to append new data without deleting what is already there.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "ModifiedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "Items": [
+            {
+              "Id": "abe708ac-bb44-450a-85ad-61902d76bfa5",
+              "Text": "Use \u0060.write(\u0027text\u0027)\u0060 to write a string to a file; unlike \u0060print()\u0060, it does not add a newline automatically.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f1df1c60-0809-402c-9273-2bd45b3e9990",
+              "Text": "Add \u0060\u0027\\n\u0027\u0060 explicitly at the end of each line you write to maintain proper line separation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "34099e56-4b6d-4626-ba3e-24e2bc1e93d6",
+              "Text": "Opening in \u0027w\u0027 mode creates the file if it does not exist, making it convenient for generating new output files.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b4584ddf-9306-40d6-8c1f-f67a08b99e30",
+              "Text": "Use \u0060.writelines(list)\u0060 to write a list of strings to a file in a single call.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "75e525b3-23f9-4eb9-bb9e-d038cef4c5dd",
+          "TopicId": "2c72c54a-c989-4cf3-8f69-a3e40144ec3b",
+          "Title": "Working with CSV Files Using Python\u0027s csv Module",
+          "BodyText": "CSV (Comma-Separated Values) is one of the most common formats for storing and exchanging tabular data in analytics. Python\u0027s built-in \u0060csv\u0060 module simplifies reading and writing these files correctly.",
+          "Notes": "The \u0060csv\u0060 module handles edge cases such as fields containing commas or quotes, which plain text splitting cannot manage reliably.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "ModifiedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "Items": [
+            {
+              "Id": "d2e123f0-00eb-40d4-81de-38c33ed5298a",
+              "Text": "Import the module with \u0060import csv\u0060, then use \u0060csv.reader()\u0060 to iterate over rows returned as lists of strings.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aa82dc22-9b60-42ad-be05-4f086d95541c",
+              "Text": "Each row from \u0060csv.reader()\u0060 is a list where each element corresponds to one column value in that row.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b3e71a8c-cbd6-4b50-8e51-07d67c1a9d21",
+              "Text": "Use \u0060csv.writer()\u0060 to write rows to a CSV file; call \u0060.writerow(list)\u0060 to write one row at a time.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9e45ff49-4756-49e6-b5b2-d1c7c4bb15ad",
+              "Text": "The \u0060csv.DictReader()\u0060 class reads each row as a dictionary keyed by the column headers, making column access more readable.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "be280b37-90e6-4a12-b1ab-8a70f046ac49",
+              "Text": "Specify \u0060newline=\u0027\u0027\u0060 inside \u0060open()\u0060 when working with the \u0060csv\u0060 module on Windows to avoid blank rows in output.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "3b1f4b98-43fb-4cd7-8249-9e7d98e7dee9",
+          "TopicId": "2c72c54a-c989-4cf3-8f69-a3e40144ec3b",
+          "Title": "Parsing and Cleaning Data During File Reading",
+          "BodyText": "Raw data files often require cleaning as they are read into Python, such as converting data types or handling missing values. Building this logic into the file-reading step prepares data for immediate analysis.",
+          "Notes": "Data read from CSV files arrives as strings by default. Forgetting to convert numeric columns is a common source of errors in calculations.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "ModifiedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "Items": [
+            {
+              "Id": "2a15c707-5816-492c-8b9d-e0f9ff4651a9",
+              "Text": "Convert string values to appropriate types using \u0060int()\u0060, \u0060float()\u0060, or \u0060bool()\u0060 after reading each field.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bf73640d-9565-434d-bc84-de2741d7e54a",
+              "Text": "Check for empty strings or placeholder values like \u0027N/A\u0027 before conversion to avoid ValueError exceptions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "30412dca-8030-45de-aa2b-c00401407d23",
+              "Text": "Use conditional logic inside the file-reading loop to skip header rows or malformed lines.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e81d5668-5ce7-4e21-896f-5db103efcbe0",
+              "Text": "Stripping whitespace with \u0060.strip()\u0060 on each field prevents subtle matching and conversion errors caused by invisible characters.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1a180b23-e896-423f-924f-24baca2efc21",
+          "TopicId": "2c72c54a-c989-4cf3-8f69-a3e40144ec3b",
+          "Title": "File Paths and Directory Navigation",
+          "BodyText": "Specifying the correct file path is essential for Python to locate data files, especially when working with datasets stored in different folders. Understanding relative and absolute paths prevents common file-not-found errors.",
+          "Notes": "Using forward slashes or Python\u0027s \u0060os.path\u0060 module makes path handling consistent across Windows, macOS, and Linux systems.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "ModifiedDate": "2026-07-03T11:46:14.4927168-04:00",
+          "Items": [
+            {
+              "Id": "fd9509ab-01f1-40aa-98a9-f82f22f23879",
+              "Text": "A relative path like \u0060\u0027data/sales.csv\u0027\u0060 is interpreted relative to the directory where the script is run.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7bb307a9-e072-4f53-9f14-14289a8a754f",
+              "Text": "An absolute path specifies the full location from the root of the file system, such as \u0060\u0027C:/Users/name/project/data/sales.csv\u0027\u0060.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dc54821f-05f6-4543-85be-a6769732edb3",
+              "Text": "Import the \u0060os\u0060 module and use \u0060os.path.join()\u0060 to build file paths that work correctly on any operating system.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "75219f48-e59d-4122-9f9d-c2acd6d32c48",
+              "Text": "Use \u0060os.getcwd()\u0060 to check your script\u0027s current working directory when debugging file path issues.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6ce772b6-2656-4a60-845f-7b8a08220439",
+      "Title": "Writing Foundational Data Analysis Scripts",
+      "Summary": "This topic brings together all prior concepts by guiding students through writing complete Python scripts that read, process, and summarize datasets. Learners apply Python fundamentals in practical, analytics-focused scenarios.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "ModifiedDate": "2026-07-03T11:44:12.8105488-04:00",
+      "Elements": [
+        {
+          "Id": "6ef1d27b-ca50-42be-9795-ae5bfdff4e8d",
+          "TopicId": "6ce772b6-2656-4a60-845f-7b8a08220439",
+          "Title": "Structuring a Complete Data Analysis Script",
+          "BodyText": "A well-organized Python script follows a clear structure: imports, data loading, processing, and output. This structure makes scripts readable, maintainable, and easier to debug.",
+          "Notes": "Think of the script as a pipeline \u2014 raw data enters at the top and summarized results emerge at the bottom. Consistent structure also helps collaborators understand your workflow quickly.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "ModifiedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "Items": [
+            {
+              "Id": "639c7caa-32ae-407f-95d8-e6aeb76068b5",
+              "Text": "Begin every script with import statements that bring in required modules or libraries.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "131f0378-db9c-4f80-ac9a-98dd50ce3269",
+              "Text": "Separate concerns into logical sections: loading data, cleaning or transforming it, performing analysis, and reporting results.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "947269d6-2bae-4103-8772-3826bbaccba9",
+              "Text": "Using comments or section headers (e.g., \u0027# --- Load Data ---\u0027) improves readability and documents intent.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dd8140e4-a50d-4114-b047-4008ae0aedae",
+              "Text": "A clear structure reduces errors by ensuring each step depends only on outputs from prior steps.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f38f5413-ae72-426c-93d4-c4067e82647c",
+          "TopicId": "6ce772b6-2656-4a60-845f-7b8a08220439",
+          "Title": "Reading Datasets from Files",
+          "BodyText": "Data analysis scripts typically begin by reading data from external files such as CSVs or text files using Python\u0027s built-in file I/O capabilities. This step makes real-world datasets available for processing within the script.",
+          "Notes": "For example, using open() with a context manager (with open(\u0027data.csv\u0027, \u0027r\u0027) as f:) ensures the file is properly closed after reading, preventing resource leaks.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "ModifiedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "Items": [
+            {
+              "Id": "2d8877a6-d68c-40b6-83c4-23aa92675085",
+              "Text": "Use Python\u0027s built-in open() function to read text or CSV files line by line or all at once.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b1ddce40-a178-4304-9ae1-1b745cc807f9",
+              "Text": "The csv module provides convenient tools for parsing comma-separated files into rows and fields.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7af75700-3512-4a29-9849-101b3bc15a6f",
+              "Text": "Always handle potential file-not-found errors using try/except blocks to make scripts robust.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c693b4f4-31d7-42db-92fd-ede737503bf2",
+              "Text": "Store loaded data in appropriate data structures \u2014 such as lists of dictionaries \u2014 for easy downstream processing.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "341ad64b-0e07-4aaa-ab93-3c11ee81cde3",
+          "TopicId": "6ce772b6-2656-4a60-845f-7b8a08220439",
+          "Title": "Applying Control Structures to Process Data",
+          "BodyText": "Once data is loaded, loops and conditionals allow the script to iterate over records and apply logic to filter, transform, or categorize values. These control structures are the engine of data processing.",
+          "Notes": "For instance, a for loop can iterate over each row in a dataset while an if statement checks whether a sales figure exceeds a threshold, counting only qualifying records.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "ModifiedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "Items": [
+            {
+              "Id": "3439911e-24bb-4964-b969-2d00fb41fc38",
+              "Text": "Use for loops to iterate over every record in a dataset, applying the same logic consistently to each row.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "69e81ec0-892c-4844-a0d9-a244c392bb6f",
+              "Text": "Conditional statements (if/elif/else) let you filter records, flag anomalies, or assign categories based on data values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a7011b5a-aef4-4f84-97f4-ef8ab8c964e4",
+              "Text": "Nested loops or conditions can handle multi-level logic, such as grouping records by category before aggregating.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "560b2f64-ae4c-418c-93a0-dd12618c7119",
+              "Text": "Keep loop bodies focused on a single responsibility to maintain clarity and ease of testing.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c344a4ee-f111-4a5a-90e3-13002bb534d6",
+          "TopicId": "6ce772b6-2656-4a60-845f-7b8a08220439",
+          "Title": "Computing Summary Statistics with Functions",
+          "BodyText": "Functions encapsulate reusable calculation logic \u2014 such as computing totals, averages, or counts \u2014 making scripts cleaner and results reproducible. Defining custom functions for common analytics tasks is a core best practice.",
+          "Notes": "Example: defining a calculate_average(values) function that takes a list of numbers and returns their mean can be reused across multiple datasets or columns without rewriting the logic.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "ModifiedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "Items": [
+            {
+              "Id": "9bdb71a5-e122-401e-afc9-69c0528171ed",
+              "Text": "Define functions using the def keyword to encapsulate logic for metrics like sum, average, minimum, and maximum.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "70d78056-22e1-4e3e-94e3-45015e071b80",
+              "Text": "Passing data structures (e.g., lists) as arguments allows the same function to summarize different columns or datasets.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "424bc5b5-830f-48b3-a2f2-ecd1f98cb5d0",
+              "Text": "Return values from functions rather than printing inside them, so results can be used flexibly in the rest of the script.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "807fd777-68ec-42b6-9cf4-3762cd644be5",
+              "Text": "Python\u0027s built-in functions such as sum(), len(), min(), and max() can be combined within custom functions for efficient summarization.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "856f838f-0d87-47ba-ad4c-79a68eacadb3",
+          "TopicId": "6ce772b6-2656-4a60-845f-7b8a08220439",
+          "Title": "Integrating Data Types Appropriately",
+          "BodyText": "Correct use of Python data types \u2014 integers, floats, strings, lists, and dictionaries \u2014 is essential when processing and summarizing datasets. Type mismatches are a common source of errors in data scripts.",
+          "Notes": "A frequent issue is reading numeric values from CSV files as strings; explicit conversion using int() or float() is necessary before performing arithmetic operations.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "ModifiedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "Items": [
+            {
+              "Id": "e8643fd2-7e6f-49e0-9bd4-1e9996e55d4e",
+              "Text": "Always convert data to the appropriate type after reading from a file, since file I/O returns strings by default.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f9483ae1-8220-4043-93fc-66f17688d500",
+              "Text": "Use lists to store sequences of records and dictionaries to represent individual rows with named fields.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "81cb8bcb-c43b-48d0-a74a-bee3aca208fd",
+              "Text": "Type-checking with isinstance() or try/except around conversions prevents scripts from crashing on unexpected input.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "306d194d-81c1-464b-b4e4-d9e7056b5920",
+              "Text": "Choosing the right data type improves both the accuracy of calculations and the efficiency of the script.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b2c5cbb2-d535-4eb9-83f4-8e5820cc675a",
+          "TopicId": "6ce772b6-2656-4a60-845f-7b8a08220439",
+          "Title": "Outputting and Presenting Results",
+          "BodyText": "The final stage of a data analysis script involves presenting computed results in a clear, interpretable format \u2014 either printed to the console or written to an output file. Effective output communicates findings directly to the user.",
+          "Notes": "For example, formatted print statements using f-strings (e.g., f\u0027Average Sales: {avg:.2f}\u0027) produce polished, readable output without requiring additional libraries.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "ModifiedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "Items": [
+            {
+              "Id": "2b22d998-b3e0-4d63-bb7b-ec1cdde396c9",
+              "Text": "Use formatted string literals (f-strings) or the format() method to present numeric results with appropriate precision.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "de743538-e0e7-4b93-8544-694dd4290276",
+              "Text": "Write summary results to an output file using open() in write mode when results need to be saved or shared.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c7f4b7b4-c0d7-49ba-9dd3-c59c830040d2",
+              "Text": "Organize output logically \u2014 for example, displaying overall totals before category-level breakdowns \u2014 to guide the reader\u0027s understanding.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cdfef833-feaa-442d-ad17-f3bd063fa451",
+              "Text": "Label every output value clearly so results are self-explanatory without needing to reference the script code.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fd27cc49-ee91-43ba-bd92-b48913990261",
+          "TopicId": "6ce772b6-2656-4a60-845f-7b8a08220439",
+          "Title": "Bringing It All Together: An End-to-End Script Workflow",
+          "BodyText": "A complete data analysis script combines environment setup, file reading, data processing, function-based summarization, and formatted output into a single cohesive workflow. Practicing this end-to-end process builds fluency with Python fundamentals in real analytics contexts.",
+          "Notes": "A practical exercise is to write a script that reads a sales CSV, calculates total and average revenue per product category using functions, and prints a formatted summary report \u2014 touching every concept from the module.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "ModifiedDate": "2026-07-03T11:46:46.8647822-04:00",
+          "Items": [
+            {
+              "Id": "1a7ea50d-bf03-4c70-8650-0fffddc5ccde",
+              "Text": "Plan the script before writing by outlining each stage: what data is needed, what transformations apply, and what results to produce.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6af502b0-333e-4cec-9651-0588848598cc",
+              "Text": "Test each section incrementally \u2014 load and print data first, then add processing, then add summarization \u2014 to isolate and fix errors early.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4cef20c8-4bd6-4795-88b5-22e9d1a50e8c",
+              "Text": "Reuse functions across different parts of the script to avoid duplicating logic and to keep the codebase concise.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3aebb0b3-38e8-453b-961a-135be44f77a1",
+              "Text": "Review the final script to ensure it runs cleanly from top to bottom, produces correct output, and is readable by others.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 39
+}

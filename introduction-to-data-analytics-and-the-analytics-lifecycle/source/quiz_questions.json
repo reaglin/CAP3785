@@ -1,0 +1,748 @@
+{
+  "ModuleFolderName": "Introduction_to_Data",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "LastModified": "2026-07-03T14:17:02.4711959-04:00",
+  "NextQuestionNumber": 21,
+  "Questions": [
+    {
+      "Id": "TEMP_001",
+      "Type": "MC",
+      "Title": "Core definition of data analytics",
+      "QuestionText": "Which of the following best defines data analytics as described in the module?",
+      "Hint": "Think about the key activities involved in working with raw data.",
+      "Feedback": "Data analytics is defined as the process of examining, cleaning, transforming, and modeling data to discover useful information, draw conclusions, and support decision-making.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4710884-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "The process of examining, cleaning, transforming, and modeling data to discover useful information and support decision-making",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The process of collecting and storing large volumes of raw data in digital repositories",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "The exclusive use of machine learning algorithms to automate business processes",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "A reporting method that summarizes financial performance for executive stakeholders",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_002",
+      "Type": "MC",
+      "Title": "Primary purpose of data analytics",
+      "QuestionText": "According to the module, what is the primary purpose of data analytics?",
+      "Hint": "Consider what organizations ultimately want to achieve by using analytics.",
+      "Feedback": "The primary purpose of data analytics is to support better, faster, and more confident decision-making across all levels of an organization.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711024-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To support better, faster, and more confident decision-making across all levels of an organization",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To replace human judgment entirely with automated algorithmic systems",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To generate as many data visualizations as possible for executive dashboards",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To comply with regulatory requirements for data governance and privacy",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_003",
+      "Type": "MC",
+      "Title": "Difference between data point and insight",
+      "QuestionText": "According to the module, what distinguishes an insight from a mere data point?",
+      "Hint": "Consider what makes information actionable versus just observable.",
+      "Feedback": "An insight is more than a data point \u2014 it is an interpretation that carries business meaning. For example, noticing returns spike on Mondays is a data point, but understanding that weekend impulse purchases drive those returns is an insight.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711029-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "An insight is an interpretation that carries business meaning and can be acted upon to improve outcomes",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "An insight is any numerical value extracted directly from a database without further analysis",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "An insight is a data point that has been visualized in a chart or dashboard",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "An insight is a prediction generated exclusively by machine learning models",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_004",
+      "Type": "MC",
+      "Title": "Descriptive analytics answers which question",
+      "QuestionText": "Which question does descriptive analytics primarily answer?",
+      "Hint": "This is the most foundational type of analytics in the spectrum.",
+      "Feedback": "Descriptive analytics is focused on summarizing historical data to answer the question \u0027What happened?\u0027",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711033-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "What happened?",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Why did it happen?",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "What is likely to happen?",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "What should we do about it?",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_005",
+      "Type": "MC",
+      "Title": "Diagnostic analytics core question",
+      "QuestionText": "A company notices that sales dropped significantly last quarter and investigates whether pricing changes or supply chain issues caused the decline. Which type of analytics is being applied?",
+      "Hint": "This type goes one step beyond describing what happened.",
+      "Feedback": "Diagnostic analytics examines data to answer \u0027Why did it happen?\u0027 \u2014 in this case, investigating the root cause of the sales decline.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711036-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Diagnostic analytics",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Descriptive analytics",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Predictive analytics",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Prescriptive analytics",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_006",
+      "Type": "MC",
+      "Title": "Predictive analytics common applications",
+      "QuestionText": "Which of the following is listed in the module as a common application of predictive analytics?",
+      "Hint": "Think about forecasting future events or behaviors.",
+      "Feedback": "Common predictive analytics applications include customer churn prediction, credit risk scoring, demand forecasting, and fraud detection.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711043-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Customer churn prediction",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Monthly sales reporting",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Root cause analysis of equipment failures",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Generating website traffic dashboards",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_007",
+      "Type": "MC",
+      "Title": "Most advanced analytics type",
+      "QuestionText": "Which type of analytics is described in the module as the most advanced, combining predictions with optimization techniques?",
+      "Hint": "This type answers the question about what action should be taken.",
+      "Feedback": "Prescriptive analytics is the most advanced type, combining predictions with optimization techniques to answer \u0027What should we do about it?\u0027 Examples include dynamic pricing engines and route optimization.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711047-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Prescriptive analytics",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Diagnostic analytics",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Descriptive analytics",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Predictive analytics",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_008",
+      "Type": "MC",
+      "Title": "CRISP-DM full name",
+      "QuestionText": "What does the acronym CRISP-DM stand for?",
+      "Hint": "This framework was developed in the late 1990s to be industry-agnostic.",
+      "Feedback": "CRISP-DM stands for Cross-Industry Standard Process for Data Mining. It provides a structured, repeatable lifecycle for planning and executing analytics projects.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711051-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Cross-Industry Standard Process for Data Mining",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Cyclical Regression and Iterative Statistical Processing for Data Modeling",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Comprehensive Reporting and Integrated Statistical Process for Data Management",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Cross-Institutional Standard Protocol for Digital Mining",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_009",
+      "Type": "MC",
+      "Title": "First phase of CRISP-DM framework",
+      "QuestionText": "According to CRISP-DM, what is the focus of the first phase of an analytics project?",
+      "Hint": "This phase occurs before any data work begins.",
+      "Feedback": "The first phase, Business Understanding, focuses on clearly defining the project objectives and requirements from a business perspective before any data work begins.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711055-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Clearly defining the project objectives and requirements from a business perspective",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Collecting and exploring initial data to identify quality issues",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Selecting and applying machine learning techniques to a prepared dataset",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Deploying the validated model into a production business environment",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_010",
+      "Type": "MC",
+      "Title": "Most time-consuming CRISP-DM phase",
+      "QuestionText": "Which phase of the CRISP-DM framework is described as typically the most time-consuming, often accounting for 60\u201380% of total project effort?",
+      "Hint": "This phase involves cleaning, transforming, and integrating data from various sources.",
+      "Feedback": "Data Preparation is the most time-consuming phase, frequently accounting for 60\u201380% of total project effort in real-world analytics engagements.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711059-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Data Preparation",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Modeling",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Business Understanding",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Evaluation",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_011",
+      "Type": "MC",
+      "Title": "Purpose of CRISP-DM Evaluation phase",
+      "QuestionText": "What is the primary purpose of the Evaluation phase in CRISP-DM?",
+      "Hint": "Technical performance alone is not sufficient in this phase.",
+      "Feedback": "The Evaluation phase assesses whether the model meets the original business objectives \u2014 not just technical performance metrics \u2014 before any decision is made to deploy it.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711063-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To assess whether the model meets the original business objectives before deciding to deploy it",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To select and apply the most appropriate machine learning algorithm to the dataset",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To integrate the model into production systems so stakeholders can act on results",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To collect initial data and explore its characteristics and quality issues",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_012",
+      "Type": "MC",
+      "Title": "Retail analytics primary use case",
+      "QuestionText": "According to the module, how do retailers like Amazon primarily use data analytics?",
+      "Hint": "Think about how online shopping experiences are personalized.",
+      "Feedback": "Retailers use recommendation engines that analyze browsing and purchase history to suggest relevant products, directly increasing revenue through personalized shopping experiences.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711066-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To analyze browsing and purchase history and suggest relevant products through recommendation engines",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To automate the physical movement of goods in warehouse distribution centers",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To comply with consumer privacy regulations by anonymizing customer data",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To eliminate the need for human customer service representatives",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_013",
+      "Type": "MC",
+      "Title": "Analytics in financial fraud detection",
+      "QuestionText": "How do credit card companies use analytics for fraud detection according to the module?",
+      "Hint": "Consider the speed at which decisions must be made in this context.",
+      "Feedback": "Credit card companies process millions of transactions per day and use machine learning models to flag anomalies within milliseconds, blocking suspicious charges before they are completed.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711069-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "They use machine learning models to flag transaction anomalies within milliseconds and block suspicious charges",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They manually review all transactions above a set dollar threshold for suspicious activity",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They rely on customers to self-report fraudulent charges through mobile banking apps",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "They use descriptive dashboards to summarize monthly fraud trends for compliance teams",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_014",
+      "Type": "MC",
+      "Title": "Predictive maintenance in manufacturing",
+      "QuestionText": "Which analytics application in manufacturing is highlighted in the module as a leading use case?",
+      "Hint": "This use case shifts organizations from reacting to problems to anticipating them.",
+      "Feedback": "Predictive maintenance is a leading manufacturing use case, where sensor data from machinery is analyzed to predict failures before they occur, dramatically reducing costly unplanned downtime.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711072-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Predictive maintenance using sensor data to forecast equipment failures before they occur",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Descriptive reporting of monthly production output and defect counts",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Automated invoicing systems that reduce accounts payable processing time",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Real-time currency exchange monitoring for international procurement teams",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_015",
+      "Type": "MC",
+      "Title": "Walmart demand forecasting case study",
+      "QuestionText": "The module\u0027s case study about Walmart illustrates which type of analytics capability?",
+      "Hint": "Walmart anticipated what customers would need before a specific event occurred.",
+      "Feedback": "Walmart used predictive analytics to anticipate demand surges before major weather events, ensuring shelves were stocked with high-demand items like bottled water and flashlights.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711077-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Predictive analytics to forecast demand surges before major weather events",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Descriptive analytics to summarize post-event sales performance",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Prescriptive analytics to optimize employee scheduling during storms",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Diagnostic analytics to investigate why certain products sold out unexpectedly",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_016",
+      "Type": "MC",
+      "Title": "Moneyball case study analytics type",
+      "QuestionText": "The Oakland Athletics \u0027Moneyball\u0027 case study described in the module best illustrates which application of analytics?",
+      "Hint": "Think about how a team with limited financial resources competed against wealthier franchises.",
+      "Feedback": "The Moneyball story demonstrates how the Oakland Athletics used statistical analysis to identify undervalued players, connecting sports performance analytics to competitive decision-making under budget constraints.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711081-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Using statistical analysis to identify undervalued players and compete against wealthier franchises",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Building real-time dashboards to display live game statistics for broadcast audiences",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Applying prescriptive analytics to dynamically price stadium ticket sales",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Using diagnostic analytics to investigate the root cause of a losing season",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_017",
+      "Type": "MC",
+      "Title": "Healthcare sepsis prediction application",
+      "QuestionText": "According to the module\u0027s case studies, how have hospitals applied predictive analytics to sepsis?",
+      "Hint": "Consider the timing advantage that analytics provides in clinical settings.",
+      "Feedback": "Hospitals have used predictive models to flag patients at high risk for sepsis hours before clinical symptoms fully develop, enabling earlier intervention and reducing mortality rates.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711088-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To flag high-risk patients hours before clinical symptoms fully develop, enabling earlier intervention",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To summarize monthly sepsis case rates across hospital units for administrative reporting",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To diagnose sepsis in real time using imaging data at the point of care",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To prescribe specific antibiotic treatments automatically without physician review",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_018",
+      "Type": "MC",
+      "Title": "Analytics transferability across industries",
+      "QuestionText": "Why does the module suggest that data analytics skills are highly transferable across industries?",
+      "Hint": "Think about what stays consistent even when business questions differ.",
+      "Feedback": "While business questions differ by industry, the underlying analytical approach and lifecycle are consistent across domains, making analytics skills applicable whether working in retail, finance, healthcare, or manufacturing.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711092-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Because the underlying analytical approach and lifecycle are consistent across industries even though business questions differ",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because every industry uses identical data formats and database systems",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because government regulations require all industries to use the same analytics software",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Because data analysts focus only on statistical methods that do not require domain knowledge",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_019",
+      "Type": "MC",
+      "Title": "Marketing attribution modeling purpose",
+      "QuestionText": "According to the module, what is the purpose of attribution modeling in marketing analytics?",
+      "Hint": "Think about understanding the customer journey before a purchase is made.",
+      "Feedback": "Attribution modeling helps marketers determine which touchpoints in a customer\u0027s journey most directly contributed to a conversion, informing smarter budget allocation decisions.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711095-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "To determine which touchpoints in a customer\u0027s journey most directly contributed to a conversion",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To automate the creation of social media posts based on customer demographics",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To summarize total marketing spend across all channels at the end of each quarter",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "To predict which customers will unsubscribe from email marketing campaigns",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    },
+    {
+      "Id": "TEMP_020",
+      "Type": "MC",
+      "Title": "CRISP-DM Deployment phase description",
+      "QuestionText": "According to the module, which of the following best describes the Deployment phase of CRISP-DM?",
+      "Hint": "Consider the range of ways analytics results can be made available to stakeholders.",
+      "Feedback": "Deployment integrates validated models or analytic findings into business processes so stakeholders can act on results. This can range from a simple report to a fully automated model embedded in a production system scoring new data in real time.",
+      "TopicTitle": "What is Data Analytics?",
+      "ModuleStudentOutcomeIds": [],
+      "GeneratedDate": "2026-07-03T14:17:02.4711097-04:00",
+      "Options": [
+        {
+          "Weight": 100,
+          "Text": "Integrating validated findings into business processes so stakeholders can act, ranging from reports to automated real-time scoring systems",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Selecting the most appropriate modeling technique and calibrating its parameters for optimal performance",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Collecting initial data samples and exploring their characteristics to identify quality issues",
+          "OptionFeedback": ""
+        },
+        {
+          "Weight": 0,
+          "Text": "Defining project objectives and business requirements before any data work begins",
+          "OptionFeedback": ""
+        }
+      ],
+      "TrueWeight": 0,
+      "FalseWeight": 0,
+      "TypeDisplayName": "Multiple Choice",
+      "TypeBadge": "MC"
+    }
+  ]
+}

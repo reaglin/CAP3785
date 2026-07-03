@@ -1,0 +1,1229 @@
+{
+  "ModuleFolderName": "Advanced_Data_Visualization",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:56:35.5205868-04:00",
+  "ModifiedDate": "2026-07-03T11:59:29.1005896-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "e3057448-b802-482d-b673-baa542e8db96",
+      "Title": "Introduction to Matplotlib and Seaborn",
+      "Summary": "An overview of the two primary Python visualization libraries, their relationship to one another, and how to set up your environment for creating advanced plots.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "ModifiedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "Elements": [
+        {
+          "Id": "59adb5bd-0678-420b-9efe-b327dcf2eadf",
+          "TopicId": "e3057448-b802-482d-b673-baa542e8db96",
+          "Title": "What is Matplotlib?",
+          "BodyText": "Matplotlib is the foundational Python library for creating static, animated, and interactive visualizations, and serves as the backbone of most Python plotting ecosystems.",
+          "Notes": "Originally modeled after MATLAB\u0027s plotting interface, Matplotlib gives developers fine-grained control over every aspect of a figure, from axis ticks to color gradients.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "ModifiedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "Items": [
+            {
+              "Id": "0a8fd7f1-28f5-40c3-8bad-aa51619b11a5",
+              "Text": "Matplotlib provides a low-level, highly customizable API for building virtually any chart type from scratch.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7104379d-989a-4551-9ea4-b8cdaa079d28",
+              "Text": "Its pyplot module offers a MATLAB-style interface that simplifies common plotting tasks with minimal code.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8b86c405-2830-4618-86d8-9d7436da3afd",
+              "Text": "Figures in Matplotlib are composed of a hierarchy of objects: Figure, Axes, and Artist layers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8f53e075-81d1-40b3-922a-a47eb9034ac8",
+              "Text": "Because of its granular control, Matplotlib is the go-to choice when precise customization is required for publication-quality output.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b704b4cb-2005-44da-b6dc-e5078b8f4d36",
+          "TopicId": "e3057448-b802-482d-b673-baa542e8db96",
+          "Title": "What is Seaborn?",
+          "BodyText": "Seaborn is a high-level Python visualization library built on top of Matplotlib that provides a simpler interface for creating statistically informative and aesthetically polished plots.",
+          "Notes": "Seaborn is especially popular in data science workflows because it integrates directly with pandas DataFrames and automatically handles many formatting details.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "ModifiedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "Items": [
+            {
+              "Id": "463a3b0c-98a4-4fbd-b8c4-7a490a5ac9e6",
+              "Text": "Seaborn abstracts away much of Matplotlib\u0027s complexity, enabling complex chart types like heatmaps and pair plots with just a few lines of code.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "44388082-ab6c-4300-be57-c27d0647c225",
+              "Text": "It includes built-in themes and color palettes designed to improve the visual appeal of plots by default.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "374b307d-dc76-4e0b-9adf-18ccc9fa4597",
+              "Text": "Seaborn\u0027s functions are optimized for visualizing statistical relationships, distributions, and categorical data patterns.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "901deeb6-f954-45ef-b46c-150061b93565",
+              "Text": "Despite its higher-level interface, any Seaborn plot can be further customized using underlying Matplotlib commands.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3dfc4ad9-1193-49b3-94bf-d9dc839b60a4",
+          "TopicId": "e3057448-b802-482d-b673-baa542e8db96",
+          "Title": "The Relationship Between Matplotlib and Seaborn",
+          "BodyText": "Seaborn is not a replacement for Matplotlib but rather a complement to it, extending its capabilities while relying on it for rendering.",
+          "Notes": "Understanding this relationship helps developers know when to use each library\u0027s API \u2014 Seaborn for rapid, statistically-oriented plots, and Matplotlib for fine-tuned adjustments.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "ModifiedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "Items": [
+            {
+              "Id": "b73cbade-5aca-4058-a643-4dc3794902fe",
+              "Text": "Every Seaborn plot is ultimately rendered by Matplotlib, meaning both libraries can be used together in the same script.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9d04f243-d1ef-4ed3-84dd-f8edba7d28d0",
+              "Text": "You can call Matplotlib functions after a Seaborn plot to adjust titles, labels, tick marks, and layout details.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e8075d09-10ac-495e-a0e1-f0a776698019",
+              "Text": "Importing Seaborn automatically applies its default theme to all subsequent Matplotlib plots in the session.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5b3e29e5-af69-4d63-ac14-dc3fc4428287",
+              "Text": "This layered architecture allows you to leverage Seaborn\u0027s concise syntax while retaining full Matplotlib flexibility.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2eac68a4-240c-425f-8037-0fcf0b233c03",
+          "TopicId": "e3057448-b802-482d-b673-baa542e8db96",
+          "Title": "Setting Up Your Environment",
+          "BodyText": "Before creating advanced visualizations, you need to install and import both libraries along with their common dependencies in your Python environment.",
+          "Notes": "Using a virtual environment or conda environment is recommended to avoid dependency conflicts, especially when working with Jupyter Notebooks.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "ModifiedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "Items": [
+            {
+              "Id": "da8c65dd-7c51-4a02-8f58-81e1fdda688b",
+              "Text": "Install Matplotlib and Seaborn using pip with the commands \u0027pip install matplotlib\u0027 and \u0027pip install seaborn\u0027, or via conda for Anaconda users.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e9774a8d-7665-4f81-bf27-c4808de560e7",
+              "Text": "NumPy and pandas are essential companion libraries and should also be installed, as most visualization workflows depend on them for data manipulation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1bf36f73-0961-4bca-9cc6-d278d58c9df4",
+              "Text": "Standard imports at the top of a script are: \u0027import matplotlib.pyplot as plt\u0027, \u0027import seaborn as sns\u0027, \u0027import pandas as pd\u0027, and \u0027import numpy as np\u0027.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "86ad80e1-4f49-4949-8cae-aa9f17ad48a0",
+              "Text": "In Jupyter Notebooks, use the magic command \u0027%matplotlib inline\u0027 to render plots directly within the notebook output cells.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "49c5fca0-d41f-4e74-84c4-cdb5073e5853",
+          "TopicId": "e3057448-b802-482d-b673-baa542e8db96",
+          "Title": "Configuring Plot Styles and Themes",
+          "BodyText": "Both Matplotlib and Seaborn offer style configuration options that control the default appearance of all plots in a session, enabling consistent visual branding.",
+          "Notes": "Choosing an appropriate style early in your workflow saves significant formatting time and ensures visual consistency across all figures in a project.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "ModifiedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "Items": [
+            {
+              "Id": "66d8286b-4b31-4c22-a7a3-68a4fac2c2ff",
+              "Text": "Seaborn provides built-in themes \u2014 darkgrid, whitegrid, dark, white, and ticks \u2014 applied with \u0027sns.set_theme(style=\u0022whitegrid\u0022)\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "717e6466-0358-4131-a8da-000d765c3ea2",
+              "Text": "Matplotlib\u0027s style sheets, accessed via \u0027plt.style.use()\u0027, offer alternatives like \u0027ggplot\u0027, \u0027seaborn\u0027, and \u0027fivethirtyeight\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "673f46c4-d15e-494a-b87e-8a5376b00484",
+              "Text": "Color palettes in Seaborn can be set globally with \u0027sns.set_palette()\u0027 to maintain consistent color schemes across all figures.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "12c03cec-316b-4bcb-b64b-c52eeb4a145b",
+              "Text": "Font sizes, figure dimensions, and DPI can be configured in Matplotlib using \u0027plt.rcParams\u0027 for fine control over output quality.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "baed5687-268e-4594-8b97-2f5d01060b78",
+          "TopicId": "e3057448-b802-482d-b673-baa542e8db96",
+          "Title": "Understanding the Figure and Axes Structure",
+          "BodyText": "Matplotlib organizes plots around a Figure object that contains one or more Axes objects, each representing an individual plot area within the figure.",
+          "Notes": "Grasping this structure early is critical because Seaborn also exposes Figure-level and Axes-level functions that behave differently depending on how they interact with this hierarchy.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "ModifiedDate": "2026-07-03T11:57:02.2357755-04:00",
+          "Items": [
+            {
+              "Id": "fa03a453-9b2d-4804-8a5d-a742a8d10698",
+              "Text": "A Figure is the top-level container for all plot elements, including titles, legends, and one or more Axes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fcd231ab-58d2-47bc-a23c-f591aff31909",
+              "Text": "An Axes object is the actual plot area where data is drawn, and a single Figure can contain a grid of multiple Axes for subplots.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8fd07db8-d5cc-4a9d-81a2-6026d5e24ef0",
+              "Text": "Create a Figure and Axes together using \u0027fig, ax = plt.subplots()\u0027, which is the recommended pattern for most plotting workflows.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3ad61b44-555a-44ff-81b0-7d4069ad376b",
+              "Text": "Seaborn\u0027s Axes-level functions (e.g., sns.histplot) accept an \u0027ax\u0027 parameter, allowing them to be placed within a specific subplot of a larger figure.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "48d7ce65-235d-4436-928a-6033e59a85be",
+      "Title": "Core Chart Types and When to Use Them",
+      "Summary": "Exploration of fundamental visualization forms such as bar charts, line plots, scatter plots, and histograms, with guidance on selecting the right chart type for your data and message.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "ModifiedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "Elements": [
+        {
+          "Id": "066f0451-f831-4444-9ce6-a86a24651c8c",
+          "TopicId": "48d7ce65-235d-4436-928a-6033e59a85be",
+          "Title": "Bar Charts for Categorical Comparisons",
+          "BodyText": "Bar charts are the go-to visualization for comparing discrete categories or groups, making differences in magnitude immediately apparent.",
+          "Notes": "Use vertical bars when category labels are short; switch to horizontal bars when labels are long or when there are many categories. In Matplotlib, use plt.bar() or plt.barh(); in Seaborn, use sns.barplot().",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:57:27.836479-04:00",
+          "ModifiedDate": "2026-07-03T11:57:27.836479-04:00",
+          "Items": [
+            {
+              "Id": "57b56c80-4f5e-4440-acf9-59bfd021ce7e",
+              "Text": "Best suited for comparing a single metric across distinct, non-continuous categories such as sales by region or counts by product type.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d130a18f-d6c1-43e8-9cac-3341c801271b",
+              "Text": "Grouped bar charts allow side-by-side comparison of multiple sub-categories, while stacked bars show part-to-whole relationships.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1d99ebf4-dd4e-47de-b6e5-a66a39d7071d",
+              "Text": "Avoid using bar charts for continuous data or when the number of categories exceeds roughly 15, as readability degrades.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "20d35edf-2d35-4bdd-a2c3-1e596c88f413",
+              "Text": "Always start the y-axis at zero to prevent visually misleading magnitude differences between bars.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "64a6ea8d-f639-4eb1-afdd-73c360d3fbd7",
+          "TopicId": "48d7ce65-235d-4436-928a-6033e59a85be",
+          "Title": "Line Plots for Trends Over Time",
+          "BodyText": "Line plots connect sequential data points with a continuous line, making them ideal for displaying trends, patterns, and changes across an ordered dimension such as time.",
+          "Notes": "Matplotlib\u0027s plt.plot() and Seaborn\u0027s sns.lineplot() both support multiple lines on a single axes, enabling comparison of trends across groups. Confidence intervals can be added automatically with sns.lineplot() when data has repeated measurements.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:57:27.836479-04:00",
+          "ModifiedDate": "2026-07-03T11:57:27.836479-04:00",
+          "Items": [
+            {
+              "Id": "13781f8e-a56d-4a1a-9f3d-287afc76e642",
+              "Text": "Use line plots when the x-axis represents an ordered, continuous variable \u2014 most commonly dates, times, or sequential measurements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "287ce7b5-9611-44fa-a4de-16f9b7ab373b",
+              "Text": "Multiple lines on the same plot allow comparison of trends across different groups, but limit lines to five or fewer to avoid clutter.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "01c2999b-b996-48b0-8989-33c39b187714",
+              "Text": "Markers at data points (e.g., circles or squares) help when the underlying data is sparse or irregularly spaced.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d7a8aaf7-cb74-4e26-acf5-f635f0e5bfac",
+              "Text": "Avoid line plots for unordered categorical data, as the implied continuity between points would be misleading.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "569c7609-27fc-4144-8fc8-c224a4cb0b68",
+          "TopicId": "48d7ce65-235d-4436-928a-6033e59a85be",
+          "Title": "Scatter Plots for Relationships Between Variables",
+          "BodyText": "Scatter plots display individual data points along two numeric axes, making them the primary tool for exploring correlations and distributions between two continuous variables.",
+          "Notes": "In Seaborn, sns.scatterplot() supports encoding additional dimensions through hue, size, and style parameters, effectively turning a 2D plot into a 4D or 5D visualization. Overplotting on large datasets can be addressed with alpha transparency or by switching to a hexbin plot.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:57:27.836479-04:00",
+          "ModifiedDate": "2026-07-03T11:57:27.836479-04:00",
+          "Items": [
+            {
+              "Id": "91d0673a-d1cd-4597-a731-4076bba2e860",
+              "Text": "Use scatter plots to investigate whether a relationship or correlation exists between two quantitative variables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f83ae43f-0dc7-4280-bf35-b8fd7b51197b",
+              "Text": "Color (hue) and marker size can encode a third and fourth variable, adding analytical depth without requiring additional subplots.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "888d1ddf-7d69-485e-87c7-a3e19178756b",
+              "Text": "A trend line or regression line overlaid on a scatter plot (e.g., via sns.regplot()) helps communicate the direction and strength of a relationship.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3083d7a9-5b4f-425c-bd27-99eedc1429b0",
+              "Text": "When dealing with thousands of data points, consider reducing marker size, adding transparency, or using a 2D density plot to handle overplotting.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "97c2c47c-9bb8-460c-87b5-f1ff45290621",
+          "TopicId": "48d7ce65-235d-4436-928a-6033e59a85be",
+          "Title": "Histograms for Distributions of Single Variables",
+          "BodyText": "Histograms aggregate continuous data into bins and display the frequency or density of observations within each bin, revealing the underlying distribution of a single variable.",
+          "Notes": "Seaborn\u0027s sns.histplot() and sns.displot() can overlay a kernel density estimate (KDE) curve to smooth the distribution shape. Bin width selection is critical: too few bins obscure detail, while too many bins introduce noise.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:57:27.836479-04:00",
+          "ModifiedDate": "2026-07-03T11:57:27.836479-04:00",
+          "Items": [
+            {
+              "Id": "033febcc-161e-4ee5-b3c0-32b2b32524ed",
+              "Text": "Use histograms to understand the shape of a dataset \u2014 whether it is normal, skewed, bimodal, or contains outliers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "790eb2be-f0d4-467e-9201-829c9992f1c9",
+              "Text": "The choice of bin count significantly affects interpretation; experiment with different bin sizes or use automatic bin-selection rules such as Sturges\u0027 or Freedman-Diaconis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b0a6a831-a97e-4967-ae76-796e4c840db6",
+              "Text": "Overlapping histograms with transparency allow comparison of distributions across two or three groups on the same axes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8be51007-0046-42c1-abbc-a1413eefca13",
+              "Text": "For comparing distributions across many groups, consider replacing the histogram with a box plot or violin plot to keep the visualization compact.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a279fb4c-79f5-409a-84d3-feefc5945fce",
+          "TopicId": "48d7ce65-235d-4436-928a-6033e59a85be",
+          "Title": "Selecting the Right Chart Type for Your Data and Message",
+          "BodyText": "Choosing the appropriate chart type requires matching the nature of your data \u2014 categorical, continuous, temporal, or relational \u2014 with the analytical question you are trying to answer.",
+          "Notes": "A common decision framework: comparison \u2192 bar chart; trend over time \u2192 line plot; relationship between variables \u2192 scatter plot; distribution \u2192 histogram or box plot; part-to-whole \u2192 stacked bar or pie chart. Always ask what insight you want the audience to take away before picking a chart.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:57:27.836479-04:00",
+          "ModifiedDate": "2026-07-03T11:57:27.836479-04:00",
+          "Items": [
+            {
+              "Id": "166d5a51-e344-48f1-8315-3fa0a513d20c",
+              "Text": "Identify your primary variable types first: categorical variables call for bar or box plots, while continuous variables call for scatter plots or histograms.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0697e5d8-7b82-4af8-a098-542427968541",
+              "Text": "Consider your audience and message \u2014 a simple bar chart communicates faster to a general audience than a multi-dimensional scatter plot.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e6e1e22f-a4e0-4009-88b4-f56a08b67dd4",
+              "Text": "Avoid using a chart type simply because it looks visually impressive; complexity that does not add insight reduces clarity and trust.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cc4e0c1d-240d-458b-b049-31577f17235a",
+              "Text": "When in doubt, create two or three candidate chart types and evaluate which most clearly and honestly represents the data story.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "55333dc3-a6a1-449a-aba2-f34a737e14f1",
+              "Text": "Combining chart types \u2014 such as a scatter plot with a marginal histogram \u2014 can provide both relational and distributional context simultaneously.",
+              "SortOrder": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "db204b61-5c83-49fc-9b5a-b5cbbce13feb",
+      "Title": "Advanced Visualizations: Heatmaps and Pair Plots",
+      "Summary": "Deep dive into constructing heatmaps for correlation analysis and pair plots for multivariate relationship exploration using Seaborn\u0027s high-level interface.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "ModifiedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "Elements": [
+        {
+          "Id": "69cad9c9-b415-443c-b96e-c24819a3dcfc",
+          "TopicId": "db204b61-5c83-49fc-9b5a-b5cbbce13feb",
+          "Title": "Introduction to Heatmaps in Seaborn",
+          "BodyText": "Heatmaps are grid-based visualizations that encode numerical values as colors, making them ideal for displaying correlation matrices and other tabular data patterns.",
+          "Notes": "Seaborn\u0027s \u0060sns.heatmap()\u0060 function accepts a 2D dataset such as a Pandas DataFrame or NumPy array and maps values to a color gradient automatically.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "ModifiedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "Items": [
+            {
+              "Id": "6acbdc94-67df-4bff-a05e-fe3a1de4f036",
+              "Text": "Use \u0060sns.heatmap(data)\u0060 as the primary entry point, where \u0060data\u0060 is typically a correlation matrix computed with \u0060df.corr()\u0060.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "175995e2-6133-44d4-a429-59e958e60b85",
+              "Text": "The \u0060cmap\u0060 parameter controls the color palette; diverging palettes like \u0060\u0027coolwarm\u0027\u0060 or \u0060\u0027RdBu\u0027\u0060 are recommended for correlation data to distinguish positive and negative values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1d6ffd38-ac42-45f3-a7e7-bf8f16d5ffa1",
+              "Text": "The \u0060vmin\u0060 and \u0060vmax\u0060 parameters set the color scale bounds, ensuring consistent interpretation across multiple heatmaps.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0dfc49ca-60a1-4483-a69c-e6b542e11868",
+              "Text": "Setting \u0060center=0\u0060 anchors the midpoint color to zero, which is critical when visualizing correlations that range from -1 to 1.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4f7ac467-caa4-401e-a374-fa1646c45212",
+          "TopicId": "db204b61-5c83-49fc-9b5a-b5cbbce13feb",
+          "Title": "Annotating and Customizing Heatmaps",
+          "BodyText": "Annotations and fine-grained styling transform a basic heatmap into a publication-quality figure that communicates correlation strength at a glance.",
+          "Notes": "For large matrices, annotations can become cluttered; consider reducing font size with \u0060annot_kws={\u0027size\u0027: 8}\u0060 or masking the upper triangle for symmetric matrices.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "ModifiedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "Items": [
+            {
+              "Id": "59715e6c-52aa-4c89-94ce-80c56e4240c6",
+              "Text": "Pass \u0060annot=True\u0060 to display the numeric value inside each cell, and use \u0060fmt=\u0027.2f\u0027\u0060 to control decimal precision.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aeaad89c-4ffa-45b2-9be8-e5ea1e615d57",
+              "Text": "The \u0060mask\u0060 parameter accepts a Boolean array, allowing you to hide redundant cells \u2014 for example, the upper triangle of a symmetric correlation matrix using \u0060np.triu(np.ones_like(corr, dtype=bool))\u0060.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f7bad57-a3e3-4a2b-81f2-33bf74ecc4f5",
+              "Text": "Use \u0060linewidths\u0060 and \u0060linecolor\u0060 to add grid lines between cells, improving readability for dense matrices.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f0b8cc92-eb93-47f0-81a9-56ff6b244d43",
+              "Text": "The \u0060square=True\u0060 argument forces each cell to be square-shaped, producing a cleaner, more symmetric layout.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "082b479d-85fd-4bdd-ae5d-b497cf6a3c35",
+          "TopicId": "db204b61-5c83-49fc-9b5a-b5cbbce13feb",
+          "Title": "Interpreting Correlation Heatmaps",
+          "BodyText": "Reading a correlation heatmap correctly is as important as constructing one; understanding color intensity and direction enables sound analytical conclusions.",
+          "Notes": "Correlation does not imply causation \u2014 heatmaps reveal linear relationships only, so non-linear dependencies may be missed without supplementary analysis.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "ModifiedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "Items": [
+            {
+              "Id": "3d23a812-06be-4909-ab29-c6c2708e73dc",
+              "Text": "Values near \u002B1 (dark warm colors) indicate a strong positive linear relationship, while values near -1 (dark cool colors) indicate a strong inverse relationship.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "617971c3-a011-4cd2-8aab-6c473e4ede41",
+              "Text": "Values near 0 indicate little to no linear correlation between the two variables, appearing as neutral or pale colors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bb394e27-76b9-43a1-82ed-92e917b508a5",
+              "Text": "The diagonal of a self-correlation matrix always equals 1.0 and should be visually distinguished or masked to avoid misinterpretation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "de63a24d-2338-4f92-9729-a882868c1f1f",
+              "Text": "Clusters of highly correlated variables visible in the heatmap can suggest multicollinearity, which is important to address before building regression models.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a8ebc032-9b8a-4ac9-96c9-be35ef7add1f",
+          "TopicId": "db204b61-5c83-49fc-9b5a-b5cbbce13feb",
+          "Title": "Building Pair Plots with Seaborn",
+          "BodyText": "Pair plots create a grid of scatter plots for every combination of numeric variables in a dataset, providing a comprehensive overview of multivariate relationships in a single figure.",
+          "Notes": "Pair plots can be computationally expensive for datasets with many features; consider subsetting to the most relevant columns before calling \u0060sns.pairplot()\u0060.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "ModifiedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "Items": [
+            {
+              "Id": "39e4a079-b9f9-4d94-a380-8ac07eae152a",
+              "Text": "Call \u0060sns.pairplot(df)\u0060 to generate a full grid where off-diagonal cells show scatter plots and diagonal cells show univariate distributions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dfe3579f-9eed-44e6-8fce-3a9c3b2c5d8f",
+              "Text": "The \u0060hue\u0060 parameter maps a categorical variable to color, enabling visual separation of groups across all subplots simultaneously.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2719b632-4a7a-4981-9189-16b8ecba5393",
+              "Text": "Use \u0060diag_kind=\u0027kde\u0027\u0060 to replace the default histogram on the diagonal with a kernel density estimate for smoother distribution visualization.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "065ea079-abf0-4aa8-88bb-2bc79dacb829",
+              "Text": "The \u0060vars\u0060 parameter accepts a list of column names to restrict the plot to a specific subset of variables, reducing visual clutter.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "92c1b9f7-7401-4ad8-b122-8ca05e907c29",
+          "TopicId": "db204b61-5c83-49fc-9b5a-b5cbbce13feb",
+          "Title": "Customizing Pair Plot Aesthetics and Plot Kinds",
+          "BodyText": "Seaborn\u0027s \u0060pairplot\u0060 offers several parameters to control the type of plot used in each cell and the overall visual style of the grid.",
+          "Notes": "Combining \u0060kind=\u0027reg\u0027\u0060 with \u0060diag_kind=\u0027kde\u0027\u0060 is a common professional configuration that simultaneously reveals trends, distributions, and group separability.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "ModifiedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "Items": [
+            {
+              "Id": "4c6147e9-0fbf-4432-af7a-82579f12af06",
+              "Text": "Set \u0060kind=\u0027reg\u0027\u0060 to overlay a linear regression line with confidence interval on each off-diagonal scatter plot, highlighting linear trends.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "da57ab49-2f82-4300-90b7-e5ead1a21f55",
+              "Text": "Use \u0060kind=\u0027kde\u0027\u0060 to replace scatter plots with bivariate kernel density contour plots, which are more informative for large, overlapping datasets.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "992712ad-6c6c-4395-b969-5d3d14a10c74",
+              "Text": "The \u0060plot_kws\u0060 and \u0060diag_kws\u0060 dictionaries allow you to pass additional keyword arguments directly to the underlying plot functions for fine-grained control.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "59210916-12c4-40dd-bcfc-bbeffca0a1f2",
+              "Text": "Pair plots return a \u0060PairGrid\u0060 object, which can be further modified by accessing individual axes via \u0060.axes\u0060 for targeted annotation or styling.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "63372d2d-c43d-402e-ad73-7c975daaa681",
+          "TopicId": "db204b61-5c83-49fc-9b5a-b5cbbce13feb",
+          "Title": "Combining Heatmaps and Pair Plots for Exploratory Analysis",
+          "BodyText": "Using heatmaps and pair plots together creates a powerful exploratory workflow: heatmaps surface high-level correlation patterns while pair plots expose the detailed shape of those relationships.",
+          "Notes": "A recommended workflow is to first generate a correlation heatmap to identify variable pairs of interest, then use a targeted pair plot restricted to those variables for deeper inspection.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "ModifiedDate": "2026-07-03T11:57:58.3472077-04:00",
+          "Items": [
+            {
+              "Id": "ecc6e516-07f8-49e4-9dad-54f11a312c8f",
+              "Text": "Heatmaps efficiently summarize all pairwise correlations in a single view, serving as a screening tool to prioritize which relationships deserve further investigation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "814b7924-e15a-49c2-a7d7-80c7ff199b8f",
+              "Text": "Pair plots validate and enrich heatmap findings by revealing non-linearity, outliers, and group-level differences that correlation coefficients alone cannot capture.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8016b446-4145-4eae-8f26-e501fa831e7c",
+              "Text": "Saving both figures with \u0060plt.savefig(\u0027figure.png\u0027, dpi=300, bbox_inches=\u0027tight\u0027)\u0060 ensures publication-ready resolution for reports and presentations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f11ec18e-242a-4d94-b7e3-09d79e2a6644",
+              "Text": "Consistent use of the same \u0060hue\u0060 variable across both plot types maintains a coherent visual narrative when presenting findings to stakeholders.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+      "Title": "Customization and Publication-Quality Styling",
+      "Summary": "Techniques for fine-tuning figure aesthetics including themes, color palettes, fonts, annotations, and layout adjustments to produce polished, professional outputs.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "ModifiedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "Elements": [
+        {
+          "Id": "047cee76-657c-4652-8d5f-95debffccde6",
+          "TopicId": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+          "Title": "Applying Themes and Style Sheets",
+          "BodyText": "Matplotlib and Seaborn both provide built-in themes and style sheets that instantly transform the default appearance of figures into cleaner, more professional outputs.",
+          "Notes": "Common choices include Matplotlib\u0027s \u0027ggplot\u0027, \u0027seaborn-v0_8-whitegrid\u0027, and \u0027bmh\u0027 styles, as well as Seaborn\u0027s set_theme() with contexts like \u0027paper\u0027, \u0027talk\u0027, or \u0027poster\u0027 to scale elements appropriately for different output formats.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "ModifiedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "Items": [
+            {
+              "Id": "d69c33c7-7220-44f0-b82d-9d3cd4672ab7",
+              "Text": "Use plt.style.use(\u0027style_name\u0027) to apply a Matplotlib style sheet globally before plotting.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "30c13f90-72b7-4e4c-b3d6-e3e12e9622c4",
+              "Text": "Use sns.set_theme(style=\u0027whitegrid\u0027, context=\u0027paper\u0027) to configure Seaborn\u0027s visual defaults including grid style and element scaling.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f7dbcc3-88d8-4809-8aa5-9e83698f6c97",
+              "Text": "Styles can be temporarily applied using the \u0027with plt.style.context()\u0027 context manager to avoid affecting other plots.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f7e0907d-cb4b-4e6e-92e3-fbfc3e96f9b5",
+              "Text": "Custom style sheets can be created as .mplstyle files and loaded by name for consistent branding across a project.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1c96d719-3de4-4087-b542-962b59d4ad0f",
+          "TopicId": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+          "Title": "Selecting and Managing Color Palettes",
+          "BodyText": "Thoughtful color selection is critical for clarity, accessibility, and visual appeal in publication-quality figures.",
+          "Notes": "Seaborn\u0027s color_palette() function supports named palettes such as \u0027viridis\u0027, \u0027coolwarm\u0027, and \u0027Set2\u0027, as well as custom hex-code lists. For accessibility, colorblind-friendly palettes like \u0027colorblind\u0027 or \u0027cividis\u0027 should be preferred.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "ModifiedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "Items": [
+            {
+              "Id": "a3f71883-2df5-4a3f-bbda-dc1273f7cfbb",
+              "Text": "Use sns.color_palette() to retrieve and preview palettes, and sns.set_palette() to apply them globally.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e00fa076-f0c6-4105-b8a1-b9b82edecfe2",
+              "Text": "Sequential palettes (e.g., \u0027Blues\u0027) are best for ordered data, while diverging palettes (e.g., \u0027RdBu\u0027) suit data with a meaningful midpoint.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eda0377c-047d-41a4-81e6-f969e6290d2d",
+              "Text": "Qualitative palettes (e.g., \u0027Set2\u0027) are appropriate for categorical variables where no ordering is implied.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "08374dc1-3831-4470-b204-ffe9e5b1680a",
+              "Text": "Always verify that chosen colors remain distinguishable when printed in grayscale or viewed by colorblind readers.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "24c04231-d156-426a-b2e5-9c49ebbbbf58",
+          "TopicId": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+          "Title": "Customizing Fonts and Text Elements",
+          "BodyText": "Controlling font families, sizes, and weights for titles, axis labels, tick marks, and legends ensures figures meet the typographic standards of journals or presentations.",
+          "Notes": "Matplotlib\u0027s rcParams dictionary is the central mechanism for global font configuration, while individual text elements can be overridden with keyword arguments in functions like set_title() or set_xlabel().",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "ModifiedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "Items": [
+            {
+              "Id": "33bedc35-5ab8-4f2f-909f-de070521d14d",
+              "Text": "Set global font properties using plt.rcParams[\u0027font.family\u0027] and plt.rcParams[\u0027font.size\u0027] before creating figures.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5824f9cd-7060-4308-9358-a30707d1c489",
+              "Text": "Override fonts for specific text elements using the fontsize, fontweight, and fontfamily keyword arguments.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f9ded729-21a5-441c-b69e-93fc9ee87cc7",
+              "Text": "Use LaTeX rendering (plt.rcParams[\u0027text.usetex\u0027] = True) for mathematical notation in axis labels and titles.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "85fcb7fd-380a-4040-ab5f-b6c6a556a365",
+              "Text": "Ensure font sizes are large enough to remain legible after figure resizing or reduction to column width in publication.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5e1c036f-afed-48ea-8e34-1bace314bd1f",
+          "TopicId": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+          "Title": "Adding Annotations and Reference Lines",
+          "BodyText": "Annotations highlight key data points, trends, or thresholds directly on the figure, guiding the reader\u0027s interpretation without requiring them to consult separate text.",
+          "Notes": "Matplotlib provides ax.annotate() for arrow-based callouts, ax.text() for free-form labels, and ax.axhline()/ax.axvline() for reference lines. These tools are essential for emphasizing statistical significance markers, outliers, or benchmark values.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "ModifiedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "Items": [
+            {
+              "Id": "25d329c1-bf33-45c3-8f92-74a2f39f3738",
+              "Text": "Use ax.annotate() with the xytext and arrowprops parameters to draw labeled arrows pointing to specific data coordinates.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6b43d999-4b20-4607-81f2-65380e09bf01",
+              "Text": "Use ax.text() to place plain text labels at arbitrary positions using data or axes coordinate systems.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "df817a92-b0d8-4d4e-a5b5-98bd83038d4e",
+              "Text": "Add horizontal or vertical reference lines with ax.axhline() and ax.axvline() to mark thresholds, means, or targets.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "23fbf229-151b-42fb-aa28-f05f8154ba8c",
+              "Text": "Use ax.axhspan() or ax.axvspan() to shade regions of interest, such as confidence intervals or acceptable ranges.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b4f91448-0ca3-44e1-a71e-081f7e241689",
+          "TopicId": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+          "Title": "Fine-Tuning Layout and Spacing",
+          "BodyText": "Precise control over figure dimensions, subplot spacing, and element alignment prevents overlapping labels and ensures a clean, balanced composition.",
+          "Notes": "plt.tight_layout() is a quick fix for overlapping elements, but plt.subplots_adjust() and the newer constrained_layout=True parameter offer finer control. GridSpec enables complex multi-panel layouts with unequal subplot sizes.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "ModifiedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "Items": [
+            {
+              "Id": "e47a9319-a150-4d7f-bd95-e298c81a0243",
+              "Text": "Set figure size explicitly with plt.figure(figsize=(width, height)) to match the target output dimensions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ee46a769-da3b-49d0-b834-ec07e86d7258",
+              "Text": "Use plt.tight_layout() or pass constrained_layout=True to plt.subplots() to automatically adjust padding between subplots.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "40e873c7-982d-4612-bea6-e0cb87b3dec9",
+              "Text": "Use plt.subplots_adjust(hspace, wspace, left, right, top, bottom) for manual control over subplot spacing.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "be7fa23e-d174-4ba8-a8a0-1cedc683bd5e",
+              "Text": "Use matplotlib.gridspec.GridSpec to create multi-panel figures with subplots of varying sizes and spans.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "faf20fd3-1b94-4426-9223-8cf31efb221c",
+          "TopicId": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+          "Title": "Configuring Legends and Colorbars",
+          "BodyText": "Well-positioned, clearly labeled legends and colorbars are essential for readers to decode a figure\u0027s visual encoding correctly.",
+          "Notes": "Legends can be placed inside or outside the axes using the loc and bbox_to_anchor parameters, while colorbars can be resized and labeled using the shrink, pad, and label parameters of plt.colorbar().",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "ModifiedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "Items": [
+            {
+              "Id": "6d97530c-cc1c-4a9d-844d-151abefc244d",
+              "Text": "Use ax.legend(loc=\u0027best\u0027) for automatic placement, or specify \u0027upper right\u0027, \u0027lower left\u0027, etc., for deliberate positioning.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9e85ef78-ed89-4ea1-97d4-78d351512cbe",
+              "Text": "Move legends outside the plot area with bbox_to_anchor=(1.05, 1) combined with loc=\u0027upper left\u0027 to avoid obscuring data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "237fee82-c5e9-41cb-8560-e9de252ba735",
+              "Text": "Add a colorbar to mappable plots with plt.colorbar(mappable, ax=ax, shrink=0.8, label=\u0027Variable Name\u0027).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "86998cdb-f012-416f-82c9-a5200a0731d1",
+              "Text": "Remove redundant legend entries and use descriptive, concise labels rather than raw variable names to improve clarity.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a74cce49-501c-4dfc-ae62-33f37018d2ca",
+          "TopicId": "79dc0b90-44fe-4a1b-924f-b3d41a9dec2a",
+          "Title": "Exporting Publication-Ready Figures",
+          "BodyText": "Saving figures in the correct format, resolution, and color mode is the final step in producing outputs suitable for journals, reports, or presentations.",
+          "Notes": "Vector formats like SVG and PDF preserve quality at any scale and are preferred for print, while PNG at 300 DPI is a common raster standard for journal submissions. The bbox_inches=\u0027tight\u0027 parameter prevents clipping of axis labels during export.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "ModifiedDate": "2026-07-03T11:58:34.2280842-04:00",
+          "Items": [
+            {
+              "Id": "15d79b0b-f070-425b-ad35-fcccee4704ab",
+              "Text": "Use plt.savefig(\u0027filename.pdf\u0027, dpi=300, bbox_inches=\u0027tight\u0027) to export a high-resolution, tightly cropped figure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6bbc8ccb-578e-455b-8e9f-6d0895898180",
+              "Text": "Choose vector formats (PDF, SVG, EPS) for figures that will be resized or edited after export.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "480a5713-6309-4dc0-bcca-eef84d9770e3",
+              "Text": "Choose raster formats (PNG, TIFF) at 300\u2013600 DPI when submitting to journals that specify raster requirements.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bd1a214f-0b5b-4794-91c8-a8d257d62784",
+              "Text": "Set the transparent=True parameter in savefig() when the figure background must match a non-white document or slide background.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+      "Title": "Storytelling with Data and Visual Best Practices",
+      "Summary": "Principles of effective data communication, including how to guide audience attention, avoid misleading visuals, and structure a narrative around analytical findings.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "ModifiedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "Elements": [
+        {
+          "Id": "f46d3997-3377-45ae-858e-cf510bddfb40",
+          "TopicId": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+          "Title": "The Narrative Arc in Data Storytelling",
+          "BodyText": "Effective data communication is structured like a story, with a clear beginning, middle, and end that guides the audience from context to insight to action.",
+          "Notes": "Think of your visualization sequence as answering three questions: What is the situation? What did we find? What should we do about it? This structure keeps audiences engaged and ensures findings are actionable.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "ModifiedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "Items": [
+            {
+              "Id": "28a9679d-0ee2-4100-be60-1247732ba8ce",
+              "Text": "Establish context first by framing the problem or question before presenting any data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "336ab827-5216-4b61-8c54-0f3c646c5d7b",
+              "Text": "Build toward a central insight rather than presenting all findings with equal weight.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ee2c02c9-c5f2-462e-9cf1-8b0c5eeabb8c",
+              "Text": "Close with a clear takeaway or call to action that connects the data to a decision.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "848036ad-62d8-4658-a930-823c7f182991",
+              "Text": "Avoid \u0027data dumps\u0027 where all charts are presented without a connecting narrative thread.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3625690a-c332-451a-901e-9a72bc63e4a3",
+          "TopicId": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+          "Title": "Guiding Audience Attention with Visual Hierarchy",
+          "BodyText": "Visual hierarchy uses design elements such as color, size, contrast, and position to direct the viewer\u0027s eye to the most important information first.",
+          "Notes": "In Matplotlib and Seaborn, you can implement hierarchy by using bold colors for key data points while graying out supporting context, or by scaling font sizes so titles and annotations stand out from axis labels.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "ModifiedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "Items": [
+            {
+              "Id": "f1fa8326-8790-4769-bb3a-dadb7ae47b26",
+              "Text": "Use a single accent color to highlight the critical data series or bar while keeping all other elements in neutral tones.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ee1c94a4-5589-4e67-8b67-b3c1b559a039",
+              "Text": "Position the most important chart in the top-left of a dashboard layout, where Western readers naturally look first.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2d08199d-fe22-4b48-b189-a46db4068e02",
+              "Text": "Increase the size or weight of annotations and labels tied to key findings relative to surrounding text.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6d45be4b-b3ba-479d-809e-275c117937f8",
+              "Text": "Apply whitespace deliberately to isolate focal elements and reduce visual competition.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "aa8f170c-5825-4a57-ab2b-273b029ac496",
+          "TopicId": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+          "Title": "Choosing the Right Chart for Your Message",
+          "BodyText": "Every chart type carries an implicit message; selecting the wrong type can obscure insights or mislead audiences even when the underlying data is accurate.",
+          "Notes": "For example, a pie chart is appropriate for showing part-to-whole relationships with few categories, but a bar chart is almost always clearer when comparing values across many groups.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "ModifiedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "Items": [
+            {
+              "Id": "f1bdfbb1-80ba-46cc-9564-76530a35c5e4",
+              "Text": "Use line charts to emphasize trends over time and bar charts to compare discrete categories.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f3fe5dd-ad95-4438-83ff-0deff99b223e",
+              "Text": "Prefer scatter plots or pair plots when exploring relationships between two or more continuous variables.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b98c26b5-4976-4ecc-afc0-c1fc34496769",
+              "Text": "Use heatmaps to reveal patterns across a matrix of values, such as correlation tables or time-by-category breakdowns.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b4751a13-284b-4922-acd0-cd7107356bc6",
+              "Text": "Avoid using 3D charts in most analytical contexts, as perspective distortion makes accurate comparison difficult.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cee73664-0080-434a-b61e-78a301053f5d",
+          "TopicId": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+          "Title": "Avoiding Misleading Visuals",
+          "BodyText": "Common design choices such as truncated axes, inconsistent scales, and cherry-picked time ranges can unintentionally \u2014 or intentionally \u2014 distort the story the data tells.",
+          "Notes": "A classic example is a y-axis that starts at 95 instead of 0, making a 2% difference appear enormous. Always ask whether a design choice serves clarity or exaggerates a result.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "ModifiedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "Items": [
+            {
+              "Id": "74ff8223-5978-47a8-bf90-9da06bcad17a",
+              "Text": "Start y-axes at zero for bar charts to preserve accurate proportional comparisons between bars.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b8aed0bd-72a3-4387-ace0-0ffe7276a376",
+              "Text": "Use consistent axis scales when placing multiple charts side by side for direct comparison.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "464da558-53be-4c30-ba3a-bc9208baa1ff",
+              "Text": "Disclose any filtered date ranges or excluded data points in chart titles or captions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8cf0fa31-d81a-45a1-8eba-92c98749b071",
+              "Text": "Avoid using area or bubble size to encode values without a clear, proportional scale legend.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c2138ad9-053f-4f0c-8a46-dd5860e43b6b",
+          "TopicId": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+          "Title": "Annotation and Labeling for Clarity",
+          "BodyText": "Strategic annotations \u2014 such as callouts, reference lines, and data labels \u2014 transform a chart from a raw visual into a self-explanatory communication tool.",
+          "Notes": "In Matplotlib, ax.annotate() allows you to add arrows and text pointing to specific data points, which is especially useful for highlighting outliers or key events on a time series.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "ModifiedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "Items": [
+            {
+              "Id": "6ebc50b5-4123-4dd0-b287-16062d8b5f97",
+              "Text": "Add a reference line or shaded region to mark benchmarks, targets, or significant events directly on the chart.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "69db47d9-f070-44c4-a6e7-077e33306d21",
+              "Text": "Label the most important data points directly rather than relying solely on a legend that requires the reader to look back and forth.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cd6b3d39-e6cb-4037-b8b6-25fafca0b66b",
+              "Text": "Write annotation text in plain language that states the insight, not just the value (e.g., \u0027Sales peak in Q4\u0027 rather than \u00271,240 units\u0027).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1b26db16-675e-4a63-8422-bdfaa622b481",
+              "Text": "Keep labels uncluttered by annotating selectively \u2014 label every point only when each point is individually significant.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "555af6c0-7fbc-4757-8743-2150f4069ee4",
+          "TopicId": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+          "Title": "Designing for Your Audience",
+          "BodyText": "The appropriate level of detail, technical language, and chart complexity should be calibrated to what your specific audience already knows and what decisions they need to make.",
+          "Notes": "An executive audience typically needs a single headline chart with a clear takeaway, while an analyst audience may benefit from pair plots or faceted views that expose deeper patterns in the data.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "ModifiedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "Items": [
+            {
+              "Id": "c45fa07a-8d0c-4714-8586-26c8af0b8282",
+              "Text": "Simplify visuals for non-technical stakeholders by removing gridlines, tick marks, and legends that add complexity without aiding comprehension.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b919ca7e-7ca9-4505-8df2-1c1d22f7eb4c",
+              "Text": "For technical audiences, include supplementary detail charts or interactive figures that allow deeper exploration.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9cb21c6a-576d-4a51-a431-fc57980b8812",
+              "Text": "Match vocabulary in titles and captions to the audience\u0027s domain language, avoiding jargon when presenting to a general audience.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5c0082e4-af86-40e2-92c2-013b032f28b1",
+              "Text": "Test comprehension by asking a sample audience member to state the chart\u0027s main message before finalizing the design.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ab947f1f-6cdb-444c-9d71-eaaf8976f1a7",
+          "TopicId": "117adff0-243e-4db9-b7f4-225dc93f4eee",
+          "Title": "Publication-Quality Standards and Consistency",
+          "BodyText": "Publication-quality visualizations follow consistent style conventions \u2014 including typography, color palettes, and spacing \u2014 that reinforce credibility and make multi-chart reports feel cohesive.",
+          "Notes": "Seaborn themes (set_theme(), set_palette()) and Matplotlib style sheets (plt.style.use()) allow you to define a consistent visual language across all figures in a project with minimal repeated code.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "ModifiedDate": "2026-07-03T11:59:06.3551667-04:00",
+          "Items": [
+            {
+              "Id": "e875998d-7f94-4679-b347-f7e6e09ecc02",
+              "Text": "Define a single color palette at the start of a project and apply it consistently so the same color always represents the same category.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "61ce33ec-5300-4962-9025-653bac5bfaee",
+              "Text": "Use no more than two typefaces and maintain consistent font sizes for titles, axis labels, and annotations across all charts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fa0c45bd-1a3b-4835-abc7-ef741ff484e2",
+              "Text": "Export figures at high resolution (300 DPI or higher) when preparing visuals for print or formal reports.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "092041e4-2e6d-4005-9d5e-1a72710fa569",
+              "Text": "Align chart dimensions and margins across a dashboard or report so the layout appears intentional and professional.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "ff97c17d-c10a-4074-b9f7-9c8b5b983036",
+      "Title": "Building Interactive Figures",
+      "Summary": "Introduction to creating interactive visualizations that allow users to explore data dynamically, integrating interactivity into Python-based workflows for richer analytical presentations.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "ModifiedDate": "2026-07-03T11:56:35.5205868-04:00",
+      "Elements": [
+        {
+          "Id": "4549962a-1eec-4d52-b1e6-d71b779d94e3",
+          "TopicId": "ff97c17d-c10a-4074-b9f7-9c8b5b983036",
+          "Title": "Introduction to Interactivity in Python Visualizations",
+          "BodyText": "Interactive figures allow users to explore data dynamically rather than viewing static images, making visualizations more engaging and analytically powerful.",
+          "Notes": "Interactivity is especially valuable when presenting large or complex datasets where a single static view cannot capture all meaningful patterns.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "ModifiedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "Items": [
+            {
+              "Id": "aff3a3eb-bfc6-4bd9-8c3c-39b1f29c11a9",
+              "Text": "Interactive visualizations enable actions such as zooming, panning, hovering for tooltips, and filtering data on the fly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fb79af1c-026f-4c1f-bddb-a5f6deb9dd5d",
+              "Text": "Python libraries like Matplotlib, Plotly, and Bokeh each offer varying levels of built-in interactivity support.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0c92a097-2561-42a6-beb9-fac2c435b636",
+              "Text": "Choosing the right tool depends on whether the output is a notebook, a web application, or a standalone HTML file.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d340ab40-23b7-476f-93f5-18e28486ac84",
+          "TopicId": "ff97c17d-c10a-4074-b9f7-9c8b5b983036",
+          "Title": "Enabling Interactivity with Matplotlib Widgets",
+          "BodyText": "Matplotlib provides interactive widget capabilities through its \u0060ipywidgets\u0060 integration and interactive backends, allowing basic user-driven control within Jupyter notebooks.",
+          "Notes": "Using \u0060%matplotlib widget\u0060 or \u0060%matplotlib notebook\u0060 magic commands in Jupyter activates interactive mode for pan, zoom, and figure inspection.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "ModifiedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "Items": [
+            {
+              "Id": "a6778a07-ae07-46ee-b79e-4168e30187e1",
+              "Text": "Sliders, dropdowns, and buttons from \u0060ipywidgets\u0060 can be linked to Matplotlib figures to update plots dynamically.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e9b1ff50-be28-4218-90f1-98a7757a33dd",
+              "Text": "The \u0060interact\u0060 and \u0060interactive\u0060 functions from \u0060ipywidgets\u0060 simplify binding Python functions to UI controls.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "73f3bac0-fa4a-4542-bb51-f697d2faa77d",
+              "Text": "This approach is well-suited for exploratory analysis without leaving the Matplotlib ecosystem.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "52129539-838d-4137-a3cd-e798ec3cc22b",
+          "TopicId": "ff97c17d-c10a-4074-b9f7-9c8b5b983036",
+          "Title": "Creating Interactive Figures with Plotly",
+          "BodyText": "Plotly is a powerful library for building fully interactive charts that render in the browser, supporting hover effects, click events, and animated transitions natively.",
+          "Notes": "Plotly Express provides a high-level API that mirrors Seaborn\u0027s simplicity while producing rich interactive outputs compatible with Jupyter and web dashboards.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "ModifiedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "Items": [
+            {
+              "Id": "1a60ba6e-ae4d-4369-9787-e039b2b7ba16",
+              "Text": "Plotly figures are rendered as HTML/JavaScript, making them embeddable in web pages or shareable as standalone files.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d074944d-5831-4bc7-b56b-3ef583764c39",
+              "Text": "Common interactive chart types include scatter plots with hover labels, choropleth maps, and animated bar charts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3fd1e8a0-2932-4a92-a8e2-738727790d67",
+              "Text": "The \u0060fig.show()\u0060 method renders figures directly in Jupyter notebooks or opens them in a browser.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "cef12846-ad43-4022-b056-a6a4167ccff2",
+          "TopicId": "ff97c17d-c10a-4074-b9f7-9c8b5b983036",
+          "Title": "Adding Hover Tooltips and Click Events",
+          "BodyText": "Hover tooltips and click events are foundational interactivity features that surface additional data details without cluttering the main visualization.",
+          "Notes": "In Plotly, the \u0060hovertemplate\u0060 parameter gives precise control over what information appears when a user mouses over a data point.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "ModifiedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "Items": [
+            {
+              "Id": "f58280f3-8155-4a41-bf75-f888be356e81",
+              "Text": "Tooltips can display multiple data fields simultaneously, helping users understand context without requiring additional charts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "32c1a04d-a1e6-4582-a30a-4d6362263d5f",
+              "Text": "Click events can be configured to filter data, highlight subsets, or trigger callbacks that update linked visualizations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c3a9bbcc-89fb-4e1d-a32e-c5364f571192",
+              "Text": "Designing informative but concise tooltips prevents information overload and keeps the user experience clean.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7bda11a3-1c38-486c-a768-bbc4663c0819",
+          "TopicId": "ff97c17d-c10a-4074-b9f7-9c8b5b983036",
+          "Title": "Integrating Interactive Figures into Python Workflows",
+          "BodyText": "Embedding interactive visualizations into Python-based analytical workflows ensures that interactivity becomes a natural part of the data exploration and presentation process.",
+          "Notes": "Jupyter notebooks are the most common integration environment, but tools like Dash or Panel allow deployment of interactive figures as full web applications.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "ModifiedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "Items": [
+            {
+              "Id": "cd07a32d-fc82-4b2c-8108-0dda768ba03e",
+              "Text": "Saving interactive figures as HTML files with \u0060fig.write_html()\u0060 allows sharing with stakeholders who do not have Python installed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "83df957a-faca-4b0a-a0ba-6929c05c25af",
+              "Text": "Combining Pandas dataframes directly with Plotly or Bokeh minimizes data transformation steps and keeps code concise.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f2ec8a2b-fa4b-4a7f-aa1c-52a667518b7e",
+              "Text": "Workflow integration means interactivity can be applied at every stage \u2014 from initial exploration to final stakeholder presentation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "351c9bd3-dc45-41f6-9769-be87687d94e9",
+          "TopicId": "ff97c17d-c10a-4074-b9f7-9c8b5b983036",
+          "Title": "Best Practices for Designing Interactive Visualizations",
+          "BodyText": "Effective interactive figures balance functionality with clarity, ensuring that added controls and features enhance rather than distract from the analytical message.",
+          "Notes": "Overloading a visualization with too many interactive controls can confuse users; prioritize the interactions most relevant to the analytical question.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "ModifiedDate": "2026-07-03T11:59:29.1005193-04:00",
+          "Items": [
+            {
+              "Id": "e23759c6-2034-4a6b-82e5-5b2d14a804a7",
+              "Text": "Provide clear labels, legends, and axis titles even in interactive figures, as these remain essential for interpretability.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b9326e1b-e865-491c-b9db-ab9ba8ab472e",
+              "Text": "Test interactive figures across different environments \u2014 notebooks, browsers, and exported files \u2014 to ensure consistent behavior.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4c7aa9c3-03ed-4fe2-82c0-74ca7af5014b",
+              "Text": "Use animation and transitions sparingly and purposefully to guide the user\u0027s attention rather than simply for visual effect.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 37
+}

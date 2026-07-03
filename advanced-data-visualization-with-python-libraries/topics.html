@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Data Visualization with Python Libraries — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Data Visualization with Python Libraries</a></div>
+<h1>Advanced Data Visualization with Python Libraries — Module Topics</h1>
+<h2>Introduction to Matplotlib and Seaborn</h2>
+<div class="summary">An overview of the two primary Python visualization libraries, their relationship to one another, and how to set up your environment for creating advanced plots.</div>
+<ul>
+<li><strong>What is Matplotlib?</strong> <span class="el-body">— Matplotlib is the foundational Python library for creating static, animated, and interactive visualizations, and serves as the backbone of most Python plotting ecosystems.</span></li>
+<li><strong>What is Seaborn?</strong> <span class="el-body">— Seaborn is a high-level Python visualization library built on top of Matplotlib that provides a simpler interface for creating statistically informative and aesthetically polished plots.</span></li>
+<li><strong>The Relationship Between Matplotlib and Seaborn</strong> <span class="el-body">— Seaborn is not a replacement for Matplotlib but rather a complement to it, extending its capabilities while relying on it for rendering.</span></li>
+<li><strong>Setting Up Your Environment</strong> <span class="el-body">— Before creating advanced visualizations, you need to install and import both libraries along with their common dependencies in your Python environment.</span></li>
+<li><strong>Configuring Plot Styles and Themes</strong> <span class="el-body">— Both Matplotlib and Seaborn offer style configuration options that control the default appearance of all plots in a session, enabling consistent visual branding.</span></li>
+<li><strong>Understanding the Figure and Axes Structure</strong> <span class="el-body">— Matplotlib organizes plots around a Figure object that contains one or more Axes objects, each representing an individual plot area within the figure.</span></li>
+</ul>
+<h2>Core Chart Types and When to Use Them</h2>
+<div class="summary">Exploration of fundamental visualization forms such as bar charts, line plots, scatter plots, and histograms, with guidance on selecting the right chart type for your data and message.</div>
+<ul>
+<li><strong>Bar Charts for Categorical Comparisons</strong> <span class="el-body">— Bar charts are the go-to visualization for comparing discrete categories or groups, making differences in magnitude immediately apparent.</span></li>
+<li><strong>Line Plots for Trends Over Time</strong> <span class="el-body">— Line plots connect sequential data points with a continuous line, making them ideal for displaying trends, patterns, and changes across an ordered dimension such as time.</span></li>
+<li><strong>Scatter Plots for Relationships Between Variables</strong> <span class="el-body">— Scatter plots display individual data points along two numeric axes, making them the primary tool for exploring correlations and distributions between two continuous variables.</span></li>
+<li><strong>Histograms for Distributions of Single Variables</strong> <span class="el-body">— Histograms aggregate continuous data into bins and display the frequency or density of observations within each bin, revealing the underlying distribution of a single variable.</span></li>
+<li><strong>Selecting the Right Chart Type for Your Data and Message</strong> <span class="el-body">— Choosing the appropriate chart type requires matching the nature of your data — categorical, continuous, temporal, or relational — with the analytical question you are trying to answer.</span></li>
+</ul>
+<h2>Advanced Visualizations: Heatmaps and Pair Plots</h2>
+<div class="summary">Deep dive into constructing heatmaps for correlation analysis and pair plots for multivariate relationship exploration using Seaborn&#39;s high-level interface.</div>
+<ul>
+<li><strong>Introduction to Heatmaps in Seaborn</strong> <span class="el-body">— Heatmaps are grid-based visualizations that encode numerical values as colors, making them ideal for displaying correlation matrices and other tabular data patterns.</span></li>
+<li><strong>Annotating and Customizing Heatmaps</strong> <span class="el-body">— Annotations and fine-grained styling transform a basic heatmap into a publication-quality figure that communicates correlation strength at a glance.</span></li>
+<li><strong>Interpreting Correlation Heatmaps</strong> <span class="el-body">— Reading a correlation heatmap correctly is as important as constructing one; understanding color intensity and direction enables sound analytical conclusions.</span></li>
+<li><strong>Building Pair Plots with Seaborn</strong> <span class="el-body">— Pair plots create a grid of scatter plots for every combination of numeric variables in a dataset, providing a comprehensive overview of multivariate relationships in a single figure.</span></li>
+<li><strong>Customizing Pair Plot Aesthetics and Plot Kinds</strong> <span class="el-body">— Seaborn&#39;s `pairplot` offers several parameters to control the type of plot used in each cell and the overall visual style of the grid.</span></li>
+<li><strong>Combining Heatmaps and Pair Plots for Exploratory Analysis</strong> <span class="el-body">— Using heatmaps and pair plots together creates a powerful exploratory workflow: heatmaps surface high-level correlation patterns while pair plots expose the detailed shape of those relationships.</span></li>
+</ul>
+<h2>Customization and Publication-Quality Styling</h2>
+<div class="summary">Techniques for fine-tuning figure aesthetics including themes, color palettes, fonts, annotations, and layout adjustments to produce polished, professional outputs.</div>
+<ul>
+<li><strong>Applying Themes and Style Sheets</strong> <span class="el-body">— Matplotlib and Seaborn both provide built-in themes and style sheets that instantly transform the default appearance of figures into cleaner, more professional outputs.</span></li>
+<li><strong>Selecting and Managing Color Palettes</strong> <span class="el-body">— Thoughtful color selection is critical for clarity, accessibility, and visual appeal in publication-quality figures.</span></li>
+<li><strong>Customizing Fonts and Text Elements</strong> <span class="el-body">— Controlling font families, sizes, and weights for titles, axis labels, tick marks, and legends ensures figures meet the typographic standards of journals or presentations.</span></li>
+<li><strong>Adding Annotations and Reference Lines</strong> <span class="el-body">— Annotations highlight key data points, trends, or thresholds directly on the figure, guiding the reader&#39;s interpretation without requiring them to consult separate text.</span></li>
+<li><strong>Fine-Tuning Layout and Spacing</strong> <span class="el-body">— Precise control over figure dimensions, subplot spacing, and element alignment prevents overlapping labels and ensures a clean, balanced composition.</span></li>
+<li><strong>Configuring Legends and Colorbars</strong> <span class="el-body">— Well-positioned, clearly labeled legends and colorbars are essential for readers to decode a figure&#39;s visual encoding correctly.</span></li>
+<li><strong>Exporting Publication-Ready Figures</strong> <span class="el-body">— Saving figures in the correct format, resolution, and color mode is the final step in producing outputs suitable for journals, reports, or presentations.</span></li>
+</ul>
+<h2>Storytelling with Data and Visual Best Practices</h2>
+<div class="summary">Principles of effective data communication, including how to guide audience attention, avoid misleading visuals, and structure a narrative around analytical findings.</div>
+<ul>
+<li><strong>The Narrative Arc in Data Storytelling</strong> <span class="el-body">— Effective data communication is structured like a story, with a clear beginning, middle, and end that guides the audience from context to insight to action.</span></li>
+<li><strong>Guiding Audience Attention with Visual Hierarchy</strong> <span class="el-body">— Visual hierarchy uses design elements such as color, size, contrast, and position to direct the viewer&#39;s eye to the most important information first.</span></li>
+<li><strong>Choosing the Right Chart for Your Message</strong> <span class="el-body">— Every chart type carries an implicit message; selecting the wrong type can obscure insights or mislead audiences even when the underlying data is accurate.</span></li>
+<li><strong>Avoiding Misleading Visuals</strong> <span class="el-body">— Common design choices such as truncated axes, inconsistent scales, and cherry-picked time ranges can unintentionally — or intentionally — distort the story the data tells.</span></li>
+<li><strong>Annotation and Labeling for Clarity</strong> <span class="el-body">— Strategic annotations — such as callouts, reference lines, and data labels — transform a chart from a raw visual into a self-explanatory communication tool.</span></li>
+<li><strong>Designing for Your Audience</strong> <span class="el-body">— The appropriate level of detail, technical language, and chart complexity should be calibrated to what your specific audience already knows and what decisions they need to make.</span></li>
+<li><strong>Publication-Quality Standards and Consistency</strong> <span class="el-body">— Publication-quality visualizations follow consistent style conventions — including typography, color palettes, and spacing — that reinforce credibility and make multi-chart reports feel cohesive.</span></li>
+</ul>
+<h2>Building Interactive Figures</h2>
+<div class="summary">Introduction to creating interactive visualizations that allow users to explore data dynamically, integrating interactivity into Python-based workflows for richer analytical presentations.</div>
+<ul>
+<li><strong>Introduction to Interactivity in Python Visualizations</strong> <span class="el-body">— Interactive figures allow users to explore data dynamically rather than viewing static images, making visualizations more engaging and analytically powerful.</span></li>
+<li><strong>Enabling Interactivity with Matplotlib Widgets</strong> <span class="el-body">— Matplotlib provides interactive widget capabilities through its `ipywidgets` integration and interactive backends, allowing basic user-driven control within Jupyter notebooks.</span></li>
+<li><strong>Creating Interactive Figures with Plotly</strong> <span class="el-body">— Plotly is a powerful library for building fully interactive charts that render in the browser, supporting hover effects, click events, and animated transitions natively.</span></li>
+<li><strong>Adding Hover Tooltips and Click Events</strong> <span class="el-body">— Hover tooltips and click events are foundational interactivity features that surface additional data details without cluttering the main visualization.</span></li>
+<li><strong>Integrating Interactive Figures into Python Workflows</strong> <span class="el-body">— Embedding interactive visualizations into Python-based analytical workflows ensures that interactivity becomes a natural part of the data exploration and presentation process.</span></li>
+<li><strong>Best Practices for Designing Interactive Visualizations</strong> <span class="el-body">— Effective interactive figures balance functionality with clarity, ensuring that added controls and features enhance rather than distract from the analytical message.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

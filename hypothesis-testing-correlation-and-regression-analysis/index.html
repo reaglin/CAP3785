@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hypothesis Testing, Correlation, and Regression Analysis – CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2a38;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #1e5799 100%);
+      color: #ffffff;
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.30);
+      border-radius: 20px;
+      padding: 0.25rem 0.85rem;
+      margin-bottom: 1rem;
+      color: #d6e8ff;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .intro {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #c8ddf5;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-heading {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #5a7a99;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #dde5ef;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde5ef;
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px rgba(30, 87, 153, 0.12);
+      transform: translateY(-3px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .card-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+
+    .card-name a {
+      color: #1e5799;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .card-name a:hover {
+      color: #0d3a7a;
+      text-decoration: underline;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #5a7a99;
+      text-decoration: none;
+      border: 1px solid #b5c9df;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      background: #f0f5fb;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+      margin-top: 0.1rem;
+      width: fit-content;
+    }
+
+    .source-link:hover {
+      background: #dde8f5;
+      color: #1a3a5c;
+      border-color: #8aaac8;
+    }
+
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.68rem;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #1e5799;
+      border: 1px solid #c3d5f0;
+    }
+
+    .badge-filetype {
+      background: #f0f5f0;
+      color: #2e6b3e;
+      border: 1px solid #b8d9c0;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5a6a;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.78rem;
+      color: #8a9bac;
+      border-top: 1px solid #dde5ef;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
+      header { padding: 2rem 1.25rem 2rem; }
+      .card  { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <!-- ════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════ -->
+  <header>
+    <div class="course-label">CAP3785 · Data Analytics and Visualization</div>
+    <h1>Hypothesis Testing, Correlation,<br>and Regression Analysis</h1>
+    <p class="intro">
+      This module explores the core techniques of inferential statistics, guiding learners through
+      hypothesis formulation, p-value interpretation, A/B testing design, correlation analysis, and
+      regression modeling. Use the artifacts below to study, practice, and assess your understanding.
+    </p>
+  </header>
+
+  <!-- ════════════════════════════════════════
+       MAIN
+  ════════════════════════════════════════ -->
+  <main>
+    <p class="section-heading">Module Artifacts &mdash; 3 items</p>
+
+    <div class="card-grid">
+
+      <!-- ── Card 1: Module Topics ── -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="content/module_topics.html">Module Topics</a>
+            </span>
+            <a class="source-link" href="source/hierarchy.json">source file</a>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's learning topics, covering hypothesis testing
+          foundations, p-values, A/B testing, correlation analysis, and regression, used by
+          instructors to plan lessons and by learners to preview what the module addresses.
+        </p>
+      </div>
+
+      <!-- ── Card 2: Presentation ── -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="presentation/Hypothesis_Testing_Correlati_generated.pptx">Hypothesis_Testing_Correlati_generated.pptx</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <p class="card-description">
+          A slide deck introducing inferential statistics concepts including null and alternative
+          hypotheses, p-values, A/B testing design, correlation, and regression analysis, used by
+          instructors to deliver lectures or by learners to review core concepts and definitions.
+        </p>
+      </div>
+
+      <!-- ── Card 3: Quiz ── -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+            </span>
+            <a class="source-link" href="source/quiz_questions.json">source file</a>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          A 20-question quiz bank assessing learners' understanding of hypothesis testing
+          fundamentals such as statistical inference, null hypotheses, test statistics, Type I
+          errors, and p-value interpretation, used by instructors to build graded assessments or
+          practice quizzes.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp;
+    Hypothesis Testing, Correlation, and Regression Analysis
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

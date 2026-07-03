@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Data Visualization with Python Libraries — CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background-color: #f4f6f9;
+      color: #1e2530;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #24567a 60%, #1e7a8c 100%);
+      color: #ffffff;
+      padding: 2.8rem 2rem 2.4rem;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 1rem;
+      color: #c8e8f5;
+    }
+
+    header h1 {
+      font-size: clamp(1.55rem, 3.5vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      margin-bottom: 0.9rem;
+    }
+
+    header p {
+      font-size: 1rem;
+      max-width: 680px;
+      color: #d6ecf6;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    .section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #5a6a7e;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde3eb;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3eb;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(30, 55, 90, 0.11);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card — Type Badge ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-type {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    /* Badge color variants by type */
+    .badge-module-topics  { background-color: #e6f0ff; color: #1a55b5; }
+    .badge-presentation   { background-color: #fff0e6; color: #b54a00; }
+    .badge-quiz           { background-color: #e8f7ec; color: #1a7a3e; }
+    .badge-default        { background-color: #eef0f4; color: #445066; }
+
+    .badge-filetype {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #7a8898;
+      background-color: #f1f3f6;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+    }
+
+    /* ── Card — Name / Links ── */
+    .card-name-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-name {
+      font-size: 0.975rem;
+      font-weight: 700;
+      color: #1e2530;
+      word-break: break-word;
+    }
+
+    .card-name a.primary-link {
+      color: #1a55b5;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a.primary-link:hover {
+      color: #0d3b8a;
+      border-bottom-color: #0d3b8a;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7fa8;
+      text-decoration: none;
+      background: #f0f5fb;
+      border: 1px solid #c5d8ee;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover {
+      background: #ddeaf8;
+      color: #1a3d6e;
+    }
+
+    .source-link::before {
+      content: "⬡";
+      font-size: 0.65rem;
+    }
+
+    /* ── Card — Description ── */
+    .card-description {
+      font-size: 0.88rem;
+      color: #4a5568;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a96a6;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dde3eb;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1.25rem 1.8rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
+      <h1>Advanced Data Visualization with Python Libraries</h1>
+      <p>
+        Explore core and advanced visualization techniques using Matplotlib and Seaborn.
+        This module covers fundamental chart types, customization strategies, and expressive
+        statistical graphics — equipping learners with the skills to communicate data insights
+        clearly and effectively.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-title">Module Artifacts &nbsp;·&nbsp; 3 items</p>
+
+    <div class="card-grid">
+
+      <!-- ── Artifact 1: Module Topics ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type badge-module-topics">Module Topics</span>
+          <span class="badge-filetype">.json</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a class="primary-link" href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's learning topics, covering Matplotlib and Seaborn
+          fundamentals, core chart types (bar, line, scatter), and advanced visualizations like
+          heatmaps and pair plots, used by instructors to plan lessons and by learners to navigate
+          what the module will teach.
+        </p>
+      </div>
+
+      <!-- ── Artifact 2: Presentation ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type badge-presentation">Presentation</span>
+          <span class="badge-filetype">.pptx</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a class="primary-link" href="presentation/Advanced_Data_Visualization_generated.pptx">
+              Advanced_Data_Visualization_generated.pptx
+            </a>
+          </span>
+        </div>
+        <p class="card-description">
+          A slide deck introducing advanced data visualization with Python, explaining Matplotlib
+          and Seaborn concepts, core chart types, and customization techniques, used by instructors
+          to deliver lectures and by learners to follow along or review key ideas.
+        </p>
+      </div>
+
+      <!-- ── Artifact 3: Quiz ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type badge-quiz">Quiz</span>
+          <span class="badge-filetype">.json</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a class="primary-link" href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json">source file</a>
+        </div>
+        <p class="card-description">
+          A 20-question quiz bank assessing learners' understanding of Matplotlib and Seaborn
+          fundamentals, library relationships, chart selection, and environment setup, used by
+          instructors to build graded assessments or practice quizzes for the module.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp;
+    Advanced Data Visualization with Python Libraries
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

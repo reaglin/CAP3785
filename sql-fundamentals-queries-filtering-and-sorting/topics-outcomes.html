@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Fundamentals: Queries, Filtering, and Sorting — Topics &amp; Learning Outcomes</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.25rem;margin-top:30px;color:#1a3c6e;border-bottom:1px solid #ececec;padding-bottom:4px}
+h3{font-size:1.05rem;margin-top:22px;color:#1a3c6e}
+.toc{border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:14px 0 6px;display:flex;gap:18px;flex-wrap:wrap}
+.toc a{color:#1a3c6e;font-weight:600;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.prefix{color:#555;font-style:italic;margin:6px 0 14px}
+.mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
+.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .statement{font-weight:600;margin:4px 0 8px}
+.meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
+.meta .map{background:#eaf6ec;color:#137333}
+.co{margin:7px 0}
+.co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Fundamentals: Queries, Filtering, and Sorting</a></div>
+<h1>SQL Fundamentals: Queries, Filtering, and Sorting — Topics &amp; Learning Outcomes</h1>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
+
+<h2 id="topics">Module Topics</h2>
+<h3>Introduction to SQL and Relational Databases</h3>
+<div class="summary">This topic establishes foundational knowledge of what SQL is and how relational databases are structured. Students learn how tables, rows, and columns form the basis for querying data.</div>
+<ul>
+<li><strong>What is SQL?</strong> <span class="el-body">— SQL, or Structured Query Language, is a standardized language used to communicate with and manipulate relational databases.</span></li>
+<li><strong>What is a Relational Database?</strong> <span class="el-body">— A relational database is a system that stores data in structured, interconnected tables that relate to one another through shared fields.</span></li>
+<li><strong>Tables: The Core Structure</strong> <span class="el-body">— In a relational database, a table is the fundamental unit of data storage, organizing information into a grid of rows and columns.</span></li>
+<li><strong>Rows and Columns Explained</strong> <span class="el-body">— Rows and columns are the two dimensions of a table — columns define what kind of data is stored, and rows contain the actual data records.</span></li>
+<li><strong>Primary Keys and Unique Identification</strong> <span class="el-body">— A primary key is a special column or combination of columns that uniquely identifies each row in a table.</span></li>
+<li><strong>How SQL Interacts with Database Tables</strong> <span class="el-body">— SQL serves as the interface between users and the relational database, enabling them to query and manipulate table data using structured commands.</span></li>
+</ul>
+<h3>Writing Basic SELECT Queries</h3>
+<div class="summary">This topic covers the core SQL SELECT statement used to retrieve data from database tables. Students learn how to specify columns, use wildcards, and construct syntactically correct queries.</div>
+<ul>
+<li><strong>The Purpose of the SELECT Statement</strong> <span class="el-body">— The SELECT statement is the foundational SQL command used to retrieve data from one or more database tables.</span></li>
+<li><strong>Basic SELECT Syntax Structure</strong> <span class="el-body">— A syntactically correct SELECT query follows a specific clause order that the SQL engine expects.</span></li>
+<li><strong>Selecting Specific Columns</strong> <span class="el-body">— Rather than retrieving all data, you can specify exactly which columns to include in your query results.</span></li>
+<li><strong>Using the Wildcard (*) to Select All Columns</strong> <span class="el-body">— The asterisk (*) is a wildcard character that instructs SQL to return every column in the specified table.</span></li>
+<li><strong>Querying Against Real Datasets</strong> <span class="el-body">— Writing SELECT queries against actual datasets helps connect SQL syntax to practical, business-relevant outcomes.</span></li>
+</ul>
+<h3>Filtering Data with WHERE</h3>
+<div class="summary">This topic explores how to narrow query results using the WHERE clause with various conditions and operators. Students practice filtering data by text, numeric, and logical criteria to isolate relevant records.</div>
+<ul>
+<li><strong>The WHERE Clause: Purpose and Syntax</strong> <span class="el-body">— The WHERE clause is added after the FROM clause in a SELECT statement to filter rows based on one or more conditions, returning only records that meet the specified criteria.</span></li>
+<li><strong>Comparison Operators</strong> <span class="el-body">— Comparison operators are the building blocks of WHERE conditions, allowing you to test relationships between column values and specified criteria.</span></li>
+<li><strong>Filtering Text Data</strong> <span class="el-body">— When filtering on text (string) columns, values must be enclosed in single quotes, and SQL provides special operators to handle partial or pattern-based text matching.</span></li>
+<li><strong>Filtering Numeric Data</strong> <span class="el-body">— Numeric columns can be filtered using comparison operators and range expressions, making it easy to isolate records that fall within specific quantitative thresholds.</span></li>
+<li><strong>Combining Conditions with AND and OR</strong> <span class="el-body">— Multiple conditions can be combined in a single WHERE clause using the AND and OR logical operators, enabling more precise and complex filtering.</span></li>
+<li><strong>Excluding Results with NOT</strong> <span class="el-body">— The NOT operator negates a condition, returning rows where the specified condition is FALSE, and can be combined with other operators like IN, LIKE, and BETWEEN.</span></li>
+<li><strong>Handling NULL Values in Filtering</strong> <span class="el-body">— NULL represents a missing or unknown value in SQL, and it requires special handling in WHERE clauses because NULL cannot be compared using standard operators like = or &lt;&gt;.</span></li>
+</ul>
+<h3>Sorting Results with ORDER BY</h3>
+<div class="summary">This topic teaches how to control the order in which query results are returned using the ORDER BY clause. Students learn to sort data in ascending and descending order across single and multiple columns.</div>
+<ul>
+<li><strong>Introduction to ORDER BY</strong> <span class="el-body">— The ORDER BY clause is used to sort the rows returned by a SELECT query in a specified order. Without ORDER BY, SQL makes no guarantee about the sequence in which results are returned.</span></li>
+<li><strong>Ascending Order with ASC</strong> <span class="el-body">— By default, ORDER BY sorts results in ascending order, meaning from the smallest to the largest value. The ASC keyword can be added explicitly to make this intent clear.</span></li>
+<li><strong>Descending Order with DESC</strong> <span class="el-body">— Adding the DESC keyword after a column name in the ORDER BY clause reverses the sort order, returning the largest or most recent values first. This is useful for ranking or finding top records.</span></li>
+<li><strong>Sorting by Multiple Columns</strong> <span class="el-body">— ORDER BY can accept multiple columns separated by commas, allowing results to be sorted by a primary key first and then by secondary keys to break ties. Each column can have its own ASC or DESC direction.</span></li>
+<li><strong>ORDER BY with Column Position</strong> <span class="el-body">— Instead of specifying a column name, you can reference a column by its numeric position in the SELECT list within the ORDER BY clause. This shorthand is supported in most SQL databases.</span></li>
+<li><strong>Combining ORDER BY with WHERE and LIMIT</strong> <span class="el-body">— ORDER BY is frequently combined with WHERE to filter rows before sorting and with LIMIT to return only a top or bottom subset of the sorted results. Understanding clause order is essential for writing correct queries.</span></li>
+</ul>
+<h3>Limiting Output with LIMIT</h3>
+<div class="summary">This topic introduces the LIMIT clause as a tool for restricting the number of rows returned by a query. Students understand its practical uses for performance, sampling, and top-N style business questions.</div>
+<ul>
+<li><strong>What the LIMIT Clause Does</strong> <span class="el-body">— The LIMIT clause restricts the number of rows a SQL query returns, regardless of how many rows match the query conditions.</span></li>
+<li><strong>Basic LIMIT Syntax and Usage</strong> <span class="el-body">— Writing a LIMIT clause requires only the keyword followed by a positive integer specifying the row cap.</span></li>
+<li><strong>Improving Query Performance with LIMIT</strong> <span class="el-body">— Restricting output with LIMIT can significantly reduce the load on the database server and speed up query response times during exploration.</span></li>
+<li><strong>Sampling Data with LIMIT</strong> <span class="el-body">— LIMIT is a quick way to pull a small sample of rows from a table to inspect data structure, column values, and data quality.</span></li>
+<li><strong>Answering Top-N Business Questions</strong> <span class="el-body">— Combining ORDER BY with LIMIT enables top-N queries, which answer common business questions such as identifying the highest-revenue products or the most recent transactions.</span></li>
+<li><strong>LIMIT Across Different Database Systems</strong> <span class="el-body">— While LIMIT is standard in databases like MySQL, PostgreSQL, and SQLite, other systems use different syntax to achieve the same result.</span></li>
+</ul>
+<h3>Applying SQL to Business Questions</h3>
+<div class="summary">This topic brings together SELECT, WHERE, ORDER BY, and LIMIT in combination to answer real-world business questions using actual datasets. Students practice writing multi-clause queries that reflect common analytical tasks.</div>
+<ul>
+<li><strong>Translating Business Questions into SQL Queries</strong> <span class="el-body">— Real-world business questions must be rephrased as structured SQL queries before any data can be retrieved. This translation process is a foundational analytical skill that connects business intent to technical execution.</span></li>
+<li><strong>Combining SELECT and WHERE for Targeted Data Retrieval</strong> <span class="el-body">— Most business questions require filtering rows to a specific subset of data, which is accomplished by pairing SELECT with a WHERE clause. Together they define both what columns to display and which records are relevant.</span></li>
+<li><strong>Sorting Results with ORDER BY to Surface Insights</strong> <span class="el-body">— Business questions frequently ask for ranked or sequenced data, such as the best-performing products or the most recent transactions. ORDER BY arranges query results in a meaningful order to support those insights.</span></li>
+<li><strong>Using LIMIT to Focus on Top or Bottom Records</strong> <span class="el-body">— Many analytical tasks require only the top or bottom N records rather than an entire dataset. LIMIT restricts the number of rows returned, making queries more efficient and results easier to interpret.</span></li>
+<li><strong>Writing Multi-Clause Queries: Clause Order and Syntax</strong> <span class="el-body">— When combining SELECT, WHERE, ORDER BY, and LIMIT in a single query, SQL requires the clauses to appear in a specific order. Understanding this structure prevents syntax errors and ensures queries execute correctly.</span></li>
+<li><strong>Common Analytical Patterns in Business SQL Queries</strong> <span class="el-body">— Certain types of business questions appear repeatedly across industries and map to recognizable SQL query patterns. Recognizing these patterns speeds up query writing and reduces errors.</span></li>
+<li><strong>Validating Query Results Against Business Expectations</strong> <span class="el-body">— After writing and running a query, analysts should verify that the results make sense in the context of the original business question. This habit catches logical errors that syntax checks cannot detect.</span></li>
+</ul>
+<h2 id="outcomes">Student Learning Outcomes</h2>
+<p class="prefix">By the end of this module, students will be able to:</p>
+<div class="mo">
+<div class="code">MO1</div>
+<div class="statement">Identify the roles of primary keys, rows, and columns in organizing data within a relational database table</div>
+<div class="meta"><span>Level: Remember</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO2</div>
+<div class="statement">Construct syntactically correct SELECT queries that retrieve targeted columns from a database table</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO3</div>
+<div class="statement">Apply WHERE clause operators — including comparison operators, AND/OR/NOT, and IS NULL — to filter query results to a specified subset of records</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO4</div>
+<div class="statement">Arrange query results in a specified sequence using ORDER BY with ascending and descending sort directions across one or more columns</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO5</div>
+<div class="statement">Compose multi-clause SQL queries combining SELECT, WHERE, ORDER BY, and LIMIT to answer a given real-world business question</div>
+<div class="meta"><span>Level: Create</span><span>Type: Behavioral</span><span class="map">Course mapping: —</span></div>
+</div>
+<h3>Course Outcomes (reference)</h3>
+<p class="empty">No course outcomes have been defined.</p>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

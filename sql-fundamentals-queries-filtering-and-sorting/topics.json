@@ -1,0 +1,1104 @@
+{
+  "ModuleFolderName": "SQL_Fundamentals_Queries",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:38:48.892811-04:00",
+  "ModifiedDate": "2026-07-03T11:41:07.4539865-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "bc534ca0-0808-4bd9-9e33-d6a3a849458d",
+      "Title": "Introduction to SQL and Relational Databases",
+      "Summary": "This topic establishes foundational knowledge of what SQL is and how relational databases are structured. Students learn how tables, rows, and columns form the basis for querying data.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:38:48.892811-04:00",
+      "ModifiedDate": "2026-07-03T11:38:48.892811-04:00",
+      "Elements": [
+        {
+          "Id": "baf32885-b3d9-4270-8bd7-92f3f047e635",
+          "TopicId": "bc534ca0-0808-4bd9-9e33-d6a3a849458d",
+          "Title": "What is SQL?",
+          "BodyText": "SQL, or Structured Query Language, is a standardized language used to communicate with and manipulate relational databases.",
+          "Notes": "SQL is pronounced either \u0027S-Q-L\u0027 or \u0027sequel\u0027 \u2014 both are widely accepted. It has been an industry standard since the 1970s and is used across virtually every data-driven industry.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "ModifiedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "Items": [
+            {
+              "Id": "0e8e267f-ff08-4810-84f0-7eeb907ef6f5",
+              "Text": "SQL allows users to create, read, update, and delete data stored in a database.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "29980f18-1bb7-4007-8613-ff003215c1cc",
+              "Text": "It is a declarative language, meaning you describe what data you want rather than how to retrieve it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "74d690ed-2b80-453e-a265-3ac979633129",
+              "Text": "SQL is used by analysts, developers, and data scientists to answer business questions from stored data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cce5fe38-fbc3-418b-9c37-3566deecccb6",
+              "Text": "Common SQL databases include MySQL, PostgreSQL, SQLite, and Microsoft SQL Server.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "72f0d6a4-e8b1-48b8-bfcf-5350a4415a2b",
+          "TopicId": "bc534ca0-0808-4bd9-9e33-d6a3a849458d",
+          "Title": "What is a Relational Database?",
+          "BodyText": "A relational database is a system that stores data in structured, interconnected tables that relate to one another through shared fields.",
+          "Notes": "The \u0027relational\u0027 concept was formalized by Edgar F. Codd in 1970. The power of relational databases lies in the ability to combine data across multiple tables without duplicating information.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "ModifiedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "Items": [
+            {
+              "Id": "0e95e543-4c5b-4999-b5d6-2a424264e691",
+              "Text": "Relational databases organize data into one or more tables, each representing a specific entity such as customers, orders, or products.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9803071f-bab6-4f6b-8786-23a57ecca918",
+              "Text": "Tables can be linked together using keys, allowing complex data relationships to be modeled efficiently.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bcbd631f-fc42-462d-a4de-28d4ef2147e5",
+              "Text": "This structure reduces data redundancy and improves data integrity across the system.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f515304b-7a18-480b-bf19-052d8a887c19",
+          "TopicId": "bc534ca0-0808-4bd9-9e33-d6a3a849458d",
+          "Title": "Tables: The Core Structure",
+          "BodyText": "In a relational database, a table is the fundamental unit of data storage, organizing information into a grid of rows and columns.",
+          "Notes": "Think of a database table like a spreadsheet tab \u2014 each tab represents a different subject, and the data inside follows a consistent format.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "ModifiedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "Items": [
+            {
+              "Id": "1c5a0c03-b0c2-4b16-8dd7-7643e35232d0",
+              "Text": "Each table is given a unique name that reflects the type of data it holds, such as \u0027employees\u0027 or \u0027sales\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bf403be9-91c1-4c4e-b6d1-883fbe1cdb9a",
+              "Text": "All data within a table follows the same structure, defined by its columns.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ba6a3a9b-16de-4a9a-9477-deee8348b9d9",
+              "Text": "A database typically contains multiple tables that together represent a complete data model for an application or business domain.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1c99ef77-dd0d-4311-b79a-548eb5a994b5",
+          "TopicId": "bc534ca0-0808-4bd9-9e33-d6a3a849458d",
+          "Title": "Rows and Columns Explained",
+          "BodyText": "Rows and columns are the two dimensions of a table \u2014 columns define what kind of data is stored, and rows contain the actual data records.",
+          "Notes": "In relational database terminology, rows are also called \u0027records\u0027 or \u0027tuples,\u0027 and columns are called \u0027fields\u0027 or \u0027attributes.\u0027 Both sets of terms are commonly used.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "ModifiedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "Items": [
+            {
+              "Id": "a3c71211-71a4-413a-aa91-9954456a49d4",
+              "Text": "A column defines a specific attribute of the entity, such as a customer\u0027s name, email address, or account balance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2c4bf414-6de4-4bad-b307-09cacecb8669",
+              "Text": "Each column has a defined data type, such as text, integer, or date, which constrains what values can be stored in it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "892be477-8732-439b-ac17-ce269df254ae",
+              "Text": "A row represents a single, complete record \u2014 for example, one customer or one transaction.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6485c198-41c7-4344-bf41-b6f394b7e7e4",
+              "Text": "Every row in a table shares the same columns, ensuring consistent structure across all records.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "25aa9520-e8d5-4190-9b77-9906868a7ea8",
+          "TopicId": "bc534ca0-0808-4bd9-9e33-d6a3a849458d",
+          "Title": "Primary Keys and Unique Identification",
+          "BodyText": "A primary key is a special column or combination of columns that uniquely identifies each row in a table.",
+          "Notes": "For example, a customer table might use a \u0027customer_id\u0027 column as its primary key, ensuring no two customers share the same ID even if they have identical names.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "ModifiedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "Items": [
+            {
+              "Id": "54e51358-d38b-4a88-bc7b-35ee592697d1",
+              "Text": "Every table should have a primary key to ensure each record can be uniquely referenced.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b86868f0-2850-45d4-8c24-fe9a69a3d463",
+              "Text": "Primary key values must be unique and cannot be null or empty.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eb9480e3-13b7-433d-adf3-fde80b6d9c54",
+              "Text": "Using primary keys is essential for maintaining data integrity and enabling relationships between tables.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e7c4eba0-5b5d-44db-9079-3b931819f867",
+          "TopicId": "bc534ca0-0808-4bd9-9e33-d6a3a849458d",
+          "Title": "How SQL Interacts with Database Tables",
+          "BodyText": "SQL serves as the interface between users and the relational database, enabling them to query and manipulate table data using structured commands.",
+          "Notes": "When you write a SQL query, the database engine interprets it, locates the relevant tables and rows, and returns results \u2014 all without the user needing to know the underlying storage details.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "ModifiedDate": "2026-07-03T11:39:10.8498559-04:00",
+          "Items": [
+            {
+              "Id": "d3523c57-9596-436d-abbc-3bbf208c7754",
+              "Text": "SQL queries target specific tables by name and can retrieve all or a subset of columns and rows.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c3bc8dc3-d638-44f4-937d-a1eecb6ec7cc",
+              "Text": "The most fundamental SQL operation is the SELECT statement, which reads data from one or more tables.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c02de38c-18ef-43ec-81aa-0a48d5b8d14b",
+              "Text": "Understanding the table structure \u2014 its column names and data types \u2014 is a prerequisite for writing accurate queries.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "658097df-e1e5-49fb-9421-204be79a5162",
+              "Text": "SQL commands are executed against a live database, making it possible to retrieve up-to-date information in real time.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "c3ed4832-3699-437c-9dd8-8b53cef753dc",
+      "Title": "Writing Basic SELECT Queries",
+      "Summary": "This topic covers the core SQL SELECT statement used to retrieve data from database tables. Students learn how to specify columns, use wildcards, and construct syntactically correct queries.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:38:48.892811-04:00",
+      "ModifiedDate": "2026-07-03T11:38:48.892811-04:00",
+      "Elements": [
+        {
+          "Id": "e88b3b87-268e-43b6-9f48-143f4834f06f",
+          "TopicId": "c3ed4832-3699-437c-9dd8-8b53cef753dc",
+          "Title": "The Purpose of the SELECT Statement",
+          "BodyText": "The SELECT statement is the foundational SQL command used to retrieve data from one or more database tables.",
+          "Notes": "Every data retrieval operation in SQL begins with SELECT. It tells the database engine what information you want to see as output.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "ModifiedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "Items": [
+            {
+              "Id": "e3220bb3-13d9-4a09-8671-37526f26ef26",
+              "Text": "SELECT is a read-only operation \u2014 it retrieves data without modifying the underlying table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fd38aaee-c197-41b0-a6c7-7ec9e72e1ae1",
+              "Text": "A basic SELECT query requires at minimum two clauses: SELECT (what to retrieve) and FROM (where to retrieve it from).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ad4adf4b-e1a6-4017-8f6e-105640a0b3ca",
+              "Text": "The result of a SELECT query is returned as a result set, which is a temporary table of rows and columns.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d4831c39-ff21-4eab-8995-26e48b397900",
+          "TopicId": "c3ed4832-3699-437c-9dd8-8b53cef753dc",
+          "Title": "Basic SELECT Syntax Structure",
+          "BodyText": "A syntactically correct SELECT query follows a specific clause order that the SQL engine expects.",
+          "Notes": "Example: SELECT first_name, last_name FROM employees; \u2014 This retrieves only the first_name and last_name columns from the employees table.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "ModifiedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "Items": [
+            {
+              "Id": "78751ffb-3c79-4db9-bd96-0db01e445cc8",
+              "Text": "The SELECT keyword is followed by a list of column names separated by commas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a26bf982-2d23-4da3-94e1-d77e5f1bd4cf",
+              "Text": "The FROM keyword follows the column list and specifies the table name to query against.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1b10e0bc-ea71-4c2a-bedc-1b71c1e0ed6e",
+              "Text": "SQL statements are terminated with a semicolon (;), which signals the end of the query to the database engine.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b52b5708-2d6d-4570-92b0-eb25f541a957",
+              "Text": "SQL keywords such as SELECT and FROM are case-insensitive, but using uppercase is a widely accepted convention for readability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6b9282ec-b6ce-4b07-ae0d-65d20aeef5c6",
+          "TopicId": "c3ed4832-3699-437c-9dd8-8b53cef753dc",
+          "Title": "Selecting Specific Columns",
+          "BodyText": "Rather than retrieving all data, you can specify exactly which columns to include in your query results.",
+          "Notes": "Example: SELECT product_name, price FROM products; \u2014 Only two columns are returned, even if the products table contains many more.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "ModifiedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "Items": [
+            {
+              "Id": "86461ada-1f14-4006-a756-6a015eadc643",
+              "Text": "Listing specific column names after SELECT limits the result set to only those columns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ec2e80b6-693c-4434-a322-b02b92044657",
+              "Text": "Selecting only the columns you need improves query performance and makes results easier to interpret.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fdf01749-99c8-45ee-a26f-fc0009b41ea6",
+              "Text": "Multiple columns are separated by commas, and the order in which you list them determines the order they appear in the result set.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2f8d3820-0058-49f6-9d13-f0989d621a8d",
+          "TopicId": "c3ed4832-3699-437c-9dd8-8b53cef753dc",
+          "Title": "Using the Wildcard (*) to Select All Columns",
+          "BodyText": "The asterisk (*) is a wildcard character that instructs SQL to return every column in the specified table.",
+          "Notes": "Example: SELECT * FROM customers; \u2014 This returns all columns and all rows from the customers table. Use with caution on large tables.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "ModifiedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "Items": [
+            {
+              "Id": "2e9edbe9-2b05-4e63-881d-a81d415260dd",
+              "Text": "SELECT * is useful for quickly exploring a table\u0027s structure and data during initial investigation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e00832a9-dc1f-4c28-b20d-3a2d74c109c1",
+              "Text": "Using SELECT * in production queries is generally discouraged because it retrieves unnecessary data and can slow performance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0a0157fc-1871-4615-96d5-36708daa87f6",
+              "Text": "When a table schema changes and new columns are added, SELECT * will automatically include those new columns, which may cause unintended behavior in applications.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6dfa55e8-b6d2-4717-a754-1816f4f59b23",
+          "TopicId": "c3ed4832-3699-437c-9dd8-8b53cef753dc",
+          "Title": "Querying Against Real Datasets",
+          "BodyText": "Writing SELECT queries against actual datasets helps connect SQL syntax to practical, business-relevant outcomes.",
+          "Notes": "For example, a business analyst might query a sales table to retrieve customer names and purchase amounts to answer questions about revenue.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "ModifiedDate": "2026-07-03T11:39:27.9179274-04:00",
+          "Items": [
+            {
+              "Id": "2a6bc6a5-2923-4637-bffb-e2c66bee2d66",
+              "Text": "Practicing on real datasets reinforces how table and column names reflect the actual data domain (e.g., orders, employees, products).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a7490259-36bc-47ad-a66f-c4d55fccc672",
+              "Text": "Understanding the structure of a dataset \u2014 its tables and columns \u2014 is a prerequisite to writing accurate SELECT queries.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9903d710-09ee-4937-966b-24c019f4ce3f",
+              "Text": "Business questions such as \u0027What products do we sell?\u0027 can be directly answered by constructing a targeted SELECT query against the appropriate table.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+      "Title": "Filtering Data with WHERE",
+      "Summary": "This topic explores how to narrow query results using the WHERE clause with various conditions and operators. Students practice filtering data by text, numeric, and logical criteria to isolate relevant records.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:38:48.892811-04:00",
+      "ModifiedDate": "2026-07-03T11:38:48.892811-04:00",
+      "Elements": [
+        {
+          "Id": "d488251a-44c7-43b1-af80-2de84fe13d58",
+          "TopicId": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+          "Title": "The WHERE Clause: Purpose and Syntax",
+          "BodyText": "The WHERE clause is added after the FROM clause in a SELECT statement to filter rows based on one or more conditions, returning only records that meet the specified criteria.",
+          "Notes": "Without a WHERE clause, a query returns every row in the table. WHERE acts as a gatekeeper, reducing result sets to only the relevant records needed to answer a business question.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "ModifiedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "Items": [
+            {
+              "Id": "0e00fa14-30ad-4004-845d-946d1f358a28",
+              "Text": "Basic syntax follows the pattern: SELECT column(s) FROM table WHERE condition;",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f024397-418e-47be-8666-96cd48a554b8",
+              "Text": "The database evaluates the WHERE condition row by row and includes only rows where the condition evaluates to TRUE.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0a24bec4-900f-4897-baac-864d65584b5d",
+              "Text": "WHERE clauses can reference any column in the table, not just columns listed in the SELECT clause.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d78299fc-20ce-4179-89be-57c31d6cb054",
+          "TopicId": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+          "Title": "Comparison Operators",
+          "BodyText": "Comparison operators are the building blocks of WHERE conditions, allowing you to test relationships between column values and specified criteria.",
+          "Notes": "Example: SELECT * FROM orders WHERE total_amount \u003E 500; returns only orders exceeding $500. These operators work across numeric, text, and date data types, though behavior may differ slightly by type.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "ModifiedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "Items": [
+            {
+              "Id": "cb644be9-2a61-40e3-b674-7437bc96ed1d",
+              "Text": "Common operators include = (equal), \u003C\u003E or != (not equal), \u003E (greater than), \u003C (less than), \u003E= (greater than or equal), and \u003C= (less than or equal).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "12c7fa69-f605-4968-991c-4aa9c05316e7",
+              "Text": "Use = for exact matches: WHERE department = \u0027Sales\u0027 filters rows where the department column contains exactly the value \u0027Sales\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e59e20a5-2414-4e09-b9bd-5d40160951e5",
+              "Text": "Use \u003C\u003E or != to exclude specific values: WHERE status \u003C\u003E \u0027Cancelled\u0027 returns all records that are not cancelled.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7ea3c82f-a0ea-40e3-8666-52d2d4469c5a",
+          "TopicId": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+          "Title": "Filtering Text Data",
+          "BodyText": "When filtering on text (string) columns, values must be enclosed in single quotes, and SQL provides special operators to handle partial or pattern-based text matching.",
+          "Notes": "Example: SELECT * FROM customers WHERE last_name LIKE \u0027Sm%\u0027; returns customers whose last name starts with \u0027Sm\u0027, such as Smith or Smart. Note that SQL string comparisons may be case-sensitive depending on the database system.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "ModifiedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "Items": [
+            {
+              "Id": "c8d5da29-dc30-47aa-a988-115a69972eb1",
+              "Text": "Wrap string literals in single quotes: WHERE city = \u0027Chicago\u0027 is correct; WHERE city = Chicago will cause an error.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8e2dc41e-edc4-41bf-9cb9-c4f14d80a33e",
+              "Text": "The LIKE operator enables pattern matching using wildcards: % matches any sequence of characters, and _ matches exactly one character.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9fd1295-f94d-4e5f-b8c3-5a1d80c9a9a1",
+              "Text": "Use IN to filter against a list of specific text values: WHERE country IN (\u0027USA\u0027, \u0027Canada\u0027, \u0027Mexico\u0027) matches any of the three values.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c05c454d-c2c5-4931-9b99-dbb39cf55477",
+          "TopicId": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+          "Title": "Filtering Numeric Data",
+          "BodyText": "Numeric columns can be filtered using comparison operators and range expressions, making it easy to isolate records that fall within specific quantitative thresholds.",
+          "Notes": "Example: SELECT product_name, price FROM products WHERE price BETWEEN 10 AND 50; returns products priced from $10 to $50 inclusive. BETWEEN is inclusive of both boundary values.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "ModifiedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "Items": [
+            {
+              "Id": "dc0ea1c7-38e8-4619-90f4-7e0349ef74bf",
+              "Text": "Numeric values in WHERE conditions do not require quotes: WHERE age = 30 is correct, not WHERE age = \u002730\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e821760e-b688-4e33-b29b-722b084443c9",
+              "Text": "The BETWEEN operator filters values within an inclusive range: WHERE salary BETWEEN 40000 AND 80000 returns rows where salary is 40000, 80000, or any value in between.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "88b5763c-4bd4-46fd-a2bb-233d3ed17d83",
+              "Text": "Comparison operators such as \u003E and \u003C are especially useful for business thresholds, such as WHERE quantity \u003C 10 to flag low inventory.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4c8d81db-69a6-49d0-aca1-238f36ee48cf",
+          "TopicId": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+          "Title": "Combining Conditions with AND and OR",
+          "BodyText": "Multiple conditions can be combined in a single WHERE clause using the AND and OR logical operators, enabling more precise and complex filtering.",
+          "Notes": "Operator precedence matters: AND is evaluated before OR. Use parentheses to explicitly control the order of evaluation and avoid unintended results. Example: WHERE (region = \u0027West\u0027 OR region = \u0027East\u0027) AND sales \u003E 1000.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "ModifiedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "Items": [
+            {
+              "Id": "132d12c5-f46b-4b66-a40e-cfeed2570155",
+              "Text": "AND requires all combined conditions to be TRUE for a row to be included: WHERE department = \u0027Sales\u0027 AND hire_year \u003E 2020 returns only sales employees hired after 2020.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bb5a8e22-c043-44f2-85ca-41b821926739",
+              "Text": "OR requires at least one condition to be TRUE: WHERE city = \u0027Austin\u0027 OR city = \u0027Denver\u0027 returns employees in either city.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "398b5c6e-5867-432a-8ac0-8f185f377458",
+              "Text": "Combining AND and OR in one clause without parentheses can produce unexpected results; always use parentheses to group related conditions clearly.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e0cdde10-89b6-4181-8320-00970d1ad539",
+          "TopicId": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+          "Title": "Excluding Results with NOT",
+          "BodyText": "The NOT operator negates a condition, returning rows where the specified condition is FALSE, and can be combined with other operators like IN, LIKE, and BETWEEN.",
+          "Notes": "Example: SELECT * FROM employees WHERE NOT department = \u0027HR\u0027; is equivalent to WHERE department \u003C\u003E \u0027HR\u0027. NOT is particularly useful with IN and LIKE to exclude categories or patterns.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "ModifiedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "Items": [
+            {
+              "Id": "df35e338-f69a-4e81-a5ab-ea4b7dd4ce4f",
+              "Text": "NOT IN excludes rows matching any value in a list: WHERE status NOT IN (\u0027Closed\u0027, \u0027Cancelled\u0027) returns all records except those with those statuses.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b1e95ffb-d3b4-4eb7-b8e7-9df009f5246c",
+              "Text": "NOT LIKE excludes rows matching a pattern: WHERE email NOT LIKE \u0027%@test.com\u0027 filters out test email addresses.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ba273d2e-87a9-49b7-80a5-8961e8be6460",
+              "Text": "NOT BETWEEN excludes a range: WHERE price NOT BETWEEN 10 AND 50 returns products priced below $10 or above $50.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "59f039e9-e79a-4912-8bfd-fedc79b01933",
+          "TopicId": "8dae7b43-243c-4442-a6f0-340b41a46ad5",
+          "Title": "Handling NULL Values in Filtering",
+          "BodyText": "NULL represents a missing or unknown value in SQL, and it requires special handling in WHERE clauses because NULL cannot be compared using standard operators like = or \u003C\u003E.",
+          "Notes": "A common mistake is writing WHERE phone_number = NULL, which will never return results. Always use IS NULL or IS NOT NULL when filtering for missing data.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "ModifiedDate": "2026-07-03T11:39:54.4854496-04:00",
+          "Items": [
+            {
+              "Id": "26149574-8e8a-4766-9557-c6b49b171c90",
+              "Text": "Use IS NULL to find rows with missing data: WHERE email IS NULL returns all records where no email address has been entered.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "733e6021-df34-4e5a-ae44-bc19c4fdfe76",
+              "Text": "Use IS NOT NULL to exclude rows with missing data: WHERE phone_number IS NOT NULL returns only records that have a phone number on file.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "94e48743-195b-4533-a429-43e8d9903dd1",
+              "Text": "NULL comparisons with = or \u003C\u003E always evaluate to unknown (not TRUE or FALSE), so those rows are excluded from results even when NULL might be expected to match.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "c3d9dbd8-84e6-4212-b9be-410a71e341f9",
+      "Title": "Sorting Results with ORDER BY",
+      "Summary": "This topic teaches how to control the order in which query results are returned using the ORDER BY clause. Students learn to sort data in ascending and descending order across single and multiple columns.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:38:48.892811-04:00",
+      "ModifiedDate": "2026-07-03T11:38:48.892811-04:00",
+      "Elements": [
+        {
+          "Id": "c04afe74-faa9-4b60-abf6-10eab81eaf9b",
+          "TopicId": "c3d9dbd8-84e6-4212-b9be-410a71e341f9",
+          "Title": "Introduction to ORDER BY",
+          "BodyText": "The ORDER BY clause is used to sort the rows returned by a SELECT query in a specified order. Without ORDER BY, SQL makes no guarantee about the sequence in which results are returned.",
+          "Notes": "Example: SELECT name, salary FROM employees ORDER BY salary; \u2014 this returns all employees sorted by salary from lowest to highest by default.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "ModifiedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "Items": [
+            {
+              "Id": "8f9c1df4-2987-4736-9867-52ed696219ee",
+              "Text": "ORDER BY is placed at the end of a SELECT statement, after the WHERE clause if one is present.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f1d43be2-b914-4772-a056-987f473cb200",
+              "Text": "Sorting is applied to the final result set before it is returned to the user.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bb3facb2-0368-480a-99af-24823e118c10",
+              "Text": "Any column available in the SELECT query can be used as a sort key, even if it is not listed in the SELECT clause.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4be9b873-57f6-4862-bc34-f36460ab2ff8",
+          "TopicId": "c3d9dbd8-84e6-4212-b9be-410a71e341f9",
+          "Title": "Ascending Order with ASC",
+          "BodyText": "By default, ORDER BY sorts results in ascending order, meaning from the smallest to the largest value. The ASC keyword can be added explicitly to make this intent clear.",
+          "Notes": "For text columns, ascending order is alphabetical (A to Z). For numeric columns, it goes from the lowest to the highest number. For date columns, it goes from the earliest to the most recent date.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "ModifiedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "Items": [
+            {
+              "Id": "63160c71-a783-4848-acb8-3e6660d39113",
+              "Text": "ASC is the default sort direction, so writing ORDER BY column and ORDER BY column ASC produce identical results.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8993e4f2-46fd-4d75-a1ee-33efd25d3366",
+              "Text": "Using ASC explicitly can improve query readability, especially when working with multiple sort columns.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "568b5321-1d8f-4d8d-a257-9b3433cc9273",
+              "Text": "Ascending sort applies consistently across data types: alphabetical for text, numerical for numbers, and chronological for dates.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3e7d8501-119e-4a62-b5ed-cd4c061ad54e",
+          "TopicId": "c3d9dbd8-84e6-4212-b9be-410a71e341f9",
+          "Title": "Descending Order with DESC",
+          "BodyText": "Adding the DESC keyword after a column name in the ORDER BY clause reverses the sort order, returning the largest or most recent values first. This is useful for ranking or finding top records.",
+          "Notes": "Example: SELECT product_name, revenue FROM sales ORDER BY revenue DESC; \u2014 returns products ranked from highest to lowest revenue, which is a common business reporting need.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "ModifiedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "Items": [
+            {
+              "Id": "6cbce013-6345-4f76-adde-7f9a9c6dbdf7",
+              "Text": "DESC must be explicitly specified; it is never assumed as a default sort direction.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "155ff4c6-6628-424f-96fd-79bcb32274de",
+              "Text": "For text columns, DESC sorts in reverse alphabetical order (Z to A).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1b8b5651-179b-4f22-a084-c9a93e880773",
+              "Text": "For date columns, DESC returns the most recent dates first, which is commonly used in activity logs or transaction histories.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "90b3067c-5255-4ec0-8527-debe606fcddc",
+          "TopicId": "c3d9dbd8-84e6-4212-b9be-410a71e341f9",
+          "Title": "Sorting by Multiple Columns",
+          "BodyText": "ORDER BY can accept multiple columns separated by commas, allowing results to be sorted by a primary key first and then by secondary keys to break ties. Each column can have its own ASC or DESC direction.",
+          "Notes": "Example: SELECT last_name, first_name, department FROM employees ORDER BY department ASC, last_name ASC; \u2014 sorts employees alphabetically within each department.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "ModifiedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "Items": [
+            {
+              "Id": "8a308349-89ae-40a9-904c-c04b80a472d8",
+              "Text": "SQL evaluates sort columns from left to right: it first sorts by the first column, then uses subsequent columns only to resolve ties.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "599189fa-71a0-4a09-8808-ea286a7287de",
+              "Text": "Each column in a multi-column ORDER BY clause can independently be set to ASC or DESC.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e1289149-1e84-4000-b5b6-fe124637fcdb",
+              "Text": "Multi-column sorting is essential when a single column contains many duplicate values and a meaningful secondary order is needed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2ec7a3c1-1351-41fc-a227-366b64a9db17",
+          "TopicId": "c3d9dbd8-84e6-4212-b9be-410a71e341f9",
+          "Title": "ORDER BY with Column Position",
+          "BodyText": "Instead of specifying a column name, you can reference a column by its numeric position in the SELECT list within the ORDER BY clause. This shorthand is supported in most SQL databases.",
+          "Notes": "Example: SELECT name, age, city FROM users ORDER BY 2 DESC; \u2014 sorts the result by the second selected column, age, in descending order. While convenient, this approach can reduce readability and become error-prone if the column order in the SELECT list changes.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "ModifiedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "Items": [
+            {
+              "Id": "eb128feb-fea2-4aba-bc8f-0076f7dc9986",
+              "Text": "Column position numbers in ORDER BY correspond to the left-to-right order of columns listed in the SELECT clause, starting at 1.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bbd356cb-523f-40b4-8bfe-333e347322f2",
+              "Text": "Using positional references can shorten query syntax but may make queries harder to understand and maintain over time.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "10d21b89-4564-41a8-9ad6-b390d4ee2573",
+              "Text": "Most style guides recommend using explicit column names in ORDER BY for clarity and long-term maintainability.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f0d188fa-98af-4fb0-9a00-b5cd738bcafd",
+          "TopicId": "c3d9dbd8-84e6-4212-b9be-410a71e341f9",
+          "Title": "Combining ORDER BY with WHERE and LIMIT",
+          "BodyText": "ORDER BY is frequently combined with WHERE to filter rows before sorting and with LIMIT to return only a top or bottom subset of the sorted results. Understanding clause order is essential for writing correct queries.",
+          "Notes": "Example: SELECT name, score FROM students WHERE score \u003E= 70 ORDER BY score DESC LIMIT 5; \u2014 retrieves the top 5 passing students by score. The WHERE clause filters first, ORDER BY sorts the filtered results, and LIMIT caps the output.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "ModifiedDate": "2026-07-03T11:40:16.6405505-04:00",
+          "Items": [
+            {
+              "Id": "5893e675-4e00-436a-aa3b-9bd92c975b35",
+              "Text": "The standard SQL clause order is: SELECT \u2192 FROM \u2192 WHERE \u2192 ORDER BY \u2192 LIMIT.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6ef4cca6-2a05-4fac-bc76-0832035cf2db",
+              "Text": "WHERE filters rows before sorting occurs, so ORDER BY operates only on the rows that passed the filter condition.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e509c4f4-d3b4-4114-bb45-10e375f0a5fd",
+              "Text": "LIMIT is applied after sorting, ensuring that the rows returned represent the true top or bottom of the ordered result set.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3c605c7b-347e-4980-916c-d2c2b15b57a2",
+      "Title": "Limiting Output with LIMIT",
+      "Summary": "This topic introduces the LIMIT clause as a tool for restricting the number of rows returned by a query. Students understand its practical uses for performance, sampling, and top-N style business questions.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:38:48.892811-04:00",
+      "ModifiedDate": "2026-07-03T11:38:48.892811-04:00",
+      "Elements": [
+        {
+          "Id": "652434f8-f6f1-4a7f-ab5b-dd460ec185eb",
+          "TopicId": "3c605c7b-347e-4980-916c-d2c2b15b57a2",
+          "Title": "What the LIMIT Clause Does",
+          "BodyText": "The LIMIT clause restricts the number of rows a SQL query returns, regardless of how many rows match the query conditions.",
+          "Notes": "Without LIMIT, a SELECT query returns every matching row in the table, which can be thousands or millions of records.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "ModifiedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "Items": [
+            {
+              "Id": "3758f4c7-3e68-4d76-a7a7-1007a05668b6",
+              "Text": "LIMIT is placed at the end of a SQL statement, after ORDER BY if one is present.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "81ce65ba-bcea-49f0-a2c9-cf3f587fba55",
+              "Text": "The syntax is straightforward: SELECT column FROM table LIMIT n; where n is the maximum number of rows to return.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d836655c-7d59-43e3-8120-27ae767b3bb2",
+              "Text": "The database engine stops fetching rows once the specified count is reached.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "13ad6340-85e2-4885-9277-51139f21c7cc",
+          "TopicId": "3c605c7b-347e-4980-916c-d2c2b15b57a2",
+          "Title": "Basic LIMIT Syntax and Usage",
+          "BodyText": "Writing a LIMIT clause requires only the keyword followed by a positive integer specifying the row cap.",
+          "Notes": "Example: SELECT product_name, price FROM products LIMIT 10; returns only the first 10 rows from the products table.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "ModifiedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "Items": [
+            {
+              "Id": "6b544d9d-610f-4973-ae01-c976a078ddac",
+              "Text": "The integer provided to LIMIT must be a non-negative whole number; most databases do not accept decimals or negative values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0cc209c5-ad09-4aa8-8967-f277d74a05c6",
+              "Text": "If the table contains fewer rows than the LIMIT value, all rows are returned without error.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a282e363-1f32-4ba9-9c46-e0781e6e21e5",
+              "Text": "LIMIT can be combined with SELECT *, specific column lists, WHERE filters, and ORDER BY clauses.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "51c163ce-4402-48bd-891a-89dadade326c",
+          "TopicId": "3c605c7b-347e-4980-916c-d2c2b15b57a2",
+          "Title": "Improving Query Performance with LIMIT",
+          "BodyText": "Restricting output with LIMIT can significantly reduce the load on the database server and speed up query response times during exploration.",
+          "Notes": "When working with large production tables, analysts often add LIMIT 100 or LIMIT 1000 while writing and testing queries to avoid accidentally scanning millions of rows.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "ModifiedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "Items": [
+            {
+              "Id": "5d4747df-4bab-4828-8523-338a6a0e5126",
+              "Text": "Large unbounded queries consume memory, CPU, and network bandwidth; LIMIT caps all three.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "be33e625-faaf-48e1-a202-6d0d14299bf3",
+              "Text": "Using LIMIT during query development is a best practice that prevents slow responses and accidental full-table scans.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fabaeb79-ee3b-4251-9f7d-5c0213342802",
+              "Text": "Once a query is verified correct, the LIMIT can be removed or adjusted for the final production run.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e01ee1fe-29db-4943-8fb8-f1a98e51108b",
+          "TopicId": "3c605c7b-347e-4980-916c-d2c2b15b57a2",
+          "Title": "Sampling Data with LIMIT",
+          "BodyText": "LIMIT is a quick way to pull a small sample of rows from a table to inspect data structure, column values, and data quality.",
+          "Notes": "Running SELECT * FROM orders LIMIT 5; lets an analyst immediately see column names and representative data without needing to know the table\u0027s full size.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "ModifiedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "Items": [
+            {
+              "Id": "aa18d0be-e130-4f88-a5bb-2dafbb7036d7",
+              "Text": "Sampling with LIMIT helps analysts understand data types, formats, and potential null values before writing complex queries.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "26f40261-c8da-48ac-a40c-bc68704a2a83",
+              "Text": "It is especially useful when exploring an unfamiliar dataset or a newly loaded table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "13add6fe-29cf-4c51-bf78-5e6812a2a92a",
+              "Text": "Keep in mind that rows returned without an ORDER BY clause have no guaranteed order, so the sample may not be statistically representative.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "dc49e69e-7f64-4f74-a8a9-c791bfeb9a16",
+          "TopicId": "3c605c7b-347e-4980-916c-d2c2b15b57a2",
+          "Title": "Answering Top-N Business Questions",
+          "BodyText": "Combining ORDER BY with LIMIT enables top-N queries, which answer common business questions such as identifying the highest-revenue products or the most recent transactions.",
+          "Notes": "Example: SELECT customer_name, total_spent FROM customers ORDER BY total_spent DESC LIMIT 5; returns the five highest-spending customers.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "ModifiedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "Items": [
+            {
+              "Id": "9006ed35-9107-4093-9343-f52ab1ad5779",
+              "Text": "ORDER BY DESC followed by LIMIT n retrieves the top n records by the highest values in a column.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1874629-e7fa-4bb9-a188-96a932d4a4ca",
+              "Text": "ORDER BY ASC followed by LIMIT n retrieves the bottom n records, useful for finding lowest performers or earliest dates.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "81cb7f65-74d6-456a-857b-7eaec2f3fb89",
+              "Text": "Top-N queries are among the most frequently requested analyses in business reporting and dashboards.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "83049b97-c438-4ea0-9ee1-682706e11b14",
+          "TopicId": "3c605c7b-347e-4980-916c-d2c2b15b57a2",
+          "Title": "LIMIT Across Different Database Systems",
+          "BodyText": "While LIMIT is standard in databases like MySQL, PostgreSQL, and SQLite, other systems use different syntax to achieve the same result.",
+          "Notes": "Microsoft SQL Server uses TOP (n) placed after SELECT, while Oracle traditionally uses ROWNUM in a WHERE clause, though newer versions support FETCH FIRST n ROWS ONLY.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "ModifiedDate": "2026-07-03T11:40:37.4492015-04:00",
+          "Items": [
+            {
+              "Id": "4c934431-3246-42e1-8bd9-12083fdde81f",
+              "Text": "MySQL, PostgreSQL, and SQLite all support the LIMIT keyword with identical syntax.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "00c615f0-fa14-4397-930d-6e6efa0762ab",
+              "Text": "SQL Server syntax: SELECT TOP 10 column FROM table; achieves the same row restriction.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "866897a6-ff75-4816-90c8-5f163c2b767d",
+              "Text": "Understanding these variations is important when moving queries between different database platforms.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+      "Title": "Applying SQL to Business Questions",
+      "Summary": "This topic brings together SELECT, WHERE, ORDER BY, and LIMIT in combination to answer real-world business questions using actual datasets. Students practice writing multi-clause queries that reflect common analytical tasks.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:38:48.892811-04:00",
+      "ModifiedDate": "2026-07-03T11:38:48.892811-04:00",
+      "Elements": [
+        {
+          "Id": "32d5d29a-e69b-4c61-9480-ffaeabfb387a",
+          "TopicId": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+          "Title": "Translating Business Questions into SQL Queries",
+          "BodyText": "Real-world business questions must be rephrased as structured SQL queries before any data can be retrieved. This translation process is a foundational analytical skill that connects business intent to technical execution.",
+          "Notes": "Example: \u0027Who are our top 10 highest-spending customers this year?\u0027 translates to a SELECT with a WHERE clause filtering by year, an ORDER BY spend descending, and a LIMIT of 10.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "ModifiedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "Items": [
+            {
+              "Id": "a7a61b4d-f616-475b-b069-cd79a702233f",
+              "Text": "Identify the table(s) that hold the relevant data before writing any SQL.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fd249062-71ae-4696-a777-a6f0211b1692",
+              "Text": "Break the business question into its components: what columns to retrieve, what conditions to filter by, how to sort, and how many rows to return.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "930bb49e-63ec-4e33-a5d5-65e7cbe49e29",
+              "Text": "Each part of the business question maps to a specific SQL clause: subject maps to SELECT, conditions map to WHERE, ranking maps to ORDER BY, and scope maps to LIMIT.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0157a3d6-dbd1-40ab-8b37-6c7497799880",
+          "TopicId": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+          "Title": "Combining SELECT and WHERE for Targeted Data Retrieval",
+          "BodyText": "Most business questions require filtering rows to a specific subset of data, which is accomplished by pairing SELECT with a WHERE clause. Together they define both what columns to display and which records are relevant.",
+          "Notes": "Example: To find all orders placed in a specific region with a value above $500, you would SELECT the relevant columns and add WHERE conditions for region and order value.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "ModifiedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "Items": [
+            {
+              "Id": "f301d2ff-01dd-44fb-ae54-d8a5be06be41",
+              "Text": "SELECT specifies the columns (fields) you want to see in your results.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "87949b5d-e8e7-49e7-b0c4-2bfc7efa10ad",
+              "Text": "WHERE narrows the result set by applying one or more conditions to the rows in the table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cec36f2c-3237-4dbf-9eeb-06c5e025b599",
+              "Text": "Multiple conditions can be combined using AND or OR to reflect more complex business criteria.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "36b3d3f9-94c5-4616-ab5f-8b61e40f47c3",
+              "Text": "Always verify that column names and data types in WHERE conditions match the actual schema to avoid errors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2ca74f38-f693-455b-9aba-438fe8e45ea4",
+          "TopicId": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+          "Title": "Sorting Results with ORDER BY to Surface Insights",
+          "BodyText": "Business questions frequently ask for ranked or sequenced data, such as the best-performing products or the most recent transactions. ORDER BY arranges query results in a meaningful order to support those insights.",
+          "Notes": "Example: To find the highest-revenue products, add ORDER BY revenue DESC to sort from largest to smallest.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "ModifiedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "Items": [
+            {
+              "Id": "5f4ab01b-7c67-4594-8bff-f303cfccbe26",
+              "Text": "ORDER BY followed by a column name sorts results in ascending order by default; adding DESC reverses the order.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "68e21ab2-bc11-4fab-9c86-1c7679a3f883",
+              "Text": "You can sort by multiple columns to break ties, such as ordering first by region and then by sales amount within each region.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0a97ddda-2822-4fb7-b25f-7f4047e83af8",
+              "Text": "Sorting is applied after filtering, so ORDER BY works on the already-filtered result set produced by WHERE.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7bc25a48-e615-469e-b801-5cc102287cf7",
+          "TopicId": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+          "Title": "Using LIMIT to Focus on Top or Bottom Records",
+          "BodyText": "Many analytical tasks require only the top or bottom N records rather than an entire dataset. LIMIT restricts the number of rows returned, making queries more efficient and results easier to interpret.",
+          "Notes": "Example: To identify the five lowest-rated products, combine ORDER BY rating ASC with LIMIT 5.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "ModifiedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "Items": [
+            {
+              "Id": "2e321f20-a4f5-4bb2-9174-4aef2f4fd621",
+              "Text": "LIMIT is placed at the end of a query and accepts a whole number representing the maximum rows to return.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aa91c461-ed4c-4aaf-afbe-0b23560455e6",
+              "Text": "LIMIT is most meaningful when combined with ORDER BY, since without sorting the returned rows are arbitrary.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "025d975a-7e53-4899-aab8-b6742f6c5c08",
+              "Text": "Using LIMIT reduces the data transferred and processed, which is especially valuable when working with large tables.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "19783c86-d3f8-41da-9278-23ad1ded53cf",
+          "TopicId": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+          "Title": "Writing Multi-Clause Queries: Clause Order and Syntax",
+          "BodyText": "When combining SELECT, WHERE, ORDER BY, and LIMIT in a single query, SQL requires the clauses to appear in a specific order. Understanding this structure prevents syntax errors and ensures queries execute correctly.",
+          "Notes": "The standard clause order is: SELECT \u2192 FROM \u2192 WHERE \u2192 ORDER BY \u2192 LIMIT. Deviating from this order will cause a syntax error in most SQL databases.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "ModifiedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "Items": [
+            {
+              "Id": "876f4549-3d7c-47fe-a5ab-a8603a2ab4df",
+              "Text": "A complete multi-clause query follows the pattern: SELECT columns FROM table WHERE condition ORDER BY column LIMIT n.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "45cf1cbe-ef2f-4111-9360-0da1045fe684",
+              "Text": "Each clause serves a distinct role and must not be placed out of sequence.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "afe0ffb0-eee4-46ff-b471-bb56c7a3e45a",
+              "Text": "Reading a completed query from top to bottom should mirror the logical steps used to answer the original business question.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3e595929-0051-4b0d-bfac-f2f6f9ce7de4",
+          "TopicId": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+          "Title": "Common Analytical Patterns in Business SQL Queries",
+          "BodyText": "Certain types of business questions appear repeatedly across industries and map to recognizable SQL query patterns. Recognizing these patterns speeds up query writing and reduces errors.",
+          "Notes": "These patterns serve as templates that can be adapted to different tables and business contexts without rebuilding query logic from scratch each time.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "ModifiedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "Items": [
+            {
+              "Id": "53e390ab-02d5-47db-801f-715604361e74",
+              "Text": "The \u0027Top N by metric\u0027 pattern uses ORDER BY [metric] DESC combined with LIMIT N to find best performers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "26c937f8-d6ff-4b7e-9a94-e807361b6225",
+              "Text": "The \u0027filter by time period\u0027 pattern uses WHERE with date column conditions to scope analysis to a specific range.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aea3b50d-4fbc-4dbf-954e-ede3df283f9f",
+              "Text": "The \u0027find records meeting a threshold\u0027 pattern uses WHERE with comparison operators (\u003E, \u003C, \u003E=, \u003C=) to isolate records above or below a business-defined cutoff.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c8019d91-9559-4b85-9501-a6b77c7f6061",
+              "Text": "Combining multiple patterns\u2014such as filtering by date and then ranking by revenue\u2014produces queries that answer more nuanced business questions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bb00b840-5893-418e-8c78-1bbc199e35df",
+          "TopicId": "ddbe1985-6151-4dc3-9177-60b9c3bd74fe",
+          "Title": "Validating Query Results Against Business Expectations",
+          "BodyText": "After writing and running a query, analysts should verify that the results make sense in the context of the original business question. This habit catches logical errors that syntax checks cannot detect.",
+          "Notes": "Example: If a query for top customers returns only one row when dozens are expected, the LIMIT value or WHERE condition may be too restrictive.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "ModifiedDate": "2026-07-03T11:41:07.4539026-04:00",
+          "Items": [
+            {
+              "Id": "d7caca67-f0b2-4abc-82f2-b1e7b6636b56",
+              "Text": "Check that the number of rows returned is reasonable given the filters and LIMIT applied.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c1156276-0c0c-42c8-9eda-a5df33b8d3d5",
+              "Text": "Spot-check individual records in the results against known values or prior reports to confirm accuracy.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e5f63a6e-c21a-4a4b-a440-62b85da1e7d3",
+              "Text": "If results seem unexpected, review each clause independently\u2014starting with SELECT and FROM\u2014to isolate where the logic may have gone wrong.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "28ae04a6-1a30-489f-b767-03b39cc2e214",
+              "Text": "Adjust column selection, filter conditions, or sort direction iteratively until the output fully answers the business question.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 37
+}

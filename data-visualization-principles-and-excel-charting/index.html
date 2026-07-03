@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Visualization Principles and Excel Charting | CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3e50;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Top Banner ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #d6eaf8;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      max-width: 680px;
+      color: #cde3f5;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7f8c8d;
+      margin-bottom: 1.1rem;
+      border-bottom: 2px solid #dde3ea;
+      padding-bottom: 0.45rem;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ea;
+      border-radius: 8px;
+      padding: 1.4rem 1.4rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 5px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      line-height: 1.4;
+    }
+
+    .badge-type {
+      background: #eaf2fb;
+      color: #1a5e96;
+      border: 1px solid #bee0f5;
+    }
+
+    .badge-filetype {
+      background: #f0f4f0;
+      color: #3d6b3e;
+      border: 1px solid #c3dbc4;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Card Name / Links ── */
+    .card-name-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+
+    .card-name a {
+      color: #2166ad;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #13447a;
+      border-bottom-color: #2166ad;
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #7f8c8d;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #c8d3dc;
+      border-radius: 4px;
+      padding: 0.12rem 0.45rem;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #eaf0f6;
+      color: #1a3a5c;
+      border-color: #9ab3c8;
+      outline: none;
+    }
+
+    .source-link::before {
+      content: '⬇';
+      font-size: 0.65rem;
+    }
+
+    /* ── Card Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5a6a;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 2.5rem;
+      font-size: 0.8rem;
+      color: #95a5a6;
+      border-top: 1px solid #dde3ea;
+      margin-top: 3rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding: 2rem 1rem 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>Data Visualization Principles and Excel Charting</h1>
+      <p>
+        This module introduces core principles of effective data visualization and hands-on
+        Excel charting techniques. Learners will explore how to select appropriate chart types,
+        apply visual hierarchy, use color purposefully, and avoid representations that mislead
+        or distort data &mdash; essential skills for communicating insights clearly and honestly.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-title">Module Artifacts &mdash; 3 items</p>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <div class="card">
+        <div class="card-header">
+          <div class="badge-row">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <div class="card-name-row">
+            <span class="card-name">
+              <a href="content/module_topics.html">Module Topics</a>
+            </span>
+            <a class="source-link" href="source/hierarchy.json">source file</a>
+          </div>
+        </div>
+        <p class="card-desc">
+          A structured outline of the module&rsquo;s learning topics &mdash; covering chart selection,
+          visual hierarchy, color use, and avoiding misleading representations &mdash; used by
+          instructors to organize content and by learners to navigate what will be taught.
+        </p>
+      </div>
+
+      <!-- Card 2: Presentation -->
+      <div class="card">
+        <div class="card-header">
+          <div class="badge-row">
+            <span class="badge badge-type">Presentation</span>
+            <span class="badge badge-filetype">.pptx</span>
+          </div>
+          <div class="card-name-row">
+            <span class="card-name">
+              <a href="presentation/Data_Visualization_Principle_generated.pptx">Data_Visualization_Principle_generated.pptx</a>
+            </span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A slide deck introducing data visualization principles and Excel charting, covering
+          foundational concepts such as choosing the right chart type, visual hierarchy, and
+          avoiding misleading representations. Used by instructors to deliver lessons and by
+          learners to review key concepts and design guidelines.
+        </p>
+      </div>
+
+      <!-- Card 3: Quiz Question Bank -->
+      <div class="card">
+        <div class="card-header">
+          <div class="badge-row">
+            <span class="badge badge-type">Quiz</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <div class="card-name-row">
+            <span class="card-name">
+              <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+            </span>
+            <a class="source-link" href="source/quiz_questions.json">source file</a>
+          </div>
+        </div>
+        <p class="card-desc">
+          A 20-question bank covering topics such as the purpose of data visualization,
+          appropriate chart selection, Tufte&rsquo;s data-ink ratio, misleading y-axis truncation,
+          and pie chart usage. Used by instructors to build quizzes and assessments that test
+          learners&rsquo; understanding of visualization principles.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp; Data Visualization Principles and Excel Charting</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

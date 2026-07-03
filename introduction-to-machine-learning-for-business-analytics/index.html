@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction to Machine Learning for Business Analytics — CAP3785</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #d6e8f7;
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #cce0f5;
+      max-width: 700px;
+      line-height: 1.65;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-heading {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7f8c9a;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde3ea;
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ea;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card top row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      word-break: break-word;
+      flex: 1 1 auto;
+    }
+
+    .card-title a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 2px solid #2d6a9f;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-title a:hover,
+    .card-title a:focus {
+      color: #2d6a9f;
+      border-color: #5ba0d0;
+      outline: none;
+    }
+
+    /* ── Source file link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5b7fa6;
+      text-decoration: none;
+      background: #eaf2fb;
+      border: 1px solid #b8d4ee;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      white-space: nowrap;
+      margin-top: 0.1rem;
+      transition: background 0.15s, color 0.15s;
+      align-self: flex-start;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #d0e6f7;
+      color: #1a4f80;
+      outline: none;
+    }
+
+    .source-link::before {
+      content: '⬇';
+      font-size: 0.68rem;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      text-transform: uppercase;
+    }
+
+    .badge-type {
+      background-color: #e8f0fe;
+      color: #2558c9;
+      border: 1px solid #c3d3f8;
+    }
+
+    .badge-filetype {
+      background-color: #f0faf3;
+      color: #1f7a40;
+      border: 1px solid #b6e4c4;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5a6b;
+      line-height: 1.6;
+      flex: 1 1 auto;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #9aa5b1;
+      padding: 1.25rem 1rem 1.75rem;
+      border-top: 1px solid #dde3ea;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1rem 1.75rem;
+      }
+
+      main {
+        margin-top: 1.75rem;
+      }
+
+      .card {
+        padding: 1.15rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>Introduction to Machine Learning for Business Analytics</h1>
+      <p>
+        This module introduces foundational machine learning concepts within a business analytics
+        context. Learners will explore supervised and unsupervised learning, key algorithms, and
+        model evaluation techniques — equipping them to apply ML thinking to real-world data
+        challenges. Browse the course artifacts below to get started.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-heading">Course Artifacts</h2>
+
+    <div class="card-grid">
+
+      <!-- Artifact 1: Module Topics -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </div>
+          <a
+            class="source-link"
+            href="source/hierarchy.json"
+            title="Download source file"
+          >source file</a>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's four main topic areas — ML foundations, supervised
+          vs. unsupervised learning, common algorithms (linear regression, decision trees, k-means),
+          and model evaluation — that instructors use to plan lessons and learners use to navigate
+          what will be covered.
+        </p>
+      </div>
+
+      <!-- Artifact 2: Presentation (no viewHref link, no sourceHref) -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <a href="presentation/Introduction_to_Machine_generated.pptx">Introduction_to_Machine_generated.pptx</a>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <p class="card-description">
+          A slide deck introducing machine learning in a business analytics context, walking learners
+          through core ML concepts, key terminology, and the end-to-end ML workflow, intended for use
+          as the primary presentation during lectures or self-paced study.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp; Introduction to Machine Learning for Business Analytics</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

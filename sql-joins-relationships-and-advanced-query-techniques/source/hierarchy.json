@@ -1,0 +1,1218 @@
+{
+  "ModuleFolderName": "SQL_Joins_Relationships",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:41:22.6290558-04:00",
+  "ModifiedDate": "2026-07-03T11:43:57.1957453-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "487c58f5-b0ab-474f-a500-199855f4b3ee",
+      "Title": "Relational Database Foundations",
+      "Summary": "Introduces the concept of related tables and how foreign keys establish connections between them. Sets the foundation for understanding why JOIN operations are necessary in multi-table databases.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "ModifiedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "Elements": [
+        {
+          "Id": "28fd705e-1748-479e-a36a-768a65ae804d",
+          "TopicId": "487c58f5-b0ab-474f-a500-199855f4b3ee",
+          "Title": "What Is a Relational Database?",
+          "BodyText": "A relational database organizes data into multiple structured tables, each representing a distinct entity or concept.",
+          "Notes": "For example, a business database might have separate tables for Customers, Orders, and Products rather than storing everything in one large spreadsheet.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "ModifiedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "Items": [
+            {
+              "Id": "c7dc7d3a-9772-4691-bbe3-5a3bf9e234c4",
+              "Text": "Each table consists of rows (records) and columns (attributes) that describe a specific type of entity.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "833c4ba5-0ec6-482a-8122-32799334a999",
+              "Text": "Separating data into distinct tables reduces redundancy and keeps information organized and maintainable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9e80a58-7531-4a27-b95f-f5c30c8882e7",
+              "Text": "This structure follows normalization principles, which minimize data duplication across the database.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8c7b9169-cf65-4af4-9b83-58c909b6133e",
+          "TopicId": "487c58f5-b0ab-474f-a500-199855f4b3ee",
+          "Title": "Primary Keys: Uniquely Identifying Records",
+          "BodyText": "A primary key is a column or set of columns that uniquely identifies each row within a table.",
+          "Notes": "For instance, a Customers table might use a CustomerID column as its primary key, ensuring no two customers share the same identifier.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "ModifiedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "Items": [
+            {
+              "Id": "5a3213fd-58bd-4586-a1e1-9c26ee48de47",
+              "Text": "Primary key values must be unique and cannot be null, guaranteeing that every record can be individually referenced.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d44f8093-4291-4d00-8946-0835a628bf10",
+              "Text": "Tables typically define a single primary key, though composite keys using multiple columns are also valid.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1045caec-6728-4f2b-92c5-8a2d6148de47",
+              "Text": "Primary keys serve as the anchor point that other tables use to reference records in that table.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1d5ad26e-1ea0-4858-b68a-f9edc4b84768",
+          "TopicId": "487c58f5-b0ab-474f-a500-199855f4b3ee",
+          "Title": "Foreign Keys: Creating Relationships Between Tables",
+          "BodyText": "A foreign key is a column in one table that references the primary key of another table, establishing a link between the two.",
+          "Notes": "For example, an Orders table might include a CustomerID column that references the CustomerID primary key in the Customers table, connecting each order to its customer.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "ModifiedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "Items": [
+            {
+              "Id": "2b57fa34-1f87-4ced-b489-6932a48057de",
+              "Text": "Foreign keys enforce referential integrity, ensuring that a referenced record actually exists in the parent table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2ab9f714-d3e3-4f66-8b93-0d760ca65938",
+              "Text": "A table can contain multiple foreign keys, allowing it to relate to several other tables simultaneously.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "417904ca-5414-402f-8734-bf77a659aca8",
+              "Text": "The table containing the foreign key is called the child table, while the table being referenced is called the parent table.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8d6d9050-7125-4835-a251-f9a3b7eb5eb4",
+          "TopicId": "487c58f5-b0ab-474f-a500-199855f4b3ee",
+          "Title": "Types of Table Relationships",
+          "BodyText": "Relationships between tables are categorized by how many records on each side can be associated with records on the other side.",
+          "Notes": "Understanding relationship types helps in designing schemas correctly and predicting how JOIN queries will behave when combining tables.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "ModifiedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "Items": [
+            {
+              "Id": "72d430f7-be2d-4034-bdcc-ef46afb53a34",
+              "Text": "A one-to-many relationship means one record in the parent table can relate to many records in the child table, such as one customer placing many orders.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3940ff4a-cea5-4ce1-937a-2788c112cc3b",
+              "Text": "A many-to-many relationship occurs when records in both tables can relate to multiple records in the other, typically resolved using a junction table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0b17ebe0-3abf-4d47-8dfe-29438c9dd087",
+              "Text": "A one-to-one relationship links exactly one record in each table to the other, often used to extend or segment a table\u0027s data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "83e62b8b-d545-4751-baa0-f6510324c4da",
+          "TopicId": "487c58f5-b0ab-474f-a500-199855f4b3ee",
+          "Title": "Why Data Is Split Across Multiple Tables",
+          "BodyText": "Storing all data in a single table leads to repetition, inconsistency, and difficulty maintaining accurate records over time.",
+          "Notes": "If customer contact information were stored directly in every order row, updating an address would require changing dozens of records instead of just one.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "ModifiedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "Items": [
+            {
+              "Id": "45fde5ca-fdff-46db-95eb-b766a5371713",
+              "Text": "Normalization is the process of structuring tables to reduce redundancy and ensure each piece of data is stored in only one place.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2bb8e66c-3413-4e62-baea-7a8859c68c49",
+              "Text": "Splitting data across tables makes updates, deletions, and insertions more reliable and less error-prone.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dd137138-33e0-4106-a85c-9b06263fc915",
+              "Text": "Well-designed relational schemas scale more effectively as data volume grows compared to flat, single-table designs.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8b673eb6-2a57-4e32-b5a1-4696b6d8b598",
+          "TopicId": "487c58f5-b0ab-474f-a500-199855f4b3ee",
+          "Title": "The Need for JOIN Operations",
+          "BodyText": "Because related data lives in separate tables, queries that require information from more than one table must use JOIN operations to combine them.",
+          "Notes": "For example, generating an invoice requires pulling customer names from the Customers table and order details from the Orders table in a single result set.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "ModifiedDate": "2026-07-03T11:41:44.2636583-04:00",
+          "Items": [
+            {
+              "Id": "52f0b724-3217-46d3-b8c9-4d57f7228926",
+              "Text": "A JOIN tells the database engine how to match rows from one table with corresponding rows in another, using key relationships.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a3033c4a-6c70-4800-a8c5-b9ca36dc488e",
+              "Text": "Without JOINs, analysts would need to run separate queries and manually correlate results, which is inefficient and error-prone.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "121b4ca5-cb60-4ed7-b1bb-6447b1e1e482",
+              "Text": "Understanding foreign key relationships is essential before writing JOINs, because the join condition is built on those key connections.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+      "Title": "INNER JOIN and Matching Records",
+      "Summary": "Covers the INNER JOIN operation to retrieve only records with matching values in both tables. Explores common use cases and syntax for combining related data sets.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "ModifiedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "Elements": [
+        {
+          "Id": "97b07893-1289-451b-be4f-75c3021edbf5",
+          "TopicId": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+          "Title": "What Is an INNER JOIN?",
+          "BodyText": "An INNER JOIN combines rows from two or more tables based on a related column, returning only the rows where a match exists in both tables.",
+          "Notes": "If a row in the left table has no corresponding match in the right table, it is excluded from the result set entirely, and vice versa.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "ModifiedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "Items": [
+            {
+              "Id": "fbdbdb04-8d7c-4d00-b421-e07f05f90a4c",
+              "Text": "INNER JOIN is the most commonly used JOIN type in SQL queries.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9b72757a-8a96-455c-a13f-d7c96bcd87a3",
+              "Text": "The result set contains only the intersection of matching records between the joined tables.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ce8788e6-bc12-48c7-9a95-c76dd35735f9",
+              "Text": "Any unmatched rows from either table are silently omitted from the output.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3d1b4111-711d-4d6f-8160-4e4e6a4abc37",
+          "TopicId": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+          "Title": "Basic INNER JOIN Syntax",
+          "BodyText": "The INNER JOIN clause is placed in the FROM section of a SELECT statement, followed by an ON condition that specifies which columns to match.",
+          "Notes": "Example: SELECT orders.order_id, customers.name FROM orders INNER JOIN customers ON orders.customer_id = customers.customer_id;",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "ModifiedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "Items": [
+            {
+              "Id": "ed0f88ce-70ca-4e72-93b4-e2cb964bf27a",
+              "Text": "Use the keyword INNER JOIN between the two table names in the FROM clause.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f5c10020-0375-47dd-9898-02c53f95665b",
+              "Text": "The ON keyword defines the join condition, typically matching a foreign key in one table to a primary key in another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6b5dcc84-f3fe-43c2-adf0-491ece17ed91",
+              "Text": "Column references should be prefixed with the table name or alias to avoid ambiguity when both tables share column names.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6df195aa-ef29-430f-91eb-6eccadd826c6",
+          "TopicId": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+          "Title": "Matching on Primary and Foreign Keys",
+          "BodyText": "INNER JOIN most often links a foreign key in one table to the primary key in another, reflecting the underlying relational data model.",
+          "Notes": "For example, an Orders table may store a customer_id (foreign key) that references the id column (primary key) in a Customers table.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "ModifiedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "Items": [
+            {
+              "Id": "41266cd0-c22c-4121-b5ea-dba8afd3b0c0",
+              "Text": "Primary keys uniquely identify each row in a table, while foreign keys store references to those primary keys in related tables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "68253fdc-188e-4bf9-bad4-cb023ffba557",
+              "Text": "Joining on these key columns ensures data integrity and produces logically meaningful combined records.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0fd1a82f-4b88-4619-9b2a-79268a275ffd",
+              "Text": "Mismatched data types between key columns can prevent matches from being found, resulting in an empty result set.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bea1c5da-a8ed-4244-a7f3-9c65064e946f",
+          "TopicId": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+          "Title": "Using Table Aliases for Readability",
+          "BodyText": "Aliases assign short, readable names to tables within a query, simplifying the syntax when referencing columns from multiple tables.",
+          "Notes": "Example: SELECT o.order_id, c.name FROM orders AS o INNER JOIN customers AS c ON o.customer_id = c.customer_id;",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "ModifiedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "Items": [
+            {
+              "Id": "3436d798-b194-4ac5-a2a8-af741b36fa4c",
+              "Text": "Declare an alias using the AS keyword immediately after the table name in the FROM or JOIN clause.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f8fd56df-eb5c-4673-a7da-9211cf0e81d9",
+              "Text": "Once an alias is defined, it must be used consistently throughout that query in place of the full table name.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0e1c212e-35e9-453d-afc1-e403f4ec122c",
+              "Text": "Aliases are especially useful when joining a table to itself (self-join) or when working with long table names.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a8737250-b587-491d-8b75-743acedd23c0",
+          "TopicId": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+          "Title": "Filtering INNER JOIN Results with WHERE",
+          "BodyText": "A WHERE clause can be appended after an INNER JOIN to further narrow the result set based on additional conditions beyond the join predicate.",
+          "Notes": "Example: Adding WHERE orders.status = \u0027shipped\u0027 to a customers-orders join returns only matched records where the order has been shipped.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "ModifiedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "Items": [
+            {
+              "Id": "c83c9675-f6d8-4053-bcdc-1bec62184ffd",
+              "Text": "The WHERE clause is evaluated after the JOIN operation, filtering rows from the already-matched result set.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "90d61204-710c-4d3b-b379-387e25f62586",
+              "Text": "Multiple conditions can be combined using AND and OR operators to create precise filters.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "51bfac90-01cf-4a0d-95ec-c478aac3b8b5",
+              "Text": "Filtering on indexed columns in the WHERE clause improves query performance on large datasets.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a70e0440-0d26-47ce-a5a2-53f320620a1a",
+          "TopicId": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+          "Title": "Common Use Cases for INNER JOIN",
+          "BodyText": "INNER JOIN is used whenever analysis requires only records that have confirmed relationships across two or more tables.",
+          "Notes": "Typical scenarios include generating invoices that link customers to their orders, or producing reports that connect employees to their assigned departments.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "ModifiedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "Items": [
+            {
+              "Id": "9d3c8de1-4db3-400f-9254-ce07164b0c39",
+              "Text": "Reporting dashboards frequently use INNER JOIN to combine transactional data with reference or dimension tables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7301651d-5d81-42bc-8d2b-1c16d4ecc702",
+              "Text": "E-commerce queries often join Products, Orders, and Customers tables to produce order summaries.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c4b8b674-ac6e-461a-8fd5-44022eb3ffe1",
+              "Text": "Any analytical query requiring correlated data from multiple tables is a strong candidate for INNER JOIN.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "45501e3b-c564-4751-95d6-e826401f6f7e",
+          "TopicId": "214c2b9c-c947-4b90-9e72-372193f08fb4",
+          "Title": "Joining More Than Two Tables",
+          "BodyText": "Multiple INNER JOIN clauses can be chained in a single query to combine three or more related tables simultaneously.",
+          "Notes": "Example: SELECT c.name, o.order_id, p.product_name FROM customers c INNER JOIN orders o ON c.id = o.customer_id INNER JOIN products p ON o.product_id = p.id;",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "ModifiedDate": "2026-07-03T11:42:06.5964712-04:00",
+          "Items": [
+            {
+              "Id": "163fc603-c7cc-47f8-b7dd-c9bb7c6585d5",
+              "Text": "Each additional table requires its own INNER JOIN ... ON clause appended after the previous one.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1aba0545-9ff7-454c-a5c4-5c86d6b54e2e",
+              "Text": "The order of joins can affect readability and, in some databases, query optimization plan selection.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6d043971-2389-46a5-bdf9-5c2ae4bff22d",
+              "Text": "Ensure that each join condition correctly references columns from the newly added table and an already-joined table to maintain logical data flow.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "5bf432ae-daf6-403e-ab00-6bb7d16b6a06",
+      "Title": "Outer JOINs: LEFT, RIGHT, and FULL",
+      "Summary": "Examines LEFT, RIGHT, and FULL OUTER JOIN operations and how they handle unmatched records from one or both tables. Highlights practical differences and when to apply each type.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "ModifiedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "Elements": [
+        {
+          "Id": "49d9f658-7a3c-4c0f-92fa-7fc2d8e97842",
+          "TopicId": "5bf432ae-daf6-403e-ab00-6bb7d16b6a06",
+          "Title": "What Is an Outer JOIN?",
+          "BodyText": "An OUTER JOIN retrieves rows from one or both tables even when no matching record exists in the other table, unlike INNER JOIN which only returns matched rows.",
+          "Notes": "Unmatched rows are filled with NULL values in the columns from the table that lacks a corresponding record. This makes OUTER JOINs essential when preserving all records from at least one side of the relationship is required.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "ModifiedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "Items": [
+            {
+              "Id": "68148778-afe5-4cd1-92ea-b72600224dad",
+              "Text": "OUTER JOINs extend INNER JOIN behavior by including non-matching rows from one or both tables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "79e506e5-9227-4c7b-8062-9eb45b7e05fd",
+              "Text": "NULL values appear in result columns wherever no match is found in the joined table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "96257cb6-5015-4909-a4cb-4af67f441e57",
+              "Text": "Choosing the correct OUTER JOIN type depends on which table\u0027s complete record set must be preserved.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8bf599de-16af-4a47-a1b8-b4671bb14f0d",
+          "TopicId": "5bf432ae-daf6-403e-ab00-6bb7d16b6a06",
+          "Title": "LEFT OUTER JOIN",
+          "BodyText": "A LEFT OUTER JOIN returns all rows from the left (first) table and only the matching rows from the right table, filling unmatched right-side columns with NULL.",
+          "Notes": "Example: SELECT customers.name, orders.order_id FROM customers LEFT JOIN orders ON customers.id = orders.customer_id; \u2014 This returns every customer, including those who have never placed an order, with NULL in order_id for those customers.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "ModifiedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "Items": [
+            {
+              "Id": "ff55d729-d75a-4852-83cf-d3968ad6fcfc",
+              "Text": "Every row in the left table appears in the result, regardless of whether a match exists in the right table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "92861c5b-f9d5-407a-8176-12e4d66a33fd",
+              "Text": "Right-table columns show NULL for any left-table row that has no corresponding match.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d053e2c7-5e33-4541-933d-03cf83f41608",
+              "Text": "LEFT JOIN is commonly used to find records in the left table that are missing related data, such as customers without orders.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "393320cc-0eba-46a6-ad94-7f7975222a21",
+              "Text": "The keyword OUTER is optional; LEFT JOIN and LEFT OUTER JOIN are equivalent in standard SQL.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a4414767-aafa-4ee5-a906-9ef3de68d7a8",
+          "TopicId": "5bf432ae-daf6-403e-ab00-6bb7d16b6a06",
+          "Title": "RIGHT OUTER JOIN",
+          "BodyText": "A RIGHT OUTER JOIN mirrors the LEFT JOIN but preserves all rows from the right (second) table, filling unmatched left-side columns with NULL.",
+          "Notes": "Example: SELECT employees.name, departments.department_name FROM employees RIGHT JOIN departments ON employees.dept_id = departments.id; \u2014 This returns every department, including those with no assigned employees, with NULL for employee columns.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "ModifiedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "Items": [
+            {
+              "Id": "2bd54191-2055-486c-b6cc-4f09602db4c2",
+              "Text": "Every row in the right table appears in the result, regardless of whether a match exists in the left table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7037c8f4-b0f1-4937-af72-1acbe66b31db",
+              "Text": "Left-table columns show NULL for any right-table row that has no corresponding match.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d4a49366-3a82-4791-8ada-5743741cac9f",
+              "Text": "RIGHT JOIN is logically equivalent to reversing the table order in a LEFT JOIN, so many developers prefer LEFT JOIN for consistency.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9911cd30-8ddf-4e85-8642-96cad7f4c399",
+              "Text": "Use RIGHT JOIN when the right table represents the primary or complete dataset that must not lose rows.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9555f11a-6756-4f5c-b6ef-b76e95d9e18f",
+          "TopicId": "5bf432ae-daf6-403e-ab00-6bb7d16b6a06",
+          "Title": "FULL OUTER JOIN",
+          "BodyText": "A FULL OUTER JOIN combines the behavior of LEFT and RIGHT JOINs, returning all rows from both tables and filling NULLs wherever no match exists on either side.",
+          "Notes": "Example: SELECT students.name, courses.course_name FROM students FULL OUTER JOIN courses ON students.course_id = courses.id; \u2014 This returns every student and every course, with NULLs where no pairing exists. Note that MySQL does not natively support FULL OUTER JOIN; it can be simulated using UNION of LEFT and RIGHT JOINs.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "ModifiedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "Items": [
+            {
+              "Id": "676cdfd0-362b-4faa-8459-2454626d57be",
+              "Text": "All rows from both the left and right tables appear in the result set.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "052798e1-4339-435b-8c39-9c37fbc5a06e",
+              "Text": "NULL values fill columns from whichever side lacks a matching row.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "49f26b8d-88fb-4463-9b57-af60823f7346",
+              "Text": "FULL OUTER JOIN is useful for identifying unmatched records on both sides simultaneously, such as finding students not enrolled in any course and courses with no enrolled students.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f847b62d-8070-4bae-9c75-b6f3eb15caa7",
+              "Text": "Not all database systems support FULL OUTER JOIN natively; a UNION of LEFT and RIGHT JOINs achieves the same result in those systems.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "96aa34be-3b2f-4e58-bb12-fb9a3ba7ef92",
+          "TopicId": "5bf432ae-daf6-403e-ab00-6bb7d16b6a06",
+          "Title": "Handling NULL Values in Outer JOIN Results",
+          "BodyText": "Because OUTER JOINs introduce NULL values for unmatched rows, queries often need to account for NULLs in filtering and calculation logic.",
+          "Notes": "Using IS NULL or IS NOT NULL in a WHERE clause after an OUTER JOIN is a powerful pattern for finding orphaned or unmatched records, sometimes called an exclusion join.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "ModifiedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "Items": [
+            {
+              "Id": "5b68f79a-172a-411c-bd64-f980fb943ca9",
+              "Text": "Filter with IS NULL on a right-table column after a LEFT JOIN to find left-table rows with no matching right-table record.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "91bfb48a-47e2-4a8d-bb05-0316a67dc8e9",
+              "Text": "Avoid using = NULL in WHERE clauses; NULL comparisons require IS NULL or IS NOT NULL operators.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c23d2983-1d27-4153-8de4-29fee4626eaf",
+              "Text": "Aggregate functions like COUNT() ignore NULLs, so COUNT(right_table.column) counts only matched rows while COUNT(*) counts all rows including unmatched ones.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "162caf7f-d870-46be-8be2-84727ff8c28a",
+              "Text": "COALESCE() or IFNULL() functions can replace NULLs with default display values in SELECT output.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0a5e1b14-9344-4a41-a010-d32fab9001c8",
+          "TopicId": "5bf432ae-daf6-403e-ab00-6bb7d16b6a06",
+          "Title": "Practical Differences and Choosing the Right Outer JOIN",
+          "BodyText": "Selecting the correct OUTER JOIN type depends on which dataset must remain complete and what business question is being answered.",
+          "Notes": "A common real-world scenario: a report requires all products listed with their sales totals \u2014 products with no sales should still appear with a zero or NULL total, making LEFT JOIN the appropriate choice with the products table on the left.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "ModifiedDate": "2026-07-03T11:42:32.2787956-04:00",
+          "Items": [
+            {
+              "Id": "f45312a8-3b9a-421c-9922-51936054975c",
+              "Text": "Use LEFT JOIN when the primary table is on the left and you must not lose any of its rows, regardless of matches.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8fd6a502-f38f-40ed-a696-9875676de4de",
+              "Text": "Use RIGHT JOIN when the driving or reference table is on the right and completeness of that table is required.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b5565460-f192-40f8-98ec-d38461febe49",
+              "Text": "Use FULL OUTER JOIN when both tables are equally important and gaps in either direction must be visible in results.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c026b528-35c2-4ead-a452-afb64b871f66",
+              "Text": "Recognizing which records are \u0027missing\u0027 or \u0027unmatched\u0027 is the key analytical signal for choosing an OUTER JOIN over an INNER JOIN.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+      "Title": "Subqueries and Nested SELECT Statements",
+      "Summary": "Introduces subqueries as a technique for embedding one SELECT statement inside another to filter, compute, or compare data. Covers both correlated and non-correlated subquery patterns.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "ModifiedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "Elements": [
+        {
+          "Id": "44629a22-87e0-4b04-b54f-19790c2bdcfa",
+          "TopicId": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+          "Title": "What Is a Subquery?",
+          "BodyText": "A subquery is a SELECT statement nested inside another SQL statement, allowing you to use the result of one query as input to another.",
+          "Notes": "Subqueries can appear in the SELECT list, FROM clause, or WHERE clause. They are enclosed in parentheses and evaluated before the outer query.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "ModifiedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "Items": [
+            {
+              "Id": "863991b8-2f9d-4aba-a1e0-4790046a4bc0",
+              "Text": "The inner query (subquery) executes first and passes its result to the outer query.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "611a1e95-bf74-4cf3-8767-23370f2b0729",
+              "Text": "Subqueries enable complex filtering and computation without requiring a separate query step.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8d27ad28-3304-4060-96a7-7baabac56060",
+              "Text": "They can return a single value, a single row, or a full result set depending on context.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "05de2639-e625-465d-81a6-eb385f222aaf",
+          "TopicId": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+          "Title": "Subqueries in the WHERE Clause",
+          "BodyText": "The most common use of a subquery is inside a WHERE clause to filter rows based on values computed from another table or query.",
+          "Notes": "Example: SELECT name FROM employees WHERE department_id = (SELECT id FROM departments WHERE name = \u0027Sales\u0027); \u2014 this retrieves employees in the Sales department without an explicit JOIN.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "ModifiedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "Items": [
+            {
+              "Id": "e049b49c-ec6e-432d-b7dc-ca3d5d215d98",
+              "Text": "Use a single-value subquery with comparison operators such as =, \u003E, or \u003C when the inner query returns exactly one value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f08c832-576d-46c4-8af9-6c119421b223",
+              "Text": "Use the IN operator when the subquery returns a list of values to match against.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ef7af33d-6c13-4a61-93c0-0550474b6abd",
+              "Text": "Use EXISTS to check whether the subquery returns any rows at all, regardless of the actual values.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "618c2535-5a61-44e6-8503-8e9d016154a8",
+          "TopicId": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+          "Title": "Subqueries in the FROM Clause (Derived Tables)",
+          "BodyText": "A subquery placed in the FROM clause creates a temporary result set, often called a derived table or inline view, that the outer query can reference.",
+          "Notes": "Example: SELECT dept_avg.dept_id, dept_avg.avg_salary FROM (SELECT dept_id, AVG(salary) AS avg_salary FROM employees GROUP BY dept_id) AS dept_avg WHERE dept_avg.avg_salary \u003E 50000;",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "ModifiedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "Items": [
+            {
+              "Id": "a5cffe81-882f-452c-96ff-8cbf7a45feb0",
+              "Text": "The derived table must be given an alias so the outer query can reference its columns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "627d87e9-6f66-4a86-9058-99dc099564c7",
+              "Text": "This pattern is useful for applying WHERE filters on top of aggregated results that cannot appear directly in a WHERE clause.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1389c3e8-3f17-4959-9638-f813996045fa",
+              "Text": "Derived tables help break complex logic into readable, layered steps.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b721305b-4e1e-4dee-ab7c-a9ac76772c90",
+          "TopicId": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+          "Title": "Non-Correlated Subqueries",
+          "BodyText": "A non-correlated subquery is independent of the outer query and executes only once, with its result reused for every row evaluated by the outer query.",
+          "Notes": "Because the inner query runs just once, non-correlated subqueries are generally more efficient than correlated ones for large datasets.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "ModifiedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "Items": [
+            {
+              "Id": "89e720a4-51a7-49a1-ab1a-29b335d7ed95",
+              "Text": "The inner query has no reference to columns from the outer query, making it fully self-contained.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "314abccc-f5a0-4a90-90cb-3a3e90992717",
+              "Text": "Common use cases include finding rows that match a static aggregate value, such as the maximum or minimum in a table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "614a5e43-3dac-4784-b668-1c3e573fb95c",
+              "Text": "The result can be a scalar, a list, or a table depending on where it appears in the outer query.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b5b5d507-14d3-47a1-8cae-24b86d05357c",
+          "TopicId": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+          "Title": "Correlated Subqueries",
+          "BodyText": "A correlated subquery references columns from the outer query, causing it to execute once for every row processed by the outer query.",
+          "Notes": "Example: SELECT e.name FROM employees e WHERE e.salary \u003E (SELECT AVG(salary) FROM employees WHERE dept_id = e.dept_id); \u2014 for each employee, the inner query computes the average salary of that specific employee\u0027s department.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "ModifiedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "Items": [
+            {
+              "Id": "a313cd39-0d5b-44ac-abcb-2895c49f95bf",
+              "Text": "The outer query\u0027s current row is passed into the subquery as a parameter during each iteration.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0932b938-628a-42c4-aac3-9c7b0aa377f3",
+              "Text": "Correlated subqueries are powerful for row-by-row comparisons but can be slower on large tables due to repeated execution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f600f1a-dbb3-4ba5-aced-33a62df2dbfb",
+              "Text": "They are commonly used with EXISTS to test for the presence of related rows in another table.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "cac43be9-5b04-4b32-b98b-3e181111986d",
+          "TopicId": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+          "Title": "Using EXISTS and NOT EXISTS",
+          "BodyText": "The EXISTS operator tests whether a correlated subquery returns at least one row, and NOT EXISTS tests whether it returns no rows.",
+          "Notes": "EXISTS is often faster than IN for large datasets because the database engine can stop evaluating the subquery as soon as one matching row is found.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "ModifiedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "Items": [
+            {
+              "Id": "2a019323-6fbb-475d-8979-6112f9b9cf99",
+              "Text": "EXISTS returns TRUE if the subquery produces one or more rows, allowing the outer query to include that row in the result.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bb3d9bfb-e7bb-4f8f-9831-b632252a3996",
+              "Text": "NOT EXISTS is useful for finding records in one table that have no corresponding records in another, similar to an anti-join.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1d67b8db-43a7-4b16-8084-5c4f85c25930",
+              "Text": "Unlike IN, EXISTS does not compare specific values \u2014 it only checks for row existence, making it null-safe.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "37ef8f89-ac64-410a-b3f1-4426b90a1252",
+          "TopicId": "1672b923-1707-4e2c-82a1-c0c91d1d51af",
+          "Title": "Subqueries vs. JOINs: Choosing the Right Approach",
+          "BodyText": "Both subqueries and JOINs can solve many of the same data retrieval problems, but they differ in readability, performance, and capability.",
+          "Notes": "Modern query optimizers often rewrite subqueries as JOINs internally, but understanding both patterns helps you write clearer, more intentional SQL.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "ModifiedDate": "2026-07-03T11:42:59.0173841-04:00",
+          "Items": [
+            {
+              "Id": "11f6b877-e61e-4d27-b6f2-fbe8a3336a96",
+              "Text": "JOINs are generally preferred when you need columns from multiple tables in the same result set.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b1d5cd1c-76f6-40a5-b7c2-9b8edb30e7aa",
+              "Text": "Subqueries are more natural when the inner logic is used purely for filtering or scalar computation rather than column projection.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "66154274-a6dd-4ae1-be99-a3ba5ef1c65a",
+              "Text": "Correlated subqueries offer row-level logic that can be difficult to express cleanly with a JOIN alone.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "13b52d09-58fa-4d1e-812c-eb7d231255f8",
+              "Text": "Testing query execution plans can reveal which approach performs better for a specific dataset and database engine.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "d6a2ccf9-cff9-4ee5-8dd7-c0b6a9d0a593",
+      "Title": "Aggregation with GROUP BY and HAVING",
+      "Summary": "Explores how to summarize data using aggregate functions alongside the GROUP BY clause to group results by one or more columns. Introduces the HAVING clause for filtering aggregated results after grouping.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "ModifiedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "Elements": [
+        {
+          "Id": "f81312c6-3014-47d3-8f60-d2cb0a8897ec",
+          "TopicId": "d6a2ccf9-cff9-4ee5-8dd7-c0b6a9d0a593",
+          "Title": "Introduction to Aggregate Functions",
+          "BodyText": "Aggregate functions perform calculations on a set of rows and return a single summary value, making them essential for data analysis in SQL.",
+          "Notes": "Common aggregate functions include COUNT, SUM, AVG, MIN, and MAX. For example, SELECT COUNT(*) FROM orders; returns the total number of rows in the orders table.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "ModifiedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "Items": [
+            {
+              "Id": "9980a70e-cc3a-4f9b-a9d6-73e147092969",
+              "Text": "COUNT(*) counts all rows, while COUNT(column) counts only non-NULL values in that column.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "78080941-d609-461e-a0f5-e2ae222e59d0",
+              "Text": "SUM and AVG work on numeric columns to produce totals and averages respectively.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dff7f4e0-2ef1-4641-a1b8-6c00e462e79a",
+              "Text": "MIN and MAX retrieve the smallest and largest values within a column.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3c199939-4f20-42af-8638-2656e05bda18",
+              "Text": "Aggregate functions operate on the entire result set when used without GROUP BY.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cb2b133a-c71b-43bf-a6ce-77839a1e1b38",
+          "TopicId": "d6a2ccf9-cff9-4ee5-8dd7-c0b6a9d0a593",
+          "Title": "Grouping Data with GROUP BY",
+          "BodyText": "The GROUP BY clause divides rows into groups based on one or more columns, allowing aggregate functions to be applied to each group independently.",
+          "Notes": "For example, SELECT department, COUNT(*) FROM employees GROUP BY department; returns the number of employees in each department. Every column in the SELECT list that is not an aggregate function must appear in the GROUP BY clause.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "ModifiedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "Items": [
+            {
+              "Id": "3979a6b0-7d7b-4853-85c0-193cd0626a0d",
+              "Text": "GROUP BY collapses multiple rows sharing the same value(s) in the specified column(s) into a single summary row.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ca87ddc4-05c9-4639-851e-4f6fe49be122",
+              "Text": "You can group by more than one column, creating sub-groups for each unique combination of values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f597a3ff-bf1b-46ea-a39c-11e5809c2ec3",
+              "Text": "Non-aggregated columns in the SELECT clause must be listed in the GROUP BY clause to avoid ambiguity errors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7633ef45-6798-4abd-ab44-e2019e3cfaab",
+              "Text": "The order of rows in the output is not guaranteed unless an ORDER BY clause is also used.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fdec76b9-8f8e-4e32-b8cc-7a8260d99698",
+          "TopicId": "d6a2ccf9-cff9-4ee5-8dd7-c0b6a9d0a593",
+          "Title": "Combining Aggregate Functions with GROUP BY",
+          "BodyText": "Pairing aggregate functions with GROUP BY produces meaningful per-group summaries, enabling comparisons across categories, departments, time periods, or any other dimension.",
+          "Notes": "Example: SELECT product_category, SUM(sales_amount) AS total_sales, AVG(sales_amount) AS avg_sale FROM sales GROUP BY product_category; This query summarizes revenue metrics for each product category in a single result set.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "ModifiedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "Items": [
+            {
+              "Id": "ccd3cf6a-c106-4e6c-a579-a2aba665d0be",
+              "Text": "Multiple aggregate functions can appear in the same SELECT statement alongside GROUP BY.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8fcf8ff0-28f1-4f76-b0ab-5ec276e4be69",
+              "Text": "Aliases (AS) should be used to give aggregate result columns descriptive names for readability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5cde570d-c7fb-432a-8ed8-d701214f75c6",
+              "Text": "Grouping by a high-cardinality column (many unique values) produces more rows in the output, while low-cardinality grouping produces fewer, broader summaries.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6fd0fbf8-acc2-4990-a22f-83c0f74b53ed",
+              "Text": "Aggregate expressions can include arithmetic, such as SUM(quantity * unit_price) to compute revenue.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "52d5d478-b4a6-4562-aeb6-d38e53031c1c",
+          "TopicId": "d6a2ccf9-cff9-4ee5-8dd7-c0b6a9d0a593",
+          "Title": "Filtering Grouped Results with HAVING",
+          "BodyText": "The HAVING clause filters the results of a GROUP BY query based on conditions applied to aggregated values, similar to how WHERE filters individual rows.",
+          "Notes": "Example: SELECT department, AVG(salary) AS avg_salary FROM employees GROUP BY department HAVING AVG(salary) \u003E 60000; This returns only departments whose average salary exceeds 60,000.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "ModifiedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "Items": [
+            {
+              "Id": "9825d636-41a9-40d0-947b-c23bf93eb404",
+              "Text": "HAVING is evaluated after grouping and aggregation, whereas WHERE is evaluated before grouping on individual rows.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f834792-2297-415e-b6eb-9497b7deadec",
+              "Text": "Conditions in HAVING can reference aggregate functions directly, such as HAVING COUNT(*) \u003E= 5 or HAVING SUM(revenue) \u003E 100000.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "87ab1036-6077-454f-976b-a9495a6cadb4",
+              "Text": "You may use column aliases in ORDER BY but most SQL engines require the full aggregate expression in HAVING.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f8fb7243-ff2c-4330-88b0-de37b7706882",
+              "Text": "HAVING without a GROUP BY clause is valid but rare; it treats the entire result set as a single group.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6895a032-dd6d-49e6-b132-5d177923ac87",
+          "TopicId": "d6a2ccf9-cff9-4ee5-8dd7-c0b6a9d0a593",
+          "Title": "WHERE vs. HAVING: Knowing When to Use Each",
+          "BodyText": "Understanding the difference between WHERE and HAVING is critical for writing correct aggregation queries, as each operates at a different stage of query execution.",
+          "Notes": "A common pattern combines both: SELECT region, SUM(sales) FROM orders WHERE order_date \u003E= \u00272024-01-01\u0027 GROUP BY region HAVING SUM(sales) \u003E 50000; Here WHERE pre-filters rows before grouping, and HAVING filters the aggregated groups afterward.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "ModifiedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "Items": [
+            {
+              "Id": "836c35af-0e7e-47e0-8668-ec55008e0474",
+              "Text": "WHERE filters individual rows from the base tables before any grouping occurs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "72210ba8-4274-49f4-8f40-4498efe4be01",
+              "Text": "HAVING filters grouped rows after the GROUP BY and aggregate calculations have been applied.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "51c4029a-9ef7-4dde-86fb-57566753f3cf",
+              "Text": "Using WHERE to pre-filter data before aggregation improves query performance by reducing the number of rows processed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "84f2fe59-95dd-44da-aee4-1aa47e9b3dd0",
+              "Text": "A single query can legally contain both WHERE and HAVING clauses to apply filtering at both stages.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9f5a5f57-0262-41ad-847f-db70b20dcc25",
+          "TopicId": "d6a2ccf9-cff9-4ee5-8dd7-c0b6a9d0a593",
+          "Title": "Ordering and Presenting Aggregated Results",
+          "BodyText": "The ORDER BY clause can be combined with GROUP BY and HAVING to sort the final aggregated output in a meaningful way for analysis or reporting.",
+          "Notes": "Example: SELECT department, COUNT(*) AS headcount FROM employees GROUP BY department HAVING COUNT(*) \u003E 3 ORDER BY headcount DESC; This ranks departments from largest to smallest after filtering out small departments.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "ModifiedDate": "2026-07-03T11:43:23.2378929-04:00",
+          "Items": [
+            {
+              "Id": "6eb596b9-0155-4b17-83d6-32f5e22c02af",
+              "Text": "ORDER BY is applied after HAVING, making it the last step in query processing before results are returned.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2890fa92-9df4-48f7-82b3-acd75a5140b8",
+              "Text": "You can order by an aggregate function value or by its alias, depending on the SQL dialect in use.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "66120b89-98ae-4fd1-967e-e77431608b91",
+              "Text": "Sorting aggregated results in descending order (DESC) is a common technique for identifying top-performing groups.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7b0c81e7-665f-491a-bf51-dcf795392f37",
+              "Text": "Combining LIMIT (or TOP in some dialects) with ORDER BY on aggregated data enables \u0027top-N\u0027 analytical queries.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+      "Title": "Solving Multi-Table Analytical Problems",
+      "Summary": "Applies JOIN operations, subqueries, and aggregation together to solve complex, real-world analytical queries across multiple tables. Reinforces decision-making around query design and technique selection.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "ModifiedDate": "2026-07-03T11:41:22.6290558-04:00",
+      "Elements": [
+        {
+          "Id": "cdcd8fb3-9847-415e-b0d4-5622243ff30c",
+          "TopicId": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+          "Title": "Decomposing a Complex Analytical Question",
+          "BodyText": "Before writing a single line of SQL, it is essential to break a complex business question into smaller, answerable sub-problems that map to specific tables and operations.",
+          "Notes": "For example, \u0027Which customers spent the most in Q4 and what products did they buy?\u0027 can be split into: (1) filter orders by date, (2) sum order totals per customer, (3) rank customers, (4) join to product details.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "ModifiedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "Items": [
+            {
+              "Id": "cabbe344-4ea2-4ff7-bafa-e971a1545ba0",
+              "Text": "Identify which tables hold the data needed to answer each part of the question.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d85c983-9de2-4a97-8ade-af7c83632d73",
+              "Text": "Determine the relationships between those tables to plan your JOIN paths.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "644eaf62-0957-4599-8538-524028ef6631",
+              "Text": "Decide which parts require filtering, aggregation, or ranking before combining results.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "af41d029-dd86-4a6c-ab38-c6c6352f5b48",
+              "Text": "Sketch a logical sequence of operations from raw tables to final output before coding.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7955e463-040a-43f7-b5e3-75575d8facee",
+          "TopicId": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+          "Title": "Choosing the Right JOIN Type for the Problem",
+          "BodyText": "Selecting the appropriate JOIN type is a critical design decision that directly affects which rows appear in the result set and whether the analysis is accurate.",
+          "Notes": "Using an INNER JOIN when a LEFT JOIN is needed can silently exclude customers who have no orders, leading to undercounted totals or misleading averages.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "ModifiedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "Items": [
+            {
+              "Id": "4202f682-babb-41f8-b190-9ebeb6e47c09",
+              "Text": "Use INNER JOIN when you only need rows that have matching records in both tables, such as orders that have a corresponding customer record.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c2389c8e-adc2-4869-99c9-97075222c3fc",
+              "Text": "Use LEFT JOIN when you must retain all rows from the primary table even if no match exists in the secondary table, such as listing all customers including those with zero purchases.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "06afb0ec-d747-4b21-99cd-62668849409a",
+              "Text": "Use FULL JOIN when gaps on either side of the relationship are analytically significant and must be preserved.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "469004d7-4094-43f0-91c0-a271b4e12895",
+              "Text": "Validate your JOIN choice by checking row counts and spot-checking NULLs in the result to confirm the logic is correct.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "06aaedd5-ca10-4670-a26c-d7251630e54f",
+          "TopicId": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+          "Title": "Layering Aggregation with GROUP BY and HAVING",
+          "BodyText": "Multi-table analytical queries frequently require summarizing data after joining, using GROUP BY to segment results and HAVING to filter aggregated groups.",
+          "Notes": "A common pattern is to JOIN the orders, customers, and products tables, then GROUP BY customer region and product category to produce a sales matrix, filtering with HAVING to show only high-revenue segments.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "ModifiedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "Items": [
+            {
+              "Id": "2245bccf-493a-4a84-9cb1-f56560bc6f1f",
+              "Text": "Place GROUP BY after all JOIN clauses so aggregation runs on the fully combined dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f5310412-b8de-4fbe-a3b8-6ae1622172cf",
+              "Text": "Use HAVING instead of WHERE to filter on aggregate values such as SUM, COUNT, or AVG computed after grouping.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a67597bb-2cab-495d-ab92-6c78203beaae",
+              "Text": "Ensure every non-aggregated column in the SELECT list appears in the GROUP BY clause to avoid ambiguous results.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c333164b-3254-46fc-be62-fc8fc38d2bbf",
+              "Text": "Combine multiple aggregate functions in one query to answer several related questions simultaneously, reducing redundant table scans.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4bce82c9-c1a0-4fb3-ac48-ec877022bb0f",
+          "TopicId": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+          "Title": "Using Subqueries to Stage Intermediate Results",
+          "BodyText": "Subqueries allow you to pre-process or filter data in one step and feed that result into a larger query, making complex logic easier to manage and reason about.",
+          "Notes": "For instance, a subquery can first identify the top 10 product IDs by revenue, and the outer query then joins that list back to the orders table to retrieve full order details for only those products.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "ModifiedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "Items": [
+            {
+              "Id": "1ab44d32-cba7-4694-bedf-5165008f1c0f",
+              "Text": "Place subqueries in the FROM clause as derived tables when you need to aggregate before joining to another table.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0ddfca87-2c31-4523-b9c7-aa72fb3f2f96",
+              "Text": "Use subqueries in the WHERE clause with IN or EXISTS to filter rows based on conditions evaluated in a separate table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "da5ef420-7a55-4e39-9d19-fd96001b4ce9",
+              "Text": "Correlated subqueries reference the outer query row by row and are useful for comparisons like \u0027orders above the average for that customer\u0027s region.\u0027",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e541d38d-ba97-4672-8824-94f5c242cfc7",
+              "Text": "Prefer subqueries over repeated JOINs when the intermediate result is reused or when clarity of logic outweighs raw performance.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "af9a67e1-6003-42c3-b77a-8b32018b7c04",
+          "TopicId": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+          "Title": "Combining JOINs and Subqueries in a Single Query",
+          "BodyText": "Real-world analytical queries often require both JOINs and subqueries working together, where a derived table or filtered subquery serves as one of the inputs to a JOIN.",
+          "Notes": "Example: JOIN a subquery that returns each customer\u0027s total spend to the customers table to enrich rows with demographic data alongside calculated spending metrics.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "ModifiedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "Items": [
+            {
+              "Id": "54e3ffea-55c2-4a96-91fc-aafe456c9c8e",
+              "Text": "Write and test the inner subquery in isolation first to confirm it returns the correct intermediate result.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0878ffb8-166a-466c-b2bd-613c1460e106",
+              "Text": "Alias every derived table or subquery with a meaningful name so the outer query remains readable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "de24f794-c176-44f8-82e5-1fb032084db0",
+              "Text": "Be mindful of performance: joining to a large unfiltered subquery can be costly; apply WHERE filters inside the subquery when possible.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "51e140f3-3383-4564-af8b-36dcda8e1e35",
+              "Text": "Use column aliasing consistently across both the subquery and the outer query to prevent ambiguous column references.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6fbf551d-352d-4e19-8d9a-19ab19927f86",
+          "TopicId": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+          "Title": "Validating and Interpreting Multi-Table Query Results",
+          "BodyText": "After a complex query runs, verifying that the results are logically correct is just as important as writing syntactically valid SQL.",
+          "Notes": "Cross-checking aggregate totals against known figures, or running simpler queries on individual tables and comparing sums, are practical techniques for catching join duplication or missing rows.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "ModifiedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "Items": [
+            {
+              "Id": "12614e12-40dc-4bf5-9bc7-f6ce4b517147",
+              "Text": "Check for row multiplication caused by one-to-many JOIN paths, which can inflate SUM or COUNT values unexpectedly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d9d657af-ed13-44df-b7ee-20cdd7f9f820",
+              "Text": "Verify that NULL values in joined columns are handled intentionally, using COALESCE or IS NULL checks where needed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cad6758c-7168-4e80-8c71-f8df01677c94",
+              "Text": "Compare the query\u0027s aggregate totals against single-table benchmarks to detect data loss or duplication introduced by joins.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f3fd5a99-4786-4157-9169-7f771e98effa",
+              "Text": "Document the business logic embedded in the query so stakeholders and future maintainers understand what the result represents.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "92a42623-260e-441f-a2d2-f32db4495eaf",
+          "TopicId": "fa9dc771-e4e0-4f55-959f-fc77da0d29b6",
+          "Title": "Query Design Decision-Making Framework",
+          "BodyText": "Selecting the right combination of techniques \u2014 joins, subqueries, aggregation \u2014 requires a systematic approach to weigh readability, correctness, and performance against the requirements of the problem.",
+          "Notes": "There is rarely one universally correct approach; a subquery that is more readable for a small dataset may need to be refactored into a JOIN-based solution as data volume grows.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "ModifiedDate": "2026-07-03T11:43:57.1956744-04:00",
+          "Items": [
+            {
+              "Id": "19884433-5614-4218-97fa-b82e608682ac",
+              "Text": "Start with correctness: choose the technique that produces accurate results before optimizing for speed or conciseness.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "caf7ac03-2402-4b48-9731-47be886e4a5a",
+              "Text": "Prefer the most readable structure when multiple approaches yield identical results, as maintainability is a long-term cost.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9584044d-01a2-4f4c-9216-f8e4cb890b97",
+              "Text": "Consider data volume and indexing when deciding between correlated subqueries, derived tables, and direct joins, since performance implications differ significantly.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c95fd987-b761-4737-96a3-f0493b27f0dc",
+              "Text": "Iteratively refine queries by testing intermediate steps, adjusting join types, and confirming aggregation logic before treating a query as final.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 39
+}

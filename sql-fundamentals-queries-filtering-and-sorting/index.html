@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL Fundamentals: Queries, Filtering, and Sorting — CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      background: #f4f6f9;
+      color: #1e2a38;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #0f6b8e 100%);
+      color: #fff;
+      padding: 2.8rem 2rem 2.2rem;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.32);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #cde8f5;
+    }
+
+    header h1 {
+      font-size: clamp(1.55rem, 3.5vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 1rem;
+      max-width: 680px;
+      color: #d4eaf5;
+      line-height: 1.7;
+    }
+
+    /* ── Main Layout ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto 3.5rem;
+      padding: 0 1.25rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a7089;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde4ec;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce3ec;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      box-shadow: 0 2px 8px rgba(15, 40, 70, 0.06);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(15, 40, 70, 0.11);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .artifact-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .artifact-name a {
+      color: #0f6b8e;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #094e6a;
+      border-bottom-color: #0f6b8e;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #5a7089;
+      text-decoration: none;
+      background: #edf2f7;
+      border: 1px solid #c8d6e5;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #d6e4f0;
+      color: #0f6b8e;
+      outline: none;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #2a5eaa;
+      border: 1px solid #bcd0f0;
+    }
+
+    .badge-filetype {
+      background: #f0faf3;
+      color: #1e7e45;
+      border: 1px solid #a8dbb9;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.68rem;
+    }
+
+    /* ── Description ── */
+    .card-desc {
+      font-size: 0.88rem;
+      color: #3d5166;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a9eb4;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dde4ec;
+    }
+
+    /* ── Accessibility: focus ring ── */
+    a:focus-visible {
+      outline: 2px solid #0f6b8e;
+      outline-offset: 2px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      header { padding: 2rem 1.25rem 1.75rem; }
+      .card  { padding: 1.2rem 1.15rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>SQL Fundamentals: Queries, Filtering, and Sorting</h1>
+      <p>
+        This module introduces the core skills needed to interact with relational databases using SQL.
+        Learners will explore database structure, write SELECT queries, apply WHERE filters to narrow
+        result sets, and control output order with ORDER BY — building a solid foundation for data
+        retrieval and analysis tasks.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-title">Module Artifacts &mdash; 3 items</p>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <article class="card">
+        <div class="card-header">
+          <span class="artifact-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json" title="Download source file">&#8994; source file</a>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-desc">
+          A structured outline of the module's four topic areas — SQL and relational databases,
+          SELECT queries, WHERE filtering, and ORDER BY sorting — used by instructors to organize
+          content and by learners to preview what the module covers.
+        </p>
+      </article>
+
+      <!-- Card 2: Presentation -->
+      <article class="card">
+        <div class="card-header">
+          <span class="artifact-name">
+            <a href="presentation/SQL_Fundamentals_Queries_generated.pptx">SQL_Fundamentals_Queries_generated.pptx</a>
+          </span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <p class="card-desc">
+          A slide deck introducing SQL fundamentals, including database concepts, SELECT syntax,
+          primary keys, and table relationships, intended for use in lectures or self-paced study
+          to walk learners through core query-writing skills.
+        </p>
+      </article>
+
+      <!-- Card 3: Quiz -->
+      <article class="card">
+        <div class="card-header">
+          <span class="artifact-name">
+            <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json" title="Download source file">&#8994; source file</a>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-desc">
+          A 20-question quiz bank covering SQL acronym meaning, relational database history, primary
+          keys, row terminology, and the SELECT statement, used by instructors to assess learners'
+          understanding of foundational SQL concepts.
+        </p>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp;
+    SQL Fundamentals: Queries, Filtering, and Sorting
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

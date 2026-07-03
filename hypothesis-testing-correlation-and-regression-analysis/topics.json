@@ -1,0 +1,1438 @@
+{
+  "ModuleFolderName": "Hypothesis_Testing_Correlati",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:53:16.30206-04:00",
+  "ModifiedDate": "2026-07-03T11:56:16.8630761-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "f28a525f-3692-4fdb-a8ab-0767a118711a",
+      "Title": "Foundations of Hypothesis Testing",
+      "Summary": "Introduces the core framework of hypothesis testing, including null and alternative hypotheses, test statistics, and the logic of statistical inference. Students learn how to structure a hypothesis test and interpret its components.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:53:16.30206-04:00",
+      "ModifiedDate": "2026-07-03T11:53:16.30206-04:00",
+      "Elements": [
+        {
+          "Id": "c367433c-41b6-4c1f-8f3a-c82454adfb85",
+          "TopicId": "f28a525f-3692-4fdb-a8ab-0767a118711a",
+          "Title": "The Purpose of Statistical Inference",
+          "BodyText": "Statistical inference allows us to draw conclusions about a population based on sample data, rather than examining every individual observation.",
+          "Notes": "For example, instead of surveying every customer, a company surveys 500 people and uses those results to make claims about millions of customers.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "ModifiedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "Items": [
+            {
+              "Id": "2f093ffd-893d-49ed-b87d-8d9b2191334f",
+              "Text": "Inferential statistics extend findings from a sample to the broader population from which it was drawn.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ce5756ce-ba6d-4f28-a12f-bafd9f72217f",
+              "Text": "Hypothesis testing is the formal process used to evaluate whether observed data provide enough evidence to support a specific claim.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3fc495fa-15a5-4152-b51c-82134cc10e9a",
+              "Text": "The conclusions drawn are probabilistic, not absolute \u2014 there is always some chance of error.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "33e33d34-334f-4b4d-aa15-aa45516d6472",
+          "TopicId": "f28a525f-3692-4fdb-a8ab-0767a118711a",
+          "Title": "The Null and Alternative Hypotheses",
+          "BodyText": "Every hypothesis test begins with two competing statements: the null hypothesis and the alternative hypothesis, which together frame the question being investigated.",
+          "Notes": "Example: H\u2080 might state \u0027the new drug has no effect on blood pressure,\u0027 while H\u2081 states \u0027the new drug reduces blood pressure.\u0027",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "ModifiedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "Items": [
+            {
+              "Id": "713f048a-cda9-4e9e-aa8a-9401f4e5a9a8",
+              "Text": "The null hypothesis (H\u2080) represents the default assumption \u2014 typically that there is no effect, no difference, or no relationship.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "63afab18-a005-46f3-bb8b-2e851bef7f41",
+              "Text": "The alternative hypothesis (H\u2081 or H\u2090) represents the claim the researcher is trying to find evidence for.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "099238d3-d77c-47ae-bf07-a0ccf7884e75",
+              "Text": "The test is designed to determine whether the data provide sufficient evidence to reject H\u2080 in favor of H\u2081.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d8e4af88-eb3c-4ec3-8ee5-2902cf3a0eaf",
+              "Text": "Hypotheses must be mutually exclusive and collectively exhaustive \u2014 one must be true.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "768dce70-ff31-4d8a-8a03-e663eb2972d4",
+          "TopicId": "f28a525f-3692-4fdb-a8ab-0767a118711a",
+          "Title": "Structuring a Hypothesis Test",
+          "BodyText": "A well-formed hypothesis test follows a consistent logical structure that guides the researcher from question formulation through to a final decision.",
+          "Notes": "Skipping steps \u2014 such as choosing a significance level after seeing the data \u2014 is a common source of bias and statistical error.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "ModifiedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "Items": [
+            {
+              "Id": "9c4160fc-bdc8-4841-8891-8b033f0e80c1",
+              "Text": "Step 1: State the null and alternative hypotheses clearly before collecting or analyzing data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "427ece6e-38ab-4ea3-907f-c2967443060c",
+              "Text": "Step 2: Choose a significance level (\u03B1), which defines the threshold for rejecting H\u2080, commonly set at 0.05.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "943ff383-d9b9-492f-977b-2e74cdcd2466",
+              "Text": "Step 3: Select and compute the appropriate test statistic based on the data type and study design.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fe598d3e-e698-4b27-a1b8-315bf50ae6cf",
+              "Text": "Step 4: Make a decision to reject or fail to reject H\u2080 based on the computed evidence.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d0040273-1a95-462e-b248-8b10fb84d858",
+          "TopicId": "f28a525f-3692-4fdb-a8ab-0767a118711a",
+          "Title": "Test Statistics and Their Role",
+          "BodyText": "A test statistic is a numerical value calculated from sample data that summarizes how far the observed result is from what would be expected under the null hypothesis.",
+          "Notes": "Common test statistics include the z-score, t-statistic, F-statistic, and chi-square statistic, each suited to different data types and research designs.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "ModifiedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "Items": [
+            {
+              "Id": "169ae4b0-69fe-42eb-b9d4-8ae0005fbcc7",
+              "Text": "The test statistic translates raw data into a standardized value that can be compared against a known probability distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e32f71b0-18a4-4256-bba1-282da88a34d9",
+              "Text": "A larger absolute value of the test statistic generally indicates the observed data are less consistent with the null hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9ca5a759-7786-4165-bffb-9885c99e02ed",
+              "Text": "The choice of test statistic depends on factors such as sample size, data type, and whether population variance is known.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c5b4ea44-50e9-4744-88c7-46e3154baae7",
+          "TopicId": "f28a525f-3692-4fdb-a8ab-0767a118711a",
+          "Title": "The Logic of Rejecting or Retaining the Null Hypothesis",
+          "BodyText": "Hypothesis testing operates on the logic of contradiction \u2014 if the observed data would be very unlikely under H\u2080, we have evidence to reject it.",
+          "Notes": "Importantly, \u0027failing to reject H\u2080\u0027 does not prove H\u2080 is true; it simply means insufficient evidence was found to support H\u2081.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "ModifiedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "Items": [
+            {
+              "Id": "7ebc8ea4-c780-438b-8b31-d22768506068",
+              "Text": "If the probability of observing the data (or more extreme data) under H\u2080 is very low, we reject H\u2080 as implausible.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5805a557-8d73-4900-b111-950f6a593430",
+              "Text": "If that probability is not sufficiently low, we fail to reject H\u2080 \u2014 the data are consistent with the null assumption.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "69f7518e-4535-4013-8b7f-d191867de7b0",
+              "Text": "The decision is always framed in terms of the null hypothesis; researchers never directly \u0027accept\u0027 the alternative hypothesis.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ef09f2a7-1a99-4704-8dd8-caa2936e3b40",
+          "TopicId": "f28a525f-3692-4fdb-a8ab-0767a118711a",
+          "Title": "Types of Errors in Hypothesis Testing",
+          "BodyText": "Because hypothesis testing relies on probability, there is always a risk of reaching an incorrect conclusion, categorized as Type I or Type II errors.",
+          "Notes": "In medical testing, a Type I error might mean approving an ineffective drug, while a Type II error might mean rejecting a beneficial one \u2014 both have real consequences.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "ModifiedDate": "2026-07-03T11:53:39.9718213-04:00",
+          "Items": [
+            {
+              "Id": "48e6a5c8-d542-4462-b4b3-df8c05471cfa",
+              "Text": "A Type I error (false positive) occurs when H\u2080 is rejected even though it is actually true; its probability equals the significance level \u03B1.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fb722433-6141-415c-b126-d82703dd66b4",
+              "Text": "A Type II error (false negative) occurs when H\u2080 is not rejected even though it is actually false; its probability is denoted \u03B2.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cc7b8630-7b37-4d9d-a938-aa6b1818e6ae",
+              "Text": "Researchers must balance these two error types \u2014 reducing \u03B1 decreases Type I errors but increases the risk of Type II errors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f337b148-bebd-4c26-a43f-ae11ea29b91c",
+              "Text": "The power of a test (1 \u2212 \u03B2) reflects its ability to correctly detect a true effect when one exists.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+      "Title": "P-Values and Statistical Significance",
+      "Summary": "Explores how p-values are calculated and used to determine statistical significance in hypothesis testing. Covers significance thresholds, Type I and Type II errors, and common misconceptions about p-values.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:53:16.30206-04:00",
+      "ModifiedDate": "2026-07-03T11:53:16.30206-04:00",
+      "Elements": [
+        {
+          "Id": "c063d68e-3d9d-45d0-abaa-cc39a00c7977",
+          "TopicId": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+          "Title": "What Is a P-Value?",
+          "BodyText": "A p-value is the probability of obtaining a test result at least as extreme as the observed result, assuming the null hypothesis is true.",
+          "Notes": "For example, a p-value of 0.03 means there is a 3% chance of seeing data this extreme if the null hypothesis were actually true. It does NOT measure the probability that the null hypothesis is true.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "ModifiedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "Items": [
+            {
+              "Id": "49f14660-d37c-4611-baea-7abbaa3c0b6a",
+              "Text": "The p-value is computed from the test statistic using the appropriate sampling distribution (e.g., t-distribution, chi-square).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dd0f9184-3a38-4cba-8264-fada7cb6ff47",
+              "Text": "Smaller p-values indicate that the observed data are less consistent with the null hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "62172df5-8c55-4804-87b0-3664968c8ccb",
+              "Text": "The p-value is always a value between 0 and 1, where values closer to 0 suggest stronger evidence against the null hypothesis.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f5cfd5bc-4187-44de-9e75-fd8735b2d3c5",
+          "TopicId": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+          "Title": "Significance Thresholds (Alpha Level)",
+          "BodyText": "The significance threshold, denoted alpha (\u03B1), is a pre-defined cutoff used to decide whether a p-value is small enough to reject the null hypothesis.",
+          "Notes": "Common alpha levels include 0.05 (5%), 0.01 (1%), and 0.10 (10%). The choice of alpha should be made before data collection based on the context and consequences of errors.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "ModifiedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "Items": [
+            {
+              "Id": "561e323e-5542-49f8-ada2-58f1cf428d37",
+              "Text": "If the p-value is less than or equal to alpha, the result is declared statistically significant and the null hypothesis is rejected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0daae6b9-5b89-498e-96c4-f6a3b5b62e91",
+              "Text": "If the p-value exceeds alpha, we fail to reject the null hypothesis \u2014 this is not the same as proving the null hypothesis is true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "32497bd6-5aa0-4ac0-9807-f63ffff4d426",
+              "Text": "The alpha level represents the maximum acceptable probability of making a Type I error (false positive).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "12d565f4-2013-4676-97f7-cf1a991da11f",
+              "Text": "More stringent alpha values (e.g., 0.01) are used in fields where false positives carry serious consequences, such as medicine or clinical trials.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "615b5ab8-36de-4312-b9f2-8a4eb93bd181",
+          "TopicId": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+          "Title": "Type I Errors (False Positives)",
+          "BodyText": "A Type I error occurs when the null hypothesis is true but is incorrectly rejected, leading to a false positive conclusion.",
+          "Notes": "For instance, concluding that a new drug is effective when it actually has no effect would be a Type I error. The probability of committing a Type I error is controlled directly by the alpha level.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "ModifiedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "Items": [
+            {
+              "Id": "44e1755c-0a71-465c-a6b1-d7a2731d81fd",
+              "Text": "The rate of Type I errors is equal to the chosen significance level alpha; lowering alpha reduces the risk of false positives.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e8f8c903-3351-4414-8aaf-c5400d07ab75",
+              "Text": "Type I errors are sometimes called \u0027false alarms\u0027 because they signal an effect that does not actually exist.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ae00313e-ec6f-4dcf-b763-b4f00a2697d1",
+              "Text": "In A/B testing, a Type I error would mean concluding that version B outperforms version A when there is truly no difference.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "29e7e745-4209-4eba-b8fd-d109e87b0360",
+          "TopicId": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+          "Title": "Type II Errors (False Negatives)",
+          "BodyText": "A Type II error occurs when the null hypothesis is false but is not rejected, meaning a real effect goes undetected.",
+          "Notes": "The probability of a Type II error is denoted beta (\u03B2), and statistical power is defined as 1 \u2212 \u03B2. Increasing sample size is one of the most effective ways to reduce Type II errors.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "ModifiedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "Items": [
+            {
+              "Id": "4792b0af-2a50-4e4d-b127-f2f8ef4a875b",
+              "Text": "Type II errors result in missed discoveries \u2014 for example, failing to detect that a marketing campaign genuinely increased sales.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "64726a1c-41dd-4f8d-b804-76279f839019",
+              "Text": "There is a trade-off between Type I and Type II errors: reducing alpha (to avoid false positives) increases the risk of Type II errors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c6f0b779-fa0f-4779-99e1-1fe2c696ab0c",
+              "Text": "Power analysis can be performed before a study to determine the sample size needed to achieve a desired level of protection against Type II errors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "20607cae-ee3e-4629-ab2c-1b4838d96ecf",
+              "Text": "Factors that influence Type II error rates include sample size, effect size, and the chosen significance threshold.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "eef0bf7d-414c-4af4-be28-c29b0a8ffb9e",
+          "TopicId": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+          "Title": "Calculating P-Values from Test Statistics",
+          "BodyText": "P-values are derived by computing a test statistic from sample data and then finding the probability of that statistic under the null distribution.",
+          "Notes": "For a two-tailed t-test, the p-value is the probability of observing a t-statistic as extreme as the calculated value in either tail of the t-distribution. Statistical software automates this calculation.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "ModifiedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "Items": [
+            {
+              "Id": "a6a9ed89-3b20-4380-9f38-b8ade73e2bf7",
+              "Text": "The test statistic (e.g., t, z, F, chi-square) measures how far the sample result deviates from what the null hypothesis predicts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7b89ffde-c595-435f-b96e-44955c16d591",
+              "Text": "The corresponding p-value is then looked up in or computed from the relevant probability distribution table.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c9e8a8aa-69ff-49ba-af2f-fb1807ab3018",
+              "Text": "One-tailed tests yield smaller p-values for effects in the hypothesized direction; two-tailed tests account for effects in either direction.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fa66ee6f-4958-4a0a-8c95-0777e9950322",
+              "Text": "Degrees of freedom, sample size, and the type of test all affect the shape of the null distribution and thus the resulting p-value.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fe1d5410-73f8-4595-a086-b6d85b8c775e",
+          "TopicId": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+          "Title": "Common Misconceptions About P-Values",
+          "BodyText": "P-values are widely misunderstood, and several persistent misconceptions can lead to flawed conclusions in data analysis.",
+          "Notes": "The American Statistical Association issued a formal statement in 2016 warning against common p-value misuses, emphasizing that p-values alone should not dictate scientific or business decisions.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "ModifiedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "Items": [
+            {
+              "Id": "c3322468-6d45-4d67-8804-9fe6ae4873d2",
+              "Text": "A p-value does NOT measure the probability that the null hypothesis is true or false \u2014 it only describes the compatibility of the data with the null hypothesis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5524eff2-49ef-408d-8dbc-571e05e70751",
+              "Text": "Statistical significance does not imply practical significance; a very large sample can produce a tiny p-value for an effect too small to matter in practice.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0a20ded1-dc57-4d88-bddf-bf0498150e4f",
+              "Text": "Failing to reject the null hypothesis (high p-value) does not prove the null hypothesis is true \u2014 it simply means there is insufficient evidence against it.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0c7b7a25-8276-42e7-a8db-3bcf6fe0026a",
+              "Text": "P-hacking, or repeatedly testing data until a significant result is found, artificially inflates the Type I error rate and produces unreliable findings.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "59240b96-4e82-4dbd-8dc4-aacdbae2a6fa",
+              "Text": "A p-value below 0.05 is not a universal gold standard; the appropriate threshold depends on the field, context, and cost of errors.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "d1591863-ad95-4e74-91cd-f2859902d9bb",
+          "TopicId": "26e7f112-b222-4757-bce2-872cdb84fdf1",
+          "Title": "Interpreting and Reporting Statistical Significance",
+          "BodyText": "Proper interpretation and reporting of statistical significance requires context, effect sizes, and confidence intervals alongside p-values.",
+          "Notes": "Best practice in research and industry reporting is to accompany every p-value with an effect size measure (such as Cohen\u0027s d or R\u00B2) and a confidence interval to convey both the direction and magnitude of an effect.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "ModifiedDate": "2026-07-03T11:54:08.9477012-04:00",
+          "Items": [
+            {
+              "Id": "527ca3ca-8287-47e4-8bd8-c2f3a0e7d8cc",
+              "Text": "Always state the exact p-value rather than simply writing \u0027p \u003C 0.05\u0027 to give readers full information about the strength of evidence.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4707be9e-b1ed-424d-b534-36fd559b0e4e",
+              "Text": "Report effect sizes to communicate whether a statistically significant result is also practically meaningful.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "57491850-07d7-4ead-a72b-05bf65ccc5ad",
+              "Text": "Confidence intervals provide a range of plausible values for the true parameter and offer more information than a binary significant/not-significant label.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "60b7cc1b-5014-44e4-821e-44459f428bbd",
+              "Text": "Replicated results across multiple studies provide much stronger evidence than a single statistically significant finding.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+      "Title": "A/B Testing in Practice",
+      "Summary": "Applies hypothesis testing principles to real-world A/B testing scenarios used in business and product experimentation. Students learn how to design experiments, select appropriate tests, and interpret results to support data-driven decisions.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:53:16.30206-04:00",
+      "ModifiedDate": "2026-07-03T11:53:16.30206-04:00",
+      "Elements": [
+        {
+          "Id": "eb3faed3-59f5-403c-b1e6-59ed7dc23fff",
+          "TopicId": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+          "Title": "What is A/B Testing?",
+          "BodyText": "A/B testing is a controlled experiment that compares two versions of a variable \u2014 a control (A) and a treatment (B) \u2014 to determine which performs better on a defined metric.",
+          "Notes": "Common business examples include testing two versions of a webpage, email subject line, or app feature to measure impact on click-through rate, conversion, or revenue.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "ModifiedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "Items": [
+            {
+              "Id": "f153e591-12ee-4b49-9ea9-eebd54d5ea95",
+              "Text": "The control group (A) receives the existing experience, while the treatment group (B) receives the new variation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e1c199ef-1f94-4e57-9c8c-f71ad430ac97",
+              "Text": "A/B testing relies on hypothesis testing principles: a null hypothesis assumes no difference between A and B, while the alternative hypothesis claims a meaningful difference exists.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "560aa8f6-e2e3-402c-9289-2b0cbe81af7c",
+              "Text": "The goal is to make a statistically sound, data-driven decision rather than relying on intuition or anecdote.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "53442924-b70e-41f5-85f5-41ee36a2a320",
+          "TopicId": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+          "Title": "Designing a Valid A/B Experiment",
+          "BodyText": "Proper experimental design is critical to obtaining reliable, actionable results from an A/B test. Key decisions include defining the hypothesis, identifying the metric, and determining sample size before data collection begins.",
+          "Notes": "Pre-registration of the hypothesis and stopping criteria helps prevent p-hacking and ensures the integrity of the experiment.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "ModifiedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "Items": [
+            {
+              "Id": "f5271dca-47fa-464e-befa-89854a3cdb88",
+              "Text": "Define a single primary metric (e.g., conversion rate) to avoid inflating false-positive risk through multiple comparisons.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "de8bed63-ec82-48fb-bbd3-c396ff9194b7",
+              "Text": "Randomly assign users to control and treatment groups to eliminate selection bias and ensure the groups are comparable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8d4a91f0-d99a-4689-8354-e0acf8fd7c40",
+              "Text": "Calculate the required sample size in advance using expected effect size and desired statistical power (commonly 80%) to avoid underpowered tests.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7becf661-ba21-408f-a80c-a55354094613",
+              "Text": "Determine a fixed test duration based on traffic volume and natural variation cycles, such as weekly seasonality.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1f0f86e4-1e1d-4bea-888c-3e056c7e8e34",
+          "TopicId": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+          "Title": "Selecting the Appropriate Statistical Test",
+          "BodyText": "Choosing the right test depends on the type of metric being measured and the distribution of the data collected during the experiment.",
+          "Notes": "Using the wrong test can lead to incorrect conclusions; for instance, applying a t-test to a highly skewed revenue metric may require transformation or a non-parametric alternative.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "ModifiedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "Items": [
+            {
+              "Id": "5a9e18a6-4e46-4e96-976b-5e97692ba4de",
+              "Text": "Use a two-sample independent t-test when comparing continuous means (e.g., average session duration) between two groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7cbe5fbb-e376-4225-87d0-14f203d192bd",
+              "Text": "Use a chi-square test or z-test for proportions when comparing conversion rates or other categorical outcomes between groups.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1b69f3bf-2cd4-429b-8142-9868c96eb435",
+              "Text": "Apply non-parametric tests such as the Mann-Whitney U test when data violates normality assumptions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3230e10e-d1b5-4d81-89c1-e864bc80ae70",
+              "Text": "For multiple variants (A/B/C testing), use ANOVA followed by post-hoc corrections to control the family-wise error rate.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b4c4b8e9-565b-44c2-adb3-82b2edb0080b",
+          "TopicId": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+          "Title": "Interpreting P-Values and Statistical Significance",
+          "BodyText": "Once the test is run, the p-value indicates the probability of observing the data if the null hypothesis were true, and is compared against a pre-set significance threshold (alpha).",
+          "Notes": "A common misconception is that a p-value below 0.05 proves the alternative hypothesis is true; it only provides evidence against the null hypothesis at the chosen confidence level.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "ModifiedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "Items": [
+            {
+              "Id": "3a252f32-ba14-4134-8068-edce2e808870",
+              "Text": "If p \u2264 alpha (typically 0.05), the result is statistically significant and the null hypothesis is rejected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "61f33f82-25a3-4a64-94cf-62a92f285332",
+              "Text": "Statistical significance does not imply practical significance \u2014 a large sample can detect tiny, business-irrelevant differences as significant.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a55a99bf-f8e3-4b4e-a60b-cc1d2f23c097",
+              "Text": "Always report confidence intervals alongside p-values to communicate the range of plausible effect sizes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fd69d2da-e631-4e76-b3fe-aa5d348cd47a",
+              "Text": "A non-significant result does not confirm that A and B are equal; it may simply indicate insufficient statistical power.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "18c9536f-ed70-4194-a16c-32863787736f",
+          "TopicId": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+          "Title": "Effect Size and Practical Significance",
+          "BodyText": "Effect size quantifies the magnitude of the difference between groups, providing context that p-values alone cannot supply for business decision-making.",
+          "Notes": "For a conversion rate experiment, an absolute lift of 0.1% might be statistically significant with millions of users but financially negligible; effect size helps bridge statistics and business impact.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "ModifiedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "Items": [
+            {
+              "Id": "f2631038-c218-4e77-be91-0e1ac7dcd3e6",
+              "Text": "Common effect size measures include Cohen\u0027s d for continuous outcomes and relative or absolute lift for proportions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8b4ede86-383b-4d97-86d1-b22943866c45",
+              "Text": "A meaningful effect size should exceed a minimum detectable effect (MDE) defined before the experiment based on business impact thresholds.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ffad3bb7-957a-4754-9907-9660e664ccd1",
+              "Text": "Combining statistical significance with practical significance ensures that only results that are both reliable and impactful drive product decisions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "240f2246-ae6e-4f24-b54b-96c015e9fecb",
+          "TopicId": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+          "Title": "Common Pitfalls in A/B Testing",
+          "BodyText": "Even well-intentioned A/B tests can yield misleading conclusions due to methodological errors that inflate false-positive or false-negative rates.",
+          "Notes": "Many pitfalls stem from peeking at results before the planned end date or making changes mid-experiment, both of which invalidate the fixed-sample test framework.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "ModifiedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "Items": [
+            {
+              "Id": "13f66b61-84fe-48b1-959d-ffd8884d0e6a",
+              "Text": "Peeking and early stopping inflate Type I error rates; use sequential testing methods or Bayesian approaches if interim monitoring is required.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "559cd953-c3cf-45ce-a5d6-6e1573bd7d2c",
+              "Text": "Network effects and contamination occur when users in different groups interact, violating the independence assumption.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "50df35fa-d944-47e0-b33c-a7c8d6807557",
+              "Text": "Novelty effects can cause a temporary lift in the treatment group simply because users are responding to something new rather than genuinely superior.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ad2913fd-881c-4b37-8a77-d1463464773a",
+              "Text": "Segment imbalance arises if randomization is not stratified, leading to confounding variables such as device type or geography skewing results.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0c8882c1-4d3a-4c17-b168-fdf17fb22905",
+          "TopicId": "4689d08c-9415-46e6-8a78-14a2ae8d6070",
+          "Title": "Translating Results into Data-Driven Decisions",
+          "BodyText": "The final step in A/B testing is interpreting results within the business context and communicating findings clearly to stakeholders to drive action.",
+          "Notes": "Documenting experiment outcomes \u2014 including null results \u2014 creates an institutional knowledge base that improves future experiment design and avoids repeating failed ideas.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "ModifiedDate": "2026-07-03T11:54:39.1775807-04:00",
+          "Items": [
+            {
+              "Id": "697fb4a1-a353-40e5-a1c9-9439bec25839",
+              "Text": "Ship the winning variant only when the result is statistically significant, practically meaningful, and consistent with broader business strategy.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "268c2f89-78c8-4c58-abaa-9f266ed27947",
+              "Text": "Consider segmented analysis to understand whether the treatment effect differs across user cohorts such as new vs. returning users.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1d733869-e93c-4a13-a595-3aa64324c567",
+              "Text": "Communicate uncertainty by presenting confidence intervals and effect sizes rather than framing results as definitive proof.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "07e21526-7713-45e1-b94f-20aee2a88e03",
+              "Text": "A null result is still valuable: it informs teams that the tested change does not drive the hypothesized improvement, saving future development resources.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b297f7fa-849b-4f31-be57-8fd3f79d4a22",
+      "Title": "Correlation Analysis",
+      "Summary": "Examines the concept of correlation as a measure of the relationship between two variables, including Pearson and Spearman correlation coefficients. Emphasizes the distinction between correlation and causation and how to interpret correlation in context.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:53:16.30206-04:00",
+      "ModifiedDate": "2026-07-03T11:53:16.30206-04:00",
+      "Elements": [
+        {
+          "Id": "b81e4a76-0f8e-4a7b-9bb2-4717e152cbe4",
+          "TopicId": "b297f7fa-849b-4f31-be57-8fd3f79d4a22",
+          "Title": "What Is Correlation?",
+          "BodyText": "Correlation is a statistical measure that quantifies the strength and direction of the linear relationship between two variables.",
+          "Notes": "Correlation values range from -1 to \u002B1, where -1 indicates a perfect negative relationship, \u002B1 indicates a perfect positive relationship, and 0 indicates no linear relationship.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "ModifiedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "Items": [
+            {
+              "Id": "c538a09f-2705-431e-9c5b-3179158a0b6b",
+              "Text": "A positive correlation means that as one variable increases, the other tends to increase as well.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2c8b1754-ebf4-478c-b035-fdfa38025b2d",
+              "Text": "A negative correlation means that as one variable increases, the other tends to decrease.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1c564690-466c-471c-9cce-79128678da56",
+              "Text": "The closer the correlation coefficient is to \u00B11, the stronger the relationship between the two variables.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b73b4ea9-527d-4620-a218-0094f1766866",
+              "Text": "Correlation only measures linear relationships and may miss non-linear associations between variables.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b41c7ed9-aca8-4071-bd86-aad1b3ec2f85",
+          "TopicId": "b297f7fa-849b-4f31-be57-8fd3f79d4a22",
+          "Title": "Pearson Correlation Coefficient",
+          "BodyText": "The Pearson correlation coefficient (r) is the most commonly used measure of linear correlation, appropriate for continuous, normally distributed data.",
+          "Notes": "For example, measuring the correlation between hours studied and exam scores would typically use Pearson\u0027s r, assuming both variables are continuous and roughly normally distributed.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "ModifiedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "Items": [
+            {
+              "Id": "ba91143a-7955-40ee-b5b7-1b279e530916",
+              "Text": "Pearson\u0027s r is calculated by dividing the covariance of two variables by the product of their standard deviations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3f24668c-195b-45b6-b1f3-9a08dfa35624",
+              "Text": "It assumes both variables are continuous, linearly related, and approximately normally distributed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8ec09899-b62e-4fa8-b406-ac606a3770b4",
+              "Text": "Outliers can significantly distort Pearson\u0027s r, making it sensitive to extreme values in the dataset.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a83e85f6-da59-4952-85a8-1fd432bb5845",
+              "Text": "Results are interpreted using conventional thresholds: |r| \u003C 0.3 is weak, 0.3\u20130.7 is moderate, and |r| \u003E 0.7 is strong.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "831f7815-5109-4a09-823e-a678055adcf6",
+          "TopicId": "b297f7fa-849b-4f31-be57-8fd3f79d4a22",
+          "Title": "Spearman Rank Correlation Coefficient",
+          "BodyText": "The Spearman correlation coefficient (\u03C1) is a non-parametric alternative to Pearson\u0027s r, based on the ranked order of data rather than raw values.",
+          "Notes": "Spearman\u0027s \u03C1 is particularly useful when data contain outliers or when variables are measured on an ordinal scale, such as customer satisfaction ratings.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "ModifiedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "Items": [
+            {
+              "Id": "8270c1a1-89a9-41f1-bc06-58ba247a7a5d",
+              "Text": "Spearman\u0027s \u03C1 converts raw data values to ranks before computing the correlation, making it more robust to outliers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ae7c0261-da2a-45b5-b203-b3c748e29759",
+              "Text": "It is appropriate when the assumptions of Pearson\u0027s r are violated, such as when data are skewed or ordinal.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a55a01c4-cd5d-43d7-8336-c258f30dbf0e",
+              "Text": "Like Pearson\u0027s r, Spearman\u0027s \u03C1 ranges from -1 to \u002B1, with the same directional interpretation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ced46257-b34c-4a25-8b86-410a6029c9d5",
+              "Text": "Spearman\u0027s \u03C1 captures monotonic relationships, meaning it detects consistent increases or decreases even if they are not perfectly linear.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "dce1ead9-97a0-4890-bed0-47dd7e010642",
+          "TopicId": "b297f7fa-849b-4f31-be57-8fd3f79d4a22",
+          "Title": "Choosing Between Pearson and Spearman",
+          "BodyText": "Selecting the appropriate correlation method depends on the nature of the data, the distribution of variables, and the presence of outliers.",
+          "Notes": "When in doubt, running both methods and comparing results can help reveal whether outliers or non-normality are influencing the analysis.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "ModifiedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "Items": [
+            {
+              "Id": "e904f185-2fed-416f-9870-c90719276eda",
+              "Text": "Use Pearson\u0027s r when both variables are continuous, normally distributed, and the relationship is expected to be linear.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6e1c1417-eff0-40fb-8349-6e4dbc2e0ddf",
+              "Text": "Use Spearman\u0027s \u03C1 when data are ordinal, heavily skewed, contain significant outliers, or when a monotonic but non-linear relationship is suspected.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7f58c0fa-2c51-412e-87b9-95fff6ff554b",
+              "Text": "If Pearson and Spearman results differ substantially, it is a signal that outliers or non-linearity may be affecting the data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4a467c4a-a37b-4783-a80c-bbabd07adf4d",
+          "TopicId": "b297f7fa-849b-4f31-be57-8fd3f79d4a22",
+          "Title": "Interpreting Correlation Coefficients in Context",
+          "BodyText": "A correlation coefficient must always be interpreted within the context of the domain and research question, not just by its numerical magnitude alone.",
+          "Notes": "In medical research, a correlation of r = 0.3 might be considered meaningful and actionable, while in physics or engineering the same value might be considered negligibly weak.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "ModifiedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "Items": [
+            {
+              "Id": "7f2b1a5b-82a1-43e8-94ad-aea62b7c16a9",
+              "Text": "The strength thresholds for weak, moderate, and strong correlations can vary by field and practical application.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3666097e-3105-46dc-b286-92bb5b2dee47",
+              "Text": "Always visualize the relationship with a scatter plot to confirm the pattern suggested by the correlation coefficient.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a0e0ef8a-9f8f-4624-9a8b-73fd3c867f99",
+              "Text": "A statistically significant correlation does not necessarily imply a practically meaningful or large relationship.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0bd7e62d-9a17-45a7-af10-2d18691d4d95",
+              "Text": "Sample size affects the significance of a correlation; large samples can produce statistically significant but practically trivial correlations.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0720c499-f7f6-4be2-9661-703a98d369e9",
+          "TopicId": "b297f7fa-849b-4f31-be57-8fd3f79d4a22",
+          "Title": "Correlation Does Not Imply Causation",
+          "BodyText": "One of the most critical principles in data analysis is that a correlation between two variables does not mean that one variable causes the other.",
+          "Notes": "A classic example is the correlation between ice cream sales and drowning rates \u2014 both increase in summer, but ice cream does not cause drowning. The confounding variable is hot weather.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "ModifiedDate": "2026-07-03T11:55:01.4272103-04:00",
+          "Items": [
+            {
+              "Id": "2dcf1a32-eddc-4f4d-bbfb-23b7c103ac03",
+              "Text": "Two variables can be correlated because of a third, hidden variable known as a confounding or lurking variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e8013195-052b-4125-a235-07af993e3d85",
+              "Text": "Spurious correlations occur when two unrelated variables appear correlated purely by coincidence, especially in large datasets.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bbfe144a-5cd6-4c89-b03a-a8c16ca928d9",
+              "Text": "Establishing causation requires controlled experiments, temporal ordering, and ruling out confounding variables \u2014 not just a high correlation coefficient.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "62e448a1-099c-47f2-9851-b8d7ea308bb0",
+              "Text": "Always ask whether there is a plausible causal mechanism before drawing causal conclusions from a correlation.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "1a290b01-94c8-4f7d-ac5a-3d3081c1e648",
+      "Title": "Simple Linear Regression",
+      "Summary": "Introduces simple linear regression as a method for modeling the relationship between one predictor variable and a continuous outcome. Students learn to estimate regression coefficients, assess model fit, and make predictions from a fitted model.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:53:16.30206-04:00",
+      "ModifiedDate": "2026-07-03T11:53:16.30206-04:00",
+      "Elements": [
+        {
+          "Id": "9d63bdd6-9e73-4929-a8eb-144bd6af644c",
+          "TopicId": "1a290b01-94c8-4f7d-ac5a-3d3081c1e648",
+          "Title": "What Is Simple Linear Regression?",
+          "BodyText": "Simple linear regression is a statistical method that models the linear relationship between one predictor (independent) variable and one continuous outcome (dependent) variable.",
+          "Notes": "For example, you might use simple linear regression to predict a person\u0027s salary based on their years of experience, or to predict housing prices based on square footage.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:55:25.543294-04:00",
+          "ModifiedDate": "2026-07-03T11:55:25.543294-04:00",
+          "Items": [
+            {
+              "Id": "6ce9983e-fe24-4bbc-82ae-1c49d910dddd",
+              "Text": "The model assumes a straight-line relationship between the predictor X and the outcome Y, expressed as Y = \u03B2\u2080 \u002B \u03B2\u2081X \u002B \u03B5.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1134b77d-43b4-4604-80d6-7105bde032b7",
+              "Text": "\u03B2\u2080 is the intercept (the value of Y when X is zero) and \u03B2\u2081 is the slope (the change in Y for a one-unit increase in X).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4fa1b655-0310-49f2-bd33-d87e0e5d673f",
+              "Text": "\u03B5 represents the error term, capturing the variability in Y not explained by X.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e3b71885-9926-4aaf-9b26-9f5d39a95fa9",
+              "Text": "Simple linear regression is distinct from multiple regression in that it uses exactly one predictor variable.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8a1022c2-4836-4228-bd8d-00f11042a445",
+          "TopicId": "1a290b01-94c8-4f7d-ac5a-3d3081c1e648",
+          "Title": "Estimating Regression Coefficients",
+          "BodyText": "The regression coefficients \u03B2\u2080 and \u03B2\u2081 are estimated from sample data using the method of Ordinary Least Squares (OLS), which minimizes the sum of squared differences between observed and predicted values.",
+          "Notes": "OLS produces the best linear unbiased estimates (BLUE) of the coefficients under standard assumptions, including linearity, independence, homoscedasticity, and normality of residuals.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:55:25.543294-04:00",
+          "ModifiedDate": "2026-07-03T11:55:25.543294-04:00",
+          "Items": [
+            {
+              "Id": "134be76b-7d70-4dfc-976e-9ba60780db67",
+              "Text": "The slope estimate \u03B2\u0302\u2081 is calculated as the covariance of X and Y divided by the variance of X.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fe5aa207-6192-48a5-b0c2-009c72bebb48",
+              "Text": "The intercept estimate \u03B2\u0302\u2080 is calculated as the mean of Y minus \u03B2\u0302\u2081 times the mean of X.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7ec99a5b-4b3e-44b3-91e8-0c47feef526e",
+              "Text": "These estimates ensure the fitted regression line passes through the point (X\u0304, \u0232), the means of the two variables.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "284e8bd9-ff0b-4d1d-afc6-d1a4b617c292",
+              "Text": "Larger absolute values of \u03B2\u0302\u2081 indicate a stronger linear effect of X on Y.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "977fc8a9-0641-4e2d-8250-a16eb0685544",
+          "TopicId": "1a290b01-94c8-4f7d-ac5a-3d3081c1e648",
+          "Title": "Assessing Model Fit with R\u00B2",
+          "BodyText": "The coefficient of determination, R\u00B2, measures how well the regression model explains the variability in the outcome variable, ranging from 0 to 1.",
+          "Notes": "An R\u00B2 of 0.85, for example, means that 85% of the variance in Y is explained by X. However, a high R\u00B2 alone does not guarantee that the model is appropriate; residual diagnostics are also important.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:55:25.543294-04:00",
+          "ModifiedDate": "2026-07-03T11:55:25.543294-04:00",
+          "Items": [
+            {
+              "Id": "979715c5-0ffc-44e8-a069-969ff3d34a9e",
+              "Text": "R\u00B2 is calculated as the proportion of total variance in Y that is accounted for by the regression model: R\u00B2 = 1 \u2212 (SS_res / SS_tot).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "868571cd-6453-4110-b2ba-eeecf8d9c0ce",
+              "Text": "An R\u00B2 close to 1 indicates the model fits the data well, while a value close to 0 suggests the predictor explains little of the variation in the outcome.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f2b4dce-3052-47fa-8945-c9d24ab9fae8",
+              "Text": "In simple linear regression, R\u00B2 equals the square of the Pearson correlation coefficient (r\u00B2) between X and Y.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f9453aad-d1d8-4696-8d48-76c28073aeb0",
+              "Text": "R\u00B2 should always be interpreted alongside residual plots and significance tests for a complete picture of model adequacy.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3d2a942e-9eb2-459e-877e-d42cf9983dcf",
+          "TopicId": "1a290b01-94c8-4f7d-ac5a-3d3081c1e648",
+          "Title": "Testing the Statistical Significance of the Slope",
+          "BodyText": "A hypothesis test is conducted on the slope coefficient \u03B2\u2081 to determine whether the predictor variable has a statistically significant linear relationship with the outcome.",
+          "Notes": "The t-test for the slope is analogous to other hypothesis tests covered in this module \u2014 if the p-value is below the chosen significance level (e.g., 0.05), we reject the null hypothesis of no linear relationship.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:55:25.543294-04:00",
+          "ModifiedDate": "2026-07-03T11:55:25.543294-04:00",
+          "Items": [
+            {
+              "Id": "b8666529-a833-499b-9858-a8fda9d70e1c",
+              "Text": "The null hypothesis states H\u2080: \u03B2\u2081 = 0 (no linear relationship), and the alternative states H\u2081: \u03B2\u2081 \u2260 0.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2b506866-c04b-4ed5-aeb6-9baf4ca81728",
+              "Text": "A t-statistic is computed as \u03B2\u0302\u2081 divided by its standard error, and compared against a t-distribution with n \u2212 2 degrees of freedom.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9200103e-cba1-4231-8cba-2d9259615473",
+              "Text": "A statistically significant slope means it is unlikely that the observed relationship occurred by chance alone.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dc9c37a4-cbfa-4b1b-83e3-9da3c18eff5b",
+              "Text": "Confidence intervals for \u03B2\u2081 can also be constructed to express the range of plausible values for the true slope.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d5e410ec-607b-477e-829f-533d3c5b91c4",
+          "TopicId": "1a290b01-94c8-4f7d-ac5a-3d3081c1e648",
+          "Title": "Making Predictions from the Fitted Model",
+          "BodyText": "Once the regression model is fitted, it can be used to predict the value of the outcome variable for given values of the predictor variable.",
+          "Notes": "For instance, if the fitted model is \u0176 = 20,000 \u002B 5,000X where X is years of experience, a person with 3 years of experience is predicted to earn $35,000.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:55:25.543294-04:00",
+          "ModifiedDate": "2026-07-03T11:55:25.543294-04:00",
+          "Items": [
+            {
+              "Id": "9b46a24b-869e-49b6-b735-80ce2ffcaff4",
+              "Text": "Predicted values (\u0176) are obtained by substituting specific X values into the fitted equation: \u0176 = \u03B2\u0302\u2080 \u002B \u03B2\u0302\u2081X.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fba337f9-2339-4f59-a384-912a3aa064a0",
+              "Text": "Predictions made within the range of the observed X values (interpolation) are generally reliable; predictions outside this range (extrapolation) carry greater uncertainty.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2638f833-d35e-4286-83da-651267f93ab9",
+              "Text": "Prediction intervals quantify the uncertainty around a single predicted value, while confidence intervals quantify uncertainty around the mean predicted value.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b79dd3e6-4aee-4722-8eb9-8e7073335959",
+              "Text": "Residuals \u2014 the differences between observed and predicted values \u2014 should be examined to validate the model\u0027s assumptions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b4f935f5-101b-4179-a574-73bad3be59d9",
+          "TopicId": "1a290b01-94c8-4f7d-ac5a-3d3081c1e648",
+          "Title": "Checking Regression Assumptions",
+          "BodyText": "Simple linear regression relies on several key assumptions that must be verified to ensure the validity and reliability of the model\u0027s estimates and inferences.",
+          "Notes": "Violations of these assumptions can be diagnosed using residual plots, Q-Q plots, and statistical tests such as the Breusch-Pagan test for heteroscedasticity.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:55:25.543294-04:00",
+          "ModifiedDate": "2026-07-03T11:55:25.543294-04:00",
+          "Items": [
+            {
+              "Id": "93ba2f7e-cfbb-4e23-8c87-ed24c4641fc9",
+              "Text": "Linearity: The relationship between X and Y must be linear, which can be checked by plotting residuals against fitted values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0a71ff51-2ced-47bf-9eda-2c10c0e3ead2",
+              "Text": "Independence: Observations must be independent of one another, an assumption typically satisfied by proper data collection design.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "501d3955-7ccf-409e-81da-87c7ece5d245",
+              "Text": "Homoscedasticity: The variance of the residuals should be constant across all levels of X; a fan-shaped residual plot signals a violation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dbba32db-49d0-496c-bbd6-1427c269ecfe",
+              "Text": "Normality of residuals: The error terms should be approximately normally distributed, assessed using a Q-Q plot of the residuals.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6565f51e-dd57-48a9-9e4e-7c50af331fba",
+      "Title": "Multiple Linear Regression",
+      "Summary": "Extends simple linear regression to models with multiple predictor variables, enabling more complex and realistic analyses. Covers interpretation of coefficients, model assumptions, and strategies for evaluating and improving model performance.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:53:16.30206-04:00",
+      "ModifiedDate": "2026-07-03T11:53:16.30206-04:00",
+      "Elements": [
+        {
+          "Id": "520c056d-7ca0-4c61-bccf-02aa8f11e005",
+          "TopicId": "6565f51e-dd57-48a9-9e4e-7c50af331fba",
+          "Title": "From Simple to Multiple Linear Regression",
+          "BodyText": "Multiple linear regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single outcome variable.",
+          "Notes": "For example, predicting a house\u0027s sale price using square footage alone is simple regression; adding number of bedrooms, location score, and age of the home makes it multiple regression.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "ModifiedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "Items": [
+            {
+              "Id": "c1caebbf-4df9-4754-acae-66ca62737889",
+              "Text": "The general form is Y = \u03B2\u2080 \u002B \u03B2\u2081X\u2081 \u002B \u03B2\u2082X\u2082 \u002B ... \u002B \u03B2\u2099X\u2099 \u002B \u03B5, where each X represents a distinct predictor variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "02d058cf-098c-46a3-9581-fcb08dedde53",
+              "Text": "Adding predictors allows the model to capture more of the real-world complexity driving an outcome.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "381a259b-3e49-43e5-9aba-bccbcddfe682",
+              "Text": "Each predictor contributes independently to the predicted value of Y, holding all other predictors constant.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "09cea052-3e0b-4403-b56a-5ac05c314453",
+          "TopicId": "6565f51e-dd57-48a9-9e4e-7c50af331fba",
+          "Title": "Interpreting Regression Coefficients",
+          "BodyText": "Each coefficient (\u03B2) in a multiple regression model represents the estimated change in the outcome variable for a one-unit increase in that predictor, holding all other predictors constant.",
+          "Notes": "This \u0027holding all else constant\u0027 interpretation is critical and differs from simple regression, where no other variables are controlled for.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "ModifiedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "Items": [
+            {
+              "Id": "c71dcad1-3dfd-4da3-b003-1753a72ba132",
+              "Text": "The intercept (\u03B2\u2080) is the predicted value of Y when all predictor variables equal zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4ec55afb-e393-46e7-835c-27badae98ac7",
+              "Text": "A positive coefficient indicates a direct relationship; a negative coefficient indicates an inverse relationship with the outcome.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "edb1d340-ad15-4b55-9587-542ab204b88c",
+              "Text": "Coefficient magnitude alone does not indicate importance \u2014 scale of the predictor variable must be considered when comparing effects.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7f7aaebb-4672-40b2-a659-47bfae91baca",
+          "TopicId": "6565f51e-dd57-48a9-9e4e-7c50af331fba",
+          "Title": "Model Assumptions in Multiple Regression",
+          "BodyText": "Multiple linear regression relies on several key assumptions that must be satisfied for the model\u0027s estimates and inferences to be valid.",
+          "Notes": "Violations of these assumptions can lead to biased coefficients, inflated standard errors, or misleading p-values, undermining the model\u0027s reliability.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "ModifiedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "Items": [
+            {
+              "Id": "85550975-d586-4595-9a13-b1d8d3ca8fad",
+              "Text": "Linearity: The relationship between each predictor and the outcome should be linear.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "17c94e37-79d6-40ac-9b09-5dce3692b12c",
+              "Text": "Independence: Observations must be independent of one another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "31e21f94-2094-4473-b244-586237b8f578",
+              "Text": "Homoscedasticity: The variance of residuals should remain constant across all levels of the predictors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7cff8c95-b0af-4eec-a600-a3e71616d94c",
+              "Text": "Normality of residuals: The errors (residuals) should be approximately normally distributed.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "2cce93f3-98af-441f-b5bf-eed1805d0095",
+              "Text": "No multicollinearity: Predictor variables should not be highly correlated with each other, as this destabilizes coefficient estimates.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "bef67499-eab2-47e8-b713-6f09ba50b9f2",
+          "TopicId": "6565f51e-dd57-48a9-9e4e-7c50af331fba",
+          "Title": "Evaluating Model Performance",
+          "BodyText": "Assessing how well a multiple regression model fits the data requires several statistical measures that quantify explained variance and overall model significance.",
+          "Notes": "R\u00B2 tells you how much variance is explained, but it always increases as predictors are added, which is why Adjusted R\u00B2 is preferred for comparing models with different numbers of predictors.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "ModifiedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "Items": [
+            {
+              "Id": "326b40ef-8542-4845-8eba-8bfcc14d1811",
+              "Text": "R\u00B2 (coefficient of determination) measures the proportion of total variance in Y explained by the model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "25c7966e-5d44-40db-85eb-4de8870343c2",
+              "Text": "Adjusted R\u00B2 penalizes the addition of predictors that do not meaningfully improve model fit, providing a fairer comparison across models.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "423ebb2c-82d4-4076-a5af-c0225e5587fd",
+              "Text": "The F-statistic and its associated p-value test whether the overall model explains a statistically significant amount of variance in the outcome.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b363928b-e812-4437-a8a8-3dc320d05b70",
+          "TopicId": "6565f51e-dd57-48a9-9e4e-7c50af331fba",
+          "Title": "Multicollinearity: Detection and Impact",
+          "BodyText": "Multicollinearity occurs when two or more predictor variables are highly correlated, making it difficult to isolate each variable\u0027s individual effect on the outcome.",
+          "Notes": "The Variance Inflation Factor (VIF) is the standard diagnostic tool; a VIF above 5 or 10 is commonly used as a threshold indicating problematic multicollinearity.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "ModifiedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "Items": [
+            {
+              "Id": "7ee4c21d-71c2-4327-b596-e86cdd06e8e1",
+              "Text": "Multicollinearity inflates the standard errors of coefficients, making individual predictors appear statistically insignificant even when they are meaningful.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ecf7f5b2-7128-4641-b67b-c497b45ad996",
+              "Text": "It can be detected using a correlation matrix among predictors or by computing Variance Inflation Factors (VIF).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "adba0643-237b-4818-a1ca-4ee9eb894282",
+              "Text": "Remedies include removing one of the correlated predictors, combining them into a composite variable, or applying dimensionality reduction techniques.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "80551154-f600-48c6-a7b9-3d1cc4c4ee69",
+          "TopicId": "6565f51e-dd57-48a9-9e4e-7c50af331fba",
+          "Title": "Strategies for Improving Model Performance",
+          "BodyText": "Building an effective multiple regression model involves iterative refinement, including variable selection, transformation, and validation techniques.",
+          "Notes": "Overfitting is a common risk when too many predictors are included relative to the sample size; a model that fits training data perfectly may perform poorly on new data.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "ModifiedDate": "2026-07-03T11:55:51.0751422-04:00",
+          "Items": [
+            {
+              "Id": "73f40e8e-32f9-45a5-8eaa-3ee35da4897c",
+              "Text": "Feature selection methods such as stepwise regression, forward selection, or backward elimination help identify the most relevant predictors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ba91c42b-61d4-4847-8f65-fb4aae7a92b2",
+              "Text": "Transforming variables (e.g., log transformation) can correct non-linearity or heteroscedasticity and improve model fit.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "82b84893-c912-4a65-9be3-77d85f77cd21",
+              "Text": "Cross-validation techniques assess how well the model generalizes to unseen data, guarding against overfitting.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b88a7485-768f-4dfb-a4db-9a681e73a51c",
+              "Text": "Residual plots and diagnostic checks should be used throughout model building to verify that assumptions are being met.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "77adabd1-8092-43ec-90be-36d718fdb17e",
+      "Title": "Drawing Data-Driven Conclusions",
+      "Summary": "Synthesizes all module techniques to guide students in applying inferential statistics to real datasets and communicating findings effectively. Focuses on selecting the appropriate method, validating assumptions, and translating statistical results into actionable insights.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-07-03T11:53:16.30206-04:00",
+      "ModifiedDate": "2026-07-03T11:53:16.30206-04:00",
+      "Elements": [
+        {
+          "Id": "56a89447-1190-4fb0-b20b-e13d60661703",
+          "TopicId": "77adabd1-8092-43ec-90be-36d718fdb17e",
+          "Title": "Selecting the Appropriate Statistical Method",
+          "BodyText": "Choosing the right inferential technique depends on the research question, the type of data, and the number of variables involved.",
+          "Notes": "For example, use a t-test to compare means between two groups, correlation analysis to assess relationships between continuous variables, and regression when predicting an outcome from one or more predictors.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "ModifiedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "Items": [
+            {
+              "Id": "1451cdd8-8cc1-461a-907a-965d491a4e8c",
+              "Text": "Identify whether the goal is comparison, relationship detection, or prediction before selecting a method.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dc26ae35-b67d-4a26-9e11-8118c822a6d6",
+              "Text": "Match the statistical test to the data type: categorical outcomes may require chi-square tests, while continuous outcomes suit t-tests or regression.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e5bf414d-d2e5-490f-8881-4b0cfd8ea8b5",
+              "Text": "Consider the number of variables: simple linear regression handles one predictor, while multiple regression accommodates several simultaneously.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dccff566-067d-405e-a917-56038b8d8d0d",
+              "Text": "Mismatching a method to a question type leads to invalid conclusions, so method selection is a critical first step.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c84ba758-8c28-4b22-82d4-0e0f305db33d",
+          "TopicId": "77adabd1-8092-43ec-90be-36d718fdb17e",
+          "Title": "Validating Statistical Assumptions",
+          "BodyText": "Every inferential technique rests on a set of assumptions that must be checked before results can be trusted.",
+          "Notes": "Residual plots, Q-Q plots, and Shapiro-Wilk tests are practical tools for checking normality and homoscedasticity in regression and hypothesis testing contexts.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "ModifiedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "Items": [
+            {
+              "Id": "3ae2bae4-c120-40c1-b83b-c457551c3a1c",
+              "Text": "Hypothesis tests commonly assume independence of observations, approximate normality, and homogeneity of variance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "822e38c5-cb31-43ac-996e-ab9d3e04507f",
+              "Text": "Regression analysis additionally requires linearity between predictors and the outcome, and the absence of severe multicollinearity in multiple regression.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f9e29526-f495-4173-b3f8-f162b86b1a5d",
+              "Text": "Violating assumptions can inflate Type I error rates or bias coefficient estimates, undermining the validity of conclusions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "71a1f31c-b6be-4224-96b8-8a2abb648e3d",
+              "Text": "When assumptions are violated, consider data transformations, non-parametric alternatives, or robust estimation methods.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8b95ff8f-ecc1-436e-a23d-194e8498aeb3",
+          "TopicId": "77adabd1-8092-43ec-90be-36d718fdb17e",
+          "Title": "Interpreting p-Values and Statistical Significance",
+          "BodyText": "The p-value quantifies the probability of observing results at least as extreme as those obtained, assuming the null hypothesis is true.",
+          "Notes": "A common threshold is \u03B1 = 0.05, but this cutoff is a convention, not a universal rule; context and effect size should also guide interpretation.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "ModifiedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "Items": [
+            {
+              "Id": "fff92bfd-c731-4465-8e52-746960ec7cdd",
+              "Text": "A p-value below the chosen significance level (\u03B1) leads to rejection of the null hypothesis, indicating a statistically significant result.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1bf2f8f8-6313-4f3a-ad96-df7dd78686bf",
+              "Text": "Statistical significance does not imply practical importance; a very large sample can yield a tiny, meaningless effect that is still statistically significant.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f8e93c60-201d-44f7-8697-1b3cfb01424f",
+              "Text": "Always report the actual p-value rather than a binary \u0027significant/not significant\u0027 label to allow readers to draw their own conclusions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "21b1b9f8-01ed-4272-9e70-2abbeb35e5f9",
+              "Text": "Confidence intervals complement p-values by conveying the range of plausible effect sizes, adding richer context to findings.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "00e49ec6-9281-49e6-9cab-4cd6c1551a0a",
+          "TopicId": "77adabd1-8092-43ec-90be-36d718fdb17e",
+          "Title": "Translating Regression and Correlation Results into Insights",
+          "BodyText": "Statistical outputs such as regression coefficients and correlation coefficients must be converted into plain-language statements that answer the original business or research question.",
+          "Notes": "For instance, a regression coefficient of 0.8 for advertising spend means that each additional dollar spent is associated with an $0.80 increase in revenue, holding other variables constant.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "ModifiedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "Items": [
+            {
+              "Id": "503f6e9d-8975-4db6-8e58-bc85de1db45e",
+              "Text": "Correlation coefficients indicate the strength and direction of a linear relationship but do not establish causation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2689e11c-8196-431d-b20d-ee470ccd5eaa",
+              "Text": "Regression coefficients describe the expected change in the outcome for a one-unit increase in a predictor, providing a directly actionable magnitude.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "de633fbf-0b01-4160-8ef9-27296485b8f0",
+              "Text": "R-squared summarizes how much variance in the outcome is explained by the model, giving a sense of overall predictive power.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a794cdc5-4af2-46bb-b233-d465d033191a",
+              "Text": "Communicate uncertainty by pairing estimates with standard errors or confidence intervals so stakeholders understand the precision of the findings.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "688690d9-079a-4e83-8b41-d7450010d12d",
+          "TopicId": "77adabd1-8092-43ec-90be-36d718fdb17e",
+          "Title": "Applying Findings to Real Datasets and A/B Testing Contexts",
+          "BodyText": "Applying inferential statistics to real data requires integrating data cleaning, exploratory analysis, and formal testing into a coherent workflow.",
+          "Notes": "In an A/B test, for example, a t-test or z-test is used to determine whether the observed difference in conversion rates between two variants is statistically significant or attributable to chance.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "ModifiedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "Items": [
+            {
+              "Id": "469f55fe-32bb-4256-9f27-983a95deb34c",
+              "Text": "Begin with exploratory data analysis to detect outliers, missing values, and distributional patterns before running formal tests.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "df252bc0-06c3-4eb9-9114-fbd4a00fea25",
+              "Text": "In A/B testing, ensure random assignment and adequate sample size to control for confounders and achieve sufficient statistical power.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e1d01e3a-3ba4-49ff-9622-6572330eee79",
+              "Text": "Document each analytical decision\u2014method choice, assumption checks, significance threshold\u2014to make the analysis reproducible and transparent.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d1e5c1da-1337-40ed-958b-e623baf0673b",
+              "Text": "Validate results on a holdout dataset or through replication when possible, especially before making high-stakes decisions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "58ab3a8e-f9e8-4d83-a0f3-f8e1bafce465",
+          "TopicId": "77adabd1-8092-43ec-90be-36d718fdb17e",
+          "Title": "Communicating Statistical Results Effectively",
+          "BodyText": "Translating statistical findings into clear, actionable insights for diverse audiences is as important as the analysis itself.",
+          "Notes": "Visualization tools such as scatter plots with regression lines, residual plots, and annotated bar charts help non-technical stakeholders grasp complex statistical relationships quickly.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "ModifiedDate": "2026-07-03T11:56:16.8629887-04:00",
+          "Items": [
+            {
+              "Id": "b01e9ed8-e3e9-427d-860b-ce6aee5f60c8",
+              "Text": "Tailor the level of technical detail to the audience: executives need conclusions and recommendations, while analysts need methodology and diagnostics.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bf03d59c-115d-41f0-bc78-19d73a8a3b38",
+              "Text": "Avoid jargon-heavy language; replace phrases like \u0027reject the null hypothesis\u0027 with \u0027the data provide strong evidence that\u2026\u0027 for general audiences.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8992cf0c-a8c1-4a00-a7e9-8664414371fa",
+              "Text": "Always contextualize results within the domain problem, explaining what a statistically significant relationship or predictive model means for real-world decisions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "99707f69-3015-43e8-b027-c3cb69c3a5b4",
+              "Text": "Acknowledge limitations such as sample size constraints, potential confounds, or unmet assumptions to maintain credibility and set appropriate expectations.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 44
+}

@@ -1,0 +1,1219 @@
+{
+  "ModuleFolderName": "Introduction_to_Machine",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "GeneratedDate": "2026-07-03T11:59:45.1992192-04:00",
+  "ModifiedDate": "2026-07-03T12:02:28.1282299-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "c727c5fb-13f2-4427-ba0a-115ebcc2da98",
+      "Title": "Foundations of Machine Learning",
+      "Summary": "Introduces core machine learning concepts and terminology, establishing the foundational knowledge students need before exploring specific techniques. Covers what machine learning is, how it differs from traditional programming, and its role in modern business analytics.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "ModifiedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "Elements": [
+        {
+          "Id": "18611bbf-b28f-45b5-b874-8aeec6e0b42e",
+          "TopicId": "c727c5fb-13f2-4427-ba0a-115ebcc2da98",
+          "Title": "What Is Machine Learning?",
+          "BodyText": "Machine learning is a branch of artificial intelligence in which systems learn patterns from data and improve their performance on tasks without being explicitly programmed for each scenario.",
+          "Notes": "A simple analogy: rather than writing rules that say \u0027if a customer buys X, recommend Y,\u0027 a machine learning model discovers that relationship automatically by examining thousands of past transactions.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "ModifiedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "Items": [
+            {
+              "Id": "56c85167-7a60-48d2-b8ad-c930e4ca0a6f",
+              "Text": "Machine learning algorithms identify statistical patterns in historical data and use those patterns to make predictions or decisions on new data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4110a8b0-ebfc-490c-ba6a-9efd801e9f40",
+              "Text": "The \u0027learning\u0027 occurs through an optimization process that minimizes prediction errors across many examples.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "82966b04-00d4-4687-a633-f8a1b32d544a",
+              "Text": "ML is not a single technique but a broad family of methods suited to different types of problems and data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "49d8f330-0f9c-4df8-91ea-36509cb6a3cd",
+          "TopicId": "c727c5fb-13f2-4427-ba0a-115ebcc2da98",
+          "Title": "Machine Learning vs. Traditional Programming",
+          "BodyText": "Traditional programming requires humans to define explicit rules; machine learning inverts this by deriving rules automatically from data.",
+          "Notes": "Example: a traditional fraud-detection system might hard-code rules like \u0027flag transactions over $10,000.\u0027 An ML model instead learns the combination of features \u2014 amount, location, time, merchant category \u2014 that historically signals fraud.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "ModifiedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "Items": [
+            {
+              "Id": "3d26cc5d-57b4-452d-be80-ff64f7fb4d7a",
+              "Text": "In traditional programming, developers write IF-THEN logic; the program applies those fixed rules to inputs to produce outputs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "735f5146-e340-41ed-bc4d-64665198555a",
+              "Text": "In machine learning, developers supply labeled examples (inputs \u002B correct outputs), and the algorithm infers the underlying rules.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9897474b-63d7-411c-97d9-96ea80794f52",
+              "Text": "ML excels when the rules are too complex, numerous, or context-dependent for humans to specify manually.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a6ad3951-f1ad-4863-baa6-f341be7b1d0c",
+              "Text": "Traditional programming remains preferable when rules are well-understood, stable, and require full auditability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "77d73605-6c09-4aef-bc71-ebccf6c8f67a",
+          "TopicId": "c727c5fb-13f2-4427-ba0a-115ebcc2da98",
+          "Title": "Core Terminology",
+          "BodyText": "A shared vocabulary is essential for discussing machine learning concepts precisely and communicating findings to business stakeholders.",
+          "Notes": "Being comfortable with these terms allows analysts to read research, evaluate vendor tools, and collaborate with data science teams effectively.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "ModifiedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "Items": [
+            {
+              "Id": "58afad97-bb1b-4346-bc30-520574a2ae90",
+              "Text": "A model is a mathematical representation of patterns learned from data; a dataset is the collection of examples used to train or evaluate it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "738e9789-9a30-4bfb-86fc-6e388f8e7571",
+              "Text": "Features (also called variables or predictors) are the measurable attributes fed into a model; labels (or targets) are the outcomes the model learns to predict.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f74abb4b-8cb3-4c9a-b67f-34357fee4fb6",
+              "Text": "Training is the process of fitting a model to data; inference (or scoring) is applying that trained model to new, unseen data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "196bc006-7e1e-4a9e-a305-ecd19a507642",
+              "Text": "Overfitting occurs when a model memorizes training data rather than learning generalizable patterns, reducing accuracy on new data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8f4d079b-1b8b-41d8-b156-7914ec399a2c",
+          "TopicId": "c727c5fb-13f2-4427-ba0a-115ebcc2da98",
+          "Title": "Types of Machine Learning",
+          "BodyText": "Machine learning problems are broadly categorized by whether the training data includes labeled outcomes, which determines the class of algorithms that can be applied.",
+          "Notes": "This module focuses on supervised learning (e.g., linear regression, decision trees) and unsupervised learning (e.g., k-means clustering), the two types most commonly encountered in business analytics.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "ModifiedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "Items": [
+            {
+              "Id": "72c5db1d-35c9-4ae2-8f88-9c69f2f3f7b0",
+              "Text": "Supervised learning uses labeled data \u2014 examples where the correct answer is known \u2014 to train models that predict outcomes for new inputs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "84f07ae7-b6c7-483a-96c9-62fee4369f19",
+              "Text": "Unsupervised learning finds hidden structure in unlabeled data, such as grouping customers into segments without predefined categories.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "411c47ad-a119-4994-ba18-6307e8c50457",
+              "Text": "Reinforcement learning trains agents through reward signals from interactions with an environment; it is less common in typical business analytics workflows.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "472dbf48-d7f0-4893-882a-edb21be7ece6",
+          "TopicId": "c727c5fb-13f2-4427-ba0a-115ebcc2da98",
+          "Title": "The Role of Machine Learning in Business Analytics",
+          "BodyText": "Machine learning extends traditional business analytics by enabling organizations to generate predictions and automate decisions at scale, rather than only describing what has already happened.",
+          "Notes": "Business analytics historically focused on descriptive reporting (what happened) and diagnostic analysis (why it happened). ML adds predictive and prescriptive capabilities that can directly drive business actions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "ModifiedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "Items": [
+            {
+              "Id": "4725edcd-d4aa-4e58-8d59-7d308536c1c2",
+              "Text": "ML models can process far larger volumes of variables and data points than manual analysis, uncovering non-obvious drivers of business outcomes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2fd7fd7f-a7e0-413a-9696-38e88c5cfc5c",
+              "Text": "Common business applications include customer churn prediction, demand forecasting, credit risk scoring, dynamic pricing, and personalized recommendations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "816a276a-9067-436d-8586-8726650fba15",
+              "Text": "Effective deployment requires collaboration between domain experts who understand the business problem and technical practitioners who build and validate models.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "54bd5c1b-15d4-4493-880c-341a6cf31336",
+              "Text": "Model outputs must be interpreted in business context \u2014 a statistically accurate model that cannot be acted upon or explained to decision-makers delivers limited value.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "16fe0ea2-fab4-4439-8b09-d01e5e5618fb",
+          "TopicId": "c727c5fb-13f2-4427-ba0a-115ebcc2da98",
+          "Title": "The Machine Learning Workflow",
+          "BodyText": "Solving a business problem with machine learning follows a structured end-to-end process, from problem definition through model deployment and monitoring.",
+          "Notes": "This workflow maps directly to the exploratory analytics project students will complete in this module, giving the steps practical meaning from the outset.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "ModifiedDate": "2026-07-03T12:00:10.7248743-04:00",
+          "Items": [
+            {
+              "Id": "cd3d46d2-aee6-4739-ba79-72e209d9a229",
+              "Text": "The process begins with defining a clear business question and determining whether it can be framed as a prediction or segmentation task suitable for ML.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "87947f73-957f-45cf-b6bd-23ef1edbb1c9",
+              "Text": "Data collection and preparation \u2014 including cleaning, feature engineering, and splitting into training and test sets \u2014 typically consumes the majority of project effort.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2748bd20-4a00-4d73-afe5-92e304963321",
+              "Text": "Model selection, training, and evaluation follow, using appropriate metrics to judge whether the model meets the business requirement.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "39b4d405-528a-472b-81c1-1d7f828cc6f4",
+              "Text": "Deployment involves integrating the model into business processes, and ongoing monitoring ensures performance remains acceptable as data patterns evolve.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+      "Title": "Supervised vs. Unsupervised Learning",
+      "Summary": "Explores the two primary paradigms of machine learning, distinguishing between supervised learning (labeled data, prediction) and unsupervised learning (unlabeled data, pattern discovery). Students learn when and why each approach is applied in business contexts.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "ModifiedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "Elements": [
+        {
+          "Id": "a45075d0-7451-4a0a-bec2-7ef83906f449",
+          "TopicId": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+          "Title": "What Is Supervised Learning?",
+          "BodyText": "Supervised learning is a machine learning paradigm in which algorithms are trained on labeled datasets, where each input example is paired with a known output or target value.",
+          "Notes": "Think of it as learning with a answer key: the model studies examples where the correct answer is already provided, then learns to predict answers for new, unseen data.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "ModifiedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "Items": [
+            {
+              "Id": "55b2fdfb-0c00-4915-a677-51c18816ad4d",
+              "Text": "Labeled data means every training record includes both input features and the correct output, such as a customer record tagged with whether they churned or not.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7eb55069-953b-4e1b-a194-4ada35ef742f",
+              "Text": "The algorithm learns a mapping function from inputs to outputs by minimizing prediction errors during training.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1deebf0f-15bc-4649-900d-5ce8c430af7f",
+              "Text": "Common supervised learning tasks include classification (predicting categories) and regression (predicting continuous numeric values).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4f2d953f-ed16-4b5d-86f1-c87591506216",
+              "Text": "Business examples include predicting loan default risk, forecasting sales revenue, and classifying customer support tickets by urgency.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "557d4e60-8e47-45e8-a765-29aa1c271816",
+          "TopicId": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+          "Title": "What Is Unsupervised Learning?",
+          "BodyText": "Unsupervised learning involves training algorithms on datasets that contain no pre-assigned labels, with the goal of discovering hidden structure or patterns within the data.",
+          "Notes": "Unlike supervised learning, there is no \u0027right answer\u0027 to guide the algorithm \u2014 it must find meaningful groupings or representations entirely on its own.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "ModifiedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "Items": [
+            {
+              "Id": "279fa661-6c7a-419e-a484-8d7d9885a591",
+              "Text": "Without labeled outputs, the algorithm explores the data\u0027s inherent structure, identifying natural groupings, associations, or anomalies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c2bd3e88-ea99-498d-8ac3-7416c57565a7",
+              "Text": "Common unsupervised tasks include clustering (grouping similar records), dimensionality reduction, and association rule mining.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dc17e246-0a54-470f-9b8a-313e5712a670",
+              "Text": "Business examples include segmenting customers by purchasing behavior, detecting fraudulent transactions, and identifying product affinities for market basket analysis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c1de57de-c3a0-4707-a6bf-93b050d8ea98",
+              "Text": "Results require domain expertise to interpret, since the algorithm does not assign meaningful names or categories to the patterns it finds.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d943b320-7787-4c00-9968-19fb0e2539b8",
+          "TopicId": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+          "Title": "The Role of Labeled vs. Unlabeled Data",
+          "BodyText": "The presence or absence of labeled data is the defining distinction between supervised and unsupervised learning, and it fundamentally shapes what questions each approach can answer.",
+          "Notes": "Obtaining labeled data in business settings often requires significant human effort \u2014 for example, manually tagging customer reviews as positive or negative \u2014 making unlabeled approaches attractive when labels are unavailable or costly.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "ModifiedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "Items": [
+            {
+              "Id": "82d403ef-c7b5-4a7f-8ea8-02b9848e6bee",
+              "Text": "Labeled data requires prior knowledge of the outcome, making it suitable for well-defined prediction problems where historical outcomes are recorded.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e4a01b19-e1ee-4940-9618-97ee63ac4c59",
+              "Text": "Unlabeled data is far more abundant in business environments, since most raw data \u2014 web logs, transaction records, sensor streams \u2014 is collected without explicit outcome tags.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4d52adbd-2cf8-4fdd-8a58-d8058a7baaf6",
+              "Text": "The cost and feasibility of labeling data should be a key factor when choosing between supervised and unsupervised approaches.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "eb52c256-f3b9-421d-9974-875e3521296b",
+          "TopicId": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+          "Title": "Choosing Between Supervised and Unsupervised Learning",
+          "BodyText": "Selecting the right paradigm depends on the business question being asked, the availability of labeled data, and the desired type of output from the model.",
+          "Notes": "In practice, many business analytics projects begin with unsupervised exploration to understand the data, then apply supervised methods once a clear prediction target is defined.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "ModifiedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "Items": [
+            {
+              "Id": "22b7ba56-ffc7-48fb-ab72-9c1ba4908c41",
+              "Text": "Use supervised learning when you have a specific, measurable outcome to predict and sufficient historical labeled examples to train on.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ed11570a-e5d7-4286-ae37-f5a9a0277c06",
+              "Text": "Use unsupervised learning when the goal is exploration \u2014 discovering unknown segments, patterns, or anomalies \u2014 rather than predicting a predefined target.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5af779e0-ac0b-46ae-8117-fe486abaf3c2",
+              "Text": "If labeled data is scarce, semi-supervised approaches can combine a small labeled dataset with a large unlabeled one to gain predictive power.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "76355f35-9180-4392-8c66-0f2a5e3cac2f",
+              "Text": "Business decisions such as budget, timeline, and the cost of mislabeling outcomes should also guide paradigm selection.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f9885dea-477f-43e6-90a4-16e17ca396bd",
+          "TopicId": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+          "Title": "Business Applications of Supervised Learning",
+          "BodyText": "Supervised learning powers many of the most directly actionable business analytics use cases, enabling organizations to make data-driven predictions tied to specific outcomes.",
+          "Notes": "Because supervised models optimize toward a known target, their outputs are easier to align with measurable business KPIs and to evaluate using objective accuracy metrics.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "ModifiedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "Items": [
+            {
+              "Id": "5afe8f24-af46-4ede-9336-771b3c4b38fe",
+              "Text": "Credit scoring models use labeled historical loan data to predict the likelihood a new applicant will default.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "80f1f8ec-518d-498b-97b3-526dc1f1616e",
+              "Text": "Customer churn prediction models are trained on past churn events to identify at-risk customers before they leave.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bf554160-30f8-46e8-bd94-9ca13ac011f4",
+              "Text": "Demand forecasting models learn from historical sales figures to predict future inventory needs, reducing overstock and stockouts.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a67ad35f-4e3e-428a-ad20-a1320abb8827",
+              "Text": "Email spam filters classify incoming messages as spam or not spam based on patterns learned from previously labeled emails.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b818fb10-3b77-4b41-98f0-77edfb8d76fd",
+          "TopicId": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+          "Title": "Business Applications of Unsupervised Learning",
+          "BodyText": "Unsupervised learning is especially valuable in business when analysts need to understand the structure of data before a formal prediction problem has been defined.",
+          "Notes": "K-means clustering \u2014 one of the most common unsupervised algorithms \u2014 is frequently used in marketing to create customer segments that can be targeted with tailored campaigns.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "ModifiedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "Items": [
+            {
+              "Id": "8cb41347-0859-4a8d-86c0-de9f96cc815b",
+              "Text": "Customer segmentation groups buyers into distinct clusters based on demographics or behavior, enabling personalized marketing without predefined categories.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "93745ab2-c133-4c14-b022-d73e8f90c066",
+              "Text": "Anomaly detection identifies unusual transactions or usage patterns that may indicate fraud or system failures, without requiring prior labeled fraud examples.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1042e7c7-2004-42f6-ba68-fef7338b3f1f",
+              "Text": "Market basket analysis discovers which products are frequently purchased together, informing product placement and cross-selling strategies.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5f7c19f6-6a31-4189-b857-95a7ba52d2bf",
+              "Text": "Dimensionality reduction techniques simplify complex datasets with many variables, making them easier to visualize and interpret for business stakeholders.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "29e8d6f5-6251-4e0a-bcbc-dd0f4aaf13d7",
+          "TopicId": "c9751edd-f7f3-4d47-ba9e-737c6b6df304",
+          "Title": "Evaluating the Success of Each Paradigm",
+          "BodyText": "Because their goals differ fundamentally, supervised and unsupervised learning require very different approaches to measuring whether a model is performing well.",
+          "Notes": "Evaluating unsupervised results is inherently more subjective, often requiring a business expert to judge whether discovered clusters or patterns are meaningful and actionable.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "ModifiedDate": "2026-07-03T12:00:42.4625462-04:00",
+          "Items": [
+            {
+              "Id": "2dcac333-385b-4e0c-bb74-a1dd5521ec7f",
+              "Text": "Supervised models are evaluated using objective metrics such as accuracy, precision, recall, or mean squared error, computed by comparing predictions to known labels.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6e51da18-aba3-404e-a689-d9fc97cd7acf",
+              "Text": "Unsupervised models lack a ground truth to compare against, so evaluation relies on internal metrics like cluster cohesion or silhouette scores, alongside business judgment.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7369ac03-6583-4f06-a338-da84f0dfb9d9",
+              "Text": "For supervised learning, a held-out test set \u2014 data the model has never seen \u2014 is critical to assessing real-world predictive performance.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6901fe3b-2d4d-4de1-84d1-7afaaaee15a5",
+              "Text": "For unsupervised learning, stakeholder review and domain validation are essential steps to confirm that discovered patterns translate into actionable business insights.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "44850df2-7ccf-4402-8b93-87f5cb1f3f1e",
+      "Title": "Common Machine Learning Algorithms",
+      "Summary": "Provides an overview of widely used ML algorithms including linear regression, decision trees, and k-means clustering. Students learn the mechanics of each algorithm and the types of problems they are best suited to solve.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "ModifiedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "Elements": [
+        {
+          "Id": "b18261ab-0d3a-4409-8f18-db9a8a8dc7d6",
+          "TopicId": "44850df2-7ccf-4402-8b93-87f5cb1f3f1e",
+          "Title": "Linear Regression",
+          "BodyText": "Linear regression is a supervised learning algorithm that models the relationship between a continuous target variable and one or more predictor variables using a straight-line equation.",
+          "Notes": "Example: A retailer might use linear regression to predict monthly sales revenue based on advertising spend and store location demographics.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "ModifiedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "Items": [
+            {
+              "Id": "ebfab192-8156-49fc-be77-607aedfd4252",
+              "Text": "The algorithm finds the best-fit line by minimizing the sum of squared differences between predicted and actual values, a process called ordinary least squares.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c4315e6a-291d-4f43-b0ce-8b47c541683b",
+              "Text": "Linear regression works best when the relationship between variables is approximately linear and the target variable is continuous (e.g., price, revenue, temperature).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "74dd5d9e-84cc-455b-b253-4be7cebb2907",
+              "Text": "It produces interpretable coefficients that indicate how much the target variable changes for each unit change in a predictor, making it useful for explaining business drivers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2da5af98-7903-41fa-8ab3-b19b9c4f2e17",
+              "Text": "Assumptions such as linearity, independence of errors, and constant variance must be checked before relying on the model\u0027s outputs.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "adf25c13-6c37-40b8-af3d-b1973b824b29",
+          "TopicId": "44850df2-7ccf-4402-8b93-87f5cb1f3f1e",
+          "Title": "Decision Trees",
+          "BodyText": "A decision tree is a supervised learning algorithm that splits data into branches based on feature values, forming a tree-like structure that leads to a predicted outcome at each leaf node.",
+          "Notes": "Example: A bank can use a decision tree to classify loan applicants as \u0027approve\u0027 or \u0027deny\u0027 based on credit score, income, and debt-to-income ratio.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "ModifiedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "Items": [
+            {
+              "Id": "62a83c8a-1d6f-4d3a-8db6-62056d76b0dc",
+              "Text": "The algorithm selects split points by evaluating metrics such as Gini impurity or information gain to find the feature and threshold that best separates the data at each node.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f915ce14-1043-4130-91e3-f74c1a036a59",
+              "Text": "Decision trees handle both classification problems (predicting categories) and regression problems (predicting continuous values), making them versatile business tools.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "333f94aa-17af-4002-b130-1308acd7ea58",
+              "Text": "The resulting tree structure is highly interpretable, allowing non-technical stakeholders to follow the logic of each decision path.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ae8f8fe7-d6c7-48f9-bf7d-b3cc5a28b1fe",
+              "Text": "Trees can overfit training data if grown too deep; techniques such as pruning or setting a maximum depth help control model complexity.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2de4763b-4edb-4854-82b5-e45a9164d2cb",
+          "TopicId": "44850df2-7ccf-4402-8b93-87f5cb1f3f1e",
+          "Title": "K-Means Clustering",
+          "BodyText": "K-means clustering is an unsupervised learning algorithm that partitions data points into k distinct groups based on similarity, without using pre-labeled outcomes.",
+          "Notes": "Example: A marketing team might apply k-means to customer purchase history to discover natural customer segments for targeted campaigns.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "ModifiedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "Items": [
+            {
+              "Id": "653a9a18-504d-4105-959c-7bbc46fb2b2d",
+              "Text": "The algorithm iteratively assigns each data point to the nearest cluster centroid and then recalculates centroids until assignments stabilize, minimizing within-cluster variance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "96c39d9e-7241-4caf-a3d5-80e241babb6e",
+              "Text": "The value of k (the number of clusters) must be chosen in advance; the elbow method\u2014plotting within-cluster sum of squares against k\u2014helps identify an appropriate number of clusters.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9ed4d0e-a7ca-4d8b-8091-e19ae713499f",
+              "Text": "K-means is best suited for problems where the goal is exploration and pattern discovery rather than predicting a specific labeled outcome.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5aa66456-763a-4136-aaaf-690198a9b57f",
+              "Text": "The algorithm assumes clusters are roughly spherical and similarly sized, so it may perform poorly on data with irregular cluster shapes or very different cluster densities.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "418793cf-901f-4a30-a42a-32684ea5145a",
+          "TopicId": "44850df2-7ccf-4402-8b93-87f5cb1f3f1e",
+          "Title": "Supervised vs. Unsupervised Algorithm Selection",
+          "BodyText": "Choosing the right algorithm depends on whether the training data includes labeled outcomes and what type of business question needs to be answered.",
+          "Notes": "Understanding this distinction prevents common mistakes such as applying a classification algorithm when no labeled data exists.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "ModifiedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "Items": [
+            {
+              "Id": "cf43b5c3-b661-4cdb-b81b-9373ff089720",
+              "Text": "Supervised algorithms like linear regression and decision trees require labeled historical data and are used to predict or classify new observations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5f79319e-2c19-4f72-92fa-9c687a801bae",
+              "Text": "Unsupervised algorithms like k-means are applied when labels are unavailable and the goal is to uncover hidden structure or natural groupings in the data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5c80c9c8-f682-4461-ae5b-ff5e48654e55",
+              "Text": "Business problems involving forecasting, risk scoring, or churn prediction typically call for supervised methods, while customer segmentation and anomaly detection often use unsupervised methods.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d4aca370-272a-435a-9f85-21b920fa585f",
+              "Text": "Matching the algorithm type to the available data and business objective is a critical first step in any machine learning project.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a4af0cf4-32c1-4b0e-b435-e5a1e164eecc",
+          "TopicId": "44850df2-7ccf-4402-8b93-87f5cb1f3f1e",
+          "Title": "Practical Business Applications of Each Algorithm",
+          "BodyText": "Each algorithm has a distinct set of business scenarios where it delivers the most value, and recognizing these use cases helps analysts select appropriate tools efficiently.",
+          "Notes": "Analysts should consider data volume, interpretability requirements, and the nature of the outcome variable when mapping algorithms to real-world problems.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "ModifiedDate": "2026-07-03T12:01:03.9000581-04:00",
+          "Items": [
+            {
+              "Id": "1897e07a-991e-42e5-b526-79695b447027",
+              "Text": "Linear regression is commonly applied in demand forecasting, price optimization, and financial modeling where a numeric output is required.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "146469bc-6c6c-4e60-819e-54ec774762ba",
+              "Text": "Decision trees are frequently used in credit scoring, fraud detection, and medical diagnosis because their rule-based output is easy to audit and explain.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cd3dd3d4-7316-4483-9d77-590f9ab7625d",
+              "Text": "K-means clustering supports market segmentation, inventory grouping, and personalization engines by identifying natural patterns without predefined categories.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e67b40c8-fe25-4faa-b851-e8042e26b34b",
+              "Text": "In practice, analysts often compare multiple algorithms on the same problem and use evaluation metrics to select the best-performing approach for deployment.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+      "Title": "Model Evaluation and Performance Metrics",
+      "Summary": "Covers the methods and metrics used to assess how well a machine learning model performs, such as accuracy, precision, recall, and error measures. Students learn how to interpret evaluation results to make informed modeling decisions.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "ModifiedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "Elements": [
+        {
+          "Id": "63b0b831-a4d1-4e94-b568-181c052d9647",
+          "TopicId": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+          "Title": "Why Model Evaluation Matters in Business Analytics",
+          "BodyText": "Model evaluation is the process of measuring how well a machine learning model performs on data it has not seen during training. In a business context, choosing the wrong metric can lead to costly decisions, such as deploying a model that looks accurate on paper but fails in practice.",
+          "Notes": "For example, a fraud detection model with 99% accuracy may still miss nearly all fraud cases if fraud is rare \u2014 making accuracy alone a misleading metric in this scenario.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "ModifiedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "Items": [
+            {
+              "Id": "85d781f8-21eb-42ee-810c-c786aef4c406",
+              "Text": "Evaluation metrics provide an objective way to compare different models and select the best one for a given business problem.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "55e4222f-255b-46b9-8220-4f60382c7618",
+              "Text": "The choice of metric should align with business goals: minimizing false negatives may matter more than overall accuracy in high-stakes domains like healthcare or fraud.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2b7850cc-8b91-49d6-ac6c-c1228df80896",
+              "Text": "Proper evaluation prevents overfitting, where a model performs well on training data but poorly on new, real-world data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bad6aea7-8c9f-48ea-b4e0-cdff91361e4b",
+          "TopicId": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+          "Title": "Accuracy as a Performance Metric",
+          "BodyText": "Accuracy is the most straightforward classification metric, measuring the proportion of total predictions that the model got correct. It is a useful starting point but can be misleading when classes in the dataset are imbalanced.",
+          "Notes": "Example: If 95% of transactions are legitimate, a model that always predicts \u0027legitimate\u0027 achieves 95% accuracy without actually learning anything useful.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "ModifiedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "Items": [
+            {
+              "Id": "0c0ff0dc-7441-4fe4-b274-3e2a86eaad29",
+              "Text": "Accuracy is calculated as the number of correct predictions divided by the total number of predictions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "044f01ec-cc95-4613-bdde-c29b1330e96a",
+              "Text": "It works well when classes are roughly balanced and all types of errors carry equal cost.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "24879d87-2f82-4847-b098-37fa9ffd3935",
+              "Text": "In imbalanced datasets common in business analytics (e.g., churn prediction, fraud), accuracy alone is insufficient and must be supplemented with other metrics.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bef2bed9-03dc-4679-9746-662c045748af",
+          "TopicId": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+          "Title": "Precision and Recall: Balancing Error Types",
+          "BodyText": "Precision and recall address two distinct types of prediction errors: false positives and false negatives. Understanding the trade-off between them is essential for tailoring a model to specific business requirements.",
+          "Notes": "In a customer churn model, high recall ensures most at-risk customers are identified (even if some non-churners are flagged), while high precision ensures that retention resources are spent only on truly at-risk customers.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "ModifiedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "Items": [
+            {
+              "Id": "adced1ad-a773-4d55-adb3-bacad601f31c",
+              "Text": "Precision measures how many of the model\u0027s positive predictions are actually correct, reducing false alarms.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b6defb68-e8b3-40f0-aa2f-7631ab9db787",
+              "Text": "Recall measures how many actual positive cases the model successfully identifies, reducing missed detections.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7de09814-d89c-4812-99c8-f288023581f4",
+              "Text": "A business must decide whether it is more costly to have false positives or false negatives, then optimize the model accordingly.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c46a8b8d-d481-4d46-b418-67c7d4ffcf71",
+              "Text": "The F1-score combines precision and recall into a single metric, useful when a balance between the two is needed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6e5db38a-6cf5-4579-a115-1390243b18bd",
+          "TopicId": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+          "Title": "Error Measures for Regression Models",
+          "BodyText": "When a model predicts continuous numerical values \u2014 such as sales revenue or customer lifetime value \u2014 classification metrics like accuracy do not apply. Instead, error measures quantify how far predictions deviate from actual values.",
+          "Notes": "For instance, when forecasting monthly sales, a Mean Absolute Error of $5,000 tells a business manager directly how far off predictions tend to be in dollar terms, making it highly interpretable.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "ModifiedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "Items": [
+            {
+              "Id": "2644c56d-2a4d-4ae9-a626-3f8e42fd2663",
+              "Text": "Mean Absolute Error (MAE) calculates the average absolute difference between predicted and actual values, offering an easily interpretable measure of typical error.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "148679c3-8e8e-444d-a0a5-fcf288bfbb40",
+              "Text": "Mean Squared Error (MSE) squares the errors before averaging, penalizing large deviations more heavily than small ones.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f3d1602c-21ba-4cfd-bc04-96f2bcb44ac1",
+              "Text": "Root Mean Squared Error (RMSE) takes the square root of MSE, returning the error to the original unit of measurement for easier business interpretation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "31df7f46-bd2c-4dcf-9017-0aabfb00b61c",
+              "Text": "Choosing between MAE and RMSE depends on whether large errors are disproportionately costly in the business context.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "aaed0d07-ffe8-4779-ab43-8372d3e7e152",
+          "TopicId": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+          "Title": "The Confusion Matrix: A Detailed View of Classification Results",
+          "BodyText": "A confusion matrix is a table that summarizes the performance of a classification model by showing the counts of true positives, true negatives, false positives, and false negatives. It provides the foundation for computing precision, recall, accuracy, and other metrics.",
+          "Notes": "Reading a confusion matrix allows analysts to pinpoint exactly where a model is making errors \u2014 for example, consistently misclassifying one customer segment \u2014 enabling targeted model improvements.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "ModifiedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "Items": [
+            {
+              "Id": "b35cc59e-883a-427a-ac87-d2c1d1fc8744",
+              "Text": "True Positives (TP) and True Negatives (TN) represent correct predictions; False Positives (FP) and False Negatives (FN) represent the two types of errors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "43e6e515-1ad0-4ee1-910f-2fb8942b8d6b",
+              "Text": "The matrix makes it easy to see not just overall performance but the specific pattern of mistakes a model makes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "235aa0a4-b76d-4d5c-87ad-25503d429d2e",
+              "Text": "Business stakeholders can use confusion matrix insights to weigh trade-offs and set classification thresholds that align with risk tolerance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "448f4ab5-c5b2-46db-a4a2-abd7d95f6c8f",
+          "TopicId": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+          "Title": "Train-Test Split and Cross-Validation",
+          "BodyText": "To generate reliable evaluation metrics, models must be tested on data they were not trained on. Train-test splitting and cross-validation are standard techniques for ensuring evaluation results reflect true model performance.",
+          "Notes": "A common practice is to use an 80/20 train-test split, or k-fold cross-validation where data is split into k subsets and the model is trained and tested k times, each time using a different subset as the test set.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "ModifiedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "Items": [
+            {
+              "Id": "3d3fc421-ac8b-49b3-a58a-580aaaebc06b",
+              "Text": "A train-test split reserves a portion of data exclusively for evaluation, preventing the model from being assessed on data it has already learned from.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fb67590d-9f6e-4697-8541-2a2e4cdda0bf",
+              "Text": "Cross-validation rotates which portion of data is used for testing, producing a more robust and unbiased estimate of model performance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f71ff0bc-c216-409a-8edf-90d531ec3f11",
+              "Text": "These techniques help detect overfitting early, ensuring the model will generalize to new business data rather than just memorizing training examples.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "dc273156-219b-4a1d-a6fa-cbdcad384ad9",
+          "TopicId": "bf4f880a-6f11-4aac-b6f1-270bd930d19a",
+          "Title": "Interpreting Evaluation Results to Make Modeling Decisions",
+          "BodyText": "Raw metric values only become useful when interpreted in the context of business goals and compared across competing models. Evaluation results should drive iterative decisions about model selection, tuning, and deployment.",
+          "Notes": "For example, if two models have similar accuracy but one has substantially higher recall for the minority class, the second model may be preferred for a churn prevention campaign even if it generates more false positives.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "ModifiedDate": "2026-07-03T12:01:35.4257739-04:00",
+          "Items": [
+            {
+              "Id": "7dde4e40-6d6e-44f9-a7c0-8c3bff5bcb69",
+              "Text": "Comparing multiple models using the same evaluation metric on the same test data ensures a fair and meaningful selection process.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e374366c-fdd6-43f8-aadd-d6de3451ad30",
+              "Text": "Metrics should be benchmarked against a baseline \u2014 such as a simple rule or majority-class predictor \u2014 to confirm the model adds real business value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "37977de1-1daf-4539-89c8-ed384d4887e7",
+              "Text": "Evaluation results can reveal whether a model needs more data, different features, or hyperparameter tuning before it is ready for deployment.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "908fdd35-bfaa-45c5-b668-2cee96ac1540",
+              "Text": "Communicating evaluation results clearly to non-technical stakeholders, using business-relevant language and examples, is a critical skill for analytics professionals.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "fec60b88-0b72-47a8-be35-b16c04b73720",
+      "Title": "Machine Learning Applications in Business",
+      "Summary": "Connects ML techniques to real-world business use cases such as customer segmentation, sales forecasting, and risk analysis. Students explore how organizations leverage machine learning to drive strategic decisions and competitive advantage.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "ModifiedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "Elements": [
+        {
+          "Id": "ee59f6ac-355f-4c48-92c3-38f95d637123",
+          "TopicId": "fec60b88-0b72-47a8-be35-b16c04b73720",
+          "Title": "Customer Segmentation with Clustering",
+          "BodyText": "Machine learning enables businesses to automatically group customers into meaningful segments based on shared behaviors, demographics, or purchasing patterns.",
+          "Notes": "For example, a retailer might use k-means clustering to identify high-value, at-risk, and price-sensitive customer groups, then tailor marketing campaigns to each segment.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "ModifiedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "Items": [
+            {
+              "Id": "6f91662e-c4f8-459a-a294-59ec9aeb4282",
+              "Text": "Unsupervised learning algorithms like k-means clustering discover natural groupings in customer data without predefined labels.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0d19ebee-ccc9-4aae-b836-8c7f68ab46b4",
+              "Text": "Segmentation allows organizations to personalize offers, optimize pricing strategies, and allocate marketing budgets more efficiently.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c6bc3272-bd64-4bd9-90e4-20909ba96a36",
+              "Text": "Common input features include purchase frequency, average order value, product category preferences, and geographic location.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0ae7f924-b940-4d55-8734-4395109c2ad8",
+              "Text": "The resulting segments directly inform strategic decisions such as loyalty program design and customer retention initiatives.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3bf10465-e0ae-4079-a335-c71492e1b981",
+          "TopicId": "fec60b88-0b72-47a8-be35-b16c04b73720",
+          "Title": "Sales Forecasting with Supervised Learning",
+          "BodyText": "Supervised learning models analyze historical sales data to predict future demand, helping businesses plan inventory, staffing, and budgets with greater accuracy.",
+          "Notes": "A consumer goods company might apply linear regression or decision tree models to forecast monthly revenue by region, using variables such as seasonality, promotions, and economic indicators.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "ModifiedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "Items": [
+            {
+              "Id": "0e798324-35e7-4069-adc1-a26c129b50c6",
+              "Text": "Regression algorithms learn relationships between input variables (e.g., time period, promotional spend) and a continuous target variable such as sales volume.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "30c30ebe-ffa8-4107-b7e9-d92ac8d70a2b",
+              "Text": "Accurate sales forecasts reduce overstock and stockout situations, directly improving operational efficiency and profit margins.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f4541ccd-4c74-4803-94c4-db05832f3065",
+              "Text": "Decision tree models can capture non-linear relationships and interactions between variables that simpler regression models may miss.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d1955aee-f007-465e-a24b-216c5a3ed9c6",
+              "Text": "Forecast accuracy is evaluated using metrics such as Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) to guide model selection.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8339a581-3a4f-440c-8e0f-ff2e4e7e237b",
+          "TopicId": "fec60b88-0b72-47a8-be35-b16c04b73720",
+          "Title": "Risk Analysis and Fraud Detection",
+          "BodyText": "Machine learning models assess risk by identifying patterns associated with default, fraud, or adverse outcomes across large volumes of transactional data.",
+          "Notes": "Banks and insurance companies routinely use classification models to score loan applicants or flag suspicious transactions in real time, reducing financial losses significantly.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "ModifiedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "Items": [
+            {
+              "Id": "7b200cc9-eff1-4139-a2dc-4adc12373028",
+              "Text": "Classification algorithms assign a probability or risk score to each observation, enabling threshold-based decisions such as approving or declining a credit application.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9c810c5e-e341-4743-ae36-aa281ccce45c",
+              "Text": "ML models can process hundreds of variables simultaneously, uncovering subtle fraud patterns that rule-based systems would miss.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "40732262-3bc8-432b-8362-7d0e24bb527a",
+              "Text": "Decision trees provide interpretable outputs, which is critical in regulated industries where decisions must be explainable to customers and auditors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d3de4186-4b9c-4d9e-a2cd-efb584bd6720",
+              "Text": "Continuous model retraining is necessary as fraud tactics evolve and new risk factors emerge in the business environment.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e1f47143-b2fd-4135-adac-2b51cb854762",
+          "TopicId": "fec60b88-0b72-47a8-be35-b16c04b73720",
+          "Title": "Driving Strategic Decisions with ML Insights",
+          "BodyText": "Beyond individual use cases, machine learning creates a competitive advantage by embedding data-driven insight into the core of organizational strategy and decision-making.",
+          "Notes": "Companies that systematically deploy ML across pricing, supply chain, and customer experience functions consistently outperform competitors relying solely on intuition or traditional analytics.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "ModifiedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "Items": [
+            {
+              "Id": "faaac090-4f3a-4bf5-97e3-d8cc8cb63e7f",
+              "Text": "ML outputs such as customer lifetime value scores or churn probabilities can be integrated directly into CRM and ERP systems to automate strategic actions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b07ed84b-1ee4-4aa4-84a6-1c18ace7d6ea",
+              "Text": "Organizations use ML-driven insights to prioritize resource allocation, entering new markets or discontinuing underperforming products based on predictive signals.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4dd4916e-3f20-4de7-a3d8-0b6e31c73296",
+              "Text": "A culture of experimentation, supported by model evaluation metrics, allows businesses to test hypotheses quickly and iterate on strategies with measurable evidence.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "571f49c2-cb65-4387-9f08-5cbc1ceb71e1",
+              "Text": "Competitive advantage is sustained when ML capabilities are paired with proprietary data assets, creating barriers that rivals cannot easily replicate.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e3a41835-0845-4cd3-8880-418c6dc9805f",
+          "TopicId": "fec60b88-0b72-47a8-be35-b16c04b73720",
+          "Title": "Selecting the Right Algorithm for a Business Problem",
+          "BodyText": "Matching a machine learning algorithm to the business problem at hand is a critical skill that determines whether a model delivers actionable value.",
+          "Notes": "For instance, a business question about \u0027which customers will churn?\u0027 calls for a classification approach, while \u0027how many units will we sell next quarter?\u0027 requires a regression model.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "ModifiedDate": "2026-07-03T12:01:58.5425304-04:00",
+          "Items": [
+            {
+              "Id": "fc81edba-f8ae-4b6a-b98f-84c8af657d5e",
+              "Text": "Supervised learning (e.g., linear regression, decision trees) is appropriate when historical labeled data exists and the goal is to predict a known outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d4708de4-ed29-4988-9936-303d75cc145f",
+              "Text": "Unsupervised learning (e.g., k-means clustering) is used when the goal is exploration and discovery rather than prediction of a specific target variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "22d98030-234c-449d-9b20-99d42e2465f9",
+              "Text": "The nature of the target variable \u2014 continuous, categorical, or absent \u2014 is the primary factor guiding algorithm selection.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3f7f2ef8-6a8d-4bd0-9c99-989ac60c3233",
+              "Text": "Business constraints such as interpretability requirements, data volume, and deployment infrastructure also influence which algorithm is most practical.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "caa8c050-efe4-4532-94fd-732db9344263",
+      "Title": "End-to-End Exploratory Analytics Project",
+      "Summary": "Guides students through a complete analytics workflow from data preparation and model selection to evaluation and insight communication. This hands-on project integrates all module concepts and simulates a realistic business analytics scenario.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "ModifiedDate": "2026-07-03T11:59:45.1992192-04:00",
+      "Elements": [
+        {
+          "Id": "d271cdb8-847d-427f-afd2-f4e9c2db2ad5",
+          "TopicId": "caa8c050-efe4-4532-94fd-732db9344263",
+          "Title": "Defining the Business Problem and Data Requirements",
+          "BodyText": "Every analytics project begins by clearly articulating the business question and identifying what data is needed to answer it.",
+          "Notes": "For example, a retail company might ask: \u0027Which customers are likely to churn in the next 90 days?\u0027 This question drives all subsequent data and modeling decisions.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "ModifiedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "Items": [
+            {
+              "Id": "464b2d80-fef4-4139-ab49-b1959ac71cf8",
+              "Text": "Translate a vague business goal into a precise, measurable analytics objective before touching any data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "702748c6-610a-4eec-97e9-1c8afd1c80ef",
+              "Text": "Identify the target variable (what you want to predict or discover) and the features (inputs) required to model it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e0534c92-83f9-4b46-9e59-0760394dc74b",
+              "Text": "Determine whether the problem calls for a supervised approach (e.g., predicting churn) or an unsupervised approach (e.g., segmenting customers).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d77dc311-7b30-46c2-9ce9-d40e29d05b42",
+              "Text": "Document assumptions, constraints, and success criteria so stakeholders agree on what a good outcome looks like.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f64c743a-e5db-4716-8c98-4b512da6fc95",
+          "TopicId": "caa8c050-efe4-4532-94fd-732db9344263",
+          "Title": "Data Collection and Preparation",
+          "BodyText": "Raw business data is rarely ready for modeling; preparation is often the most time-consuming phase of an analytics project.",
+          "Notes": "Common data sources include CRM systems, transactional databases, web logs, and third-party market data. A useful rule of thumb is that data preparation consumes 60\u201380% of total project effort.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "ModifiedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "Items": [
+            {
+              "Id": "3cb2349d-1e41-49e5-9280-4048a1b9a268",
+              "Text": "Gather data from relevant sources and consolidate it into a single, analysis-ready dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e7448e0e-b3f7-4f75-8acb-c9ea85705173",
+              "Text": "Handle missing values through imputation, removal, or flagging, depending on the volume and pattern of missingness.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "956c4bb6-d706-4143-8d37-4902416593ec",
+              "Text": "Encode categorical variables, scale numeric features, and engineer new features that capture domain-relevant signals.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e485ac05-5a85-4670-bc71-98faa64f1bf2",
+              "Text": "Split the cleaned dataset into training and test (and optionally validation) sets before any modeling begins to prevent data leakage.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "69e41c15-4d35-4f2f-a67a-6d8008e68ae7",
+          "TopicId": "caa8c050-efe4-4532-94fd-732db9344263",
+          "Title": "Exploratory Data Analysis (EDA)",
+          "BodyText": "EDA uncovers patterns, anomalies, and relationships in the data that inform model selection and feature engineering choices.",
+          "Notes": "Visualizations such as histograms, box plots, scatter matrices, and correlation heat maps are standard EDA tools that make patterns accessible to both technical and non-technical audiences.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "ModifiedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "Items": [
+            {
+              "Id": "3148ca12-01fa-49cb-82fc-5a6f38a48f83",
+              "Text": "Compute summary statistics (mean, median, variance, range) to understand the distribution of each variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e4aabde7-9800-4875-b954-1abad4b1be12",
+              "Text": "Visualize relationships between features and the target variable to spot predictive signals early.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b83daca0-7417-4482-81fd-c8d7e27afdfc",
+              "Text": "Identify outliers and skewed distributions that may need transformation before modeling.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1d55c914-c8bf-4c17-97b6-d7d488a0a62b",
+              "Text": "Use correlation analysis to detect multicollinearity among features, which can affect model stability and interpretability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8d36b013-5015-4a1a-8eb9-5e0850383438",
+          "TopicId": "caa8c050-efe4-4532-94fd-732db9344263",
+          "Title": "Model Selection and Training",
+          "BodyText": "Choosing the right algorithm depends on the problem type, data characteristics, and the interpretability required by business stakeholders.",
+          "Notes": "In a business context, a slightly less accurate but easily explainable decision tree may be preferred over a high-accuracy black-box model if stakeholders need to trust and act on the results.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "ModifiedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "Items": [
+            {
+              "Id": "7695c58f-106f-4b55-8b6e-98b0370f7a4f",
+              "Text": "Match the algorithm to the problem: linear regression for continuous outcomes, decision trees for classification or regression, and k-means for customer segmentation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "780dd6f4-0ff3-4457-9176-7c4bb61df35e",
+              "Text": "Train candidate models on the training set and tune hyperparameters using cross-validation to reduce overfitting.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "367b8917-fac9-4424-b705-a6257b92278b",
+              "Text": "Compare multiple algorithms side by side rather than committing to a single model too early in the process.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "61b68976-7405-4936-ae27-15fad65a0cc9",
+              "Text": "Document modeling decisions and rationale so the project is reproducible and auditable.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9983d9a2-1d2a-4f99-b424-be9638905297",
+          "TopicId": "caa8c050-efe4-4532-94fd-732db9344263",
+          "Title": "Model Evaluation Using Business-Relevant Metrics",
+          "BodyText": "Evaluation metrics must be chosen to reflect business impact, not just statistical performance.",
+          "Notes": "For a fraud detection model, recall (catching actual fraud cases) may matter more than overall accuracy because the cost of a missed fraud far exceeds the cost of a false alarm.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "ModifiedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "Items": [
+            {
+              "Id": "8c0c5238-990b-4269-ae28-053e7a20256b",
+              "Text": "Apply appropriate metrics: RMSE or R\u00B2 for regression problems; accuracy, precision, recall, and F1-score for classification problems.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "df476386-ed1d-4bd9-8059-4aac65abc17e",
+              "Text": "Evaluate model performance on the held-out test set\u2014not the training set\u2014to obtain an unbiased estimate of real-world performance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "392d1590-a08d-473e-bf88-9668cade047a",
+              "Text": "Translate statistical metrics into business terms (e.g., \u0027this model correctly identifies 80% of likely churners, enabling targeted retention offers\u0027).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a9347d40-171a-4116-a10f-8dc46e899d38",
+              "Text": "Assess whether the model\u0027s performance is sufficient to justify deployment given the cost and benefit structure of the business decision.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "64522213-1781-4831-ad26-9f3f712248ca",
+          "TopicId": "caa8c050-efe4-4532-94fd-732db9344263",
+          "Title": "Communicating Insights to Stakeholders",
+          "BodyText": "A technically sound model delivers value only when its findings are communicated clearly and drive action among decision-makers.",
+          "Notes": "Effective communication often means presenting results in two layers: a concise executive summary of key findings and recommendations, backed by a technical appendix for those who want methodological detail.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "ModifiedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "Items": [
+            {
+              "Id": "aa63089e-6ee9-46cc-899f-9f73746c7437",
+              "Text": "Frame insights around the original business question rather than around model mechanics or algorithm details.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2e4b4f88-563f-457a-a073-8a0c868b708b",
+              "Text": "Use visualizations\u2014such as feature importance charts, predicted-vs-actual plots, or customer segment profiles\u2014to make results tangible.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "709b8b2e-7b50-41ff-bcbd-691922baf692",
+              "Text": "Clearly state the limitations and uncertainty in the model\u0027s predictions so stakeholders can make informed decisions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "de47a519-074b-4f48-852a-df62c0f12fb4",
+              "Text": "Provide actionable recommendations that specify who should do what, by when, based on the model\u0027s outputs.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2b45c621-5487-48c6-bb1e-0673be2ba698",
+          "TopicId": "caa8c050-efe4-4532-94fd-732db9344263",
+          "Title": "Reflecting on the End-to-End Workflow",
+          "BodyText": "Reviewing the complete project lifecycle consolidates learning and prepares students to apply the workflow independently in real business settings.",
+          "Notes": "Real-world projects are iterative; insights from evaluation often send practitioners back to data preparation or feature engineering, making the workflow a cycle rather than a straight line.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "ModifiedDate": "2026-07-03T12:02:28.1280572-04:00",
+          "Items": [
+            {
+              "Id": "31bf812a-9671-468a-b2cb-2600dbd42053",
+              "Text": "Trace each decision made\u2014data sourcing, feature engineering, algorithm choice, metric selection\u2014back to the original business objective.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c59e2bbb-3b95-47a7-8fc1-da80b6dfa7e7",
+              "Text": "Identify which stages consumed the most time and what bottlenecks or surprises arose, building practical intuition for future projects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f371c42e-f53a-44ff-8916-09be487560ea",
+              "Text": "Recognize that model deployment and monitoring extend the workflow beyond the classroom project into ongoing business operations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "66757f5c-0316-4db3-b150-9f32797bd434",
+              "Text": "Use the completed project as a portfolio artifact that demonstrates the ability to integrate technical skills with business reasoning.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 37
+}
