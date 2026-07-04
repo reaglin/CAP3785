@@ -15,6 +15,41 @@
     "type": "Content"
   },
   {
+    "title": "Applying SQL to Business Questions",
+    "href": "content/SQL_Fundamentals_Queries_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Introduction to SQL and Relational Databases",
+    "href": "content/SQL_Fundamentals_Queries_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Writing Basic SELECT Queries",
+    "href": "content/SQL_Fundamentals_Queries_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Filtering Data with WHERE",
+    "href": "content/SQL_Fundamentals_Queries_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Sorting Results with ORDER BY",
+    "href": "content/SQL_Fundamentals_Queries_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Limiting Output with LIMIT",
+    "href": "content/SQL_Fundamentals_Queries_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Applying SQL to Business Questions",
+    "href": "content/SQL_Fundamentals_Queries_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
     "title": "Quiz \u2014 SQL Fundamentals: Queries, Filtering, and Sorting",
     "href": "quiz/index.html",
     "type": "Quiz"

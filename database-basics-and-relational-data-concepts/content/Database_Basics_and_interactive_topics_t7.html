@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations for SQL Querying</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Database Basics and Relational Data Concepts</a></div>
+  <header>
+    <h1>Foundations for SQL Querying</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations for SQL Querying</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before you can retrieve a single row from a database, you need to understand the environment in which that data lives. SQL — Structured Query Language — is the standard language for communicating with relational databases, but writing effective queries requires more than memorizing syntax. It requires understanding how data is physically organized into tables, how those tables relate to one another, and how a database's overall blueprint — its schema — defines the boundaries of what you can legally ask for. This topic builds that conceptual foundation, walking through each layer of relational database structure and showing concretely how each layer shapes the queries you write.</p>
+
+<p>Think of a relational database as a collection of spreadsheets that are aware of each other. Each spreadsheet is a <strong>table</strong>, each column in that spreadsheet has a fixed name and a declared data type, and each row represents one complete record. SQL's <code>SELECT</code> statement is your way of asking questions about those rows — filtering them, combining them across tables, sorting them, and summarizing them. Every one of those operations depends on knowing exactly what columns exist, what kind of data they hold, and how one table connects to another.</p>
+
+<p><strong>From Tables to Queries: Bridging Structure and Retrieval</strong></p>
+
+<p>Every SQL <code>SELECT</code> statement targets at least one table. That single fact makes table familiarity non-negotiable. When you write a query, you are asking the database engine to scan or index one or more tables, evaluate conditions against their columns, and hand you back the rows that satisfy your request. If you do not know which table holds the data you need, or which columns are available in that table, you cannot construct a valid query.</p>
+
+<p>Consider a simple e-commerce database. Suppose you want to find all orders placed in the last 30 days. You need to know that the relevant table is called <code>orders</code>, that it has a column named <code>order_date</code> of type <code>DATE</code>, and that it has a column named <code>order_id</code> that uniquely identifies each order. Without that knowledge, even a simple query like the one below is impossible to write correctly:</p>
+
+<pre><code>SELECT order_id, customer_id, order_date, total_amount
+FROM   orders
+WHERE  order_date >= CURRENT_DATE - INTERVAL '30 days';</code></pre>
+
+<p>Knowing column names lets you project exactly the fields you need rather than using <code>SELECT *</code>, which returns every column and can be wasteful. Knowing data types tells you how to express your filter values: a <code>DATE</code> column requires a date literal or function, not a quoted string like <code>'last month'</code>. A well-structured table — one where each column holds exactly one type of value, rows are not duplicated, and every value in a column conforms to its declared type — ensures that the same query run on Monday and run on Friday returns results that are consistent and predictable, varying only because the underlying data itself has legitimately changed.</p>
+
+<p><strong>Primary Keys and Unique Row Identification</strong></p>
+
+<p>A <strong>primary key</strong> is one column (or occasionally a combination of columns) whose values uniquely identify every row in a table. The database engine enforces two constraints on a primary key column: its values must be unique across all rows, and it cannot contain a null value. Together these rules guarantee that every row in the table has an unambiguous identity.</p>
+
+<p>Why does this matter for querying? First, when you filter on a primary key, you are guaranteed to get at most one row back. That makes primary-key lookups the most precise and typically the most efficient queries you can write, because the engine can use an index — which databases automatically create for primary keys — to jump directly to the matching row rather than scanning the entire table.</p>
+
+<pre><code>-- Primary key lookup: at most one row returned
+SELECT *
+FROM   customers
+WHERE  customer_id = 4821;</code></pre>
+
+<p>Second, knowing which column is the primary key anchors your thinking when you write <code>JOIN</code> clauses and subqueries. The primary key is the reference point that other tables point back to, so misidentifying it leads to queries that join on the wrong column and produce nonsensical results.</p>
+
+<p>Consider a <code>products</code> table where <code>product_id</code> is the primary key. If you accidentally joined on <code>product_name</code> instead — which may look unique but is not enforced to be — you could silently match rows that share a name but represent different products, corrupting your results without any error message from the database.</p>
+
+<p><strong>Foreign Keys and Querying Across Related Tables</strong></p>
+
+<p>A <strong>foreign key</strong> is a column in one table whose values match (or are required to match) the primary key values of another table. Foreign keys are the mechanism that establishes relationships between tables in a relational database. They are also the practical guide for writing <code>JOIN</code> clauses: the foreign key column in one table and the primary key column in the other table are the columns you join on.</p>
+
+<p>Imagine an <code>orders</code> table that contains a column called <code>customer_id</code>. This column is a foreign key referencing the <code>customer_id</code> primary key in the <code>customers</code> table. The relationship says: every order belongs to exactly one customer, and that customer's full details are stored in the <code>customers</code> table. To see each order alongside the customer's name, you traverse this relationship with a <code>JOIN</code>:</p>
+
+<pre><code>SELECT o.order_id,
+       o.order_date,
+       c.first_name,
+       c.last_name
+FROM   orders      AS o
+JOIN   customers   AS c ON o.customer_id = c.customer_id
+WHERE  o.order_date >= '2024-01-01';</code></pre>
+
+<p>The <code>ON</code> clause spells out exactly the foreign-key-to-primary-key relationship. If you are unsure which columns to use in the <code>ON</code> clause, inspecting the schema will tell you: the foreign key declaration names both columns explicitly. Foreign key relationships also define the <em>logical paths</em> available when querying. If the <code>orders</code> table has no direct relationship to the <code>products</code> table, you cannot join them directly — you must pass through an intermediary table (such as <code>order_items</code>) that holds foreign keys to both.</p>
+
+<p><strong>Reading a Database Schema Before Writing Queries</strong></p>
+
+<p>A <strong>schema</strong> is the complete formal description of a database: every table, every column in each table, every column's data type, every primary key, and every foreign key relationship. Reading the schema before writing queries is the equivalent of reading a map before starting a road trip. It tells you what exists, what is connected to what, and what rules govern each piece of data.</p>
+
+<p>Consider the following simplified schema for a retail database:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Table</th>
+      <th>Column</th>
+      <th>Data Type</th>
+      <th>Key</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>customers</td><td>customer_id</td><td>INTEGER</td><td>PRIMARY KEY</td></tr>
+    <tr><td>customers</td><td>first_name</td><td>VARCHAR(50)</td><td></td></tr>
+    <tr><td>customers</td><td>last_name</td><td>VARCHAR(50)</td><td></td></tr>
+    <tr><td>customers</td><td>email</td><td>VARCHAR(100)</td><td>UNIQUE</td></tr>
+    <tr><td>orders</td><td>order_id</td><td>INTEGER</td><td>PRIMARY KEY</td></tr>
+    <tr><td>orders</td><td>customer_id</td><td>INTEGER</td><td>FOREIGN KEY → customers.customer_id</td></tr>
+    <tr><td>orders</td><td>order_date</td><td>DATE</td><td></td></tr>
+    <tr><td>orders</td><td>total_amount</td><td>DECIMAL(10,2)</td><td></td></tr>
+    <tr><td>order_items</td><td>item_id</td><td>INTEGER</td><td>PRIMARY KEY</td></tr>
+    <tr><td>order_items</td><td>order_id</td><td>INTEGER</td><td>FOREIGN KEY → orders.order_id</td></tr>
+    <tr><td>order_items</td><td>product_id</td><td>INTEGER</td><td>FOREIGN KEY → products.product_id</td></tr>
+    <tr><td>order_items</td><td>quantity</td><td>INTEGER</td><td></td></tr>
+    <tr><td>products</td><td>product_id</td><td>INTEGER</td><td>PRIMARY KEY</td></tr>
+    <tr><td>products</td><td>product_name</td><td>VARCHAR(100)</td><td></td></tr>
+    <tr><td>products</td><td>unit_price</td><td>DECIMAL(8,2)</td><td></td></tr>
+  </tbody>
+</table>
+
+<p>From this schema you can immediately answer several critical pre-query questions. Which column can you filter on to get one specific customer? <code>customer_id</code> (primary key) or <code>email</code> (unique). What data type is <code>order_date</code>? <code>DATE</code> — so your filter must use a date value, not an integer or a free-text string. How do you get from a customer to the products they ordered? You join <code>customers</code> → <code>orders</code> → <code>order_items</code> → <code>products</code>, following the foreign key chain. Could you filter on a column called <code>order_status</code> in the <code>orders</code> table? No — that column does not appear in the schema, and attempting to reference it will produce an error.</p>
+
+<p>Schema diagrams — often called Entity-Relationship (ER) diagrams — represent this same information visually, with boxes for tables, rows inside each box for columns, and lines connecting boxes to show foreign key relationships. The type of line (a single bar versus a crow's-foot symbol, for example) indicates whether a relationship is one-to-one or one-to-many. Developing the habit of consulting the schema or ER diagram before typing a single line of SQL eliminates an entire class of errors — referencing columns that do not exist, joining on columns of incompatible types, or completely missing an intermediary table in a chain of joins.</p>
+
+<p><strong>Structured Data and Why SQL Is the Right Tool</strong></p>
+
+<p>SQL is purpose-built for <strong>structured data</strong>: data that is organized into tables with a fixed, pre-declared set of columns, where every row in the table conforms to the same structure. This regularity is what makes SQL so powerful. Because every row in the <code>orders</code> table has the same columns — <code>order_id</code>, <code>customer_id</code>, <code>order_date</code>, <code>total_amount</code> — SQL operations like filtering, sorting, and aggregating apply uniformly and predictably to every row at once, with no need to inspect each row individually to figure out what shape it is.</p>
+
+<p>This stands in sharp contrast to semi-structured data (like JSON documents where different records can have different fields) or unstructured data (like plain text or images). SQL has specialized extensions for those formats, but its core strength — and the reason it has been the dominant data query language for decades — is handling the tidy row-and-column world of relational databases.</p>
+
+<p>The column-level data type declaration is particularly important for writing correct query logic. Consider a <code>unit_price</code> column declared as <code>DECIMAL(8,2)</code>. Because you know it stores a numeric value with up to two decimal places, you can safely write arithmetic against it:</p>
+
+<pre><code>SELECT product_name,
+       unit_price,
+       unit_price * 1.10 AS price_with_tax
+FROM   products
+WHERE  unit_price < 50.00;</code></pre>
+
+<p>If <code>unit_price</code> were stored as <code>VARCHAR</code> (a text field) due to a design error, the multiplication and the numeric comparison would either fail or produce wrong results. Understanding the declared data type before writing a calculation or comparison is therefore essential for correctness, not merely good practice.</p>
+
+<p><strong>How Relationships Shape Query Logic</strong></p>
+
+<p>The relationships between tables are not just metadata — they directly determine the structure of your <code>FROM</code> and <code>JOIN</code> clauses and the number of rows your query will produce. Three fundamental relationship types exist in relational databases, and each has distinct consequences for queries.</p>
+
+<p>A <strong>one-to-many</strong> relationship means one row in the "parent" table can be associated with many rows in the "child" table. In the retail schema above, one customer can have many orders: <code>customers</code> (one) → <code>orders</code> (many). When you join these two tables, the result expands toward the "many" side — each customer row is repeated once for each of their matching orders. A customer with five orders appears five times in the joined result set. This is expected and correct behavior, but you must keep it in mind to avoid confusion. If you want one row per customer, you need to aggregate (for example, count their orders or sum their spending) rather than enumerate every order row.</p>
+
+<pre><code>-- One row per customer with order count (aggregation needed)
+SELECT c.customer_id,
+       c.first_name,
+       c.last_name,
+       COUNT(o.order_id) AS total_orders
+FROM   customers AS c
+LEFT JOIN orders AS o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name;</code></pre>
+
+<p>A <strong>many-to-many</strong> relationship exists when rows on both sides of the relationship can be associated with multiple rows on the other side. In the retail example, one order can contain many products, and one product can appear in many orders. This relationship cannot be modeled directly between <code>orders</code> and <code>products</code>; it requires a <strong>junction table</strong> — here, <code>order_items</code> — that holds a foreign key to each side. Querying a many-to-many relationship therefore always requires at least two joins: from the first table through the junction table to the second table.</p>
+
+<pre><code>-- Products purchased in a specific order (two joins through junction table)
+SELECT p.product_name,
+       oi.quantity,
+       p.unit_price,
+       oi.quantity * p.unit_price AS line_total
+FROM   orders       AS o
+JOIN   order_items  AS oi ON o.order_id    = oi.order_id
+JOIN   products     AS p  ON oi.product_id = p.product_id
+WHERE  o.order_id = 1055;</code></pre>
+
+<p>A <strong>one-to-one</strong> relationship — less common but important to recognize — means each row in the first table corresponds to at most one row in the second. For example, a <code>users</code> table and a <code>user_profiles</code> table might have a one-to-one relationship. Joining them is straightforward and does not cause row multiplication.</p>
+
+<p>Misunderstanding a relationship type has concrete, damaging consequences. If you treat a one-to-many relationship as one-to-one and forget to aggregate, your totals will be inflated because rows are counted multiple times. If you are unaware of a junction table and attempt to join two tables that have no direct foreign key relationship, the query will either fail with an error or — worse, if you inadvertently create a Cartesian product — return a massive, meaningless result set where every row from the first table is paired with every row from the second.</p>
+
+<p>The practical workflow before writing any multi-table query is therefore: consult the schema, identify every table you need, trace the foreign key paths connecting them, note the type of each relationship (one-to-many or many-to-many), and plan your <code>JOIN</code> clauses accordingly. This upfront mapping ensures that the query you write reflects the real structure of the data rather than an assumption that happens to compile but produces subtly wrong answers.</p>
+        <div class="notes"><strong>Notes</strong>This topic is a conceptual bridge between relational database theory and practical SQL writing. Emphasis should be placed on the schema-reading habit as an active skill students exercise before every new querying task. The retail database example used throughout provides a consistent, realistic context that can be reused in subsequent querying topics.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

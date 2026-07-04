@@ -10,6 +10,36 @@
     "type": "Page"
   },
   {
+    "title": "Foundational Case Studies",
+    "href": "content/Introduction_to_Data_generated_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "What is Data Analytics?",
+    "href": "content/Introduction_to_Data_generated_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "The Four Types of Analytics",
+    "href": "content/Introduction_to_Data_generated_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "The CRISP-DM Process Framework",
+    "href": "content/Introduction_to_Data_generated_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Real-World Business Applications",
+    "href": "content/Introduction_to_Data_generated_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Foundational Case Studies",
+    "href": "content/Introduction_to_Data_generated_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
     "title": "Introduction to Data Analytics and the Analytics Lifecycle \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

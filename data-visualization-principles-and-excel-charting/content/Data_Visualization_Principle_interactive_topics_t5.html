@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating Charts in Excel</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Data Visualization Principles and Excel Charting</a></div>
+  <header>
+    <h1>Creating Charts in Excel</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Creating Charts in Excel</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Charts are one of Excel's most powerful features for communicating data visually. Rather than leaving readers to scan rows and columns of numbers, a well-constructed chart reveals patterns, comparisons, trends, and proportions at a glance. Excel provides a comprehensive charting engine that lets you insert a wide variety of chart types, fine-tune how data is mapped, and apply rich formatting — all without leaving the spreadsheet environment. The sections below walk through every major stage of creating and polishing a chart, from the initial insertion to precise sizing and placement.</p>
+
+<p><strong>Inserting a Chart in Excel</strong></p>
+
+<p>Every chart begins with data. Before you click a single button on the ribbon, take a moment to ensure your data is organized in a tabular structure with clear headers. Excel uses those headers to generate series names and axis labels automatically, so skipping them forces you to add that information manually later.</p>
+
+<ul>
+  <li><strong>Select the cell range containing your data, including headers.</strong> If your data occupies cells A1 through C7, for example, highlight all of A1:C7. Excel interprets the top row (or leftmost column, depending on orientation) as category or series labels. Holding <em>Ctrl</em> while clicking lets you select non-contiguous ranges when your categories and values are not adjacent.</li>
+  <li><strong>Navigate to the Insert tab on the Excel ribbon and locate the Charts group.</strong> The Charts group contains individual icons for the most common chart families — Column/Bar, Line, Pie/Doughnut, Area, Scatter, and more — as well as a combo chart button. Each icon has a small dropdown arrow that reveals sub-types within that family.</li>
+  <li><strong>Click the desired chart type icon or use 'Recommended Charts'.</strong> The Recommended Charts button (the first button in the Charts group in modern Excel versions) opens a dialog that analyzes your selected data and suggests chart types that are likely to represent it well. The left panel lists suggestions; the right panel shows a live preview. This is especially useful when you are unsure which chart type fits your data best.</li>
+  <li><strong>The chart is inserted as an embedded object on the current worksheet.</strong> Once inserted, the chart floats on top of the cell grid as an object. You can see its selection handles around the border. It does not occupy cells — it sits in the drawing layer — so it can be freely repositioned without disrupting your data. The chart remains dynamically linked to its source data, meaning any edits you make to the underlying cells are reflected in the chart immediately.</li>
+</ul>
+
+<p>As a concrete example, suppose you have a small sales table like the one below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Product A Sales</th>
+      <th>Product B Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>January</td><td>4200</td><td>3100</td></tr>
+    <tr><td>February</td><td>3800</td><td>3500</td></tr>
+    <tr><td>March</td><td>5100</td><td>4200</td></tr>
+    <tr><td>April</td><td>4700</td><td>4800</td></tr>
+    <tr><td>May</td><td>5600</td><td>5200</td></tr>
+  </tbody>
+</table>
+
+<p>Selecting A1:C6 and clicking the <em>Clustered Column</em> sub-type would instantly produce a grouped column chart with months along the horizontal axis and two color-coded bar series representing Product A and Product B.</p>
+
+<p><strong>Choosing the Right Chart Type</strong></p>
+
+<p>Selecting an appropriate chart type is arguably more important than any formatting decision you will make later. The wrong chart type can misrepresent data or make it harder, not easier, to understand. Excel offers dozens of chart sub-types, but most business and academic data situations are covered by a handful of core families.</p>
+
+<ul>
+  <li><strong>Column and bar charts are best for comparing values across discrete categories.</strong> A <em>clustered column chart</em> places bars side by side so viewers can compare values within each category at a single glance. A <em>stacked column chart</em> stacks the series on top of each other, making it easy to see both individual contributions and the overall total. Use <em>bar charts</em> (horizontal orientation) when category labels are long and would be cramped on a horizontal axis, or when the ranking order of values is the key message. Avoid using column or bar charts for continuous time series with many data points — they become visually cluttered.</li>
+  <li><strong>Line charts display trends and changes over a continuous time period.</strong> When your horizontal axis represents time — days, months, quarters, years — a line chart communicates the direction and rate of change more clearly than a column chart. Multiple lines on the same chart allow direct trend comparison between series. A common refinement is the <em>smooth line</em> sub-type, which curves the line between data points to reduce visual noise when the underlying movement is expected to be continuous rather than step-like.</li>
+  <li><strong>Pie and doughnut charts represent proportional relationships.</strong> A pie chart divides a circle into slices proportional to each category's share of a whole. They work well only when you have a small number of categories — typically five or fewer — and when the proportions differ enough to be visually distinguishable. With many thin slices, pie charts become impossible to read and a stacked bar chart is a better alternative. The <em>doughnut chart</em> is structurally the same as a pie but has a hollow center, which some designers use to display a total or percentage label.</li>
+  <li><strong>Scatter plots show relationships or correlations between two numeric variables.</strong> Unlike most other chart types, scatter plots place numeric values on <em>both</em> axes — there is no categorical axis. Each data point represents one observation (e.g., one student, one product, one country). The resulting cloud of points reveals whether an increase in one variable tends to accompany an increase or decrease in the other. Adding a <em>trendline</em> to a scatter plot can make the overall direction of a relationship explicit. If you also have a third variable to represent (such as population size), an <em>XY Bubble chart</em> — a scatter plot variant — encodes that third dimension as the size of each bubble.</li>
+</ul>
+
+<p>The following table summarizes appropriate use cases at a glance:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Chart Type</th>
+      <th>Best Used For</th>
+      <th>Avoid When</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Column / Bar</td><td>Comparing values across categories</td><td>Showing continuous trends with many time points</td></tr>
+    <tr><td>Line</td><td>Showing trends over time</td><td>Comparing unrelated categories</td></tr>
+    <tr><td>Pie / Doughnut</td><td>Showing part-to-whole proportions (few slices)</td><td>More than ~5 categories or when precise values matter</td></tr>
+    <tr><td>Scatter / Bubble</td><td>Showing correlation between two numeric variables</td><td>Categorical data on either axis</td></tr>
+    <tr><td>Area</td><td>Cumulative totals or stacked trends over time</td><td>Overlapping series obscure each other</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Adjusting the Chart Data Range</strong></p>
+
+<p>After a chart is inserted, you may discover that Excel did not capture exactly the data you intended, or your dataset grows and you need the chart to reflect additional rows or columns. Excel provides a dedicated dialog for managing the data source without needing to delete and recreate the chart.</p>
+
+<ul>
+  <li><strong>Right-click the chart and choose 'Select Data'</strong> to open the <em>Select Data Source</em> dialog. You can also access this through the <em>Chart Design</em> contextual tab on the ribbon by clicking the <em>Select Data</em> button in the Data group. The dialog presents two main panels: <em>Legend Entries (Series)</em> on the left and <em>Horizontal (Category) Axis Labels</em> on the right.</li>
+  <li><strong>Use the 'Chart data range' field to enter or select a new range.</strong> The field at the top of the dialog shows the current data range as a cell reference (for example, <code>=Sheet1!$A$1:$C$6</code>). You can type a new range directly into this field, or click the range selector icon to collapse the dialog and highlight the new range on the worksheet with your mouse. This is the quickest method when you want to expand a contiguous block of data — for instance, extending the range from <code>$A$1:$C$6</code> to <code>$A$1:$C$9</code> to include three more months.</li>
+  <li><strong>Add, edit, or remove individual data series using the Legend Entries panel.</strong> Each series listed in the left panel corresponds to one set of plotted values (one line, one set of bars, one pie, etc.). Clicking <em>Add</em> opens a small dialog where you can specify a series name (which becomes the legend label) and a series values range independently of the main chart range. Clicking <em>Edit</em> lets you change an existing series' name or values range. This is useful when your chart pulls from multiple non-contiguous areas of the workbook.</li>
+  <li><strong>Switch rows and columns using the 'Switch Row/Column' button</strong> when Excel has oriented the data incorrectly. By default, Excel plots columns of data as separate series. If your data is arranged with series going across rows instead of down columns, one click on <em>Switch Row/Column</em> transposes the mapping. For example, if Excel plotted months as separate series and products as axis categories, switching corrects it so products become series and months become axis labels — which is almost always the intended layout for a time-series comparison.</li>
+</ul>
+
+<p><strong>Applying Chart Layouts and Styles</strong></p>
+
+<p>Once the underlying data is correct, you can quickly transform the visual appearance of the chart using Excel's built-in layout presets and style galleries. These options let you make sweeping visual changes without manually adjusting every individual element.</p>
+
+<ul>
+  <li><strong>Select the chart to activate the Chart Design and Format contextual tabs.</strong> These tabs appear on the far right of the ribbon only when a chart is selected. <em>Chart Design</em> contains options for overall structure, data, and style. <em>Format</em> contains granular formatting controls for individual elements. Clicking anywhere outside the chart deselects it and hides these tabs.</li>
+  <li><strong>Choose a Quick Layout to instantly rearrange chart elements.</strong> The <em>Quick Layout</em> gallery on the Chart Design tab offers a set of predefined arrangements — typically numbered Layout 1 through Layout 11 — that control where elements such as the chart title, legend, data labels, and gridlines appear. For example, one layout might place the title at the top and the legend at the bottom with no data labels, while another places data labels directly on each data point and suppresses the legend. Hovering over each thumbnail shows a live preview on the chart before you commit.</li>
+  <li><strong>Apply a Chart Style from the Chart Styles gallery.</strong> The Chart Styles gallery (also on the Chart Design tab) provides dozens of preset combinations of colors, fonts, backgrounds, and bar/line treatments. Styles are numbered and their thumbnails reflect the actual colors of your current theme. Switching styles is non-destructive — you can try multiple styles and revert. Styles do not change the layout (position of elements), only the visual treatment.</li>
+  <li><strong>Use the 'Change Colors' dropdown to apply a custom color palette.</strong> Located next to the Chart Styles gallery, <em>Change Colors</em> offers two groups of palettes: <em>Colorful</em> palettes (where each series gets a distinct hue) and <em>Monochromatic</em> palettes (where all series share one hue in varying shades). The palettes derive from your workbook's current Office theme, so they are designed to harmonize with other visual elements in a presentation or report.</li>
+</ul>
+
+<p><strong>Formatting Individual Chart Elements</strong></p>
+
+<p>While styles and layouts apply changes globally, you will often need to fine-tune specific parts of a chart — a single data series, one axis, or a specific data point — to communicate more precisely or to meet a design requirement.</p>
+
+<ul>
+  <li><strong>Click once on any chart element to select it.</strong> A single click on a data series selects the entire series (all bars or points in that series are highlighted with selection handles). A second single click on one specific bar or point within an already-selected series narrows the selection to that individual element. This two-click pattern lets you format either the entire series or a single point, which is useful for highlighting an outlier or a record-breaking month in a different color.</li>
+  <li><strong>Use the Format pane to adjust fill, border, font, and size.</strong> With an element selected, press <em>Ctrl+1</em> or right-click and choose <em>Format [Element Name]</em> to open the Format pane on the right side of the screen. The pane is context-sensitive: selecting a data series shows Fill &amp; Line, Effects, and Series Options sections; selecting an axis shows Axis Options including scale, tick marks, and number format. Changes in the Format pane apply in real time so you can see the effect immediately.</li>
+  <li><strong>Format axes to control scale, intervals, and number formatting.</strong> Select a value axis and open the Format Axis pane. Under <em>Axis Options</em>, you can set a fixed minimum and maximum (overriding Excel's auto-scaling), change the major unit (the interval between gridlines and tick marks), and reverse the axis direction. Under <em>Number</em>, you can apply standard Excel number formats — such as Currency, Percentage, or a custom format like <code>#,##0"K"</code> to display thousands — directly to the axis tick labels without altering the underlying data.</li>
+  <li><strong>Apply data labels to display exact values on the chart.</strong> Data labels can be added to an entire series or to individual points. After adding them (covered in the next section), you can format them via the Format Data Labels pane, which lets you choose what information to display — value, series name, category name, percentage, or a combination — and how to display it. For a clustered column chart, you might show only the value; for a pie chart, showing both the category name and percentage is common practice.</li>
+</ul>
+
+<p><strong>Adding and Editing Chart Titles and Labels</strong></p>
+
+<p>A chart without descriptive text is difficult to interpret in isolation. Titles, axis labels, and data labels are the annotations that transform a visual into a self-explanatory communication tool.</p>
+
+<ul>
+  <li><strong>Click 'Add Chart Element' on the Chart Design tab to insert titles and labels.</strong> The <em>Add Chart Element</em> dropdown (at the far left of the Chart Design tab) organizes insertable elements into sub-menus: Chart Title, Axis Titles, Data Labels, Data Table, Error Bars, Gridlines, Legend, and Trendline. Each sub-menu offers placement options — for example, <em>Chart Title</em> offers <em>Above Chart</em> or <em>Centered Overlay</em>. You can alternatively click the green <strong>+</strong> button that appears to the right of a selected chart to access the same elements via a floating checklist with arrow-based sub-menus.</li>
+  <li><strong>Double-click an existing title or label placeholder to enter edit mode.</strong> When you first insert a chart title, Excel creates a placeholder that reads "Chart Title." Double-clicking it places your cursor inside the text box so you can select all and type your own title. You can also link a chart title to a cell reference: after clicking once to select the title, click in the formula bar and type <code>=Sheet1!$A$1</code> (substituting your preferred cell). The title will then dynamically display whatever text is in that cell, which is useful when titles need to change based on filters or other conditions.</li>
+  <li><strong>Axis titles should clearly identify the unit of measurement or category.</strong> A value axis (usually the vertical axis) should indicate the unit — for example, "Revenue (USD thousands)" or "Temperature (°C)" — so readers do not have to guess the scale. A category axis title is often redundant if the categories are self-explanatory (e.g., month names), but becomes essential when the axis represents something less obvious, such as a product code or a numeric ID. Keep axis titles concise; a long descriptive sentence belongs in a caption below the chart, not on the axis.</li>
+  <li><strong>Data labels can be positioned inside, outside, or at the end of bars and points.</strong> For a bar or column chart, common positions are <em>Outside End</em> (label sits just above the top of the bar), <em>Inside End</em> (label sits just inside the top of the bar), <em>Inside Base</em> (label appears at the bottom inside the bar), or <em>Center</em> (label sits in the middle of the bar). For a line chart, labels typically appear <em>Above</em> or <em>Below</em> each data point. For pie charts, labels can be placed <em>Inside</em> the slice, <em>Outside</em> the slice, or as a <em>Best Fit</em> that Excel calculates automatically to avoid overlap. When data labels crowd together and become illegible, consider applying them only to a subset of key points or using a data table below the chart instead.</li>
+</ul>
+
+<p><strong>Moving and Resizing Charts</strong></p>
+
+<p>Chart placement and size directly affect how a report or presentation is received. A chart that is too small fails to communicate detail; one that is poorly positioned forces readers to scan back and forth between the chart and the explanatory text. Excel gives you both freeform and precise controls for positioning charts exactly where you need them.</p>
+
+<ul>
+  <li><strong>Click and drag the chart border to reposition it on the worksheet.</strong> Move your mouse pointer to the edge of the selected chart (the cursor changes to a four-headed move arrow) and drag it to the desired position. Holding <em>Alt</em> while dragging snaps the chart's edges to the nearest cell borders, which makes it easy to align a chart neatly with surrounding data or other objects on the sheet.</li>
+  <li><strong>Drag the corner or edge handles to resize the chart.</strong> The white square handles around the perimeter of a selected chart are resize handles. Dragging a corner handle resizes in two dimensions simultaneously. Dragging an edge handle resizes in one dimension only. Holding <em>Shift</em> while dragging a corner handle constrains the resize to maintain the original aspect ratio, which is useful when a chart has a designed proportion you want to preserve.</li>
+  <li><strong>Move a chart to its own dedicated sheet using 'Move Chart'.</strong> Embedded charts share the worksheet with data, which can feel cluttered in a dense report. Right-clicking the chart border and selecting <em>Move Chart</em> opens a dialog with two options: <em>New sheet</em> (creates a dedicated chart sheet where the chart fills the entire tab — ideal for presenting or printing) and <em>Object in</em> (moves the embedded chart to a different existing worksheet). A chart on its own sheet is still linked to the same data and updates identically, but it has its own sheet tab in the workbook and prints as a full page by default.</li>
+  <li><strong>Use the Format Chart Area pane for exact pixel dimensions.</strong> For situations requiring precise sizing — such as preparing a chart that must fit a specific area in a report template or an exported image — select the chart and open the Format Chart Area pane (right-click the chart's empty area and choose <em>Format Chart Area</em>). Click the <em>Size &amp; Properties</em> icon (the square with arrows) to find the <em>Size</em> section, where you can type exact values for Height and Width in inches or centimeters. The <em>Properties</em> section below that controls whether the chart moves and/or resizes with underlying cells, or stays fixed regardless of row/column changes — useful when you want the chart to remain anchored even if the data table is sorted or rows are inserted.</li>
+</ul>
+
+<p>Mastering these steps in sequence — inserting with the right type, verifying the data range, applying a coherent style, formatting key elements, labeling clearly, and positioning thoughtfully — results in charts that are not only visually appealing but genuinely informative. Excel's charting tools are deep enough to support highly customized, publication-quality visuals, yet the workflow described above gives you a reliable and repeatable process for producing clear charts efficiently in any context.</p>
+        <div class="notes"><strong>Notes</strong>Content covers all listed subtopics in depth with explanations, examples, a data table, a summary reference table, and practical tips. No headings were used per instructions; bold lead-ins serve as navigational anchors within the body prose.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

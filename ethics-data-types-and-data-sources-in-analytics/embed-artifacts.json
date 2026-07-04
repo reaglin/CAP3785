@@ -10,6 +10,46 @@
     "type": "Page"
   },
   {
+    "title": "Data Collection Methods and Web APIs",
+    "href": "content/Ethics_Data_Types_generated_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Ethical Foundations in Data Analytics",
+    "href": "content/Ethics_Data_Types_generated_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Privacy and Data Protection",
+    "href": "content/Ethics_Data_Types_generated_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Bias and Fairness in Data Analytics",
+    "href": "content/Ethics_Data_Types_generated_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Responsible and Ethical Use of Data",
+    "href": "content/Ethics_Data_Types_generated_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Structured and Unstructured Data Types",
+    "href": "content/Ethics_Data_Types_generated_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Common Data Sources and Repositories",
+    "href": "content/Ethics_Data_Types_generated_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "Data Collection Methods and Web APIs",
+    "href": "content/Ethics_Data_Types_generated_interactive_topics_t7.html",
+    "type": "Content"
+  },
+  {
     "title": "Ethics, Data Types, and Data Sources in Analytics \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

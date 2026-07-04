@@ -15,6 +15,41 @@
     "type": "Content"
   },
   {
+    "title": "Solving Multi-Table Analytical Problems",
+    "href": "content/SQL_Joins_Relationships_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Relational Database Foundations",
+    "href": "content/SQL_Joins_Relationships_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "INNER JOIN and Matching Records",
+    "href": "content/SQL_Joins_Relationships_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Outer JOINs: LEFT, RIGHT, and FULL",
+    "href": "content/SQL_Joins_Relationships_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Subqueries and Nested SELECT Statements",
+    "href": "content/SQL_Joins_Relationships_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Aggregation with GROUP BY and HAVING",
+    "href": "content/SQL_Joins_Relationships_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Solving Multi-Table Analytical Problems",
+    "href": "content/SQL_Joins_Relationships_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
     "title": "Quiz \u2014 SQL Joins, Relationships, and Advanced Query Techniques",
     "href": "quiz/index.html",
     "type": "Quiz"

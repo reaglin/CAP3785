@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automating Refresh Workflows</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Pivot Tables, Dashboards, and Power Query in Excel</a></div>
+  <header>
+    <h1>Automating Refresh Workflows</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Automating Refresh Workflows</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most powerful aspects of building reports and dashboards in Excel with Power Query is the ability to keep those reports perpetually current without manually re-importing or re-cleaning data. <strong>Automating refresh workflows</strong> means configuring Excel so that whenever the underlying source data changes — whether in a CSV file, a database, a web feed, or a SharePoint list — your transformed tables, pivot tables, and charts update automatically to reflect the latest information. Understanding how this ecosystem works, from individual connection properties all the way to VBA-driven scheduled automation, is essential for any analyst who needs reliable, low-maintenance reporting.</p>
+
+<p><strong>Understanding Data Refresh in Power Query</strong></p>
+
+<p>When you build a query in Power Query, you are not storing raw data inside the query editor itself — you are storing a <em>recipe</em>. That recipe is a sequence of transformation steps (removing columns, filtering rows, merging tables, changing data types, and so on) written behind the scenes in the M language. The actual data lives in the source: a file on disk, a database server, an API endpoint, or any other connector you used.</p>
+
+<p>When a <strong>refresh</strong> is triggered, Excel reopens the connection to that source, pulls in whatever data currently exists there, and then re-applies every recorded transformation step from top to bottom. The result — clean, shaped, ready-to-use data — is then reloaded into the destination you specified when you first configured the query's load settings: an Excel table on a worksheet, the Data Model (Power Pivot), or simply a connection-only query used by other queries.</p>
+
+<p>This architecture has three critical implications:</p>
+<ul>
+  <li><strong>Stale data is a real risk.</strong> If you build a pivot table from a Power Query output but never refresh, the pivot table keeps showing the snapshot of data that existed at the moment you last ran the query. Dashboards built on stale data can mislead decision-makers, sometimes significantly — imagine a sales dashboard still showing last quarter's numbers well into the new quarter.</li>
+  <li><strong>Transformation logic is applied consistently.</strong> Because every refresh re-runs the same M steps, you never have to worry about a new batch of source data bypassing your cleaning rules. If you wrote a step to remove blank rows, replace error values, or filter out a specific category, that logic executes every single time, on every refresh, for every row in the new data.</li>
+  <li><strong>Source data changes are the trigger.</strong> A refresh is only meaningful when the source has actually changed. Refreshing against an unchanged source simply reloads identical data, which costs time but causes no harm. In practice, refresh schedules are designed around how frequently the source data updates — hourly, daily, weekly, and so on.</li>
+</ul>
+
+<p><strong>Configuring Connection Properties for Automatic Refresh</strong></p>
+
+<p>Excel exposes per-connection refresh settings through the <em>Query Properties</em> dialog (also called Connection Properties). You can reach it by going to <strong>Data → Queries &amp; Connections</strong>, right-clicking any query, choosing <em>Properties</em>, and then navigating to the <em>Usage</em> tab. The options you find there are among the most important controls for automated reporting.</p>
+
+<p>The <strong>"Refresh every X minutes"</strong> checkbox instructs Excel to re-run the query on a recurring timer while the workbook is open. For example, setting this to 30 minutes means that as long as a user has the file open, Excel will silently re-query the source every half hour and reload the results. This is particularly useful for operational dashboards displayed on a screen in a warehouse, call center, or trading floor, where near-real-time data is more valuable than perfectly scheduled batch updates. The minimum interval is 1 minute, though very frequent refreshes against large datasets or slow connections can degrade workbook performance.</p>
+
+<p>The <strong>"Refresh data when opening the file"</strong> option is arguably the single most useful connection property for most business scenarios. When enabled, the very act of opening the workbook triggers a refresh before any pivot tables or charts are rendered from the current data. This means a user who opens the file Monday morning automatically sees Monday morning's data, not Friday afternoon's — with zero extra steps required on their part. For workbooks shared via a network drive or SharePoint, this setting alone can replace a significant amount of manual refresh work.</p>
+
+<p>A key design principle is that these settings are <em>configured per connection</em>. A single workbook can contain multiple queries — one pulling from a sales database, another from a web-based inventory API, another from a local CSV file — and each can have entirely independent refresh schedules. The sales database might refresh every 15 minutes; the inventory file might only refresh on open; the CSV might require a manual refresh because it is updated irregularly. This granularity prevents unnecessary load on data sources and keeps refresh operations targeted and efficient.</p>
+
+<p>To illustrate: suppose you maintain a workbook with three queries:</p>
+<ul>
+  <li><strong>SalesData</strong> — connected to a live SQL Server database, set to refresh every 10 minutes.</li>
+  <li><strong>ProductCatalog</strong> — connected to a SharePoint Excel file that updates weekly, set to refresh on open only.</li>
+  <li><strong>ExchangeRates</strong> — connected to a public web API, set to refresh every 60 minutes.</li>
+</ul>
+<p>Each connection independently follows its own schedule. When the workbook is first opened, ProductCatalog and ExchangeRates (and SalesData, if that option is also checked) refresh immediately. Afterward, SalesData keeps refreshing every 10 minutes and ExchangeRates every 60 minutes, without any user action required.</p>
+
+<p><strong>Refresh All: Updating Multiple Queries at Once</strong></p>
+
+<p>When a workbook contains several queries and pivot tables, refreshing each one individually is tedious and error-prone — you might forget one, or refresh them in the wrong order. The <strong>Refresh All</strong> command (found on the <em>Data</em> tab, or triggered with the keyboard shortcut <strong>Ctrl+Alt+F5</strong>) updates every query and pivot table connection in the workbook in a single operation.</p>
+
+<p>A subtle but important detail concerns <strong>query dependency order</strong>. In many workbook architectures, queries depend on one another. For example, you might have a base query called <em>RawOrders</em> that loads from a database, and a second query called <em>FilteredOrders</em> that references <em>RawOrders</em> as its source and applies additional filters. If Refresh All blindly refreshed <em>FilteredOrders</em> before <em>RawOrders</em> finished, <em>FilteredOrders</em> would transform stale data. Power Query's query folding and dependency tracking engine prevents this: it analyzes the dependency graph of all queries in the workbook and automatically sequences the refreshes so that upstream (source) queries complete before downstream (dependent) queries begin. You get correct results without needing to manually sequence anything.</p>
+
+<p>For users who frequently refresh all data, memorizing <strong>Ctrl+Alt+F5</strong> saves meaningful time compared to reaching for the ribbon. It is also the same shortcut you can reference when training colleagues on manual refresh procedures before full automation is in place.</p>
+
+<p><strong>Linking Pivot Tables to Power Query Outputs</strong></p>
+
+<p>Power Query is rarely the final destination for data — the data it produces typically feeds pivot tables, charts, and summary calculations that form the visible dashboard. Understanding how pivot tables connect to Power Query outputs determines how seamlessly your automated refresh workflows flow all the way to the user-facing visuals.</p>
+
+<p>When a query is configured to <strong>load to an Excel table</strong> on a worksheet, the output is a structured Excel table (an <em>ListObject</em>) with a defined name. A pivot table whose data source is set to that Excel table will automatically incorporate all rows and columns present in the table after any refresh, because Excel tables expand and contract dynamically. However, the pivot table itself still needs to be refreshed separately to recalculate its aggregations against the newly loaded rows. You can ensure this happens automatically by right-clicking the pivot table, choosing <em>PivotTable Options</em>, going to the <em>Data</em> tab, and enabling <strong>"Refresh data when opening the file"</strong> for the pivot table as well.</p>
+
+<p>A more powerful architecture involves loading data to the <strong>Data Model</strong> (Power Pivot). When you select "Add this data to the Data Model" during query load configuration, the data goes into the in-memory columnar store managed by Power Pivot rather than onto a visible worksheet. Pivot tables and charts created from Data Model sources can draw from multiple related tables simultaneously, and crucially, <em>all</em> of them update from a single Refresh All operation. This is the recommended approach for complex workbooks with multiple related data sources, because it eliminates the duplication of having the same data on multiple worksheets and keeps the refresh process unified.</p>
+
+<p>The cleanest automated setup looks like this:</p>
+<ul>
+  <li>Power Query loads transformed data into the Data Model.</li>
+  <li>All pivot tables and charts in the workbook source from the Data Model.</li>
+  <li>Connection properties are set to "Refresh data when opening the file."</li>
+  <li>Result: every time anyone opens the workbook, all data refreshes, and all visuals instantly reflect the current state — no manual steps at any stage.</li>
+</ul>
+
+<p><strong>Automating Refresh with VBA Macros</strong></p>
+
+<p>Built-in connection refresh settings handle the most common scenarios, but sometimes you need refresh behavior that goes beyond what the UI options provide — for example, refreshing on a schedule even when no user has the file open, or performing post-refresh actions like saving and emailing the file. This is where <strong>VBA macros</strong> enter the picture.</p>
+
+<p>The most fundamental VBA refresh technique is placing a macro in the workbook's <em>ThisWorkbook</em> module using the <code>Workbook_Open</code> event. This event fires automatically every time the workbook is opened, making it the ideal hook for forcing a full data refresh:</p>
+
+<pre><code>Private Sub Workbook_Open()
+    ThisWorkbook.RefreshAll
+End Sub</code></pre>
+
+<p>This single line calls <code>RefreshAll</code> on the active workbook, which triggers every query connection to re-run — identical in effect to pressing Ctrl+Alt+F5, but automatic. Users never have to remember to refresh; opening the file is sufficient.</p>
+
+<p>For fully unattended, scheduled automation — refreshing a workbook at 6 AM every weekday so that reports are ready when staff arrive — VBA is combined with <strong>Windows Task Scheduler</strong>. The typical approach is:</p>
+<ul>
+  <li>Write a VBA macro (or a separate VBScript file) that opens the target workbook, calls <code>RefreshAll</code>, saves the workbook, and closes it.</li>
+  <li>Configure a Task Scheduler job to run that script on the desired schedule (e.g., weekdays at 06:00).</li>
+  <li>The machine running the task must be on, Excel must be installed, and the account running the task must have access to all data sources.</li>
+</ul>
+
+<p>A more complete VBA macro that includes error handling might look like this:</p>
+
+<pre><code>Private Sub Workbook_Open()
+    On Error GoTo RefreshError
+    ThisWorkbook.RefreshAll
+    ThisWorkbook.Save
+    Exit Sub
+
+RefreshError:
+    MsgBox "Data refresh failed. Error: " & Err.Description, vbCritical, "Refresh Error"
+    ' Optionally log the error to a worksheet cell:
+    Sheets("Log").Cells(Rows.Count, 1).End(xlUp).Offset(1, 0).Value = _
+        Now() & " - Refresh failed: " & Err.Description
+End Sub</code></pre>
+
+<p><strong>Error handling</strong> is not optional in production automation. Without it, a failed connection (because a database server is down, a file has been moved, or a network share is unavailable) will silently leave the workbook displaying the last successfully loaded data, with no indication that anything went wrong. Users may act on outdated information believing it to be current. With error handling, the failure is surfaced — either through a message box, a log entry in a dedicated worksheet, or an email notification triggered via VBA's <code>CDO</code> or Outlook automation — so that the problem can be investigated and resolved promptly.</p>
+
+<p><strong>Managing Background Refresh and Performance</strong></p>
+
+<p>A critical technical detail that trips up many VBA-based automation workflows is <strong>background refresh</strong>. By default, Power Query connections run their refresh asynchronously — meaning Excel starts the refresh process and immediately returns control to whatever is running next (including the next line of VBA code), without waiting for the query to finish loading data.</p>
+
+<p>This creates a dangerous timing problem in automated scripts. Consider:</p>
+
+<pre><code>Private Sub Workbook_Open()
+    ThisWorkbook.RefreshAll          ' Starts refresh — does NOT wait for it to finish
+    ThisWorkbook.Save                ' Saves immediately — data may not be updated yet!
+End Sub</code></pre>
+
+<p>In this scenario, <code>Save</code> executes while the refresh is still in progress. The file is saved with the old data, defeating the entire purpose of the automation.</p>
+
+<p>The solution is to <strong>disable background refresh</strong> for each connection that must complete before proceeding. This is done per-connection in the Query Properties dialog by unchecking <em>"Enable background refresh"</em>, or programmatically in VBA:</p>
+
+<pre><code>Private Sub Workbook_Open()
+    Dim conn As WorkbookConnection
+    For Each conn In ThisWorkbook.Connections
+        conn.OLEDBConnection.BackgroundQuery = False  ' For OLEDB connections
+    Next conn
+    ThisWorkbook.RefreshAll   ' Now runs synchronously — waits for completion
+    ThisWorkbook.Save
+End Sub</code></pre>
+
+<p>With background refresh disabled, <code>RefreshAll</code> blocks until all queries have fully loaded their data before the next line executes. Only then does the workbook save. Data integrity in automated scripts is guaranteed.</p>
+
+<p>Performance is the other dimension of background refresh management. Large datasets with millions of rows, complex M transformations, or slow network connections can make refreshes take minutes. For workbooks actively used by people, long synchronous refreshes freeze the Excel UI, preventing users from working. The recommended approach in these cases is:</p>
+<ul>
+  <li>Keep background refresh <em>enabled</em> for workbooks used interactively, so users can continue working while data loads in the background.</li>
+  <li>Disable background refresh only for automated/unattended scripts where no human is waiting.</li>
+  <li><strong>Schedule heavy refreshes during off-peak hours</strong> — overnight or early morning — so the performance cost is not felt during the business day.</li>
+  <li>Consider breaking very large queries into smaller incremental loads where the data source supports it (for example, loading only new records since the last refresh using a date filter parameter).</li>
+</ul>
+
+<p><strong>Testing and Validating Refresh Workflows</strong></p>
+
+<p>Configuring an automated refresh workflow is only half the work. Validating that it functions correctly end-to-end — and continues to function correctly over time — is equally important. A refresh that silently fails, or that succeeds but loads incorrect data, can be worse than no automation at all.</p>
+
+<p>The most reliable validation technique is <strong>making a controlled change to the source data and verifying it propagates correctly</strong>. For example:</p>
+<ul>
+  <li>If the source is an Excel file, open it, change a known value in a specific cell (e.g., change a sales amount from 1,000 to 9,999), and save.</li>
+  <li>Return to the reporting workbook and trigger a refresh.</li>
+  <li>Verify that the pivot table or chart reflecting that data source now shows 9,999 in the correct location.</li>
+  <li>Revert the source data back to 1,000 and refresh again to confirm the round-trip works correctly in both directions.</li>
+</ul>
+
+<p>Excel's <strong>Queries &amp; Connections pane</strong> (Data tab → Queries &amp; Connections) shows each query's last refresh timestamp. After triggering a refresh, check this pane to confirm the timestamp updated to the current time. If a query shows a timestamp from hours ago after you just triggered Refresh All, that query likely failed silently or is still running in the background.</p>
+
+<p>The following table summarizes the key validation checks to perform when setting up or auditing an automated refresh workflow:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Validation Check</th>
+      <th>How to Perform It</th>
+      <th>What a Passing Result Looks Like</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data propagation test</td>
+      <td>Change a known value in the source; refresh; check the report</td>
+      <td>The changed value appears correctly in the pivot table or chart</td>
+    </tr>
+    <tr>
+      <td>Refresh timestamp check</td>
+      <td>Open Queries &amp; Connections pane after refresh</td>
+      <td>Each query shows the current date and time as its last refresh</td>
+    </tr>
+    <tr>
+      <td>On-open refresh test</td>
+      <td>Close and reopen the workbook; do not manually refresh</td>
+      <td>Data updates automatically on open without any user action</td>
+    </tr>
+    <tr>
+      <td>Scheduled task validation</td>
+      <td>Check Task Scheduler history and the saved file's timestamp</td>
+      <td>File's last-saved time matches the scheduled task run time</td>
+    </tr>
+    <tr>
+      <td>Error handling test</td>
+      <td>Temporarily rename or move the source file; trigger refresh</td>
+      <td>Error is logged or displayed; stale data is clearly flagged</td>
+    </tr>
+    <tr>
+      <td>Dependency order test</td>
+      <td>Refresh All with dependent queries; inspect downstream query results</td>
+      <td>Downstream queries reflect data from the freshly refreshed upstream query</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Finally, <strong>documentation</strong> is an underappreciated pillar of a robust refresh workflow. Every automated workbook should include a record — either in a dedicated "ReadMe" worksheet or an external document — that captures: the data sources each query connects to (including full file paths or server/database names), the refresh schedule configured for each connection, the location and purpose of any VBA macros, and the contact person responsible for the data sources. When a source file is moved, a server is renamed, or a database credential expires, this documentation allows any team member to diagnose and fix the broken connection quickly, rather than spending hours reverse-engineering an unfamiliar workbook.</p>
+        <div class="notes"><strong>Notes</strong>Students should have hands-on practice modifying a source file, triggering a refresh, and observing the change propagate to a pivot table. Emphasize the background refresh vs. synchronous refresh distinction when covering VBA — this is a common source of bugs in student-built automation. The Task Scheduler integration makes for an excellent advanced exercise for students comfortable with VBA.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

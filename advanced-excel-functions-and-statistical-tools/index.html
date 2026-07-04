@@ -5,307 +5,420 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Advanced Excel Functions and Statistical Tools – CAP3785</title>
   <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
-      color: #2d3142;
-      line-height: 1.6;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1e2535;
       min-height: 100vh;
+      line-height: 1.6;
     }
 
-    /* ── Header / Hero ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #ffffff;
-      padding: 3rem 2rem 2.5rem;
-      text-align: center;
-    }
-
-    header .course-label {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 20px;
-      padding: 0.25rem 0.85rem;
-      margin-bottom: 1rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 1rem;
-      line-height: 1.25;
-    }
-
-    header p.intro {
-      max-width: 680px;
+    /* ── Page shell ── */
+    .page-wrapper {
+      max-width: 1100px;
       margin: 0 auto;
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.88);
+      padding: 2rem 1.25rem 3.5rem;
     }
 
-    /* ── Main Content ── */
-    main {
-      max-width: 1060px;
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.25rem;
+    /* ── Header banner ── */
+    .module-header {
+      background: linear-gradient(135deg, #1a4f8a 0%, #2271c3 60%, #1e8fc0 100%);
+      color: #fff;
+      border-radius: 10px;
+      padding: 2.4rem 2.5rem 2.2rem;
+      margin-bottom: 2.2rem;
+      box-shadow: 0 4px 18px rgba(30, 79, 138, 0.18);
     }
 
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #d6eaf8;
+    }
+
+    .module-header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.9rem;
+      letter-spacing: -0.01em;
+    }
+
+    .module-header p {
+      font-size: 0.975rem;
+      color: rgba(255,255,255,0.88);
+      max-width: 74ch;
+    }
+
+    /* ── Section heading ── */
     .section-heading {
       font-size: 1.05rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #5a6080;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dde2ec;
+      letter-spacing: 0.07em;
+      color: #4a5568;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde3ee;
     }
 
-    /* ── Card Grid ── */
+    /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.2rem;
     }
 
     .card {
       background: #ffffff;
-      border: 1px solid #dde2ec;
-      border-radius: 10px;
-      padding: 1.5rem;
+      border: 1px solid #dde3ee;
+      border-radius: 9px;
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.55rem;
+      box-shadow: 0 2px 8px rgba(30, 50, 90, 0.055);
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 20px rgba(30, 79, 138, 0.12);
       transform: translateY(-2px);
     }
 
-    /* ── Card Header Row ── */
-    .card-header {
+    /* ── Card top row ── */
+    .card-meta-row {
       display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .card-name-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 0.5rem;
-    }
-
-    .card-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      word-break: break-word;
-    }
-
-    .card-name a.primary-link {
-      color: #1a3a5c;
-      text-decoration: none;
-      border-bottom: 2px solid #2563a8;
-      transition: color 0.15s, border-color 0.15s;
-    }
-
-    .card-name a.primary-link:hover {
-      color: #2563a8;
-      border-bottom-color: #2563a8;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #ffffff;
-      background-color: #5a6080;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background-color 0.15s;
-      flex-shrink: 0;
-    }
-
-    .source-link:hover {
-      background-color: #3d4460;
-    }
-
-    /* ── Badges ── */
-    .badge-row {
-      display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
     }
 
     .badge {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.69rem;
       font-weight: 600;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
       border-radius: 4px;
       padding: 0.18rem 0.55rem;
     }
 
-    .badge-type {
-      background-color: #e8f0fb;
-      color: #2563a8;
-      border: 1px solid #c2d4f5;
-    }
+    /* type badge colours */
+    .badge-type-module    { background: #e8f1fc; color: #1a5ba8; }
+    .badge-type-presentation { background: #fef3e2; color: #9a5700; }
+    .badge-type-text      { background: #eaf7ee; color: #1a7a3c; }
+    .badge-type-quiz      { background: #f4eafc; color: #6a1a9a; }
+    .badge-type-default   { background: #eef0f5; color: #3d4a60; }
 
     .badge-filetype {
-      background-color: #f0f4ff;
-      color: #4a5580;
-      border: 1px solid #d4daef;
-      font-family: 'Courier New', Courier, monospace;
+      background: #f0f2f7;
+      color: #5a6680;
+      font-size: 0.67rem;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Artifact name ── */
+    .card-name {
+      font-size: 0.975rem;
+      font-weight: 700;
+      color: #1e2535;
+      line-height: 1.35;
+    }
+
+    .card-name a {
+      color: #1a5ba8;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      border-bottom-color: #1a5ba8;
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.22rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #5a7aaa;
+      text-decoration: none;
+      border: 1px solid #c5d5ea;
+      border-radius: 4px;
+      padding: 0.12rem 0.5rem;
+      margin-left: 0.5rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #e8f1fc;
+      color: #1a4f8a;
+      outline: none;
+    }
+
+    .source-link svg {
+      flex-shrink: 0;
     }
 
     /* ── Description ── */
     .card-description {
-      font-size: 0.9rem;
-      color: #4a5068;
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.55;
       flex-grow: 1;
     }
 
     /* ── Footer ── */
-    footer {
+    .page-footer {
+      margin-top: 2.8rem;
       text-align: center;
-      padding: 1.5rem 1rem;
       font-size: 0.8rem;
-      color: #8a90aa;
-      border-top: 1px solid #dde2ec;
-      background-color: #f4f6f9;
+      color: #8a95a8;
     }
 
     /* ── Responsive tweaks ── */
-    @media (max-width: 500px) {
-      header {
-        padding: 2rem 1.25rem 1.75rem;
-      }
-
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 540px) {
+      .module-header { padding: 1.7rem 1.3rem 1.5rem; }
+      .card-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+  <div class="page-wrapper">
 
-  <!-- ═══════════════════════════════════════════
-       HEADER
-  ═══════════════════════════════════════════ -->
-  <header>
-    <div class="course-label">CAP3785 &mdash; Data Analytics and Visualization</div>
-    <h1>Advanced Excel Functions and Statistical Tools</h1>
-    <p class="intro">
-      This module covers essential Excel tools for data analysis, including powerful lookup
-      functions such as VLOOKUP and INDEX-MATCH, conditional aggregation with SUMIF and COUNTIF,
-      and built-in statistical functions. Browse the learning artifacts below to access
-      presentations, topic outlines, and assessments for this module.
-    </p>
-  </header>
+    <!-- ── Header ── -->
+    <header class="module-header">
+      <div class="course-label">CAP3785 &mdash; Data Analytics and Visualization</div>
+      <h1>Advanced Excel Functions and Statistical Tools</h1>
+      <p>
+        This module covers essential Excel capabilities for data analysis, including lookup
+        functions (VLOOKUP, INDEX-MATCH), conditional aggregation (SUMIF, COUNTIF and their
+        multi-criteria variants), and built-in descriptive-statistics tools. Work through the
+        readings, review the presentation, and complete the quiz to consolidate your skills.
+      </p>
+    </header>
 
-  <!-- ═══════════════════════════════════════════
-       MAIN
-  ═══════════════════════════════════════════ -->
-  <main>
-    <h2 class="section-heading">Module Artifacts</h2>
+    <!-- ── Artifact grid ── -->
+    <section aria-label="Module Artifacts">
+      <div class="section-heading">Module Artifacts</div>
+      <div class="card-grid">
 
-    <div class="card-grid">
-
-      <!-- ── Artifact 1: Module Topics ── -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-name-row">
-            <span class="card-name">
-              <a class="primary-link" href="content/module_topics.html">Module Topics</a>
-            </span>
-            <a class="source-link" href="source/hierarchy.json">source file</a>
+        <!-- ── Card 1: Module Topics ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-module">Module Topics</span>
+            <span class="badge-filetype">.json</span>
           </div>
-          <div class="badge-row">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
+          <div class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+            <a class="source-link" href="source/hierarchy.json" title="Open source file">
+              <svg width="11" height="11" viewBox="0 0 20 20" fill="none" aria-hidden="true"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2h5v5" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11 9l7-7" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17 13v5a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1h5"
+                      stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              source file
+            </a>
           </div>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's topics covering lookup functions (VLOOKUP and
-          INDEX-MATCH), conditional aggregation functions (SUMIF, COUNTIF), and built-in
-          statistical functions (AVERAGE, MEDIAN, MODE, standard deviation), used by instructors
-          to plan content and by learners to navigate the module.
-        </p>
-      </div>
+          <p class="card-description">
+            A structured outline of the module's topics covering lookup functions (VLOOKUP and
+            INDEX-MATCH), conditional aggregation functions (SUMIF, COUNTIF), and built-in
+            statistical functions (AVERAGE, MEDIAN, MODE, standard deviation), used by instructors
+            to plan content and by learners to navigate the module.
+          </p>
+        </article>
 
-      <!-- ── Artifact 2: Presentation ── -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-name-row">
-            <span class="card-name">
-              <a class="primary-link" href="presentation/Advanced_Excel_Functions_generated.pptx">Advanced_Excel_Functions_generated.pptx</a>
-            </span>
+        <!-- ── Card 2: Presentation ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-presentation">Presentation</span>
+            <span class="badge-filetype">.pptx</span>
           </div>
-          <div class="badge-row">
-            <span class="badge badge-type">Presentation</span>
-            <span class="badge badge-filetype">.pptx</span>
+          <div class="card-name">
+            <a href="presentation/Advanced_Excel_Functions_generated.pptx">
+              Advanced_Excel_Functions_generated.pptx
+            </a>
           </div>
-        </div>
-        <p class="card-description">
-          A slide deck introducing and explaining Advanced Excel functions&mdash;including VLOOKUP
-          syntax and limitations, INDEX-MATCH, and statistical and aggregation tools&mdash;used by
-          instructors to deliver lectures and by learners to follow along or review key concepts.
-        </p>
-      </div>
+          <p class="card-description">
+            A slide deck introducing and explaining Advanced Excel functions — including VLOOKUP
+            syntax and limitations, INDEX-MATCH, and statistical and aggregation tools — used by
+            instructors to deliver lectures and by learners to follow along or review key concepts.
+          </p>
+        </article>
 
-      <!-- ── Artifact 3: Quiz ── -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-name-row">
-            <span class="card-name">
-              <a class="primary-link" href="quiz/index.html">Quiz Question Bank (20 questions)</a>
-            </span>
-            <a class="source-link" href="source/quiz_questions.json">source file</a>
+        <!-- ── Card 3: Text – Lookup Functions ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-text">Text Content</span>
+            <span class="badge-filetype">.html</span>
           </div>
-          <div class="badge-row">
-            <span class="badge badge-type">Quiz</span>
-            <span class="badge badge-filetype">.json</span>
+          <div class="card-name">
+            <a href="content/Advanced_Excel_Functions_interactive_topics_t1.html">
+              Lookup Functions: VLOOKUP and INDEX-MATCH
+            </a>
           </div>
-        </div>
-        <p class="card-description">
-          A 20-question quiz bank testing learners' understanding of VLOOKUP syntax and use cases,
-          INDEX-MATCH advantages, and related Excel functions, used by instructors to assess
-          comprehension and by learners to check their knowledge of the module content.
-        </p>
-      </div>
+          <p class="card-description">
+            A reading that explains the syntax, use cases, and differences between VLOOKUP and
+            INDEX-MATCH for retrieving values across tables, which learners study to build core
+            data-lookup skills in Excel.
+          </p>
+        </article>
 
-    </div><!-- /.card-grid -->
-  </main>
+        <!-- ── Card 4: Text – Conditional Aggregation ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-text">Text Content</span>
+            <span class="badge-filetype">.html</span>
+          </div>
+          <div class="card-name">
+            <a href="content/Advanced_Excel_Functions_interactive_topics_t2.html">
+              Conditional Aggregation Functions
+            </a>
+          </div>
+          <p class="card-description">
+            A reading that covers SUMIF, COUNTIF, AVERAGEIF, and their multi-criteria variants
+            (SUMIFS, COUNTIFS, AVERAGEIFS) for calculating segment-level totals, counts, and
+            averages, which learners use to answer business questions on filtered subsets of data.
+          </p>
+        </article>
 
-  <!-- ═══════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════ -->
-  <footer>
-    <p>CAP3785 &mdash; Data Analytics and Visualization &bull; Advanced Excel Functions and Statistical Tools</p>
-  </footer>
+        <!-- ── Card 5: Text – Statistical Functions ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-text">Text Content</span>
+            <span class="badge-filetype">.html</span>
+          </div>
+          <div class="card-name">
+            <a href="content/Advanced_Excel_Functions_interactive_topics_t3.html">
+              Built-in Statistical Functions
+            </a>
+          </div>
+          <p class="card-description">
+            A reading that introduces Excel's descriptive-statistics functions — including AVERAGE,
+            MEDIAN, STDEV, and related measures — explaining their syntax and when to apply each,
+            which learners use to compute and interpret summary statistics on datasets.
+          </p>
+        </article>
 
+        <!-- ── Card 6: Text – Data Summarization ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-text">Text Content</span>
+            <span class="badge-filetype">.html</span>
+          </div>
+          <div class="card-name">
+            <a href="content/Advanced_Excel_Functions_interactive_topics_t4.html">
+              Data Summarization Techniques
+            </a>
+          </div>
+          <p class="card-description">
+            A reading that covers techniques for condensing large datasets in Excel — such as
+            grouping, aggregating, and using PivotTables — which learners apply to transform raw
+            data into meaningful summaries and identify patterns.
+          </p>
+        </article>
+
+        <!-- ── Card 7: Text – Analytical Functions (t5) ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-text">Text Content</span>
+            <span class="badge-filetype">.html</span>
+          </div>
+          <div class="card-name">
+            <a href="content/Advanced_Excel_Functions_interactive_topics_t5.html">
+              Applying Analytical Functions to Real-World Datasets
+            </a>
+          </div>
+          <p class="card-description">
+            A reading that walks through end-to-end analytical workflows combining VLOOKUP,
+            SUMIFS, STDEV, and other functions on realistic business datasets, which learners use
+            to practice integrating individual Excel functions into cohesive data-analysis solutions.
+          </p>
+        </article>
+
+        <!-- ── Card 8: Text – Analytical Functions (interactive) ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-text">Text Content</span>
+            <span class="badge-filetype">.html</span>
+          </div>
+          <div class="card-name">
+            <a href="content/Advanced_Excel_Functions_interactive.html">
+              Applying Analytical Functions to Real-World Datasets
+            </a>
+          </div>
+          <p class="card-description">
+            A reading that walks through end-to-end analytical workflows combining VLOOKUP,
+            SUMIFS, STDEV, and other functions on realistic business datasets, which learners use
+            to practice integrating individual Excel functions into cohesive data-analysis solutions.
+          </p>
+        </article>
+
+        <!-- ── Card 9: Quiz ── -->
+        <article class="card">
+          <div class="card-meta-row">
+            <span class="badge badge-type-quiz">Quiz</span>
+            <span class="badge-filetype">.json</span>
+          </div>
+          <div class="card-name">
+            <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+            <a class="source-link" href="source/quiz_questions.json" title="Open source file">
+              <svg width="11" height="11" viewBox="0 0 20 20" fill="none" aria-hidden="true"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2h5v5" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11 9l7-7" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17 13v5a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1h5"
+                      stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              source file
+            </a>
+          </div>
+          <p class="card-description">
+            A 20-question quiz bank testing learners' understanding of VLOOKUP syntax and use
+            cases, INDEX-MATCH advantages, and related Excel functions, used by instructors to
+            assess comprehension and by learners to check their knowledge of the module content.
+          </p>
+        </article>
+
+      </div><!-- /.card-grid -->
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer">
+      <p>CAP3785 &mdash; Data Analytics and Visualization &bull; Advanced Excel Functions and Statistical Tools</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
 <section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>

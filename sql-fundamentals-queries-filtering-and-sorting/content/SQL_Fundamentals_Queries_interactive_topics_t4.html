@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorting Results with ORDER BY</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Fundamentals: Queries, Filtering, and Sorting</a></div>
+  <header>
+    <h1>Sorting Results with ORDER BY</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Sorting Results with ORDER BY</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When you run a SQL <code>SELECT</code> query without any sorting instruction, the database engine is free to return rows in whatever internal order it finds convenient — often the physical storage order, which is essentially arbitrary from a human perspective. The <strong>ORDER BY</strong> clause gives you explicit control over that order, letting you arrange the result set in a way that is immediately meaningful: customers listed alphabetically, transactions ordered newest-first, products ranked from cheapest to most expensive. Understanding <code>ORDER BY</code> is one of the most practically useful skills in SQL because nearly every real-world report or data extract has an expected order.</p>
+
+<p><strong>Where ORDER BY lives in a query</strong> is important to understand structurally. It is always placed at the very end of a <code>SELECT</code> statement, after the <code>WHERE</code> clause (if one exists), after any <code>GROUP BY</code> or <code>HAVING</code> clauses, and just before an optional <code>LIMIT</code> clause. The database applies sorting as one of its final steps — it first identifies which rows qualify, assembles the result set, and only then reorders those rows before handing them back to you. A key practical consequence of this is that <em>any column available in the query</em> can serve as a sort key, even columns that are not listed in the <code>SELECT</code> clause. For example, you can select only a customer's name and email but still sort by their account creation date:</p>
+
+<pre><code>SELECT customer_name, email
+FROM customers
+ORDER BY created_at;</code></pre>
+
+<p>The <code>created_at</code> column never appears in the output, yet it silently drives the ordering. This flexibility is useful when you need a specific sequence but do not want to clutter the output with the column controlling that sequence.</p>
+
+<p><strong>Ascending Order with ASC</strong></p>
+
+<p>Ascending order is the default sort direction in SQL. If you write <code>ORDER BY column_name</code> without specifying a direction, the database assumes you mean ascending. The keyword <code>ASC</code> can be added explicitly, and the result is identical:</p>
+
+<pre><code>-- These two queries produce exactly the same result:
+SELECT product_name, price
+FROM products
+ORDER BY product_name;
+
+SELECT product_name, price
+FROM products
+ORDER BY product_name ASC;</code></pre>
+
+<p>Even though omitting <code>ASC</code> works perfectly, many teams and style guides encourage writing it explicitly, particularly when a query contains multiple sort columns with different directions. When every direction keyword is spelled out, a reader scanning the query never has to wonder which columns are ascending and which are descending — the intent is unambiguous.</p>
+
+<p>What "ascending" means depends on the data type of the column being sorted:</p>
+
+<ul>
+  <li><strong>Text (VARCHAR, CHAR, TEXT):</strong> rows are arranged alphabetically from A to Z. Sorting is typically case-insensitive in most databases by default, though this depends on the column's collation setting.</li>
+  <li><strong>Numbers (INT, DECIMAL, FLOAT, etc.):</strong> rows are arranged from the smallest value to the largest. Negative numbers come before zero, which comes before positive numbers.</li>
+  <li><strong>Dates and timestamps (DATE, DATETIME, TIMESTAMP):</strong> rows are arranged chronologically from the earliest date to the most recent date.</li>
+</ul>
+
+<p>Consider a simple <code>employees</code> table. Sorting by last name ascending produces a standard alphabetical roster:</p>
+
+<pre><code>SELECT employee_id, last_name, first_name, salary
+FROM employees
+ORDER BY last_name ASC;</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>employee_id</th>
+      <th>last_name</th>
+      <th>first_name</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>14</td><td>Adams</td><td>Claire</td><td>52000</td></tr>
+    <tr><td>7</td><td>Chen</td><td>Wei</td><td>67000</td></tr>
+    <tr><td>3</td><td>Harris</td><td>Jordan</td><td>48000</td></tr>
+    <tr><td>21</td><td>Okafor</td><td>Emeka</td><td>71000</td></tr>
+    <tr><td>9</td><td>Rivera</td><td>Sofia</td><td>59000</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Descending Order with DESC</strong></p>
+
+<p>Unlike ascending order, descending order is <em>never</em> the default — you must always specify <code>DESC</code> explicitly. Forgetting to add it is a very common mistake for beginners who expect the database to infer the desired direction from context. There is no such inference; without a keyword the direction is always ascending.</p>
+
+<p>Descending order reverses the natural sequence for each data type:</p>
+
+<ul>
+  <li><strong>Text:</strong> Z to A — "Zebra" appears before "Apple".</li>
+  <li><strong>Numbers:</strong> largest to smallest — 1000 appears before 1.</li>
+  <li><strong>Dates:</strong> most recent to oldest — today's date appears before last year's date.</li>
+</ul>
+
+<p>The date-descending pattern is especially common in applications that display activity feeds, transaction histories, or log files, because users almost always want to see the most recent events at the top. For example, retrieving the latest orders from an e-commerce database:</p>
+
+<pre><code>SELECT order_id, customer_id, order_total, order_date
+FROM orders
+ORDER BY order_date DESC;</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>order_total</th>
+      <th>order_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>5091</td><td>302</td><td>249.99</td><td>2024-11-15</td></tr>
+    <tr><td>5090</td><td>117</td><td>89.50</td><td>2024-11-14</td></tr>
+    <tr><td>5088</td><td>445</td><td>430.00</td><td>2024-11-12</td></tr>
+    <tr><td>5085</td><td>302</td><td>15.00</td><td>2024-11-09</td></tr>
+  </tbody>
+</table>
+
+<p>A numeric example would be displaying a product catalog ranked by price from most expensive to least expensive, useful for a "premium products" page:</p>
+
+<pre><code>SELECT product_name, category, price
+FROM products
+ORDER BY price DESC;</code></pre>
+
+<p><strong>Sorting by Multiple Columns</strong></p>
+
+<p>A single sort column is often not enough. Imagine a database of students where dozens of students share the same last name "Johnson." Sorting by last name alone leaves all those Johnsons in no particular order relative to each other. A secondary sort by first name resolves that ambiguity. SQL handles this elegantly by accepting a comma-separated list of sort columns in the <code>ORDER BY</code> clause.</p>
+
+<p>The evaluation happens strictly left to right. The database first sorts the entire result set by the first column. Within any group of rows that share the same value in the first column (i.e., ties), it then sorts by the second column. Within remaining ties it sorts by the third column, and so on. Columns beyond the first only come into play when there are actual duplicate values to resolve.</p>
+
+<pre><code>SELECT last_name, first_name, department, hire_date
+FROM employees
+ORDER BY last_name ASC, first_name ASC;</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>last_name</th>
+      <th>first_name</th>
+      <th>department</th>
+      <th>hire_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Johnson</td><td>Alex</td><td>Marketing</td><td>2019-03-10</td></tr>
+    <tr><td>Johnson</td><td>Maria</td><td>Sales</td><td>2021-07-22</td></tr>
+    <tr><td>Johnson</td><td>Terrence</td><td>IT</td><td>2018-01-05</td></tr>
+    <tr><td>Smith</td><td>Dana</td><td>HR</td><td>2020-09-14</td></tr>
+    <tr><td>Smith</td><td>Lee</td><td>Marketing</td><td>2022-02-28</td></tr>
+  </tbody>
+</table>
+
+<p>A particularly powerful feature is that each column in a multi-column <code>ORDER BY</code> can independently carry its own direction keyword. They do not have to match. A classic use case is sorting employees first by department name alphabetically, and then within each department showing the most recently hired employee at the top:</p>
+
+<pre><code>SELECT department, last_name, first_name, hire_date
+FROM employees
+ORDER BY department ASC, hire_date DESC;</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>department</th>
+      <th>last_name</th>
+      <th>first_name</th>
+      <th>hire_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Engineering</td><td>Patel</td><td>Riya</td><td>2023-08-01</td></tr>
+    <tr><td>Engineering</td><td>Nguyen</td><td>Tam</td><td>2021-04-15</td></tr>
+    <tr><td>Engineering</td><td>Brooks</td><td>Sean</td><td>2017-11-30</td></tr>
+    <tr><td>HR</td><td>Torres</td><td>Lucia</td><td>2022-06-20</td></tr>
+    <tr><td>HR</td><td>Smith</td><td>Dana</td><td>2020-09-14</td></tr>
+    <tr><td>Marketing</td><td>Johnson</td><td>Maria</td><td>2021-07-22</td></tr>
+    <tr><td>Marketing</td><td>Johnson</td><td>Alex</td><td>2019-03-10</td></tr>
+  </tbody>
+</table>
+
+<p>This pattern — primary sort ascending, secondary sort descending — is extremely common in reporting scenarios and demonstrates why being able to set direction per column is so valuable.</p>
+
+<p><strong>ORDER BY with Column Position</strong></p>
+
+<p>SQL provides a shorthand that lets you reference sort columns by their numeric position in the <code>SELECT</code> clause instead of by name. The leftmost column in the <code>SELECT</code> list is position 1, the next is position 2, and so on. The following two queries are functionally identical:</p>
+
+<pre><code>-- Using explicit column names (recommended):
+SELECT product_name, category, price
+FROM products
+ORDER BY category ASC, price DESC;
+
+-- Using positional references (same result, less readable):
+SELECT product_name, category, price
+FROM products
+ORDER BY 2 ASC, 3 DESC;</code></pre>
+
+<p>In the second version, <code>2</code> refers to <code>category</code> and <code>3</code> refers to <code>price</code> because of their positions in the <code>SELECT</code> list. This syntax can be convenient when typing quickly in an interactive session, or when a column expression in the <code>SELECT</code> clause is very long and you do not want to repeat it. However, positional references carry real risks:</p>
+
+<ul>
+  <li><strong>Fragility:</strong> If someone later reorders the columns in the <code>SELECT</code> clause, or inserts a new column in the middle, the positional numbers now point to different columns and the sort behavior silently changes — possibly without anyone noticing immediately.</li>
+  <li><strong>Readability:</strong> A reader looking at <code>ORDER BY 2, 3</code> cannot tell what is being sorted without mentally counting the <code>SELECT</code> columns. <code>ORDER BY category, price</code> is self-documenting.</li>
+  <li><strong>Maintainability:</strong> In stored procedures, views, or scripts that are modified over time, positional references become a maintenance hazard.</li>
+</ul>
+
+<p>For these reasons, nearly all SQL style guides — including those used by major technology companies — recommend using explicit column names in <code>ORDER BY</code>. Positional references are worth knowing because you will encounter them in the wild, but they should be used sparingly and only in throwaway queries.</p>
+
+<p><strong>Combining ORDER BY with WHERE and LIMIT</strong></p>
+
+<p>In real queries, <code>ORDER BY</code> rarely operates in isolation. It almost always works alongside <code>WHERE</code> to filter rows and <code>LIMIT</code> to cap the number of results returned. Understanding the order in which SQL processes these clauses is essential to writing queries that behave as expected.</p>
+
+<p>The logical processing order is:</p>
+
+<ul>
+  <li><strong>FROM:</strong> identify the table(s) to read from.</li>
+  <li><strong>WHERE:</strong> filter rows based on the condition — only matching rows survive into the next step.</li>
+  <li><strong>SELECT:</strong> compute the output columns from the surviving rows.</li>
+  <li><strong>ORDER BY:</strong> sort the result set produced by the above steps.</li>
+  <li><strong>LIMIT:</strong> take only the first N rows from the sorted result.</li>
+</ul>
+
+<p>This sequence has a critical implication for <code>LIMIT</code>: because <code>LIMIT</code> is applied <em>after</em> sorting, it genuinely gives you the top (or bottom) N rows of the ordered result. If <code>LIMIT</code> were applied before sorting, you would get N arbitrary rows that happen to then be sorted — a very different and usually useless result. The correct sequence ensures that <code>LIMIT 10 ORDER BY price DESC</code> actually gives you the 10 most expensive items, not 10 random items sorted by price.</p>
+
+<p>A concrete example: find the five most recently placed orders for a specific customer.</p>
+
+<pre><code>SELECT order_id, order_total, order_date
+FROM orders
+WHERE customer_id = 302
+ORDER BY order_date DESC
+LIMIT 5;</code></pre>
+
+<p>Breaking this down step by step:</p>
+<ul>
+  <li><code>FROM orders</code> — start with the full orders table.</li>
+  <li><code>WHERE customer_id = 302</code> — discard all rows except those belonging to customer 302. Perhaps 47 rows remain.</li>
+  <li><code>ORDER BY order_date DESC</code> — sort those 47 rows from newest to oldest.</li>
+  <li><code>LIMIT 5</code> — take only the first 5 rows of the sorted list, which are the 5 most recent orders.</li>
+</ul>
+
+<p>Another common pattern is the "top N" query — for example, the three cheapest products in the "Accessories" category that are currently in stock:</p>
+
+<pre><code>SELECT product_name, price, stock_quantity
+FROM products
+WHERE category = 'Accessories'
+  AND stock_quantity > 0
+ORDER BY price ASC
+LIMIT 3;</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>product_name</th>
+      <th>price</th>
+      <th>stock_quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Basic Cable</td><td>4.99</td><td>150</td></tr>
+    <tr><td>Screen Cloth</td><td>7.49</td><td>80</td></tr>
+    <tr><td>Phone Stand</td><td>11.99</td><td>45</td></tr>
+  </tbody>
+</table>
+
+<p>The <code>WHERE</code> clause narrows the universe of rows, <code>ORDER BY price ASC</code> ranks them cheapest-first, and <code>LIMIT 3</code> delivers only the three cheapest. Each clause does its specific job at its specific point in the pipeline, and together they produce a precisely defined, immediately useful result. This interaction between <code>WHERE</code>, <code>ORDER BY</code>, and <code>LIMIT</code> is the foundation for a huge proportion of practical SQL queries you will write in real applications.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to demonstrate positional ORDER BY using a live query editor and then deliberately reorder the SELECT columns to show students how the sort breaks silently — this makes the maintainability argument concrete. Also worth noting: NULL handling in ORDER BY varies by database (NULLs sort first in PostgreSQL ascending by default, last in MySQL) — this could be a useful advanced discussion point if students encounter NULLs in their data.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

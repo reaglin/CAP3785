@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limiting Output with LIMIT</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Fundamentals: Queries, Filtering, and Sorting</a></div>
+  <header>
+    <h1>Limiting Output with LIMIT</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Limiting Output with LIMIT</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When a SQL query runs against a large table, the database engine will, by default, return every single row that matches the query's conditions. In a table with millions of records, this can mean waiting a long time for results, consuming enormous amounts of server memory, and transferring huge volumes of data across a network — even when you only need to glance at a handful of rows. The <strong>LIMIT clause</strong> solves this problem elegantly: it instructs the database to stop returning rows once a specified count has been reached, giving analysts precise control over how much data flows back from any given query.</p>
+
+<p>The LIMIT clause is placed at the very end of a SQL statement, after any <strong>WHERE</strong> filter and after any <strong>ORDER BY</strong> specification. This positioning matters because the database logically applies filtering and sorting first, then applies the row cap as the final step before sending results. The general syntax looks like this:</p>
+
+<pre><code>SELECT column_name
+FROM table_name
+LIMIT n;</code></pre>
+
+<p>Here, <em>n</em> represents the maximum number of rows you want the query to return. For example, to retrieve five rows from a table called <strong>customers</strong>:</p>
+
+<pre><code>SELECT *
+FROM customers
+LIMIT 5;</code></pre>
+
+<p>The database engine begins scanning the table, collects rows one by one, and the moment it has gathered five rows it stops entirely — it does not continue processing the rest of the table. This early termination is what makes LIMIT so valuable for performance.</p>
+
+<p><strong>Rules for the LIMIT value</strong> are straightforward but worth knowing precisely. The integer you supply must be a non-negative whole number. You cannot pass a decimal like <code>LIMIT 5.5</code> or a negative number like <code>LIMIT -3</code> — most database systems will raise a syntax error. If you supply <code>LIMIT 0</code>, the query returns zero rows but still executes without error, which can be useful in certain programmatic contexts where you want only the column metadata. If the table contains fewer rows than the number you specified, every available row is returned and no error is raised. For instance, if your table holds only 12 rows and you write <code>LIMIT 100</code>, you will receive all 12 rows.</p>
+
+<p>LIMIT is fully composable — it works alongside <strong>SELECT *</strong>, named column lists, <strong>WHERE</strong> clauses, and <strong>ORDER BY</strong> clauses simultaneously. Consider a slightly richer example using a table called <strong>orders</strong> with columns <em>order_id</em>, <em>customer_name</em>, <em>order_total</em>, and <em>order_date</em>:</p>
+
+<pre><code>SELECT order_id, customer_name, order_total
+FROM orders
+WHERE order_total > 100
+ORDER BY order_date DESC
+LIMIT 10;</code></pre>
+
+<p>This query filters down to orders worth more than $100, sorts them so the most recent appear first, and then returns only the top 10 of those sorted rows. Each clause does its own job, and LIMIT simply caps the final output.</p>
+
+<p><strong>Improving query performance with LIMIT</strong> is one of the most immediately practical benefits for anyone working with databases in a professional setting. Large, unbounded queries place significant demands on three resources simultaneously: <em>memory</em> (the database must hold result rows), <em>CPU</em> (scanning and sorting millions of rows is computationally expensive), and <em>network bandwidth</em> (transmitting large result sets over a connection takes time). By adding a LIMIT during development and exploratory work, you cap all three costs at once.</p>
+
+<p>A widely recommended best practice is to always start with a LIMIT when you are writing or testing a new query against an unfamiliar or large table. Write your query, add <code>LIMIT 20</code> at the end, verify the results look correct — the right columns, plausible values, expected filtering behavior — and only then remove or increase the LIMIT for a full production run. This approach prevents the painful experience of accidentally issuing a full-table scan on a table with tens of millions of rows and then waiting minutes for a response (or crashing your session entirely).</p>
+
+<p><strong>Sampling data with LIMIT</strong> is a slightly different but equally important use case. When an analyst encounters an unfamiliar dataset — perhaps a newly loaded CSV file imported into a staging table — the first step is usually to understand its structure: what columns exist, what data types they contain, whether values look clean or filled with nulls, and what the general format of text fields is. A simple query like:</p>
+
+<pre><code>SELECT *
+FROM staging_sales_data
+LIMIT 50;</code></pre>
+
+<p>returns 50 rows and gives the analyst an immediate visual snapshot of the data. It is far faster and safer than requesting the full table, and it provides enough context to plan more complex queries.</p>
+
+<p>One important caveat about sampling with LIMIT deserves emphasis: <strong>without an ORDER BY clause, the rows returned have no guaranteed order</strong>. The database is free to return them in any physical storage order it finds convenient, which can vary between runs. This means a <code>LIMIT</code>-only sample is useful for understanding data shape and quality, but it is <em>not</em> a statistically representative random sample. If you need a truly random sample, you would need additional techniques (such as <code>ORDER BY RAND()</code> in MySQL or <code>ORDER BY RANDOM()</code> in PostgreSQL, followed by a LIMIT), though these come with their own performance trade-offs on large tables.</p>
+
+<p><strong>Answering Top-N business questions</strong> is where LIMIT combined with ORDER BY becomes genuinely powerful for analysis and reporting. A "Top-N" query is one that asks: "Give me the highest (or lowest) N records by some measure." These are among the most common requests in business intelligence. Examples include the top 5 best-selling products, the 10 customers with the highest lifetime value, or the 3 employees with the lowest sales figures in a quarter.</p>
+
+<p>The pattern for retrieving the <em>top</em> records by a high value is:</p>
+
+<pre><code>SELECT product_name, total_revenue
+FROM product_sales
+ORDER BY total_revenue DESC
+LIMIT 5;</code></pre>
+
+<p>By sorting in <strong>descending order</strong> (largest values first) and then limiting to 5 rows, you get exactly the top 5 revenue-generating products. Conversely, to find the <em>bottom</em> performers — for example, the 5 products with the lowest revenue — you simply flip to <strong>ascending order</strong>:</p>
+
+<pre><code>SELECT product_name, total_revenue
+FROM product_sales
+ORDER BY total_revenue ASC
+LIMIT 5;</code></pre>
+
+<p>The same ascending pattern applies when you want earliest dates: sorting a date column <code>ASC</code> and limiting the result gives you the oldest records. Sorting <code>DESC</code> and limiting gives the most recent. This two-ingredient recipe — ORDER BY direction plus LIMIT count — handles an enormous variety of real-world analytical questions.</p>
+
+<p>To illustrate with a fuller scenario, imagine a table called <strong>employees</strong> with columns <em>employee_id</em>, <em>full_name</em>, <em>department</em>, and <em>quarterly_sales</em>. A manager wants to reward the top 3 performers in Q1:</p>
+
+<pre><code>SELECT full_name, department, quarterly_sales
+FROM employees
+ORDER BY quarterly_sales DESC
+LIMIT 3;</code></pre>
+
+<p>Sample output might look like:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>full_name</th>
+      <th>department</th>
+      <th>quarterly_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Maria Chen</td>
+      <td>Enterprise</td>
+      <td>487500</td>
+    </tr>
+    <tr>
+      <td>James Okafor</td>
+      <td>Mid-Market</td>
+      <td>412000</td>
+    </tr>
+    <tr>
+      <td>Priya Nair</td>
+      <td>Enterprise</td>
+      <td>398750</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The query sorted all employees by sales from highest to lowest and returned only the first three rows — a clean, readable answer to the business question.</p>
+
+<p><strong>LIMIT across different database systems</strong> is an important practical consideration. The SQL standard does not mandate a single syntax for row limiting, so different platforms have implemented it in slightly different ways over the years. The good news is that the three most widely used open-source and lightweight databases — <strong>MySQL</strong>, <strong>PostgreSQL</strong>, and <strong>SQLite</strong> — all support the <code>LIMIT</code> keyword with identical syntax, making queries portable among them without any modification.</p>
+
+<p><strong>Microsoft SQL Server</strong>, however, uses a different syntax. Instead of placing <code>LIMIT</code> at the end of the query, SQL Server uses the <code>TOP</code> keyword placed immediately after <code>SELECT</code>:</p>
+
+<pre><code>SELECT TOP 10 product_name, total_revenue
+FROM product_sales
+ORDER BY total_revenue DESC;</code></pre>
+
+<p><strong>Oracle Database</strong> (in versions prior to 12c) uses yet another approach, relying on a pseudo-column called <code>ROWNUM</code> in a subquery or WHERE clause. Since Oracle 12c, a cleaner <code>FETCH FIRST n ROWS ONLY</code> syntax is also available:</p>
+
+<pre><code>SELECT product_name, total_revenue
+FROM product_sales
+ORDER BY total_revenue DESC
+FETCH FIRST 10 ROWS ONLY;</code></pre>
+
+<p>The following table summarizes these syntax differences side by side:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Database System</th>
+      <th>Syntax for Limiting Rows</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MySQL</td>
+      <td>LIMIT n (at end of query)</td>
+      <td><code>SELECT * FROM t LIMIT 10;</code></td>
+    </tr>
+    <tr>
+      <td>PostgreSQL</td>
+      <td>LIMIT n (at end of query)</td>
+      <td><code>SELECT * FROM t LIMIT 10;</code></td>
+    </tr>
+    <tr>
+      <td>SQLite</td>
+      <td>LIMIT n (at end of query)</td>
+      <td><code>SELECT * FROM t LIMIT 10;</code></td>
+    </tr>
+    <tr>
+      <td>SQL Server</td>
+      <td>TOP n (after SELECT)</td>
+      <td><code>SELECT TOP 10 * FROM t;</code></td>
+    </tr>
+    <tr>
+      <td>Oracle (12c+)</td>
+      <td>FETCH FIRST n ROWS ONLY (at end)</td>
+      <td><code>SELECT * FROM t FETCH FIRST 10 ROWS ONLY;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Understanding these variations is essential when you need to migrate or translate queries between platforms. The underlying logic is identical — stop returning rows after a certain count — but the keyword placement and exact syntax differ. When in doubt, check the documentation for the specific database system you are working with, and remember that for MySQL, PostgreSQL, and SQLite (the platforms most commonly used in data analysis coursework and many production environments), <code>LIMIT n</code> at the end of the query is the correct and consistent approach.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics: what LIMIT does, basic syntax, performance benefits, data sampling caveats (including lack of guaranteed order without ORDER BY), Top-N patterns with both DESC and ASC, and cross-database syntax differences including MySQL/PostgreSQL/SQLite, SQL Server TOP, and Oracle FETCH FIRST. Includes illustrative code examples and two HTML tables (sample output and cross-database comparison).</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

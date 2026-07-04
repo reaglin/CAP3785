@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Data Visualization</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Data Visualization Principles and Excel Charting</a></div>
+  <header>
+    <h1>Foundations of Data Visualization</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of Data Visualization</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data visualization is the practice of encoding information into visual forms — charts, graphs, maps, and diagrams — so that patterns, relationships, and insights that would be invisible or overwhelming in raw data become immediately apparent to a human viewer. Long before spreadsheets existed, humans drew maps and pictographs to communicate quantitative ideas visually. Today, with datasets growing larger and audiences more diverse, the craft of translating numbers into effective visuals has become one of the most essential skills in any data-driven field. Understanding the foundations of data visualization means understanding not just <em>how</em> to make charts, but <em>why</em> certain choices communicate better than others, and what principles separate a visualization that enlightens from one that misleads or confuses.</p>
+
+<p>At its most fundamental level, a visualization succeeds when a viewer can extract the intended message quickly, accurately, and without ambiguity. Every decision a designer makes — the chart type chosen, the colors applied, the axis scale set — either helps or hinders that goal. The following sections explore the core principles that guide those decisions.</p>
+
+<p><strong>The Purpose of Data Visualization</strong></p>
+
+<p>Human beings are remarkably poor at extracting meaning from long columns of numbers. Consider a table with 500 rows of monthly sales figures across 20 product categories. A skilled analyst might spend an hour computing averages and scanning for outliers. A well-designed line chart of the same data lets almost any viewer spot a seasonal dip, a sudden spike, or a consistently underperforming category within seconds. This is the core promise of visualization: it converts a cognitively expensive task — comparing, ranking, or detecting patterns in raw data — into an almost effortless perceptual one.</p>
+
+<p>Visualization also serves a storytelling function. Data rarely speaks for itself; it requires a narrator who decides which findings matter, which comparisons are relevant, and which story arc runs through the numbers. A well-constructed visualization acts as that narrator. By emphasizing the most important finding — using color, size, or positioning — a designer can lead the viewer's eye directly to the conclusion that deserves attention, without requiring the viewer to sift through everything independently. This is sometimes called <em>explanatory visualization</em>, as opposed to <em>exploratory visualization</em> used by analysts during their own investigation of a dataset.</p>
+
+<p>Throughout all of this, the primary goal remains clarity. A visualization is not a piece of decoration or an opportunity to display technical sophistication. It is a communication tool, and its success is measured entirely by how well it transfers understanding from the data to the viewer. If a sophisticated 3D render or an elaborate custom chart type leaves the viewer more confused than a simple bar chart would have, the sophisticated option is the wrong choice, regardless of how impressive it looks.</p>
+
+<p><strong>Choosing the Right Chart Type</strong></p>
+
+<p>Every chart type was designed to answer a particular class of question about data. Selecting the right one begins with identifying what analytical purpose the visualization needs to serve. Most purposes fall into four broad categories: <em>comparison</em>, <em>composition</em>, <em>distribution</em>, and <em>relationship</em>.</p>
+
+<ul>
+  <li><strong>Comparison</strong> asks: how do values differ across categories or over time? Bar charts and column charts are the workhorses of comparison because bar length is one of the most accurately perceived visual encodings humans possess. A grouped bar chart lets viewers compare multiple series side by side; a line chart compares trends across time with an implicit sense of continuity between points.</li>
+  <li><strong>Composition</strong> asks: what parts make up the whole? Pie charts and donut charts show proportional shares of a total, though they are best reserved for simple cases with few categories. Stacked bar charts and stacked area charts show composition <em>and</em> allow comparison across groups or time simultaneously.</li>
+  <li><strong>Distribution</strong> asks: how are values spread across a range? Histograms show how frequently values fall into defined bins. Box plots summarize a distribution through its median, quartiles, and outliers, allowing multiple distributions to be compared compactly. Violin plots add density information on top of the box plot structure.</li>
+  <li><strong>Relationship</strong> asks: do two or more variables move together? Scatter plots are the primary tool here, placing each observation at the coordinates of its two variable values. When a third variable matters, color or size can encode it. Heatmaps show relationships or intensity across a two-dimensional grid, commonly used for correlation matrices or geographic data.</li>
+</ul>
+
+<p>Matching chart type to purpose is not merely an aesthetic preference — it directly affects whether the viewer draws correct conclusions. Consider the error of using a bar chart for continuous time-series data where the underlying variable changes smoothly. Bar charts imply discrete, independent categories. Using them for monthly temperature data, for example, suggests each month is a separate, unconnected value rather than part of a continuous flow. A line chart communicates continuity naturally. Similarly, using a pie chart with ten or more slices makes proportion comparison nearly impossible, because humans cannot accurately judge angles or arc lengths when many similar-sized slices are present side by side. A sorted bar chart would serve the same purpose far more accurately.</p>
+
+<p>The table below summarizes common chart types and their primary use cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Chart Type</th>
+      <th>Primary Purpose</th>
+      <th>Best Used When</th>
+      <th>Common Pitfalls</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bar / Column Chart</td>
+      <td>Comparison</td>
+      <td>Comparing discrete categories</td>
+      <td>Truncated y-axis exaggerates differences</td>
+    </tr>
+    <tr>
+      <td>Line Chart</td>
+      <td>Comparison / Trend over time</td>
+      <td>Continuous data with a meaningful sequence</td>
+      <td>Too many lines create visual noise</td>
+    </tr>
+    <tr>
+      <td>Pie / Donut Chart</td>
+      <td>Composition</td>
+      <td>Few categories (ideally 2–5) that sum to a whole</td>
+      <td>Hard to compare similar-sized slices accurately</td>
+    </tr>
+    <tr>
+      <td>Stacked Bar Chart</td>
+      <td>Composition + Comparison</td>
+      <td>Showing part-to-whole across multiple groups</td>
+      <td>Middle segments are hard to compare without a shared baseline</td>
+    </tr>
+    <tr>
+      <td>Scatter Plot</td>
+      <td>Relationship</td>
+      <td>Showing correlation between two numeric variables</td>
+      <td>Overplotting obscures patterns with large datasets</td>
+    </tr>
+    <tr>
+      <td>Histogram</td>
+      <td>Distribution</td>
+      <td>Understanding the shape and spread of a numeric variable</td>
+      <td>Bin size choice dramatically changes perceived shape</td>
+    </tr>
+    <tr>
+      <td>Box Plot</td>
+      <td>Distribution</td>
+      <td>Comparing distributions across multiple groups</td>
+      <td>Unfamiliar to non-technical audiences without explanation</td>
+    </tr>
+    <tr>
+      <td>Heatmap</td>
+      <td>Relationship / Magnitude</td>
+      <td>Showing intensity across a two-dimensional matrix</td>
+      <td>Color scale choice can mislead if not sequential and perceptually uniform</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Visual Hierarchy and Emphasis</strong></p>
+
+<p>Visual hierarchy refers to the order in which a viewer's eye naturally moves through a visualization. Just as a newspaper page places the most important story in the largest headline at the top, a well-designed chart uses visual properties to signal what deserves attention first, second, and third. Without a deliberate hierarchy, viewers must decide for themselves what matters, and different viewers will draw different conclusions — or simply disengage.</p>
+
+<p>The visual properties that most reliably establish hierarchy are size, color (both hue and saturation), position, and contrast. Larger elements are perceived as more important. Bright or saturated colors stand out against muted backgrounds. Elements placed at the top or center of a composition are seen before those at the edges or bottom. High contrast between a key data point and its surroundings — a bright red bar among grey ones, for example — directs attention immediately.</p>
+
+<p>A practical example: imagine a bar chart showing revenue across eight product lines, where the goal is to highlight that one product line accounts for 60% of total revenue. If all eight bars are rendered in the same blue color at the same size, the dominant bar is only slightly more obvious than the others. If instead that bar is rendered in a vivid accent color while the remaining seven are in a neutral grey, the viewer's eye lands on the key finding immediately, without needing to read labels or compute percentages. The hierarchy does the interpretive work for the viewer.</p>
+
+<p>Hierarchy also governs text elements. A chart title should be larger and bolder than axis labels, which in turn should be more prominent than supplementary annotations. Treating every text element at the same size creates visual noise — everything competes for attention and nothing wins. The result is that the viewer reads everything in whatever order feels natural, which may be the opposite of the intended order of importance.</p>
+
+<p>Visual clutter, sometimes called <em>chartjunk</em> (a term coined by statistician Edward Tufte), actively undermines hierarchy. When a chart contains decorative backgrounds, shadow effects, unnecessary gridlines, logos, and dense labels all simultaneously, every element competes equally for attention and the signal is lost in noise. A clean layout with deliberate blank space, sometimes called <em>white space</em>, gives the most important elements room to breathe and makes the hierarchy legible.</p>
+
+<p><strong>Core Principles of Good Visual Design</strong></p>
+
+<p>Three principles underpin nearly all guidance on good visualization design: <em>simplicity</em>, <em>consistency</em>, and <em>accuracy</em>.</p>
+
+<p><strong>Simplicity</strong> means that every element on a visualization must earn its place by contributing informational value. This is a more demanding standard than it first appears. Gridlines, for instance, can be useful when a viewer needs to read off precise values, but in many charts they merely add visual noise. Reducing gridlines to light grey, or removing them entirely and relying on direct data labels instead, often makes a chart dramatically cleaner without sacrificing any information. Decorative images embedded in charts, elaborate 3D effects, and redundant legends that repeat what axis labels already convey all fall into the category of elements that add visual complexity while reducing clarity. The discipline of simplicity requires asking, for every element: "If I removed this, would the viewer lose any meaningful information?" If the answer is no, remove it.</p>
+
+<p><strong>Consistency</strong> reduces cognitive load by making the visual language predictable. If a particular color represents a particular category or team in one chart, it should represent the same entity in every chart within the same report or presentation. If one axis begins at zero, all comparable axes should begin at zero unless there is a specific and clearly communicated reason otherwise. If fonts are 12pt for axis labels in one chart, they should be 12pt in all charts. Inconsistency forces the viewer to re-learn the visual encoding each time they encounter a new chart, which is mentally taxing and increases the chance of misinterpretation. Consistency is also an equity concern: viewers who process visuals more slowly, or who are reading in a second language, rely especially heavily on predictable conventions.</p>
+
+<p><strong>Accuracy</strong> means that the visual encoding faithfully represents the true proportions in the data. A bar that is twice as tall as another should represent a value that is genuinely twice as large. A color scale that moves from light to dark should move in proportion to the underlying numeric values. Accuracy is violated when axes are truncated, when visual areas are used to encode values that scale by radius rather than area, or when the visual mapping is not linear in a context where linearity is expected. Consider a bubble chart where bubble <em>area</em> should represent market share. If the designer accidentally encodes market share as bubble <em>radius</em> instead, a company with 4× the market share will appear 16× larger in visual area (since area scales as the square of radius), dramatically overstating the difference.</p>
+
+<p><strong>Avoiding Misleading Representations</strong></p>
+
+<p>Even unintentionally, visualizations can mislead viewers in ways that produce incorrect beliefs about the underlying data. Understanding the most common sources of misleading visuals is essential both for creating honest charts and for critically reading the charts of others.</p>
+
+<p>The most prevalent technique — sometimes used deliberately for rhetorical effect — is the <em>truncated y-axis</em>. By starting a bar chart's y-axis at a value other than zero, small differences between bars are visually magnified into apparent dramatic differences. For example, if two products have sales of $98,000 and $102,000 respectively, a y-axis that runs from $95,000 to $105,000 makes the second bar look roughly twice as tall as the first, implying a doubling when the actual difference is about 4%. A y-axis starting at zero would show the bars as nearly identical in height, which accurately reflects the data. Line charts, which show <em>change</em> rather than absolute magnitude, are sometimes legitimately shown with non-zero baselines to make trends visible — but this should be done deliberately and disclosed through clear axis labeling.</p>
+
+<p><em>Inconsistent scales</em> are another common problem. If two charts placed side by side use different y-axis ranges, a viewer comparing them visually will draw conclusions based on bar heights rather than underlying values, leading to systematic errors. Similarly, if a bar chart uses different bar widths for different categories without encoding any variable in that width, the viewer may unconsciously perceive wider bars as representing larger values.</p>
+
+<p><em>Three-dimensional chart effects</em> introduce distortion because perspective foreshortening causes the depth dimension to mislead proportion judgments. A 3D pie chart, viewed in perspective, makes the front slices appear larger than they are and the back slices smaller, regardless of their actual values. These effects carry no informational benefit — they add visual complexity while subtracting accuracy.</p>
+
+<p><em>Cherry-picked data ranges</em> involve selecting a time window or subset of data that supports a preferred narrative while concealing contradictory evidence. A company might show a revenue trend chart beginning at the moment after a major dip to make recent growth look more impressive than it would appear in a longer-term context. Ethical visualization requires showing enough context that the selected range is not creating a false impression.</p>
+
+<p>Ethical data visualization also requires transparency about data sources, sample sizes, and limitations. A chart without a source citation invites the viewer to trust its accuracy blindly. A percentage change computed from a very small base (say, "up 300%!" from 1 case to 4) can be technically accurate while being practically meaningless. Adding a note that clarifies the denominator or acknowledges data gaps is not a sign of weakness — it is a mark of intellectual honesty that increases the viewer's ability to correctly apply the information.</p>
+
+<p><strong>The Relationship Between Data and Audience</strong></p>
+
+<p>Perhaps the most underappreciated dimension of data visualization is that the "best" chart is always defined relative to a specific audience. A visualization designed for a room of statisticians, who are comfortable reading box plots and scatter plot matrices, will be incomprehensible or intimidating to a general public audience unfamiliar with those conventions. Conversely, a chart simplified for a general audience may omit nuances that a technical audience needs to critically evaluate the findings.</p>
+
+<p>Tailoring to the audience involves several dimensions. <strong>Terminology</strong> should match the viewer's domain knowledge — axes labeled "µ ± 2σ" are precise for a statistics audience but alienating for others. <strong>Complexity</strong> should match the viewer's tolerance for cognitive effort. In a live presentation where charts appear briefly, simplicity and a single clear message per visual are critical. In a detailed report that readers study at their own pace, more dense and data-rich visuals can be appropriate. <strong>Level of detail</strong> should reflect the decisions the audience needs to make. An executive summary calls for high-level trend lines; an operational team may need granular daily data.</p>
+
+<p>Understanding the audience's goals also guides which aspects of the data to emphasize. A sales team cares about which regions are underperforming; the finance team cares about margin, not just revenue. The same underlying dataset might generate completely different visualizations depending on who will use them and what decisions they need to support.</p>
+
+<p>Context — provided through titles, subtitles, annotations, and captions — is the mechanism by which any visualization becomes interpretable to its intended audience. A chart title that simply reads "Revenue" tells the viewer almost nothing. A title that reads "Online Revenue Declined 18% in Q4 Following Shipping Delays" immediately frames what the viewer is about to see, sets the right expectation, and ensures that the main finding is communicated even to a viewer who looks only briefly. Annotations can highlight specific data points of interest ("Competitor entered market here"), explain anomalies, or draw attention to the key comparison the chart is designed to support. Captions below a chart can provide source information and methodological caveats without cluttering the chart itself. Together, these contextual elements transform a raw graphic into a complete, self-contained communication — one that a viewer can understand correctly without needing to ask the designer for explanation.</p>
+        <div class="notes"><strong>Notes</strong>Introduces the purpose and importance of data visualization in communicating information effectively. Covers the core principles that guide good visual design decisions.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

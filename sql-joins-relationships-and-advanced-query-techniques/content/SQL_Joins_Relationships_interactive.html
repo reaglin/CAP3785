@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solving Multi-Table Analytical Problems</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Joins, Relationships, and Advanced Query Techniques</a></div>
+  <header>
+    <h1>Solving Multi-Table Analytical Problems</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Solving Multi-Table Analytical Problems</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Real-world analytical questions rarely live inside a single table. A question like <em>"Which sales regions generated more than $500,000 in revenue last quarter, and how many distinct customers contributed to that figure?"</em> touches customer records, order transactions, regional mappings, and possibly a product catalog — all at once. Solving these problems well demands more than knowing individual SQL clauses in isolation; it requires a disciplined, step-by-step approach that moves from understanding the question to designing a query that is correct, readable, and defensible. This topic builds that complete skill: decomposing the problem, selecting the right join type, layering aggregation, staging intermediate results with subqueries, combining all of these techniques in a single coherent query, and finally validating that the output actually answers the question that was asked.</p>
+
+<p><strong>Decomposing a Complex Analytical Question</strong></p>
+
+<p>Before typing a single SQL keyword, experienced analysts spend time mapping the problem in plain language. The decomposition process has four concrete steps, and skipping any one of them is a reliable source of subtle bugs.</p>
+
+<p>The first step is identifying which tables hold the data needed for each part of the question. Suppose the question is: <em>"For each product category, list the top-spending customer and their total spend, but only for customers who have made at least three purchases."</em> Breaking this down, you need customer identity (a <code>customers</code> table), purchase transactions (an <code>orders</code> table), and category information (likely a <code>products</code> table joined through an <code>order_items</code> table). Write that list down explicitly before touching the query editor.</p>
+
+<p>The second step is determining the relationships between those tables so you can plan your JOIN paths. Ask: what column connects customers to orders? What connects orders to products? Is there a direct foreign key, or does the relationship pass through a bridge table? Drawing even a rough diagram — a box per table, arrows for foreign keys — prevents the common mistake of joining through the wrong intermediate table and producing a Cartesian-like explosion of rows.</p>
+
+<p>The third step is deciding which parts of the question require filtering, aggregation, or ranking before they can be combined with other results. In the example above, counting purchases per customer per category is an aggregation that must happen before you can identify the top spender. If you try to do everything in one flat query without staging, you end up fighting the order of SQL operations (WHERE → FROM/JOIN → GROUP BY → HAVING → SELECT → ORDER BY). Knowing in advance that "count purchases" must precede "pick the top one" tells you that a subquery or CTE will be involved.</p>
+
+<p>The fourth step is sketching a logical sequence of operations before writing code. A sketch might read: <em>(1) Join orders to order_items to products to get category per transaction. (2) Aggregate by customer and category to get total spend and purchase count. (3) Filter to customers with at least three purchases. (4) Rank customers within each category by total spend. (5) Keep only rank = 1 per category.</em> That five-step narrative maps almost directly to SQL structures and prevents the disorienting experience of editing a half-written query without knowing where it is going.</p>
+
+<p><strong>Choosing the Right JOIN Type for the Problem</strong></p>
+
+<p>SQL offers several join types, and the choice is not cosmetic — different join types produce fundamentally different result sets. Using the wrong one either loses rows you need or includes rows you do not.</p>
+
+<p><strong>INNER JOIN</strong> returns only rows where a matching record exists in both tables. This is the right choice when the existence of a match is itself a business requirement. For example, a report of revenue by customer should probably use an INNER JOIN between <code>orders</code> and <code>customers</code> if you only want orders that belong to a known, registered customer. Orphaned orders — orders whose customer record was deleted — are excluded, which may be exactly the intended behavior.</p>
+
+<pre><code>-- Revenue per customer, only for orders tied to a known customer
+SELECT
+    c.customer_id,
+    c.full_name,
+    SUM(o.order_total) AS total_revenue
+FROM customers c
+INNER JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.full_name;
+</code></pre>
+
+<p><strong>LEFT JOIN</strong> (also written LEFT OUTER JOIN) retains every row from the left (primary) table and fills in NULLs where no matching row exists in the right table. This is the right choice when absence of a match is itself meaningful. A common example: listing all customers, including those who have never placed an order, to identify candidates for a re-engagement campaign.</p>
+
+<pre><code>-- All customers, with NULL order total for those who have never ordered
+SELECT
+    c.customer_id,
+    c.full_name,
+    SUM(o.order_total) AS total_revenue   -- NULL for non-purchasers
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.full_name;
+</code></pre>
+
+<p><strong>FULL JOIN</strong> (FULL OUTER JOIN) preserves rows from both sides of the join even when no match exists on the other side. This is less common in operational reporting but becomes important when comparing two independent datasets — for instance, reconciling a list of expected monthly reports against a list of actually submitted reports, where gaps on either side represent problems worth surfacing.</p>
+
+<pre><code>-- Reconcile expected vs. received reports; NULLs reveal gaps on either side
+SELECT
+    e.report_name   AS expected_report,
+    r.report_name   AS received_report
+FROM expected_reports e
+FULL JOIN received_reports r ON e.report_name = r.report_name;
+</code></pre>
+
+<p>After writing a join, validate it. Run the query and check the row count against what you expect from each table alone. Spot-check rows where joined columns are NULL — are those NULLs intentional (a LEFT JOIN preserving non-matching rows) or accidental (a data quality problem you need to handle with COALESCE)? This validation step catches wrong join types before they propagate incorrect numbers into a dashboard or executive report.</p>
+
+<p><strong>Layering Aggregation with GROUP BY and HAVING</strong></p>
+
+<p>Aggregation answers questions about groups: totals, averages, counts, maximums. When combined with joins, there are several rules that prevent subtle errors.</p>
+
+<p>Place GROUP BY <em>after</em> all JOIN clauses. SQL processes joins first, building a combined intermediate dataset, and only then collapses rows into groups. If you think of aggregation as happening before the join, your mental model will lead you to write queries that either fail or produce wrong results. The physical sequence in the query should mirror the logical sequence: FROM and JOIN clauses first, then GROUP BY.</p>
+
+<pre><code>-- Correct: group after joining all three tables
+SELECT
+    p.category,
+    c.region,
+    COUNT(DISTINCT o.customer_id) AS unique_customers,
+    SUM(oi.line_total)            AS category_revenue
+FROM orders o
+INNER JOIN order_items oi ON o.order_id   = oi.order_id
+INNER JOIN products    p  ON oi.product_id = p.product_id
+INNER JOIN customers   c  ON o.customer_id = c.customer_id
+GROUP BY p.category, c.region;
+</code></pre>
+
+<p>Use HAVING to filter on aggregate values. WHERE runs before grouping and therefore cannot reference aggregate functions like SUM or COUNT. HAVING runs after grouping and operates on the aggregated result. This distinction matters constantly in analytical queries.</p>
+
+<pre><code>-- Only categories with more than $500,000 in revenue AND more than 100 unique customers
+SELECT
+    p.category,
+    SUM(oi.line_total)            AS category_revenue,
+    COUNT(DISTINCT o.customer_id) AS unique_customers
+FROM orders o
+INNER JOIN order_items oi ON o.order_id    = oi.order_id
+INNER JOIN products    p  ON oi.product_id = p.product_id
+GROUP BY p.category
+HAVING SUM(oi.line_total) > 500000
+   AND COUNT(DISTINCT o.customer_id) > 100;
+</code></pre>
+
+<p>Every non-aggregated column in the SELECT list must appear in the GROUP BY clause. This rule is enforced strictly in most databases (PostgreSQL, SQL Server, SQLite) and violated at great peril in MySQL's default mode. If you select <code>c.region</code> and <code>p.category</code> but only group by <code>p.category</code>, the database either throws an error or returns an arbitrary region value per group — neither of which is what you want.</p>
+
+<p>One of the most practical benefits of GROUP BY with joins is that you can compute several related aggregate metrics in a single pass over the data, avoiding repeated expensive table scans. Instead of writing three separate queries to get revenue, order count, and average order value by region, combine all three aggregate expressions in one query.</p>
+
+<pre><code>-- Three metrics in one pass
+SELECT
+    c.region,
+    SUM(o.order_total)                        AS total_revenue,
+    COUNT(o.order_id)                          AS order_count,
+    AVG(o.order_total)                         AS avg_order_value
+FROM customers c
+INNER JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.region;
+</code></pre>
+
+<p><strong>Using Subqueries to Stage Intermediate Results</strong></p>
+
+<p>Some analytical questions cannot be answered in a single flat query because they require an aggregate to exist before a join can reference it. Subqueries let you stage intermediate results — computing something partially, naming it, and then using it as an input to the next step.</p>
+
+<p>A <strong>subquery in the FROM clause</strong> (called a derived table or inline view) is the most common staging technique. It behaves exactly like a regular table from the outer query's perspective. Use it when you need to aggregate data before joining it to another table.</p>
+
+<pre><code>-- Find customers whose total spend exceeds the average total spend across all customers
+SELECT
+    outer_customers.customer_id,
+    outer_customers.full_name,
+    customer_totals.total_spend
+FROM customers outer_customers
+INNER JOIN (
+    SELECT
+        customer_id,
+        SUM(order_total) AS total_spend
+    FROM orders
+    GROUP BY customer_id
+) AS customer_totals ON outer_customers.customer_id = customer_totals.customer_id
+WHERE customer_totals.total_spend > (
+    SELECT AVG(total_spend)
+    FROM (
+        SELECT SUM(order_total) AS total_spend
+        FROM orders
+        GROUP BY customer_id
+    ) AS all_totals
+);
+</code></pre>
+
+<p>A <strong>subquery in the WHERE clause</strong> filters rows based on a condition evaluated in a separate table. Using IN is appropriate when the subquery returns a list of values; using EXISTS is appropriate when you only care whether at least one matching row exists (EXISTS can be faster because it short-circuits as soon as the first match is found).</p>
+
+<pre><code>-- Orders placed by customers who are in the 'Gold' loyalty tier
+SELECT order_id, order_total, order_date
+FROM orders
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM customers
+    WHERE loyalty_tier = 'Gold'
+);
+
+-- Equivalent with EXISTS (often more efficient on large tables)
+SELECT o.order_id, o.order_total, o.order_date
+FROM orders o
+WHERE EXISTS (
+    SELECT 1
+    FROM customers c
+    WHERE c.customer_id = o.customer_id
+      AND c.loyalty_tier = 'Gold'
+);
+</code></pre>
+
+<p>A <strong>correlated subquery</strong> references a column from the outer query, making it execute once per row of the outer query rather than once for the entire query. This is the right structure for row-by-row comparisons. A classic example: finding orders whose total exceeds the average order total for that order's specific region.</p>
+
+<pre><code>-- Orders above the regional average
+SELECT
+    o.order_id,
+    o.order_total,
+    c.region
+FROM orders o
+INNER JOIN customers c ON o.customer_id = c.customer_id
+WHERE o.order_total > (
+    SELECT AVG(o2.order_total)
+    FROM orders o2
+    INNER JOIN customers c2 ON o2.customer_id = c2.customer_id
+    WHERE c2.region = c.region   -- correlates to the outer row's region
+);
+</code></pre>
+
+<p>Correlated subqueries are powerful but can be expensive on large datasets because they re-execute for each outer row. Use them when the logic is clearest expressed this way, and consider rewriting as a join to a derived table if performance becomes a concern.</p>
+
+<p>The guiding principle for choosing subqueries over repeated JOINs is clarity: if a piece of logic is conceptually a pre-processing step — something you would write as a separate query first to check it — express it as a subquery. This makes the query's intent visible to anyone reading it later.</p>
+
+<p><strong>Combining JOINs and Subqueries in a Single Query</strong></p>
+
+<p>Most non-trivial analytical queries blend all of these techniques. The discipline of building them correctly is as important as knowing the syntax.</p>
+
+<p>Always write and test the inner subquery in isolation first. Paste it into a fresh query window, run it, and verify the result set is exactly what you expect — correct columns, correct row count, no unexpected NULLs. Only then embed it inside the outer query. This prevents the frustrating experience of debugging a 40-line query without knowing which layer introduced the error.</p>
+
+<p>Alias every derived table with a meaningful name. <code>AS t1</code> tells the reader nothing; <code>AS regional_totals</code> or <code>AS top_customers_per_category</code> communicates intent immediately and reduces errors when referencing columns in the outer query.</p>
+
+<p>Here is a realistic combined example: <em>"List each sales region with its total revenue and the name of its single highest-spending customer, but only for regions where total revenue exceeds $200,000."</em></p>
+
+<pre><code>-- Step 1 (inner): Aggregate spend per customer per region
+-- Step 2 (middle): Rank customers within each region by spend
+-- Step 3 (outer): Join region totals; filter to top-ranked customer and revenue threshold
+
+SELECT
+    region_totals.region,
+    region_totals.total_revenue,
+    top_customers.full_name       AS top_customer,
+    top_customers.customer_spend  AS top_customer_spend
+FROM (
+    -- Region-level revenue aggregate
+    SELECT
+        c.region,
+        SUM(o.order_total) AS total_revenue
+    FROM customers c
+    INNER JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.region
+    HAVING SUM(o.order_total) > 200000
+) AS region_totals
+INNER JOIN (
+    -- Customer-level spend with rank within region
+    SELECT
+        c.region,
+        c.full_name,
+        SUM(o.order_total)  AS customer_spend,
+        RANK() OVER (
+            PARTITION BY c.region
+            ORDER BY SUM(o.order_total) DESC
+        )                   AS spend_rank
+    FROM customers c
+    INNER JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.region, c.customer_id, c.full_name
+) AS top_customers
+    ON  region_totals.region     = top_customers.region
+    AND top_customers.spend_rank = 1;
+</code></pre>
+
+<p>Notice the practices at work: both subqueries are tested independently before being combined; both are aliased descriptively; the HAVING clause inside <code>region_totals</code> filters early rather than leaving it to the outer WHERE, reducing the rows that the join must process; column names are unambiguous because they are qualified with their subquery alias.</p>
+
+<p>Be mindful of performance when joining to unfiltered subqueries. A subquery that reads an entire large table without a WHERE clause forces the database to process every row before the outer join can trim the result. Push filters inside the subquery whenever possible — it is almost always more efficient and often allowed.</p>
+
+<p><strong>Validating and Interpreting Multi-Table Query Results</strong></p>
+
+<p>A query that runs without error is not necessarily a query that produces correct results. Multi-table queries introduce several characteristic failure modes that require active checking.</p>
+
+<p><strong>Row multiplication</strong> is the most dangerous. It occurs when a one-to-many relationship causes each row on the "one" side to appear multiple times in the joined result — once per matching row on the "many" side. If you then SUM a value from the "one" side, you sum it multiple times and get an inflated total. The classic scenario: joining <code>orders</code> to <code>order_items</code> and then summing <code>orders.order_total</code> produces a result where each order's total is counted once per line item.</p>
+
+<pre><code>-- WRONG: order_total gets summed once per line item
+SELECT SUM(o.order_total)
+FROM orders o
+INNER JOIN order_items oi ON o.order_id = oi.order_id;
+
+-- CORRECT: sum the line-item totals, not the order-level total
+SELECT SUM(oi.line_total)
+FROM orders o
+INNER JOIN order_items oi ON o.order_id = oi.order_id;
+
+-- OR: aggregate at order level first, then sum
+SELECT SUM(order_total) FROM orders;  -- benchmark to compare against
+</code></pre>
+
+<p>Always compare aggregate totals from your multi-table query against single-table benchmarks. Run <code>SELECT SUM(order_total) FROM orders</code> separately and check whether your joined query's total matches. A discrepancy is immediate evidence of row multiplication or data loss from a wrong join type.</p>
+
+<p>Handle NULLs intentionally. When a LEFT JOIN produces NULLs in columns from the right table, decide whether those NULLs should flow through to the output, be replaced with a default value (using COALESCE), or be used as a filter condition (using IS NULL or IS NOT NULL). Leaving NULLs unaddressed leads to aggregate functions that silently exclude rows and comparison expressions that evaluate unexpectedly.</p>
+
+<pre><code>-- Replace NULL spend with 0 for customers who have no orders
+SELECT
+    c.customer_id,
+    c.full_name,
+    COALESCE(SUM(o.order_total), 0) AS total_spend
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.full_name;
+</code></pre>
+
+<p>Finally, document the business logic embedded in the query. SQL is executable, but it is also a form of documentation. A comment explaining why a particular HAVING threshold was chosen, or why a LEFT JOIN was used instead of INNER, makes the query understandable to a stakeholder reviewing results six months later and to the analyst who must modify it when business rules change.</p>
+
+<p><strong>Query Design Decision-Making Framework</strong></p>
+
+<p>With multiple techniques available — INNER JOIN, LEFT JOIN, FULL JOIN, subqueries in FROM, subqueries in WHERE, correlated subqueries, GROUP BY, HAVING — a practical decision framework prevents analysis paralysis and guides you toward good choices consistently.</p>
+
+<p>The following table summarizes when to reach for each technique:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Technique</th>
+      <th>Use When</th>
+      <th>Watch Out For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>INNER JOIN</td>
+      <td>Only matching rows on both sides are meaningful</td>
+      <td>Silently drops unmatched rows; validate with row counts</td>
+    </tr>
+    <tr>
+      <td>LEFT JOIN</td>
+      <td>All rows from the primary table must appear, even without matches</td>
+      <td>NULLs in right-side columns; handle with COALESCE or IS NULL</td>
+    </tr>
+    <tr>
+      <td>FULL JOIN</td>
+      <td>Gaps on either side of the relationship are analytically significant</td>
+      <td>Can produce large result sets; NULLs on both sides require care</td>
+    </tr>
+    <tr>
+      <td>Subquery in FROM (derived table)</td>
+      <td>Aggregation must occur before a join or further filtering</td>
+      <td>Large unfiltered subqueries are expensive; push filters inside</td>
+    </tr>
+    <tr>
+      <td>Subquery in WHERE with IN</td>
+      <td>Filtering rows based on membership in a set from another table</td>
+      <td>IN with a very large subquery result can be slow; consider EXISTS</td>
+    </tr>
+    <tr>
+      <td>Subquery in WHERE with EXISTS</td>
+      <td>Filtering rows where at least one related row meets a condition</td>
+      <td>Correlated form executes per outer row; index the inner table's join column</td>
+    </tr>
+    <tr>
+      <td>Correlated subquery</td>
+      <td>Row-by-row comparison against a dynamically computed value (e.g., row vs. group average)</td>
+      <td>Executes once per outer row; can be slow on large tables; consider rewriting as a join to a derived table</td>
+    </tr>
+    <tr>
+      <td>GROUP BY + HAVING</td>
+      <td>Filtering groups based on aggregate values</td>
+      <td>All non-aggregated SELECT columns must appear in GROUP BY</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The overarching priority order for decision-making is: <strong>correctness first, readability second, performance third</strong>. A fast query that returns wrong numbers is worse than useless — it is actively harmful. A correct but unreadable query is a maintenance liability. Only after correctness and readability are established should you profile and optimize for performance.</p>
+
+<p>Prefer the most readable structure when multiple approaches yield identical results. If a correlated subquery and a join to a derived table both return the same correct rows with acceptable performance, choose whichever is easier to explain to a colleague. Readable queries are debuggable queries.</p>
+
+<p>Consider data volume and indexing when choosing between approaches. A correlated subquery on a 100-row lookup table is fine. The same correlated subquery referencing a 50-million-row transaction table may require rewriting as a join. Check whether the columns used in ON clauses and WHERE conditions are indexed; an unindexed join column on a large table can turn a reasonable query into an hours-long scan.</p>
+
+<p>Iterate. Write the innermost piece of logic, test it, add the next layer, test again. Professional analysts never write a 60-line multi-join aggregation query from scratch and run it once hoping for correct results. They build it incrementally, checking intermediate outputs at each stage, adjusting join types, adding or removing HAVING clauses, and confirming row counts before considering the query complete. This iterative discipline is what separates reliable analytical work from lucky coincidences.</p>
+        <div class="notes"><strong>Notes</strong>Applies JOIN operations, subqueries, and aggregation together to solve complex, real-world analytical queries across multiple tables. Reinforces decision-making around query design and technique selection. The decision-making framework table provides a quick reference that learners can return to when facing new problems.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Common Data Sources and Repositories</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Ethics, Data Types, and Data Sources in Analytics</a></div>
+  <header>
+    <h1>Common Data Sources and Repositories</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Common Data Sources and Repositories</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every analytics project begins with a fundamental question: where does the data come from, and can it be trusted? Before any model is built, any visualization rendered, or any insight communicated, an analyst must locate, evaluate, and appropriately select data sources. The landscape of available data is vast and heterogeneous, spanning government portals, academic archives, enterprise databases, and live application programming interfaces. Each source type carries its own characteristics, strengths, limitations, and obligations. Understanding this landscape in depth is one of the most consequential skills an analyst can develop, because poor source selection undermines every subsequent step in a project no matter how sophisticated the analysis.</p>
+
+<p><strong>Publicly Available Datasets</strong></p>
+
+<p>Publicly available datasets are collections of data made freely accessible to anyone, typically by governments, intergovernmental organizations, research institutions, or non-profits. Their open nature makes them an attractive starting point for analysts who need broad, well-documented data without negotiating access agreements.</p>
+
+<p>Government portals represent some of the most expansive and regularly maintained sources of public data. <strong>data.gov</strong>, operated by the United States federal government, aggregates datasets from dozens of federal agencies covering topics as diverse as agricultural yields, air quality measurements, federal spending, and public health statistics. Similarly, the <strong>EU Open Data Portal</strong> consolidates datasets from European Union institutions and member-state governments, enabling cross-national comparisons within a standardized metadata framework. These portals are authoritative in the sense that the publishing agencies have a statutory obligation to collect and maintain the data accurately. For example, the U.S. Census Bureau datasets available through data.gov are produced through rigorous survey methodology and are widely used as benchmark population figures in social science research and business planning alike.</p>
+
+<p>Academic institutions and research bodies publish datasets alongside peer-reviewed studies, and this publication context meaningfully increases their credibility. When a dataset accompanies a journal article, the data collection process has typically been described in a methods section, reviewed by editors, and sometimes audited by peer reviewers. Repositories such as <strong>Dryad</strong>, <strong>Zenodo</strong>, and discipline-specific archives like the <strong>Inter-university Consortium for Political and Social Research (ICPSR)</strong> host thousands of such datasets. The accompanying research documentation provides context that standalone datasets often lack, helping analysts understand sampling frames, variable operationalizations, and known limitations before they begin their own work.</p>
+
+<p>Format diversity is an immediate practical consideration with public datasets. A government portal might publish the same underlying data as a CSV download, an API endpoint, an Excel workbook, and a PDF report simultaneously. More challenging scenarios arise when a dataset of interest exists only as a collection of fixed-width text files from a legacy system, or as nested JSON structures. Analysts must assess whether their toolchain—whether Python with pandas, R, SQL-based databases, or BI platforms like Tableau—can ingest the available format without prohibitive transformation effort. Incompatible formats are not necessarily disqualifying, but the conversion work must be budgeted into the project timeline and introduces its own risk of data corruption or misalignment.</p>
+
+<p>Licensing terms are a frequently overlooked but legally significant dimension of public datasets. "Publicly available" does not uniformly mean "freely usable for any purpose." Many government datasets in the United States are released into the public domain under Creative Commons Zero (CC0) or equivalent terms, permitting unrestricted use. However, datasets from other jurisdictions or institutions may carry licenses such as <strong>Creative Commons Attribution (CC BY)</strong>, which requires crediting the source, or <strong>Creative Commons Attribution-NonCommercial (CC BY-NC)</strong>, which prohibits commercial use. Some academic datasets are shared only for replication of a specific study and explicitly prohibit redistribution. Before incorporating any public dataset into a commercial product, a regulatory submission, or a publicly distributed report, an analyst or their legal team must review the applicable license and confirm the intended use is permitted.</p>
+
+<p><strong>Open Data Repositories</strong></p>
+
+<p>Open data repositories are platforms specifically designed to host, organize, and facilitate discovery of datasets, often with features tailored to analysts and data scientists. While government portals emphasize administrative data, these repositories tend to emphasize datasets structured for modeling and machine learning.</p>
+
+<p><strong>Kaggle</strong> is among the most widely recognized platforms in the data science community. Beyond hosting competition datasets, Kaggle's public dataset library contains tens of thousands of user-contributed datasets spanning sports statistics, e-commerce transactions, medical imaging metadata, natural language corpora, and financial time series. Each dataset page includes a description, column-level documentation, and a discussion forum where users post notes about anomalies, preprocessing decisions, and appropriate use cases. This community layer is valuable: if a dataset has a systematic encoding error or a known sampling bias, an experienced user has often documented it in the discussion thread before you encounter it yourself.</p>
+
+<p>The <strong>UCI Machine Learning Repository</strong>, maintained by the University of California Irvine, has been a foundational resource for machine learning research since 1987. It hosts classic benchmark datasets such as the Iris flower dataset, the Adult income dataset, and the Wine Quality dataset, along with newer additions. These datasets are accompanied by formal attribute descriptions specifying data types, value ranges, and the original research context in which they were used. Their longevity as benchmarks means their properties are extensively documented in the literature, which is useful when an analyst wants to validate a new modeling approach against known baselines.</p>
+
+<p>Metadata, codebooks, and provenance information are features that distinguish a well-managed repository from a mere file dump. A <strong>codebook</strong> (sometimes called a data dictionary) specifies what each variable means, how it was measured, the units of measurement, and the valid range of values. <strong>Provenance</strong> information describes the chain of custody for the data: who collected it, when, using what instruments or survey instruments, and what transformations were applied before publication. The <strong>Harvard Dataverse</strong> exemplifies best practice in this regard. Depositors are required to provide structured metadata conforming to the Data Documentation Initiative (DDI) standard, and datasets are assigned persistent Digital Object Identifiers (DOIs) for citation. Version control within Harvard Dataverse means that if a depositor corrects an error or appends new observations, previous versions remain accessible, enabling other researchers to reproduce analyses that relied on earlier versions of the data.</p>
+
+<p>Community engagement metrics—download counts, citations, notebook usage, and forum activity—function as informal but useful signals of a dataset's quality and relevance. A dataset downloaded hundreds of thousands of times and discussed across dozens of published papers has, in effect, been subjected to widespread scrutiny. Errors that survived the original publication process tend to surface quickly under such exposure. Conversely, a dataset with minimal activity may simply be obscure, or it may have been passed over by the community because experienced users identified problems with it. Neither interpretation is definitive, but engagement metrics are a reasonable first filter when browsing an unfamiliar repository.</p>
+
+<p><strong>Organizational and Enterprise Databases</strong></p>
+
+<p>Within companies and institutions, the most operationally relevant data typically resides in internal databases rather than any public source. These systems record the actual transactions, behaviors, and processes of the organization, making them indispensable for business analytics.</p>
+
+<p><strong>Transactional databases</strong>, often implemented on relational database management systems (RDBMS) such as PostgreSQL, MySQL, Oracle, or Microsoft SQL Server, are optimized for high-speed read and write operations that support daily business operations. A retail company's point-of-sale system writes a new record to a transactions table every time a customer completes a purchase. A logistics firm's warehouse management system records every inventory movement in real time. A bank's core banking system captures every deposit, withdrawal, and transfer. These databases are designed for <strong>OLTP (Online Transaction Processing)</strong>: fast inserts and updates, row-level locking, and strict ACID (Atomicity, Consistency, Isolation, Durability) compliance. Their schemas are normalized to minimize redundancy, which is efficient for transactional operations but can make complex analytical queries—which join many tables and aggregate millions of rows—slow and resource-intensive.</p>
+
+<p><strong>Data warehouses</strong> address this limitation by consolidating data from multiple operational systems into a structure optimized for analytical querying. The Extract, Transform, Load (ETL) process moves data from source systems into the warehouse on a scheduled basis, cleaning and standardizing it in the process. Platforms such as <strong>Amazon Redshift</strong>, <strong>Google BigQuery</strong>, <strong>Snowflake</strong>, and <strong>Microsoft Azure Synapse</strong> implement columnar storage and massively parallel processing architectures that allow analysts to run complex aggregations across billions of rows in seconds. A marketing analyst who needs to understand customer lifetime value across five years of purchase history, joined with demographic attributes and campaign exposure data, would typically query a data warehouse rather than the operational transactional system. The warehouse schema is often denormalized into star or snowflake schemas that are intuitive for analysts to query without deep database administration expertise.</p>
+
+<p>Access controls and data governance are non-negotiable features of any well-managed enterprise data environment. Sensitive data—employee salaries, customer financial records, patient health information, intellectual property—must be accessible only to roles with a legitimate need. Role-based access control (RBAC) systems assign permissions at the level of tables, columns, or even individual rows. A junior analyst might have read access to aggregated sales summaries but not to the underlying customer records containing personally identifiable information. <strong>Data governance</strong> frameworks, often formalized through policies and enforced by a data governance committee or Chief Data Officer, define data ownership, stewardship responsibilities, retention schedules, and acceptable use standards. Analysts working with internal databases must understand and comply with these frameworks, both for legal compliance and to maintain the trust that enables data access to remain available for future projects.</p>
+
+<p>The proprietary nature of internal data is simultaneously its greatest strength and a fundamental constraint. Sales data, churn records, operational efficiency metrics, and customer behavior logs are directly relevant to the specific business questions the organization faces—far more so than any generic public dataset. However, this relevance comes with the restriction that the data cannot be shared externally, published in papers, or incorporated into open-source projects without explicit authorization. Analysts working with internal data operate under confidentiality obligations that shape how they store intermediate results, share analyses with colleagues, and communicate findings to external stakeholders.</p>
+
+<p><strong>Web APIs as Data Sources</strong></p>
+
+<p>Application Programming Interfaces (APIs) allow software systems to communicate with each other over a network, and they have become a primary mechanism through which organizations expose data to authorized consumers. For analysts, APIs are particularly valuable because they deliver data in structured, machine-readable formats without requiring the analyst to scrape or parse unstructured web pages.</p>
+
+<p>The predominant data format returned by modern REST APIs is <strong>JSON (JavaScript Object Notation)</strong>, a lightweight text format that represents data as nested key-value pairs and arrays. XML remains common in older enterprise APIs and certain financial data feeds. Both formats can be parsed directly by analytics tools: Python's <code>requests</code> library retrieves API responses, and <code>json.loads()</code> or libraries like <code>pandas.json_normalize()</code> convert them into tabular DataFrames. For example, querying the <strong>OpenWeatherMap API</strong> for current conditions returns a JSON object containing temperature, humidity, wind speed, and a geographic identifier, which can be appended to a time-series dataset for meteorological analysis with just a few lines of code.</p>
+
+<p><strong>Rate limits</strong> are a universal feature of commercial and public APIs. Providers impose them to prevent abuse, manage server load, and enforce tiered pricing. A free-tier API plan might allow 100 requests per minute; a paid tier might allow 10,000. Exceeding the limit results in HTTP 429 ("Too Many Requests") error responses that interrupt data collection. Analysts building automated pipelines that call APIs on a schedule must implement logic to track request counts, introduce delays when approaching limits, and handle error responses gracefully with retry mechanisms and exponential backoff. <strong>Authentication</strong> is equally universal: virtually all APIs require an API key, OAuth token, or other credential. Keys must be stored securely—in environment variables or secrets management systems, never hard-coded in scripts or committed to version control repositories—because leaked credentials can result in unauthorized charges or account suspension.</p>
+
+<p>Real-time API data enables a category of analysis that static datasets cannot support. Social media platforms like Twitter/X (via the Academic Research API), Reddit (via the PRAW wrapper), and news aggregators expose live streams or near-real-time endpoints that allow analysts to track evolving narratives, sentiment shifts, and event-driven behavioral changes as they occur. Financial data APIs from providers like <strong>Alpha Vantage</strong>, <strong>Polygon.io</strong>, and exchange-direct feeds deliver tick-by-tick or minute-level price data essential for algorithmic trading research and portfolio risk monitoring. This temporal richness is not available from any static dataset, making APIs irreplaceable in time-sensitive analytical contexts.</p>
+
+<p>Terms of service represent the legal framework governing API use, and they vary considerably in their restrictions. Twitter's API terms historically prohibited storing collected tweets beyond a certain period and required developers to honor user deletion requests by removing corresponding data from their own stores. The Google Maps API restricts the display of derived data to Google Maps-branded interfaces, preventing analysts from extracting geographic data and rendering it on competing mapping platforms. Some APIs prohibit any commercial use of retrieved data without a separate licensing agreement. Violating terms of service can result in API access revocation, legal action, or both. Analysts should read the terms of service for every API they integrate into a project, document their compliance posture, and revisit the terms when they are updated.</p>
+
+<p><strong>Evaluating Data Source Quality</strong></p>
+
+<p>Identifying a potentially useful data source is only the first step; the analyst must then rigorously assess whether the data is suitable for the intended purpose. Quality evaluation is typically organized around several core dimensions.</p>
+
+<p><strong>Accuracy</strong> refers to the degree to which data values correctly represent the real-world phenomena they purport to measure. Inaccurate data arises from many sources: transcription errors when data is manually entered, sensor calibration drift in IoT systems, systematic coding errors introduced during ETL processes, or deliberate falsification in survey responses. Accuracy cannot always be directly verified without access to ground truth, but analysts can probe it through cross-validation against independent authoritative sources, distributional sanity checks (do reported ages cluster implausibly around round numbers, suggesting rounding or imputation?), and domain expert review.</p>
+
+<p><strong>Completeness</strong> assesses whether all expected records, variables, and time periods are present in the dataset. Missing data is endemic in real-world datasets and rarely random. In healthcare datasets, values for expensive diagnostic tests are often missing because the tests were not ordered for lower-risk patients—a pattern called <strong>Missing Not At Random (MNAR)</strong> that can severely bias predictive models if not addressed. In transactional databases, records for cancelled orders or returned items may be deleted rather than flagged, creating gaps in sales history. Analysts should compute missingness rates by variable and by time period, visualize missing data patterns (using tools like the <code>missingno</code> library in Python), and decide whether missing values should be imputed, excluded, or treated as informative signals.</p>
+
+<p><strong>Timeliness</strong> considers whether the data is current enough to be analytically relevant. A customer segmentation model trained on purchasing behavior from five years ago may be deeply misleading if consumer preferences have shifted substantially since then. Economic indicators published with a six-month lag may not support real-time policy decisions. Timeliness must be evaluated relative to the specific analytical question: for a study of long-run demographic trends, a dataset updated annually may be entirely adequate; for a model predicting same-day delivery demand, hourly updates may be insufficient. Publication lag—the delay between data collection and public availability—is a specific timeliness risk with public datasets that analysts should investigate and document.</p>
+
+<p><strong>Consistency</strong> examines whether data values are uniform and internally coherent. Inconsistencies can appear within a single dataset (a customer record listing a birth year of 1990 in one field and an age of 15 in another field recorded in 2020) or across datasets being joined or compared (two sources reporting different total counts for the same population because one includes part-year residents and the other counts only full-year residents). Schema inconsistencies—the same concept represented with different column names, data types, or coding conventions across database tables—are a common headache in enterprise data integration. Standardization and reconciliation of inconsistencies is a core component of the data cleaning phase and should be fully documented so that downstream users of derived datasets understand what transformations were applied.</p>
+
+<p><strong>Evaluating Data Source Reliability and Credibility</strong></p>
+
+<p>Quality dimensions describe properties of the data itself. Reliability and credibility describe properties of the source that produced and maintains the data—a complementary but distinct evaluation lens.</p>
+
+<p><strong>Publisher reputation</strong> provides an important prior. Data published by the <strong>World Health Organization</strong>, the <strong>U.S. Bureau of Labor Statistics</strong>, the <strong>European Central Bank</strong>, or a major research university comes with institutional accountability. These organizations have professional standards, peer oversight, and reputational stakes that incentivize rigor. This does not mean their data is error-free—every source makes mistakes—but it does mean that errors are more likely to be caught and corrected, and that methodology documentation is more likely to be thorough. By contrast, data published by an anonymous contributor on a file-sharing site, with no institutional affiliation or contact information, offers no such assurance.</p>
+
+<p><strong>Transparent methodology documentation</strong> is the single most important indicator of a credible data source. A dataset provider that clearly explains how data was collected (census, probability sample, administrative records, sensor network), what the sampling frame was, what the response or coverage rate was, what quality controls were applied during collection and processing, and what known limitations exist is enabling informed use. Conversely, a dataset with no methodology documentation forces analysts to make assumptions they cannot verify. Assumptions about data generation processes that turn out to be wrong can invalidate entire analyses. The analyst should treat absence of documentation as a significant red flag rather than an acceptable gap to work around.</p>
+
+<p><strong>Cross-validation</strong> against independent sources is a powerful credibility check. If a dataset reports that a particular country's GDP grew by 8% in a given year, but three other independent sources—the IMF, the World Bank, and the national statistics office—report figures in the range of 2–3%, the discrepancy demands investigation before the data is used. Cross-validation is not always straightforward because independent sources may measure the same concept differently, but large unexplained discrepancies are a reliable warning sign. For internal enterprise data, cross-validation might involve reconciling a data warehouse figure against the general ledger, or comparing API-retrieved customer counts against a CRM report.</p>
+
+<p><strong>Update frequency and maintenance activity</strong> signal whether a repository is actively managed. A dataset whose most recent update was eight years ago, whose issue tracker shows unresolved bug reports, and whose hosting institution has since been reorganized is a reliability risk. Broken links in the documentation, deprecated API versions that have not been updated, and changelog entries that show sporadic activity all suggest that the source may not be adequately maintained. Active repositories, by contrast, show regular updates, responsive issue resolution, and versioned releases with clear changelogs—indicators that someone with accountability is tending to the data's integrity.</p>
+
+<p><strong>Appropriateness of Data Sources for Analytics Projects</strong></p>
+
+<p>Even a high-quality, credible data source may be inappropriate for a specific analytics project if it does not align with the project's scope, analytical requirements, ethical obligations, or technical constraints.</p>
+
+<p><strong>Scope alignment</strong> requires that the data cover the right geography, time period, and population. A retail company analyzing customer behavior in Southeast Asia cannot rely on a dataset compiled from North American e-commerce transactions, even if that dataset is of excellent technical quality. A policy analyst studying the effects of a 2018 legislation change needs data that spans the pre- and post-implementation periods; a dataset that begins in 2020 is out of scope regardless of its quality. Scope mismatches are sometimes subtle: a national-level dataset might mask important regional variation that the project needs to detect; a dataset covering the general population might not adequately represent the specific subgroup that the project focuses on.</p>
+
+<p><strong>Granularity</strong> determines whether the unit of observation in the dataset matches the unit of analysis required by the project. Consider a project aimed at understanding household energy consumption patterns: a dataset reporting annual energy consumption aggregated at the county level is too coarse—it cannot distinguish between households within the same county. A dataset with individual smart-meter readings at 15-minute intervals might be more granular than necessary and introduce scale and storage challenges. Granularity mismatches cannot always be resolved: disaggregating county-level data into household-level estimates requires strong modeling assumptions, and the resulting synthetic data may be more misleading than informative. Aggregating fine-grained data upward is generally safer, but it discards the within-group variation that motivated collecting fine-grained data in the first place.</p>
+
+<p><strong>Ethical appropriateness</strong> is a dimension that analysts sometimes underweight relative to technical considerations, but it is foundational to responsible practice. The central question is whether the individuals whose data is represented in the dataset consented to that data being collected, stored, and used in the way the current project proposes. Data collected under a general consent for "research purposes" may not cover commercial application development. Data scraped from social media may technically be public but still raise ethical concerns about use without informed consent, particularly when it involves sensitive topics like mental health, political affiliation, or personal relationships. Regulatory frameworks impose legal floors: <strong>GDPR</strong> (General Data Protection Regulation) in the European Union and <strong>HIPAA</strong> (Health Insurance Portability and Accountability Act) in the United States impose specific requirements around personal data processing, storage, transfer, and subject rights. Projects that involve personal data from EU residents must have a lawful basis for processing, must implement appropriate security measures, and must support data subject rights including access, correction, and erasure. Projects involving protected health information must comply with HIPAA's Privacy Rule and Security Rule. Non-compliance is not merely an ethical failure—it is a legal liability with significant financial penalties.</p>
+
+<p><strong>Format compatibility and integration feasibility</strong> are practical constraints that influence whether a source can realistically be used within a project's timeline and budget. A dataset stored in a proprietary binary format from a defunct software platform may require expensive conversion work. An API that requires a vendor-specific SDK to access may be incompatible with the organization's preferred analytics stack. A database that can only be accessed through a remote desktop connection to a secure enclave, with no data export permitted, may support only limited query-based analysis rather than the bulk extract needed for machine learning. These feasibility assessments are best made early in the project planning phase, before the analytical design has been locked in around a data source that subsequently proves inaccessible. The table below summarizes the key evaluation criteria discussed across quality, reliability, and appropriateness dimensions.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Evaluation Dimension</th>
+      <th>Key Questions to Ask</th>
+      <th>Common Red Flags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Accuracy</td>
+      <td>Do values match known ground truth or independent sources? Are distributions plausible?</td>
+      <td>Values outside valid ranges; inconsistencies with authoritative benchmarks</td>
+    </tr>
+    <tr>
+      <td>Completeness</td>
+      <td>What is the missingness rate by variable and time period? Is missing data random or systematic?</td>
+      <td>High missingness on key variables; structured patterns suggesting MNAR</td>
+    </tr>
+    <tr>
+      <td>Timeliness</td>
+      <td>How old is the data? How long is the publication lag? Is the update frequency adequate for the question?</td>
+      <td>Last update several years ago; significant lag between collection and release</td>
+    </tr>
+    <tr>
+      <td>Consistency</td>
+      <td>Are values uniform across records? Do related variables agree with each other? Are definitions stable over time?</td>
+      <td>Contradictory values within records; changing variable definitions across vintages</td>
+    </tr>
+    <tr>
+      <td>Publisher Reputation</td>
+      <td>Is the publisher a recognized institution with accountability? Is contact information available?</td>
+      <td>Anonymous contributors; no institutional affiliation; no contact or correction mechanism</td>
+    </tr>
+    <tr>
+      <td>Methodology Transparency</td>
+      <td>Is the collection method documented? Is the sampling frame described? Are limitations acknowledged?</td>
+      <td>No methodology documentation; vague descriptions; no codebook or data dictionary</td>
+    </tr>
+    <tr>
+      <td>Cross-Validation</td>
+      <td>Do values agree with independent authoritative sources? Are discrepancies explainable?</td>
+      <td>Large unexplained discrepancies with multiple independent sources</td>
+    </tr>
+    <tr>
+      <td>Maintenance Activity</td>
+      <td>When was the data last updated? Are errors reported and corrected? Is the repository actively managed?</td>
+      <td>No updates in years; unresolved known errors; inactive issue tracker</td>
+    </tr>
+    <tr>
+      <td>Scope Alignment</td>
+      <td>Does the data cover the right geography, time period, and population?</td>
+      <td>Wrong region, time frame, or subgroup for the analytical question</td>
+    </tr>
+    <tr>
+      <td>Granularity</td>
+      <td>Does the unit of observation match the unit of analysis? Can the data be appropriately aggregated or disaggregated?</td>
+      <td>Data too coarse to detect needed variation; disaggregation would require unsupportable assumptions</td>
+    </tr>
+    <tr>
+      <td>Ethical and Legal Appropriateness</td>
+      <td>Was consent obtained? Does intended use comply with GDPR, HIPAA, or other regulations? Does the license permit intended use?</td>
+      <td>No consent documentation; personal data without legal basis; restrictive license terms violated</td>
+    </tr>
+    <tr>
+      <td>Integration Feasibility</td>
+      <td>Is the format compatible with existing tools? Can the data be extracted and loaded within budget and timeline?</td>
+      <td>Proprietary formats requiring expensive conversion; access restricted to environments incompatible with the pipeline</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Selecting data sources is ultimately a multi-criteria decision that requires balancing technical quality, institutional credibility, legal compliance, ethical integrity, and practical feasibility. Analysts who approach this decision systematically—using structured evaluation frameworks, documenting their assessments, and revisiting their choices when new information emerges—build a stronger foundation for every downstream step of the analytics process. The investment in careful source evaluation at the outset is invariably less costly than discovering a fundamental source problem after a substantial modeling effort has been completed.</p>
+        <div class="notes"><strong>Notes</strong>Covers all seven subtopic clusters: publicly available datasets, open data repositories, organizational/enterprise databases, web APIs, data quality evaluation, reliability/credibility evaluation, and appropriateness for analytics projects. Examples include data.gov, EU Open Data Portal, Kaggle, UCI ML Repository, Harvard Dataverse, Amazon Redshift, BigQuery, Snowflake, OpenWeatherMap API, Alpha Vantage, GDPR, HIPAA, CC licensing variants, and OLTP/data warehouse architecture. A summary table consolidates all twelve evaluation criteria with key questions and red flags.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

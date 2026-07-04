@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Hierarchy and Design Principles</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Data Visualization Principles and Excel Charting</a></div>
+  <header>
+    <h1>Visual Hierarchy and Design Principles</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Visual Hierarchy and Design Principles</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every chart or data visualization you create sends a silent message to its viewer before a single number is read. That message is shaped entirely by visual design — the way elements are sized, colored, positioned, and weighted relative to one another. When design is intentional, the viewer's eye is guided smoothly from the most important insight to supporting details, and the data speaks clearly. When design is neglected, every element shouts at equal volume, the viewer's attention scatters, and even accurate data fails to communicate. This is the essence of <strong>visual hierarchy and design principles</strong>: a deliberate system of visual choices that ranks information, reduces cognitive effort, and makes your message impossible to miss.</p>
+
+<p><strong>Understanding Visual Hierarchy</strong></p>
+
+<p>Visual hierarchy is the principle that not all elements on a page or chart should receive equal visual weight. By varying properties like size, color, contrast, and position, a designer tells the viewer which elements matter most and in what order to process them. This mirrors the way the human eye naturally behaves — it is drawn first to the largest, brightest, or most contrasting element in a scene, and only afterward explores the surrounding detail.</p>
+
+<p>The four primary levers of visual hierarchy are:</p>
+
+<ul>
+  <li><strong>Size:</strong> Larger elements are instinctively perceived as more important. A chart title set at 18pt dominates a tick label set at 9pt — the viewer knows immediately which is the heading and which is supplementary.</li>
+  <li><strong>Weight:</strong> Bold text or thick lines carry more visual mass than their regular or thin counterparts. A bold annotation on a chart draws the eye before a regular-weight axis label does.</li>
+  <li><strong>Color:</strong> A single brightly colored bar in a field of grey bars immediately becomes the focal point. Color difference signals difference in meaning or importance.</li>
+  <li><strong>Position:</strong> Western readers follow a Z-shaped or F-shaped scanning pattern, beginning at the top-left. An element placed at the top-left of a composition is encountered first and therefore carries inherent prominence.</li>
+</ul>
+
+<p>A clear hierarchy dramatically reduces <em>cognitive load</em> — the mental effort required to interpret information. When a viewer can absorb the key message in the first second of looking at a chart, and then drill into supporting data in a natural sequence, comprehension is fast and the visualization feels intuitive. Conversely, a chart without hierarchy forces the viewer to spend energy simply figuring out where to look, often abandoning the effort before understanding the data at all. A common symptom of missing hierarchy is the "wall of equal text" problem: titles, axis labels, data labels, legends, and footnotes all rendered in the same size and weight, so the chart looks like a technical specification rather than a communication tool.</p>
+
+<p><strong>Using Color Purposefully</strong></p>
+
+<p>Color is one of the most powerful tools in data visualization, and also one of the most frequently misused. The core discipline is restraint. When every series in a chart uses a different vivid color, none of them stands out — the palette creates visual noise that obscures rather than clarifies. Professional practice is to <strong>limit a palette to two or three colors</strong>, using one primary "highlight" color and one or two neutral or muted supporting colors.</p>
+
+<p>Consider a bar chart comparing monthly sales across six product lines. A common mistake is to assign six distinct saturated colors — red, orange, yellow, green, blue, purple — to the six bars. The result is a carnival-like chart where no single product is emphasized. A better approach: render five bars in a muted grey and color only the product you want the viewer to notice in a bold accent color (for example, a deep teal). The teal bar immediately becomes the focal point; the grey bars provide context without competing.</p>
+
+<p>Color must also be used <strong>consistently</strong> across all charts in a report or dashboard. If "Product A" is represented by blue in the first chart, it must be blue in every subsequent chart. Changing the color encoding between charts forces viewers to re-learn the legend each time, adding unnecessary cognitive effort and introducing the risk of misinterpretation.</p>
+
+<p><strong>Accessibility</strong> is a non-negotiable consideration. Approximately 8% of men and 0.5% of women have some form of color vision deficiency, with red-green confusion being the most common. A chart that encodes "above target" in green and "below target" in red is unreadable for a significant portion of any audience. Accessible alternatives include:</p>
+
+<ul>
+  <li>Using blue and orange instead of green and red — these are distinguishable by nearly all forms of color vision deficiency.</li>
+  <li>Pairing color with a secondary encoding such as pattern, shape, or direct labeling so the color is not the sole differentiator.</li>
+  <li>Testing designs with a color-blindness simulation tool before finalizing.</li>
+</ul>
+
+<p>Finally, background and supporting element color matters as much as data color. A <strong>neutral background</strong> (white or very light grey) and muted gridlines allow the colored data elements to stand out. A dark or busy background competes with the data and reduces the effective contrast of highlight colors.</p>
+
+<p><strong>Size and Scale as Emphasis Tools</strong></p>
+
+<p>Size is the most universal and culture-independent signal of importance. In every context — from newspaper headlines to street signs — larger means more significant. Applied deliberately in chart design, size differences create an immediate reading order without requiring any conscious effort from the viewer.</p>
+
+<p>A practical size hierarchy for a typical chart might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Chart Element</th>
+      <th>Suggested Relative Size</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chart title</td>
+      <td>Largest (e.g., 16–18pt)</td>
+      <td>States the primary message or topic</td>
+    </tr>
+    <tr>
+      <td>Subtitle or key callout</td>
+      <td>Large (e.g., 13–14pt)</td>
+      <td>Provides the key insight or context</td>
+    </tr>
+    <tr>
+      <td>Axis titles</td>
+      <td>Medium (e.g., 11–12pt)</td>
+      <td>Labels what each axis measures</td>
+    </tr>
+    <tr>
+      <td>Axis labels / tick marks</td>
+      <td>Small (e.g., 9–10pt)</td>
+      <td>Provides scale reference values</td>
+    </tr>
+    <tr>
+      <td>Footnotes / source lines</td>
+      <td>Smallest (e.g., 8pt)</td>
+      <td>Credits data source; supplementary detail</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The mistake of making all text elements the same size is surprisingly common, particularly when chart designers use software defaults without adjustment. Uniformity <em>flattens</em> hierarchy — every element appears equally important, so none of them is. A viewer scanning such a chart has no entry point and no natural path through the information.</p>
+
+<p>Size applies to non-text elements too. In a line chart comparing a primary trend against two reference benchmarks, the primary line should be visibly thicker (for example, 2.5pt) than the benchmark lines (for example, 1pt, possibly dashed). This instantly communicates which series is the focus of analysis.</p>
+
+<p><strong>Layout and Spatial Organization</strong></p>
+
+<p>The spatial arrangement of elements on a chart is as deliberate a design decision as color or font size. Layout governs where the viewer's eye travels and in what sequence information is encountered.</p>
+
+<p>The most important principle of layout is <strong>top-left placement for primary content</strong>. Because most Western readers begin reading at the top-left and move rightward and downward, placing the chart title, main insight, or most critical annotation in that zone ensures it is seen first. If the key message is buried at the bottom-right, many viewers will never reach it.</p>
+
+<p><strong>Grouping and proximity</strong> are equally important. Elements that are related to each other should be placed close together; elements that belong to separate categories or sections should be visually separated. In a dashboard with multiple charts, grouping charts that cover the same theme in the same region of the layout, and using visible spacing to separate different themes, helps viewers build a mental map of the content.</p>
+
+<p><strong>White space</strong> — the empty space around and between elements — is not wasted space. It is an active design tool that separates elements, reduces clutter, and allows the eye to rest. Cramming every pixel with data or labels makes a visualization feel overwhelming and difficult to navigate. Generous margins around the chart area, space between the title and the plot area, and breathing room around annotations all improve legibility and perceived professionalism.</p>
+
+<p><strong>Alignment</strong> is the often-invisible foundation of an organized layout. When axis labels are inconsistently positioned, when the chart title is left-aligned but the subtitle is centered, or when data labels float at unpredictable distances from their bars, the layout feels disorganized and amateurish. Consistent alignment — left-aligned text in a consistent column, axis labels equidistant from their axes — creates an underlying grid that the viewer senses as order, even without consciously noticing it.</p>
+
+<p><strong>Emphasis Through Contrast and Weight</strong></p>
+
+<p>Contrast is the engine of emphasis. The greater the visual difference between a highlighted element and its surroundings, the more powerfully the viewer's attention is pulled to that element. Contrast can be achieved through color (a bright element against a muted background), size (a large element among small ones), weight (a bold line among thin ones), or even shape (a circle among bars).</p>
+
+<p>In practice, <strong>contrast is most effective when used sparingly</strong>. If everything on a chart is high-contrast — every bar a different bright color, every label in bold, every gridline thick and dark — the contrast cancels itself out. True emphasis requires that most elements recede into the background so that one or two elements can step forward.</p>
+
+<p>A practical example: a line chart showing a company's revenue trend alongside the industry average. To emphasize the company's performance:</p>
+
+<ul>
+  <li>Draw the company's revenue line in a thick (2.5pt), solid, high-contrast color (e.g., navy blue).</li>
+  <li>Draw the industry average as a thin (1pt), dashed, medium-grey line.</li>
+  <li>Label the company's line directly at its endpoint with a bold data label; omit a label on the industry line or use a smaller, lighter label.</li>
+</ul>
+
+<p>The viewer's eye goes immediately to the navy line. The grey line is present for context but does not compete. No legend is needed because the contrast itself communicates the distinction.</p>
+
+<p><strong>Typographic weight</strong> — the difference between bold and regular text — is one of the simplest and most underused hierarchy tools. A chart title in bold immediately outranks a subtitle in regular weight. A bold annotation on a specific data point tells the viewer "this is the key number." Because typographic weight does not require color changes, it is particularly useful when working within a constrained or monochrome palette.</p>
+
+<p><strong>Clarity and Readability Best Practices</strong></p>
+
+<p>Beyond hierarchy and emphasis, a visualization must simply be readable. Readability concerns include the removal of distracting elements, the legibility of text, and the self-sufficiency of the chart as a standalone communication piece.</p>
+
+<p>The concept of <strong>chartjunk</strong>, popularized by statistician Edward Tufte, refers to all visual elements that add complexity without adding information. Common examples include:</p>
+
+<ul>
+  <li>Heavy, dark gridlines that dominate the plot area and compete with the data.</li>
+  <li>3D effects on bars, pie slices, or columns — these distort the perceived values and add no information.</li>
+  <li>Decorative background images or gradient fills behind the plot area.</li>
+  <li>Unnecessary borders around chart elements.</li>
+  <li>Data markers (circles, squares) on every point of a line chart when the trend is the focus.</li>
+</ul>
+
+<p>Removing chartjunk follows a simple test: for each visual element on the chart, ask "does this element help the viewer understand the data better?" If the answer is no, remove it or reduce it. Lighter gridlines (or none at all, relying on direct data labels instead) make a chart dramatically cleaner without losing any information content.</p>
+
+<p><strong>Direct labeling</strong> — placing data labels directly on or beside the data element they describe — is almost always preferable to using a separate legend. A legend requires the viewer to perform a matching task: look at the legend, remember which color corresponds to which category, return to the chart, and identify that color. Direct labeling eliminates this mental step entirely. For example, label the endpoint of each line in a multi-line chart with the series name rather than using a legend box in the corner.</p>
+
+<p>Font choices and sizes profoundly affect readability. General best practices:</p>
+
+<ul>
+  <li>Use a clean, sans-serif typeface (such as Arial, Calibri, or Helvetica) for chart text — these are more legible at small sizes than serif fonts.</li>
+  <li>Never use decorative or script fonts in data visualization — they slow reading speed and feel out of place in analytical contexts.</li>
+  <li>Set a minimum font size of 10pt for any text that must be read; smaller text forces viewers to squint and signals that the element is an afterthought.</li>
+  <li>Avoid rotating text more than 45 degrees; fully vertical axis labels are difficult to read and should be replaced with horizontal alternatives where possible.</li>
+</ul>
+
+<p>Finally, a well-designed chart should be <strong>self-sufficient</strong>: a viewer who encounters it without reading the surrounding report text should still be able to understand what is being shown. This requires a descriptive title (not just "Sales" but "Monthly Sales Revenue, Jan–Dec 2024"), labeled axes with units, and an indication of the data source. A chart that relies entirely on surrounding prose to be understood is not a visualization — it is an illustration.</p>
+
+<p><strong>Applying Design Principles in Excel</strong></p>
+
+<p>Microsoft Excel provides the tools necessary to implement all of the design principles discussed above, though it requires manual adjustment of the software's default settings, which are rarely optimized for clear visual hierarchy.</p>
+
+<p>The <strong>Format Chart Area</strong> and <strong>Format Data Series</strong> panels (accessed by right-clicking any chart element) allow precise control over fill color, border color, line weight, and transparency for every element in a chart. These panels are the primary interface for building visual hierarchy in Excel. For example, to create the contrast effect described earlier — a bold primary line against a muted secondary line — select each data series individually and adjust its line color, width, and dash style through the Format Data Series panel.</p>
+
+<p>Excel's built-in <strong>chart styles and color themes</strong> (found in the Chart Design tab) provide a useful starting point and can enforce a degree of consistency, but they rarely produce a finished, communication-ready chart on their own. Default Excel charts typically include heavy gridlines, a grey plot background, a legend instead of direct labels, and uniform font sizes — all of which work against clear hierarchy. Plan to spend time after selecting a base style making manual adjustments.</p>
+
+<p>When building a <strong>multi-chart report or dashboard</strong> in Excel, consistency of visual language is critical. Every chart should use the same typeface, the same color palette (with the same color meaning the same thing in every chart), the same gridline style, and the same layout conventions. One efficient approach is to fully format one chart, then copy and paste it as the template for subsequent charts, changing only the underlying data. This preserves all formatting choices and ensures a coherent visual system across the entire workbook.</p>
+
+<p><strong>Text boxes and callout shapes</strong> are Excel's mechanism for adding annotations directly to a chart. Inserted via the Insert tab, text boxes can be positioned anywhere over the chart area and formatted with any font, size, color, or border. Effective uses include:</p>
+
+<ul>
+  <li>A bold text box near a notable spike in a trend line reading "Q3 launch effect" to explain an anomaly.</li>
+  <li>A callout arrow shape pointing to the highest data point with the specific value displayed prominently.</li>
+  <li>A subtitle text box below the chart title providing the key takeaway sentence, set slightly smaller and in regular (not bold) weight to sit below the title in the hierarchy.</li>
+</ul>
+
+<p>These annotations transform a chart from a passive display of numbers into an active communication tool that guides the viewer to the insight you intend them to take away. Combined with deliberate use of color, size, contrast, and layout, annotations complete the visual hierarchy system and ensure that every viewer — regardless of how much time they spend with the chart — receives the essential message.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: visual hierarchy mechanics, purposeful color use (including accessibility), size/scale as emphasis, layout and spatial organization, contrast and typographic weight, chartjunk removal and readability, and Excel-specific implementation. Tabular data for the size hierarchy section is rendered as a proper HTML table. Examples are concrete and practical throughout.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

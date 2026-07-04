@@ -9,227 +9,190 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: #f4f6f9;
-      color: #2c3e50;
+      color: #1e2530;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Page Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #25619e 60%, #2e7bc4 100%);
+      background: linear-gradient(135deg, #1a3a5c 0%, #265c8e 100%);
       color: #fff;
-      padding: 48px 24px 40px;
-      text-align: center;
+      padding: 2.5rem 2rem 2rem;
+      border-bottom: 4px solid #f0a500;
     }
 
-    header .course-label {
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-label {
       display: inline-block;
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: 4px 14px;
-      margin-bottom: 16px;
-      color: #d6eaff;
+      color: #d6e8ff;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.75rem;
     }
 
     header h1 {
-      font-size: clamp(1.55rem, 4vw, 2.4rem);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
       line-height: 1.25;
+      margin-bottom: 0.75rem;
     }
 
     header p {
-      max-width: 680px;
-      margin: 0 auto;
       font-size: 1rem;
-      color: #cce0f5;
-      line-height: 1.7;
+      color: #c5daf5;
+      max-width: 720px;
     }
 
     /* ── Main Content ── */
     main {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 40px 20px 60px;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 3rem;
     }
 
-    .section-label {
+    .section-title {
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #6b7f96;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #dce3ec;
+      color: #5a7a9a;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #d8e2ec;
     }
 
     /* ── Card Grid ── */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
+      gap: 1.25rem;
     }
 
-    /* ── Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dce3ec;
-      border-radius: 10px;
-      padding: 24px 22px 22px;
+      border: 1px solid #dde5ef;
+      border-radius: 8px;
+      padding: 1.25rem 1.4rem 1.3rem;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
       position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #25619e, #2e7bc4);
-      border-radius: 10px 10px 0 0;
     }
 
     .card:hover {
-      box-shadow: 0 6px 24px rgba(37, 97, 158, 0.13);
-      transform: translateY(-3px);
+      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.12);
+      transform: translateY(-2px);
     }
 
-    /* ── Card Header Row ── */
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-      line-height: 1.3;
-    }
-
-    .card-title a {
-      color: #1a5fa8;
-      text-decoration: none;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: #0d3f7a;
-      text-decoration: underline;
-    }
-
-    .card-title a:focus {
-      outline: 2px solid #2e7bc4;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
+    /* ── Type Badge ── */
+    .badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a7fa8;
-      background: #edf3fb;
-      border: 1px solid #c4d8ef;
-      border-radius: 4px;
-      padding: 3px 8px;
-      text-decoration: none;
-      white-space: nowrap;
-      align-self: flex-start;
-      margin-top: 2px;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #d3e6f8;
-      color: #1a3a5c;
-      text-decoration: none;
-      outline: none;
-    }
-
-    .source-link:focus-visible {
-      outline: 2px solid #2e7bc4;
-      outline-offset: 2px;
-    }
-
-    .source-link svg {
-      flex-shrink: 0;
-    }
-
-    /* ── Badge Row ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
+      gap: 0.3rem;
       font-size: 0.7rem;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       border-radius: 4px;
-      padding: 3px 9px;
+      padding: 0.2rem 0.55rem;
+      width: fit-content;
     }
 
-    .badge-type {
-      background: #e8f0fb;
-      color: #1d5099;
-      border: 1px solid #c4d5f0;
+    .badge-module-topics  { background: #e8f0fb; color: #2a59a8; }
+    .badge-presentation   { background: #fff4e5; color: #a85d00; }
+    .badge-text-content   { background: #edf7f0; color: #1e7a3e; }
+    .badge-quiz           { background: #f4edfb; color: #6a28a8; }
+
+    /* ── Card Name / Title ── */
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a2d45;
+      line-height: 1.3;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
     }
 
-    .badge-filetype {
-      background: #f0f4f8;
-      color: #4a6176;
-      border: 1px solid #d0dae4;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0;
+    .card-name a {
+      color: #1a5ea8;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover {
+      border-bottom-color: #1a5ea8;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #5a7a9a;
+      text-decoration: none;
+      border: 1px solid #b0c4d8;
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover {
+      background: #1a5ea8;
+      color: #fff;
+      border-color: #1a5ea8;
+    }
+
+    /* ── File Type Tag ── */
+    .file-type-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #7a8fa8;
+      background: #f0f4f9;
+      border: 1px solid #d4dde8;
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      width: fit-content;
     }
 
     /* ── Description ── */
     .card-description {
       font-size: 0.88rem;
-      color: #4a5e72;
-      line-height: 1.65;
+      color: #4a5a6a;
+      line-height: 1.55;
       flex: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 20px;
-      font-size: 0.78rem;
-      color: #8fa5bc;
-      border-top: 1px solid #dce3ec;
-      background: #fff;
+      font-size: 0.8rem;
+      color: #8a9aaa;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dde5ef;
+      background: #f4f6f9;
     }
 
-    /* ── Responsive tweaks ── */
+    /* ── Responsive ── */
     @media (max-width: 480px) {
-      header { padding: 36px 16px 32px; }
-      .card { padding: 20px 16px 18px; }
+      header { padding: 1.75rem 1.25rem 1.5rem; }
+      main { padding: 0 1rem 2.5rem; }
       .card-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -239,100 +202,140 @@
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
   <header>
-    <div class="course-label">CAP3785 &mdash; Data Analytics and Visualization</div>
-    <h1>Database Basics and Relational Data Concepts</h1>
-    <p>
-      This module introduces the foundational principles of databases and relational data modeling.
-      Learners will explore how data is structured using tables, rows, columns, and keys; how relational
-      databases differ from flat-file approaches; and how schemas organize and connect information
-      across a system. Use the artifacts below to guide study, deliver instruction, and assess understanding.
-    </p>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>Database Basics and Relational Data Concepts</h1>
+      <p>
+        This module introduces the core principles of relational databases—from foundational
+        concepts and data structure to keys, schemas, table relationships, and the groundwork
+        for SQL querying. Use the resources below to navigate lectures, readings, and
+        assessments for this module.
+      </p>
+    </div>
   </header>
 
   <main>
-    <p class="section-label">Module Artifacts &mdash; 3 items</p>
+    <p class="section-title">Module Artifacts &mdash; 11 items</p>
 
     <div class="card-grid">
 
-      <!-- ── Artifact 1: Module Topics ── -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
-            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 1h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z"
-                    stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M9 1v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            source file
-          </a>
+      <!-- 1. Module Topics -->
+      <div class="card">
+        <span class="badge badge-module-topics">Module Topics</span>
+        <div class="card-name">
+          <a href="content/module_topics.html">Module Topics</a>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's learning topics spanning database fundamentals,
-          relational concepts, tables, keys, and schemas, used by instructors to plan content
-          and by learners to navigate what will be covered.
-        </p>
-      </article>
+        <span class="file-type-tag">.json</span>
+        <p class="card-description">A structured outline of the module's learning topics spanning database fundamentals, relational concepts, tables, keys, and schemas, used by instructors to plan content and by learners to navigate what will be covered.</p>
+      </div>
 
-      <!-- ── Artifact 2: Presentation ── -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="presentation/Database_Basics_and_generated.pptx">Database_Basics_and_generated.pptx</a>
-          </span>
+      <!-- 2. Presentation -->
+      <div class="card">
+        <span class="badge badge-presentation">Presentation</span>
+        <div class="card-name">
+          <a href="presentation/Database_Basics_and_generated.pptx">Database_Basics_and_generated.pptx</a>
         </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Presentation</span>
-          <span class="badge badge-filetype">.pptx</span>
-        </div>
-        <p class="card-description">
-          A slide deck introducing relational database concepts&mdash;including what databases are,
-          how they differ from spreadsheets, and how tables, rows, columns, and keys organize and
-          connect data&mdash;used by instructors to deliver lectures or by learners for self-study.
-        </p>
-      </article>
+        <span class="file-type-tag">.pptx</span>
+        <p class="card-description">A slide deck introducing relational database concepts—including what databases are, how they differ from spreadsheets, and how tables, rows, columns, and keys organize and connect data—used by instructors to deliver lectures or by learners for self-study.</p>
+      </div>
 
-      <!-- ── Artifact 3: Quiz Question Bank ── -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
-          </span>
-          <a class="source-link" href="source/quiz_questions.json" aria-label="Source file for Quiz Question Bank">
-            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 1h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z"
-                    stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M9 1v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            source file
-          </a>
+      <!-- 3. Introduction to Databases -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive_topics_t1.html">Introduction to Databases</a>
         </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Quiz</span>
-          <span class="badge badge-filetype">.json</span>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading introduces what databases are, why they exist, and how they store and organize data, serving as a foundational orientation for learners beginning the module.</p>
+      </div>
+
+      <!-- 4. Relational Database Concepts -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive_topics_t2.html">Relational Database Concepts</a>
         </div>
-        <p class="card-description">
-          A 20-question bank assessing learners on core database concepts such as the definition of
-          a database, differences between databases and spreadsheets, flat file limitations, the
-          origins of the relational model, and the role of primary keys, used to build quizzes or
-          tests for the module.
-        </p>
-      </article>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading explains the relational database model — including how data is organized into tables connected through shared values — tracing the concept from its origins to its role in modern enterprise systems, for learners building core conceptual knowledge.</p>
+      </div>
+
+      <!-- 5. Tables, Rows, and Columns -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive_topics_t3.html">Tables, Rows, and Columns</a>
+        </div>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading covers the structure of database tables, explaining how rows and columns function as the primary organizational units for storing records, and is used by learners to understand how data is physically arranged within a relational database.</p>
+      </div>
+
+      <!-- 6. Keys and Identifiers -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive_topics_t4.html">Keys and Identifiers</a>
+        </div>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading explains the role of keys and identifiers in relational databases — including primary keys, foreign keys, and composite keys — covering how they uniquely identify rows and link tables, for learners who need to understand data integrity and navigation.</p>
+      </div>
+
+      <!-- 7. Database Schemas -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive_topics_t5.html">Database Schemas</a>
+        </div>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading explains what a database schema is, how it serves as the structural blueprint governing a database's organization and validation rules, and is used by learners to understand how databases are designed before data is ever entered.</p>
+      </div>
+
+      <!-- 8. Relationships Between Tables -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive_topics_t6.html">Relationships Between Tables</a>
+        </div>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading covers the types of relationships between database tables — such as one-to-one, one-to-many, and many-to-many — explaining why data is split across focused tables and how those relationships form the foundation of the relational model.</p>
+      </div>
+
+      <!-- 9. Foundations for SQL Querying (t7) -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive_topics_t7.html">Foundations for SQL Querying</a>
+        </div>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading introduces SQL as the standard language for querying relational databases, explaining the conceptual groundwork learners need — including how data is organized and accessed — before writing their first queries.</p>
+      </div>
+
+      <!-- 10. Foundations for SQL Querying (interactive) -->
+      <div class="card">
+        <span class="badge badge-text-content">Text Content</span>
+        <div class="card-name">
+          <a href="content/Database_Basics_and_interactive.html">Foundations for SQL Querying</a>
+        </div>
+        <span class="file-type-tag">.html</span>
+        <p class="card-description">This reading introduces SQL as the standard language for querying relational databases, explaining the conceptual groundwork learners need — including how data is organized and accessed — before writing their first queries.</p>
+      </div>
+
+      <!-- 11. Quiz Question Bank -->
+      <div class="card">
+        <span class="badge badge-quiz">Quiz</span>
+        <div class="card-name">
+          <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+          <a class="source-link" href="source/quiz_questions.json">source file</a>
+        </div>
+        <span class="file-type-tag">.json</span>
+        <p class="card-description">A 20-question bank assessing learners on core database concepts such as the definition of a database, differences between databases and spreadsheets, flat file limitations, the origins of the relational model, and the role of primary keys, used to build quizzes or tests for the module.</p>
+      </div>
 
     </div>
   </main>
 
   <footer>
-    &copy; CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp;
-    Database Basics and Relational Data Concepts
+    <p>CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp; Module: Database Basics and Relational Data Concepts</p>
   </footer>
 
 

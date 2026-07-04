@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundational Case Studies</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Introduction to Data Analytics and the Analytics Lifecycle</a></div>
+  <header>
+    <h1>Foundational Case Studies</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundational Case Studies</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Analytics concepts become most meaningful when examined through the lens of real-world application. Across industries as different as retail, healthcare, finance, sports, and e-commerce, organizations have transformed their operations by moving from intuition-driven decisions to data-driven ones. The foundational case studies explored here are not merely illustrations of technique — they are evidence of the measurable business value that emerges when data collection, modeling, and decision-making are aligned around a clearly defined problem. Each case study also maps naturally onto the analytics spectrum, progressing from descriptive understanding of what happened, through diagnostic investigation of why it happened, into predictive estimation of what will happen, and finally to prescriptive guidance about what should be done. Together, they form a cohesive picture of the analytics lifecycle in practice.</p>
+
+<p><strong>Retail Demand Forecasting with Predictive Analytics</strong></p>
+
+<p>Retail is one of the oldest and most data-rich industries in the world, yet for much of its history, decisions about how much inventory to stock were made through experience, intuition, and simple historical averages. The rise of predictive analytics transformed this process fundamentally. At the heart of modern retail demand forecasting is the recognition that historical transaction data — every sale, return, price change, and promotional event recorded over time — contains patterns that, when properly modeled, can reveal what customers are likely to buy in the future with far greater accuracy than any manual method.</p>
+
+<p>The foundation of a demand forecasting system is a clean, well-structured dataset of historical sales. A retailer might collect point-of-sale records spanning multiple years, enriched with contextual variables such as day of week, holidays, local weather, promotional discounts, competitor pricing, and even regional economic indicators. This enriched dataset becomes the training ground for statistical and machine learning models. Classical approaches include time-series methods such as ARIMA (AutoRegressive Integrated Moving Average), which capture trends and seasonal cycles inherent in retail data. More advanced approaches use gradient-boosted decision trees or neural networks to capture nonlinear relationships between dozens of input variables and future sales volumes.</p>
+
+<p>The business consequences of getting forecasts right — or wrong — are direct and significant. Overstock means capital is tied up in unsold inventory, warehouse space is consumed, and goods may eventually require markdowns that erode margins. Stockouts mean lost sales, frustrated customers, and potential long-term damage to brand loyalty. A retailer that improves forecast accuracy even modestly — say, reducing mean absolute percentage error from 20% to 12% — can realistically cut inventory carrying costs by millions of dollars while simultaneously improving product availability. This demonstrates how a technical improvement in model performance translates directly into financial outcomes.</p>
+
+<p>What makes this case study particularly instructive from an analytics perspective is the clear transition it illustrates between analytics types. Before predictive modeling, retail analysts produced <em>descriptive</em> reports: sales last week, sell-through rate last quarter, year-over-year comparison by category. These reports explained the past but offered no forward guidance. Predictive demand forecasting shifted the organization's analytical posture toward the future. And the downstream effects are broad: supply chain teams use forecasts to schedule replenishment orders, HR teams use them to plan staffing levels for busy periods, and logistics teams use them to optimize delivery routes and warehouse positioning. Improved forecasts are, in this sense, a kind of organizational infrastructure — every function that depends on knowing what demand will look like benefits from greater accuracy.</p>
+
+<p><strong>Healthcare Diagnostics and Patient Outcome Improvement</strong></p>
+
+<p>Healthcare generates some of the most complex and consequential data of any domain. Every patient interaction — a clinic visit, a laboratory test, a blood pressure reading, a medication prescription — creates a data point that, in aggregate, forms a detailed record of a person's health trajectory. Analytics applied to these records has the potential not only to improve individual patient outcomes but to reduce systemic inefficiencies that cost healthcare systems enormous sums each year.</p>
+
+<p>Consider the problem of hospital readmissions — patients who are discharged after treatment and then return to the hospital within 30 days due to complications or deterioration. Readmissions are expensive for hospitals, harmful to patients, and in many healthcare systems carry financial penalties. A diagnostic analytics approach begins by examining historical records of patients who were readmitted and those who were not, seeking to identify the features that distinguished the two groups. Variables such as age, diagnosis, comorbidities, number of prior hospitalizations, medications prescribed at discharge, and social factors like living alone or lack of transportation are all potentially predictive. Diagnostic analysis — asking <em>why</em> certain patients are readmitted — reveals that readmission risk is not uniform; specific combinations of clinical and social factors create identifiable high-risk profiles.</p>
+
+<p>From this diagnostic foundation, predictive models are built to generate an early-warning score for each patient. A logistic regression model, a random forest classifier, or a gradient-boosted model can be trained on thousands of historical patient records to output a probability of readmission for any new patient at the time of discharge. Clinicians and care coordinators receive these scores as part of their workflow: a patient flagged as high-risk might receive a scheduled follow-up call within 48 hours, a home health visit, or more intensive discharge counseling. This is the shift from prediction to <em>prescription</em> — the model does not merely estimate risk, it triggers specific clinical actions.</p>
+
+<p>The measurable outcomes from such systems have been documented in numerous hospital deployments. Readmission rates, which in some hospitals run as high as 15–20% for certain patient populations, can be reduced by several percentage points through targeted interventions guided by predictive scoring. Beyond readmissions, similar approaches are used for sepsis detection — identifying patients in early stages of a life-threatening infection before obvious clinical signs appear — and for predicting patient deterioration in intensive care units. In each case, the value is measured in concrete terms: lives saved, days of hospitalization avoided, and costs reduced.</p>
+
+<p>This case study also highlights a critical aspect of healthcare analytics that distinguishes it from commercial applications: the stakes of false negatives and false positives are asymmetric in ways that demand careful model calibration. A false negative — failing to flag a high-risk patient — may mean a preventable death. A false positive — flagging a low-risk patient — wastes clinical resources. The choice of model threshold, and the business rules that govern what actions are triggered at which risk levels, requires close collaboration between data scientists and clinicians. This interdisciplinary collaboration is itself a core lesson of the healthcare analytics case study.</p>
+
+<p><strong>Financial Services Fraud Detection</strong></p>
+
+<p>Payment fraud is a multi-billion-dollar problem for financial institutions worldwide. Every time a credit or debit card transaction is processed, the issuing bank or payment processor has a fraction of a second to determine whether that transaction is legitimate or fraudulent — and to act accordingly. The speed, scale, and stakes of this problem make it one of the most demanding real-time analytics applications in existence.</p>
+
+<p>The foundation of a fraud detection system is behavioral profiling. Each customer has characteristic patterns: they typically transact in a particular geographic area, spend within certain amount ranges, purchase from certain categories of merchants, and make transactions at certain times of day. This behavioral baseline is built continuously from historical transaction data. When a new transaction arrives, anomaly detection models compare it against the customer's established profile. A transaction that deviates significantly across multiple dimensions — an unusually large purchase, in an unfamiliar country, from a merchant category the customer has never used — receives a high anomaly score, indicating elevated fraud risk.</p>
+
+<p>The modeling techniques used include both rule-based systems and machine learning approaches. Early fraud detection relied heavily on manually crafted rules: flag any transaction over a certain dollar amount, or any card used in two different countries within one hour. While rules are transparent and easy to maintain, they are also easily circumvented by sophisticated fraudsters who learn to stay just below thresholds. Machine learning models, particularly gradient-boosted trees and neural networks trained on labeled transaction histories (fraud vs. legitimate), capture far more complex patterns and adapt as fraud tactics evolve. In practice, most production systems combine rule engines with machine learning models, using each where it performs best.</p>
+
+<p>What makes the fraud detection case study a compelling illustration of prescriptive analytics is that the model output does not merely inform a human decision — it <em>drives</em> an automated action. A transaction assigned a high fraud probability may be automatically declined, with the cardholder receiving an immediate notification. A borderline case might trigger a step-up authentication challenge, asking the customer to confirm via a one-time code. A pattern of suspicious activity across multiple transactions may automatically lock a card and initiate a customer service outreach. These automated, model-driven actions represent the prescriptive tier of analytics: the system does not just describe, diagnose, or predict — it acts.</p>
+
+<p>The business value is measured on two dimensions. First, fraud losses prevented: every fraudulent transaction that is correctly blocked before it clears represents a direct financial saving. Second, and equally important, customer trust. A customer whose fraudulent transaction is caught quickly and handled smoothly is likely to remain loyal; one whose legitimate transaction is declined incorrectly — a false positive — experiences frustration that may drive them to a competitor. Balancing fraud prevention against false positive rates is therefore a core business and modeling challenge, requiring continuous tuning as transaction patterns and fraud tactics change.</p>
+
+<p><strong>Sports Performance Analytics</strong></p>
+
+<p>Few transformations in the use of data have captured public imagination as vividly as the revolution in sports analytics, particularly in professional baseball, which became widely known through the story of the Oakland Athletics in the early 2000s. The fundamental insight was deceptively simple: traditional player evaluation relied heavily on subjective scouting assessments and statistics that measured individual performance in ways that did not necessarily correlate with winning games. By applying rigorous statistical analysis to historical performance data, it became possible to identify undervalued players whose contributions to winning were being systematically overlooked by conventional wisdom.</p>
+
+<p>The early work in baseball analytics focused on replacing less predictive statistics with metrics that better captured a player's actual contribution to run-scoring and run-prevention — the activities that determine game outcomes. On-base percentage, for example, proved to be a stronger predictor of offensive performance than batting average, which had been the dominant measure for decades. The process of identifying these better metrics was inherently <em>descriptive and diagnostic</em>: analysts examined decades of historical game data to understand which individual statistics correlated most strongly with team win totals.</p>
+
+<p>From this descriptive foundation, the application rapidly became <em>prescriptive</em>. If analysts could identify which player attributes most contributed to winning, then roster construction decisions — which players to sign, trade for, or develop — could be made systematically rather than subjectively. A team with limited resources could compete with wealthier rivals by targeting players whose value was underpriced by the conventional market. This is a direct application of predictive and prescriptive analytics to a resource allocation problem: given a budget constraint, construct the roster that maximizes expected wins.</p>
+
+<p>The analytics revolution has since spread to virtually every major professional sport. In basketball, spatial tracking data from cameras installed in arenas generates millions of data points per game, enabling analysis of shot selection efficiency, defensive positioning, and the value of individual player combinations on the court. In soccer, expected goals (xG) models evaluate the quality of scoring chances, separating good finishing from good chance creation. In American football, analytics informs fourth-down decision-making, draft valuations, and play-calling tendencies. In all of these sports, the progression from descriptive statistics to predictive modeling to prescriptive decision support follows the same arc seen in the commercial case studies — with the added dimension that decisions must often be made in real time, mid-game, by coaches working under pressure.</p>
+
+<p>The sports analytics case study is also instructive about organizational change. The introduction of data-driven methods in sports faced significant resistance from coaches, scouts, and players who had built careers on expertise and intuition. This resistance is not unique to sports — it appears in every industry where analytics challenges established practices. The eventual success of analytics adoption in sports offers lessons about how to position data-driven insights as complements to human judgment rather than replacements for it, and about the importance of building trust through demonstrated results before attempting to drive major changes in decision-making culture.</p>
+
+<p><strong>E-Commerce Personalization and Recommendation Engines</strong></p>
+
+<p>When a customer visits a major e-commerce platform, the experience they receive is not generic — it is dynamically constructed from an ongoing analysis of their behavior and the behavior of millions of other customers. Product recommendations, promotional offers, search result rankings, and email campaigns are all shaped by analytical systems working in real time. Recommendation engines represent one of the most commercially successful and technically sophisticated deployments of applied analytics, and they illustrate the full range of the analytics spectrum within a single system.</p>
+
+<p>The raw material of a recommendation engine is behavioral data: every product a customer views, every item added to or removed from a cart, every purchase made, every rating submitted, and every search query entered. This clickstream and transaction data is collected at massive scale — platforms like Amazon or Alibaba process billions of events per day — and stored in data infrastructure designed for both high-volume ingestion and fast querying. The sheer scale of this data collection is itself a lesson: building a high-performing recommendation system requires not only modeling expertise but significant investment in data engineering.</p>
+
+<p>The most widely used algorithmic approach is <strong>collaborative filtering</strong>, which operates on the insight that customers with similar past behavior tend to make similar future choices. In the user-based variant, the system identifies customers whose purchase and browsing histories closely resemble a target customer's and recommends items those similar customers have liked. In the item-based variant — which tends to scale better to very large catalogs — the system identifies items that are frequently co-purchased or co-viewed, and recommends items similar to those the customer has already engaged with. More advanced approaches use matrix factorization techniques, which decompose the large sparse matrix of customer-item interactions into compact latent representations that capture underlying preference dimensions. Deep learning methods, including transformer-based architectures adapted from natural language processing, have further pushed the frontier of recommendation quality in recent years.</p>
+
+<p>What distinguishes recommendation engines from purely predictive systems is their explicitly prescriptive character. The system is not merely estimating the probability that a customer will like a product; it is selecting which products to surface, in which order, on which page, at which moment in the browsing session, with the goal of maximizing a business outcome — typically conversion rate, average order value, or long-term customer engagement. This requires optimization logic layered on top of the predictive models: given estimates of relevance for hundreds of candidate items, which set should be displayed to maximize expected revenue while respecting constraints such as inventory availability, margin targets, and business rules about promoted products?</p>
+
+<p>The measurable impact of recommendation engines on e-commerce revenue is substantial and well-documented. Amazon has reported that a significant fraction of its total revenue is attributable to recommendations. Netflix has credited its recommendation system with saving hundreds of millions of dollars annually by reducing subscriber churn. Key performance metrics used to evaluate these systems include click-through rate (the fraction of recommendations that a user engages with), conversion rate (the fraction that leads to a purchase), and lift in average order value compared to a non-personalized baseline. These metrics connect the technical performance of the models directly to the financial outcomes the business cares about — a connection that is essential for sustaining investment in analytics capabilities.</p>
+
+<p><strong>Connecting Case Studies to the Analytics Lifecycle</strong></p>
+
+<p>Examining these five case studies together reveals a set of principles that transcend any single industry or application. These are not coincidences of good practice in isolated contexts — they are recurring structural features of successful analytics projects that constitute what practitioners call the analytics lifecycle.</p>
+
+<p>Every successful analytics project begins with a clearly defined business problem. In retail, the problem was inventory inefficiency caused by inaccurate demand forecasts. In healthcare, it was preventable readmissions and late identification of deteriorating patients. In financial services, it was fraud losses and the operational cost of investigating fraudulent transactions. In sports, it was inefficient resource allocation in roster construction. In e-commerce, it was the gap between what customers wanted and what a generic storefront could offer. None of these projects began with a data scientist asking "what interesting patterns exist in our data?" — they began with a business leader asking "what decision are we making badly, and what information would help us make it better?" This problem-first orientation is the most important single lesson of the foundational case studies.</p>
+
+<p>Data collection and preparation are present as major challenges in every example, and frequently represent the most time-intensive phase of the project. Hospital records exist in multiple incompatible systems, require de-identification for privacy compliance, and contain inconsistencies introduced by human data entry. Retail transaction histories must be joined with promotional calendars, weather data, and competitor information from disparate sources. Financial transaction data must be processed at millisecond latency while maintaining the historical archives needed for model training. In every case, the path from raw data to a model-ready dataset required substantial engineering effort. Practitioners consistently report that 60–80% of the time in a data science project is spent on data preparation rather than modeling — a reality that the case studies confirm.</p>
+
+<p>Model selection and evaluation are driven by the specific outcome the business needs to achieve. This is a critical point that distinguishes applied analytics from academic machine learning. The choice between a regression model and a classification model, between a simple interpretable model and a complex black-box one, between optimizing for precision and optimizing for recall, is not made on technical grounds alone — it is made in reference to the business problem. In healthcare, where a missed high-risk patient may face serious harm, high recall is prioritized even at the cost of more false positives. In fraud detection, where false positive rates translate directly into customer frustration, the tradeoff is managed more carefully. In recommendation engines, where the business cares about revenue lift, models are evaluated on their contribution to conversion rates rather than on abstract accuracy metrics. The alignment of technical model evaluation with business value metrics is a hallmark of mature analytics practice.</p>
+
+<p>Deployment and ongoing monitoring are the final, often underemphasized stages of the lifecycle — and the case studies illustrate why they matter. A demand forecasting model trained on pre-pandemic retail data became dramatically less accurate when purchasing patterns shifted abruptly in 2020. A fraud detection model trained on one generation of fraud tactics began to miss a new generation within months of deployment. A recommendation engine optimized for short-term clicks can, if left unmonitored, degrade long-term customer satisfaction by narrowing the diversity of products customers are exposed to. In each case, the model that performed well at the time of deployment did not remain accurate indefinitely, because the real-world processes generating the data — customer behavior, fraud tactics, disease patterns, market conditions — are not static. Monitoring for model drift, establishing thresholds for model retraining, and building feedback loops that capture new data continuously are not optional enhancements; they are fundamental requirements for any analytics system that must remain useful over time.</p>
+
+<p>The table below summarizes the key analytics characteristics of each foundational case study, mapping each to its primary analytics type, the core data sources it relies upon, and the principal business metric used to measure its success.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Case Study</th>
+      <th>Primary Analytics Type</th>
+      <th>Core Data Sources</th>
+      <th>Key Business Metric</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Retail Demand Forecasting</td>
+      <td>Predictive</td>
+      <td>Point-of-sale transactions, promotions, weather, calendar</td>
+      <td>Forecast accuracy (MAPE), inventory carrying cost, stockout rate</td>
+    </tr>
+    <tr>
+      <td>Healthcare Diagnostics</td>
+      <td>Diagnostic and Predictive</td>
+      <td>EHR records, lab results, vital signs, discharge data</td>
+      <td>30-day readmission rate, length of stay, cost per episode</td>
+    </tr>
+    <tr>
+      <td>Financial Fraud Detection</td>
+      <td>Predictive and Prescriptive</td>
+      <td>Transaction records, geolocation, merchant category codes</td>
+      <td>Fraud losses prevented, false positive rate, customer retention</td>
+    </tr>
+    <tr>
+      <td>Sports Performance Analytics</td>
+      <td>Descriptive and Prescriptive</td>
+      <td>Game statistics, player tracking data, contract and salary data</td>
+      <td>Win percentage, roster value efficiency, draft hit rate</td>
+    </tr>
+    <tr>
+      <td>E-Commerce Personalization</td>
+      <td>Predictive and Prescriptive</td>
+      <td>Clickstream, purchase history, product ratings, search queries</td>
+      <td>Click-through rate, conversion rate, average order value</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these case studies establish an essential truth about analytics in practice: the techniques and tools are only as valuable as the organizational commitment to framing the right questions, investing in data quality, connecting model outputs to real decisions, and sustaining those systems as conditions change. The organizations that have benefited most from analytics — in retail, healthcare, finance, sports, and e-commerce alike — are those that treat it not as a one-time project but as an ongoing capability woven into how they operate.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six subtopic groups in depth: retail demand forecasting, healthcare diagnostics, financial fraud detection, sports performance analytics, e-commerce personalization, and the connecting analytics lifecycle section. Includes a summary comparison table rendered as a proper HTML table. Examples are grounded in well-established real-world applications and connect consistently to the descriptive/diagnostic/predictive/prescriptive analytics framework throughout.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -10,6 +10,36 @@
     "type": "Page"
   },
   {
+    "title": "Applying Analytical Functions to Real-World Datasets",
+    "href": "content/Advanced_Excel_Functions_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Lookup Functions: VLOOKUP and INDEX-MATCH",
+    "href": "content/Advanced_Excel_Functions_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Conditional Aggregation Functions",
+    "href": "content/Advanced_Excel_Functions_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Built-in Statistical Functions",
+    "href": "content/Advanced_Excel_Functions_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Data Summarization Techniques",
+    "href": "content/Advanced_Excel_Functions_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Applying Analytical Functions to Real-World Datasets",
+    "href": "content/Advanced_Excel_Functions_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
     "title": "Advanced Excel Functions and Statistical Tools \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

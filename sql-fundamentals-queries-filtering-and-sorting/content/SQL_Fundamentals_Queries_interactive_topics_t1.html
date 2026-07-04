@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to SQL and Relational Databases</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Fundamentals: Queries, Filtering, and Sorting</a></div>
+  <header>
+    <h1>Introduction to SQL and Relational Databases</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to SQL and Relational Databases</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>SQL, which stands for <strong>Structured Query Language</strong>, is the standard language used to communicate with relational databases. It was first developed in the 1970s at IBM and has since become one of the most widely used tools in data management. Whether you are retrieving a customer's order history, inserting a new product into a catalog, or deleting outdated records, SQL provides a consistent, powerful syntax for all of these operations. Almost every major technology company, government agency, e-commerce platform, and analytics team relies on SQL in some form to store and work with data.</p>
+
+<p>SQL allows users to <strong>create, read, update, and delete</strong> data stored in a database — a set of operations commonly abbreviated as <em>CRUD</em>. These four actions form the backbone of nearly every interaction with a database system:</p>
+
+<ul>
+  <li><strong>Create:</strong> Add new data to the database, such as inserting a new customer record or creating an entirely new table.</li>
+  <li><strong>Read:</strong> Retrieve existing data using queries, such as fetching all orders placed in the last 30 days.</li>
+  <li><strong>Update:</strong> Modify existing records, such as changing a user's email address or updating a product price.</li>
+  <li><strong>Delete:</strong> Remove records from the database, such as purging expired session tokens or archiving old transactions.</li>
+</ul>
+
+<p>One of the most important characteristics of SQL is that it is a <strong>declarative language</strong>. This means that when you write a SQL query, you describe <em>what</em> result you want — not <em>how</em> the computer should go about finding it. For example, if you want a list of all customers from New York, you simply state that intention in SQL. The database engine then figures out the most efficient way to scan, filter, and return that data on your behalf. This is in contrast to procedural languages like Python or Java, where you would need to write step-by-step instructions for looping through records and checking each one manually. The declarative nature of SQL makes it accessible to analysts and business users, not just professional programmers.</p>
+
+<p>SQL is used across a wide range of roles and industries. <strong>Data analysts</strong> use it to answer business questions like "Which product had the highest revenue last quarter?" <strong>Software developers</strong> use it to build applications that store and retrieve user data. <strong>Data scientists</strong> use it to extract and prepare datasets for machine learning models. Even <strong>product managers</strong> and <strong>marketing teams</strong> often learn basic SQL to pull their own reports without relying on a technical team.</p>
+
+<p>There are several popular <strong>SQL database systems</strong> in widespread use today. While they all speak the SQL language, each system has its own extensions, performance characteristics, and use cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Database System</th>
+      <th>Common Use Cases</th>
+      <th>Notable Traits</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MySQL</td>
+      <td>Web applications, e-commerce platforms</td>
+      <td>Open source, widely used with PHP and WordPress</td>
+    </tr>
+    <tr>
+      <td>PostgreSQL</td>
+      <td>Enterprise applications, analytics</td>
+      <td>Open source, highly standards-compliant, supports advanced data types</td>
+    </tr>
+    <tr>
+      <td>SQLite</td>
+      <td>Mobile apps, embedded systems, local development</td>
+      <td>Serverless, stored as a single file, extremely lightweight</td>
+    </tr>
+    <tr>
+      <td>Microsoft SQL Server</td>
+      <td>Enterprise business applications, Microsoft ecosystems</td>
+      <td>Deep integration with Microsoft tools, powerful reporting features</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Despite their differences, the core SQL syntax you learn — such as <code>SELECT</code>, <code>WHERE</code>, <code>JOIN</code>, and <code>GROUP BY</code> — is transferable across all of these systems. Learning SQL once gives you a foundation applicable almost everywhere data is stored.</p>
+
+<p>To understand SQL fully, you first need to understand the system it was built to work with: the <strong>relational database</strong>. A relational database organizes data into one or more <strong>tables</strong>, where each table represents a distinct real-world entity or concept. For example, a retail business might have a table for <em>customers</em>, another for <em>products</em>, and another for <em>orders</em>. Each of these tables captures specific information about that entity in a structured, consistent format.</p>
+
+<p>The word "relational" refers to the ability to <strong>link tables together using keys</strong> — forming relationships between entities. For instance, an order belongs to a customer and contains products. Rather than duplicating all customer information inside the orders table (which would be wasteful and error-prone), relational databases store each piece of information once and use references to connect related data. This design principle directly supports two major goals:</p>
+
+<ul>
+  <li><strong>Reduced data redundancy:</strong> Information is stored in one place and referenced elsewhere, so there is no need to repeat the same customer name and address across hundreds of order records.</li>
+  <li><strong>Improved data integrity:</strong> When data lives in one authoritative location, updates are simpler and the risk of contradictory or stale data is minimized. If a customer changes their address, updating it in the <em>customers</em> table automatically reflects that change everywhere it is referenced.</li>
+</ul>
+
+<p>The table is the <strong>core structural unit</strong> of a relational database. Every table is given a unique name that clearly reflects the type of data it contains. Well-chosen table names like <code>employees</code>, <code>sales</code>, <code>products</code>, or <code>invoices</code> make the database self-documenting and easier to navigate. All data stored within a single table follows the same structure, which is defined upfront by its <strong>columns</strong>. A database for a complete application typically contains many tables, and together these tables form the full <em>data model</em> — a map of all the information the system needs to function.</p>
+
+<p>Think of a database table as very similar in appearance to a spreadsheet — it has named columns across the top and rows of data running downward. But unlike a spreadsheet, a database table enforces strict rules about what data can be stored, making it far more reliable for large-scale data management.</p>
+
+<p>Let us look at a concrete example. Below is a simplified representation of a <code>customers</code> table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>city</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Alice</td>
+      <td>Johnson</td>
+      <td>alice@example.com</td>
+      <td>New York</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Bob</td>
+      <td>Martinez</td>
+      <td>bob@example.com</td>
+      <td>Chicago</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Clara</td>
+      <td>Lee</td>
+      <td>clara@example.com</td>
+      <td>Los Angeles</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this table, each <strong>column</strong> defines a specific attribute of the entity being stored. The <code>first_name</code> column stores text representing a person's given name. The <code>city</code> column stores text representing the city where the customer lives. Every column has a defined <strong>data type</strong> that controls what kind of values are allowed in it. Common data types include:</p>
+
+<ul>
+  <li><strong>INTEGER or INT:</strong> Whole numbers, such as 1, 42, or 1000. Used for counts, IDs, and quantities.</li>
+  <li><strong>VARCHAR or TEXT:</strong> Variable-length text strings, such as names, addresses, and email addresses.</li>
+  <li><strong>DATE or DATETIME:</strong> Calendar dates and timestamps, such as a customer's sign-up date or an order's placement time.</li>
+  <li><strong>DECIMAL or FLOAT:</strong> Numbers with decimal points, such as prices, measurements, or percentages.</li>
+  <li><strong>BOOLEAN:</strong> True or false values, such as whether a user's account is active.</li>
+</ul>
+
+<p>Data types serve as a form of built-in validation. If a column is defined as an <code>INTEGER</code>, the database will refuse to store the word "hello" in it. This catches errors at the point of entry and ensures that data remains consistent and usable for calculations, sorting, and filtering.</p>
+
+<p>Each <strong>row</strong> in a table represents one complete, individual record. In the <code>customers</code> table above, each row is one customer. In a <code>sales</code> table, each row might be one transaction. In a <code>products</code> table, each row is one product. Every row in a given table shares exactly the same columns, so all records are structurally uniform. You will never find a customer row that has a <code>price</code> column, because that column simply does not belong to the <code>customers</code> table — it belongs to the <code>products</code> table. This strict structure is what makes databases so reliable and queryable at scale.</p>
+
+<p>A critical concept in relational databases is the <strong>primary key</strong>. Every table should designate one column (or occasionally a combination of columns) as its primary key. The primary key is the unique identifier for each row in the table. Looking back at the <code>customers</code> table, the <code>customer_id</code> column serves as the primary key — each customer has a distinct ID number that no other customer shares.</p>
+
+<p>Primary keys must satisfy two strict requirements:</p>
+
+<ul>
+  <li><strong>Uniqueness:</strong> No two rows in the table can have the same primary key value. There cannot be two customers both assigned <code>customer_id = 1</code>.</li>
+  <li><strong>Non-null:</strong> A primary key value can never be empty or missing. Every record must have an identifier.</li>
+</ul>
+
+<p>Primary keys are foundational to data integrity and to the relational model itself. When you want to link tables together — for example, connecting each order to the customer who placed it — you store the customer's primary key (<code>customer_id</code>) inside the orders table. This reference is called a <strong>foreign key</strong>, and it is how relationships between tables are established. Without reliable primary keys, you cannot build trustworthy relationships, and the relational model breaks down.</p>
+
+<p>In practice, primary keys are often auto-generated integers that increment with each new record (1, 2, 3, and so on), though they can also be natural identifiers like email addresses or product codes when those are guaranteed to be unique.</p>
+
+<p>Now that you understand the structure of a relational database, you can appreciate how SQL interacts with it. Every SQL query <strong>targets a specific table by name</strong> and specifies what data should be retrieved or manipulated. The most fundamental SQL statement is <code>SELECT</code>, which reads data from a table. Here is a simple example:</p>
+
+<pre><code>SELECT first_name, last_name, city
+FROM customers;</code></pre>
+
+<p>This query instructs the database to go to the <code>customers</code> table and return the <code>first_name</code>, <code>last_name</code>, and <code>city</code> columns for every row. The result would look exactly like a subset of the table shown earlier. Notice that you did not instruct the database <em>how</em> to find these records — you simply declared what you wanted, and the database engine handled the rest.</p>
+
+<p>You can also filter rows by adding conditions. For example, to retrieve only customers who live in Chicago:</p>
+
+<pre><code>SELECT first_name, last_name, email
+FROM customers
+WHERE city = 'Chicago';</code></pre>
+
+<p>This query returns only the row for Bob Martinez, because he is the only customer in Chicago. SQL's ability to filter, sort, aggregate, and join data across multiple tables is what makes it such a powerful tool for answering real business questions.</p>
+
+<p>Before writing any query, it is essential to understand the <strong>structure of the table</strong> you are querying — specifically, the column names and their data types. Writing <code>WHERE city = 'Chicago'</code> only works because you know there is a column called <code>city</code> that stores text values. Trying to filter on a column that does not exist, or comparing a text column to a number, will produce an error or unexpected results. This is why understanding the data model — the tables, columns, keys, and relationships — is always the first step before writing SQL queries.</p>
+
+<p>SQL commands are executed against a <strong>live database</strong> in real time. Unlike a static spreadsheet file, a database is continuously updated as new transactions occur, new users register, or new products are added. This means a SQL query run today may return different results than the same query run last week, because the underlying data has changed. This real-time nature is one of SQL's greatest strengths — it allows you to always work with the most current information available, making it invaluable for business reporting, operational monitoring, and data-driven decision-making.</p>
+        <div class="notes"><strong>Notes</strong>This topic establishes foundational knowledge of what SQL is and how relational databases are structured. Students learn how tables, rows, and columns form the basis for querying data. Emphasis should be placed on the declarative nature of SQL and the importance of understanding table structure before writing queries. The primary key concept should be revisited when foreign keys and JOINs are introduced in later modules.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

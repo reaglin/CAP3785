@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Schemas</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Database Basics and Relational Data Concepts</a></div>
+  <header>
+    <h1>Database Schemas</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Database Schemas</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every database that stores meaningful data must have some organizing principle — a blueprint that dictates what kinds of information can live inside it, how that information is grouped, and what rules govern its shape and validity. That blueprint is called a <strong>database schema</strong>. Before a single row of data is ever inserted, the schema must exist. It is the architectural plan of the database, specifying every table, every column, every data type, and every constraint that will govern the data stored within. Understanding schemas is one of the most foundational skills in working with relational databases, because every query you write, every join you construct, and every filter you apply depends directly on your ability to read and interpret the schema accurately.</p>
+
+<p>A schema is best thought of as a formal specification — a contract between the database system and everyone who interacts with it. It answers questions like: What categories of data exist here? What specific attributes does each category have? What format must those attributes take? What rules must always be satisfied? The schema does not answer questions about the actual values stored — that is the job of the data itself — but it defines the universe of what is possible to store.</p>
+
+<p><strong>What Is a Database Schema?</strong></p>
+
+<p>At its most precise, a database schema is the complete description of the structure of a database. It specifies which tables exist, what columns each table contains, and what data type is assigned to each column. It also captures the rules — called constraints — that the database engine will automatically enforce on any data inserted or updated.</p>
+
+<p>A critical distinction to internalize early is that <em>the schema is the definition, not the content</em>. If you imagine a blank printed form — say, a hospital intake form — the schema is the form itself: the labeled fields, the checkboxes, the character limits printed on each line. The data is what gets written into those fields when a patient arrives. The form can be completely empty and the schema still exists in full. The same is true of a database: a freshly created table with no rows has a complete schema but an empty instance.</p>
+
+<p>Schemas are created before data is inserted, typically using SQL's <code>CREATE TABLE</code> statement or through a database management tool. Once created, the schema remains stable until a database administrator (or authorized user) deliberately changes it using statements like <code>ALTER TABLE</code> or <code>DROP TABLE</code>. The data flowing through the database, meanwhile, changes constantly — but it always does so within the constraints the schema defines.</p>
+
+<p>Consider a simple example. A bookstore database might have a schema that declares a table called <code>books</code> with three columns: <code>book_id</code> of type <code>INTEGER</code>, <code>title</code> of type <code>VARCHAR(255)</code>, and <code>price</code> of type <code>DECIMAL(10,2)</code>. That declaration is the schema. Whether the table currently holds zero books, five hundred books, or five million books is irrelevant to the schema — the schema is the same in all three cases.</p>
+
+<p><strong>Components of a Schema</strong></p>
+
+<p>A relational database schema is built from several interlocking components. Understanding each one is essential for reading schemas fluently.</p>
+
+<p><strong>Tables</strong> — also formally called <em>relations</em> — are the primary structural units of a schema. Each table represents a distinct entity or concept in the domain being modeled. A university database might have tables for <code>students</code>, <code>courses</code>, <code>instructors</code>, and <code>enrollments</code>. Each of these represents a clearly bounded category of information. Choosing which tables to create, and what each one should represent, is one of the central decisions in database design.</p>
+
+<p><strong>Columns</strong> — sometimes called <em>fields</em> or <em>attributes</em> — define the specific pieces of information tracked within each table. Every column has a name and a declared data type. The data type constrains what values can legally appear in that column. Common data types include:</p>
+
+<ul>
+  <li><strong>INTEGER</strong> (or <strong>INT</strong>): whole numbers, positive or negative, with no fractional part. Suitable for counts, IDs, quantities.</li>
+  <li><strong>VARCHAR(n)</strong>: variable-length text up to <em>n</em> characters. Suitable for names, descriptions, codes.</li>
+  <li><strong>CHAR(n)</strong>: fixed-length text of exactly <em>n</em> characters. Often used for standardized codes like two-letter state abbreviations.</li>
+  <li><strong>DECIMAL(p,s)</strong> or <strong>NUMERIC(p,s)</strong>: exact decimal numbers with <em>p</em> total digits and <em>s</em> digits after the decimal point. Suitable for monetary values.</li>
+  <li><strong>FLOAT</strong> / <strong>REAL</strong>: approximate floating-point numbers. Suitable for scientific measurements where small rounding errors are acceptable.</li>
+  <li><strong>DATE</strong>: calendar dates in the form YYYY-MM-DD.</li>
+  <li><strong>TIMESTAMP</strong>: a date combined with a time, often including timezone information.</li>
+  <li><strong>BOOLEAN</strong>: true/false values.</li>
+  <li><strong>TEXT</strong>: unbounded text strings, suitable for long-form content.</li>
+</ul>
+
+<p>Choosing the right data type is not a trivial decision. Storing a phone number as an <code>INTEGER</code> instead of a <code>VARCHAR</code>, for example, would cause leading zeros to be silently dropped and would make it impossible to store numbers with formatting characters. Data types also affect storage efficiency, sort order, and what operations are valid — you cannot compute the average of a text column, and you cannot concatenate two integers as if they were strings without an explicit conversion.</p>
+
+<p><strong>Constraints</strong> are rules declared in the schema that the database engine enforces automatically on every insert and update operation. They are what gives the schema its power as a guardian of data quality. The most important constraints are:</p>
+
+<ul>
+  <li><strong>NOT NULL</strong>: the column must always contain a value; <code>NULL</code> (the absence of a value) is forbidden. For example, a <code>students</code> table might require that the <code>last_name</code> column always be filled in.</li>
+  <li><strong>UNIQUE</strong>: all values in the column (or combination of columns) must be distinct across all rows. For example, an <code>email</code> column in a <code>users</code> table might carry a <code>UNIQUE</code> constraint to prevent two accounts from sharing the same email address.</li>
+  <li><strong>PRIMARY KEY</strong>: a special constraint that combines <code>NOT NULL</code> and <code>UNIQUE</code> to designate the column (or columns) that uniquely identify each row in the table. Every well-designed table should have a primary key. Common examples are auto-incrementing integer IDs like <code>student_id</code> or <code>order_id</code>.</li>
+  <li><strong>FOREIGN KEY</strong>: declares that the values in one column must match values that actually exist in the primary key column of another table. This enforces referential integrity — the idea that relationships between tables remain consistent. For example, an <code>enrollments</code> table might have a <code>FOREIGN KEY</code> on <code>student_id</code> that references the <code>students</code> table, preventing the insertion of an enrollment record for a student who does not exist.</li>
+  <li><strong>CHECK</strong>: enforces a custom logical condition on column values. For example, <code>CHECK (price &gt; 0)</code> ensures that no product can be recorded with a zero or negative price.</li>
+  <li><strong>DEFAULT</strong>: specifies a value to use automatically when no value is provided during insertion. For example, a <code>created_at</code> column might default to the current timestamp.</li>
+</ul>
+
+<p>A concrete schema definition written in SQL brings these components together clearly:</p>
+
+<pre><code>CREATE TABLE students (
+    student_id   INTEGER      PRIMARY KEY,
+    first_name   VARCHAR(100) NOT NULL,
+    last_name    VARCHAR(100) NOT NULL,
+    email        VARCHAR(255) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    gpa          DECIMAL(3,2) CHECK (gpa &gt;= 0.00 AND gpa &lt;= 4.00)
+);
+
+CREATE TABLE enrollments (
+    enrollment_id INTEGER  PRIMARY KEY,
+    student_id    INTEGER  NOT NULL REFERENCES students(student_id),
+    course_code   VARCHAR(20) NOT NULL,
+    grade         CHAR(2),
+    enrolled_on   DATE    NOT NULL DEFAULT CURRENT_DATE
+);</code></pre>
+
+<p>Reading this, you can immediately see: the <code>students</code> table has six columns with their types and constraints; the <code>enrollments</code> table references the <code>students</code> table through a foreign key; and both tables have a clear primary key designating their unique row identifier. This is the schema — before any student has enrolled, before any grade has been assigned, the entire structure is defined.</p>
+
+<p><strong>Schema vs. Database Instance</strong></p>
+
+<p>The distinction between a schema and a database instance is one of the most conceptually important in all of database theory. They represent two completely different layers of a database system.</p>
+
+<p>The <strong>schema</strong> is <em>static</em>. It changes only when someone deliberately alters the database structure — adding a column, dropping a table, changing a data type, or adding a constraint. These operations are called <em>Data Definition Language</em> (DDL) operations in SQL, and they require deliberate administrative action. In a production database serving thousands of users, schema changes are carefully planned and often involve downtime or migrations. The schema can remain entirely unchanged for months or years.</p>
+
+<p>The <strong>database instance</strong> — sometimes called the <em>database state</em> or <em>database extension</em> — is <em>dynamic</em>. It is the actual set of data stored in the database at any given moment. Every time a user places an order, sends a message, updates their profile, or deletes a record, the instance changes. A database with heavy traffic might experience thousands of instance changes per minute while its schema remains completely fixed.</p>
+
+<p>This distinction has a direct practical consequence: when you write a SQL query, you are always querying the <em>instance</em> — the current data — but the <em>schema</em> governs what that query can legally reference. If you write <code>SELECT phone_number FROM customers</code> and the schema does not include a column called <code>phone_number</code> in the <code>customers</code> table, your query will fail with an error, regardless of what data the instance contains. The schema defines the vocabulary; the instance supplies the values.</p>
+
+<p>A helpful analogy: think of a spreadsheet template. The column headers, their order, and any validation rules applied to cells constitute the schema. The actual numbers and text typed into the cells constitute the instance. You can clear all the data and the template — the schema — remains intact. You can fill it with entirely different data tomorrow, and the schema is still the same.</p>
+
+<p><strong>Types of Schemas</strong></p>
+
+<p>Database systems are often described using a three-level architecture (sometimes called the ANSI/SPARC architecture), which recognizes that different stakeholders interact with the database at different levels of abstraction. Each level has its own corresponding schema type.</p>
+
+<p>The <strong>physical schema</strong> describes how data is actually stored on physical storage media — hard drives, SSDs, or distributed storage systems. It covers file organization, page structures, indexing strategies (such as B-tree indexes or hash indexes), partitioning schemes, and compression methods. Most application developers and analysts never interact with the physical schema directly; it is managed by the database engine and the database administrator. However, physical schema decisions have enormous consequences for performance. An index on a frequently queried column can make a query run thousands of times faster by allowing the engine to locate matching rows without scanning every row in the table.</p>
+
+<p>The <strong>logical schema</strong> is what most people mean when they say "the schema." It defines the tables, columns, data types, constraints, and relationships that give the data its structure — without reference to how that data is physically stored. The logical schema is the level at which SQL operates. When you write <code>CREATE TABLE</code> or <code>ALTER TABLE</code>, you are working at the logical schema level. When you read an entity-relationship diagram or a schema diagram, you are reading a representation of the logical schema. This is the level most relevant to analysts, developers, and data scientists.</p>
+
+<p>The <strong>view schema</strong> — also called the <em>external schema</em> — represents customized, filtered, or simplified presentations of the database tailored for specific users, roles, or applications. A database view is essentially a saved query that behaves like a table. For example, a company's HR database might contain sensitive salary information, but a view called <code>employee_directory</code> might expose only names, departments, and office locations to general employees, hiding the salary columns entirely. Different user groups can have entirely different view schemas built on the same underlying logical schema. Views also simplify complexity: instead of requiring every analyst to write a ten-table join from scratch, a view can encapsulate that join and present it as a single queryable object.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Schema Type</th>
+      <th>What It Describes</th>
+      <th>Who Primarily Uses It</th>
+      <th>Example Elements</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Physical Schema</td>
+      <td>How data is stored on disk</td>
+      <td>Database administrators, storage engineers</td>
+      <td>Index files, page size, partitions, storage formats</td>
+    </tr>
+    <tr>
+      <td>Logical Schema</td>
+      <td>Tables, columns, types, constraints, relationships</td>
+      <td>Developers, analysts, data engineers</td>
+      <td>Table definitions, primary keys, foreign keys, data types</td>
+    </tr>
+    <tr>
+      <td>View Schema (External)</td>
+      <td>Customized subsets of data for specific users</td>
+      <td>End users, application layers, role-based access</td>
+      <td>SQL views, filtered column sets, role-specific virtual tables</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Reading a Schema Diagram</strong></p>
+
+<p>Schema diagrams — most commonly <em>Entity-Relationship Diagrams</em> (ERDs) or their simplified variants — are visual tools for communicating a database's logical schema without requiring the reader to parse raw SQL. Being able to read them fluently is an indispensable skill for any analyst or developer joining a new project.</p>
+
+<p>In a typical schema diagram, each <strong>table is represented as a box</strong>. The table name appears at the top of the box, usually in a distinct style (bold, a different background color, or uppercase). Below the table name, the columns are listed, typically one per line, with the column name and often its data type shown alongside it.</p>
+
+<p><strong>Primary keys</strong> are almost always visually distinguished. Common conventions include underlining the column name, placing a key icon (🔑) next to it, or marking it with the abbreviation "PK." The primary key column is the unique identifier for every row in that table — no two rows can share the same primary key value, and the value cannot be null. Recognizing primary keys immediately tells you the grain of the table: what one row represents.</p>
+
+<p><strong>Foreign keys</strong> are shown as lines connecting two tables. The line begins at the column in one table that holds the foreign key value and ends at the primary key column it references in another table. The nature of the relationship — one-to-many, many-to-many, one-to-one — is conveyed through notation at each end of the line. The most common notation systems are:</p>
+
+<ul>
+  <li><strong>Crow's Foot notation</strong>: the "many" end of a relationship is drawn with a symbol resembling a crow's foot (three lines fanning out), while the "one" end is drawn with a single vertical bar. This is widely used in modern tools like Lucidchart, dbdiagram.io, and MySQL Workbench.</li>
+  <li><strong>Chen notation</strong>: uses diamonds for relationships and separate symbols for cardinality. More common in academic contexts.</li>
+  <li><strong>UML class diagram notation</strong>: uses numbers or ranges (e.g., <code>1</code>, <code>0..*</code>, <code>1..*</code>) placed at each end of the connecting line.</li>
+</ul>
+
+<p>Consider reading the following simplified schema diagram description in text form, then translating it mentally to a diagram:</p>
+
+<ul>
+  <li>A <code>customers</code> table with primary key <code>customer_id</code>, plus columns <code>name</code> and <code>email</code>.</li>
+  <li>An <code>orders</code> table with primary key <code>order_id</code>, a foreign key <code>customer_id</code> referencing <code>customers</code>, and columns <code>order_date</code> and <code>total_amount</code>.</li>
+  <li>An <code>order_items</code> table with primary key <code>item_id</code>, a foreign key <code>order_id</code> referencing <code>orders</code>, and columns <code>product_name</code> and <code>quantity</code>.</li>
+</ul>
+
+<p>Reading this, you would draw three boxes connected by two lines. The line from <code>orders</code> to <code>customers</code> would indicate a many-to-one relationship: many orders can belong to one customer. The line from <code>order_items</code> to <code>orders</code> would also indicate many-to-one: many items can belong to one order. This tells you immediately that to find all the items ordered by a particular customer, you need to join all three tables: start with <code>customers</code>, join to <code>orders</code> on <code>customer_id</code>, then join to <code>order_items</code> on <code>order_id</code>.</p>
+
+<p>Additional markings you may encounter in schema diagrams include <strong>NN</strong> or an asterisk to indicate <code>NOT NULL</code> columns, <strong>UQ</strong> or <strong>U</strong> for <code>UNIQUE</code> constraints, and <strong>FK</strong> to label foreign key columns explicitly. Some tools color-code columns by constraint type or show data types inline.</p>
+
+<p><strong>Why Schemas Matter for Data Analysis</strong></p>
+
+<p>For anyone working with data — writing queries, building reports, constructing dashboards, or performing analysis — the schema is the essential map of the territory. Without understanding the schema, you are navigating blind.</p>
+
+<p>Knowing the schema tells you <em>which tables contain the data you need</em>. A large enterprise database might have hundreds of tables. Without a schema to consult, finding the table that holds customer purchase history, or the one that records support ticket resolutions, would be a guessing game. The schema gives you a structured overview of every available data source within the database.</p>
+
+<p>Column names, data types, and constraints in the schema directly inform <em>how to query correctly</em>. If a <code>sale_date</code> column is stored as a <code>VARCHAR</code> rather than a <code>DATE</code> (a design flaw, but a common one in legacy systems), you cannot filter it with <code>WHERE sale_date &gt; '2023-01-01'</code> without first converting it — and the results may sort incorrectly because text comparison differs from date comparison. Knowing the data type prevents this class of error. Similarly, if a column allows <code>NULL</code>, you must account for null values in your aggregations and filters; <code>COUNT(column_name)</code> excludes nulls, while <code>COUNT(*)</code> does not, and this distinction can produce very different numbers depending on how many nulls exist.</p>
+
+<p>Understanding relationships in the schema tells you <em>how to join tables correctly</em>. One of the most frequent query errors is joining on the wrong column — for example, assuming that a column called <code>id</code> in one table corresponds to a column called <code>id</code> in another table, when in fact they are unrelated identifiers for different entities. The schema — specifically, the foreign key declarations and the diagram lines connecting tables — tells you definitively which columns form valid join conditions and which would produce nonsensical cross-product results.</p>
+
+<p>Constraint information also warns you about edge cases. A column marked <code>NOT NULL</code> guarantees that every row has a value there, so you never need to write null-handling logic for it. A column with a <code>UNIQUE</code> constraint tells you it can serve safely as a join key without introducing duplicate rows on the result side. A <code>CHECK</code> constraint tells you the valid range of values, which can simplify your data validation work.</p>
+
+<p>Misreading or ignoring the schema is responsible for a striking share of common analysis errors:</p>
+
+<ul>
+  <li><strong>Joining on the wrong columns</strong>: produces a Cartesian product or an incorrect match, inflating row counts and corrupting aggregations.</li>
+  <li><strong>Assuming incorrect data types</strong>: leads to failed comparisons, wrong sort orders, or silent type-coercion errors.</li>
+  <li><strong>Overlooking nullable columns</strong>: causes aggregate functions to silently exclude rows with null values, producing counts or sums that appear plausible but are subtly wrong.</li>
+  <li><strong>Misunderstanding table granularity</strong>: treating a many-to-many junction table as a one-to-one table, for example, inflates metrics when aggregating without proper grouping.</li>
+  <li><strong>Querying the wrong table</strong>: pulling data from a staging or archive table instead of the live transaction table, or vice versa.</li>
+</ul>
+
+<p>The habit of reading the schema before writing a query — understanding what each table represents, what its primary key is, how it relates to other tables, and what data types its columns carry — is what separates a careful, reliable analyst from one who produces results that look correct but aren't. The schema is not bureaucratic overhead; it is the foundation upon which all meaningful data work is built.</p>
+        <div class="notes"><strong>Notes</strong>The SQL code examples use &amp;gt; for the greater-than sign to ensure valid HTML. Instructors may wish to supplement this topic with a hands-on exercise in which learners examine a real schema diagram (e.g., from a sample database such as Northwind or Chinook) and answer questions about table relationships and appropriate join keys before writing any queries.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

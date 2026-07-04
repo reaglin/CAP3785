@@ -15,6 +15,46 @@
     "type": "Content"
   },
   {
+    "title": "Automating Refresh Workflows",
+    "href": "content/Pivot_Tables_Dashboards_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Introduction to Pivot Tables",
+    "href": "content/Pivot_Tables_Dashboards_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Advanced Pivot Table Techniques",
+    "href": "content/Pivot_Tables_Dashboards_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Building Dynamic Dashboards",
+    "href": "content/Pivot_Tables_Dashboards_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Dashboard Interactivity and Visual Design",
+    "href": "content/Pivot_Tables_Dashboards_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Introduction to Power Query",
+    "href": "content/Pivot_Tables_Dashboards_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Data Transformation with Power Query",
+    "href": "content/Pivot_Tables_Dashboards_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "Automating Refresh Workflows",
+    "href": "content/Pivot_Tables_Dashboards_interactive_topics_t7.html",
+    "type": "Content"
+  },
+  {
     "title": "Quiz \u2014 Pivot Tables, Dashboards, and Power Query in Excel",
     "href": "quiz/index.html",
     "type": "Quiz"

@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outer JOINs: LEFT, RIGHT, and FULL</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Joins, Relationships, and Advanced Query Techniques</a></div>
+  <header>
+    <h1>Outer JOINs: LEFT, RIGHT, and FULL</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Outer JOINs: LEFT, RIGHT, and FULL</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When querying relational databases, it is common to need data from multiple tables simultaneously. The <strong>INNER JOIN</strong> is the most familiar join type, but it only returns rows where a matching record exists in <em>both</em> tables. In many real-world scenarios this is too restrictive — you need to see every row from at least one table even when no corresponding row exists in the other. This is precisely what <strong>OUTER JOINs</strong> accomplish. The SQL standard defines three outer join variants: <strong>LEFT OUTER JOIN</strong>, <strong>RIGHT OUTER JOIN</strong>, and <strong>FULL OUTER JOIN</strong>. Each variant controls which table's rows are guaranteed to appear in the result set, filling the absent side's columns with <code>NULL</code> wherever no match is found.</p>
+
+<p>To ground every example that follows, consider two tables used throughout this topic:</p>
+
+<p><strong>customers</strong></p>
+<table>
+  <thead>
+    <tr><th>customer_id</th><th>customer_name</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Alice</td></tr>
+    <tr><td>2</td><td>Bob</td></tr>
+    <tr><td>3</td><td>Carol</td></tr>
+    <tr><td>4</td><td>David</td></tr>
+  </tbody>
+</table>
+
+<p><strong>orders</strong></p>
+<table>
+  <thead>
+    <tr><th>order_id</th><th>customer_id</th><th>order_total</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>101</td><td>1</td><td>250.00</td></tr>
+    <tr><td>102</td><td>2</td><td>89.50</td></tr>
+    <tr><td>103</td><td>2</td><td>310.00</td></tr>
+    <tr><td>104</td><td>5</td><td>45.00</td></tr>
+  </tbody>
+</table>
+
+<p>Notice that <em>Carol</em> (customer_id 3) and <em>David</em> (customer_id 4) have placed no orders, and order 104 references customer_id 5, which does not exist in the customers table. These deliberate gaps let us demonstrate exactly how each outer join type behaves.</p>
+
+<p><strong>What Is an Outer JOIN?</strong></p>
+
+<p>An <strong>OUTER JOIN</strong> extends the behavior of an INNER JOIN by including rows that have <em>no match</em> in the joined table. Where a matching row is absent, the database engine inserts <code>NULL</code> into every column that would have come from the missing side. This design means you never lose rows from the "preserved" table, making outer joins essential for tasks like auditing completeness, identifying gaps, and producing reports that must account for every entity regardless of associated activity.</p>
+
+<p>The three key properties shared by all outer joins are:</p>
+<ul>
+  <li>They always return at least every row from the designated "preserved" table (or both tables in the case of FULL OUTER JOIN).</li>
+  <li>Columns from the "non-preserved" side carry <code>NULL</code> wherever no matching row was found.</li>
+  <li>Choosing the correct type depends entirely on <em>which</em> table's completeness is the analytical priority.</li>
+</ul>
+
+<p><strong>LEFT OUTER JOIN</strong></p>
+
+<p>A <strong>LEFT OUTER JOIN</strong> (written as <code>LEFT JOIN</code> or <code>LEFT OUTER JOIN</code> — the keyword <code>OUTER</code> is optional and the two forms are completely equivalent in standard SQL) guarantees that <em>every row in the left table</em> appears in the result set. When a left-table row has at least one matching row in the right table, those matches are included normally. When a left-table row has <em>no</em> match in the right table, it still appears in the result, but all columns originating from the right table are set to <code>NULL</code>.</p>
+
+<p>Using the sample tables, the following query lists every customer along with any orders they have placed:</p>
+
+<pre><code>SELECT
+    c.customer_id,
+    c.customer_name,
+    o.order_id,
+    o.order_total
+FROM customers AS c
+LEFT JOIN orders AS o
+    ON c.customer_id = o.customer_id;
+</code></pre>
+
+<p>Result:</p>
+<table>
+  <thead>
+    <tr><th>customer_id</th><th>customer_name</th><th>order_id</th><th>order_total</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Alice</td><td>101</td><td>250.00</td></tr>
+    <tr><td>2</td><td>Bob</td><td>102</td><td>89.50</td></tr>
+    <tr><td>2</td><td>Bob</td><td>103</td><td>310.00</td></tr>
+    <tr><td>3</td><td>Carol</td><td>NULL</td><td>NULL</td></tr>
+    <tr><td>4</td><td>David</td><td>NULL</td><td>NULL</td></tr>
+  </tbody>
+</table>
+
+<p>Alice and Bob appear with their respective orders. Bob appears twice because he placed two orders. Carol and David appear with <code>NULL</code> in the order columns because they have no matching orders — yet they are <em>not</em> omitted from the result. Notice also that order 104 (customer_id 5) does not appear at all, because customer_id 5 is not in the left table (<em>customers</em>).</p>
+
+<p>A very common use of LEFT JOIN is to <strong>find left-table rows that have no related right-table record</strong> — for instance, customers who have never placed an order:</p>
+
+<pre><code>SELECT
+    c.customer_id,
+    c.customer_name
+FROM customers AS c
+LEFT JOIN orders AS o
+    ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;
+</code></pre>
+
+<p>Result:</p>
+<table>
+  <thead>
+    <tr><th>customer_id</th><th>customer_name</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>3</td><td>Carol</td></tr>
+    <tr><td>4</td><td>David</td></tr>
+  </tbody>
+</table>
+
+<p>By filtering with <code>WHERE o.order_id IS NULL</code> after the join, only the rows where the right-table column remained <code>NULL</code> (i.e., no match existed) are kept. This pattern — sometimes called an <strong>anti-join</strong> — is one of the most practical and frequently used query patterns in SQL.</p>
+
+<p><strong>RIGHT OUTER JOIN</strong></p>
+
+<p>A <strong>RIGHT OUTER JOIN</strong> (equivalently <code>RIGHT JOIN</code>) is the mirror image of a LEFT JOIN. It guarantees that <em>every row in the right table</em> appears in the result, regardless of whether a matching row exists in the left table. When no left-table match is found, the left-table columns contain <code>NULL</code>.</p>
+
+<pre><code>SELECT
+    c.customer_id,
+    c.customer_name,
+    o.order_id,
+    o.order_total
+FROM customers AS c
+RIGHT JOIN orders AS o
+    ON c.customer_id = o.customer_id;
+</code></pre>
+
+<p>Result:</p>
+<table>
+  <thead>
+    <tr><th>customer_id</th><th>customer_name</th><th>order_id</th><th>order_total</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Alice</td><td>101</td><td>250.00</td></tr>
+    <tr><td>2</td><td>Bob</td><td>102</td><td>89.50</td></tr>
+    <tr><td>2</td><td>Bob</td><td>103</td><td>310.00</td></tr>
+    <tr><td>NULL</td><td>NULL</td><td>104</td><td>45.00</td></tr>
+  </tbody>
+</table>
+
+<p>Now every order is guaranteed to appear. Order 104 references a non-existent customer, so the customer columns show <code>NULL</code>, but the order itself is not dropped. Carol and David, who have no orders, do not appear because the right table (<em>orders</em>) drives the result — rows without a right-table record are excluded.</p>
+
+<p>An important practical note: a RIGHT JOIN is <strong>logically equivalent to swapping the table order and using a LEFT JOIN</strong>. The following query produces an identical result to the RIGHT JOIN above:</p>
+
+<pre><code>SELECT
+    c.customer_id,
+    c.customer_name,
+    o.order_id,
+    o.order_total
+FROM orders AS o
+LEFT JOIN customers AS c
+    ON c.customer_id = o.customer_id;
+</code></pre>
+
+<p>Because of this equivalence, many development teams adopt a convention of writing everything as a LEFT JOIN (adjusting table order as needed) to keep query style consistent and easier to read. RIGHT JOIN is most naturally chosen when the schema or query context makes the right-table position the more logical "primary" dataset — for example, when the right table is a reference or lookup table that must not lose rows.</p>
+
+<p><strong>FULL OUTER JOIN</strong></p>
+
+<p>A <strong>FULL OUTER JOIN</strong> combines LEFT and RIGHT JOIN behavior: <em>every row from both tables</em> is included in the result. Where matches exist, columns from both sides are populated normally. Where no match exists on the left side, the left-table columns show <code>NULL</code>; where no match exists on the right side, the right-table columns show <code>NULL</code>.</p>
+
+<pre><code>SELECT
+    c.customer_id   AS cust_id,
+    c.customer_name,
+    o.order_id,
+    o.customer_id   AS order_cust_id,
+    o.order_total
+FROM customers AS c
+FULL OUTER JOIN orders AS o
+    ON c.customer_id = o.customer_id;
+</code></pre>
+
+<p>Result:</p>
+<table>
+  <thead>
+    <tr><th>cust_id</th><th>customer_name</th><th>order_id</th><th>order_cust_id</th><th>order_total</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Alice</td><td>101</td><td>1</td><td>250.00</td></tr>
+    <tr><td>2</td><td>Bob</td><td>102</td><td>2</td><td>89.50</td></tr>
+    <tr><td>2</td><td>Bob</td><td>103</td><td>2</td><td>310.00</td></tr>
+    <tr><td>3</td><td>Carol</td><td>NULL</td><td>NULL</td><td>NULL</td></tr>
+    <tr><td>4</td><td>David</td><td>NULL</td><td>NULL</td><td>NULL</td></tr>
+    <tr><td>NULL</td><td>NULL</td><td>104</td><td>5</td><td>45.00</td></tr>
+  </tbody>
+</table>
+
+<p>Every customer appears (including those without orders) and every order appears (including the one referencing a non-existent customer). This makes FULL OUTER JOIN ideal for <strong>reconciliation and gap analysis</strong> across two datasets — for example, comparing a list of registered students against enrolled courses to find students not in any course <em>and</em> courses with no students, all in one query.</p>
+
+<p>Not all database engines support FULL OUTER JOIN natively. <strong>MySQL</strong>, for instance, does not. In those systems, the equivalent result can be produced by taking a UNION of a LEFT JOIN and a RIGHT JOIN:</p>
+
+<pre><code>-- Emulating FULL OUTER JOIN in MySQL
+SELECT c.customer_id, c.customer_name, o.order_id, o.order_total
+FROM customers AS c
+LEFT JOIN orders AS o ON c.customer_id = o.customer_id
+
+UNION
+
+SELECT c.customer_id, c.customer_name, o.order_id, o.order_total
+FROM customers AS c
+RIGHT JOIN orders AS o ON c.customer_id = o.customer_id;
+</code></pre>
+
+<p><code>UNION</code> (without <code>ALL</code>) removes duplicate rows, so any rows that matched on both sides appear only once, just as in a true FULL OUTER JOIN. Databases such as PostgreSQL, SQL Server, Oracle, and DB2 support FULL OUTER JOIN directly.</p>
+
+<p><strong>Handling NULL Values in Outer JOIN Results</strong></p>
+
+<p>Understanding how <code>NULL</code> behaves in outer join results is critical to writing correct queries. Several common pitfalls and techniques deserve careful attention:</p>
+
+<ul>
+  <li><strong>IS NULL vs. = NULL:</strong> SQL's three-valued logic means that <code>NULL = NULL</code> evaluates to <em>unknown</em>, not <em>true</em>. A <code>WHERE</code> clause written as <code>WHERE o.order_id = NULL</code> will never match any row. Always use <code>IS NULL</code> or <code>IS NOT NULL</code> when testing for the absence or presence of a value.</li>
+  <li><strong>Filtering in WHERE vs. ON:</strong> Placing a filter condition on the right-table column inside the <code>WHERE</code> clause after a LEFT JOIN effectively converts it back into an INNER JOIN, because <code>WHERE</code> is applied after the join and will exclude the <code>NULL</code> rows. If the intent is to filter right-table rows <em>before</em> joining while still preserving all left-table rows, the condition belongs in the <code>ON</code> clause.</li>
+</ul>
+
+<pre><code>-- This converts the LEFT JOIN into an effective INNER JOIN:
+SELECT c.customer_name, o.order_total
+FROM customers AS c
+LEFT JOIN orders AS o ON c.customer_id = o.customer_id
+WHERE o.order_total > 100;   -- excludes Carol and David (their order_total is NULL)
+
+-- This preserves all customers, filtering orders within the join:
+SELECT c.customer_name, o.order_total
+FROM customers AS c
+LEFT JOIN orders AS o
+    ON c.customer_id = o.customer_id
+    AND o.order_total > 100;  -- Carol and David still appear with NULL order_total
+</code></pre>
+
+<ul>
+  <li><strong>COUNT() and NULLs:</strong> <code>COUNT(*)</code> counts every row in the result including those with <code>NULL</code> in joined columns, while <code>COUNT(column)</code> counts only non-<code>NULL</code> values in that column. This distinction is extremely useful when computing summaries over outer join results.</li>
+</ul>
+
+<pre><code>SELECT
+    c.customer_name,
+    COUNT(*)             AS total_result_rows,
+    COUNT(o.order_id)    AS actual_orders
+FROM customers AS c
+LEFT JOIN orders AS o ON c.customer_id = o.customer_id
+GROUP BY c.customer_name;
+</code></pre>
+
+<table>
+  <thead>
+    <tr><th>customer_name</th><th>total_result_rows</th><th>actual_orders</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Alice</td><td>1</td><td>1</td></tr>
+    <tr><td>Bob</td><td>2</td><td>2</td></tr>
+    <tr><td>Carol</td><td>1</td><td>0</td></tr>
+    <tr><td>David</td><td>1</td><td>0</td></tr>
+  </tbody>
+</table>
+
+<p>Carol and David correctly show 0 actual orders because <code>COUNT(o.order_id)</code> ignores their <code>NULL</code> order_id values, while <code>COUNT(*)</code> still counts their single result row.</p>
+
+<ul>
+  <li><strong>Replacing NULLs for display:</strong> Use <code>COALESCE(expression, fallback)</code> or database-specific functions like <code>IFNULL()</code> (MySQL) or <code>ISNULL()</code> (SQL Server) to substitute a meaningful default value in place of <code>NULL</code> in output columns.</li>
+</ul>
+
+<pre><code>SELECT
+    c.customer_name,
+    COALESCE(o.order_total, 0.00) AS order_total
+FROM customers AS c
+LEFT JOIN orders AS o ON c.customer_id = o.customer_id;
+</code></pre>
+
+<p>This returns <code>0.00</code> rather than <code>NULL</code> for Carol and David, which is often more readable in reports and avoids confusion for end users unfamiliar with SQL's treatment of <code>NULL</code>.</p>
+
+<p><strong>Practical Differences and Choosing the Right Outer JOIN</strong></p>
+
+<p>Selecting the appropriate join type is fundamentally a question of <strong>which records must not be lost</strong>. A concise decision framework:</p>
+
+<ul>
+  <li><strong>Use LEFT JOIN</strong> when the left table is your primary dataset and you must retain every one of its rows — for example, listing every employee with or without a department assignment, every product with or without a recent sale, or every student with or without a grade.</li>
+  <li><strong>Use RIGHT JOIN</strong> when the right table is the primary or reference dataset and its completeness must be preserved — for example, ensuring every scheduled shift appears in a report even if no staff member is assigned. In practice, many teams simply reverse the table order and use LEFT JOIN instead, which is functionally identical.</li>
+  <li><strong>Use FULL OUTER JOIN</strong> when both datasets are equally authoritative and you need to see all rows from both sides simultaneously — for example, comparing two import files to find records that appear in one but not the other, or reconciling a master list against a transaction log.</li>
+  <li><strong>Use INNER JOIN</strong> when only rows with matches on both sides are meaningful — for example, retrieving only orders that have valid, existing customers.</li>
+</ul>
+
+<p>The clearest analytical signal that an OUTER JOIN is needed is the requirement to identify <strong>missing or unmatched records</strong>. If the business question contains phrases like "with or without," "even if there are none," "including those that have not," or "find customers who never ordered," an OUTER JOIN is almost certainly the right tool. An INNER JOIN silently discards non-matching rows, which can produce misleadingly incomplete results if the absence of a relationship is itself meaningful information.</p>
+
+<p>The following table summarizes the row-inclusion behavior of each join type at a glance:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Join Type</th>
+      <th>Left-table rows with no match</th>
+      <th>Right-table rows with no match</th>
+      <th>Matched rows from both</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>INNER JOIN</td><td>Excluded</td><td>Excluded</td><td>Included</td></tr>
+    <tr><td>LEFT OUTER JOIN</td><td>Included (right cols = NULL)</td><td>Excluded</td><td>Included</td></tr>
+    <tr><td>RIGHT OUTER JOIN</td><td>Excluded</td><td>Included (left cols = NULL)</td><td>Included</td></tr>
+    <tr><td>FULL OUTER JOIN</td><td>Included (right cols = NULL)</td><td>Included (left cols = NULL)</td><td>Included</td></tr>
+  </tbody>
+</table>
+
+<p>Mastering outer joins — and especially recognizing when the absence of a match is the meaningful data point — is one of the most impactful skills in SQL. Whether auditing referential integrity, building comprehensive reports, or reconciling disparate data sources, LEFT, RIGHT, and FULL OUTER JOINs provide the precise control needed to ensure no important row is silently excluded from your results.</p>
+        <div class="notes"><strong>Notes</strong>Examines LEFT, RIGHT, and FULL OUTER JOIN operations and how they handle unmatched records from one or both tables. Highlights practical differences and when to apply each type. Examples use a consistent customers/orders dataset throughout so learners can directly compare join behaviors side by side.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

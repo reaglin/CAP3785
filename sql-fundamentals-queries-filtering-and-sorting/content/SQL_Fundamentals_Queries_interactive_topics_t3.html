@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filtering Data with WHERE</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Fundamentals: Queries, Filtering, and Sorting</a></div>
+  <header>
+    <h1>Filtering Data with WHERE</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Filtering Data with WHERE</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When you query a database, you rarely want every single row in a table. A table holding customer orders might contain millions of records, but you might only care about orders placed last month, or only orders from a specific region, or only orders above a certain dollar amount. The <strong>WHERE clause</strong> is the primary tool SQL gives you for this job. It acts as a filter that the database engine applies to every row it reads, keeping only the rows that satisfy a condition you define and discarding the rest. Understanding WHERE — and the rich set of operators and keywords that work inside it — is one of the most important skills in practical SQL work.</p>
+
+<p>The <strong>basic syntax</strong> of a query with a WHERE clause follows this pattern:</p>
+
+<pre><code>SELECT column(s)
+FROM table_name
+WHERE condition;</code></pre>
+
+<p>The database engine processes this in a specific logical order: it identifies the table named in FROM, then evaluates the WHERE condition against each row one at a time, and finally returns only the columns listed in SELECT for the rows where the condition is <strong>TRUE</strong>. Rows where the condition is FALSE — or where it cannot be determined — are silently dropped from the result. One important and often overlooked point is that the WHERE clause can reference <em>any</em> column in the table, not only the columns you chose to display in SELECT. For example, you can filter on a <code>last_login</code> date column without including that column in your output.</p>
+
+<p>The following sections explore every major category of filtering you will encounter in day-to-day SQL work.</p>
+
+<p><strong>Comparison Operators</strong></p>
+
+<p>The most fundamental building blocks of a WHERE condition are the comparison operators. They let you test whether a column value stands in a particular relationship to another value. The standard set of operators is:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>=</code></td>
+      <td>Equal to</td>
+      <td><code>WHERE department = 'Sales'</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;&gt;</code> or <code>!=</code></td>
+      <td>Not equal to</td>
+      <td><code>WHERE status &lt;&gt; 'Cancelled'</code></td>
+    </tr>
+    <tr>
+      <td><code>&gt;</code></td>
+      <td>Greater than</td>
+      <td><code>WHERE salary &gt; 60000</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;</code></td>
+      <td>Less than</td>
+      <td><code>WHERE quantity &lt; 10</code></td>
+    </tr>
+    <tr>
+      <td><code>&gt;=</code></td>
+      <td>Greater than or equal to</td>
+      <td><code>WHERE rating &gt;= 4</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;=</code></td>
+      <td>Less than or equal to</td>
+      <td><code>WHERE age &lt;= 65</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>equal operator</strong> (<code>=</code>) is used for exact matches. The query below retrieves every employee whose department is exactly <em>Sales</em>:</p>
+
+<pre><code>SELECT first_name, last_name, department
+FROM employees
+WHERE department = 'Sales';</code></pre>
+
+<p>The <strong>not-equal operators</strong> (<code>&lt;&gt;</code> and <code>!=</code>) are interchangeable in most database systems. They return every row where the column does <em>not</em> match the value. For instance, to see all orders that are still active — meaning not cancelled — you would write:</p>
+
+<pre><code>SELECT order_id, customer_id, order_date
+FROM orders
+WHERE status &lt;&gt; 'Cancelled';</code></pre>
+
+<p><strong>Filtering Text Data</strong></p>
+
+<p>When comparing against text (string) values, you must wrap the literal value in <strong>single quotes</strong>. Writing <code>WHERE city = 'Chicago'</code> is correct SQL. Writing <code>WHERE city = Chicago</code> without quotes will cause the database to interpret <em>Chicago</em> as a column name, which will produce an error if no such column exists, or silently produce wrong results if it does. This is one of the most common beginner mistakes.</p>
+
+<p>For flexible text matching, SQL provides the <strong>LIKE operator</strong> paired with two wildcard characters:</p>
+
+<ul>
+  <li><strong>%</strong> — matches any sequence of zero or more characters.</li>
+  <li><strong>_</strong> — matches exactly one character.</li>
+</ul>
+
+<p>Some practical examples:</p>
+
+<pre><code>-- Find all customers whose last name starts with 'Sm'
+SELECT customer_id, last_name
+FROM customers
+WHERE last_name LIKE 'Sm%';
+
+-- Find all products with exactly five characters in their code,
+-- where the code starts with 'A' and ends with 'Z'
+SELECT product_code, product_name
+FROM products
+WHERE product_code LIKE 'A___Z';
+
+-- Find all email addresses from the gmail domain
+SELECT email
+FROM users
+WHERE email LIKE '%@gmail.com';</code></pre>
+
+<p>When you want to test a column against several specific text values at once, the <strong>IN operator</strong> is far more readable than stringing together multiple OR conditions:</p>
+
+<pre><code>-- Instead of this:
+WHERE country = 'USA' OR country = 'Canada' OR country = 'Mexico'
+
+-- Write this:
+SELECT customer_name, country
+FROM customers
+WHERE country IN ('USA', 'Canada', 'Mexico');</code></pre>
+
+<p>Both forms produce identical results, but IN is cleaner and easier to maintain when the list grows.</p>
+
+<p><strong>Filtering Numeric Data</strong></p>
+
+<p>Numeric values in a WHERE condition are written <em>without</em> quotes. Writing <code>WHERE age = 30</code> is correct; writing <code>WHERE age = '30'</code> wraps the number in a string literal. While some databases will silently convert the string to a number, others will not, and you will introduce a type mismatch. Always write numbers without quotes to be explicit.</p>
+
+<p>The <strong>BETWEEN operator</strong> provides a clean way to test whether a value falls within an inclusive range. Both boundary values are included in the result:</p>
+
+<pre><code>-- Returns employees with a salary of 40000, 80000, or anything in between
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary BETWEEN 40000 AND 80000;</code></pre>
+
+<p>The inequality operators are especially powerful for business rules and threshold-based filtering. Consider an inventory system where you want to flag products running low:</p>
+
+<pre><code>SELECT product_name, quantity_on_hand
+FROM inventory
+WHERE quantity_on_hand &lt; 10;</code></pre>
+
+<p>Or a sales report that only cares about high-value transactions:</p>
+
+<pre><code>SELECT order_id, customer_id, total_amount
+FROM orders
+WHERE total_amount &gt;= 1000;</code></pre>
+
+<p><strong>Combining Conditions with AND and OR</strong></p>
+
+<p>Real queries often need to apply more than one condition at the same time. SQL provides two logical operators for this: <strong>AND</strong> and <strong>OR</strong>.</p>
+
+<p><strong>AND</strong> requires every connected condition to be TRUE for a row to be included. Think of it as narrowing your results further. The query below returns only employees who are both in the Sales department <em>and</em> were hired after 2020:</p>
+
+<pre><code>SELECT first_name, last_name, department, hire_year
+FROM employees
+WHERE department = 'Sales'
+  AND hire_year &gt; 2020;</code></pre>
+
+<p><strong>OR</strong> requires at least one condition to be TRUE. It broadens results. The query below returns employees located in Austin <em>or</em> Denver (or both, if that were somehow possible):</p>
+
+<pre><code>SELECT first_name, last_name, city
+FROM employees
+WHERE city = 'Austin'
+   OR city = 'Denver';</code></pre>
+
+<p>When you mix AND and OR in the same WHERE clause, you must be careful about <strong>operator precedence</strong>. AND is evaluated before OR, just as multiplication is evaluated before addition in arithmetic. Without parentheses, this query does not do what it appears to do at first glance:</p>
+
+<pre><code>-- POTENTIALLY MISLEADING: AND binds tighter than OR
+SELECT *
+FROM employees
+WHERE department = 'Sales'
+   OR department = 'Marketing'
+  AND hire_year &gt; 2020;</code></pre>
+
+<p>The database reads this as: <em>department = 'Sales'</em> OR <em>(department = 'Marketing' AND hire_year &gt; 2020)</em>. It returns all Sales employees regardless of hire year, plus only post-2020 Marketing employees. If you wanted all Sales or Marketing employees hired after 2020, you must use parentheses:</p>
+
+<pre><code>-- CORRECT: parentheses enforce the intended grouping
+SELECT *
+FROM employees
+WHERE (department = 'Sales' OR department = 'Marketing')
+  AND hire_year &gt; 2020;</code></pre>
+
+<p>Always use parentheses when combining AND and OR. It eliminates ambiguity and makes your intent clear to anyone who reads the query later.</p>
+
+<p><strong>Excluding Results with NOT</strong></p>
+
+<p>The <strong>NOT</strong> keyword negates a condition. It can be paired with IN, LIKE, and BETWEEN to flip their behavior from inclusion to exclusion.</p>
+
+<p><strong>NOT IN</strong> excludes every row whose column value appears in the specified list:</p>
+
+<pre><code>-- Returns all records except those with a status of 'Closed' or 'Cancelled'
+SELECT order_id, customer_id, status
+FROM orders
+WHERE status NOT IN ('Closed', 'Cancelled');</code></pre>
+
+<p><strong>NOT LIKE</strong> excludes rows where the column matches the given pattern. This is useful for filtering out test or placeholder data:</p>
+
+<pre><code>-- Exclude all email addresses from the internal test domain
+SELECT user_id, email
+FROM users
+WHERE email NOT LIKE '%@test.com';</code></pre>
+
+<p><strong>NOT BETWEEN</strong> excludes a range, returning only rows that fall <em>outside</em> the specified boundaries:</p>
+
+<pre><code>-- Returns products priced below $10 or above $50 (excludes $10–$50 range)
+SELECT product_name, price
+FROM products
+WHERE price NOT BETWEEN 10 AND 50;</code></pre>
+
+<p><strong>Handling NULL Values in Filtering</strong></p>
+
+<p>NULL is SQL's way of representing a missing, unknown, or inapplicable value. It is not zero, not an empty string, and not any other concrete value — it simply means <em>no value exists here</em>. This has a critical implication for filtering: you <strong>cannot use = or &lt;&gt; to test for NULL</strong>.</p>
+
+<p>Consider what happens when you try:</p>
+
+<pre><code>-- This will NOT return rows where email is NULL
+SELECT customer_id
+FROM customers
+WHERE email = NULL;</code></pre>
+
+<p>The expression <code>email = NULL</code> evaluates to <em>unknown</em> (not TRUE and not FALSE) for every row, including rows where email is actually NULL. Because the database only includes rows where the condition evaluates to TRUE, this query returns zero rows — which is almost never what you intended.</p>
+
+<p>The correct approach is to use the dedicated <strong>IS NULL</strong> and <strong>IS NOT NULL</strong> keywords:</p>
+
+<pre><code>-- Find all customers who have not provided an email address
+SELECT customer_id, first_name, last_name
+FROM customers
+WHERE email IS NULL;</code></pre>
+
+<pre><code>-- Find all customers who do have a phone number on file
+SELECT customer_id, first_name, phone_number
+FROM customers
+WHERE phone_number IS NOT NULL;</code></pre>
+
+<p>NULL awareness becomes especially important when you combine conditions. If a column contains NULL values, those rows will be silently excluded from any condition using =, &lt;&gt;, &gt;, LIKE, BETWEEN, or IN — even if you might logically expect them to be included. For example, <code>WHERE bonus &lt;&gt; 0</code> will not return rows where <code>bonus</code> is NULL, because the comparison yields <em>unknown</em>. If you want to include NULL rows as well, you must explicitly add <code>OR bonus IS NULL</code> to your condition.</p>
+
+<p>Putting all of these concepts together, here is a more complete real-world example. Suppose a sales manager wants a list of active, high-value customers based in North America who have a verified email address:</p>
+
+<pre><code>SELECT customer_id, first_name, last_name, email, country, lifetime_value
+FROM customers
+WHERE country IN ('USA', 'Canada', 'Mexico')
+  AND lifetime_value &gt;= 5000
+  AND status &lt;&gt; 'Inactive'
+  AND email IS NOT NULL
+  AND email NOT LIKE '%@test.com';</code></pre>
+
+<p>Each condition independently filters the rows, and because they are joined by AND, only rows satisfying every single condition appear in the result. This is the power of the WHERE clause: the ability to compose multiple, precise conditions into a single, expressive filter that isolates exactly the data you need.</p>
+        <div class="notes"><strong>Notes</strong>Encourage students to test NULL behavior hands-on, as it is frequently misunderstood. A good exercise is to have them run a query with = NULL and then with IS NULL against the same table and compare the row counts. Emphasize parentheses with AND/OR combinations as a best practice habit, not just an edge case.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

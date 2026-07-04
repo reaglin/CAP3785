@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lookup Functions: VLOOKUP and INDEX-MATCH</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Excel Functions and Statistical Tools</a></div>
+  <header>
+    <h1>Lookup Functions: VLOOKUP and INDEX-MATCH</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Lookup Functions: VLOOKUP and INDEX-MATCH</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most fundamental skills in spreadsheet analysis is the ability to retrieve a value from one table based on a key that exists in another. Whether you are pulling a product price from a price list, finding an employee's department from an HR roster, or matching order IDs to customer names, <strong>lookup functions</strong> are the engine that makes this possible without manual copying or error-prone searching. Microsoft Excel provides two major approaches to this task: the widely known <strong>VLOOKUP</strong> function and the more flexible <strong>INDEX-MATCH</strong> combination. Understanding both — their syntax, their strengths, and their limitations — gives you the ability to choose the right tool for any data retrieval challenge you encounter.</p>
+
+<p><strong>Introduction to VLOOKUP</strong></p>
+
+<p>VLOOKUP, which stands for <em>Vertical Lookup</em>, searches down the first (leftmost) column of a defined range for a specified value and, once it finds a match, returns a value from a column to the right within the same row. Its full syntax is:</p>
+
+<pre><code>=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</code></pre>
+
+<p>Each argument plays a specific role:</p>
+
+<ul>
+  <li><strong>lookup_value</strong> — The value you are searching for. This can be a cell reference (e.g., <code>A2</code>), a typed text string in quotes, or a number.</li>
+  <li><strong>table_array</strong> — The range of cells that contains both the column you are searching and the column you want to retrieve from. VLOOKUP <em>always</em> searches the leftmost column of this range.</li>
+  <li><strong>col_index_num</strong> — A positive integer indicating which column of the <code>table_array</code> to return the value from. A value of <code>1</code> returns the leftmost (search) column itself; <code>2</code> returns the second column; <code>3</code> returns the third, and so on.</li>
+  <li><strong>range_lookup</strong> — An optional logical argument. <code>TRUE</code> (or omitting the argument) performs an <em>approximate match</em>, which requires the search column to be sorted in ascending order and is useful for range-based lookups like tax brackets. <code>FALSE</code> performs an <em>exact match</em> and is what you should use in virtually all standard data retrieval scenarios.</li>
+</ul>
+
+<p>Consider a simple example. Suppose column A contains employee IDs and column B contains employee names in the range <code>A2:B100</code>. To find the name associated with the ID in cell <code>E2</code>, you would write:</p>
+
+<pre><code>=VLOOKUP(E2, $A$2:$B$100, 2, FALSE)</code></pre>
+
+<p>Here, <code>E2</code> is the lookup value, <code>$A$2:$B$100</code> is the table array, <code>2</code> tells Excel to return the value from the second column (names), and <code>FALSE</code> ensures an exact match is required. If the ID is not found, Excel returns a <code>#N/A</code> error, which is actually useful feedback — it means no match exists.</p>
+
+<p>The <strong>range_lookup</strong> argument deserves special attention. When set to <code>TRUE</code> or omitted, VLOOKUP finds the largest value that is less than or equal to the lookup value, which only makes sense when the data is sorted. For example, a grading scale lookup (where scores 0–59 = F, 60–69 = D, etc.) is a natural use for approximate match. However, using <code>TRUE</code> on unsorted data or for exact data retrieval produces silently wrong results — Excel returns an incorrect match rather than an error. For this reason, <strong><code>FALSE</code> is strongly recommended as the default for any lookup involving identifiers, names, codes, or other discrete keys</strong>.</p>
+
+<p><strong>VLOOKUP Use Cases and Limitations</strong></p>
+
+<p>VLOOKUP is well suited to situations where your data is structured in a conventional way: a key or identifier column sits on the far left, and all the information you want to retrieve is in columns to the right. Common real-world examples include:</p>
+
+<ul>
+  <li>Pulling a product's price from a product catalog by matching on Product ID.</li>
+  <li>Retrieving a customer's city and postal code from a customer table by matching on Customer ID.</li>
+  <li>Finding a student's final grade from a grade book by looking up their name.</li>
+</ul>
+
+<p>Despite its popularity, VLOOKUP carries several significant limitations that you must understand to avoid building formulas that silently break:</p>
+
+<ul>
+  <li><strong>The leftmost-column restriction.</strong> VLOOKUP can only search the first column of the defined table array. If the value you want to return is to the <em>left</em> of the search column, VLOOKUP simply cannot do it without restructuring your data. For instance, if column A has product names and column B has product IDs, but you want to search by ID and return the name, VLOOKUP fails unless you reorder the columns.</li>
+  <li><strong>Fragility when columns are inserted or deleted.</strong> The <code>col_index_num</code> is a hard-coded integer. If someone inserts a new column in the middle of the table array — say, between columns B and C in a table that starts at column A — every VLOOKUP that referenced column 3 now returns data from what was previously column 4. This is a silent error: the formula does not show a warning, it simply returns the wrong value.</li>
+  <li><strong>Only the first match is returned.</strong> If the same lookup value appears multiple times in the search column (duplicate keys), VLOOKUP always returns the value from the first matching row it finds, working from top to bottom. There is no built-in way to retrieve the second or third match using a standard VLOOKUP.</li>
+  <li><strong>Performance on very large datasets.</strong> Because VLOOKUP scans the entire table array, not just the search column, it can be slower than necessary when applied to tables with many columns and hundreds of thousands of rows.</li>
+</ul>
+
+<p><strong>Introduction to INDEX-MATCH</strong></p>
+
+<p>INDEX-MATCH is not a single function — it is a powerful combination of two separate functions that, when nested together, overcome most of VLOOKUP's limitations. To understand the combination, you must first understand each function individually.</p>
+
+<p>The <strong>MATCH</strong> function searches a single row or column for a value and returns the <em>position</em> (a number) of the first match within that range. Its syntax is:</p>
+
+<pre><code>=MATCH(lookup_value, lookup_array, [match_type])</code></pre>
+
+<ul>
+  <li><strong>lookup_value</strong> — The value to find.</li>
+  <li><strong>lookup_array</strong> — A single row or column to search through.</li>
+  <li><strong>match_type</strong> — <code>0</code> finds an exact match (recommended for most uses); <code>1</code> finds the largest value ≤ lookup value in an ascending-sorted list; <code>-1</code> finds the smallest value ≥ lookup value in a descending-sorted list.</li>
+</ul>
+
+<p>For example, if the range <code>A2:A100</code> contains employee IDs and you want to know that Employee ID "E042" appears in row 17 of that range, the formula <code>=MATCH("E042", A2:A100, 0)</code> would return <code>17</code>. On its own, this position number is not directly useful — but it becomes the key input to INDEX.</p>
+
+<p>The <strong>INDEX</strong> function retrieves the value at a specific position in a range. Its syntax is:</p>
+
+<pre><code>=INDEX(return_array, row_num, [col_num])</code></pre>
+
+<ul>
+  <li><strong>return_array</strong> — The range (or array) from which to return a value.</li>
+  <li><strong>row_num</strong> — The row number within the range to retrieve from.</li>
+  <li><strong>col_num</strong> — Optional; the column number within the range. When the range is a single column, this can be omitted.</li>
+</ul>
+
+<p>For example, <code>=INDEX(B2:B100, 17)</code> returns whatever value sits in the 17th row of the range <code>B2:B100</code>.</p>
+
+<p>Now the combination becomes clear: <strong>MATCH provides the row number, and INDEX uses that row number to fetch the value</strong>. The combined formula looks like this:</p>
+
+<pre><code>=INDEX(return_range, MATCH(lookup_value, lookup_range, 0))</code></pre>
+
+<p>Using the employee example: to find the department of Employee ID "E042", where IDs are in <code>A2:A100</code> and departments are in <code>C2:C100</code>:</p>
+
+<pre><code>=INDEX($C$2:$C$100, MATCH("E042", $A$2:$A$100, 0))</code></pre>
+
+<p>MATCH first finds the position of "E042" in column A (say, position 17), and then INDEX retrieves the value in the 17th row of column C. Notice that the return range (column C) and the lookup range (column A) are specified <em>independently</em> — they do not have to be adjacent or part of the same contiguous block.</p>
+
+<p><strong>INDEX-MATCH Use Cases and Advantages</strong></p>
+
+<p>INDEX-MATCH resolves every major limitation of VLOOKUP:</p>
+
+<ul>
+  <li><strong>No directional restriction.</strong> Because the lookup range and the return range are referenced separately, you can return values from a column that is to the <em>left</em> of the search column, to the right, or even in a completely different part of the spreadsheet. For instance, searching column D and returning from column A is perfectly straightforward with INDEX-MATCH but impossible with VLOOKUP without reordering data.</li>
+  <li><strong>Immune to inserted or deleted columns.</strong> The return range is a direct cell reference, not a positional integer. If a new column is inserted between your lookup column and your return column, the formula automatically adjusts because Excel updates the cell references. Nothing breaks silently.</li>
+  <li><strong>Two-way (matrix) lookups.</strong> By nesting two MATCH functions — one to find the correct row and one to find the correct column — INDEX-MATCH can look up a value in a two-dimensional table. The formula structure becomes:<br><br>
+  <code>=INDEX(table_range, MATCH(row_lookup_value, row_lookup_range, 0), MATCH(col_lookup_value, col_lookup_range, 0))</code><br><br>
+  For example, in a sales matrix where rows are regions and columns are months, you can retrieve the sales figure for "West" in "March" by providing both lookup values.</li>
+  <li><strong>Better performance on large datasets.</strong> MATCH searches only the single column or row you specify, while VLOOKUP must evaluate the entire table array. On worksheets with hundreds of thousands of rows and many columns, this difference can be meaningful.</li>
+</ul>
+
+<p><strong>Key Differences Between VLOOKUP and INDEX-MATCH</strong></p>
+
+<p>The following table summarises the core differences between the two approaches:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>VLOOKUP</th>
+      <th>INDEX-MATCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Search column position</td>
+      <td>Must be the leftmost column of the table array</td>
+      <td>Can be any column; no restriction</td>
+    </tr>
+    <tr>
+      <td>Return column reference</td>
+      <td>Hard-coded integer (e.g., <code>3</code>)</td>
+      <td>Direct range reference (e.g., <code>$C$2:$C$100</code>)</td>
+    </tr>
+    <tr>
+      <td>Sensitivity to column changes</td>
+      <td>Breaks silently if columns are inserted/deleted</td>
+      <td>Adjusts automatically with the reference</td>
+    </tr>
+    <tr>
+      <td>Lookup direction</td>
+      <td>Left to right only</td>
+      <td>Any direction</td>
+    </tr>
+    <tr>
+      <td>Two-way lookup</td>
+      <td>Not directly supported</td>
+      <td>Supported by nesting two MATCH functions</td>
+    </tr>
+    <tr>
+      <td>Formula complexity</td>
+      <td>Simpler; single function</td>
+      <td>More complex; nested functions</td>
+    </tr>
+    <tr>
+      <td>Performance on large data</td>
+      <td>Scans entire table array</td>
+      <td>Scans only the lookup column</td>
+    </tr>
+    <tr>
+      <td>Handling of duplicates</td>
+      <td>Returns first match only</td>
+      <td>Returns first match only</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>It is worth emphasising the last row: <strong>both functions return only the first match by default</strong>. When your dataset contains duplicate lookup keys and you need all matching rows returned, neither VLOOKUP nor a standard INDEX-MATCH is sufficient on its own. Solutions for that scenario involve array formulas, helper columns, or newer dynamic array functions such as <code>FILTER</code> (available in Excel 365 and Excel 2019+).</p>
+
+<p><strong>Applying Lookup Functions to Real-World Datasets</strong></p>
+
+<p>Writing the correct formula syntax is only part of the job. Making lookup functions work reliably on real data requires attention to several practical considerations:</p>
+
+<ul>
+  <li><strong>Consistent data formatting between tables.</strong> The single most common cause of unexpected <code>#N/A</code> errors is a mismatch in data type or format between the lookup value and the values in the search column. An ID stored as the number <code>1042</code> in one table and as the text string <code>"1042"</code> in another will not match. Similarly, extra spaces (leading or trailing) in one table that are absent in the other will prevent a match. Before writing the formula, verify data types with the <code>ISNUMBER</code> or <code>ISTEXT</code> function, and use <code>TRIM</code> or <code>VALUE</code> to clean the data if needed.</li>
+  <li><strong>Using absolute references for ranges.</strong> When you intend to copy a lookup formula down a column (which is almost always the case), the table array or lookup range must be locked with dollar signs so it does not shift. For example, <code>$A$2:$A$100</code> remains fixed regardless of where the formula is copied, while <code>A2:A100</code> would shift to <code>A3:A101</code> when copied one row down, producing errors. A useful habit is to press <code>F4</code> immediately after selecting a range in the formula bar to add absolute references.</li>
+  <li><strong>Testing with a known value first.</strong> Before applying a lookup formula to an entire column of hundreds of rows, type a lookup value manually that you can verify by eye — for example, an ID whose corresponding value you already know. Confirm the formula returns the correct result, then substitute the cell reference and copy it down. This catches data-format issues and wrong range references before they propagate.</li>
+  <li><strong>Combining lookup functions with aggregation.</strong> Lookup functions can be combined with functions like <code>SUMIF</code>, <code>COUNTIF</code>, or even nested inside <code>IF</code> statements for conditional logic. For example, you might use an INDEX-MATCH to retrieve a product category for each order row, and then use <code>SUMIF</code> to total sales by category. Another pattern is wrapping a lookup in <code>IFERROR</code> to display a friendly message instead of <code>#N/A</code>:<br><br>
+  <code>=IFERROR(VLOOKUP(E2, $A$2:$B$100, 2, FALSE), "Not Found")</code><br><br>
+  This keeps the spreadsheet readable for end users who should not need to interpret Excel error codes.</li>
+</ul>
+
+<p>To bring these concepts together, consider a practical scenario: you have an <em>Orders</em> sheet with order IDs in column A and product codes in column B, and a separate <em>Products</em> sheet with product codes in column A and unit prices in column B. To populate a <em>Unit Price</em> column on the Orders sheet, you would write in cell C2 of the Orders sheet:</p>
+
+<pre><code>=VLOOKUP(B2, Products!$A$2:$B$500, 2, FALSE)</code></pre>
+
+<p>Or equivalently, with INDEX-MATCH for greater robustness:</p>
+
+<pre><code>=INDEX(Products!$B$2:$B$500, MATCH(B2, Products!$A$2:$A$500, 0))</code></pre>
+
+<p>Both formulas search the Products sheet for the product code in cell B2 and return the corresponding price. The INDEX-MATCH version has the added benefit that if a new column is later inserted into the Products sheet between columns A and B, the formula continues to work correctly because it references column B by its address, not by the number <code>2</code>.</p>
+
+<p>Mastering these two lookup approaches — knowing when VLOOKUP's simplicity is sufficient and when INDEX-MATCH's flexibility is necessary — forms a foundation for nearly all intermediate and advanced spreadsheet work. Together they cover the vast majority of data retrieval tasks encountered in business analysis, financial modelling, reporting, and data cleaning.</p>
+        <div class="notes"><strong>Notes</strong>Consider demonstrating both formulas side-by-side in a live spreadsheet during instruction so learners can see the equivalence of results and the structural differences. Emphasise the F4 shortcut for absolute references as a time-saving habit. The IFERROR wrapper pattern is worth practising separately as it appears in almost every production spreadsheet.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

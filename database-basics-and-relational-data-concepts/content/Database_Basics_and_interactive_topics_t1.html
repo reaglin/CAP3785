@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Databases</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Database Basics and Relational Data Concepts</a></div>
+  <header>
+    <h1>Introduction to Databases</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Databases</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data is at the heart of nearly every modern application, business process, and digital service. Whether you are booking a flight, checking your bank balance, or searching for a product online, a database is working behind the scenes to store, organize, and retrieve information with speed and precision. Understanding what a database is, why it exists, and how it compares to simpler data storage approaches is the essential first step in learning how data-driven systems are built and maintained.</p>
+
+<p>A <strong>database</strong> is an organized collection of data stored and accessed electronically. What distinguishes a database from a simple pile of files or a notebook full of records is its <em>structure</em>. Data in a database is stored according to defined rules — rules about what kinds of values are allowed, how different pieces of data relate to one another, and how the data can be retrieved. This structured format is what makes retrieval consistent and reliable: when you ask the system for every customer who placed an order last month, you get a precise, repeatable answer every time.</p>
+
+<p>Databases are managed by specialized software called a <strong>Database Management System (DBMS)</strong>. The DBMS sits between the raw data stored on disk and the users or applications that need to work with it. It handles an enormous range of responsibilities: writing data to storage, enforcing the rules that govern what data is valid, controlling who is allowed to read or change which records, and making sure that simultaneous operations from many users do not corrupt each other's work. Examples of popular DBMSs include MySQL, PostgreSQL, Microsoft SQL Server, Oracle Database, and MongoDB. You rarely interact with the raw storage files directly; instead, you interact with the DBMS, and it manages everything underneath.</p>
+
+<p>A critical point for beginners is that a database is fundamentally different from a simple list or a document. A word-processing document might contain a table of employee names, but that document has no idea what a "name" is, cannot stop someone from typing a number in the salary column, and cannot be efficiently searched by 50 people at the same time. A database is purpose-built for exactly these challenges — large volumes of data, multiple simultaneous users, and the need for consistent, trustworthy results.</p>
+
+<p><strong>Why Databases Are Used</strong></p>
+
+<p>The reason databases are so widely used comes down to a set of properties that simpler data storage systems simply cannot provide reliably.</p>
+
+<ul>
+  <li><strong>Data integrity:</strong> A database enforces rules called <em>constraints</em> that define what values are acceptable. For example, a constraint might require that every order record contains a valid customer ID, or that a product's price is never negative. These rules are enforced automatically by the DBMS every time data is inserted or updated, so the data remains trustworthy over time regardless of which application or user touches it.</li>
+  <li><strong>Fast searching and filtering:</strong> Databases use internal data structures called <em>indexes</em> — similar in concept to the index at the back of a book — to locate records without scanning every single row. This means that finding a specific record among hundreds of millions can take a fraction of a second, a feat that would be impossible if the system had to read every row from start to finish.</li>
+  <li><strong>Concurrent access:</strong> In most real-world scenarios, many users or application processes need to read and write data at the same time. A DBMS manages this through a system of <em>transactions</em> and <em>locking</em>, ensuring that simultaneous operations do not overwrite each other or produce inconsistent results. If two users try to buy the last seat on a flight at the exact same moment, the database guarantees that only one of them succeeds.</li>
+  <li><strong>Backup, recovery, and security:</strong> Databases provide built-in tools for taking regular backups, rolling back to a previous state if something goes wrong, and controlling access so that sensitive data — such as medical records or financial transactions — is only visible to authorized parties. These features are not luxuries; in many industries they are legal requirements.</li>
+</ul>
+
+<p><strong>Databases vs. Spreadsheets</strong></p>
+
+<p>Spreadsheets, such as those created with Microsoft Excel or Google Sheets, are excellent tools for tasks like financial modeling, small data sets, and calculations that benefit from a visual grid layout. However, they are not designed to function as databases, and using them as one creates serious problems as the complexity and volume of data grow.</p>
+
+<ul>
+  <li><strong>Structure and querying:</strong> A spreadsheet stores data in a grid optimized for human reading and formula-based calculations. There is no formal query language. To find all customers from a particular city who made a purchase above a certain value, you might use filters or complex formulas — workable for a few hundred rows, but fragile and slow at scale. A database, by contrast, answers that question with a single structured query that executes in milliseconds against millions of rows.</li>
+  <li><strong>Scale:</strong> Spreadsheets begin to degrade noticeably in performance once they contain tens of thousands of rows. Opening, saving, and filtering a spreadsheet with 500,000 rows can take minutes, and many applications have hard row limits. Relational databases routinely manage billions of rows with no meaningful slowdown for properly indexed queries.</li>
+  <li><strong>Data validation:</strong> In a spreadsheet, nothing stops a user from typing the word "banana" into a column meant to hold a date, or leaving a required field blank. A database enforces data types, required fields, unique values, and relationships at the storage level. The DBMS simply rejects invalid data before it can corrupt the dataset.</li>
+  <li><strong>Concurrency:</strong> When two people edit the same spreadsheet at the same time, conflicts arise — one person's changes can silently overwrite another's, or the application may lock the entire file so only one person can edit it at all. Databases handle concurrent reads and writes from thousands of simultaneous connections while keeping each user's view of the data consistent.</li>
+</ul>
+
+<p>The table below summarizes the key differences between spreadsheets and databases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Spreadsheet</th>
+      <th>Database</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data scale</td>
+      <td>Thousands of rows before slowdown</td>
+      <td>Millions to billions of rows efficiently</td>
+    </tr>
+    <tr>
+      <td>Querying</td>
+      <td>Manual filters and formulas</td>
+      <td>Structured query language (e.g., SQL)</td>
+    </tr>
+    <tr>
+      <td>Data validation</td>
+      <td>Optional, easily bypassed</td>
+      <td>Enforced at the storage level by the DBMS</td>
+    </tr>
+    <tr>
+      <td>Concurrent users</td>
+      <td>Limited; prone to conflicts</td>
+      <td>Thousands of simultaneous users supported</td>
+    </tr>
+    <tr>
+      <td>Relationships between data</td>
+      <td>Not formally defined</td>
+      <td>Explicitly defined and enforced</td>
+    </tr>
+    <tr>
+      <td>Primary use case</td>
+      <td>Calculations, reporting, small data sets</td>
+      <td>Persistent, shared, structured data storage</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Databases vs. Flat Files</strong></p>
+
+<p>A <strong>flat file</strong> is one of the most basic forms of data storage — a plain text or binary file where each line typically represents one record and fields within a record are separated by a delimiter such as a comma (CSV files are the most familiar example). Flat files were widely used in early computing and are still useful for transferring data between systems, but they have serious structural limitations when used as a primary data store.</p>
+
+<ul>
+  <li><strong>No relationships:</strong> A flat file contains a single table-like structure. If you want to store both customer information and order information, you either put everything into one enormous file — repeating the customer's name and address on every order row — or you maintain two separate files with no formal link between them. A database allows you to define a <em>foreign key</em> relationship that formally links an order to its customer, so the system knows they belong together and can enforce that every order references a valid customer.</li>
+  <li><strong>No data type enforcement:</strong> A CSV file is just text. The file itself has no concept of whether a field should be a number, a date, or a string. Any value can appear in any field without complaint. This means validation must be performed entirely by the application reading the file — and if the application has a bug, or if someone edits the file manually, bad data enters the system with no safeguard.</li>
+  <li><strong>No uniqueness or referential integrity:</strong> A flat file cannot prevent duplicate records, cannot require that a field be unique, and cannot ensure that a reference in one file points to a record that actually exists in another file. These broken references — sometimes called <em>orphaned records</em> — are a common source of data quality problems in flat-file-based systems.</li>
+  <li><strong>Querying performance:</strong> To find a specific record in a flat file, software must typically read through the file from the beginning until it finds a match — a process called a <em>full sequential scan</em>. For a file with a million records, this might mean reading through 999,999 records before finding the one you want. A database with an index on the relevant column jumps directly to the record in a tiny fraction of the time.</li>
+</ul>
+
+<p>To make the contrast concrete, consider a business that stores its product catalog in a CSV file. The file has columns for product ID, name, price, category name, and category description. Because there is no separate category table, the category description is repeated on every single product row in that category. If the category description needs to be updated, every matching row in the file must be found and changed — and if even one is missed, the data is now inconsistent. In a relational database, the category description lives in exactly one place in a separate table, and every product simply references it. Updating the description once updates it everywhere instantly.</p>
+
+<p><strong>Types of Databases</strong></p>
+
+<p>Not all databases work the same way. Over decades of software development, different types of databases have been invented to solve different kinds of problems.</p>
+
+<ul>
+  <li><strong>Relational databases</strong> are the most widely used type. They organize data into <em>tables</em> (also called relations), where each table has a fixed set of named columns and each row represents one record. Relationships between tables are defined through shared key values. These databases are queried using <strong>SQL</strong> (Structured Query Language), a standardized language for inserting, updating, deleting, and retrieving data. Examples include PostgreSQL, MySQL, MariaDB, Microsoft SQL Server, and Oracle Database. Relational databases are an excellent choice when the structure of the data is well understood, relationships between entities are important, and data integrity is critical.</li>
+  <li><strong>NoSQL databases</strong> are a broad category of databases that store data in formats other than the traditional row-and-column table. Common storage models include:
+    <ul>
+      <li><em>Document stores</em> (e.g., MongoDB, Couchbase): each record is a self-contained document, often in JSON format, which can have a flexible and varying structure.</li>
+      <li><em>Key-value stores</em> (e.g., Redis, DynamoDB): data is stored as simple key-value pairs, optimized for very fast lookups by key.</li>
+      <li><em>Column-family stores</em> (e.g., Apache Cassandra): data is organized by column groups rather than rows, suited for write-heavy workloads across many servers.</li>
+      <li><em>Graph databases</em> (e.g., Neo4j): data is modeled as nodes and edges, ideal for representing and querying highly connected data such as social networks or recommendation engines.</li>
+    </ul>
+    NoSQL databases are often chosen when the data structure is variable or rapidly evolving, when horizontal scaling across many servers is required, or when a particular access pattern (like key-based lookup) is dominant.
+  </li>
+  <li><strong>In-memory databases</strong> store their data primarily in RAM rather than on disk. Because RAM access is orders of magnitude faster than disk access, in-memory databases can handle extremely high read and write throughputs with very low latency. They are commonly used for caching (storing the results of expensive queries so they do not need to be repeated), session management, and real-time analytics. Redis and Memcached are well-known examples. The trade-off is that RAM is more expensive than disk storage and data is lost if the system loses power, though many in-memory databases offer optional persistence features.</li>
+  <li><strong>Cloud databases</strong> are database services hosted and managed by cloud providers such as Amazon Web Services, Microsoft Azure, or Google Cloud Platform. Rather than purchasing and maintaining physical server hardware, organizations subscribe to a managed database service. The cloud provider handles installation, patching, backups, scaling, and often high-availability failover. Examples include Amazon RDS, Google Cloud SQL, and Azure Database for PostgreSQL. Cloud databases can be relational, NoSQL, or in-memory — "cloud database" refers to how the database is hosted and operated, not to its internal data model.</li>
+</ul>
+
+<p><strong>Key Characteristics of a Well-Designed Database</strong></p>
+
+<p>Knowing that a database exists is one thing; knowing what makes a database <em>good</em> is another. A poorly designed database can be slow, inconsistent, and difficult to maintain even if it is technically using a DBMS. Well-designed databases share several important characteristics.</p>
+
+<ul>
+  <li><strong>Minimal redundancy:</strong> Data should be stored without unnecessary duplication. If the same piece of information — for example, a customer's email address — is stored in five different tables, then updating it requires changing five rows, and if any one of them is missed, the data becomes inconsistent. Good database design, guided by a process called <em>normalization</em>, ensures each piece of information lives in exactly one authoritative place. Other parts of the database reference it rather than copying it.</li>
+  <li><strong>Explicitly defined and enforced relationships:</strong> The connections between different data entities should be formally specified. A well-designed database does not merely hope that every order's customer ID corresponds to a real customer — it enforces this through a <em>foreign key constraint</em> that the DBMS checks automatically on every insert and update. This prevents orphaned records and makes the relationships a documented, reliable part of the data structure.</li>
+  <li><strong>Access controls:</strong> Not all users should be able to see or change all data. A well-designed database implements <em>role-based access control</em>, granting each user or application only the permissions necessary for their function. A sales representative might be able to read customer records but not modify pricing. A reporting tool might be able to read any table but write to none. These controls are enforced by the DBMS, not left to the applications to manage on their own.</li>
+  <li><strong>Consistency under failure and concurrency:</strong> A well-designed database maintains a consistent state even when unexpected events occur — a server crash in the middle of a transaction, a network error during a write, or two users simultaneously attempting to modify the same record. This is typically achieved through the DBMS's transaction management system, which guarantees the <em>ACID properties</em>: Atomicity (a transaction either completes fully or not at all), Consistency (the database moves from one valid state to another), Isolation (concurrent transactions do not interfere with each other), and Durability (once a transaction is committed, it survives system failures).</li>
+</ul>
+
+<p>Together, these characteristics make a database something far more powerful and trustworthy than any collection of files or spreadsheets. As you progress in learning about databases, each of these characteristics will be explored in much greater depth — but keeping them in mind from the start gives you a framework for understanding why databases are designed the way they are, and why the choices made in database design have real consequences for the reliability and performance of the systems built on top of them.</p>
+        <div class="notes"><strong>Notes</strong>Consider reinforcing the ACID properties concept with a concrete banking transaction example (e.g., transferring money between two accounts) when this topic is taught in a live or interactive session, as it makes atomicity and consistency immediately intuitive. The flat file vs. database comparison works well as a hands-on exercise: have learners open a CSV file in a text editor, manually introduce a data error, and then observe how a DBMS with constraints would have prevented it.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

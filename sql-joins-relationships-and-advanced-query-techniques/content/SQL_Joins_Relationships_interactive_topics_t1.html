@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relational Database Foundations</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ SQL Joins, Relationships, and Advanced Query Techniques</a></div>
+  <header>
+    <h1>Relational Database Foundations</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Relational Database Foundations</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A <strong>relational database</strong> is a system for storing, organizing, and retrieving structured data by arranging it into a collection of related tables. The word "relational" refers not simply to the fact that tables can be linked together, but to the deeper mathematical concept of a <em>relation</em> — a set of tuples sharing the same attributes — introduced by Edgar F. Codd in his landmark 1970 paper. In practical terms, this means that every piece of information lives in a well-defined place, every table describes exactly one type of thing, and the connections between different types of things are made explicit through shared key values rather than by physically nesting or duplicating data. Understanding this foundation is essential before writing a single query, because every SQL operation — especially the JOIN — only makes sense once you understand why the data is spread across multiple tables in the first place.</p>
+
+<p>At the most basic level, a relational database organizes data into <strong>tables</strong> (also called <em>relations</em>). Each table represents one specific kind of entity — customers, products, orders, employees, and so on. Inside that table, <strong>columns</strong> (also called <em>attributes</em> or <em>fields</em>) describe the properties of that entity. Every column has a fixed name and a data type, such as integer, text, or date. <strong>Rows</strong> (also called <em>records</em> or <em>tuples</em>) represent individual instances of that entity — one row per customer, one row per product, and so on. This two-dimensional grid structure is intentionally simple, yet remarkably powerful because it can represent virtually any kind of structured information and can be queried with precise, declarative language.</p>
+
+<p>Consider a small example. A <code>customers</code> table might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>city</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Amara</td><td>Osei</td><td>amara@example.com</td><td>London</td></tr>
+    <tr><td>2</td><td>Luca</td><td>Ferrari</td><td>luca@example.com</td><td>Milan</td></tr>
+    <tr><td>3</td><td>Sara</td><td>Nguyen</td><td>sara@example.com</td><td>Hanoi</td></tr>
+  </tbody>
+</table>
+
+<p>Each row is a single customer. Each column captures one fact about that customer. The table tells you nothing about orders or products — those facts belong in their own tables. This deliberate separation is what keeps the design clean and maintainable as the database grows.</p>
+
+<p><strong>Primary keys</strong> are the mechanism that makes every row in a table uniquely identifiable. A primary key is one or more columns whose combined values are guaranteed to be <em>unique</em> across all rows in the table and can <em>never be null</em>. The uniqueness guarantee means you can always point to exactly one row by citing its primary key value — there is no ambiguity. The non-null requirement means the key is always present and usable as a reliable reference.</p>
+
+<p>In the <code>customers</code> table above, <code>customer_id</code> is the primary key. It is a simple integer that the database (or the application) assigns to each new customer. Even if two customers share the same name or live in the same city, their <code>customer_id</code> values will always differ. Most tables use a single column as their primary key, often a surrogate integer that has no business meaning of its own — it exists purely to identify the row. However, <strong>composite primary keys</strong> — primary keys made up of two or more columns — are also valid and are common in junction tables (discussed below). For example, an <code>enrollment</code> table linking students to courses might use <code>(student_id, course_id)</code> together as its primary key, because neither column alone is unique, but the combination of the two is.</p>
+
+<p>The primary key is not merely an administrative detail. It is the <em>anchor point</em> that all other tables use when they need to reference a record in this table. This is where <strong>foreign keys</strong> come in. A foreign key is a column (or set of columns) in one table that holds values matching the primary key of another table. The table that contains the foreign key is called the <strong>child table</strong>; the table whose primary key is being referenced is called the <strong>parent table</strong>. The foreign key creates an explicit, enforceable link between the two tables.</p>
+
+<p>Suppose we add an <code>orders</code> table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>order_date</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>101</td><td>1</td><td>2024-03-15</td><td>149.99</td></tr>
+    <tr><td>102</td><td>3</td><td>2024-03-17</td><td>89.50</td></tr>
+    <tr><td>103</td><td>1</td><td>2024-04-02</td><td>220.00</td></tr>
+    <tr><td>104</td><td>2</td><td>2024-04-05</td><td>55.75</td></tr>
+  </tbody>
+</table>
+
+<p>Here, <code>order_id</code> is the primary key of the <code>orders</code> table. The column <code>customer_id</code> is a foreign key that references <code>customer_id</code> in the <code>customers</code> table. Looking at order 101, the value <code>1</code> in the <code>customer_id</code> column tells us that this order belongs to Amara Osei. The database does not store Amara's name or email in the <code>orders</code> table — it stores only the key value that points back to the row in <code>customers</code> where that information already lives.</p>
+
+<p>This arrangement enforces <strong>referential integrity</strong>: the database engine can be configured to reject any attempt to insert a row into <code>orders</code> with a <code>customer_id</code> value that does not exist in <code>customers</code>. You cannot create an order for customer number 999 if no such customer exists. Similarly, the database can be instructed to prevent deleting a customer who still has orders on record, or to automatically delete those orders when the customer is removed (a behavior called cascading deletes). Referential integrity constraints keep the data consistent and trustworthy over time.</p>
+
+<p>A single table can contain <em>multiple</em> foreign keys, allowing it to relate to several parent tables at once. An <code>order_items</code> table, for example, might include a foreign key to <code>orders</code> (which order does this line item belong to?) and a separate foreign key to <code>products</code> (which product is being ordered?). This is a very common pattern in real-world schemas.</p>
+
+<p>With a vocabulary of primary keys and foreign keys established, we can now describe the three fundamental <strong>types of relationships</strong> that tables can have with one another.</p>
+
+<p>The most common relationship is <strong>one-to-many</strong>. One record in the parent table can be associated with many records in the child table, but each record in the child table is associated with exactly one record in the parent. The customer-orders relationship above is a classic one-to-many: one customer can place many orders, but each order belongs to exactly one customer. This relationship is implemented simply by placing the foreign key in the child table (the "many" side). Because the <code>orders</code> table holds <code>customer_id</code>, multiple order rows can reference the same customer, producing the "many" side of the relationship.</p>
+
+<p>A <strong>many-to-many</strong> relationship exists when records on both sides can be associated with multiple records on the other side. Students and courses are a textbook example: one student can enroll in many courses, and one course can have many students. You cannot implement this relationship by simply adding a foreign key to one of the two tables, because no single column in either table could hold multiple references cleanly. Instead, a <strong>junction table</strong> (also called a bridge table, associative table, or linking table) is introduced. The junction table contains a foreign key to each of the two main tables, and each row in the junction table represents one pairing:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>student_id</th>
+      <th>course_id</th>
+      <th>enrollment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>10</td><td>201</td><td>2024-09-01</td></tr>
+    <tr><td>10</td><td>205</td><td>2024-09-01</td></tr>
+    <tr><td>11</td><td>201</td><td>2024-09-03</td></tr>
+    <tr><td>12</td><td>205</td><td>2024-09-04</td></tr>
+  </tbody>
+</table>
+
+<p>Student 10 appears in two rows, showing they are enrolled in courses 201 and 205. Course 201 appears in two rows, showing it has students 10 and 11. The junction table converts a many-to-many relationship into two one-to-many relationships, which the relational model can represent natively. Junction tables can also carry their own attributes — in this case, <code>enrollment_date</code> is a fact about the <em>relationship</em> itself, not about the student or the course individually.</p>
+
+<p>A <strong>one-to-one</strong> relationship links exactly one record in one table to exactly one record in another. This pattern is used less frequently than one-to-many, but it has valid use cases. Sometimes a table's columns are split into a "core" table and an "extended" table to improve performance when the extended data is rarely needed, or for security reasons when some columns should be accessible only to certain roles. For example, an <code>employees</code> table might hold general information (name, department, job title) while a separate <code>employee_confidential</code> table holds salary and tax data, linked by a shared <code>employee_id</code>.</p>
+
+<p>Understanding <em>why</em> data is distributed across multiple tables requires understanding <strong>normalization</strong> — the discipline of designing tables so that each fact is stored in exactly one place. To see why this matters, imagine a single flat table that stores customer information and order information together:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_name</th>
+      <th>customer_email</th>
+      <th>customer_city</th>
+      <th>order_date</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>101</td><td>Amara Osei</td><td>amara@example.com</td><td>London</td><td>2024-03-15</td><td>149.99</td></tr>
+    <tr><td>103</td><td>Amara Osei</td><td>amara@example.com</td><td>London</td><td>2024-04-02</td><td>220.00</td></tr>
+    <tr><td>102</td><td>Sara Nguyen</td><td>sara@example.com</td><td>Hanoi</td><td>2024-03-17</td><td>89.50</td></tr>
+  </tbody>
+</table>
+
+<p>This flat design introduces several serious problems. First, Amara's name and email are stored twice — once for each order. If her email address changes, every row containing her data must be updated. Miss even one row and the database becomes inconsistent. Second, to add a new customer who has not yet placed an order, you would need to insert a row with no meaningful order data, leaving columns null or artificially filled. Third, deleting Amara's last order would destroy all record of her existence in the database. These problems are known in database theory as <em>update anomalies</em>, <em>insertion anomalies</em>, and <em>deletion anomalies</em> respectively. Normalization eliminates them by ensuring each piece of data has one home. When Amara's email changes, you update exactly one row in the <code>customers</code> table, and every query that needs her email will automatically retrieve the corrected value.</p>
+
+<p>Normalization is formally defined through a series of <em>normal forms</em> — First Normal Form (1NF), Second Normal Form (2NF), Third Normal Form (3NF), and beyond. In practice, most production databases are designed to at least Third Normal Form, which eliminates the most common sources of redundancy. The core idea at every level is the same: each column in each table should describe a fact about the table's primary key, the whole primary key, and nothing but the primary key. When columns start describing facts about something other than the primary key, they belong in a different table.</p>
+
+<p>Well-normalized relational schemas also <strong>scale more effectively</strong> than flat designs. As data volume grows into millions or hundreds of millions of rows, the cost of redundant storage becomes significant, but more importantly, the cost of maintaining consistency across redundant copies becomes unmanageable. A normalized schema keeps each table focused and compact, allows indexes to be applied precisely, and makes query optimization more straightforward for the database engine.</p>
+
+<p>With data distributed across multiple tables by design, the obvious question becomes: how do we bring related data back together when we need it? The answer is the <strong>JOIN operation</strong>. A JOIN tells the database engine to match rows from one table with corresponding rows in another table based on a condition — almost always a condition involving the foreign key in one table and the primary key in another. The result is a combined set of columns from both tables, assembled into a single result set as if the data had been stored together all along.</p>
+
+<p>For example, to answer the question "What are the names of all customers who placed an order in March 2024, and what were those orders?" you would JOIN the <code>customers</code> table and the <code>orders</code> table on their shared <code>customer_id</code> values:</p>
+
+<pre><code>SELECT
+    c.first_name,
+    c.last_name,
+    o.order_id,
+    o.order_date,
+    o.total_amount
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+WHERE o.order_date BETWEEN '2024-03-01' AND '2024-03-31';
+</code></pre>
+
+<p>The <code>ON c.customer_id = o.customer_id</code> clause is the join condition. It instructs the engine to pair each row from <code>orders</code> with the row from <code>customers</code> whose <code>customer_id</code> matches. Without this clause — or with the wrong clause — the result would be nonsense. This is precisely why understanding foreign key relationships must come before writing JOINs: the join condition is simply a statement of the key relationship that was designed into the schema. If you do not know how the tables are related, you cannot write the join condition correctly.</p>
+
+<p>Without JOINs, retrieving related data would require running multiple separate queries and correlating the results manually in application code. You would first query <code>orders</code> to find March orders, collect the <code>customer_id</code> values, then run a second query against <code>customers</code> using those IDs. This approach is slow (multiple round trips to the database), error-prone (manual correlation logic can have bugs), and difficult to maintain. JOINs solve all of these problems by pushing the correlation work into the database engine, which is specifically optimized for exactly this kind of operation.</p>
+
+<p>In summary, the relational model achieves power and reliability through a disciplined structure: entities are separated into focused tables identified by primary keys, relationships between entities are encoded through foreign keys, normalization ensures each fact is stored once and only once, and JOIN operations provide the means to reunite related data at query time. Every topic in relational database work — filtering, aggregation, subqueries, performance tuning — builds directly on this foundation.</p>
+        <div class="notes"><strong>Notes</strong>Introduces the concept of related tables and how foreign keys establish connections between them. Sets the foundation for understanding why JOIN operations are necessary in multi-table databases.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -10,6 +10,41 @@
     "type": "Page"
   },
   {
+    "title": "Building Effective Visual Summaries in Excel",
+    "href": "content/Data_Visualization_Principle_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Foundations of Data Visualization",
+    "href": "content/Data_Visualization_Principle_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Choosing the Right Chart Type",
+    "href": "content/Data_Visualization_Principle_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Visual Hierarchy and Design Principles",
+    "href": "content/Data_Visualization_Principle_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Avoiding Misleading Representations",
+    "href": "content/Data_Visualization_Principle_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Creating Charts in Excel",
+    "href": "content/Data_Visualization_Principle_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Building Effective Visual Summaries in Excel",
+    "href": "content/Data_Visualization_Principle_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
     "title": "Data Visualization Principles and Excel Charting \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

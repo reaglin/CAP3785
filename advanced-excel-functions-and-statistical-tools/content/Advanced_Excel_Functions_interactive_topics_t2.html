@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditional Aggregation Functions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Excel Functions and Statistical Tools</a></div>
+  <header>
+    <h1>Conditional Aggregation Functions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Conditional Aggregation Functions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When working with real-world datasets, it is rarely enough to sum, count, or average every value in a column. Business data is almost always segmented — by region, product category, employee, time period, or some other dimension — and analysts frequently need answers to questions like "What were total sales in the North region?" or "How many transactions exceeded $500?" or "What is the average score for students in Grade 10?" <strong>Conditional aggregation functions</strong> are Excel's answer to exactly these questions. Instead of manually filtering a dataset and then running a simple SUM or COUNT on the filtered result, these functions evaluate each cell in a range against a criterion and include only the qualifying cells in the final calculation. This makes them indispensable for building dynamic, self-updating summaries directly within a worksheet.</p>
+
+<p>The three core conditional aggregation functions are <strong>SUMIF</strong>, <strong>COUNTIF</strong>, and <strong>AVERAGEIF</strong>. Each follows a consistent internal logic: first, scan a range of cells and test each one against a condition; second, operate only on the cells (or corresponding cells in a parallel range) that pass that test. Because the filtering and the calculation happen inside a single formula, you avoid the errors and inefficiency that come from manually isolating subsets before doing arithmetic. Mastering these three functions dramatically reduces the complexity of dashboard and reporting work.</p>
+
+<p><strong>SUMIF: Summing Values Based on a Condition</strong></p>
+
+<p>SUMIF adds up numbers in a range, but only for rows where a corresponding cell in a separate "criteria range" satisfies a given condition. Its full syntax is:</p>
+
+<pre><code>=SUMIF(range, criteria, [sum_range])</code></pre>
+
+<p>The three arguments work as follows:</p>
+
+<ul>
+  <li><strong>range</strong> — The column (or row) of cells that Excel evaluates against your criterion. This is the "lookup" column — the one that contains the category labels, flags, or numeric thresholds you want to filter on. For example, if your data has a column of department names, that column is your <em>range</em>.</li>
+  <li><strong>criteria</strong> — The condition that must be met. This can be a literal number (<code>42</code>), a text string (<code>"Marketing"</code>), an expression as a text string (<code>">1000"</code>), or a cell reference (<code>A2</code>). When the criterion is text or an expression with an operator, it must be enclosed in double quotation marks.</li>
+  <li><strong>sum_range</strong> (optional) — The cells that actually get added together when the corresponding cell in <em>range</em> passes the test. If you omit this argument, Excel sums the values in <em>range</em> itself, which is useful when the same column is both the filter column and the values column. In practice, <em>sum_range</em> is almost always provided because the category you filter on and the numbers you want to total are usually in different columns.</li>
+</ul>
+
+<p>Consider a sales table with department names in column A and monthly revenue figures in column B:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Row</th>
+      <th>A (Department)</th>
+      <th>B (Revenue)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>2</td><td>Marketing</td><td>12000</td></tr>
+    <tr><td>3</td><td>Sales</td><td>45000</td></tr>
+    <tr><td>4</td><td>Marketing</td><td>8500</td></tr>
+    <tr><td>5</td><td>HR</td><td>3200</td></tr>
+    <tr><td>6</td><td>Sales</td><td>31000</td></tr>
+    <tr><td>7</td><td>Marketing</td><td>9700</td></tr>
+  </tbody>
+</table>
+
+<p>To find the total revenue for the Marketing department:</p>
+
+<pre><code>=SUMIF(A2:A7, "Marketing", B2:B7)</code></pre>
+
+<p>Excel scans A2:A7 row by row. Wherever it finds "Marketing" (rows 2, 4, and 7), it adds the corresponding value from column B: 12000 + 8500 + 9700 = <strong>30200</strong>. Rows 3, 5, and 6 are ignored entirely.</p>
+
+<p>SUMIF also supports <strong>wildcard characters</strong> in text criteria. The asterisk (<code>*</code>) matches any sequence of characters, while the question mark (<code>?</code>) matches exactly one character. For example, if some department entries were entered inconsistently as "Marketing – Digital" or "Marketing – Print", the formula <code>=SUMIF(A2:A7, "Marketing*", B2:B7)</code> would capture all of them. Similarly, <code>"Mar?eting"</code> would match "Marketing" but not "Marketting" (two t's). This flexibility is vital when working with messy, real-world data where exact spelling cannot be guaranteed.</p>
+
+<p>For numeric criteria, SUMIF can apply comparison operators. To sum all revenue values that are themselves greater than 10000 (using the same column for both the range and the sum), you can write:</p>
+
+<pre><code>=SUMIF(B2:B7, ">10000")</code></pre>
+
+<p>Here the <em>sum_range</em> argument is omitted, so Excel both tests and sums the values in B2:B7, returning 12000 + 45000 + 31000 = <strong>88000</strong>.</p>
+
+<p><strong>COUNTIF: Counting Cells That Meet a Condition</strong></p>
+
+<p>COUNTIF counts the number of cells in a range that satisfy a given criterion. It takes only two arguments — there is no separate "count_range" because you are always counting cells within the evaluated range itself:</p>
+
+<pre><code>=COUNTIF(range, criteria)</code></pre>
+
+<ul>
+  <li><strong>range</strong> — The group of cells to evaluate.</li>
+  <li><strong>criteria</strong> — The condition each cell is tested against. The same rules apply as with SUMIF: text and operator-based expressions must be quoted, and wildcards are supported.</li>
+</ul>
+
+<p>Using the same dataset above, to count how many rows belong to the Sales department:</p>
+
+<pre><code>=COUNTIF(A2:A7, "Sales")</code></pre>
+
+<p>This returns <strong>2</strong>, because "Sales" appears in rows 3 and 6.</p>
+
+<p>COUNTIF is particularly powerful for <strong>auditing datasets</strong>. A common use case is identifying duplicate entries. If a column of invoice numbers should contain unique values, you can flag duplicates by counting how many times each value appears across the column. In an adjacent column, a formula like <code>=COUNTIF($C$2:$C$100, C2)</code> returns 1 for unique entries and 2 or more for duplicates, making it easy to spot data entry errors at a glance.</p>
+
+<p>Numeric comparisons are equally straightforward. To count how many revenue figures exceed 10000:</p>
+
+<pre><code>=COUNTIF(B2:B7, ">10000")</code></pre>
+
+<p>This evaluates each cell in B2:B7 and returns <strong>3</strong> (the values 12000, 45000, and 31000 qualify). To count values within a range — say between 5000 and 20000 — you would subtract two COUNTIF results:</p>
+
+<pre><code>=COUNTIF(B2:B7, ">=5000") - COUNTIF(B2:B7, ">20000")</code></pre>
+
+<p>This technique is a workaround for the fact that COUNTIF only accepts a single criterion; for true multi-criterion counting, COUNTIFS (covered separately) is the better tool.</p>
+
+<p>Wildcard use in COUNTIF is just as powerful as in SUMIF. To count every entry that starts with the letter "M":</p>
+
+<pre><code>=COUNTIF(A2:A7, "M*")</code></pre>
+
+<p>This returns <strong>3</strong> (the three Marketing rows).</p>
+
+<p><strong>AVERAGEIF: Averaging Values Based on a Condition</strong></p>
+
+<p>AVERAGEIF computes an arithmetic mean, but only for the subset of values that correspond to rows where a condition is met. Its syntax mirrors SUMIF:</p>
+
+<pre><code>=AVERAGEIF(range, criteria, [average_range])</code></pre>
+
+<ul>
+  <li><strong>range</strong> — The column evaluated against the criterion.</li>
+  <li><strong>criteria</strong> — The condition to test. Same rules as SUMIF and COUNTIF.</li>
+  <li><strong>average_range</strong> (optional) — The cells to average when the condition is true. If omitted, Excel averages the values in <em>range</em> itself.</li>
+</ul>
+
+<p>Crucially, cells that do not meet the criterion are <em>completely excluded</em> from both the numerator (sum) and the denominator (count) of the average calculation. This means AVERAGEIF does not dilute the result with irrelevant data — it reflects the true mean of the qualifying subset only.</p>
+
+<p>Using the revenue dataset, to find the average revenue for the Marketing department:</p>
+
+<pre><code>=AVERAGEIF(A2:A7, "Marketing", B2:B7)</code></pre>
+
+<p>Excel identifies three Marketing rows (revenues 12000, 8500, 9700), computes (12000 + 8500 + 9700) / 3 = <strong>10066.67</strong>, and ignores the Sales and HR rows entirely.</p>
+
+<p>This function is especially valuable for <strong>comparing performance across categories</strong>. A manager analyzing a sales team might use a column of territory names as the <em>range</em> and a column of deal values as the <em>average_range</em>, then write a separate AVERAGEIF for each territory. The results immediately reveal which territories are closing higher-value deals on average — insight that a plain AVERAGE over the whole dataset would obscure.</p>
+
+<p>AVERAGEIF also works with numeric criteria. To average only the revenue values that are above 10000:</p>
+
+<pre><code>=AVERAGEIF(B2:B7, ">10000")</code></pre>
+
+<p>Here <em>average_range</em> is omitted, so Excel averages the qualifying values in B2:B7 directly: (12000 + 45000 + 31000) / 3 = <strong>29333.33</strong>.</p>
+
+<p><strong>Writing Effective Criteria in Conditional Functions</strong></p>
+
+<p>The criteria argument is where most formula errors originate. Understanding its syntax rules precisely is essential:</p>
+
+<ul>
+  <li><strong>Text strings</strong> must always be enclosed in double quotation marks: <code>"Sales"</code>, <code>"Approved"</code>, <code>"New York"</code>. Forgetting the quotes causes Excel to misinterpret the argument and return an error or a zero.</li>
+  <li><strong>Comparison operators combined with numbers</strong> must also be enclosed in double quotation marks as a complete text string: <code>">100"</code>, <code>"<=50"</code>, <code>"<>0"</code>. The operator and the number together form the criterion string that Excel parses internally.</li>
+  <li><strong>Combining an operator with a cell reference</strong> requires string concatenation using the ampersand: <code>">="&E1</code>. This tells Excel to build the criterion dynamically by joining the operator string with the current value in cell E1. For example, if E1 contains 500, the criterion becomes <code>>=500</code>. This pattern is extremely useful for dashboards where users type a threshold value into a cell and all formulas update instantly.</li>
+  <li><strong>Cell references as criteria</strong> (without operators) are typed without quotation marks: <code>=SUMIF(A2:A7, D2, B2:B7)</code> uses whatever text or number is in cell D2 as the criterion. Replacing hardcoded values with cell references makes spreadsheets far more flexible — changing one input cell updates every dependent formula simultaneously.</li>
+  <li><strong>Wildcards</strong>: The asterisk (<code>*</code>) represents any sequence of zero or more characters; the question mark (<code>?</code>) represents exactly one character. To search for a literal asterisk or question mark in the data, precede it with a tilde: <code>"~*"</code> matches a cell containing an actual asterisk character.</li>
+</ul>
+
+<p>The table below summarizes criteria syntax patterns with examples:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Goal</th>
+      <th>Criteria Syntax</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Match exact text</td>
+      <td><code>"text"</code></td>
+      <td><code>"Marketing"</code></td>
+    </tr>
+    <tr>
+      <td>Match exact number</td>
+      <td><code>number</code> or <code>"number"</code></td>
+      <td><code>100</code> or <code>"100"</code></td>
+    </tr>
+    <tr>
+      <td>Greater than a value</td>
+      <td><code>">value"</code></td>
+      <td><code>">500"</code></td>
+    </tr>
+    <tr>
+      <td>Less than or equal to a value</td>
+      <td><code>"<=value"</code></td>
+      <td><code>"<=1000"</code></td>
+    </tr>
+    <tr>
+      <td>Not equal to a value</td>
+      <td><code>"<>value"</code></td>
+      <td><code>"<>0"</code></td>
+    </tr>
+    <tr>
+      <td>Greater than a cell's value</td>
+      <td><code>">"&cell</code></td>
+      <td><code>">"&E1</code></td>
+    </tr>
+    <tr>
+      <td>Text starting with prefix</td>
+      <td><code>"prefix*"</code></td>
+      <td><code>"Mar*"</code></td>
+    </tr>
+    <tr>
+      <td>Text with exactly one wildcard character</td>
+      <td><code>"te?t"</code></td>
+      <td><code>"te?t"</code> matches "text", "test"</td>
+    </tr>
+    <tr>
+      <td>Criterion from a cell reference</td>
+      <td><code>cell</code></td>
+      <td><code>D2</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Applying Conditional Aggregation to Real-World Datasets</strong></p>
+
+<p>In practice, SUMIF, COUNTIF, and AVERAGEIF are rarely used in isolation. A typical sales report might use all three together on the same dataset to produce a compact summary table showing, for each region, the total revenue, the number of transactions, and the average deal size. Because each formula operates on the same source data independently, the summary updates automatically whenever the underlying data changes — without any manual filtering steps.</p>
+
+<p>Consider a fuller dataset with columns for Region (A), Salesperson (B), Product (C), and Revenue (D). A summary worksheet might contain:</p>
+
+<pre><code>Region summary for "North":
+  Total revenue:   =SUMIF(A2:A500, "North", D2:D500)
+  Transaction count: =COUNTIF(A2:A500, "North")
+  Average deal:    =AVERAGEIF(A2:A500, "North", D2:D500)</code></pre>
+
+<p>If region names are placed in a reference column on the summary sheet (say E2:E6), each formula can use a cell reference instead of a hardcoded string, allowing the same formula to be copied down five rows and produce results for every region automatically:</p>
+
+<pre><code>=SUMIF($A$2:$A$500, E2, $D$2:$D$500)</code></pre>
+
+<p>These functions integrate especially well with <strong>Excel Tables</strong> (created via Insert → Table). In a Table, ranges are automatically named after their column headers, making formulas more readable. Instead of <code>A2:A500</code>, you might write <code>SalesData[Region]</code>, and instead of <code>D2:D500</code>, you write <code>SalesData[Revenue]</code>. The Table also expands automatically when new rows are added, so your formulas always cover the full dataset without manual range adjustments.</p>
+
+<p>When the results of conditional aggregation formulas feed into a chart, the chart updates dynamically as the underlying data changes, creating a live dashboard effect. This is a common pattern in business intelligence work built entirely in Excel — a data sheet holds raw records, a summary sheet holds SUMIF/COUNTIF/AVERAGEIF formulas organized into a neat table, and a dashboard sheet displays charts linked to that summary table.</p>
+
+<p>One critical technical point to always observe: the <em>range</em> and the <em>sum_range</em> (or <em>average_range</em>) must cover <strong>the same number of rows</strong>. Excel aligns them row by row, using the top-left cell of <em>sum_range</em> as the starting anchor. If the two ranges have different sizes, Excel silently adjusts, which can produce incorrect results that are difficult to detect. Always double-check that <code>A2:A500</code> and <code>D2:D500</code> span exactly the same rows. The safest approach is to use full column references (<code>A:A</code> and <code>D:D</code>) or named Table columns, both of which always stay in sync.</p>
+
+<p>The combination of careful criteria syntax, cell-reference-driven parameters, and structured Table ranges transforms these three functions from simple lookup tools into the foundation of robust, maintainable analytical workbooks that can handle thousands of records and dozens of categories without any manual intervention.</p>
+        <div class="notes"><strong>Notes</strong>Students should practice building a summary table on a separate sheet from raw data, using cell references for criteria so they can change filter values dynamically. Encourage them to format their criteria reference cells clearly and to use Excel Tables for automatic range expansion. A useful exercise is to verify AVERAGEIF results by manually computing (SUMIF result) / (COUNTIF result) for the same criterion — the two approaches should always match.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>
