@@ -5,22 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Quality Assessment and Data Cleaning Fundamentals — CAP3785</title>
   <style>
-    /* ── Reset & Base ── */
+    /* ── Reset & base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --brand-dark:   #1a3a5c;
+      --brand-mid:    #2563a8;
+      --brand-light:  #dbeafe;
+      --accent:       #0ea5e9;
+      --text-primary: #1e293b;
+      --text-muted:   #64748b;
+      --bg-page:      #f1f5f9;
+      --bg-card:      #ffffff;
+      --border:       #e2e8f0;
+      --radius:       10px;
+      --shadow:       0 2px 8px rgba(0,0,0,0.08);
+
+      /* type badge colours */
+      --badge-topics:       #7c3aed;
+      --badge-presentation: #b45309;
+      --badge-text:         #0369a1;
+      --badge-quiz:         #065f46;
+      --badge-assignment:   #be185d;
+      --badge-interactive:  #9a3412;
+    }
+
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3340;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header / hero ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #24567a 60%, #2a7399 100%);
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 100%);
       color: #fff;
-      padding: 2.8rem 2rem 2.2rem;
+      padding: 48px 24px 40px;
     }
 
     .header-inner {
@@ -35,155 +57,166 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.25);
       border-radius: 4px;
-      padding: 0.22rem 0.7rem;
-      margin-bottom: 0.85rem;
-      color: #cde8f7;
+      padding: 3px 10px;
+      margin-bottom: 16px;
+      color: #e0f2fe;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 0.85rem;
-      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: #ffffff;
     }
 
     header p {
-      font-size: 1rem;
-      color: #d0e9f5;
-      max-width: 720px;
+      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      color: #bfdbfe;
+      max-width: 760px;
       line-height: 1.7;
     }
 
-    /* ── Main Content ── */
+    /* ── Main layout ── */
     main {
       max-width: 1100px;
-      margin: 2.4rem auto 3rem;
-      padding: 0 1.25rem;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
     }
 
+    /* ── Section heading ── */
     .section-heading {
-      font-size: 0.72rem;
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #6b7a94;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dde3ec;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
     }
 
-    /* ── Card Grid ── */
+    /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
     }
 
+    /* ── Individual card ── */
     .card {
-      background: #fff;
-      border: 1px solid #dde3ec;
-      border-radius: 8px;
-      padding: 1.3rem 1.4rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 24px 20px;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      gap: 10px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
       transform: translateY(-2px);
     }
 
-    /* ── Card Header Row ── */
-    .card-meta-row {
+    /* Card top row: badge + filetype */
+    .card-meta {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .badge {
-      font-size: 0.68rem;
-      font-weight: 600;
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      border-radius: 3px;
-      padding: 0.18rem 0.55rem;
+      padding: 3px 9px;
+      border-radius: 20px;
       white-space: nowrap;
     }
 
-    /* Badge colours by type */
-    .badge-module-topics   { background: #e8f0fb; color: #2d5bb5; }
-    .badge-presentation    { background: #fef3e2; color: #b05f10; }
-    .badge-text-content    { background: #e6f7ee; color: #1a7a45; }
-    .badge-quiz            { background: #f3e8fb; color: #6b22b0; }
-    .badge-default         { background: #edf0f5; color: #4a5568; }
+    .badge-topics       { background: #ede9fe; color: var(--badge-topics); }
+    .badge-presentation { background: #fef3c7; color: var(--badge-presentation); }
+    .badge-text         { background: #e0f2fe; color: var(--badge-text); }
+    .badge-quiz         { background: #d1fae5; color: var(--badge-quiz); }
+    .badge-assignment   { background: #fce7f3; color: var(--badge-assignment); }
+    .badge-interactive  { background: #ffedd5; color: var(--badge-interactive); }
 
-    .filetype-tag {
+    .filetype-pill {
       font-size: 0.68rem;
-      color: #8594ad;
-      font-family: 'Courier New', monospace;
-      background: #f2f4f8;
-      border-radius: 3px;
-      padding: 0.18rem 0.45rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
     }
 
-    /* ── Card Title ── */
-    .card-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.35;
+    /* Card title row */
+    .card-title-row {
       display: flex;
       align-items: baseline;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 8px;
     }
 
-    .card-title a {
-      color: #1a5fa8;
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .card-name a {
+      color: var(--brand-mid);
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s, color 0.15s;
     }
 
-    .card-title a:hover {
-      color: #0d3f7a;
-      border-bottom-color: #0d3f7a;
+    .card-name a:hover {
+      text-decoration: underline;
+      color: var(--accent);
     }
 
-    .card-title span.plain-name {
-      color: #2c3340;
-    }
-
-    /* Source file link */
     .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       font-size: 0.72rem;
-      font-weight: 500;
-      color: #5a7fa8;
+      font-weight: 600;
+      color: var(--text-muted);
       text-decoration: none;
-      background: #edf3fa;
-      border: 1px solid #c3d6ea;
-      border-radius: 3px;
-      padding: 0.12rem 0.45rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
       white-space: nowrap;
       transition: background 0.15s, color 0.15s;
-      align-self: baseline;
+      flex-shrink: 0;
     }
 
     .source-link:hover {
-      background: #d2e5f5;
-      color: #1a3f6e;
+      background: var(--brand-light);
+      color: var(--brand-mid);
+      border-color: var(--brand-mid);
     }
 
-    /* ── Card Description ── */
-    .card-desc {
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.65rem;
+    }
+
+    /* Card description */
+    .card-description {
       font-size: 0.875rem;
-      color: #4a5568;
+      color: var(--text-muted);
       line-height: 1.65;
       flex: 1;
     }
@@ -191,17 +224,18 @@
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.4rem 1rem;
       font-size: 0.8rem;
-      color: #8594ad;
-      border-top: 1px solid #dde3ec;
-      background: #fff;
+      color: var(--text-muted);
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      header { padding: 2rem 1.1rem 1.6rem; }
+    /* ── Responsive tweaks ── */
+    @media (max-width: 540px) {
       .card-grid { grid-template-columns: 1fr; }
+      header { padding: 36px 16px 32px; }
+      main { padding: 28px 16px 48px; }
     }
   </style>
 </head>
@@ -214,158 +248,261 @@
       <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
       <h1>Data Quality Assessment and Data Cleaning Fundamentals</h1>
       <p>
-        This module introduces the principles and practical techniques for evaluating and improving
-        data quality. Learners will explore key dimensions such as accuracy, completeness, and
-        consistency; identify and handle missing values, duplicates, and outliers; and apply
-        systematic cleaning workflows to produce analysis-ready datasets.
+        This module introduces the principles and practical techniques of data quality assessment and
+        systematic data cleaning. Learners will explore the core dimensions of data quality, learn to
+        identify and handle missing values, duplicate records, outliers, and inconsistencies, and build
+        a reproducible workflow for preparing clean, analysis-ready datasets.
       </p>
     </div>
   </header>
 
   <main>
-    <p class="section-heading">Module Artifacts &nbsp;—&nbsp; 11 items</p>
+    <p class="section-heading">Module Artifacts</p>
 
     <div class="card-grid">
 
       <!-- 1. Module Topics -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-module-topics">Module Topics</span>
-          <span class="filetype-tag">.json</span>
+        <div class="card-meta">
+          <span class="badge badge-topics">Module Topics</span>
+          <span class="filetype-pill">.json</span>
         </div>
-        <div class="card-title">
-          <a href="content/module_topics.html">Module Topics</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
           <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
-        <p class="card-desc">A structured JSON outline listing all topics and subtopics covered in the module, including data quality dimensions, missing values, duplicate records, and outlier detection, used by instructors to plan content and by learners to navigate the module's scope.</p>
+        <p class="card-description">
+          A structured JSON outline listing all topics and subtopics covered in the module, including
+          data quality dimensions, missing values, duplicate records, and outlier detection, used by
+          instructors to plan content and by learners to navigate the module's scope.
+        </p>
       </div>
 
       <!-- 2. Presentation -->
       <div class="card">
-        <div class="card-meta-row">
+        <div class="card-meta">
           <span class="badge badge-presentation">Presentation</span>
-          <span class="filetype-tag">.pptx</span>
+          <span class="filetype-pill">.pptx</span>
         </div>
-        <div class="card-title">
-          <a href="presentation/Data_Quality_Assessment_generated.pptx">Data_Quality_Assessment_generated.pptx</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="presentation/Data_Quality_Assessment_generated.pptx">Data_Quality_Assessment_generated.pptx</a>
+          </span>
         </div>
-        <p class="card-desc">A slide deck introducing and explaining data quality assessment and cleaning fundamentals — covering dimensions such as accuracy, completeness, and consistency, as well as missing values and duplicates — used by instructors to deliver lectures and by learners to review core concepts.</p>
+        <p class="card-description">
+          A slide deck introducing and explaining data quality assessment and cleaning fundamentals —
+          covering dimensions such as accuracy, completeness, and consistency, as well as missing values
+          and duplicates — used by instructors to deliver lectures and by learners to review core concepts.
+        </p>
       </div>
 
       <!-- 3. Introduction to Data Quality -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive_topics_t1.html">Introduction to Data Quality</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive_topics_t1.html">Introduction to Data Quality</a>
+          </span>
         </div>
-        <p class="card-desc">A foundational reading explaining what data quality means, why raw real-world data is imperfect, and the core dimensions and consequences of poor data quality, used by learners to build conceptual grounding before tackling specific cleaning techniques.</p>
+        <p class="card-description">
+          A foundational reading explaining what data quality means, why raw real-world data is imperfect,
+          and the core dimensions and consequences of poor data quality, used by learners to build
+          conceptual grounding before tackling specific cleaning techniques.
+        </p>
       </div>
 
       <!-- 4. Identifying Missing Values -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive_topics_t2.html">Identifying Missing Values</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive_topics_t2.html">Identifying Missing Values</a>
+          </span>
         </div>
-        <p class="card-desc">A reading covering how to detect and characterise missing data in datasets — including patterns, types, and practical identification methods — used by learners to understand the scope of gaps before deciding how to handle them.</p>
+        <p class="card-description">
+          A reading covering how to detect and characterise missing data in datasets — including patterns,
+          types, and practical identification methods — used by learners to understand the scope of gaps
+          before deciding how to handle them.
+        </p>
       </div>
 
       <!-- 5. Handling Duplicate Data -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive_topics_t3.html">Handling Duplicate Data</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive_topics_t3.html">Handling Duplicate Data</a>
+          </span>
         </div>
-        <p class="card-desc">A reading explaining what duplicate records are, why they occur, how to detect them, and strategies for resolving them, used by learners to understand the risks duplicates pose and how to remove or reconcile them systematically.</p>
+        <p class="card-description">
+          A reading explaining what duplicate records are, why they occur, how to detect them, and
+          strategies for resolving them, used by learners to understand the risks duplicates pose and
+          how to remove or reconcile them systematically.
+        </p>
       </div>
 
       <!-- 6. Detecting and Managing Outliers -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive_topics_t4.html">Detecting and Managing Outliers</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive_topics_t4.html">Detecting and Managing Outliers</a>
+          </span>
         </div>
-        <p class="card-desc">A reading defining outliers, explaining how they arise, and covering detection techniques and management options such as removal, transformation, or retention, used by learners to make defensible decisions about anomalous data points.</p>
+        <p class="card-description">
+          A reading defining outliers, explaining how they arise, and covering detection techniques and
+          management options such as removal, transformation, or retention, used by learners to make
+          defensible decisions about anomalous data points.
+        </p>
       </div>
 
       <!-- 7. Resolving Data Inconsistencies -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive_topics_t5.html">Resolving Data Inconsistencies</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive_topics_t5.html">Resolving Data Inconsistencies</a>
+          </span>
         </div>
-        <p class="card-desc">A reading exploring how data inconsistencies — such as conflicting representations of the same entity across records or sources — arise and how to identify and resolve them, used by learners to standardise data before analysis.</p>
+        <p class="card-description">
+          A reading exploring how data inconsistencies — such as conflicting representations of the same
+          entity across records or sources — arise and how to identify and resolve them, used by learners
+          to standardise data before analysis.
+        </p>
       </div>
 
       <!-- 8. Systematic Data Cleaning Strategies -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive_topics_t6.html">Systematic Data Cleaning Strategies</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive_topics_t6.html">Systematic Data Cleaning Strategies</a>
+          </span>
         </div>
-        <p class="card-desc">A reading presenting a structured, multi-stage workflow for data cleaning that emphasises auditing before modifying, documenting decisions, and ensuring reproducibility, used by learners and instructors as a process framework tying individual cleaning techniques together.</p>
+        <p class="card-description">
+          A reading presenting a structured, multi-stage workflow for data cleaning that emphasises
+          auditing before modifying, documenting decisions, and ensuring reproducibility, used by learners
+          and instructors as a process framework tying individual cleaning techniques together.
+        </p>
       </div>
 
       <!-- 9. Preparing Clean Data for Analysis (t7) -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive_topics_t7.html">Preparing Clean Data for Analysis</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive_topics_t7.html">Preparing Clean Data for Analysis</a>
+          </span>
         </div>
-        <p class="card-desc">A reading covering the final preparation steps needed to make cleaned data analysis-ready — including validation of prior cleaning decisions, formatting, and readiness checks — used by learners as a capstone guide before handing data off for analysis.</p>
+        <p class="card-description">
+          A reading covering the final preparation steps needed to make cleaned data analysis-ready —
+          including validation of prior cleaning decisions, formatting, and readiness checks — used by
+          learners as a capstone guide before handing data off for analysis.
+        </p>
       </div>
 
       <!-- 10. Preparing Clean Data for Analysis (interactive) -->
       <div class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-meta">
+          <span class="badge badge-text">Text Content</span>
+          <span class="filetype-pill">.html</span>
         </div>
-        <div class="card-title">
-          <a href="content/Data_Quality_Assessment_interactive.html">Preparing Clean Data for Analysis</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Data_Quality_Assessment_interactive.html">Preparing Clean Data for Analysis</a>
+          </span>
         </div>
-        <p class="card-desc">A reading covering the final preparation steps needed to make cleaned data analysis-ready — including validation of prior cleaning decisions, formatting, and readiness checks — used by learners as a capstone guide before handing data off for analysis.</p>
+        <p class="card-description">
+          A reading covering the final preparation steps needed to make cleaned data analysis-ready —
+          including validation of prior cleaning decisions, formatting, and readiness checks — used by
+          learners as a capstone guide before handing data off for analysis.
+        </p>
       </div>
 
       <!-- 11. Quiz Question Bank -->
       <div class="card">
-        <div class="card-meta-row">
+        <div class="card-meta">
           <span class="badge badge-quiz">Quiz</span>
-          <span class="filetype-tag">.json</span>
+          <span class="filetype-pill">.json</span>
         </div>
-        <div class="card-title">
-          <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+          </span>
           <a class="source-link" href="source/quiz_questions.json">source file</a>
         </div>
-        <p class="card-desc">A 20-question quiz bank testing learners' understanding of data quality definitions, dimensions such as accuracy, consistency, and reliability, and concepts like missing values and duplicates, used by instructors to assess comprehension of the module's key topics.</p>
+        <p class="card-description">
+          A 20-question quiz bank testing learners' understanding of data quality definitions, dimensions
+          such as accuracy, consistency, and reliability, and concepts like missing values and duplicates,
+          used by instructors to assess comprehension of the module's key topics.
+        </p>
       </div>
 
-    </div>
+      <!-- 12. Assignment -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-assignment">Assignment</span>
+          <span class="filetype-pill">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Data Quality Assessment: Identifying and Classifying Data Quality Issues</a>
+          </span>
+        </div>
+        <p class="card-description">
+          An analysis assignment in which learners examine a provided dataset to identify, classify, and
+          document common data quality issues (such as missing values, duplicates, and inconsistencies),
+          then propose corrective actions; instructors use it to assess students' ability to systematically
+          evaluate real-world data quality problems.
+        </p>
+      </div>
+
+      <!-- 13. Crossword Puzzle -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-interactive">Interactive Activity</span>
+          <span class="filetype-pill">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="interactive/crossword-puzzle.html">Crossword Puzzle</a>
+          </span>
+        </div>
+        <p class="card-description">
+          An interactive crossword puzzle covering key data quality and data cleaning terminology, used by
+          learners to self-test and reinforce their understanding of module vocabulary through an
+          across-and-down word puzzle with automatic scoring.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
   </main>
 
   <footer>
-    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; Data Quality Assessment and Data Cleaning Fundamentals
+    <p>CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; Data Quality Assessment and Data Cleaning Fundamentals</p>
   </footer>
 
 

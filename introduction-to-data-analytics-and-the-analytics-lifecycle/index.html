@@ -5,179 +5,232 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Introduction to Data Analytics and the Analytics Lifecycle — CAP3785</title>
   <style>
-    /* ── Reset & base ── */
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --brand-dark:   #1a2e4a;
+      --brand-mid:    #2563a8;
+      --brand-light:  #e8f0fb;
+      --accent:       #f0a500;
+      --text-main:    #1e2a38;
+      --text-muted:   #5a6a7e;
+      --bg-page:      #f4f6f9;
+      --bg-card:      #ffffff;
+      --border:       #dde3ed;
+      --radius:       8px;
+      --shadow:       0 2px 8px rgba(0,0,0,.08);
+      --font:         'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2330;
+      font-family: var(--font);
+      background: var(--bg-page);
+      color: var(--text-main);
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header banner ── */
+    /* ── Header Banner ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #25568a 60%, #1e7fa8 100%);
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 100%);
       color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 2.5rem 2rem 2rem;
     }
 
     .header-inner {
-      max-width: 1100px;
+      max-width: 1080px;
       margin: 0 auto;
     }
 
     .course-label {
       display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
       border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.9rem;
-      color: #cde6f7;
+      padding: .25rem .65rem;
+      margin-bottom: 1rem;
+      color: #d6e6ff;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 0.85rem;
-      color: #fff;
+      margin-bottom: .85rem;
+      letter-spacing: -.01em;
     }
 
     header p {
       font-size: 1rem;
-      max-width: 72ch;
-      color: #cde6f7;
+      max-width: 680px;
+      color: #c8dbf4;
       line-height: 1.7;
     }
 
-    /* ── Main content ── */
+    /* ── Main Content ── */
     main {
-      max-width: 1100px;
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.25rem;
+      max-width: 1080px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
     }
 
-    .section-heading {
-      font-size: 0.72rem;
+    .section-title {
+      font-size: .7rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      color: #5a6880;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dde3ec;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--border);
     }
 
-    /* ── Card grid ── */
+    /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
     .card {
-      background: #fff;
-      border: 1px solid #dde3ec;
-      border-radius: 10px;
-      padding: 1.35rem 1.4rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+      gap: .6rem;
+      transition: box-shadow .18s ease, transform .18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 18px rgba(30, 90, 160, 0.10);
-      border-color: #b0c6e0;
+      box-shadow: 0 6px 20px rgba(0,0,0,.12);
+      transform: translateY(-2px);
     }
 
-    /* Card top row: badges */
-    .card-meta {
+    /* ── Card Header Row ── */
+    .card-header {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
+      align-items: flex-start;
+      gap: .55rem;
+    }
+
+    .type-badge {
+      flex-shrink: 0;
+      margin-top: .15rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      display: flex;
       align-items: center;
-    }
-
-    .badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      justify-content: center;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .03em;
       text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      line-height: 1.5;
     }
 
-    .badge-type {
-      background: #e8f0fb;
-      color: #1a4a8a;
-      border: 1px solid #c5d8f5;
-    }
+    /* Badge colour coding by type */
+    .badge-presentation  { background: #fde8d8; color: #9c3a00; }
+    .badge-topic         { background: #ddf0e8; color: #1a6640; }
+    .badge-text          { background: #e8edf8; color: #2b4a8a; }
+    .badge-quiz          { background: #f3e8fb; color: #6b1fa0; }
+    .badge-assignment    { background: #fff3cc; color: #7a5000; }
+    .badge-module        { background: #e0f0fa; color: #145a80; }
+    .badge-default       { background: #f0f0f0; color: #444; }
 
-    .badge-filetype {
-      background: #f0f4f8;
-      color: #4a5770;
-      border: 1px solid #d4dce8;
-      font-weight: 500;
-    }
-
-    /* Card title row */
-    .card-title-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem;
+    .card-title-group {
+      flex: 1;
+      min-width: 0;
     }
 
     .card-name {
-      font-size: 1rem;
+      font-size: .97rem;
       font-weight: 700;
-      color: #1e2330;
-      line-height: 1.3;
+      color: var(--text-main);
+      line-height: 1.35;
+      word-break: break-word;
     }
 
     .card-name a {
-      color: #1558b0;
+      color: var(--brand-mid);
       text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color .15s;
     }
 
     .card-name a:hover,
     .card-name a:focus {
-      text-decoration: underline;
-      color: #0e3f80;
+      border-bottom-color: var(--brand-mid);
+      outline: none;
     }
 
     .source-link {
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: #5a7aa8;
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      margin-left: .55rem;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--text-muted);
       text-decoration: none;
-      border: 1px solid #b8cfea;
+      border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 0.1rem 0.42rem;
+      padding: .1rem .4rem;
       white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
+      transition: background .15s, color .15s;
+      vertical-align: middle;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background: #e8f0fb;
-      color: #1a4a8a;
-      text-decoration: none;
+      background: var(--brand-light);
+      color: var(--brand-mid);
+      border-color: var(--brand-mid);
+      outline: none;
     }
 
-    /* Description */
-    .card-description {
-      font-size: 0.875rem;
-      color: #3d4b60;
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Meta Row ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      align-items: center;
+    }
+
+    .meta-pill {
+      font-size: .68rem;
+      font-weight: 600;
+      border-radius: 100px;
+      padding: .15rem .55rem;
+      letter-spacing: .02em;
+    }
+
+    .pill-type {
+      background: var(--brand-light);
+      color: var(--brand-mid);
+    }
+
+    .pill-filetype {
+      background: #f0f0f0;
+      color: #555;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Description ── */
+    .card-desc {
+      font-size: .875rem;
+      color: var(--text-muted);
       line-height: 1.65;
       flex: 1;
     }
@@ -185,16 +238,17 @@
     /* ── Footer ── */
     footer {
       text-align: center;
-      font-size: 0.78rem;
-      color: #8a96a8;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde3ec;
+      font-size: .78rem;
+      color: var(--text-muted);
+      padding: 1.5rem 1rem;
+      border-top: 1px solid var(--border);
+      background: #fff;
     }
 
-    /* ── Responsive tweaks ── */
-    @media (max-width: 520px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 2rem 1.1rem 1.6rem; }
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
+      header { padding: 1.75rem 1rem 1.5rem; }
+      .card  { padding: 1.1rem; }
     }
   </style>
 </head>
@@ -207,190 +261,206 @@
       <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
       <h1>Introduction to Data Analytics and the Analytics Lifecycle</h1>
       <p>
-        This module establishes the foundational concepts of data analytics — what it is, why it matters,
-        and how organizations use it to turn raw data into competitive advantage. Learners will explore
-        the four core analytics types (descriptive, diagnostic, predictive, and prescriptive) and walk
-        through the CRISP-DM lifecycle framework that structures real-world analytics projects.
-        Use the resources below to read, review, and assess your understanding.
+        This module introduces the field of data analytics — what it is, why it matters, and how
+        organisations use it to make better decisions. Learners explore the four core analytics
+        types (descriptive, diagnostic, predictive, and prescriptive) and the CRISP-DM lifecycle
+        framework, grounded in real-world case studies and business applications.
       </p>
     </div>
   </header>
 
   <main>
-    <p class="section-heading">Module Artifacts &mdash; 9 items</p>
+    <h2 class="section-title">Module Artifacts &mdash; 10 items</h2>
 
     <div class="card-grid">
 
       <!-- 1. Module Topics -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-module" title="Module Topics">MT</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/module_topics.html">Module Topics</a>
+              <a href="source/hierarchy.json" class="source-link" title="View source file">
+                <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path d="M4.5 1A1.5 1.5 0 0 0 3 2.5v11A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5V5.621a1.5 1.5 0 0 0-.44-1.06L9.94 1.44A1.5 1.5 0 0 0 8.878 1H4.5zm0 1h4v2.5A1.5 1.5 0 0 0 10 6h2.5v7.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+                source file
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
+          <span class="meta-pill pill-type">Module Topics</span>
+          <span class="meta-pill pill-filetype">.json</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's learning topics, covering the definition and purpose of data analytics,
-          the four types of analytics (descriptive, diagnostic, predictive, and prescriptive), and the phases of the
-          CRISP-DM framework; used by instructors to plan lessons and by learners to navigate the module's scope.
-        </p>
+        <p class="card-desc">A structured outline of the module's learning topics, covering the definition and purpose of data analytics, the four types of analytics (descriptive, diagnostic, predictive, and prescriptive), and the phases of the CRISP-DM framework; used by instructors to plan lessons and by learners to navigate the module's scope.</p>
       </div>
 
       <!-- 2. Presentation -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-presentation" title="Presentation">PP</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="presentation/Introduction_to_Data_generated.pptx">Introduction_to_Data_generated.pptx</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Presentation</span>
-          <span class="badge badge-filetype">.pptx</span>
+          <span class="meta-pill pill-type">Presentation</span>
+          <span class="meta-pill pill-filetype">.pptx</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="presentation/Introduction_to_Data_generated.pptx">Introduction_to_Data_generated.pptx</a>
-          </span>
-        </div>
-        <p class="card-description">
-          A slide deck introducing data analytics and the analytics lifecycle, explaining what data analytics is,
-          how organizations derive competitive advantage from insights, the four analytics types, and the CRISP-DM
-          process; used by instructors to deliver lectures and by learners to review core concepts.
-        </p>
+        <p class="card-desc">A slide deck introducing data analytics and the analytics lifecycle, explaining what data analytics is, how organizations derive competitive advantage from insights, the four analytics types, and the CRISP-DM process; used by instructors to deliver lectures and by learners to review core concepts.</p>
       </div>
 
       <!-- 3. What is Data Analytics? -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-topic" title="Topic Detail">TD</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/Introduction_to_Data_generated_interactive_topics_t1.html">What is Data Analytics?</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
+          <span class="meta-pill pill-type">Topic Detail</span>
+          <span class="meta-pill pill-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Introduction_to_Data_generated_interactive_topics_t1.html">What is Data Analytics?</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading introduces data analytics by explaining what it is, why organizations collect and analyze data,
-          and how turning raw information into actionable insights creates business value — serving as a foundational
-          orientation for learners new to the field.
-        </p>
+        <p class="card-desc">This reading introduces data analytics by explaining what it is, why organizations collect and analyze data, and how turning raw information into actionable insights creates business value — serving as a foundational orientation for learners new to the field.</p>
       </div>
 
       <!-- 4. The Four Types of Analytics -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-topic" title="Topic Detail">TD</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/Introduction_to_Data_generated_interactive_topics_t2.html">The Four Types of Analytics</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
+          <span class="meta-pill pill-type">Topic Detail</span>
+          <span class="meta-pill pill-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Introduction_to_Data_generated_interactive_topics_t2.html">The Four Types of Analytics</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading explains the four types of analytics — descriptive, diagnostic, predictive, and prescriptive —
-          by defining what question each answers and how businesses use each type to progress from understanding past
-          events to guiding future decisions.
-        </p>
+        <p class="card-desc">This reading explains the four types of analytics — descriptive, diagnostic, predictive, and prescriptive — by defining what question each answers and how businesses use each type to progress from understanding past events to guiding future decisions.</p>
       </div>
 
       <!-- 5. The CRISP-DM Process Framework -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-topic" title="Topic Detail">TD</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/Introduction_to_Data_generated_interactive_topics_t3.html">The CRISP-DM Process Framework</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
+          <span class="meta-pill pill-type">Topic Detail</span>
+          <span class="meta-pill pill-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Introduction_to_Data_generated_interactive_topics_t3.html">The CRISP-DM Process Framework</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading covers the CRISP-DM framework by walking learners through its six phases — from business
-          understanding to deployment — giving instructors and learners a shared process model for structuring
-          real-world data analytics projects.
-        </p>
+        <p class="card-desc">This reading covers the CRISP-DM framework by walking learners through its six phases — from business understanding to deployment — giving instructors and learners a shared process model for structuring real-world data analytics projects.</p>
       </div>
 
       <!-- 6. Real-World Business Applications -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-topic" title="Topic Detail">TD</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/Introduction_to_Data_generated_interactive_topics_t4.html">Real-World Business Applications</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
+          <span class="meta-pill pill-type">Topic Detail</span>
+          <span class="meta-pill pill-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Introduction_to_Data_generated_interactive_topics_t4.html">Real-World Business Applications</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading surveys how data analytics is applied across multiple industries, providing concrete examples
-          of descriptive, predictive, and prescriptive analytics in practice so learners can connect theoretical
-          concepts to real organizational problems.
-        </p>
+        <p class="card-desc">This reading surveys how data analytics is applied across multiple industries, providing concrete examples of descriptive, predictive, and prescriptive analytics in practice so learners can connect theoretical concepts to real organizational problems.</p>
       </div>
 
       <!-- 7. Foundational Case Studies (Topic Detail) -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-topic" title="Topic Detail">TD</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/Introduction_to_Data_generated_interactive_topics_t5.html">Foundational Case Studies</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
+          <span class="meta-pill pill-type">Topic Detail</span>
+          <span class="meta-pill pill-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Introduction_to_Data_generated_interactive_topics_t5.html">Foundational Case Studies</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading presents foundational case studies from industries such as retail, healthcare, finance, sports,
-          and e-commerce to illustrate how organizations shifted from intuition-based to data-driven decision-making,
-          helping learners contextualize core analytics concepts.
-        </p>
+        <p class="card-desc">This reading presents foundational case studies from industries such as retail, healthcare, finance, sports, and e-commerce to illustrate how organizations shifted from intuition-based to data-driven decision-making, helping learners contextualize core analytics concepts.</p>
       </div>
 
       <!-- 8. Foundational Case Studies (Text Content) -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-text" title="Text Content">TC</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/Introduction_to_Data_generated_interactive.html">Foundational Case Studies</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
+          <span class="meta-pill pill-type">Text Content</span>
+          <span class="meta-pill pill-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Introduction_to_Data_generated_interactive.html">Foundational Case Studies</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading presents foundational case studies from industries such as retail, healthcare, finance, sports,
-          and e-commerce to illustrate how organizations shifted from intuition-based to data-driven decision-making,
-          helping learners contextualize core analytics concepts.
-        </p>
+        <p class="card-desc">This reading presents foundational case studies from industries such as retail, healthcare, finance, sports, and e-commerce to illustrate how organizations shifted from intuition-based to data-driven decision-making, helping learners contextualize core analytics concepts.</p>
       </div>
 
       <!-- 9. Quiz Question Bank -->
       <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-quiz" title="Quiz">QZ</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+              <a href="source/quiz_questions.json" class="source-link" title="View source file">
+                <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path d="M4.5 1A1.5 1.5 0 0 0 3 2.5v11A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5V5.621a1.5 1.5 0 0 0-.44-1.06L9.94 1.44A1.5 1.5 0 0 0 8.878 1H4.5zm0 1h4v2.5A1.5 1.5 0 0 0 10 6h2.5v7.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+                source file
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type">Quiz</span>
-          <span class="badge badge-filetype">.json</span>
+          <span class="meta-pill pill-type">Quiz</span>
+          <span class="meta-pill pill-filetype">.json</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
-          </span>
-          <a class="source-link" href="source/quiz_questions.json">source file</a>
-        </div>
-        <p class="card-description">
-          A 20-question quiz bank assessing learners' understanding of key module concepts, including the definition
-          of data analytics, the distinction between analytics types, and CRISP-DM phases, with scenario-based
-          questions; used by instructors to build graded assessments or by learners for self-testing.
-        </p>
+        <p class="card-desc">A 20-question quiz bank assessing learners' understanding of key module concepts, including the definition of data analytics, the distinction between analytics types, and CRISP-DM phases, with scenario-based questions; used by instructors to build graded assessments or by learners for self-testing.</p>
       </div>
 
-    </div>
+      <!-- 10. Assignment -->
+      <div class="card">
+        <div class="card-header">
+          <div class="type-badge badge-assignment" title="Assignment">AS</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="assignments/index.html">Case Study Analysis: Data Analytics in Real Business Practice</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-pill pill-type">Assignment</span>
+          <span class="meta-pill pill-filetype">.html</span>
+        </div>
+        <p class="card-desc">An individual case study assignment (2–4 hours) in which learners analyse real business scenarios to apply data analytics concepts and the analytics lifecycle, using the TILT framework to understand the purpose, task, and criteria before submitting their analysis as directed by the instructor.</p>
+      </div>
+
+    </div><!-- /.card-grid -->
   </main>
 
   <footer>
-    CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp;
-    Introduction to Data Analytics and the Analytics Lifecycle
+    <p>CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp; Module: Introduction to Data Analytics and the Analytics Lifecycle</p>
   </footer>
 
 

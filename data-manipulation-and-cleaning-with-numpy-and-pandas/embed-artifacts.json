@@ -13,5 +13,10 @@
     "title": "Data Manipulation and Cleaning with NumPy and Pandas \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"
+  },
+  {
+    "title": "Quiz \u2014 Data Manipulation and Cleaning with NumPy and Pandas",
+    "href": "quiz/index.html",
+    "type": "Quiz"
   }
 ]

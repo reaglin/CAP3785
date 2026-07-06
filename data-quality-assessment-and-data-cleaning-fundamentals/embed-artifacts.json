@@ -10,6 +10,16 @@
     "type": "Page"
   },
   {
+    "title": "Data Quality Assessment: Identifying and Classifying Data Quality Issues",
+    "href": "assignments/data-quality-assessment-identifying-and-classify.html",
+    "type": "Assignments"
+  },
+  {
+    "title": "Assignments \u2014 Data Quality Assessment and Data Cleaning Fundamentals",
+    "href": "assignments/index.html",
+    "type": "Assignments"
+  },
+  {
     "title": "Preparing Clean Data for Analysis",
     "href": "content/Data_Quality_Assessment_interactive.html",
     "type": "Content"
@@ -53,6 +63,16 @@
     "title": "Data Quality Assessment and Data Cleaning Fundamentals \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"
+  },
+  {
+    "title": "Data Quality Crossword Puzzle",
+    "href": "interactive/crossword-puzzle.html",
+    "type": "Interactive"
+  },
+  {
+    "title": "Interactive Activities \u2014 Data Quality Assessment and Data Cleaning Fundamentals",
+    "href": "interactive/index.html",
+    "type": "Interactive"
   },
   {
     "title": "Quiz \u2014 Data Quality Assessment and Data Cleaning Fundamentals",

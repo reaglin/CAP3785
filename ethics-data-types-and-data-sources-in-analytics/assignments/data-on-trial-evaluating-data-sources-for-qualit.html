@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data on Trial: Evaluating Data Sources for Quality, Reliability, and Appropriateness</title>
+  <style>
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background-color: #f9f8f5;
+      margin: 0;
+      padding: 0;
+    }
+    .page-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+    h1 {
+      font-size: 1.9rem;
+      color: #1c3a5e;
+      border-bottom: 3px solid #1c3a5e;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 0;
+      margin-bottom: 1.8rem;
+      font-style: italic;
+    }
+    h2 {
+      font-size: 1.35rem;
+      color: #1c3a5e;
+      margin-top: 2.2rem;
+      margin-bottom: 0.5rem;
+      border-left: 5px solid #4a90a4;
+      padding-left: 0.6rem;
+    }
+    h3 {
+      font-size: 1.1rem;
+      color: #2c5f75;
+      margin-top: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+    p {
+      margin: 0.6rem 0 1rem 0;
+    }
+    ul, ol {
+      margin: 0.4rem 0 1rem 1.4rem;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 0.45rem;
+    }
+    .tilt-box {
+      background-color: #eaf3f7;
+      border: 1px solid #b0d0db;
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+    }
+    .tilt-box h3 {
+      margin-top: 0;
+      color: #1c3a5e;
+    }
+    .outcome-box {
+      background-color: #f0f5e9;
+      border: 1px solid #a4c87e;
+      border-radius: 6px;
+      padding: 1rem 1.4rem;
+      margin: 1rem 0;
+    }
+    .outcome-box strong {
+      color: #2e5e0e;
+    }
+    .highlight-box {
+      background-color: #fff8e6;
+      border: 1px solid #e8c96e;
+      border-radius: 6px;
+      padding: 1rem 1.4rem;
+      margin: 1rem 0;
+    }
+    .ai-box {
+      background-color: #fef1ef;
+      border: 1px solid #e0a090;
+      border-radius: 6px;
+      padding: 1rem 1.4rem;
+      margin: 1rem 0;
+    }
+    .ai-box h3 {
+      color: #8b2500;
+      margin-top: 0;
+    }
+    .accessibility-box {
+      background-color: #f3f0fa;
+      border: 1px solid #b5a8d8;
+      border-radius: 6px;
+      padding: 1rem 1.4rem;
+      margin: 1rem 0;
+    }
+    .accessibility-box h3 {
+      color: #3d2878;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0 1.8rem 0;
+      font-size: 0.93rem;
+    }
+    thead {
+      background-color: #1c3a5e;
+      color: #ffffff;
+    }
+    thead th {
+      padding: 0.7rem 0.8rem;
+      text-align: left;
+      font-weight: bold;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #f0f4f8;
+    }
+    tbody tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    tbody td {
+      padding: 0.65rem 0.8rem;
+      vertical-align: top;
+      border: 1px solid #c8d6e0;
+    }
+    .criteria-label {
+      font-weight: bold;
+      color: #1c3a5e;
+    }
+    .level-exemplary { color: #2c6e2c; font-weight: bold; }
+    .level-proficient { color: #4a7a00; font-weight: bold; }
+    .level-developing { color: #a06000; font-weight: bold; }
+    .level-beginning { color: #9e1a00; font-weight: bold; }
+    .phase-block {
+      border: 1px solid #c8d6e0;
+      border-radius: 6px;
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 1rem;
+      background-color: #ffffff;
+    }
+    .phase-block h3 {
+      margin-top: 0;
+      color: #1c3a5e;
+    }
+    .phase-number {
+      display: inline-block;
+      background-color: #1c3a5e;
+      color: #fff;
+      border-radius: 50%;
+      width: 1.6rem;
+      height: 1.6rem;
+      text-align: center;
+      line-height: 1.6rem;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    .total-row td {
+      background-color: #1c3a5e !important;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .footer-note {
+      font-size: 0.88rem;
+      color: #666;
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+      margin-top: 2rem;
+    }
+    .definition-term {
+      font-weight: bold;
+      color: #1c3a5e;
+    }
+    em.key {
+      background-color: #e8f4fb;
+      padding: 0 3px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Ethics, Data Types, and Data Sources in Analytics</a></div>
+<div class="pm-injected-nav"><a href="index.html">← Back to Assignments</a><span class="sep">|</span><a href="../index.html">↑ Back to Module</a></div>
+<div class="pm-injected-spacer"></div>
+<div class="page-wrapper">
+
+  <h1>Data on Trial: Evaluating Data Sources for Quality, Reliability, and Appropriateness</h1>
+  <p class="subtitle">Module: Ethics &amp; Data Types &nbsp;|&nbsp; Assignment Type: Presentation / Structured Debate &nbsp;|&nbsp; Estimated Student Effort: 2–4 Hours</p>
+
+  <!-- ============================================================ -->
+  <!-- TILT FRAMEWORK -->
+  <!-- ============================================================ -->
+  <h2>TILT Framework: Purpose, Task, and Criteria</h2>
+
+  <div class="tilt-box">
+    <h3>Purpose — Why This Assignment Matters</h3>
+    <p>Data practitioners and analysts regularly face a critical professional obligation: they must <strong>decide whether a data source is good enough to use</strong> before drawing conclusions or making recommendations from it. Using low-quality, unreliable, or inappropriate data can cause real harm — from flawed business decisions to biased algorithmic systems and violations of research ethics.</p>
+    <p>This assignment places you in the role of a data professional who must publicly argue for or against the use of a specific data source. By preparing and delivering a structured position statement — and responding to a challenge from a peer — you will deepen your ability to apply a systematic evaluation framework and communicate your reasoning clearly to an audience. This directly supports your professional readiness for roles in data analysis, data science, research, policy, and technology ethics.</p>
+    <p><strong>Connection to Course Learning Outcomes:</strong> This assignment directly targets <strong>MO2</strong> — evaluating a given data source for quality, reliability, and appropriateness using established criteria such as publisher credibility, collection transparency, and alignment with project requirements.</p>
+  </div>
+
+  <div class="tilt-box">
+    <h3>Task — What You Will Do</h3>
+    <p>You will receive (or select from a provided list) a real-world data source. You will evaluate it using the module's evaluation criteria, prepare a structured position statement, deliver a short recorded or live presentation, and respond to a structured challenge question from a peer or the instructor. Detailed step-by-step instructions follow in the Task Description section below.</p>
+  </div>
+
+  <div class="tilt-box">
+    <h3>Criteria — How You Will Be Graded</h3>
+    <p>Your work will be assessed using the rubric provided at the end of this document. Criteria include the accuracy and depth of your evaluation, the quality of your evidence and reasoning, the clarity and organization of your presentation, and the strength of your response to the challenge question. A brief written reflection is also required and graded separately.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- LEARNING OUTCOMES -->
+  <!-- ============================================================ -->
+  <h2>Learning Outcomes</h2>
+
+  <div class="outcome-box">
+    <p>By the end of this assignment, you will be able to:</p>
+    <ol>
+      <li><strong>[MO2 — Evaluate]</strong> <strong>Evaluate</strong> a real-world data source for quality, reliability, and appropriateness by systematically applying established criteria including publisher credibility, collection transparency, and alignment with a defined project requirement.</li>
+      <li><strong>[MO2 — Evaluate]</strong> <strong>Justify</strong> a position on whether a data source should or should not be used in a specific analytical context, using evidence-based reasoning drawn from the evaluation framework.</li>
+      <li><strong>[MO2 — Evaluate]</strong> <strong>Defend</strong> your evaluation against a structured challenge, adapting your argument in response to counter-evidence or alternative perspectives.</li>
+      <li><strong>[MO2 — Evaluate]</strong> <strong>Assess</strong> the ethical implications of using or rejecting a particular data source, including potential harms associated with data quality failures.</li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- KEY TERMS -->
+  <!-- ============================================================ -->
+  <h2>Key Terms and Definitions</h2>
+  <p>The following terms are used throughout this assignment. Make sure you understand and can apply each one before you begin your evaluation.</p>
+  <ul>
+    <li><span class="definition-term">Data quality:</span> The degree to which a dataset is accurate, complete, consistent, timely, and fit for its intended purpose. A high-quality dataset has few errors, missing values, or inconsistencies.</li>
+    <li><span class="definition-term">Reliability:</span> The consistency of a data source — whether it produces stable, repeatable results under the same conditions, and whether the data collection method is sound and reproducible.</li>
+    <li><span class="definition-term">Appropriateness:</span> Whether the data source is suitable for the specific research or analytical question at hand — including whether the variables measured, the population sampled, the time period covered, and the granularity of the data match the project requirements.</li>
+    <li><span class="definition-term">Publisher credibility:</span> The degree to which the organization or individual that produced and released the data can be trusted — based on factors such as institutional reputation, peer review, transparency about methods, and absence of conflicts of interest.</li>
+    <li><span class="definition-term">Collection transparency:</span> The extent to which the data producer clearly documents how the data were gathered — including the methodology, instruments used, population sampled, time period, and any known limitations.</li>
+    <li><span class="definition-term">Evaluate (as used in this assignment):</span> To examine a data source against specific criteria, weigh the evidence for strengths and weaknesses, and form a reasoned, evidence-based judgment. Evaluation goes beyond description — it requires you to make and support a claim.</li>
+    <li><span class="definition-term">Position statement:</span> A clear declaration of your stance (Pro: this source should be used, or Con: this source should not be used) followed by structured supporting arguments.</li>
+  </ul>
+
+  <!-- ============================================================ -->
+  <!-- TASK DESCRIPTION — PHASES -->
+  <!-- ============================================================ -->
+  <h2>Task Description: Step-by-Step Instructions</h2>
+
+  <p>This assignment is organized into four phases. Complete each phase in sequence. Approximate time for each phase is noted to help you manage your effort.</p>
+
+  <div class="phase-block">
+    <h3><span class="phase-number">1</span> Phase 1: Receive or Select Your Data Source and Scenario (15–20 minutes)</h3>
+    <p>Your instructor will either assign you a data source or ask you to select one from the approved list posted in the course. Along with the data source, you will receive a <strong>scenario card</strong> that describes:</p>
+    <ul>
+      <li>A fictional organization or research context (e.g., "A public health department wants to use this data to understand obesity trends in adolescents in your state.")</li>
+      <li>A specific project requirement (e.g., "The data must be recent — from the past five years — and must include demographic breakdowns by age and gender.")</li>
+      <li>Your assigned position: <strong>Pro</strong> (argue the data source IS sufficiently high quality, reliable, and appropriate for this context) or <strong>Con</strong> (argue the data source is NOT sufficiently high quality, reliable, and/or appropriate).</li>
+    </ul>
+    <p><strong>Important:</strong> You are expected to argue your assigned position rigorously, even if your personal view differs. This is a structured debate format designed to develop your critical thinking. You must engage honestly with the evidence — do not fabricate or ignore facts that contradict your position; instead, acknowledge them and explain why they do not outweigh your core argument.</p>
+  </div>
+
+  <div class="phase-block">
+    <h3><span class="phase-number">2</span> Phase 2: Conduct Your Evaluation (60–75 minutes)</h3>
+    <p>Using the four evaluation criteria below, systematically examine your assigned data source. Take notes as you go — these will form the evidence base for your presentation. You must address <strong>all four criteria</strong>.</p>
+
+    <h3>Criterion A: Publisher Credibility</h3>
+    <p>Investigate who produced the data. Ask yourself:</p>
+    <ul>
+      <li>Is the publisher a recognized authority in this domain (e.g., a government agency, peer-reviewed research institution, international body)?</li>
+      <li>Does the publisher have a stated mission or funding structure that could introduce bias?</li>
+      <li>Has the data been cited, replicated, or endorsed by independent third parties?</li>
+      <li>Is there evidence of a quality control or peer review process?</li>
+    </ul>
+
+    <h3>Criterion B: Collection Transparency</h3>
+    <p>Examine how the data were collected. Ask yourself:</p>
+    <ul>
+      <li>Does the source provide a clear methodology section or codebook?</li>
+      <li>Are the data collection instruments (e.g., survey questions, sensors, administrative records) described and accessible?</li>
+      <li>Is the sampling method explained? Is the sample size reported?
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>

@@ -10,6 +10,16 @@
     "type": "Page"
   },
   {
+    "title": "Data on Trial: Evaluating Data Sources for Quality, Reliability, and Appropriateness",
+    "href": "assignments/data-on-trial-evaluating-data-sources-for-qualit.html",
+    "type": "Assignments"
+  },
+  {
+    "title": "Assignments \u2014 Ethics, Data Types, and Data Sources in Analytics",
+    "href": "assignments/index.html",
+    "type": "Assignments"
+  },
+  {
     "title": "Data Collection Methods and Web APIs",
     "href": "content/Ethics_Data_Types_generated_interactive.html",
     "type": "Content"
