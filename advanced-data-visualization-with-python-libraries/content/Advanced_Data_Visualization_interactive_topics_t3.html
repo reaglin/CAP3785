@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Visualizations: Heatmaps and Pair Plots</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Data Visualization with Python Libraries</a></div>
+  <header>
+    <h1>Advanced Visualizations: Heatmaps and Pair Plots</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Advanced Visualizations: Heatmaps and Pair Plots</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Exploratory data analysis (EDA) demands tools that can surface patterns across many variables simultaneously. Two of the most powerful visualization techniques for this purpose are <strong>heatmaps</strong> and <strong>pair plots</strong>, both available through Seaborn's high-level interface. A heatmap encodes numeric values as colors across a grid, making it ideal for displaying correlation matrices at a glance. A pair plot arranges every combination of variable pairs into a grid of scatter plots and distributions, revealing the shape, direction, and group structure of relationships that a single number like a correlation coefficient can never fully convey. Mastering both tools — and knowing how to use them together — gives you a complete workflow for multivariate exploration.</p>
+
+<p><strong>Introduction to Heatmaps in Seaborn</strong></p>
+
+<p>The primary entry point for heatmaps in Seaborn is <code>sns.heatmap(data)</code>, where <code>data</code> is almost always a two-dimensional structure such as a Pandas DataFrame. In correlation analysis the most common input is a <strong>correlation matrix</strong> produced by calling <code>df.corr()</code> on a DataFrame, which returns a square matrix where every cell <em>(i, j)</em> holds the Pearson correlation coefficient between column <em>i</em> and column <em>j</em>.</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.read_csv('penguins.csv').dropna()
+corr = df.select_dtypes('number').corr()
+
+sns.heatmap(corr)
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p>Without any additional arguments the resulting plot is functional but not optimally readable. The two most important refinements involve the <strong>color palette</strong> and the <strong>color scale bounds</strong>.</p>
+
+<p>The <code>cmap</code> parameter accepts any Matplotlib colormap name or object. For correlation data — which ranges from −1 to +1 and has a meaningful midpoint at zero — a <strong>diverging palette</strong> is strongly preferred over a sequential one. Diverging palettes assign a neutral hue to the center and push warm colors toward one extreme and cool colors toward the other. The palettes <code>'coolwarm'</code>, <code>'RdBu'</code>, and <code>'vlag'</code> are common choices. A sequential palette such as <code>'viridis'</code> would make −0.8 and +0.8 look like different extremes of the same progression rather than opposite poles, which is visually misleading.</p>
+
+<pre><code>sns.heatmap(corr, cmap='coolwarm')
+</code></pre>
+
+<p>The <code>vmin</code> and <code>vmax</code> parameters pin the lower and upper limits of the color scale. For a correlation matrix you should always set <code>vmin=-1</code> and <code>vmax=1</code>. Without these anchors, Seaborn autoscales to the actual minimum and maximum values present in the matrix. If the highest correlation in your data is only 0.6, autoscaling would paint that cell the darkest warm color, making it visually indistinguishable from a perfect +1 correlation in another plot — a serious error when comparing heatmaps across different datasets or subsets.</p>
+
+<pre><code>sns.heatmap(corr, cmap='coolwarm', vmin=-1, vmax=1)
+</code></pre>
+
+<p>The <code>center</code> parameter provides a complementary control: it anchors the <strong>midpoint hue</strong> of the palette to a specified numeric value. Setting <code>center=0</code> guarantees that zero correlation always appears as the neutral color regardless of how <code>vmin</code> and <code>vmax</code> are set. This is particularly important if you ever use asymmetric bounds such as <code>vmin=-1, vmax=1</code> with a palette that does not natively center at zero.</p>
+
+<pre><code>sns.heatmap(corr, cmap='coolwarm', vmin=-1, vmax=1, center=0)
+</code></pre>
+
+<p><strong>Annotating and Customizing Heatmaps</strong></p>
+
+<p>Color alone is sometimes insufficient for precise reading, especially when presenting to audiences who may be colorblind or working from grayscale printouts. The <code>annot=True</code> argument overlays each cell with its numeric value, transforming the heatmap into a self-documenting visualization. The companion parameter <code>fmt</code> controls how the number is formatted as a Python format string: <code>fmt='.2f'</code> shows two decimal places, <code>fmt='.0f'</code> shows an integer, and <code>fmt='.3f'</code> adds a third decimal place for high-precision contexts.</p>
+
+<pre><code>sns.heatmap(corr, cmap='coolwarm', vmin=-1, vmax=1,
+            center=0, annot=True, fmt='.2f')
+</code></pre>
+
+<p>A standard correlation matrix is <strong>symmetric</strong> — the value at cell <em>(i, j)</em> is identical to the value at cell <em>(j, i)</em>, and the diagonal is always 1.0. Displaying all this redundant information clutters the plot and can distract the reader. The <code>mask</code> parameter accepts a Boolean array of the same shape as the data; cells where the mask is <code>True</code> are left blank. To mask the upper triangle (the conventional choice, though the lower triangle works equally well), use NumPy:</p>
+
+<pre><code>import numpy as np
+
+mask = np.triu(np.ones_like(corr, dtype=bool))
+sns.heatmap(corr, mask=mask, cmap='coolwarm',
+            vmin=-1, vmax=1, center=0,
+            annot=True, fmt='.2f')
+</code></pre>
+
+<p><code>np.ones_like(corr, dtype=bool)</code> creates a Boolean array of all <code>True</code> values with the same shape as <code>corr</code>, and <code>np.triu</code> zeroes out everything below the diagonal — meaning <code>True</code> values remain in the upper triangle and diagonal, which are then hidden. The result is a clean lower-triangular heatmap.</p>
+
+<p>For dense matrices with many variables, individual cells can blur together visually. The <code>linewidths</code> parameter draws thin separator lines between cells, and <code>linecolor</code> sets their color. A value of <code>linewidths=0.5</code> with <code>linecolor='white'</code> is a popular combination that adds structure without overwhelming the color signal:</p>
+
+<pre><code>sns.heatmap(corr, mask=mask, cmap='coolwarm',
+            vmin=-1, vmax=1, center=0,
+            annot=True, fmt='.2f',
+            linewidths=0.5, linecolor='white')
+</code></pre>
+
+<p>Finally, <code>square=True</code> forces every cell to be rendered as a perfect square rather than a rectangle, which produces a more symmetric, aesthetically balanced layout. This is especially valuable when the number of rows and columns differ, or when the figure dimensions would otherwise distort cells into unequal proportions.</p>
+
+<pre><code>sns.heatmap(corr, mask=mask, cmap='coolwarm',
+            vmin=-1, vmax=1, center=0,
+            annot=True, fmt='.2f',
+            linewidths=0.5, linecolor='white',
+            square=True)
+</code></pre>
+
+<p><strong>Interpreting Correlation Heatmaps</strong></p>
+
+<p>Reading a heatmap correctly requires mapping color back to meaning. The interpretation rules below assume a diverging palette centered at zero with warm colors representing positive values and cool colors representing negative values.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Approximate Correlation Value</th>
+      <th>Visual Appearance (coolwarm)</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>+0.9 to +1.0</td>
+      <td>Deep red / dark warm</td>
+      <td>Very strong positive linear relationship</td>
+    </tr>
+    <tr>
+      <td>+0.5 to +0.9</td>
+      <td>Medium to strong warm hue</td>
+      <td>Moderate to strong positive relationship</td>
+    </tr>
+    <tr>
+      <td>−0.1 to +0.1</td>
+      <td>Pale / near-white / neutral</td>
+      <td>Little to no linear correlation</td>
+    </tr>
+    <tr>
+      <td>−0.5 to −0.9</td>
+      <td>Medium to strong cool hue</td>
+      <td>Moderate to strong negative relationship</td>
+    </tr>
+    <tr>
+      <td>−0.9 to −1.0</td>
+      <td>Deep blue / dark cool</td>
+      <td>Very strong inverse linear relationship</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>diagonal</strong> of a self-correlation matrix (where each variable is correlated with itself) always equals exactly 1.0 and will appear as the darkest warm color. This is mathematically trivial and should not be interpreted as a meaningful finding. It is best practice to mask the diagonal or at least acknowledge it explicitly when presenting the visualization, because an audience unfamiliar with correlation matrices may think the diagonal represents something important about the data.</p>
+
+<p>One of the most practically valuable patterns to look for is <strong>clusters of mutual high correlation</strong>. If a block of variables — say, five features in rows 3 through 7 and columns 3 through 7 — all show warm colors with one another, those features likely measure overlapping concepts. In a regression modeling context this is called <strong>multicollinearity</strong>, and it can destabilize coefficient estimates, inflate standard errors, and make model interpretation unreliable. Spotting this visually in a heatmap before fitting a model is far more efficient than diagnosing it after the fact through variance inflation factors or condition numbers.</p>
+
+<p>It is equally important to remember what a correlation heatmap <em>cannot</em> tell you. The Pearson correlation coefficient measures only <strong>linear</strong> association. Two variables can have a strong curved relationship (for example, a quadratic one) and still show a coefficient near zero. A variable pair might also look weakly correlated overall but reveal very strong structure when data is separated by a categorical group. These limitations are precisely why pair plots are the natural complement to heatmaps.</p>
+
+<p><strong>Building Pair Plots with Seaborn</strong></p>
+
+<p>Seaborn's <code>sns.pairplot(df)</code> accepts a DataFrame and automatically builds a grid of subplots. Every numeric column appears on both the row axis and the column axis. <strong>Off-diagonal cells</strong> show scatter plots of the column variable against the row variable, while <strong>diagonal cells</strong> show the univariate distribution of that variable alone — by default, a histogram.</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset('penguins').dropna()
+sns.pairplot(df)
+plt.show()
+</code></pre>
+
+<p>With a dataset that has many numeric columns this can produce a large grid, but each subplot is small enough that the overall figure remains manageable. The real power emerges when you introduce the <code>hue</code> parameter. Passing a categorical column name to <code>hue</code> color-codes every data point across <em>all</em> subplots simultaneously according to that category, enabling instant visual comparison of group structure across every variable pair:</p>
+
+<pre><code>sns.pairplot(df, hue='species')
+plt.show()
+</code></pre>
+
+<p>Now each species occupies its own color, and you can immediately see whether clusters that appeared in one scatter plot also appear in others, whether groups overlap or separate cleanly, and how the distribution shape varies between species on the diagonal.</p>
+
+<p>The diagonal default is a histogram, but setting <code>diag_kind='kde'</code> replaces it with a <strong>kernel density estimate (KDE)</strong> curve. KDE produces a smooth, continuous estimate of the probability density rather than binned counts, which is more visually coherent with the continuous scatter plots in the off-diagonal cells and less sensitive to arbitrary bin-width choices:</p>
+
+<pre><code>sns.pairplot(df, hue='species', diag_kind='kde')
+</code></pre>
+
+<p>When a DataFrame has many columns, showing all pairs produces a very large grid that may be difficult to read. The <code>vars</code> parameter accepts a list of column names and restricts the plot to only those variables:</p>
+
+<pre><code>sns.pairplot(df,
+             hue='species',
+             diag_kind='kde',
+             vars=['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm'])
+</code></pre>
+
+<p>This is especially useful after a heatmap has identified which variable pairs have the most interesting or suspicious correlations — you can then use <code>vars</code> to zoom in on exactly those variables in the pair plot.</p>
+
+<p><strong>Customizing Pair Plot Aesthetics and Plot Kinds</strong></p>
+
+<p>The <code>kind</code> parameter controls what appears in the <strong>off-diagonal</strong> cells. The default is <code>'scatter'</code>, but two alternatives are particularly useful.</p>
+
+<p>Setting <code>kind='reg'</code> overlays a <strong>linear regression line with a shaded confidence interval</strong> on each scatter plot. This immediately highlights the direction and apparent strength of linear trends, and the width of the confidence band gives a visual sense of statistical uncertainty:</p>
+
+<pre><code>sns.pairplot(df.select_dtypes('number'), kind='reg')
+</code></pre>
+
+<p>Note that <code>kind='reg'</code> works best on data without a <code>hue</code> group distinction, or when the regression should be fit globally. If <code>hue</code> is also set, Seaborn fits a separate regression line per group, which can become visually crowded.</p>
+
+<p>Setting <code>kind='kde'</code> replaces the scatter plots in the off-diagonal cells with <strong>bivariate kernel density contour plots</strong>. Where scatter plots can become an illegible mass of overlapping dots for large datasets, KDE contours smoothly summarize the joint distribution as nested ellipses or irregular shapes. Denser regions are enclosed by more contours, making the mode of the joint distribution visually obvious:</p>
+
+<pre><code>sns.pairplot(df, hue='species', kind='kde', diag_kind='kde')
+</code></pre>
+
+<p>For fine-grained control over the underlying plot functions, <code>pairplot</code> accepts two dictionaries: <code>plot_kws</code> passes keyword arguments to the off-diagonal plot function, and <code>diag_kws</code> passes them to the diagonal plot function. For example, to make scatter plot markers semi-transparent and smaller:</p>
+
+<pre><code>sns.pairplot(df, hue='species',
+             plot_kws={'alpha': 0.5, 's': 20},
+             diag_kws={'fill': True})
+</code></pre>
+
+<p><code>alpha</code> controls opacity (0 is invisible, 1 is fully opaque), which is the most effective antidote to overplotting in dense scatter plots. The <code>s</code> argument controls marker size in points squared.</p>
+
+<p><code>sns.pairplot()</code> returns a <strong><code>PairGrid</code> object</strong> rather than a plain Axes. This object exposes an <code>.axes</code> attribute, which is a two-dimensional NumPy array of individual Matplotlib <code>Axes</code> objects indexed by <em>[row, col]</em>. You can use this to add annotations, change titles, or apply any Matplotlib method to a specific subplot:</p>
+
+<pre><code>g = sns.pairplot(df, hue='species', diag_kind='kde')
+
+# Annotate the cell at row 0, column 1
+ax = g.axes[0, 1]
+ax.set_title('Key relationship', fontsize=9)
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p><strong>Combining Heatmaps and Pair Plots for Exploratory Analysis</strong></p>
+
+<p>Heatmaps and pair plots are most powerful when used as a <strong>two-stage workflow</strong> rather than independently. The heatmap is the screening tool: it condenses all pairwise correlation information into a single compact grid, allowing you to scan dozens of variable pairs simultaneously and quickly identify which relationships are strong, which are negligible, and where suspicious clusters of multicollinearity exist. This takes seconds to interpret even for a matrix with twenty or more variables.</p>
+
+<p>The pair plot then acts as the investigative tool. Once the heatmap has highlighted, say, three variable pairs worth examining closely, you pass those columns to <code>vars</code> in <code>pairplot</code> and examine the actual scatter. This is where you discover things the correlation coefficient hides: a relationship that looks moderate in the heatmap might turn out to be perfectly linear in one species but flat in another, revealed only when <code>hue='species'</code> splits the data. A near-zero correlation might be concealing a strong quadratic curve. Outliers that distort the correlation coefficient appear as isolated points far from the main cluster. None of these phenomena are visible in a heatmap alone.</p>
+
+<p>When saving figures for reports or presentations, use <code>plt.savefig</code> with high resolution and tight bounding box to avoid clipped labels:</p>
+
+<pre><code>plt.savefig('correlation_heatmap.png', dpi=300, bbox_inches='tight')
+</code></pre>
+
+<p>The <code>dpi=300</code> argument produces a 300 dots-per-inch image, which is the standard minimum for print publication. <code>bbox_inches='tight'</code> instructs Matplotlib to expand the saved bounding box to include all visible elements, including axis labels and the color bar, which would otherwise be clipped if the figure's nominal size is too small.</p>
+
+<p>For visual coherence across a full analysis, maintain the <strong>same <code>hue</code> variable</strong> in both the heatmap legend (if applicable) and across all pair plot subplots. If your stakeholders have associated orange with one group and blue with another from the pair plot, introducing different colors in a supplementary figure will force unnecessary cognitive work and may introduce confusion. Consistent use of a single categorical encoding threads a visual narrative through the entire analysis, making the story easier to follow and the conclusions easier to trust.</p>
+
+<p>The workflow below summarizes a complete end-to-end exploratory session:</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load and clean data
+df = sns.load_dataset('penguins').dropna()
+numeric = df.select_dtypes('number')
+
+# --- Stage 1: Correlation Heatmap ---
+corr = numeric.corr()
+mask = np.triu(np.ones_like(corr, dtype=bool))
+
+fig, ax = plt.subplots(figsize=(7, 6))
+sns.heatmap(corr, mask=mask, cmap='coolwarm',
+            vmin=-1, vmax=1, center=0,
+            annot=True, fmt='.2f',
+            linewidths=0.5, linecolor='white',
+            square=True, ax=ax)
+plt.tight_layout()
+plt.savefig('heatmap.png', dpi=300, bbox_inches='tight')
+plt.show()
+
+# --- Stage 2: Pair Plot for key variables ---
+key_vars = ['bill_length_mm', 'flipper_length_mm', 'body_mass_g']
+g = sns.pairplot(df, vars=key_vars,
+                 hue='species',
+                 diag_kind='kde',
+                 plot_kws={'alpha': 0.6, 's': 25})
+plt.savefig('pairplot.png', dpi=300, bbox_inches='tight')
+plt.show()
+</code></pre>
+
+<p>This two-stage approach — heatmap for breadth, pair plot for depth — is a disciplined and efficient strategy that scales well whether your dataset has five variables or fifty. Together, these two visualization types cover the essential spectrum from aggregate numerical summary to rich, multi-dimensional geometric insight.</p>
+        <div class="notes"><strong>Notes</strong>Deep dive into constructing heatmaps for correlation analysis and pair plots for multivariate relationship exploration using Seaborn&#39;s high-level interface.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

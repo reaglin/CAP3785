@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Collection Methods and Web APIs</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Ethics, Data Types, and Data Sources in Analytics</a></div>
+  <header>
+    <h1>Data Collection Methods and Web APIs</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Data Collection Methods and Web APIs</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every data analysis project begins with the same fundamental challenge: obtaining the raw data itself. Before any cleaning, modeling, or visualization can happen, an analyst must identify <em>where</em> the data lives and <em>how</em> to retrieve it. The landscape of data collection is broad, spanning live web services, downloadable files, internal corporate databases, and everything in between. Understanding the strengths and weaknesses of each approach is not merely a technical skill — it shapes the quality, timeliness, and defensibility of every insight that follows.</p>
+
+<p>The four most common data collection methods used by analysts today are <strong>web APIs</strong>, <strong>web scraping</strong>, <strong>direct database querying</strong>, and <strong>downloading from public repositories</strong>. Each method occupies a different point in a multi-dimensional trade-off space involving technical complexity, legal and ethical considerations, data freshness, cost, and the degree of structure in the returned data. Choosing wisely among them requires understanding not just how each works, but when each is appropriate.</p>
+
+<p>The choice of method is often constrained by factors outside the analyst's control. If an organization already stores transactional records in a relational database, querying that database directly is usually faster and more precise than any alternative. If a government agency publishes annual statistics as downloadable CSV files, there is rarely a reason to scrape their website. If a social media platform offers a well-documented API, that API is the sanctioned and sustainable path to its data. And when none of those options exist — when data is published only as human-readable HTML — web scraping becomes the tool of last resort.</p>
+
+<ul>
+  <li><strong>Web APIs</strong> are machine-to-machine interfaces that expose data through structured, documented endpoints. They are generally the preferred method when available because responses are predictable, authentication is formalized, and the data is typically clean.</li>
+  <li><strong>Web scraping</strong> extracts information directly from the HTML of web pages. It is flexible but fragile, and it comes with significant ethical and legal responsibilities.</li>
+  <li><strong>Database querying</strong> uses SQL or similar languages to retrieve data from relational or non-relational stores within an organization. It offers the highest degree of control over internal data.</li>
+  <li><strong>Public repositories</strong> distribute pre-assembled datasets in standard file formats. They minimize collection effort but may not be current or perfectly tailored to a project's needs.</li>
+</ul>
+
+<p>Each method has trade-offs in complexity, cost, and data freshness. APIs and database queries can return data that is seconds old; a public repository dataset might be a year or more out of date. Web scraping can access virtually any publicly visible web page but may require hours of maintenance every time a website redesigns its layout. Database queries give analysts surgical precision but only over data their organization already owns. The sections that follow examine each method in depth before comparing them side by side.</p>
+
+<p><strong>Understanding Web APIs</strong></p>
+
+<p>An Application Programming Interface, or API, is a contract between a data provider and a consumer that defines how requests should be structured and what responses will look like. In the context of data collection, the term almost always refers to a <em>web API</em> — one that operates over HTTP, the same protocol used by ordinary web browsers. Rather than returning a human-readable webpage, a web API returns machine-readable data, most commonly in <strong>JSON</strong> (JavaScript Object Notation) or, less frequently today, <strong>XML</strong> (Extensible Markup Language).</p>
+
+<p>The fundamental building block of a web API is the <strong>endpoint</strong> — a specific URL that accepts requests and returns data. For example, a weather service API might expose an endpoint like <code>https://api.weather.example.com/v1/forecast</code>. Every time an analyst sends a properly formed request to that URL, they receive a structured JSON document containing forecast data. The key advantage over a website is predictability: the structure of the response is defined in advance by the API's documentation and does not change arbitrarily the way a webpage's visual layout might.</p>
+
+<p>To prevent unauthorized use and to track consumption, most APIs require <strong>authentication</strong>. The two most common mechanisms are:</p>
+
+<ul>
+  <li><strong>API keys</strong> — a unique string of characters issued to each registered user. The key is typically appended to every request, either as a URL parameter (e.g., <code>?api_key=abc123</code>) or as a header (e.g., <code>Authorization: Bearer abc123</code>). API keys are simple to implement but are tied to an individual account, so they must be kept secret.</li>
+  <li><strong>OAuth tokens</strong> — a more sophisticated, delegated authorization framework. OAuth is common when an API grants access to data belonging to a specific user (for example, a user's private tweets or Google Drive files). The flow involves redirecting the user to the provider's login page, obtaining their consent, and receiving a time-limited access token in return. OAuth tokens can be scoped to specific permissions, making them more secure than a single all-powerful API key.</li>
+</ul>
+
+<p>Because API responses follow a defined schema, they are far easier to parse and integrate into analytical workflows than raw HTML. A JSON response can be loaded directly into a dictionary or data frame in Python, or into a list or tibble in R, with a single function call. There is no need to write pattern-matching code to locate data buried inside nested HTML tags.</p>
+
+<p>However, APIs are not unlimited resources. Nearly all commercial APIs impose <strong>rate limits</strong> — restrictions on how many requests a client may make within a sliding time window. A typical configuration might allow 100 requests per minute or 10,000 requests per day per API key. Rate limits protect the provider's infrastructure from being overwhelmed and ensure fair access across all users. When an analyst exceeds the limit, the server responds with an HTTP <code>429 Too Many Requests</code> status code. Well-written data collection scripts check for this status code and implement <em>exponential back-off</em> — waiting increasingly longer intervals before retrying — rather than hammering the server repeatedly.</p>
+
+<p><strong>Making API Requests</strong></p>
+
+<p>HTTP defines several <em>methods</em> (sometimes called verbs) that specify the intended action of a request. For data collection, the two most important are:</p>
+
+<ul>
+  <li><strong>GET</strong> — used to <em>retrieve</em> data from a server. GET requests are idempotent: sending the same request multiple times produces the same result without changing anything on the server. The vast majority of read-only data queries use GET.</li>
+  <li><strong>POST</strong> — used to <em>send</em> data to a server, typically to create a resource or to submit a complex query that is too large to encode in a URL. Some search or analytics APIs accept POST requests containing a JSON body that describes the query.</li>
+</ul>
+
+<p>Beyond the method, requests are customized through <strong>parameters</strong>. For GET requests, parameters are encoded in the URL's query string, appearing after a <code>?</code> character and separated by <code>&amp;</code> symbols. For example:</p>
+
+<pre><code>https://api.openweathermap.org/data/2.5/weather?q=London&amp;units=metric&amp;appid=YOUR_KEY</code></pre>
+
+<p>Here, <code>q=London</code> specifies the city, <code>units=metric</code> requests temperatures in Celsius, and <code>appid=YOUR_KEY</code> provides the API key. Each of these key-value pairs narrows or shapes the data returned. For POST requests, parameters are included in the request body, usually formatted as JSON.</p>
+
+<p>Once the response arrives, it must be <strong>parsed</strong>. A raw JSON string like <code>{"temperature": 14.2, "humidity": 72}</code> is just text until a program interprets it. In Python, the <code>requests</code> library's <code>.json()</code> method converts a JSON response body into a native Python dictionary in one line. In R, the <code>httr</code> or <code>httr2</code> packages provide equivalent functionality. From there, analysts typically flatten the nested structure into a data frame or table suitable for analysis.</p>
+
+<p>A critical skill in working with APIs is reading and reacting to <strong>HTTP status codes</strong>. These three-digit numbers embedded in every response communicate whether the request succeeded and, if not, why it failed. The most important ones for analysts are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Meaning</th>
+      <th>Common Cause and Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200 OK</td>
+      <td>Request succeeded</td>
+      <td>Proceed to parse the response body normally.</td>
+    </tr>
+    <tr>
+      <td>400 Bad Request</td>
+      <td>The request was malformed</td>
+      <td>Check parameter names and values against the API documentation.</td>
+    </tr>
+    <tr>
+      <td>401 Unauthorized</td>
+      <td>Authentication failed</td>
+      <td>Verify that the API key or token is correct and has not expired.</td>
+    </tr>
+    <tr>
+      <td>403 Forbidden</td>
+      <td>Authenticated but not permitted</td>
+      <td>The account may lack the required subscription tier or permission scope.</td>
+    </tr>
+    <tr>
+      <td>404 Not Found</td>
+      <td>The endpoint does not exist</td>
+      <td>Check for typos in the URL; consult documentation for the correct path.</td>
+    </tr>
+    <tr>
+      <td>429 Too Many Requests</td>
+      <td>Rate limit exceeded</td>
+      <td>Pause requests, then retry with exponential back-off.</td>
+    </tr>
+    <tr>
+      <td>500 Internal Server Error</td>
+      <td>Server-side failure</td>
+      <td>The problem is on the provider's end; retry later and check the service's status page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A robust API client always inspects the status code before attempting to parse the body. Attempting to parse an error message as if it were valid data is one of the most common bugs in data collection scripts.</p>
+
+<p><strong>Web Scraping as a Data Collection Method</strong></p>
+
+<p>Web scraping is the practice of programmatically retrieving a web page's HTML source and then parsing that HTML to extract specific pieces of information. It is the appropriate tool when data is visible in a browser but no API or downloadable file exists. Common targets include e-commerce product listings, sports statistics tables, news article archives, and government transparency portals that pre-date modern API design.</p>
+
+<p>At a technical level, a scraping pipeline has two stages. First, an HTTP GET request fetches the raw HTML of the page — the same bytes a browser would receive. Second, an HTML parsing library traverses the document's tree structure (the Document Object Model, or DOM) to locate the nodes of interest. In Python, the <code>BeautifulSoup</code> library is the most widely used parser for this purpose; <code>lxml</code> offers faster performance for large documents. Analysts use CSS selectors or XPath expressions to target elements precisely — for example, selecting every <code>&lt;td&gt;</code> element inside a <code>&lt;table&gt;</code> with the class <code>data-table</code>.</p>
+
+<p>The data that emerges from scraping is almost always <strong>unstructured or semi-structured</strong>. Numbers may be embedded in text strings with currency symbols and commas (<code>"$1,234.56"</code>), dates may appear in inconsistent formats (<code>"Jan 5, 2024"</code> vs. <code>"05/01/2024"</code>), and whitespace or HTML encoding artifacts may need to be stripped. Significant cleaning work precedes any analysis. By contrast, an equivalent API would deliver the same information as typed JSON fields — numbers as numbers, dates in ISO 8601 format — with no cleaning required.</p>
+
+<p>Web scraping also raises important <strong>ethical and legal considerations</strong> that analysts must take seriously:</p>
+
+<ul>
+  <li><strong>Terms of service</strong> — Many websites explicitly prohibit automated scraping in their terms of use. Violating these terms can result in IP bans, legal action, or both. Analysts should always read the <code>robots.txt</code> file (e.g., <code>https://example.com/robots.txt</code>), which specifies which parts of a site crawlers are permitted to access.</li>
+  <li><strong>Intellectual property</strong> — The content of a website is typically owned by its publisher. Reproducing or redistributing scraped content, especially at scale, may infringe copyright. The intended use of the data matters: internal analysis is generally lower-risk than publishing scraped content publicly.</li>
+  <li><strong>Server load</strong> — Sending thousands of rapid requests to a website consumes bandwidth and CPU on the host's servers, potentially degrading the experience for human visitors. Responsible scrapers introduce deliberate delays between requests (a practice called <em>polite crawling</em>) and schedule large jobs during off-peak hours.</li>
+  <li><strong>Personal data</strong> — Scraping data that includes personal information triggers obligations under privacy regulations such as the GDPR in Europe or the CCPA in California. Analysts working with such data must understand their legal obligations before collecting or storing it.</li>
+</ul>
+
+<p>A further practical challenge is <strong>fragility</strong>. Because scrapers depend on the specific HTML structure of a page, any redesign — a changed class name, a restructured table, a switch to JavaScript-rendered content — can silently break the scraper. Data pipelines that rely on scraping require ongoing maintenance and monitoring. For pages that load content dynamically via JavaScript (a pattern common in modern single-page applications), a simple HTTP request is insufficient; tools like <code>Selenium</code> or <code>Playwright</code> automate a real browser, allowing the JavaScript to execute before the HTML is captured.</p>
+
+<p><strong>Querying Internal Databases</strong></p>
+
+<p>For many analysts working within organizations, the richest and most relevant data is not on the public internet at all — it lives in internal relational databases that record every transaction, customer interaction, and operational event. Accessing this data requires connecting to the database directly and writing queries in <strong>SQL</strong> (Structured Query Language), the near-universal language for relational data manipulation.</p>
+
+<p>SQL gives analysts extraordinary expressive power over structured data. The core operations include:</p>
+
+<ul>
+  <li><strong>Filtering</strong> with <code>WHERE</code> clauses to select only rows meeting specified criteria</li>
+  <li><strong>Aggregating</strong> with <code>GROUP BY</code> and functions like <code>SUM()</code>, <code>COUNT()</code>, and <code>AVG()</code> to summarize data across groups</li>
+  <li><strong>Joining</strong> multiple tables with <code>JOIN</code> to combine related records — for example, joining an orders table to a customers table to analyze purchasing behavior by region</li>
+  <li><strong>Sorting</strong> with <code>ORDER BY</code> to rank results</li>
+  <li><strong>Limiting</strong> output with <code>LIMIT</code> or <code>TOP</code> to retrieve only the first <em>n</em> rows during exploratory work</li>
+</ul>
+
+<p>Establishing a database connection requires a <strong>connection string</strong> — a structured set of parameters that tell the client library where to find the database and how to authenticate. A typical connection string contains: the database driver or dialect (e.g., <code>postgresql</code>, <code>mysql</code>, <code>mssql</code>), the <em>host</em> name or IP address, the <em>port</em> number, the <em>database</em> name, and a <em>username</em> and <em>password</em>. In Python, libraries like <code>SQLAlchemy</code> or <code>psycopg2</code> accept these parameters and manage the connection. In R, <code>DBI</code> paired with a backend driver like <code>RPostgres</code> serves the same role.</p>
+
+<p>Internal databases often contain <strong>transactional or operational data</strong> of high analytical value — sales records, inventory movements, user sessions, support tickets. This data is authoritative because it reflects what the business actually did, not a sample or an approximation. However, access is governed by <strong>access controls and permissions</strong>: database administrators grant privileges at the level of individual tables or even columns, and analysts may not have the rights to query sensitive tables containing personal data, salary information, or financial records without explicit authorization.</p>
+
+<p>Perhaps the most important operational consideration is <strong>query efficiency</strong>. Production databases simultaneously serve the applications that the business depends on — e-commerce checkouts, customer-facing dashboards, inventory management systems. An analyst who runs an unoptimized query that performs a full table scan across hundreds of millions of rows can degrade the performance of those live applications, causing real harm to the business. Best practices include: using indexed columns in <code>WHERE</code> and <code>JOIN</code> conditions, avoiding <code>SELECT *</code> in favor of selecting only needed columns, filtering early in the query to reduce the number of rows processed, and running large analytical workloads against a <em>read replica</em> or a separate data warehouse rather than the primary production server.</p>
+
+<p><strong>Public Data Repositories</strong></p>
+
+<p>Public data repositories are curated collections of datasets made freely available for download by governments, academic institutions, international organizations, and research communities. Prominent examples include the <strong>U.S. Census Bureau</strong>, <strong>World Bank Open Data</strong>, <strong>Kaggle Datasets</strong>, <strong>UCI Machine Learning Repository</strong>, <strong>data.gov</strong>, and the <strong>European Union Open Data Portal</strong>. These repositories collectively host datasets spanning demographics, economics, public health, climate science, transportation, and countless other domains.</p>
+
+<p>The primary appeal of public repositories is accessibility. Data is typically offered in common, tool-agnostic formats — <strong>CSV</strong> (comma-separated values), <strong>JSON</strong>, <strong>Excel (.xlsx)</strong>, or occasionally Parquet — that can be imported directly into Python, R, Excel, or any major analytical platform with a single function call. There is no API to authenticate against, no HTML to parse, and no database administrator to petition for access. For analysts who need data quickly, this low-friction entry point is invaluable.</p>
+
+<p>Well-maintained repositories accompany their datasets with rich <strong>metadata</strong>: documentation describing what each variable represents, the unit of measurement, the geographic and temporal coverage, the methodology used to collect the data, the frequency of updates, and any known limitations or caveats. This metadata is essential context. An analyst who uses a dataset without reading its documentation risks misinterpreting variables, comparing figures that were collected using different methodologies, or drawing conclusions from a sample that is not representative of the population of interest.</p>
+
+<p>Before using any public dataset in a professional or research project, analysts should evaluate three critical dimensions:</p>
+
+<ul>
+  <li><strong>Credibility</strong> — Who collected the data, and by what method? Data from a national statistical agency using a probability sample carries far more weight than data scraped together by an unknown contributor. Peer-reviewed datasets or those accompanied by published methodology reports are especially trustworthy.</li>
+  <li><strong>Recency</strong> — When was the data last updated? For slowly changing phenomena like decennial census demographics, a dataset from five years ago may still be fit for purpose. For rapidly changing phenomena like financial markets or disease surveillance, even week-old data may be obsolete.</li>
+  <li><strong>Licensing terms</strong> — Most public datasets are released under open licenses such as <strong>Creative Commons</strong> (various flavors), <strong>Open Data Commons</strong>, or the <strong>UK Open Government Licence</strong>. These licenses differ in what they permit: some allow unrestricted commercial use; others require attribution; some prohibit derivative works. Analysts must understand and comply with the applicable license before using the data in publications or products.</li>
+</ul>
+
+<p>Public repositories are particularly well-suited for <strong>benchmarking machine learning models</strong> (where standard datasets allow fair comparison across methods), <strong>academic research</strong> (where reproducibility requires publicly accessible data), and <strong>exploratory projects</strong> where the cost and time of primary data collection is not justified. Their main limitation is that they are general-purpose: they were assembled to serve a broad audience, not a specific analyst's particular question, so variables may not align perfectly with what a project requires.</p>
+
+<p><strong>Comparing Data Collection Methods</strong></p>
+
+<p>No single data collection method dominates all others across every dimension. The right choice depends on the specific project, the available data sources, the analyst's technical capabilities, and the organization's policies. The following comparison synthesizes the key trade-offs:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Web APIs</th>
+      <th>Web Scraping</th>
+      <th>Database Querying</th>
+      <th>Public Repositories</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data structure</td>
+      <td>Highly structured (JSON/XML)</td>
+      <td>Unstructured / semi-structured HTML</td>
+      <td>Highly structured (relational tables)</td>
+      <td>Varies; usually structured (CSV, JSON)</td>
+    </tr>
+    <tr>
+      <td>Data freshness</td>
+      <td>Often real-time or near real-time</td>
+      <td>As fresh as the live web page</td>
+      <td>Can be real-time (from live DB)</td>
+      <td>Often periodic; may be months or years old</td>
+    </tr>
+    <tr>
+      <td>Access control</td>
+      <td>API key / OAuth; subject to provider terms</td>
+      <td>Public pages accessible; may violate ToS</td>
+      <td>Requires credentials and granted privileges</td>
+      <td>Open download; license terms apply</td>
+    </tr>
+    <tr>
+      <td>Setup complexity</td>
+      <td>Moderate (registration, auth, parsing)</td>
+      <td>Moderate to high (parsing, maintenance)</td>
+      <td>Moderate (connection setup, SQL knowledge)</td>
+      <td>Low (download and import)</td>
+    </tr>
+    <tr>
+      <td>Maintenance burden</td>
+      <td>Low if API is stable; medium if versioned</td>
+      <td>High — breaks when page layout changes</td>
+      <td>Low if schema is stable</td>
+      <td>Very low once downloaded</td>
+    </tr>
+    <tr>
+      <td>Ethical/legal risk</td>
+      <td>Low (sanctioned access)</td>
+      <td>Higher — ToS, copyright, privacy concerns</td>
+      <td>Low (internal, authorized)</td>
+      <td>Low (open license)</td>
+    </tr>
+    <tr>
+      <td>Scope of data</td>
+      <td>What the provider exposes via the API</td>
+      <td>Any publicly visible web content</td>
+      <td>All data the organization stores</td>
+      <td>Pre-assembled; may not fit exact needs</td>
+    </tr>
+    <tr>
+      <td>Cost</td>
+      <td>Free tiers common; paid tiers for high volume</td>
+      <td>Infrastructure cost only</td>
+      <td>Infrastructure cost; no per-query fee</td>
+      <td>Usually free</td>
+    </tr>
+    <tr>
+      <td>Best suited for</td>
+      <td>External live data from cooperative providers</td>
+      <td>Data with no API; one-off extraction</td>
+      <td>Internal operational and transactional data</td>
+      <td>Benchmarking, research, supplementary data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In practice, sophisticated analytics projects frequently combine multiple methods. An analyst might query an internal sales database for transaction records, join those results with economic indicators downloaded from a public repository, and enrich the combined dataset with current market prices retrieved via a financial data API. Understanding each method deeply — its mechanics, its limitations, and its responsible use — is therefore not just a matter of picking one tool and mastering it, but of developing the judgment to orchestrate the full toolkit in service of the question at hand.</p>
+        <div class="notes"><strong>Notes</strong>Covers all seven subtopic groups in the module outline. The comparison table consolidates the key trade-offs across all four methods, which reinforces the comparative subtopic. Status code table provides a quick reference for API troubleshooting. No external libraries are prescribed so the content remains tool-agnostic and broadly applicable.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

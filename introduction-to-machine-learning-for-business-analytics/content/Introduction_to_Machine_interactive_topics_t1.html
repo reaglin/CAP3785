@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Machine Learning</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Introduction to Machine Learning for Business Analytics</a></div>
+  <header>
+    <h1>Foundations of Machine Learning</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of Machine Learning</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Machine learning has become one of the most transformative forces in modern data analysis and business decision-making. Yet despite the hype surrounding it, machine learning is grounded in straightforward mathematical and statistical ideas that have been refined over decades. Before diving into specific algorithms or applications, it is essential to build a solid conceptual foundation — understanding what machine learning actually is, how it differs from conventional software development, what vocabulary practitioners use, and how the full workflow from raw data to deployed model unfolds in practice. This foundation will make every subsequent technique more meaningful and easier to apply correctly.</p>
+
+<p><strong>What Is Machine Learning?</strong></p>
+
+<p>At its core, machine learning is a collection of computational methods that enable computers to improve their performance on a task by learning from data, rather than by following explicitly programmed rules. A machine learning algorithm examines a large set of historical examples, detects statistical patterns within those examples, and then uses those discovered patterns to make predictions or decisions about data it has never seen before.</p>
+
+<p>The word <em>learning</em> in this context has a precise technical meaning. It refers to an iterative optimization process in which the algorithm repeatedly adjusts internal numerical parameters — the knobs and dials of a mathematical model — in order to minimize the difference between its predictions and the known correct answers. Each adjustment nudges the model slightly closer to capturing the true underlying relationship in the data. After enough iterations across enough examples, the adjustments become tiny and the model is said to have converged: it has learned.</p>
+
+<p>An important clarification is that machine learning is not a single technique. It is a broad family of methods, each suited to different kinds of problems, data structures, and business requirements. A linear regression model, a decision tree, a neural network, and a clustering algorithm are all considered machine learning, yet they work very differently and are appropriate in very different situations. Knowing when to apply which type is a central skill that practitioners develop over time.</p>
+
+<p><strong>Machine Learning vs. Traditional Programming</strong></p>
+
+<p>To appreciate what makes machine learning distinctive, it helps to contrast it directly with traditional programming. In conventional software development, a human programmer analyzes a problem, distills the solution logic into explicit IF-THEN rules, and encodes those rules as program instructions. The program then takes inputs, applies the fixed rules, and produces outputs. The logic never changes unless a programmer manually revises it.</p>
+
+<p>Consider a simple example: a rule-based spam filter. A programmer might write rules such as <em>"if the subject line contains the word 'prize' and the sender is not in the contact list, mark as spam."</em> These rules work for the cases the programmer anticipated, but spammers quickly learn to route around them, and the programmer must continuously update the logic. The rules are brittle because the real world is more complex and variable than any hand-written ruleset can capture.</p>
+
+<p>Machine learning inverts this relationship. Instead of writing rules, the developer provides labeled examples — thousands of emails already classified as spam or not spam — and lets the algorithm infer the rules automatically. The algorithm discovers that certain combinations of words, sender characteristics, sending times, and formatting patterns are statistically associated with spam, even patterns the programmer would never have thought to encode. As spam tactics evolve, the model can be retrained on newer data without the programmer rewriting any logic.</p>
+
+<p>This distinction is sometimes summarized as:</p>
+
+<ul>
+  <li><strong>Traditional programming:</strong> Rules + Data → Outputs</li>
+  <li><strong>Machine learning:</strong> Data + Outputs (labels) → Rules (the model)</li>
+</ul>
+
+<p>Machine learning excels precisely in situations where the rules governing a phenomenon are too complex, too numerous, or too context-dependent for humans to specify manually. Predicting which hospital patients are at risk of readmission depends on hundreds of interacting factors; no clinician could reliably write down all the relevant rules. An ML model trained on historical patient records, however, can discover those interactions automatically.</p>
+
+<p>That said, traditional programming is not obsolete. When rules are well-understood, stable, and need to be fully auditable — for example, calculating tax liability or enforcing a regulatory requirement — hard-coded logic is more appropriate than a learned model. Machine learning introduces uncertainty and probabilistic outputs, which are sometimes unacceptable in tightly controlled domains. Choosing between the two approaches is itself a critical analytical judgment.</p>
+
+<p><strong>Core Terminology</strong></p>
+
+<p>Practitioners across the field use a shared vocabulary that makes communication precise. The following terms appear constantly, so understanding them clearly from the outset is essential.</p>
+
+<ul>
+  <li><strong>Model:</strong> A mathematical structure that encodes the patterns learned from data. Depending on the algorithm, a model might be a set of coefficients in an equation, a tree of decision rules, or a network of weighted connections. Once trained, the model can accept new inputs and produce predictions.</li>
+  <li><strong>Dataset:</strong> The organized collection of examples used to train or evaluate a model. A dataset is typically structured as a table where each row is one example (an observation) and each column is one attribute of that example.</li>
+  <li><strong>Features:</strong> The measurable input attributes fed into a model, also called variables, predictors, or independent variables. In a model predicting house prices, features might include square footage, number of bedrooms, zip code, and age of the building. Choosing and engineering good features is often the most impactful work in an ML project.</li>
+  <li><strong>Label (or target):</strong> The outcome the model is trained to predict, also called the dependent variable or output. In the house price example, the label is the sale price. In a churn model, the label is whether a customer left or stayed.</li>
+  <li><strong>Training:</strong> The process of exposing the model to labeled examples and optimizing its internal parameters to minimize prediction error. Training data is the subset of the dataset used for this fitting process.</li>
+  <li><strong>Inference (or scoring):</strong> Applying a trained model to new, previously unseen data to generate predictions. This is the operational phase — the moment the model delivers actual value in a business process.</li>
+  <li><strong>Overfitting:</strong> A critical failure mode in which a model learns the training data so precisely — including its noise and idiosyncrasies — that it fails to generalize to new data. An overfit model performs impressively on training examples but produces poor predictions in deployment. Imagine a student who memorizes every practice exam question verbatim: they score perfectly on practice but struggle when the real exam uses slightly different phrasing.</li>
+</ul>
+
+<p>The relationship between these concepts can be visualized as a simple flow:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>What Goes In</th>
+      <th>What Comes Out</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Training</td>
+      <td>Features + Labels (historical data)</td>
+      <td>Trained Model (learned parameters)</td>
+    </tr>
+    <tr>
+      <td>Inference</td>
+      <td>Features only (new data)</td>
+      <td>Predicted Labels (model output)</td>
+    </tr>
+    <tr>
+      <td>Evaluation</td>
+      <td>Predicted Labels + True Labels (test set)</td>
+      <td>Performance Metrics (accuracy, error, etc.)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Types of Machine Learning</strong></p>
+
+<p>Machine learning problems are broadly organized into three paradigms based on the nature of the data and the type of learning task.</p>
+
+<p><em>Supervised learning</em> is the most common paradigm in business analytics. In supervised learning, every training example carries a label — the known correct answer. The algorithm learns a mapping from input features to that label. If the label is a continuous number (like revenue or temperature), the task is called <strong>regression</strong>. If the label is a category (like "churned / not churned" or "fraud / legitimate"), the task is called <strong>classification</strong>. Because the correct answers are provided during training, the learning process is "supervised" — the algorithm can directly measure how wrong its predictions are and adjust accordingly. Examples include predicting customer lifetime value (regression) and detecting fraudulent transactions (classification).</p>
+
+<p><em>Unsupervised learning</em> addresses situations where no labels exist. The algorithm is given only the input features and must discover hidden structure in the data on its own. The most common form is <strong>clustering</strong>, where the algorithm groups observations that are similar to each other. A retailer might apply clustering to customer transaction data without any predefined categories and discover that customers naturally fall into distinct behavioral segments — say, occasional big-spenders, frequent small-purchase loyalists, and seasonal shoppers — none of which were specified in advance. Other unsupervised techniques include dimensionality reduction (compressing many features into fewer, more informative ones) and anomaly detection.</p>
+
+<p><em>Reinforcement learning</em> operates on a different principle entirely. An agent takes actions in an environment, receives reward or penalty signals based on those actions, and gradually learns a policy — a strategy for choosing actions — that maximizes cumulative reward over time. Reinforcement learning has produced remarkable results in game-playing (chess, Go, video games) and robotics. In typical business analytics workflows, however, it is far less common than supervised or unsupervised methods, because it requires a well-defined environment and reward function that most business problems do not naturally provide.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Paradigm</th>
+      <th>Data Requirements</th>
+      <th>Typical Task</th>
+      <th>Business Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Supervised Learning</td>
+      <td>Features + Labels</td>
+      <td>Regression, Classification</td>
+      <td>Predicting customer churn; credit scoring</td>
+    </tr>
+    <tr>
+      <td>Unsupervised Learning</td>
+      <td>Features only (no labels)</td>
+      <td>Clustering, Dimensionality Reduction</td>
+      <td>Customer segmentation; topic modeling</td>
+    </tr>
+    <tr>
+      <td>Reinforcement Learning</td>
+      <td>Environment + Reward Signal</td>
+      <td>Policy Optimization</td>
+      <td>Dynamic pricing agents; supply chain optimization</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>The Role of Machine Learning in Business Analytics</strong></p>
+
+<p>Machine learning has become a powerful complement to traditional business analytics because it scales in ways that human analysts and rule-based systems cannot. A single ML model can simultaneously consider hundreds of variables and millions of data points, discovering non-linear interactions and subtle patterns that would be invisible in a standard spreadsheet analysis or simple regression.</p>
+
+<p>Common and well-established business applications include:</p>
+
+<ul>
+  <li><strong>Customer churn prediction:</strong> Identifying which customers are likely to cancel a subscription or stop purchasing, allowing the business to intervene proactively with targeted retention offers.</li>
+  <li><strong>Demand forecasting:</strong> Predicting future product demand at a granular level (by location, SKU, and time period) to optimize inventory and reduce both stockouts and overstock.</li>
+  <li><strong>Credit risk scoring:</strong> Estimating the probability that a loan applicant will default, enabling lenders to price risk appropriately and make faster decisions.</li>
+  <li><strong>Dynamic pricing:</strong> Adjusting prices in real time based on supply, demand, competitor behavior, and customer characteristics to maximize revenue or margin.</li>
+  <li><strong>Personalized recommendations:</strong> Matching customers with products, content, or services most relevant to their individual preferences, improving conversion and satisfaction.</li>
+</ul>
+
+<p>Successful ML deployment in business is not purely a technical challenge. It requires genuine collaboration between domain experts — who understand the business problem, the data's meaning, and the operational constraints — and technical practitioners — who design, build, and validate the models. A model built without domain input may optimize the wrong objective entirely. Conversely, domain experts without technical grounding may have unrealistic expectations about what data and algorithms can deliver.</p>
+
+<p>Perhaps most importantly, model outputs must be interpretable and actionable in their business context. A highly accurate churn model is nearly worthless if the business cannot understand which customers are flagged, why they were flagged, or what actions to take in response. Accuracy metrics alone do not determine a model's business value. The model must produce outputs that decision-makers can trust, understand, and act upon within the constraints of their organization.</p>
+
+<p><strong>The Machine Learning Workflow</strong></p>
+
+<p>A complete ML project follows a recognizable sequence of stages. In practice these stages are iterative rather than strictly linear — insights at a later stage often require revisiting earlier ones — but understanding the full arc helps practitioners plan projects realistically and avoid common pitfalls.</p>
+
+<p><em>Stage 1 — Problem Definition:</em> Every ML project begins with a business question. The first task is translating that question into a precise ML problem. Can it be framed as a prediction task? If so, what exactly is being predicted (the label), and from what information (the features)? What would a successful prediction enable the business to do? Poorly defined problems lead to well-built models that solve the wrong thing — a common and costly failure mode.</p>
+
+<p><em>Stage 2 — Data Collection and Preparation:</em> This stage typically consumes the majority of effort in any real-world project — often 60–80% of total time. Raw data must be gathered from relevant sources (databases, APIs, logs, surveys), cleaned (handling missing values, correcting errors, removing duplicates), and transformed into a format suitable for modeling. <strong>Feature engineering</strong> — the process of creating informative input variables from raw data — is where substantial value is created. For example, raw transaction timestamps might be engineered into features like "days since last purchase" or "number of purchases in the past 30 days," which are far more predictive. The dataset is then split into at least two partitions: a <strong>training set</strong> used to fit the model and a <strong>test set</strong> held out to evaluate its performance on unseen data.</p>
+
+<p><em>Stage 3 — Model Selection, Training, and Evaluation:</em> With prepared data in hand, the practitioner selects one or more candidate algorithms appropriate to the problem type, trains them on the training set, and evaluates their predictions against the test set using metrics suited to the task (for example, accuracy or AUC for classification; mean absolute error or RMSE for regression). This stage involves iterative experimentation — adjusting model parameters, trying different algorithms, and refining features — until the model meets the performance threshold defined in Stage 1.</p>
+
+<p><em>Stage 4 — Deployment and Monitoring:</em> A model that performs well in evaluation must be integrated into operational business processes to deliver value. Deployment might mean embedding the model in a web application, running batch scoring jobs overnight, or exposing predictions via an API consumed by other systems. Crucially, deployment is not the end of the project. Data patterns in the real world evolve — customers change their behavior, markets shift, new products are introduced — and a model's performance will degrade over time if left unmonitored. Ongoing monitoring of prediction quality and periodic retraining on fresh data are essential practices for sustained value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Workflow Stage</th>
+      <th>Key Activities</th>
+      <th>Common Pitfalls</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Problem Definition</td>
+      <td>Translate business question into ML task; define label and success criteria</td>
+      <td>Vague objectives; optimizing a metric that doesn't reflect business value</td>
+    </tr>
+    <tr>
+      <td>Data Collection &amp; Preparation</td>
+      <td>Gather, clean, engineer features; split into train/test sets</td>
+      <td>Data leakage; poor feature engineering; ignoring missing data</td>
+    </tr>
+    <tr>
+      <td>Model Training &amp; Evaluation</td>
+      <td>Select algorithms; fit models; measure performance on held-out data</td>
+      <td>Overfitting; evaluating on training data only; wrong metric choice</td>
+    </tr>
+    <tr>
+      <td>Deployment &amp; Monitoring</td>
+      <td>Integrate model into processes; track live performance; retrain as needed</td>
+      <td>Model drift; no monitoring in place; treating deployment as final</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Understanding this end-to-end workflow is essential context for every specific technique covered in this module. Each algorithm studied is not an isolated mathematical curiosity — it is a tool applied within this broader process, and its value depends as much on how it is framed, prepared for, evaluated, and deployed as it does on its intrinsic mathematical properties.</p>
+        <div class="notes"><strong>Notes</strong>Introduces core machine learning concepts and terminology, establishing the foundational knowledge students need before exploring specific techniques. Covers what machine learning is, how it differs from traditional programming, and its role in modern business analytics.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

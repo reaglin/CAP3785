@@ -10,6 +10,41 @@
     "type": "Page"
   },
   {
+    "title": "Introduction to NumPy for Data Manipulation",
+    "href": "content/Data_Manipulation_and_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Getting Started with Pandas DataFrames",
+    "href": "content/Data_Manipulation_and_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Indexing and Selecting Data",
+    "href": "content/Data_Manipulation_and_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Merging, Joining, and Concatenating Data",
+    "href": "content/Data_Manipulation_and_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Reshaping and Transforming Data",
+    "href": "content/Data_Manipulation_and_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Handling Missing Data",
+    "href": "content/Data_Manipulation_and_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "Cleaning and Transforming Real-World Datasets",
+    "href": "content/Data_Manipulation_and_interactive_topics_t7.html",
+    "type": "Content"
+  },
+  {
     "title": "Data Manipulation and Cleaning with NumPy and Pandas \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

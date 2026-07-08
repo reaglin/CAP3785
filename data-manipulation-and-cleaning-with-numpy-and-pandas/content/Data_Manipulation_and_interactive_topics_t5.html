@@ -1,0 +1,472 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reshaping and Transforming Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Data Manipulation and Cleaning with NumPy and Pandas</a></div>
+  <header>
+    <h1>Reshaping and Transforming Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Reshaping and Transforming Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data rarely arrives in the exact shape needed for analysis. A sales dataset might store each transaction as a row when you need monthly totals across product categories as columns. Survey results might arrive with one column per question when a machine-learning pipeline expects every answer on its own row. Reshaping and transforming data is therefore one of the most fundamental skills in a data-science workflow. Python's pandas library provides a rich toolkit — <code>pivot()</code>, <code>pivot_table()</code>, <code>melt()</code>, <code>stack()</code>, <code>unstack()</code>, and <code>groupby()</code> — while NumPy covers the lower-level array-reshaping operations. Together these tools let you convert raw, messy datasets into the exact structure demanded by your analysis, reporting dashboard, or model. This topic walks through each technique in depth, explaining not just <em>how</em> to call the function but <em>why</em> it works the way it does, what can go wrong, and when to reach for one tool versus another.</p>
+
+<p><strong>Pivoting Data with pivot() and pivot_table()</strong></p>
+
+<p>Pivoting is the operation of rotating a dataset so that unique values in one column become new column headers, effectively spreading rows out into columns. Think of it as the programmatic equivalent of Excel's PivotTable feature. Pandas provides two closely related functions for this: <code>pivot()</code> and <code>pivot_table()</code>, and understanding the difference between them is critical.</p>
+
+<p><code>pivot()</code> is the strict, low-level version. It takes three arguments — <code>index</code>, <code>columns</code>, and <code>values</code> — and reshapes the DataFrame so that unique values in the <code>columns</code> argument become new column headers, the <code>index</code> argument forms the row index, and the <code>values</code> argument populates the cells. The critical constraint is that every combination of <code>index</code> and <code>columns</code> values must be unique. If even one pair appears more than once, pandas cannot determine which value to place in that cell and raises a <code>ValueError: Index contains duplicate entries, cannot reshape</code>. This makes <code>pivot()</code> appropriate only when your data is already clean and deduplicated.</p>
+
+<pre><code>import pandas as pd
+
+data = {
+    'Date':     ['2024-01', '2024-01', '2024-02', '2024-02'],
+    'Product':  ['Apples',  'Bananas', 'Apples',  'Bananas'],
+    'Revenue':  [100,        150,       120,        180]
+}
+df = pd.DataFrame(data)
+
+pivoted = df.pivot(index='Date', columns='Product', values='Revenue')
+print(pivoted)
+# Product  Apples  Bananas
+# Date
+# 2024-01     100      150
+# 2024-02     120      180
+</code></pre>
+
+<p>In the example above every (Date, Product) pair is unique, so <code>pivot()</code> succeeds. If there were two rows with Date='2024-01' and Product='Apples', the call would raise an error immediately.</p>
+
+<p><code>pivot_table()</code> solves the duplicate problem by introducing an <strong>aggregation function</strong>. When multiple rows share the same index/column combination, <code>pivot_table()</code> merges them using an aggregation — by default the mean, but you can pass any function or string alias (e.g., <code>'sum'</code>, <code>'count'</code>, <code>np.max</code>) via the <code>aggfunc</code> parameter. This makes <code>pivot_table()</code> the preferred choice for real-world data.</p>
+
+<pre><code># Two rows now have Date='2024-01', Product='Apples'
+data2 = {
+    'Date':    ['2024-01','2024-01','2024-01','2024-02','2024-02'],
+    'Product': ['Apples', 'Apples', 'Bananas','Apples', 'Bananas'],
+    'Revenue': [100,       80,       150,      120,      180]
+}
+df2 = pd.DataFrame(data2)
+
+pt = df2.pivot_table(index='Date', columns='Product',
+                     values='Revenue', aggfunc='sum')
+print(pt)
+# Product  Apples  Bananas
+# Date
+# 2024-01     180      150   # 100 + 80 summed
+# 2024-02     120      180
+</code></pre>
+
+<p>Another common issue with pivoting is missing combinations. If a particular product was never sold in a given month, that cell has no underlying data and pandas fills it with <code>NaN</code> by default. The <code>fill_value</code> parameter lets you replace those missing cells with a sensible default — commonly <code>0</code> for financial data, or an empty string for categorical data.</p>
+
+<pre><code>pt_filled = df2.pivot_table(index='Date', columns='Product',
+                             values='Revenue', aggfunc='sum',
+                             fill_value=0)
+</code></pre>
+
+<p>Pivoted tables are the backbone of cross-tabulation reports and summary dashboards. A common pattern is to pivot raw transaction records into a month-by-category revenue matrix, then export to Excel or render as a heatmap. <code>pivot_table()</code> also supports <code>margins=True</code> to add row and column totals automatically, making it even more convenient for reporting.</p>
+
+<p><strong>Melting Data with melt()</strong></p>
+
+<p>Melting is the inverse of pivoting. Where pivoting takes row values and spreads them into columns (wide format), melting takes column headers and folds them back into rows (long format). The long format is what Hadley Wickham described as <em>tidy data</em>: each variable is a single column, each observation is a single row, and each type of observational unit forms its own table. Many analytical libraries — seaborn, statsmodels, scikit-learn pipelines — work most naturally with tidy long-format data.</p>
+
+<p>The <code>pd.melt()</code> function (also callable as <code>df.melt()</code>) accepts several important parameters:</p>
+
+<ul>
+  <li><strong>id_vars</strong>: a column or list of columns that act as identifiers. These columns are <em>not</em> unpivoted; they are repeated for every melted row. Think of them as the anchor columns that tell you which observation each row belongs to.</li>
+  <li><strong>value_vars</strong>: the columns you want to unpivot. Each column name becomes a value in the new variable column, and the original cell content becomes a value in the value column. If you omit <code>value_vars</code>, pandas automatically melts every column that is not listed in <code>id_vars</code>.</li>
+  <li><strong>var_name</strong>: the name for the new column that will hold the original column headers. Defaults to <code>'variable'</code>.</li>
+  <li><strong>value_name</strong>: the name for the new column that will hold the original cell values. Defaults to <code>'value'</code>.</li>
+</ul>
+
+<pre><code>wide = pd.DataFrame({
+    'Student': ['Alice', 'Bob', 'Carol'],
+    'Math':    [90,       85,    92],
+    'English': [78,       88,    95],
+    'Science': [82,       79,    88]
+})
+
+long = wide.melt(id_vars='Student',
+                 value_vars=['Math', 'English', 'Science'],
+                 var_name='Subject',
+                 value_name='Score')
+print(long)
+#   Student  Subject  Score
+# 0   Alice     Math     90
+# 1     Bob     Math     85
+# 2   Carol     Math     92
+# 3   Alice  English     78
+# 4     Bob  English     88
+# 5   Carol  English     95
+# 6   Alice  Science     82
+# 7     Bob  Science     79
+# 8   Carol  Science     88
+</code></pre>
+
+<p>Now the dataset is in tidy format. You could immediately pass this <code>long</code> DataFrame to seaborn's <code>barplot</code> using <code>x='Subject'</code>, <code>y='Score'</code>, and <code>hue='Student'</code> without any further manipulation. Omitting <code>value_vars</code> would produce the same result here because Math, English, and Science are the only non-id columns. However, specifying it explicitly is a good practice when your DataFrame has many columns and you only want to melt a subset.</p>
+
+<p>A subtle but important point: when you melt, the row order follows the column order of <code>value_vars</code>, not the original row order. All rows for the first melted column appear first, then all rows for the second, and so on. This is normally not a problem for analysis but can surprise you when you inspect the output.</p>
+
+<p><strong>Stacking and Unstacking with MultiIndex</strong></p>
+
+<p>Stacking and unstacking are closely related to melting and pivoting but operate specifically on the <em>index levels</em> of a DataFrame, making them the natural choice when your data already has a hierarchical (MultiIndex) structure.</p>
+
+<p><code>stack()</code> moves the innermost level of column headers into the row index, converting a wide DataFrame into a longer one with a MultiIndex. The result is typically a Series (when the original had a simple column structure) or a DataFrame (when there are multiple remaining column levels). This is useful for tidying up a pivot table before additional aggregation or feeding the result into a plotting function that expects a flat structure.</p>
+
+<pre><code>import numpy as np
+
+arrays = [['Q1','Q1','Q2','Q2'],
+          ['North','South','North','South']]
+index  = pd.MultiIndex.from_arrays(arrays, names=['Quarter','Region'])
+df3 = pd.DataFrame(
+    {'Revenue': [200, 150, 220, 170],
+     'Units':   [20,   15,  22,  18]},
+    index=index
+)
+print(df3)
+#                Revenue  Units
+# Quarter Region
+# Q1      North      200     20
+#         South      150     15
+# Q2      North      220     22
+#         South      170     18
+
+stacked = df3.stack()
+print(stacked)
+# Quarter  Region  
+# Q1       North   Revenue    200
+#                  Units       20
+#          South   Revenue    150
+#                  Units       15
+# Q2       North   Revenue    220
+#                  Units       22
+#          South   Revenue    170
+#                  Units       18
+# dtype: int64
+</code></pre>
+
+<p><code>unstack()</code> does the reverse: it takes a level of the row index and pivots it into column headers. Without arguments it moves the innermost row-index level; you can target a specific level with the <code>level</code> parameter, passing either an integer position or the level name.</p>
+
+<pre><code># Unstack the 'Region' level back into columns
+unstacked = stacked.unstack(level='Region')
+print(unstacked)
+# Region          North  South
+# Quarter Metric
+# Q1      Revenue    200    150
+#         Units       20     15
+# Q2      Revenue    220    170
+#         Units       22     18
+</code></pre>
+
+<p>The <code>level</code> parameter is particularly powerful when you have three or more index levels and want to move a specific intermediate level. Passing a negative integer like <code>level=-2</code> counts from the innermost level outward. You can also pass a list of level names or positions to move multiple levels at once.</p>
+
+<p>A common workflow is: create a pivot table → use <code>stack()</code> to collapse the column MultiIndex into the row index → then apply a groupby aggregation on the resulting long-format data. This pipeline is especially useful when pivot tables produce multi-level column headers that downstream functions do not handle well.</p>
+
+<p><strong>Grouping Data with groupby()</strong></p>
+
+<p>The <code>groupby()</code> operation is one of the most powerful tools in pandas. It implements the split-apply-combine paradigm: <em>split</em> the DataFrame into groups based on some criterion, <em>apply</em> a function to each group independently, then <em>combine</em> the results back into a single DataFrame or Series.</p>
+
+<p>The grouping criterion can be specified in multiple ways:</p>
+
+<ul>
+  <li><strong>A single column name</strong>: <code>df.groupby('Category')</code> — splits the DataFrame into one group per unique value in the Category column.</li>
+  <li><strong>A list of column names</strong>: <code>df.groupby(['Year', 'Category'])</code> — creates one group per unique combination of the listed columns, resulting in a MultiIndex in the output.</li>
+  <li><strong>A function</strong>: passed to the index, the function is called once for each index label and the return value is used as the group key. Useful for custom bucketing.</li>
+  <li><strong>A dictionary or Series</strong>: maps each index label or column name to a group key, allowing fine-grained manual grouping.</li>
+</ul>
+
+<p>The standard aggregation methods — <code>sum()</code>, <code>mean()</code>, <code>count()</code>, <code>min()</code>, <code>max()</code>, <code>std()</code>, <code>median()</code> — all reduce each group to a single row. By default, the grouping columns become the index of the result. Passing <code>as_index=False</code> keeps them as regular columns instead, which is convenient when you want to chain further operations or merge the result back into the original DataFrame.</p>
+
+<pre><code>sales = pd.DataFrame({
+    'Region':   ['East','East','West','West','East'],
+    'Product':  ['A','B','A','B','A'],
+    'Revenue':  [100, 200, 150, 250, 120]
+})
+
+# Default: group keys become the index
+by_region = sales.groupby('Region')['Revenue'].sum()
+print(by_region)
+# Region
+# East    420
+# West    400
+
+# as_index=False: group keys stay as columns
+by_region_flat = sales.groupby('Region', as_index=False)['Revenue'].sum()
+print(by_region_flat)
+#   Region  Revenue
+# 0   East      420
+# 1   West      400
+</code></pre>
+
+<p>Beyond simple aggregation, <code>groupby()</code> supports two other important operations: <code>transform()</code> and <code>filter()</code>.</p>
+
+<p><code>transform()</code> applies a function to each group but returns a result with the <em>same index as the original DataFrame</em>, broadcasting the group result back to all original rows. This makes it ideal for adding group-level statistics as a new column — for example, computing what percentage of total regional revenue each transaction represents.</p>
+
+<pre><code>sales['RegionTotal'] = sales.groupby('Region')['Revenue'].transform('sum')
+sales['PctOfRegion'] = sales['Revenue'] / sales['RegionTotal'] * 100
+print(sales[['Region','Revenue','RegionTotal','PctOfRegion']])
+#   Region  Revenue  RegionTotal  PctOfRegion
+# 0   East      100          420    23.809524
+# 1   East      200          420    47.619048
+# 2   West      150          400    37.500000
+# 3   West      250          400    62.500000
+# 4   East      120          420    28.571429
+</code></pre>
+
+<p><code>filter()</code> removes entire groups based on a boolean condition evaluated at the group level. It returns a DataFrame containing only the rows from groups that satisfy the condition — not a summary, but the original rows themselves. For instance, to keep only regions whose total revenue exceeds 410:</p>
+
+<pre><code>high_revenue = sales.groupby('Region').filter(lambda g: g['Revenue'].sum() > 410)
+print(high_revenue)
+#   Region Product  Revenue  RegionTotal  PctOfRegion
+# 0   East       A      100          420    23.809524
+# 1   East       B      200          420    47.619048
+# 4   East       A      120          420    28.571429
+</code></pre>
+
+<p>Only the East rows are retained because East's total (420) exceeds 410, while West's total (400) does not.</p>
+
+<p><strong>Applying Functions with apply() and agg()</strong></p>
+
+<p><code>apply()</code> is the most flexible member of the groupby toolkit. After grouping, it passes each group as a complete DataFrame (or Series, depending on what is being grouped) to a user-defined function. The function can return a scalar, a Series, or a DataFrame, and pandas will try to combine the results intelligently. This flexibility comes at a cost: <code>apply()</code> is generally slower than vectorized methods because it processes groups with Python-level iteration rather than compiled C code.</p>
+
+<pre><code># Find the top-revenue row in each region
+def top_row(group):
+    return group.loc[group['Revenue'].idxmax()]
+
+top_by_region = sales.groupby('Region').apply(top_row)
+print(top_by_region[['Region','Product','Revenue']])
+#         Region Product  Revenue
+# Region
+# East      East       B      200
+# West      West       B      250
+</code></pre>
+
+<p>Lambda functions can be passed directly to <code>apply()</code> for concise inline logic, avoiding the need to define a named function. The lambda receives the group DataFrame as its argument:</p>
+
+<pre><code>range_by_region = sales.groupby('Region')['Revenue'].apply(
+    lambda g: g.max() - g.min()
+)
+</code></pre>
+
+<p><code>agg()</code> (also spelled <code>aggregate()</code>) is optimized for the common pattern of applying different aggregation functions to different columns simultaneously. You pass a dictionary whose keys are column names and whose values are function names, function references, or lists of functions.</p>
+
+<pre><code>summary = sales.groupby('Region').agg(
+    TotalRevenue=('Revenue', 'sum'),
+    AvgRevenue=('Revenue', 'mean'),
+    NumTransactions=('Revenue', 'count')
+)
+print(summary)
+#         TotalRevenue  AvgRevenue  NumTransactions
+# Region
+# East             420       140.0                3
+# West             400       200.0                2
+</code></pre>
+
+<p>This <em>named aggregation</em> syntax (introduced in pandas 0.25) is the cleanest approach. The output column names are exactly what you specify — <code>TotalRevenue</code>, <code>AvgRevenue</code>, <code>NumTransactions</code> — rather than the awkward multi-level column headers that older dictionary-based <code>agg()</code> calls produced. The syntax is <code>OutputName=('SourceColumn', 'function')</code> passed as keyword arguments.</p>
+
+<p>You can also pass a list of functions to <code>agg()</code> for a single column, which produces a multi-level column header:</p>
+
+<pre><code>multi = sales.groupby('Region')['Revenue'].agg(['sum', 'mean', 'std'])
+</code></pre>
+
+<p><strong>Reshaping Arrays with NumPy reshape() and transpose()</strong></p>
+
+<p>While pandas handles reshaping of labeled DataFrames, NumPy provides the foundational array-reshaping operations that underlie much of scientific computing and machine learning in Python. These functions operate on raw n-dimensional arrays without index labels.</p>
+
+<p><code>reshape()</code> changes the shape of an array — its dimensions and size along each dimension — without changing the underlying data. The only rule is that the total number of elements must remain constant: the product of all dimensions must be the same before and after. Trying to reshape a 12-element array into a (3, 5) shape raises a <code>ValueError</code> because 3×5=15≠12.</p>
+
+<pre><code>import numpy as np
+
+a = np.arange(12)          # [0, 1, 2, ..., 11]
+b = a.reshape(3, 4)        # 3 rows, 4 columns
+c = a.reshape(2, 2, 3)     # 3D: 2 blocks of 2×3
+print(b)
+# [[ 0  1  2  3]
+#  [ 4  5  6  7]
+#  [ 8  9 10 11]]
+</code></pre>
+
+<p>A handy trick is to use <code>-1</code> as a placeholder for one dimension, telling NumPy to infer that dimension automatically:</p>
+
+<pre><code>d = a.reshape(3, -1)   # NumPy infers 4 columns → (3, 4)
+e = a.reshape(-1, 6)   # NumPy infers 2 rows    → (2, 6)
+</code></pre>
+
+<p>An important performance consideration: <code>reshape()</code> returns a <strong>view</strong> of the original array whenever possible, meaning both the original array and the reshaped result share the same memory buffer. Modifying one will modify the other. When you need independent copies, call <code>.copy()</code> explicitly:</p>
+
+<pre><code>b = a.reshape(3, 4)
+b[0, 0] = 999
+print(a[0])    # also 999 — shared memory!
+
+b_independent = a.reshape(3, 4).copy()
+b_independent[0, 0] = 0
+print(a[0])    # still 999 — independent copy
+</code></pre>
+
+<p><code>transpose()</code> (also accessible as the <code>.T</code> attribute) reverses or permutes the axes of an array. For a 2D array this is the classic matrix transpose: rows become columns and columns become rows. For higher-dimensional arrays you can supply a tuple specifying the desired axis order.</p>
+
+<pre><code>m = np.array([[1, 2, 3],
+              [4, 5, 6]])
+print(m.T)
+# [[1 4]
+#  [2 5]
+#  [3 6]]
+
+# 3D transpose with explicit axis permutation
+tensor = np.ones((2, 3, 4))
+print(tensor.transpose(2, 0, 1).shape)  # (4, 2, 3)
+</code></pre>
+
+<p>Like <code>reshape()</code>, <code>transpose()</code> returns a view, so use <code>.copy()</code> if you need an independent array. Transposing is extremely common in linear algebra and machine learning contexts — for example, when a weight matrix needs to be transposed to align dimensions for a matrix multiplication.</p>
+
+<p><code>np.ravel()</code> flattens any multi-dimensional array into a 1D array. By default it uses C (row-major) order, reading elements row by row. Passing <code>order='F'</code> switches to Fortran (column-major) order. Like <code>reshape()</code>, <code>ravel()</code> returns a view when possible.</p>
+
+<pre><code>matrix = np.array([[1, 2, 3],
+                   [4, 5, 6]])
+print(np.ravel(matrix))          # [1 2 3 4 5 6]  (C order)
+print(np.ravel(matrix, order='F'))  # [1 4 2 5 3 6]  (Fortran order)
+</code></pre>
+
+<p>The table below summarises when to use each reshaping tool and the key constraints to keep in mind:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Library</th>
+      <th>Input</th>
+      <th>Key Constraint</th>
+      <th>Returns View?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pivot()</code></td>
+      <td>pandas</td>
+      <td>DataFrame</td>
+      <td>No duplicate index/column pairs</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code>pivot_table()</code></td>
+      <td>pandas</td>
+      <td>DataFrame</td>
+      <td>Requires aggfunc for duplicates; fill_value for missing combos</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code>melt()</code></td>
+      <td>pandas</td>
+      <td>DataFrame</td>
+      <td>id_vars must not overlap value_vars</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code>stack()</code></td>
+      <td>pandas</td>
+      <td>DataFrame</td>
+      <td>Operates on column index levels</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code>unstack()</code></td>
+      <td>pandas</td>
+      <td>DataFrame/Series</td>
+      <td>Operates on row index levels</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code>groupby()</code></td>
+      <td>pandas</td>
+      <td>DataFrame</td>
+      <td>Groups must be defined before applying function</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code>reshape()</code></td>
+      <td>NumPy</td>
+      <td>ndarray</td>
+      <td>Total element count must stay constant</td>
+      <td>When possible</td>
+    </tr>
+    <tr>
+      <td><code>transpose()</code></td>
+      <td>NumPy</td>
+      <td>ndarray</td>
+      <td>Axis permutation must cover all existing axes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code>ravel()</code></td>
+      <td>NumPy</td>
+      <td>ndarray</td>
+      <td>None beyond input being array-like</td>
+      <td>When possible</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mastering these reshaping tools unlocks a smooth, efficient data-preparation workflow. The general pattern is: ingest raw data → melt or pivot to achieve the right layout → group and aggregate to compute summaries → apply custom functions where built-ins fall short → reshape NumPy arrays as needed for model inputs. Each step has a clearly matched tool, and understanding the constraints of each prevents the frustrating errors — duplicate keys, shape mismatches, accidental shared memory — that arise when the wrong tool is chosen for the job.</p>
+        <div class="notes"><strong>Notes</strong>Covers pivot(), pivot_table(), melt(), stack(), unstack(), groupby() with transform/filter/apply/agg, and NumPy reshape/transpose/ravel in depth with code examples and a summary comparison table.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

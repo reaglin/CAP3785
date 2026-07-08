@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Probability Distributions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Descriptive Statistics and Probability Distributions</a></div>
+  <header>
+    <h1>Introduction to Probability Distributions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Probability Distributions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Probability distributions are one of the most fundamental concepts in statistics and data analysis. At their core, they provide a mathematical framework for describing uncertainty — answering questions like "How likely is it that a patient recovers within five days?" or "What is the chance that a factory produces more than three defective items in a batch of one hundred?" Before diving into specific families of distributions, it is essential to build a solid conceptual understanding of what a probability distribution is, how distributions are classified, why choosing the right distribution matters, and how distributions underpin nearly every technique used in statistical inference.</p>
+
+<p>A <strong>probability distribution</strong> is a complete description of all the possible values a variable can take and the likelihood associated with each of those values. More precisely, it is a function that assigns a probability to every possible outcome or range of outcomes for a random variable. Consider rolling a single fair six-sided die. The outcomes are 1, 2, 3, 4, 5, and 6, each with probability 1/6. That assignment of probabilities to outcomes <em>is</em> the probability distribution of the die roll. For a more complex example, consider the body temperatures of healthy adults: each possible temperature value within a plausible range has an associated probability (or more precisely, probability density), and taken together those values and densities form the distribution.</p>
+
+<p>One of the most important properties of any probability distribution is that <strong>the total probability across all outcomes must equal exactly 1</strong>. This is not merely a convention — it is a logical necessity. The value 1 represents certainty: when you observe the outcome of a random process, <em>something</em> must happen. If the probabilities summed to less than 1, some outcomes would be unaccounted for; if they summed to more than 1, the model would be internally inconsistent. This completeness property ensures that a probability distribution is a coherent, self-contained model of uncertainty.</p>
+
+<p>Distributions are remarkably versatile. They can describe the outcome of the simplest conceivable experiment — a coin flip that yields heads or tails — as well as extraordinarily complex phenomena such as the time it takes for a newly diagnosed cancer patient to respond to a treatment regimen, the number of customer arrivals at a bank during a given hour, or the voltage fluctuation in an electronic circuit. In each case, the distribution captures the essential probabilistic structure of the phenomenon being studied.</p>
+
+<p>One of the first and most important distinctions to learn is the difference between <strong>discrete</strong> and <strong>continuous</strong> probability distributions, because they differ not only in mathematical form but in how they are interpreted and applied.</p>
+
+<p><strong>Discrete distributions</strong> model random variables that take on a countable set of distinct values. "Countable" here means that the possible values can be listed, even if the list is infinitely long. Classic examples include the number of heads in ten coin flips (possible values: 0, 1, 2, …, 10), the number of cars passing through an intersection in an hour (0, 1, 2, 3, …), or the outcome of rolling a die (1 through 6). For discrete distributions, probabilities are assigned directly to individual values using a <em>probability mass function</em> (PMF). The PMF gives P(X = x) — the exact probability that the variable equals a specific value x. Because the values are countable, you can legitimately ask "What is the probability that exactly 3 customers arrive?" and get a non-zero numerical answer.</p>
+
+<p><strong>Continuous distributions</strong>, on the other hand, model variables that can take any value within some interval or range — not just whole numbers, but any real number along a continuum. Examples include a person's height, the exact time until a machine breaks down, or the precise temperature of a chemical reaction. For continuous variables, the probability of the variable equaling any single exact value is technically zero — there are infinitely many possible values, so no single one can carry positive probability. Instead, continuous distributions are described by a <em>probability density function</em> (PDF), and probabilities are computed over intervals. For instance, you might ask "What is the probability that a patient's temperature is between 98.0°F and 99.0°F?" and integrate the PDF over that range to get a meaningful answer.</p>
+
+<p>The practical consequence is that the two types of distributions require different mathematical tools and have different interpretations. The table below summarizes the key contrasts:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Discrete Distribution</th>
+      <th>Continuous Distribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Possible values</td>
+      <td>Countable (e.g., 0, 1, 2, 3, …)</td>
+      <td>Uncountably infinite (any value in an interval)</td>
+    </tr>
+    <tr>
+      <td>Probability function</td>
+      <td>Probability Mass Function (PMF)</td>
+      <td>Probability Density Function (PDF)</td>
+    </tr>
+    <tr>
+      <td>P(X = exact value)</td>
+      <td>Can be positive (e.g., P(X=3) = 0.25)</td>
+      <td>Always zero; only intervals have positive probability</td>
+    </tr>
+    <tr>
+      <td>Summing/integrating to 1</td>
+      <td>Sum of all PMF values = 1</td>
+      <td>Integral of PDF over entire range = 1</td>
+    </tr>
+    <tr>
+      <td>Typical examples</td>
+      <td>Binomial, Poisson, Geometric</td>
+      <td>Normal, Exponential, Uniform, Beta</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The choice between discrete and continuous distributions is not always obvious — it depends critically on how the data is measured and collected. The number of defective items in a shipment is inherently discrete; you cannot have 2.7 defects. But the weight of a randomly selected apple is inherently continuous; it could in principle be any value within a plausible range. Sometimes a continuous variable is measured so coarsely that it behaves practically like a discrete one (for example, age reported in whole years), and a practitioner must decide which model is more appropriate for the question at hand.</p>
+
+<p>Beyond classification, probability distributions serve a powerful role in <strong>modeling real-world phenomena</strong>. Raw data collected from experiments or observations can be complex, high-dimensional, and difficult to interpret directly. A well-chosen distribution summarizes that complexity with just a small set of interpretable parameters. For example, rather than reporting thousands of individual patient recovery times, an analyst might note that recovery times follow an exponential distribution with a mean of 4.2 days. This compact representation communicates the essential structure of the data, supports comparison across groups, and enables straightforward predictions.</p>
+
+<p>Selecting an appropriate distribution is not a trivial step. If you model count data (like the number of website visits per minute) with a distribution designed for continuous measurements, your statistical conclusions — including confidence intervals, hypothesis test results, and predictions — may be systematically wrong. The quality of any statistical analysis depends on how well the chosen distribution reflects the actual data-generating process. This is why exploratory techniques such as histograms, Q-Q plots, and goodness-of-fit tests are important: they help validate whether an assumed distribution is reasonable for the data at hand.</p>
+
+<p>When a good match between data and distribution is achieved, the distribution becomes a predictive engine. It can generate probability statements about future, unobserved outcomes. A manufacturer who knows that the lifetime of a component follows a specific distribution can predict the probability that any given component will still be functioning after 1,000 hours of use. A public health official who models disease incidence with an appropriate distribution can forecast outbreak probabilities under different intervention scenarios.</p>
+
+<p>Every probability distribution has <strong>defining parameters</strong> — numerical quantities that pin down its exact shape, center, and spread. The most commonly encountered parameters are:</p>
+
+<ul>
+  <li><strong>Mean (μ):</strong> The expected value or long-run average of the distribution. It tells you where the distribution is centered. For example, a normal distribution with mean μ = 70 is centered at 70.</li>
+  <li><strong>Variance (σ²) and Standard Deviation (σ):</strong> Measures of spread or dispersion. A distribution with large variance is widely spread out; one with small variance is tightly clustered around its mean.</li>
+  <li><strong>Rate (λ):</strong> Used in distributions like the Poisson (events per unit time) and exponential (rate of occurrence). A higher rate means more events per unit time or faster decay.</li>
+  <li><strong>Shape parameters (e.g., k, α, β):</strong> Control the skewness or tail behavior of distributions like the Gamma or Beta, allowing the model to capture asymmetric or bounded phenomena.</li>
+</ul>
+
+<p>To see how parameters reshape a distribution, consider the normal distribution. If you increase the mean from 50 to 80, the entire bell curve shifts to the right — the probabilities associated with values near 50 decrease while those near 80 increase. If you increase the standard deviation from 5 to 15, the bell curve flattens and spreads out — extreme values become more probable, and the distribution becomes less peaked. A distribution's parameters are the levers that translate a general mathematical form into a specific model calibrated to a particular phenomenon.</p>
+
+<p>This relationship between parameters and distribution shape also bridges descriptive and inferential statistics. When analysts compute a sample mean or sample variance from data, they are often implicitly estimating the corresponding parameters of an underlying distribution. For example, if you assume that a dataset comes from a normal distribution, the sample mean estimates μ and the sample variance estimates σ². Understanding this connection transforms summary statistics from mere numerical summaries into estimates of the fundamental quantities that govern a data-generating process.</p>
+
+<p>Perhaps the most far-reaching role of probability distributions is as the <strong>foundation for statistical inference</strong>. Virtually every inferential procedure — hypothesis tests, confidence intervals, regression analyses, Bayesian credible intervals — rests on an assumption that data or computed statistics follow a particular distribution. When you perform a two-sample t-test to compare group means, you are assuming that the underlying data (or the test statistic) follows a t-distribution under the null hypothesis. When you construct a 95% confidence interval for a proportion, you are relying on the binomial or normal distribution. If these distributional assumptions are wrong, the inference can be invalid.</p>
+
+<p>A particularly important concept here is the <strong>sampling distribution</strong>. When you collect a sample and compute a statistic — say, the sample mean — that statistic is itself a random variable: if you repeated the sampling process many times, you would get slightly different values each time. The probability distribution of this statistic across all possible samples is called its sampling distribution. The sampling distribution of the sample mean, for instance, is what allows you to make probability statements like "there is only a 5% chance of observing a sample mean this extreme if the true population mean were 100." This logic underpins p-values and hypothesis testing.</p>
+
+<p>One of the most celebrated results in statistics — the <strong>Central Limit Theorem</strong> — tells us that the sampling distribution of the sample mean approaches a normal distribution as sample size grows, regardless of the shape of the original population distribution (under mild conditions). This result is why the normal distribution plays such a central role in inference: even when individual observations are not normally distributed, averages of large enough samples often are, making normal-based inference broadly applicable.</p>
+
+<p>To summarize the conceptual landscape: a probability distribution is a complete probabilistic model of a random variable, defined by the requirement that all assigned probabilities sum or integrate to 1. Distributions are either discrete (using PMFs, defined over countable values) or continuous (using PDFs, defined over intervals). They compress complex data into interpretable parameter-based models, and selecting the right distribution is essential for valid analysis. Parameters shape the distribution's exact behavior, connecting descriptive summaries to formal probability models. And ultimately, distributions are the mathematical backbone of statistical inference, enabling analysts to draw probability-based conclusions about populations from sample data. Mastering this conceptual foundation is the essential first step toward understanding and correctly applying the full toolkit of modern statistical methods.</p>
+        <div class="notes"><strong>Notes</strong>Emphasize to students that the constraint &quot;all probabilities sum to 1&quot; is not just a rule to memorize but a reflection of logical completeness — something must happen. The discrete/continuous distinction is often a source of early confusion; spending extra time on why P(X = exact value) = 0 for continuous variables prevents persistent misconceptions. The sampling distribution concept may be new to many students and is worth flagging as something that will recur throughout the module.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

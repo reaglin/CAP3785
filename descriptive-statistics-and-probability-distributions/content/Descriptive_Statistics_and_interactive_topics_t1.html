@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Measures of Central Tendency</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Descriptive Statistics and Probability Distributions</a></div>
+  <header>
+    <h1>Measures of Central Tendency</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Measures of Central Tendency</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When you are handed a dataset, one of the first questions you want to answer is: <em>where is the center?</em> Measures of central tendency are the statistical tools that answer exactly that question. They condense an entire collection of numbers — whether ten values or ten million — into a single representative value that describes where the data tends to cluster. The two most widely used measures are the <strong>mean</strong> and the <strong>median</strong>. Each has its own mathematical logic, its own strengths, and its own blind spots. Understanding both deeply, knowing how to compute them in Python, and knowing which one to report in a given situation are foundational skills for any data analyst or scientist.</p>
+
+<p>Before diving into each measure individually, it helps to understand why we need them at all. Imagine you work for a company and want to understand employee salaries. You could list all 500 salaries, but that list is overwhelming. A single number that captures the "typical" salary is far more useful for decision-making, communication, and comparison. That is precisely what a measure of central tendency provides. The challenge is that no single summary number is perfect for every situation — and that is why we have more than one.</p>
+
+<p><strong>Understanding the Mean</strong></p>
+
+<p>The <strong>mean</strong>, often called the arithmetic mean or simply the average, is calculated by summing all the values in a dataset and then dividing by the number of values. If your dataset has <em>n</em> values <em>x₁, x₂, …, xₙ</em>, the mean is:</p>
+
+<pre><code>mean = (x₁ + x₂ + ... + xₙ) / n</code></pre>
+
+<p>For example, consider the dataset <code>[4, 7, 13, 2, 9]</code>. The sum is <code>4 + 7 + 13 + 2 + 9 = 35</code>, and there are 5 values, so the mean is <code>35 / 5 = 7.0</code>.</p>
+
+<p>One of the most important characteristics of the mean is that it <strong>uses every single value in the dataset</strong>. No observation is ignored. This makes the mean a comprehensive measure — it is influenced by every data point, from the smallest to the largest. That comprehensiveness is both its greatest strength and its greatest weakness.</p>
+
+<p>Because the mean incorporates all values equally, it is <strong>highly sensitive to outliers</strong> — extreme values that lie far from the rest of the data. Consider what happens when one value in the dataset is dramatically larger or smaller than the others:</p>
+
+<pre><code># Without an outlier
+salaries = [45000, 48000, 52000, 47000, 50000]
+# Mean = (45000 + 48000 + 52000 + 47000 + 50000) / 5 = 242000 / 5 = 48400
+
+# With an outlier (CEO salary added)
+salaries_with_ceo = [45000, 48000, 52000, 47000, 50000, 900000]
+# Mean = (45000 + 48000 + 52000 + 47000 + 50000 + 900000) / 6 = 1142000 / 6 ≈ 190333</code></pre>
+
+<p>The addition of a single extreme value (the CEO salary) nearly quadruples the mean, making it a poor representation of what a "typical" employee earns. This is why the mean is considered <strong>most appropriate for symmetric distributions without significant outliers</strong>. In a symmetric, bell-shaped distribution, there are no extreme values pulling the mean away from the true center, so it accurately reflects the typical value.</p>
+
+<p>The mean also serves as the <strong>foundation for many other statistical calculations</strong>. Variance, standard deviation, correlation coefficients, and linear regression all build directly on the concept of the mean. This deep integration with the rest of statistics makes the mean indispensable even when its limitations must be acknowledged.</p>
+
+<p>In Python, the mean is straightforward to compute using two common approaches:</p>
+
+<pre><code>import numpy as np
+from statistics import mean
+
+data = [4, 7, 13, 2, 9]
+
+# Using NumPy
+numpy_mean = np.mean(data)
+print(numpy_mean)  # Output: 7.0
+
+# Using the statistics module
+stats_mean = mean(data)
+print(stats_mean)  # Output: 7.0</code></pre>
+
+<p><code>numpy.mean()</code> is optimized for numerical arrays and handles large datasets efficiently. <code>statistics.mean()</code> is part of Python's built-in standard library and requires no additional installation, making it convenient for simple scripts. Both return the same result for standard numerical data.</p>
+
+<p><strong>Understanding the Median</strong></p>
+
+<p>The <strong>median</strong> is the middle value of a dataset when all values are sorted in ascending (or descending) order. It is the value that divides the dataset into two equal halves: exactly 50% of the values fall at or below the median, and 50% fall at or above it.</p>
+
+<p>Finding the median depends on whether the dataset has an odd or even number of values:</p>
+
+<ul>
+  <li><strong>Odd number of values:</strong> Sort the data and take the middle value. For <code>[2, 4, 7, 9, 13]</code>, the middle value is <code>7</code>, so the median is <code>7</code>.</li>
+  <li><strong>Even number of values:</strong> Sort the data and take the average of the two middle values. For <code>[2, 4, 7, 9, 13, 15]</code>, the two middle values are <code>7</code> and <code>9</code>, so the median is <code>(7 + 9) / 2 = 8.0</code>.</li>
+</ul>
+
+<p>The defining feature of the median is its <strong>resistance to outliers</strong>. Because the median only depends on the position of values — not their actual magnitude — extreme values have very little influence on it. Returning to the salary example:</p>
+
+<pre><code># Median without outlier
+salaries = [45000, 47000, 48000, 50000, 52000]
+# Sorted: [45000, 47000, 48000, 50000, 52000]
+# Middle value (index 2): 48000
+# Median = 48000
+
+# Median with CEO outlier
+salaries_with_ceo = [45000, 47000, 48000, 50000, 52000, 900000]
+# Sorted: [45000, 47000, 48000, 50000, 52000, 900000]
+# Two middle values: 48000 and 50000
+# Median = (48000 + 50000) / 2 = 49000</code></pre>
+
+<p>The median moved from 48,000 to 49,000 — a modest shift that still accurately reflects the typical employee salary, even with the extreme CEO salary included. This is why the median is the <strong>preferred measure of center for skewed distributions or datasets containing extreme values</strong>. Real-world examples where the median is typically reported instead of the mean include household income, home prices, and response times in web applications.</p>
+
+<p>In Python:</p>
+
+<pre><code>import numpy as np
+from statistics import median
+
+data_odd = [2, 4, 7, 9, 13]
+data_even = [2, 4, 7, 9, 13, 15]
+
+# Using NumPy
+print(np.median(data_odd))   # Output: 7.0
+print(np.median(data_even))  # Output: 8.0
+
+# Using the statistics module
+print(median(data_odd))   # Output: 7
+print(median(data_even))  # Output: 8.0</code></pre>
+
+<p><strong>Comparing Mean and Median</strong></p>
+
+<p>The relationship between the mean and the median carries important information about the <strong>shape of a distribution</strong>. Understanding this relationship is a practical skill for quickly diagnosing what is happening in your data.</p>
+
+<p>In a <strong>perfectly symmetric distribution</strong> — like the classic bell curve — the mean and median are equal (or nearly so). Every high value on the right side of the center is matched by an equally low value on the left side, so the mean is not pulled in either direction.</p>
+
+<p>When a distribution is <strong>right-skewed (positively skewed)</strong>, a small number of very large values pull the mean upward while the median remains relatively stable. The result is that the <em>mean is greater than the median</em>. Income distributions in most countries are a classic example: most people earn modest incomes, but a small number of extremely high earners pull the mean well above what a "typical" person earns.</p>
+
+<p>When a distribution is <strong>left-skewed (negatively skewed)</strong>, a small number of very low values pull the mean downward, so the <em>mean is less than the median</em>. An example might be scores on a very easy exam where most students score near the top, but a few students score extremely low.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Distribution Shape</th>
+      <th>Relationship</th>
+      <th>Practical Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Symmetric</td>
+      <td>Mean ≈ Median</td>
+      <td>Heights of adult men</td>
+    </tr>
+    <tr>
+      <td>Right-skewed (positive skew)</td>
+      <td>Mean &gt; Median</td>
+      <td>Household incomes, home prices</td>
+    </tr>
+    <tr>
+      <td>Left-skewed (negative skew)</td>
+      <td>Mean &lt; Median</td>
+      <td>Age at retirement, scores on an easy test</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The gap between the mean and the median is therefore a <strong>practical signal for detecting skewness</strong> without drawing a histogram. If you compute both and find them close together, your data is likely approximately symmetric. If they diverge significantly, your data is likely skewed and the median is the more trustworthy representative of the center.</p>
+
+<p>The decision about which to report should always be guided by the analytical question and the nature of the data. If you are trying to understand what a "typical" value looks like and outliers are present, the median is usually the better choice. If you need a value that reflects the total or aggregate (for example, calculating total costs from an average cost), the mean is necessary because it is mathematically linked to the sum. <strong>Reporting both together</strong> is often the most informative approach, as it gives readers insight into both the central value and the degree of skewness.</p>
+
+<p><strong>Computing Central Tendency in Python</strong></p>
+
+<p>Python offers several libraries for computing measures of central tendency. Each is suited to slightly different contexts:</p>
+
+<pre><code>import numpy as np
+import pandas as pd
+from statistics import mean, median
+
+data = [23, 45, 12, 67, 34, 89, 22, 45, 78, 56]
+
+# --- NumPy ---
+print("NumPy mean:", np.mean(data))        # 47.1
+print("NumPy median:", np.median(data))    # 45.0
+
+# --- statistics module ---
+print("statistics mean:", mean(data))      # 47.1
+print("statistics median:", median(data))  # 45.0
+
+# --- Pandas (on a DataFrame column) ---
+df = pd.DataFrame({'values': data})
+print("Pandas mean:", df['values'].mean())    # 47.1
+print("Pandas median:", df['values'].median()) # 45.0</code></pre>
+
+<p><strong>NumPy</strong> functions such as <code>np.mean()</code> and <code>np.median()</code> operate efficiently on arrays and are well-suited for large numerical datasets. They work seamlessly with multi-dimensional arrays and support additional arguments like <code>axis</code> for computing statistics along rows or columns of a matrix.</p>
+
+<pre><code>import numpy as np
+
+matrix = np.array([[10, 20, 30],
+                   [40, 50, 60],
+                   [70, 80, 90]])
+
+print(np.mean(matrix, axis=0))  # Column means: [40. 50. 60.]
+print(np.mean(matrix, axis=1))  # Row means:    [20. 50. 80.]</code></pre>
+
+<p><strong>Pandas</strong> is particularly powerful in data analysis workflows because it allows you to compute statistics directly on DataFrame columns, handle missing values gracefully with the <code>skipna</code> parameter, and apply functions across entire datasets with a single line of code:</p>
+
+<pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    'age': [25, 32, 28, 45, 22, 38, None],
+    'salary': [50000, 62000, 55000, 95000, 48000, 70000, None]
+})
+
+# Pandas skips NaN by default
+print(df['salary'].mean())    # 63333.33...
+print(df['salary'].median())  # 58500.0
+
+# Summarize all columns at once
+print(df.describe())</code></pre>
+
+<p>The <strong>statistics module</strong> from Python's standard library requires no installation and is ideal for simple calculations in lightweight scripts or educational contexts. It is also somewhat stricter about data types (it raises errors on certain edge cases rather than silently returning NaN), which can be useful for catching data quality issues early.</p>
+
+<p>Applying these functions to real datasets allows you to quickly summarize and interpret the center of your data. A good habit is to compute both the mean and median as part of any initial exploratory data analysis (EDA) step.</p>
+
+<p><strong>Interpreting Central Tendency in Context</strong></p>
+
+<p>A measure of central tendency does something remarkable: it summarizes an entire dataset with a single representative value. But that power comes with responsibility — a single number can obscure enormous complexity if interpreted carelessly.</p>
+
+<p>Consider a classic illustration: a statistician stands with one foot in a bucket of ice water and one foot in a bucket of boiling water. On average, the temperature is comfortable. The average tells you almost nothing useful about the actual experience. This is an extreme example, but it illustrates a real problem: central tendency alone is insufficient.</p>
+
+<p>Central tendency measures must always be <strong>paired with measures of spread</strong> — such as the standard deviation, variance, or interquartile range — to give a complete descriptive summary. Two datasets can have identical means and medians while being entirely different in nature:</p>
+
+<pre><code>import numpy as np
+
+dataset_a = [48, 49, 50, 51, 52]       # Mean = 50, tightly clustered
+dataset_b = [10, 25, 50, 75, 90]       # Mean = 50, widely spread
+
+print(np.mean(dataset_a), np.std(dataset_a))   # 50.0, 1.41
+print(np.mean(dataset_b), np.std(dataset_b))   # 50.0, 28.72</code></pre>
+
+<p>Both datasets have a mean of 50, but their standard deviations reveal that dataset A is tightly clustered around the center while dataset B is spread out widely. Reporting only the mean would hide this crucial difference.</p>
+
+<p>Misinterpreting central tendency can lead to incorrect and sometimes harmful conclusions. Consider a few common pitfalls:</p>
+
+<ul>
+  <li><strong>Skewed distributions:</strong> Reporting the mean of a heavily right-skewed income dataset (pulled up by billionaires) will make the "average" sound much higher than what most people actually experience. The median is the more honest measure here.</li>
+  <li><strong>Multimodal distributions:</strong> If a dataset has two peaks (for example, a mix of part-time workers earning $15/hour and full-time professionals earning $80/hour), neither the mean nor the median may fall near either group's typical value. The single-number summary is misleading on its own.</li>
+  <li><strong>Small samples:</strong> In very small datasets, both the mean and median can be unstable and may not reliably represent the broader population from which the data was drawn.</li>
+</ul>
+
+<p>The <strong>choice between reporting the mean or median</strong> should always be guided by three questions: What is the shape of the distribution? Are there outliers? What is the analytical question being answered? When in doubt, report both, note the difference, and describe what it implies about the data's distribution. This approach gives stakeholders the full picture rather than a potentially misleading simplification.</p>
+
+<p>In summary, the mean and median are complementary tools. The mean is powerful, mathematically rich, and connects to much of inferential statistics — but it is vulnerable to distortion by extreme values. The median is robust, resistant to outliers, and communicates the "typical" experience more faithfully in skewed data — but it does not use all the information in the dataset. Together, and in combination with measures of spread, they form the foundation of sound descriptive data analysis.</p>
+        <div class="notes"><strong>Notes</strong>Covers mean and median in depth including computation, comparison, Python implementation across NumPy, Pandas, and the statistics module, and contextual interpretation with practical examples. Includes a comparison table and code blocks demonstrating skewness detection, axis-wise computation, and missing value handling.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

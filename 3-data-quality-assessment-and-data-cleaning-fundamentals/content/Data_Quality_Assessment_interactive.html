@@ -1,0 +1,462 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preparing Clean Data for Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 - Data Quality Assessment and Data Cleaning Fundamentals</a></div>
+  <header>
+    <h1>Preparing Clean Data for Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Preparing Clean Data for Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Preparing clean data for analysis is not a single action but rather the culmination of a disciplined, multi-layered process. By the time an analyst reaches this stage, earlier cleaning passes will have addressed obvious errors, but the final preparation phase demands a higher level of scrutiny. This is where you confirm that every prior decision held, that the dataset is structurally sound, that outliers have been thoughtfully handled, and that the entire process is transparent enough to be reproduced by someone else — or by yourself six months from now. The subtopics below walk through each dimension of final data preparation in depth, from validation and structural consistency through documentation, formatting, and the creation of an automated, repeatable pipeline.</p>
+
+<p><strong>Final Validation Checks</strong></p>
+
+<p>Before any analysis begins, you must verify that all the cleaning work performed in earlier stages actually had the intended effect. This is not a formality; it is a safety net. Real-world cleaning pipelines contain bugs, conditional logic that silently misfires, or transformations applied to an outdated version of a file. Final validation catches those problems before they corrupt downstream results.</p>
+
+<p>The first item on the checklist is <strong>missing value resolution</strong>. Every column that was flagged as containing nulls, blanks, or sentinel values such as <code>-999</code> or <code>N/A</code> must be re-examined. You need to confirm not just that a treatment was applied, but that the right treatment was applied to the right rows. For example, if median imputation was chosen for a skewed income column, you should verify that the imputed rows now carry the column's median value and that no rows were accidentally left null. In Python with pandas this might look like:</p>
+
+<pre><code>import pandas as pd
+
+df = pd.read_csv("cleaned_customers.csv")
+
+# Count remaining nulls per column
+null_counts = df.isnull().sum()
+print(null_counts[null_counts > 0])  # Should print nothing if cleaning was complete
+
+# Confirm imputed column matches expected median
+print(df["annual_income"].isnull().sum())   # Expect 0
+print(df["annual_income"].median())         # Compare to pre-imputation median
+</code></pre>
+
+<p>The second check addresses <strong>duplicate records</strong>. Deduplication removes exact row copies, but subtler duplicates — such as two records for the same customer with slightly different phone numbers — can survive naïve deduplication. After cleaning, confirm that the column(s) designated as unique identifiers contain no repeated values:</p>
+
+<pre><code># Check uniqueness of primary key column
+assert df["customer_id"].is_unique, "Duplicate customer IDs detected!"
+
+# Also verify no fully duplicated rows remain
+assert df.duplicated().sum() == 0, "Exact duplicate rows found!"
+</code></pre>
+
+<p>Third, <strong>value ranges, formats, and categorical levels</strong> must be cross-referenced against the data dictionary or business rules. If the data dictionary states that <code>age</code> must be between 0 and 120 and <code>product_category</code> may only take the values <em>Electronics</em>, <em>Apparel</em>, and <em>Home Goods</em>, those constraints should be tested programmatically:</p>
+
+<pre><code>assert df["age"].between(0, 120).all(), "Age values out of range"
+valid_categories = {"Electronics", "Apparel", "Home Goods"}
+assert set(df["product_category"].unique()).issubset(valid_categories), \
+    "Unexpected category values found"
+</code></pre>
+
+<p>Finally, run <strong>summary statistics before and after cleaning</strong> and place them side by side. A sudden change in the mean of a numeric column — say, the average order value dropping by 20% — may reveal that rows were incorrectly removed or that a unit conversion was applied twice. Keeping a snapshot of pre-cleaning descriptive statistics as a reference is therefore essential:</p>
+
+<pre><code># Before cleaning (saved during an earlier step)
+pre_stats = pd.read_csv("pre_cleaning_stats.csv", index_col=0)
+
+# After cleaning
+post_stats = df.describe()
+
+# Compare key columns
+comparison = pre_stats.loc["mean"] - post_stats.loc["mean"]
+print(comparison[comparison.abs() > 0.05 * pre_stats.loc["mean"]])
+</code></pre>
+
+<p><strong>Structural Integrity and Consistency</strong></p>
+
+<p>A dataset that contains correct values but is structurally inconsistent will cause silent errors in downstream code. Variable names that mix conventions, columns stored as the wrong data type, or measurements in incompatible units are all sources of bugs that are notoriously difficult to diagnose after the fact.</p>
+
+<p><strong>Naming conventions</strong> should be enforced uniformly. The choice between <em>snake_case</em> (<code>annual_income</code>), <em>camelCase</em> (<code>annualIncome</code>), and other conventions matters less than consistency within a single project. A column named <code>AnnualIncome</code> sitting next to <code>customer_age</code> and <code>orderDate</code> will cause reference errors in case-sensitive environments and confusion everywhere else. A simple normalization step resolves this:</p>
+
+<pre><code># Normalize all column names to snake_case
+import re
+
+def to_snake_case(name):
+    name = re.sub(r'(?<=[a-z0-9])([A-Z])', r'_\1', name)
+    return name.lower().replace(" ", "_").replace("-", "_")
+
+df.columns = [to_snake_case(col) for col in df.columns]
+print(df.columns.tolist())
+</code></pre>
+
+<p><strong>Data types</strong> must also be validated. A numeric column stored as a string is a common artifact of reading CSV files that contained mixed entries. Operations like summing or averaging will fail silently or raise errors if types are wrong. The fix is explicit type coercion with error handling:</p>
+
+<pre><code>df["unit_price"] = pd.to_numeric(df["unit_price"], errors="coerce")
+df["order_date"] = pd.to_datetime(df["order_date"], format="%Y-%m-%d", errors="coerce")
+
+# Confirm types
+print(df.dtypes)
+</code></pre>
+
+<p><strong>Units of measurement</strong> require special attention in datasets assembled from multiple sources. If one data source records transaction amounts in US dollars and another in euros, any combined analysis will be wrong without explicit conversion. The correct approach is to define a canonical unit (e.g., USD at a fixed exchange rate) and apply it to all rows, annotating the column name and its unit clearly:</p>
+
+<pre><code># Convert EUR transactions to USD (example rate: 1 EUR = 1.08 USD)
+EUR_TO_USD = 1.08
+mask = df["currency"] == "EUR"
+df.loc[mask, "transaction_amount_usd"] = df.loc[mask, "transaction_amount"] * EUR_TO_USD
+df.loc[~mask, "transaction_amount_usd"] = df.loc[~mask, "transaction_amount"]
+</code></pre>
+
+<p><strong>Outlier Review and Final Treatment</strong></p>
+
+<p>Outliers survived earlier cleaning rounds either because they were not yet identified or because a decision was deferred. In the final preparation stage, every remaining outlier must be reviewed and given a documented disposition. There is no universally correct treatment; the right choice depends on the domain and the analysis goal.</p>
+
+<p>The three standard detection methods are <strong>box plots</strong>, <strong>z-scores</strong>, and <strong>IQR fencing</strong>. Box plots are visual and intuitive. Z-scores express how many standard deviations a value lies from the mean; values beyond ±3 are conventionally flagged in normally distributed data. IQR fencing is more robust to skewed distributions: values below <code>Q1 − 1.5 × IQR</code> or above <code>Q3 + 1.5 × IQR</code> are flagged as mild outliers, while the 3.0 multiplier identifies extreme ones.</p>
+
+<pre><code>import numpy as np
+
+col = df["transaction_amount_usd"]
+Q1, Q3 = col.quantile(0.25), col.quantile(0.75)
+IQR = Q3 - Q1
+lower_fence = Q1 - 1.5 * IQR
+upper_fence = Q3 + 1.5 * IQR
+
+outlier_mask = (col < lower_fence) | (col > upper_fence)
+print(f"Outliers detected: {outlier_mask.sum()}")
+print(df[outlier_mask][["customer_id", "transaction_amount_usd"]])
+</code></pre>
+
+<p>Once detected, each outlier must be assigned one of four treatments:</p>
+<ul>
+  <li><strong>Capping (Winsorization):</strong> Replace values beyond the fence with the fence value itself. Appropriate when outliers are measurement noise and you want to retain the row without letting extreme values distort aggregations.</li>
+  <li><strong>Transformation:</strong> Apply a log, square-root, or Box-Cox transformation to compress the scale. Useful when the distribution is highly right-skewed and outliers reflect genuine but extreme observations.</li>
+  <li><strong>Removal:</strong> Drop the row entirely. Justified when the outlier clearly represents a data entry error or when the analysis explicitly excludes that segment of the population.</li>
+  <li><strong>Retention:</strong> Keep the value as is. Required when the outlier is real and analytically important — for example, a high-value customer in a sales dataset who genuinely spends far more than average.</li>
+</ul>
+
+<p>Every decision must be <strong>documented</strong>. Undocumented outlier removal is one of the most common sources of irreproducibility in data analysis. At minimum, record the column name, the outlier value(s), the row identifier, the chosen treatment, and the rationale.</p>
+
+<p><strong>Quality Assurance Techniques</strong></p>
+
+<p>Quality assurance (QA) at the end of the cleaning pipeline answers one question: does this dataset meet the standard required for reliable analysis? Answering that question objectively requires explicit, measurable quality metrics rather than a subjective visual scan.</p>
+
+<p>Four core quality dimensions — and their corresponding metrics — provide a solid foundation:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quality Dimension</th>
+      <th>Metric</th>
+      <th>Formula</th>
+      <th>Acceptable Threshold (Example)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Completeness</td>
+      <td>Completeness Rate</td>
+      <td>Non-null values ÷ Total values × 100</td>
+      <td>≥ 95% for non-key columns</td>
+    </tr>
+    <tr>
+      <td>Uniqueness</td>
+      <td>Uniqueness Rate</td>
+      <td>Distinct values ÷ Total values × 100</td>
+      <td>100% for primary key columns</td>
+    </tr>
+    <tr>
+      <td>Conformity</td>
+      <td>Conformity Rate</td>
+      <td>Values matching format/range ÷ Total × 100</td>
+      <td>≥ 99% for constrained columns</td>
+    </tr>
+    <tr>
+      <td>Consistency</td>
+      <td>Cross-field Agreement</td>
+      <td>Rows passing relational rules ÷ Total × 100</td>
+      <td>100% for hard business rules</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Automated assertion tests</strong> formalize these metrics into executable checks that halt the pipeline when a condition is violated. Libraries such as <em>Great Expectations</em> in Python or <em>dbt tests</em> in SQL-based pipelines are purpose-built for this. A minimal example with plain assertions:</p>
+
+<pre><code>total_rows = len(df)
+
+# Completeness: customer_id must be 100% non-null
+completeness = df["customer_id"].notnull().sum() / total_rows
+assert completeness == 1.0, f"customer_id completeness is {completeness:.2%}"
+
+# Uniqueness: customer_id must be fully unique
+uniqueness = df["customer_id"].nunique() / total_rows
+assert uniqueness == 1.0, f"customer_id uniqueness is {uniqueness:.2%}"
+
+# Conformity: email must match a basic pattern
+import re
+email_pattern = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+conformity = df["email"].str.match(email_pattern).sum() / total_rows
+assert conformity >= 0.99, f"Email conformity is {conformity:.2%}"
+</code></pre>
+
+<p><strong>Peer or stakeholder review</strong> addresses the limits of automated checks. A business analyst reviewing a sample of 50 records may immediately notice that a product description field contains values that are technically valid strings but semantically incorrect — for example, descriptions that were accidentally shifted one row downward during a join. No automated check for string format would catch this; only domain knowledge does.</p>
+
+<p>A structured review involves selecting a stratified random sample (e.g., 1% of rows, with representation from each categorical group), presenting the sample in a readable format, and collecting feedback from reviewers with business context. Any issues raised are fed back into the cleaning log.</p>
+
+<p>Finally, <strong>benchmarking against a reference dataset</strong> provides end-to-end validation. If a cleaned sales dataset should produce aggregates that align with a known financial report, computing those aggregates on the cleaned dataset and comparing them to the report total is a powerful final check. Discrepancies greater than a defined tolerance (often 0.1% for financial data) trigger investigation.</p>
+
+<p><strong>Documentation and Data Lineage</strong></p>
+
+<p>A cleaned dataset without documentation is fragile knowledge. The moment the analyst who performed the cleaning is unavailable, decisions made during cleaning become opaque and may be reversed or duplicated incorrectly. Thorough documentation transforms cleaning from a personal craft into an institutional asset.</p>
+
+<p>The <strong>cleaning log</strong> is the most important documentation artifact. It should be maintained throughout the cleaning process — not reconstructed from memory afterward — and should capture:</p>
+<ul>
+  <li>The issue identified (e.g., "15% nulls in <code>annual_income</code>")</li>
+  <li>The root cause, if known (e.g., "field not collected prior to 2021")</li>
+  <li>The treatment applied (e.g., "median imputation stratified by age group")</li>
+  <li>The rationale (e.g., "distribution is right-skewed; mean would overstate central tendency")</li>
+  <li>The number of rows affected</li>
+  <li>The date and analyst name</li>
+</ul>
+
+<p><strong>Data lineage</strong> documentation traces the dataset's journey from its source(s) to its final form. At minimum it should record: the original source files or database tables, any joins or merges (including the join keys and join type), and the ordered sequence of transformations applied. In modern data stacks, tools like <em>dbt</em>, <em>Apache Atlas</em>, or <em>OpenMetadata</em> can automate lineage tracking. In simpler environments, a structured text or spreadsheet log suffices.</p>
+
+<p><strong>Metadata stored alongside the dataset</strong> ensures that anyone who opens the file understands its provenance without needing to contact the analyst. A metadata header file or an accompanying JSON sidecar might contain:</p>
+
+<pre><code>{
+  "dataset_name": "customers_cleaned",
+  "version": "2.1",
+  "cleaning_date": "2024-11-15",
+  "analyst": "J. Martinez",
+  "source_files": ["customers_raw_2024Q3.csv", "address_updates_oct2024.xlsx"],
+  "row_count": 48320,
+  "column_count": 22,
+  "known_limitations": "Income data missing for pre-2021 cohort; imputed via median."
+}
+</code></pre>
+
+<p>The <strong>data dictionary</strong> defines every field in the final dataset. A well-formed data dictionary removes ambiguity about what a column represents, what values it may contain, and how it should be interpreted. For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Data Type</th>
+      <th>Allowed Values / Range</th>
+      <th>Business Definition</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>customer_id</td>
+      <td>string</td>
+      <td>Unique, non-null, format: CUST-XXXXXX</td>
+      <td>Unique identifier assigned at account creation</td>
+      <td>Primary key; do not modify</td>
+    </tr>
+    <tr>
+      <td>annual_income_usd</td>
+      <td>float</td>
+      <td>0 – 10,000,000</td>
+      <td>Self-reported annual household income in USD</td>
+      <td>Nulls imputed with median by age group</td>
+    </tr>
+    <tr>
+      <td>product_category</td>
+      <td>string (categorical)</td>
+      <td>Electronics, Apparel, Home Goods</td>
+      <td>Top-level product classification at time of purchase</td>
+      <td>Standardized from 12 raw values</td>
+    </tr>
+    <tr>
+      <td>is_repeat_customer</td>
+      <td>boolean</td>
+      <td>True, False</td>
+      <td>Indicates whether customer had a prior purchase before this transaction</td>
+      <td>Derived field; not present in source</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Splitting and Formatting for Downstream Use</strong></p>
+
+<p>Even a perfectly cleaned dataset will cause problems if it is delivered in the wrong format, encoding, or structure. The final formatting step translates the cleaned dataset into whatever form the downstream system expects.</p>
+
+<p><strong>File format selection</strong> depends on the use case. CSV is universally readable but inefficient for large datasets and does not preserve data types. Parquet preserves types, supports columnar compression, and is preferred for analytics workloads in tools like Spark, BigQuery, and Pandas. A database table is appropriate when the data needs to be queried interactively or joined with other tables. The choice should be specified in the project requirements before cleaning begins so that the output format is not an afterthought.</p>
+
+<pre><code># Export to Parquet (preserves dtypes, efficient for large files)
+df.to_parquet("customers_cleaned_v2.parquet", index=False, engine="pyarrow")
+
+# Export to CSV for maximum compatibility
+df.to_csv("customers_cleaned_v2.csv", index=False, encoding="utf-8")
+</code></pre>
+
+<p><strong>Reshaping</strong> may be necessary when the cleaned dataset's structure does not match the expected input of the analysis tool. The two most common reshaping operations are pivoting from <em>long</em> format (one row per observation per variable) to <em>wide</em> format (one row per subject, one column per variable) and the reverse. Machine learning feature matrices typically require wide format, while visualization tools like ggplot2 and seaborn prefer long format.</p>
+
+<pre><code># Pivot from long to wide: one row per customer, one column per product category
+wide_df = df.pivot_table(
+    index="customer_id",
+    columns="product_category",
+    values="transaction_amount_usd",
+    aggfunc="sum",
+    fill_value=0
+).reset_index()
+</code></pre>
+
+<p>One of the most important rules in preparing data for machine learning is that <strong>train-test splits must happen after all cleaning steps</strong>. If you impute missing values using the mean of the entire dataset before splitting, the test set's imputed values are informed by the training set, constituting data leakage. The correct sequence is: clean → split → fit transformers on train only → apply to test.</p>
+
+<pre><code>from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+
+# Split AFTER cleaning structural issues, BEFORE any statistical fitting
+X = df.drop(columns=["churn_label"])
+y = df["churn_label"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Imputation fitted on train only
+imputer = SimpleImputer(strategy="median")
+X_train_imputed = imputer.fit_transform(X_train)
+X_test_imputed = imputer.transform(X_test)  # transform only, no fit
+</code></pre>
+
+<p>Finally, the <strong>output file must be verified</strong> before delivery. Byte order marks (BOM), extra trailing delimiters, non-standard line endings, and mixed encodings are all artifacts that can silently corrupt a file when opened by another system. A quick verification reads the file back and confirms row count, column count, and a sample of values:</p>
+
+<pre><code>verification = pd.read_csv("customers_cleaned_v2.csv", encoding="utf-8")
+assert len(verification) == len(df), "Row count mismatch after export"
+assert list(verification.columns) == list(df.columns), "Column names changed"
+print("File verified successfully.")
+</code></pre>
+
+<p><strong>Establishing a Repeatable Cleaning Pipeline</strong></p>
+
+<p>A cleaning process that lives only in a human analyst's memory is a liability. Every time new data arrives — a weekly batch, a monthly refresh, a new data source — the cleaning must be repeated. If that process is undocumented and manual, it will drift: thresholds will be adjusted inconsistently, steps will be forgotten, and different analysts will make different decisions. A repeatable pipeline eliminates this fragility.</p>
+
+<p><strong>Encapsulation into scripts or workflow tools</strong> means that every cleaning step — reading the raw file, standardizing column names, imputing nulls, enforcing type coercions, running assertions — is expressed as executable code. In Python this might be a series of functions called from a main script. In a production environment, tools like <em>Apache Airflow</em>, <em>Prefect</em>, <em>dbt</em>, or <em>Kedro</em> provide orchestration with built-in scheduling, logging, and failure alerting.</p>
+
+<pre><code>def load_raw_data(filepath: str) -> pd.DataFrame:
+    return pd.read_csv(filepath, encoding="utf-8")
+
+def standardize_columns(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = [to_snake_case(col) for col in df.columns]
+    return df
+
+def enforce_types(df: pd.DataFrame) -> pd.DataFrame:
+    df["unit_price"] = pd.to_numeric(df["unit_price"], errors="coerce")
+    df["order_date"] = pd.to_datetime(df["order_date"], errors="coerce")
+    return df
+
+def impute_missing(df: pd.DataFrame, column: str, strategy: str = "median") -> pd.DataFrame:
+    fill_value = df[column].median() if strategy == "median" else df[column].mean()
+    df[column] = df[column].fillna(fill_value)
+    return df
+
+def run_pipeline(filepath: str) -> pd.DataFrame:
+    df = load_raw_data(filepath)
+    df = standardize_columns(df)
+    df = enforce_types(df)
+    df = impute_missing(df, "annual_income")
+    return df
+</code></pre>
+
+<p><strong>Parameterization</strong> separates the pipeline's logic from its configuration. Hard-coding thresholds, column names, and file paths inside functions makes the pipeline brittle: changing a single rule requires editing code. Instead, store configuration in a separate file (YAML or JSON is conventional) and load it at runtime:</p>
+
+<pre><code># config.yaml
+imputation:
+  annual_income:
+    strategy: median
+outlier_caps:
+  transaction_amount_usd:
+    upper_percentile: 0.99
+    lower_percentile: 0.01
+file_paths:
+  input: "data/raw/customers_raw.csv"
+  output: "data/cleaned/customers_cleaned.parquet"
+</code></pre>
+
+<pre><code>import yaml
+
+with open("config.yaml", "r") as f:
+    config = yaml.safe_load(f)
+
+# Access thresholds without touching pipeline logic
+strategy = config["imputation"]["annual_income"]["strategy"]
+</code></pre>
+
+<p><strong>Logging within the pipeline</strong> provides an audit trail and enables post-run monitoring. Rather than printing to the console, a proper logging setup writes structured records to a file that can be queried later:</p>
+
+<pre><code>import logging
+
+logging.basicConfig(
+    filename="pipeline_run.log",
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s"
+)
+
+# Example log entries during the run
+before_count = len(df)
+df = df.drop_duplicates()
+after_count = len(df)
+logging.info(f"Deduplication: removed {before_count - after_count} rows, {after_count} remain")
+
+null_count = df["annual_income"].isnull().sum()
+df = impute_missing(df, "annual_income")
+logging.info(f"Imputed {null_count} nulls in annual_income using median strategy")
+</code></pre>
+
+<p><strong>Scheduled runs and quality metric monitoring</strong> transform the pipeline from a one-time tool into a living data quality system. Running the pipeline on a schedule — daily, weekly, or on each new data delivery — ensures that the cleaned dataset stays current. Monitoring the output quality metrics over successive runs reveals data drift: a gradual increase in null rates may indicate a problem in the upstream data collection system, while a sudden shift in a numeric distribution may signal a schema change or a reporting error at the source. Plotting completeness rate, uniqueness rate, and mean values over time provides early warning before downstream models or reports are affected.</p>
+
+<p>The combination of all these practices — rigorous final validation, structural consistency, thoughtful outlier treatment, explicit quality metrics, thorough documentation, correctly formatted outputs, and a fully automated and parameterized pipeline — is what separates data that is merely available from data that is genuinely ready for reliable analysis.</p>
+        <div class="notes"><strong>Notes</strong>Topic covers the complete final data preparation workflow including validation, QA, documentation, formatting, and pipeline automation. Code examples use Python/pandas throughout for concreteness. The data dictionary and quality metrics are rendered as HTML tables per formatting requirements.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -10,6 +10,36 @@
     "type": "Page"
   },
   {
+    "title": "Foundations of Machine Learning",
+    "href": "content/Introduction_to_Machine_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Supervised vs. Unsupervised Learning",
+    "href": "content/Introduction_to_Machine_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Common Machine Learning Algorithms",
+    "href": "content/Introduction_to_Machine_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Model Evaluation and Performance Metrics",
+    "href": "content/Introduction_to_Machine_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Machine Learning Applications in Business",
+    "href": "content/Introduction_to_Machine_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "End-to-End Exploratory Analytics Project",
+    "href": "content/Introduction_to_Machine_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
     "title": "Introduction to Machine Learning for Business Analytics \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

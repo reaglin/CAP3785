@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SQL Fundamentals: Queries, Filtering, and Sorting — CAP3785</title>
   <style>
-    /* ── Reset & base ── */
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: #f4f6f9;
-      color: #1e2a38;
+      color: #1e2533;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header / hero ── */
-    header {
-      background: linear-gradient(135deg, #0d3b6e 0%, #1565c0 100%);
+    /* ── Header / Hero ── */
+    .site-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #1e5799 100%);
       color: #fff;
-      padding: 3rem 2rem 2.5rem;
+      padding: 2.5rem 1.5rem 2rem;
     }
 
     .header-inner {
@@ -30,172 +30,209 @@
 
     .course-label {
       display: inline-block;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 4px;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 1rem;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.75rem;
+      color: #cfe4ff;
     }
 
-    header h1 {
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    .site-header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
       font-weight: 700;
       letter-spacing: -0.01em;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.75rem;
       line-height: 1.25;
     }
 
-    header p.intro {
+    .site-header p {
       font-size: 1rem;
-      max-width: 72ch;
-      opacity: 0.9;
+      color: #c5dcf5;
+      max-width: 680px;
       line-height: 1.7;
     }
 
-    /* ── Main content ── */
-    main {
+    /* ── Main Content ── */
+    .main-content {
       max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 3rem;
     }
 
     .section-heading {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #5a6a7e;
+      color: #5a6a82;
       margin-bottom: 1.25rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dde3ec;
+      border-bottom: 2px solid #dce3ed;
     }
 
-    /* ── Card grid ── */
+    /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 1.25rem;
     }
 
     .card {
       background: #ffffff;
-      border: 1px solid #dde3ec;
+      border: 1px solid #dce3ed;
       border-radius: 10px;
-      padding: 1.35rem 1.4rem 1.25rem;
+      padding: 1.35rem 1.5rem;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.6rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 6px 24px rgba(13, 59, 110, 0.10);
+      box-shadow: 0 6px 24px rgba(30, 55, 100, 0.1);
       transform: translateY(-2px);
     }
 
-    /* ── Card top row: badges ── */
-    .card-meta {
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .card-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 7px;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.2rem 0.55rem;
-      line-height: 1.4;
     }
 
-    /* type colours */
-    .badge-type-module    { background: #e3edf9; color: #1565c0; }
-    .badge-type-pres      { background: #fef3e2; color: #b45309; }
-    .badge-type-text      { background: #eaf6ee; color: #2e7d46; }
-    .badge-type-quiz      { background: #f3ebfc; color: #6d28d9; }
-    .badge-type-default   { background: #eef0f3; color: #4b5563; }
+    /* Icon colour themes by type */
+    .icon-json  { background: #e8f4e8; color: #2e7d32; }
+    .icon-pptx  { background: #fff0ea; color: #c0440a; }
+    .icon-html  { background: #eaf2ff; color: #1a5eb8; }
+    .icon-quiz  { background: #f4eeff; color: #6a2fbf; }
 
-    .badge-filetype {
-      background: #f0f2f5;
-      color: #5a6a7e;
-    }
-
-    /* ── Card title row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .card-title-group {
+      flex: 1;
+      min-width: 0;
     }
 
     .card-name {
-      font-size: 0.975rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      color: #1e2a38;
-      line-height: 1.35;
+      color: #1e2533;
       word-break: break-word;
+      line-height: 1.35;
     }
 
     .card-name a {
-      color: #1565c0;
+      color: #1a5eb8;
       text-decoration: none;
     }
 
     .card-name a:hover {
       text-decoration: underline;
-      color: #0d3b6e;
+      color: #0f3d82;
     }
 
     .source-link {
-      font-size: 0.75rem;
-      color: #5a6a7e;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #5a7faa;
       text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #c4cdd9;
+      margin-top: 0.3rem;
+      border: 1px solid #b8d0ec;
       border-radius: 4px;
-      padding: 0.1rem 0.45rem;
-      line-height: 1.6;
+      padding: 0.15rem 0.45rem;
+      background: #f0f6ff;
       transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
     }
 
     .source-link:hover {
-      background: #e8edf4;
-      color: #1565c0;
-      border-color: #a0b0c8;
-      text-decoration: none;
+      background: #dbeafe;
+      color: #1a3a5c;
+      border-color: #7aaed6;
     }
 
-    /* ── Card description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: #3d4f63;
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Badges ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .badge-type {
+      background: #eef1f7;
+      color: #3d4f6e;
+      border: 1px solid #d0d8e8;
+    }
+
+    .badge-filetype {
+      background: #f9fafb;
+      color: #606878;
+      border: 1px solid #d8dce4;
+      font-family: 'Courier New', monospace;
+      font-size: 0.66rem;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.855rem;
+      color: #4a566e;
       line-height: 1.65;
       flex: 1;
     }
 
+    /* ── No-link state ── */
+    .plain-name {
+      color: #1e2533;
+    }
+
     /* ── Footer ── */
-    footer {
+    .site-footer {
       text-align: center;
-      font-size: 0.8rem;
-      color: #8a99ab;
+      font-size: 0.78rem;
+      color: #8a97aa;
       padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde3ec;
+      border-top: 1px solid #dce3ed;
       background: #f4f6f9;
     }
 
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      header { padding: 2rem 1.25rem 2rem; }
-      main   { padding: 2rem 1rem 3rem; }
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
       .card-grid { grid-template-columns: 1fr; }
+      .site-header { padding: 2rem 1rem 1.5rem; }
     }
   </style>
 </head>
@@ -203,210 +240,255 @@
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CAP3785 - Data Analytics and Visualization</a></div>
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
-  <header>
+  <!-- ══ HEADER ══ -->
+  <header class="site-header">
     <div class="header-inner">
       <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
       <h1>SQL Fundamentals: Queries, Filtering, and Sorting</h1>
-      <p class="intro">
-        This module introduces the core skills of querying relational databases with SQL.
-        Learners will explore how to retrieve, filter, sort, and limit data using
-        <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code>, and <code>LIMIT</code>,
-        and will practice translating real-world business questions into working SQL queries.
-        Use the artifacts below to navigate readings, presentations, and assessments.
+      <p>
+        This module introduces the foundational skills for working with relational databases using SQL.
+        Explore topic readings, a slide deck, and a quiz covering SELECT queries, WHERE filtering,
+        ORDER BY sorting, and applying SQL to real business questions.
       </p>
     </div>
   </header>
 
-  <main>
+  <!-- ══ MAIN ══ -->
+  <main class="main-content">
     <p class="section-heading">Module Artifacts &mdash; 10 items</p>
 
     <div class="card-grid">
 
-      <!-- 1: Module Topics -->
-      <div class="card">
+      <!-- ① Module Topics -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-json">JSON</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/module_topics.html">Module Topics</a>
+            </div>
+            <a class="source-link" href="source/hierarchy.json">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 2h5v1.5H3.5v9h9V11H14v4H2V2Z" fill="currentColor"/>
+                <path d="M9 2h5v5h-1.5V4.56L7.03 10.03 5.97 8.97 11.44 3.5H9V2Z" fill="currentColor"/>
+              </svg>
+              source file
+            </a>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-module">Module Topics</span>
+          <span class="badge badge-type">Module Topics</span>
           <span class="badge badge-filetype">.json</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-desc">
+        <p class="card-description">
           A structured outline of the module's four topic areas — SQL and relational databases,
           SELECT queries, WHERE filtering, and ORDER BY sorting — used by instructors to organize
           content and by learners to preview what the module covers.
         </p>
-      </div>
+      </article>
 
-      <!-- 2: Presentation -->
-      <div class="card">
+      <!-- ② Presentation .pptx -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-pptx">PPTX</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="presentation/SQL_Fundamentals_Queries_generated.pptx">SQL_Fundamentals_Queries_generated.pptx</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-pres">Presentation</span>
+          <span class="badge badge-type">Presentation</span>
           <span class="badge badge-filetype">.pptx</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="presentation/SQL_Fundamentals_Queries_generated.pptx">SQL_Fundamentals_Queries_generated.pptx</a>
-          </span>
-        </div>
-        <p class="card-desc">
+        <p class="card-description">
           A slide deck introducing SQL fundamentals, including database concepts, SELECT syntax,
           primary keys, and table relationships, intended for use in lectures or self-paced study
           to walk learners through core query-writing skills.
         </p>
-      </div>
+      </article>
 
-      <!-- 3: Introduction to SQL and Relational Databases -->
-      <div class="card">
+      <!-- ③ Topic 1 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-html">HTML</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/SQL_Fundamentals_Queries_interactive_topics_t1.html">Introduction to SQL and Relational Databases</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/SQL_Fundamentals_Queries_interactive_topics_t1.html">Introduction to SQL and Relational Databases</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that introduces SQL's history, purpose, and the structure of relational databases
-          (tables, rows, and columns), intended for learners to build foundational understanding
-          before writing queries.
+        <p class="card-description">
+          A reading that introduces SQL's history, purpose, and the structure of relational
+          databases (tables, rows, and columns), intended for learners to build foundational
+          understanding before writing queries.
         </p>
-      </div>
+      </article>
 
-      <!-- 4: Writing Basic SELECT Queries -->
-      <div class="card">
+      <!-- ④ Topic 2 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-html">HTML</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/SQL_Fundamentals_Queries_interactive_topics_t2.html">Writing Basic SELECT Queries</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/SQL_Fundamentals_Queries_interactive_topics_t2.html">Writing Basic SELECT Queries</a>
-          </span>
-        </div>
-        <p class="card-desc">
+        <p class="card-description">
           A reading explaining how to construct SELECT statements to retrieve data from a database,
           covering syntax and column selection, which learners read before moving on to filtering
           and sorting.
         </p>
-      </div>
+      </article>
 
-      <!-- 5: Filtering Data with WHERE -->
-      <div class="card">
+      <!-- ⑤ Topic 3 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-html">HTML</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/SQL_Fundamentals_Queries_interactive_topics_t3.html">Filtering Data with WHERE</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/SQL_Fundamentals_Queries_interactive_topics_t3.html">Filtering Data with WHERE</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading covering the WHERE clause and how it is used to filter query results by specified
-          conditions, helping learners practice narrowing down large datasets to relevant rows.
+        <p class="card-description">
+          A reading covering the WHERE clause and how it is used to filter query results by
+          specified conditions, helping learners practice narrowing down large datasets to
+          relevant rows.
         </p>
-      </div>
+      </article>
 
-      <!-- 6: Sorting Results with ORDER BY -->
-      <div class="card">
+      <!-- ⑥ Topic 4 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-html">HTML</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/SQL_Fundamentals_Queries_interactive_topics_t4.html">Sorting Results with ORDER BY</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/SQL_Fundamentals_Queries_interactive_topics_t4.html">Sorting Results with ORDER BY</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading explaining the ORDER BY clause and how it controls the sort order of query results
-          in ascending or descending sequence, which learners use to understand how to organize
-          returned data meaningfully.
+        <p class="card-description">
+          A reading explaining the ORDER BY clause and how it controls the sort order of query
+          results in ascending or descending sequence, which learners use to understand how to
+          organize returned data meaningfully.
         </p>
-      </div>
+      </article>
 
-      <!-- 7: Limiting Output with LIMIT -->
-      <div class="card">
+      <!-- ⑦ Topic 5 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-html">HTML</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/SQL_Fundamentals_Queries_interactive_topics_t5.html">Limiting Output with LIMIT</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/SQL_Fundamentals_Queries_interactive_topics_t5.html">Limiting Output with LIMIT</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading covering the LIMIT clause and how it restricts the number of rows a query returns,
-          helping learners understand how to improve performance and preview data from large tables.
+        <p class="card-description">
+          A reading covering the LIMIT clause and how it restricts the number of rows a query
+          returns, helping learners understand how to improve performance and preview data from
+          large tables.
         </p>
-      </div>
+      </article>
 
-      <!-- 8: Applying SQL to Business Questions (t6) -->
-      <div class="card">
+      <!-- ⑧ Topic 6 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-html">HTML</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/SQL_Fundamentals_Queries_interactive_topics_t6.html">Applying SQL to Business Questions</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/SQL_Fundamentals_Queries_interactive_topics_t6.html">Applying SQL to Business Questions</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that walks learners through translating real-world business questions into working
-          SQL queries by mapping analytical intent onto SELECT, WHERE, ORDER BY, and LIMIT syntax.
+        <p class="card-description">
+          A reading that walks learners through translating real-world business questions into
+          working SQL queries by mapping analytical intent onto SELECT, WHERE, ORDER BY, and
+          LIMIT syntax.
         </p>
-      </div>
+      </article>
 
-      <!-- 9: Applying SQL to Business Questions (interactive) -->
-      <div class="card">
+      <!-- ⑨ Text Content duplicate -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-html">HTML</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="content/SQL_Fundamentals_Queries_interactive.html">Applying SQL to Business Questions</a>
+            </div>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-type">Text Content</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/SQL_Fundamentals_Queries_interactive.html">Applying SQL to Business Questions</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A duplicate of the 'Applying SQL to Business Questions' reading that walks learners through
-          translating real-world business questions into working SQL queries by mapping analytical
-          intent onto SELECT, WHERE, ORDER BY, and LIMIT syntax.
+        <p class="card-description">
+          A duplicate of the 'Applying SQL to Business Questions' reading that walks learners
+          through translating real-world business questions into working SQL queries by mapping
+          analytical intent onto SELECT, WHERE, ORDER BY, and LIMIT syntax.
         </p>
-      </div>
+      </article>
 
-      <!-- 10: Quiz -->
-      <div class="card">
+      <!-- ⑩ Quiz -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon icon-quiz">QUIZ</div>
+          <div class="card-title-group">
+            <div class="card-name">
+              <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
+            </div>
+            <a class="source-link" href="source/quiz_questions.json">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 2h5v1.5H3.5v9h9V11H14v4H2V2Z" fill="currentColor"/>
+                <path d="M9 2h5v5h-1.5V4.56L7.03 10.03 5.97 8.97 11.44 3.5H9V2Z" fill="currentColor"/>
+              </svg>
+              source file
+            </a>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge badge-type-quiz">Quiz</span>
+          <span class="badge badge-type">Quiz</span>
           <span class="badge badge-filetype">.json</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
-          </span>
-          <a class="source-link" href="source/quiz_questions.json">source file</a>
-        </div>
-        <p class="card-desc">
-          A 20-question quiz bank covering SQL acronym meaning, relational database history, primary
-          keys, row terminology, and the SELECT statement, used by instructors to assess learners'
-          understanding of foundational SQL concepts.
+        <p class="card-description">
+          A 20-question quiz bank covering SQL acronym meaning, relational database history,
+          primary keys, row terminology, and the SELECT statement, used by instructors to assess
+          learners' understanding of foundational SQL concepts.
         </p>
-      </div>
+      </article>
 
     </div><!-- /.card-grid -->
   </main>
 
-  <footer>
-    CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp;
-    SQL Fundamentals: Queries, Filtering, and Sorting
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
+    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; SQL Fundamentals: Queries, Filtering, and Sorting
   </footer>
 
 

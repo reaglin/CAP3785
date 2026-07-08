@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Structures and Logic</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Python Basics for Data Analysis</a></div>
+  <header>
+    <h1>Control Structures and Logic</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Control Structures and Logic</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Control structures are the backbone of any Python program. They determine <em>which</em> code runs, <em>how many times</em> it runs, and <em>under what conditions</em> it runs. Without them, a program would simply execute every line from top to bottom with no ability to make decisions, repeat tasks, or skip irrelevant steps. In data-focused work this matters enormously: you need to filter records that meet certain criteria, loop over every row in a dataset, and handle edge cases gracefully. This topic builds a thorough understanding of every major control structure Python offers — conditional statements, logical and comparison operators, <code>for</code> and <code>while</code> loops, loop-control keywords, and nested logic — so you can write programs that respond intelligently to any data they encounter.</p>
+
+<p><strong>Conditional Statements with if, elif, and else</strong></p>
+
+<p>A conditional statement lets a program take different paths depending on whether a condition evaluates to <code>True</code> or <code>False</code>. Python uses three keywords to build these decision trees: <code>if</code>, <code>elif</code>, and <code>else</code>.</p>
+
+<p>The <strong>if statement</strong> is the entry point. Python evaluates the expression that follows <code>if</code>; if that expression is truthy, the indented block beneath it executes. If the expression is falsy, Python skips the entire block and moves on.</p>
+
+<pre><code>score = 82
+
+if score >= 60:
+    print("Passing grade")   # This line runs because 82 >= 60 is True
+</code></pre>
+
+<p><strong>Indentation is not optional in Python — it is syntax.</strong> The indented lines define what belongs to the <code>if</code> block. Every line at the same indentation level is part of the same block. Mixing spaces and tabs, or using inconsistent indentation depths, raises an <code>IndentationError</code>. The Python convention is four spaces per level.</p>
+
+<p>The <strong>elif clause</strong> (short for "else if") lets you test additional conditions when the first <code>if</code> condition is <code>False</code>. Python evaluates each <code>elif</code> in order and executes the first one whose condition is <code>True</code>. Once a match is found, all remaining <code>elif</code> and <code>else</code> branches are skipped entirely.</p>
+
+<pre><code>score = 74
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"
+
+print(grade)   # Output: C
+</code></pre>
+
+<p>The <strong>else clause</strong> is the catch-all. It has no condition of its own; it simply runs when every preceding <code>if</code> and <code>elif</code> condition was <code>False</code>. Think of it as the default branch. An <code>else</code> is optional — you can have an <code>if</code> with no <code>else</code> — but when present it must come last.</p>
+
+<p>A key practical point: only <em>one</em> branch executes per conditional chain, no matter how many branches exist. This makes <code>if/elif/else</code> chains ideal for categorising data into mutually exclusive groups such as age bands, salary ranges, or risk tiers.</p>
+
+<pre><code>temperature = 5
+
+if temperature > 30:
+    description = "Hot"
+elif temperature > 20:
+    description = "Warm"
+elif temperature > 10:
+    description = "Cool"
+else:
+    description = "Cold"
+
+print(description)   # Output: Cold
+</code></pre>
+
+<p><strong>Logical Operators: and, or, not</strong></p>
+
+<p>Real conditions are rarely simple. You often need to check whether <em>multiple</em> things are true simultaneously, or whether <em>at least one</em> of several things is true, or whether something is <em>not</em> true. Python's three logical operators — <code>and</code>, <code>or</code>, and <code>not</code> — let you combine and negate Boolean expressions to build arbitrarily complex conditions.</p>
+
+<p>The <strong>and operator</strong> returns <code>True</code> only when both operands are <code>True</code>. If either side is <code>False</code>, the whole expression is <code>False</code>. Python uses <em>short-circuit evaluation</em>: if the left operand is <code>False</code>, the right operand is never evaluated because the result is already determined.</p>
+
+<pre><code>age = 25
+has_license = True
+
+if age >= 18 and has_license:
+    print("Eligible to drive")   # Both conditions True, so this prints
+</code></pre>
+
+<p>The <strong>or operator</strong> returns <code>True</code> when at least one operand is <code>True</code>. It also short-circuits: if the left operand is <code>True</code>, the right operand is skipped.</p>
+
+<pre><code>day = "Saturday"
+
+if day == "Saturday" or day == "Sunday":
+    print("Weekend!")   # Prints because the first condition is True
+</code></pre>
+
+<p>The <strong>not operator</strong> is a unary operator — it takes a single operand and flips its truth value. <code>not True</code> becomes <code>False</code>, and <code>not False</code> becomes <code>True</code>. It is particularly useful for making conditions read more naturally.</p>
+
+<pre><code>logged_in = False
+
+if not logged_in:
+    print("Please log in to continue")   # Prints because not False is True
+</code></pre>
+
+<p>Logical operators can be <strong>chained</strong> together in a single expression. When they are, Python evaluates <code>not</code> first, then <code>and</code>, then <code>or</code> — this is their <em>operator precedence</em>. Using parentheses to group sub-expressions overrides precedence and, more importantly, makes your intent explicit to anyone reading the code.</p>
+
+<pre><code>x = 15
+
+# Without parentheses — relies on precedence (and before or)
+if x > 10 and x < 20 or x == 100:
+    print("Matches")
+
+# With parentheses — intent is clear
+if (x > 10 and x < 20) or x == 100:
+    print("Matches")   # Both produce the same result here, but the second is clearer
+</code></pre>
+
+<p>A common mistake is writing <code>if x == 1 or 2</code> intending to check whether <code>x</code> is 1 or 2. This does not work as expected: Python evaluates <code>x == 1</code> first, then <code>or 2</code>, and since <code>2</code> is a non-zero integer it is always truthy. The correct form is <code>if x == 1 or x == 2</code>, or more Pythonically, <code>if x in (1, 2)</code>.</p>
+
+<p><strong>Comparison Operators for Building Conditions</strong></p>
+
+<p>Conditions in <code>if</code> statements and loops are built using <strong>comparison operators</strong>, which compare two values and return a Boolean result. Python provides six:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+      <th>Example</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>==</code></td>
+      <td>Equal to</td>
+      <td><code>5 == 5</code></td>
+      <td><code>True</code></td>
+    </tr>
+    <tr>
+      <td><code>!=</code></td>
+      <td>Not equal to</td>
+      <td><code>5 != 3</code></td>
+      <td><code>True</code></td>
+    </tr>
+    <tr>
+      <td><code>&gt;</code></td>
+      <td>Greater than</td>
+      <td><code>7 &gt; 4</code></td>
+      <td><code>True</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;</code></td>
+      <td>Less than</td>
+      <td><code>3 &lt; 9</code></td>
+      <td><code>True</code></td>
+    </tr>
+    <tr>
+      <td><code>&gt;=</code></td>
+      <td>Greater than or equal to</td>
+      <td><code>6 &gt;= 6</code></td>
+      <td><code>True</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;=</code></td>
+      <td>Less than or equal to</td>
+      <td><code>4 &lt;= 10</code></td>
+      <td><code>True</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A critical distinction: <code>==</code> tests equality, while <code>=</code> is the assignment operator. Writing <code>if x = 5</code> is a syntax error in Python (in some other languages it silently assigns, which is a notorious source of bugs).</p>
+
+<p>Comparison operators work on <strong>strings</strong> as well as numbers. String comparison uses lexicographic (dictionary) order based on Unicode code points.</p>
+
+<pre><code>print("apple" < "banana")   # True — 'a' comes before 'b'
+print("Zebra" < "apple")    # True — uppercase letters have lower code points than lowercase
+</code></pre>
+
+<p>One of Python's most elegant features is <strong>chained comparisons</strong>. Rather than writing <code>x > 0 and x < 100</code>, you can write <code>0 < x < 100</code>, which reads exactly like mathematical notation and is evaluated correctly: Python checks <code>0 < x</code> and <code>x < 100</code> simultaneously, and both must be true.</p>
+
+<pre><code>x = 47
+
+if 0 < x < 100:
+    print("x is between 0 and 100 exclusive")   # Prints
+
+# Equivalent but more verbose:
+if x > 0 and x < 100:
+    print("x is between 0 and 100 exclusive")   # Also prints
+</code></pre>
+
+<p>Chained comparisons can involve more than two operators: <code>1 <= score <= 10</code>, <code>a < b < c < d</code>, and so on. This makes range-checking conditions especially readable.</p>
+
+<p><strong>The for Loop for Iterating Over Data</strong></p>
+
+<p>The <code>for</code> loop is Python's primary tool for <em>iteration</em> — visiting each item in a collection one at a time. The collection (technically any <em>iterable</em>) can be a list, tuple, string, dictionary, set, file, or any object that produces items in sequence. At the start of each iteration, the <strong>loop variable</strong> is automatically assigned the next item from the iterable; you do not manage this assignment yourself.</p>
+
+<pre><code>fruits = ["apple", "banana", "cherry"]
+
+for fruit in fruits:
+    print(fruit)
+
+# Output:
+# apple
+# banana
+# cherry
+</code></pre>
+
+<p>The built-in <strong>range() function</strong> generates a sequence of integers on demand without storing them all in memory, making it ideal when you need a loop to run a specific number of times. <code>range(n)</code> produces integers from <code>0</code> to <code>n-1</code>. <code>range(start, stop)</code> produces integers from <code>start</code> up to but not including <code>stop</code>. <code>range(start, stop, step)</code> also accepts a step value.</p>
+
+<pre><code># Count from 0 to 4
+for i in range(5):
+    print(i)   # 0, 1, 2, 3, 4
+
+# Count from 1 to 10
+for i in range(1, 11):
+    print(i)   # 1, 2, 3, ..., 10
+
+# Even numbers from 0 to 10
+for i in range(0, 11, 2):
+    print(i)   # 0, 2, 4, 6, 8, 10
+
+# Count down
+for i in range(5, 0, -1):
+    print(i)   # 5, 4, 3, 2, 1
+</code></pre>
+
+<p>The <strong>enumerate() function</strong> wraps any iterable and yields <em>pairs</em> of <code>(index, value)</code> at each iteration. This is the clean, idiomatic way to access both an item and its position simultaneously — far preferable to manually maintaining a counter variable.</p>
+
+<pre><code>students = ["Alice", "Bob", "Carol"]
+
+for index, name in enumerate(students):
+    print(f"{index}: {name}")
+
+# Output:
+# 0: Alice
+# 1: Bob
+# 2: Carol
+
+# Start the index at 1 instead of 0
+for index, name in enumerate(students, start=1):
+    print(f"{index}. {name}")
+
+# Output:
+# 1. Alice
+# 2. Bob
+# 3. Carol
+</code></pre>
+
+<p>In data processing, <code>for</code> loops are indispensable for iterating over rows. Imagine a list of dictionaries where each dictionary represents a record; a <code>for</code> loop lets you inspect, transform, or filter every record programmatically.</p>
+
+<pre><code>employees = [
+    {"name": "Alice", "salary": 72000, "department": "Engineering"},
+    {"name": "Bob",   "salary": 48000, "department": "Marketing"},
+    {"name": "Carol", "salary": 91000, "department": "Engineering"},
+]
+
+for employee in employees:
+    if employee["department"] == "Engineering":
+        print(f"{employee['name']} earns ${employee['salary']:,}")
+
+# Output:
+# Alice earns $72,000
+# Carol earns $91,000
+</code></pre>
+
+<p><strong>The while Loop for Condition-Based Repetition</strong></p>
+
+<p>While <code>for</code> loops iterate over a known collection, <strong>while loops</strong> repeat as long as a condition remains <code>True</code>. This makes them the right choice when the number of iterations is not known in advance — for example, reading user input until it is valid, or processing data until a sentinel value is encountered.</p>
+
+<pre><code>count = 0
+
+while count < 5:
+    print(f"Count is {count}")
+    count += 1   # Update the loop variable
+
+# Output: Count is 0, Count is 1, ..., Count is 4
+</code></pre>
+
+<p>The condition is evaluated <em>before</em> each iteration. If the condition is <code>False</code> from the very start, the loop body <strong>never executes</strong> — not even once. This differs from a do-while loop available in languages like C or Java (Python has no do-while construct; you would simulate it with a <code>while True</code> loop and a <code>break</code>).</p>
+
+<pre><code>x = 100
+
+while x < 10:
+    print("This never prints")   # Skipped entirely because 100 < 10 is False
+</code></pre>
+
+<p>The single most common mistake with <code>while</code> loops is forgetting to <strong>update the variable</strong> the condition depends on, creating an <strong>infinite loop</strong> — a loop that never terminates. If you accidentally run one, interrupt execution with <kbd>Ctrl+C</kbd>.</p>
+
+<pre><code># DANGER: infinite loop — count never changes
+count = 0
+while count < 5:
+    print(count)
+    # count += 1 is missing!
+</code></pre>
+
+<p>The <strong>break statement</strong> provides an emergency exit from a <code>while</code> loop (and from <code>for</code> loops too). When Python encounters <code>break</code>, it immediately terminates the loop and jumps to the first line of code after the loop body, regardless of whether the loop condition is still <code>True</code>.</p>
+
+<pre><code>secret = "python"
+attempts = 0
+
+while True:   # Loop runs indefinitely until break
+    guess = input("Guess the password: ")
+    attempts += 1
+    if guess == secret:
+        print(f"Correct! You got it in {attempts} attempt(s).")
+        break
+    print("Wrong, try again.")
+</code></pre>
+
+<p>The <strong>continue statement</strong> skips the rest of the current iteration and jumps back to re-evaluate the loop condition. Use it to bypass processing for items that don't meet some criterion without exiting the loop entirely.</p>
+
+<pre><code>number = 0
+
+while number < 10:
+    number += 1
+    if number % 2 == 0:
+        continue   # Skip even numbers
+    print(number)  # Only odd numbers print: 1, 3, 5, 7, 9
+</code></pre>
+
+<p><strong>Loop Control: break, continue, and pass</strong></p>
+
+<p>These three keywords give you fine-grained control over what happens inside loops. They work in both <code>for</code> and <code>while</code> loops and are almost always paired with a conditional statement so that they fire only under specific circumstances.</p>
+
+<p><strong>break</strong> terminates the innermost enclosing loop immediately. Everything below <code>break</code> in the current iteration is skipped, and execution continues after the loop. A classic use case is searching: once the target is found, there is no need to examine remaining items.</p>
+
+<pre><code>names = ["Alice", "Bob", "Carol", "David", "Eve"]
+target = "Carol"
+
+for name in names:
+    if name == target:
+        print(f"Found {target}!")
+        break   # No need to keep searching
+    print(f"Checked: {name}")
+
+# Output:
+# Checked: Alice
+# Checked: Bob
+# Found Carol!
+</code></pre>
+
+<p><strong>continue</strong> skips the remainder of the current loop iteration and moves directly to the next one. The loop itself does not end — only the current pass through the body is cut short. This is useful for filtering out unwanted items without writing deeply indented <code>if/else</code> blocks.</p>
+
+<pre><code>data = [10, -3, 7, -1, 4, -8, 2]
+
+total = 0
+for value in data:
+    if value < 0:
+        continue   # Skip negative numbers
+    total += value
+
+print(f"Sum of positive values: {total}")   # Output: 23
+</code></pre>
+
+<p><strong>pass</strong> does absolutely nothing. It is a syntactic placeholder used when Python requires a statement but you have no code to write yet. Empty blocks are not allowed in Python — a bare <code>if</code>, <code>for</code>, or function body with nothing inside raises a <code>SyntaxError</code>. <code>pass</code> satisfies the syntax requirement without producing any side effect.</p>
+
+<pre><code>for item in some_list:
+    pass   # Will fill in processing logic later
+
+# Also common in function stubs during development:
+def process_data():
+    pass   # Placeholder — implementation coming soon
+</code></pre>
+
+<p>Note that <code>pass</code> and <code>continue</code> are not the same: <code>continue</code> actively skips the rest of the current iteration and advances to the next; <code>pass</code> simply does nothing and then falls through to whatever code follows it inside the block normally.</p>
+
+<p><strong>Nested Control Structures for Multi-Level Logic</strong></p>
+
+<p>Control structures can be placed <em>inside</em> other control structures. A loop inside another loop is called a <strong>nested loop</strong>; a conditional inside a loop (or another conditional) is equally valid. Each level of nesting requires one additional level of indentation (four more spaces by convention), creating a visual hierarchy that reflects the logical structure.</p>
+
+<p>The most common use of nested loops is processing <strong>two-dimensional data</strong> — think of a table with rows and columns, a matrix, or a list of lists. The outer loop iterates over rows; the inner loop iterates over the columns (items) within each row.</p>
+
+<pre><code>matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+for row in matrix:
+    for value in row:
+        print(value, end=" ")
+    print()   # Newline after each row
+
+# Output:
+# 1 2 3
+# 4 5 6
+# 7 8 9
+</code></pre>
+
+<p>Nested structures also appear when you combine loops with conditionals. The following example iterates over a list of sales records and categorises each one:</p>
+
+<pre><code>sales = [
+    {"rep": "Alice", "amount": 15000},
+    {"rep": "Bob",   "amount": 8200},
+    {"rep": "Carol", "amount": 23000},
+    {"rep": "David", "amount": 4500},
+]
+
+for record in sales:
+    if record["amount"] >= 20000:
+        tier = "Gold"
+    elif record["amount"] >= 10000:
+        tier = "Silver"
+    else:
+        tier = "Bronze"
+    print(f"{record['rep']}: {tier}")
+
+# Output:
+# Alice: Silver
+# Bob: Bronze
+# Carol: Gold
+# David: Bronze
+</code></pre>
+
+<p>An important subtlety: <code>break</code> and <code>continue</code> inside nested loops only affect the <strong>innermost loop</strong> in which they appear. If you want to break out of an outer loop from inside an inner loop, you need a workaround — typically a flag variable or refactoring into a function and using <code>return</code>.</p>
+
+<pre><code>found = False
+
+for row in matrix:
+    for value in row:
+        if value == 5:
+            found = True
+            break   # Only breaks the inner loop
+    if found:
+        break       # This breaks the outer loop
+
+print("Found 5!" if found else "Not found")
+</code></pre>
+
+<p>Deeply nested structures — three or more levels — are a sign that the code may benefit from refactoring. Extracting inner loop bodies into named functions keeps each piece of logic independently readable and testable, and prevents the rightward drift that makes deeply nested code notoriously hard to follow.</p>
+
+<pre><code>def classify_sale(amount):
+    if amount >= 20000:
+        return "Gold"
+    elif amount >= 10000:
+        return "Silver"
+    return "Bronze"
+
+for record in sales:
+    tier = classify_sale(record["amount"])
+    print(f"{record['rep']}: {tier}")
+</code></pre>
+
+<p>By pulling the classification logic into its own function, the loop body becomes a single, readable line, and the classification rules live in one place where they can be updated or tested independently. This principle — keeping nesting shallow and logic focused — is one of the hallmarks of professional-quality Python code.</p>
+        <div class="notes"><strong>Notes</strong>Students should practice tracing through nested loop examples manually before running them, to build intuition about iteration order. Emphasise that indentation errors are the most common beginner mistake in Python and that a good editor with Python support (VS Code, PyCharm) will highlight them immediately. The flag-variable pattern for breaking out of nested loops is worth demonstrating explicitly, as it comes up frequently in data-processing tasks.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

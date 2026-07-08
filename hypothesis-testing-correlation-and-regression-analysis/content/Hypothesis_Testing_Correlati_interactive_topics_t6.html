@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Linear Regression</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Hypothesis Testing, Correlation, and Regression Analysis</a></div>
+  <header>
+    <h1>Multiple Linear Regression</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Multiple Linear Regression</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Multiple linear regression is one of the most widely used statistical techniques in data analysis, scientific research, and predictive modeling. It extends the logic of simple linear regression — which examines the relationship between one predictor and one outcome — to situations where multiple factors simultaneously influence a response variable. In the real world, outcomes are rarely driven by a single cause. House prices depend not just on square footage, but also on location, number of bedrooms, age of the property, and proximity to amenities. A patient's blood pressure may be influenced by age, body mass index, salt intake, and stress level all at once. Multiple linear regression gives analysts a principled, mathematically grounded framework for modeling these multi-dimensional relationships in a single equation.</p>
+
+<p>The foundation of multiple linear regression is the general model equation:</p>
+
+<pre><code>Y = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ + ε</code></pre>
+
+<p>Here, <strong>Y</strong> is the outcome (dependent variable) we are trying to predict or explain. <strong>X₁, X₂, ..., Xₙ</strong> are the predictor (independent) variables, each representing a distinct measurable factor. <strong>β₀</strong> is the intercept, and <strong>β₁ through βₙ</strong> are the regression coefficients associated with each predictor. The term <strong>ε</strong> (epsilon) represents the error, or residual — the portion of Y that the model does not explain. Ordinary Least Squares (OLS) estimation finds the set of coefficients that minimizes the sum of squared residuals across all observations, producing the best linear unbiased estimates under the classical assumptions.</p>
+
+<p><strong>From Simple to Multiple Linear Regression</strong></p>
+
+<p>Simple linear regression models the relationship between one predictor X and an outcome Y as a straight line: Y = β₀ + β₁X + ε. This is intuitive and easy to visualize as a two-dimensional scatter plot with a fitted line. Multiple regression extends this to higher dimensions. With two predictors, the fitted model is a plane in three-dimensional space. With three or more predictors, it becomes a hyperplane that cannot be visualized directly but is mathematically equivalent.</p>
+
+<p>The key conceptual leap from simple to multiple regression is the idea of <strong>statistical control</strong>. When you add more predictors, each coefficient is estimated while holding all other predictors constant. This means the model attempts to isolate the unique contribution of each variable, net of the influence of all others. For example, suppose you are predicting an employee's salary using both years of experience and education level. The coefficient on years of experience tells you how much salary increases for each additional year of experience, <em>assuming education level is held fixed</em>. This controlled interpretation is far more realistic and informative than a simple regression of salary on experience alone, which would conflate the effect of experience with any correlation between experience and education.</p>
+
+<p>Consider a concrete example. Suppose a researcher fits the following model to predict a student's exam score (Y):</p>
+
+<pre><code>Exam Score = 40 + 3.5 × (Hours Studied) + 2.1 × (Attendance %) + ε</code></pre>
+
+<p>A student who studied 10 hours and attended 80% of classes would have a predicted exam score of: 40 + 3.5(10) + 2.1(80) = 40 + 35 + 168 = 243. (In practice you would ensure your variables and scale make sense; here attendance might be expressed as a proportion.) The point is that both predictors contribute simultaneously and independently to the prediction.</p>
+
+<p><strong>Interpreting Regression Coefficients</strong></p>
+
+<p>Correct interpretation of regression coefficients is one of the most important skills in applied regression analysis. Each coefficient βᵢ represents the expected change in Y for a one-unit increase in Xᵢ, <em>holding all other predictors constant</em>. This "all else equal" interpretation is what makes multiple regression so powerful — it allows for partial effects to be disentangled.</p>
+
+<p>The <strong>intercept β₀</strong> is the predicted value of Y when every predictor variable equals zero simultaneously. In some contexts this is meaningful (e.g., a person with zero hours of sleep and zero caffeine intake has a predicted alertness score of β₀), but in many practical cases this is outside the range of observed data and the intercept serves primarily as a mathematical anchor for the regression equation rather than a substantively interesting quantity.</p>
+
+<p>The <strong>sign</strong> of a coefficient tells you the direction of the relationship. A positive coefficient means that as that predictor increases, the predicted value of Y increases (a direct or positive relationship). A negative coefficient means that as the predictor increases, Y decreases (an inverse or negative relationship). For instance, in a model predicting customer churn, a negative coefficient on "customer satisfaction score" means that higher satisfaction is associated with lower predicted probability of churn, which aligns with intuition.</p>
+
+<p>A critically important caution concerns <strong>coefficient magnitude and comparability</strong>. The raw (unstandardized) coefficient depends entirely on the units of the predictor variable. If one predictor is measured in dollars and another in thousands of dollars, their coefficients will differ by a factor of 1,000 even if they have identical real-world effects. You cannot simply compare the size of two unstandardized coefficients to determine which predictor is "more important." To compare predictors on a common scale, analysts often compute <strong>standardized coefficients</strong> (also called beta weights), which express each coefficient in units of standard deviations of Y per standard deviation of X. Alternatively, examining confidence intervals around each coefficient and the practical significance of a one-unit change in context is essential.</p>
+
+<p>As an example of how units matter, consider predicting housing price (in thousands of dollars) using square footage and distance from city center (in miles):</p>
+
+<pre><code>Price = 50 + 0.12 × (Square Footage) − 3.8 × (Miles from Center)</code></pre>
+
+<p>The coefficient 0.12 means each additional square foot adds $120 to the predicted price. The coefficient −3.8 means each additional mile from the city center reduces the predicted price by $3,800. Comparing 0.12 and 3.8 directly would be misleading — the effects are on completely different scales of measurement. A standardized analysis would rescale both predictors to have mean 0 and standard deviation 1 before fitting, making the resulting coefficients directly comparable.</p>
+
+<p><strong>Model Assumptions in Multiple Regression</strong></p>
+
+<p>Multiple linear regression rests on a set of assumptions that, when satisfied, guarantee desirable properties of the OLS estimator — in particular, that estimates are unbiased and efficient (minimum variance). Violating these assumptions can lead to biased estimates, incorrect standard errors, and misleading inferences. Understanding and checking these assumptions is therefore an essential part of regression analysis.</p>
+
+<ul>
+  <li><strong>Linearity:</strong> The relationship between each predictor and the outcome must be linear (in the parameters). This does not mean the raw variables must be linear — you can include transformations like X² or log(X) as new predictors — but the model must be linear in its coefficients. Violations of linearity can be detected by plotting residuals against each predictor or against fitted values. A curved pattern in a residual plot signals non-linearity.</li>
+  <li><strong>Independence of observations:</strong> Each data point must be collected independently. This assumption is violated in time-series data (where observations are correlated over time), clustered data (e.g., students nested within schools), or repeated-measures designs. Violations inflate the apparent precision of estimates and increase false positive rates. Appropriate remedies include mixed-effects models, clustered standard errors, or time-series regression techniques.</li>
+  <li><strong>Homoscedasticity:</strong> The variance of the residuals must be constant across all levels of the predictors (and across all fitted values). When this assumption is violated — called <em>heteroscedasticity</em> — the OLS estimates remain unbiased but are no longer efficient, and standard errors become incorrect, distorting hypothesis tests and confidence intervals. A classic diagnostic plot is residuals versus fitted values: a fan-shaped spread indicates heteroscedasticity. Remedies include transforming the outcome variable (e.g., log transformation), using weighted least squares, or computing heteroscedasticity-robust standard errors.</li>
+  <li><strong>Normality of residuals:</strong> The errors ε should be approximately normally distributed. This assumption is most important for small samples, where it is needed to justify the t and F tests used for inference. For large samples, the Central Limit Theorem means that inference is approximately valid even with non-normal residuals. Normality can be assessed with a Q-Q (quantile-quantile) plot of the residuals or a histogram. Severe non-normality, especially with extreme outliers, may warrant robust regression methods or data transformations.</li>
+  <li><strong>No perfect multicollinearity:</strong> The predictor variables must not be perfectly correlated with one another (and ideally not even highly correlated). Perfect multicollinearity makes the OLS solution mathematically impossible — the matrix inversion required to compute coefficients fails. High (but not perfect) multicollinearity makes the solution unstable, inflating standard errors and making coefficients sensitive to small changes in the data. This is discussed further below.</li>
+</ul>
+
+<p>An additional assumption sometimes listed separately is <strong>no influential outliers or high-leverage points</strong>. A single extreme observation can exert disproportionate influence on the regression line. Diagnostic measures such as Cook's distance, leverage values (hat values), and DFFITS help identify such observations so the analyst can investigate whether they represent data entry errors, rare but valid cases, or evidence that the model is misspecified.</p>
+
+<p><strong>Evaluating Model Performance</strong></p>
+
+<p>Once a multiple regression model is fitted, the analyst must assess how well it performs — both in terms of explaining the variance in the outcome and in terms of statistical significance of the overall model and individual predictors.</p>
+
+<p>The <strong>coefficient of determination, R²</strong>, is the most commonly reported measure of overall fit. It represents the proportion of the total variance in Y that is accounted for by the model:</p>
+
+<pre><code>R² = 1 − (Sum of Squared Residuals / Total Sum of Squares)
+   = SSResidual / SSTotal subtracted from 1</code></pre>
+
+<p>R² ranges from 0 to 1. An R² of 0.75 means the model explains 75% of the variance in the outcome, with the remaining 25% left unexplained (captured by the residuals). While higher R² is generally preferred, what constitutes an acceptable R² varies enormously by field. In physics or engineering, R² values above 0.99 may be expected. In social sciences, where human behavior is inherently noisy, R² values of 0.30–0.50 may be considered quite good.</p>
+
+<p>A critical limitation of R² is that it <strong>never decreases</strong> when a new predictor is added, even if that predictor is pure noise with no genuine relationship to Y. This makes R² a poor criterion for comparing models with different numbers of predictors, because a more complex model will always appear to fit better simply by chance.</p>
+
+<p><strong>Adjusted R²</strong> addresses this problem by penalizing the addition of predictors that do not meaningfully improve fit:</p>
+
+<pre><code>Adjusted R² = 1 − [(1 − R²) × (n − 1) / (n − k − 1)]</code></pre>
+
+<p>Here, <em>n</em> is the number of observations and <em>k</em> is the number of predictor variables. When a new predictor is added that does not improve the model by more than would be expected by chance, the adjusted R² decreases (or stays flat), signaling that the additional complexity is not justified. Adjusted R² is the preferred metric for comparing models with different numbers of predictors.</p>
+
+<p>The <strong>F-statistic</strong> tests the overall significance of the regression model. Its null hypothesis is that all regression coefficients (except the intercept) are simultaneously equal to zero — in other words, that none of the predictors explain any variance in Y. The F-statistic compares the variance explained by the model to the variance left unexplained:</p>
+
+<pre><code>F = (R² / k) / [(1 − R²) / (n − k − 1)]</code></pre>
+
+<p>A large F-statistic with a small associated p-value (typically p &lt; 0.05) leads to rejection of the null hypothesis, concluding that the model as a whole explains a statistically significant amount of variance in Y. This is a prerequisite check — if the overall F-test is not significant, individual coefficient tests should be interpreted with extreme caution. Individual predictors are assessed with <strong>t-statistics</strong>, each testing whether a single coefficient differs significantly from zero while controlling for all other predictors in the model.</p>
+
+<p>Consider the following summary table from a hypothetical regression of exam scores on hours studied and attendance percentage:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Predictor</th>
+      <th>Coefficient (β)</th>
+      <th>Std. Error</th>
+      <th>t-Statistic</th>
+      <th>p-Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Intercept</td>
+      <td>40.2</td>
+      <td>5.1</td>
+      <td>7.88</td>
+      <td>&lt; 0.001</td>
+    </tr>
+    <tr>
+      <td>Hours Studied</td>
+      <td>3.5</td>
+      <td>0.6</td>
+      <td>5.83</td>
+      <td>&lt; 0.001</td>
+    </tr>
+    <tr>
+      <td>Attendance (%)</td>
+      <td>0.21</td>
+      <td>0.09</td>
+      <td>2.33</td>
+      <td>0.021</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both predictors are statistically significant. The model-level R² might be 0.68 (adjusted R² = 0.66), and the F-statistic might be 74.3 with p &lt; 0.001, indicating that the overall model fits significantly better than a model with no predictors.</p>
+
+<p><strong>Multicollinearity: Detection and Impact</strong></p>
+
+<p>Multicollinearity occurs when two or more predictor variables in the regression model are highly correlated with each other. It is one of the most commonly encountered problems in multiple regression and can have serious consequences for interpretation and inference, even when it does not affect the model's overall predictive accuracy.</p>
+
+<p>The fundamental problem is this: if X₁ and X₂ are highly correlated, the model struggles to attribute the variation in Y to one versus the other. The OLS algorithm tries to estimate the partial effect of X₁ holding X₂ constant — but if X₁ and X₂ nearly always move together in the data, there is little independent variation in X₁ for the model to exploit. The result is that the <strong>standard errors of the affected coefficients become very large</strong>, even when the true effects are real and meaningful. This makes the individual t-tests unreliable — a predictor that genuinely matters may appear statistically insignificant solely because of multicollinearity. Paradoxically, the overall F-test may remain highly significant even when no individual predictor appears significant, which is a classic diagnostic sign of severe multicollinearity.</p>
+
+<p>Multicollinearity also makes coefficient estimates <strong>highly unstable</strong>. A small change in the data — adding or removing a few observations — can cause dramatic swings in the estimated coefficients, making the model unreliable and difficult to interpret.</p>
+
+<p>The most straightforward detection method is examining a <strong>correlation matrix</strong> among all predictor variables. Pairwise correlations exceeding 0.80 or 0.90 in absolute value are a warning sign. However, multicollinearity can also arise from combinations of three or more predictors even when no pair is strongly correlated (this is called structural multicollinearity), so a pairwise correlation matrix alone may be insufficient.</p>
+
+<p>A more comprehensive diagnostic is the <strong>Variance Inflation Factor (VIF)</strong>. The VIF for predictor Xⱼ is computed by regressing Xⱼ on all other predictors and computing R²ⱼ:</p>
+
+<pre><code>VIF(Xⱼ) = 1 / (1 − R²ⱼ)</code></pre>
+
+<p>A VIF of 1 indicates no collinearity (the predictor is completely orthogonal to all others). As R²ⱼ approaches 1, the VIF approaches infinity, indicating severe multicollinearity. Common rules of thumb:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>VIF Value</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.0 – 5.0</td>
+      <td>Low to moderate collinearity; generally acceptable</td>
+    </tr>
+    <tr>
+      <td>5.0 – 10.0</td>
+      <td>Moderate to high collinearity; coefficients may be unstable</td>
+    </tr>
+    <tr>
+      <td>&gt; 10.0</td>
+      <td>High collinearity; serious concern requiring remediation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Remedies for multicollinearity include several practical strategies. The simplest is to <strong>remove one of the correlated predictors</strong> from the model — if X₁ and X₂ convey nearly the same information, including both is redundant and destabilizing. Which one to remove depends on theoretical considerations, predictive value, and the research question. Another approach is to <strong>combine correlated predictors into a composite variable</strong>, such as computing an average score or using a domain-specific index (e.g., combining multiple socioeconomic indicators into a single SES score). For more complex situations, <strong>dimensionality reduction</strong> techniques like Principal Component Analysis (PCA) can transform the original correlated predictors into a smaller set of uncorrelated components, which can then be used as predictors — though at the cost of interpretability. Regularization methods like Ridge Regression add a penalty term that shrinks coefficients and stabilizes estimates under multicollinearity.</p>
+
+<p><strong>Strategies for Improving Model Performance</strong></p>
+
+<p>Building an effective multiple regression model is an iterative process. Starting with an initial model, the analyst diagnoses problems, refines the variable set, transforms variables where needed, and validates the model's generalizability. Several strategies are well-established in practice.</p>
+
+<p><strong>Feature selection</strong> methods help identify which predictors genuinely contribute to the model and which can be safely excluded. Including irrelevant predictors wastes degrees of freedom, increases multicollinearity risk, and makes the model harder to interpret. Three classic automated selection approaches are:</p>
+<ul>
+  <li><strong>Forward selection:</strong> Starts with no predictors and adds them one at a time, selecting at each step the predictor that most improves fit (by some criterion such as p-value or AIC), continuing until no remaining predictor meets the entry criterion.</li>
+  <li><strong>Backward elimination:</strong> Starts with all candidate predictors in the model and removes them one at a time, dropping the least significant predictor at each step until all remaining predictors meet the retention criterion.</li>
+  <li><strong>Stepwise regression:</strong> A hybrid of forward and backward approaches, which can add or remove predictors at each step. It re-evaluates previously entered predictors after each addition to allow removal if they become redundant given new predictors in the model.</li>
+</ul>
+<p>While these automated methods are computationally convenient, they have significant limitations: they capitalize on chance variation in the data, may produce models that do not replicate well, and should be guided by theoretical knowledge about which variables are plausible predictors. Information criteria such as <strong>AIC (Akaike Information Criterion)</strong> and <strong>BIC (Bayesian Information Criterion)</strong> offer principled alternatives for comparing models that balance fit and complexity.</p>
+
+<p><strong>Variable transformation</strong> is a powerful tool for correcting violations of regression assumptions and improving model fit. Common transformations include:</p>
+<ul>
+  <li><strong>Logarithmic transformation:</strong> Taking log(Y) or log(X) is useful when relationships are multiplicative rather than additive, when the outcome has a right-skewed distribution, or when residuals show heteroscedasticity. A model of the form log(Y) = β₀ + β₁X is called a log-level model, and coefficients are interpreted as percentage changes in Y per unit change in X.</li>
+  <li><strong>Square root transformation:</strong> Often applied to count data or outcomes with moderate right skew.</li>
+  <li><strong>Polynomial terms:</strong> Adding X² as a predictor allows the model to capture a curvilinear (U-shaped or inverted U-shaped) relationship between X and Y, while still being a linear regression model (linear in its parameters).</li>
+  <li><strong>Interaction terms:</strong> Creating a new variable X₁ × X₂ allows the model to capture situations where the effect of one predictor depends on the value of another. For example, the effect of study hours on exam scores might differ between students who received tutoring and those who did not.</li>
+</ul>
+
+<p><strong>Cross-validation</strong> is essential for assessing how well a fitted model will generalize to new, unseen data. A model that is too complex relative to the sample size may achieve excellent fit on the training data (high R²) but perform poorly on new data — a problem called <em>overfitting</em>. The most common approach is <strong>k-fold cross-validation</strong>: the data are randomly divided into k equal-sized folds; the model is trained on k−1 folds and evaluated on the held-out fold; this process repeats k times, and performance metrics (e.g., Root Mean Squared Error, RMSE) are averaged across all folds. A model that performs similarly in training and cross-validation is generalizing well; a large gap between training performance and cross-validation performance signals overfitting.</p>
+
+<p><strong>Residual diagnostics</strong> should be performed throughout the model-building process, not just at the end. Essential diagnostic plots include:</p>
+<ul>
+  <li><strong>Residuals vs. fitted values:</strong> Should show a random scatter around zero with no pattern. Curves indicate non-linearity; funnel shapes indicate heteroscedasticity.</li>
+  <li><strong>Normal Q-Q plot of residuals:</strong> Points should fall approximately along the diagonal reference line if residuals are normally distributed. Systematic departures indicate non-normality.</li>
+  <li><strong>Scale-location plot (spread-location):</strong> Shows the square root of standardized residuals against fitted values; a roughly horizontal band with constant spread confirms homoscedasticity.</li>
+  <li><strong>Residuals vs. leverage (Cook's distance plot):</strong> Identifies influential observations — those that have both high leverage and large residuals, and therefore disproportionately pull the regression line toward them.</li>
+</ul>
+
+<p>To illustrate the full workflow, consider a dataset of 200 employees where the analyst wants to predict annual salary from age, years of experience, education level (coded 1–4), and department (dummy-coded). An initial model is fit and diagnostics run. A residual vs. fitted plot shows a fan shape, suggesting heteroscedasticity. Log-transforming salary resolves this. VIFs reveal that age and years of experience have VIF values of 12 and 11, respectively, indicating high collinearity (unsurprising, as older employees tend to have more experience). The analyst removes age from the model, retaining experience. Adjusted R² improves slightly (from 0.71 to 0.73) because the removed predictor was adding noise without adding independent information. Cross-validation confirms that the refined model generalizes well, with training RMSE and cross-validation RMSE being very similar. The final model is interpretable, well-specified, and trustworthy.</p>
+
+<p>Multiple linear regression, used thoughtfully with careful attention to assumptions, diagnostics, and model selection, remains one of the most flexible and interpretable tools in the quantitative analyst's toolkit. Its extensions — logistic regression for binary outcomes, Poisson regression for counts, mixed models for hierarchical data — all build on the same foundational concepts covered here, making mastery of multiple regression an essential stepping stone to advanced statistical modeling.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six listed subtopic clusters in depth: the general MLR model and extension from simple regression; coefficient interpretation including the ceteris paribus principle and scale sensitivity; the five classical OLS assumptions with diagnostics and remedies; R&#178;, adjusted R&#178;, and the F-test for model evaluation; multicollinearity (VIF, detection, remedies); and improvement strategies including feature selection, transformations, cross-validation, and residual diagnostics. Two HTML tables are included: one for a regression output summary, one for VIF interpretation guidelines. Examples are concrete and varied across domains (education, housing, salary, churn).</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

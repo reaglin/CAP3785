@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Normal Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Descriptive Statistics and Probability Distributions</a></div>
+  <header>
+    <h1>The Normal Distribution</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Normal Distribution</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The <strong>normal distribution</strong> is one of the most fundamental and widely encountered probability distributions in statistics, data science, and virtually every quantitative field. It describes how many naturally occurring measurements — heights, exam scores, measurement errors, blood pressure readings — tend to cluster around a central value with progressively fewer observations appearing as you move further away in either direction. This characteristic clustering produces the instantly recognizable <em>bell curve</em> shape: a smooth, symmetric, single-peaked curve that rises to a maximum at the center and tapers gradually toward both extremes. Understanding the normal distribution deeply — its properties, its parameters, its rules of thumb, and how to work with it computationally — forms a cornerstone of statistical reasoning.</p>
+
+<p>Before diving into computations and code, it is worth building a thorough intuition for <strong>what the normal distribution actually is</strong>. Formally, a continuous random variable X is said to follow a normal distribution if its probability density function (PDF) is given by the formula:</p>
+
+<pre><code>f(x) = (1 / (σ * sqrt(2π))) * exp( -((x - μ)² / (2σ²)) )</code></pre>
+
+<p>This equation may look intimidating at first, but every part has a clear meaning. The term <code>μ</code> (mu) is the mean, which pins the center of the curve on the number line. The term <code>σ</code> (sigma) is the standard deviation, which controls how wide or narrow the bell is. The factor <code>1 / (σ * sqrt(2π))</code> is simply a normalizing constant that ensures the total area under the curve integrates to exactly 1. The exponential term <code>exp(-((x - μ)² / (2σ²)))</code> is what creates the bell shape: as x moves away from μ in either direction, the exponent becomes increasingly negative, driving the function value toward zero.</p>
+
+<p>A normal distribution is fully described by just these two parameters, <code>μ</code> and <code>σ</code>, and we write it compactly as <strong>X ~ N(μ, σ²)</strong> (read: "X is distributed normally with mean μ and variance σ²"). This conciseness is part of what makes the normal distribution so powerful and elegant.</p>
+
+<p><strong>Properties of the Normal Distribution</strong></p>
+
+<p>Several key structural properties define the normal distribution and distinguish it from other distributions. Each property has practical consequences for how we interpret data and perform calculations.</p>
+
+<p><strong>Perfect symmetry about the mean.</strong> The normal curve is perfectly symmetric around its mean μ. This means if you were to fold the curve exactly at x = μ, the left half and the right half would align precisely — they are mirror images of each other. A direct consequence of this symmetry is that the probability of observing a value a certain distance <em>below</em> the mean is exactly equal to the probability of observing a value the same distance <em>above</em> the mean. For example, in a normal distribution with μ = 100, P(X < 85) = P(X > 115) exactly, because both values are 15 units from the mean. This property simplifies many probability calculations enormously.</p>
+
+<p><strong>Mean, median, and mode are all equal.</strong> Because the distribution is perfectly symmetric and unimodal (has only one peak), the three common measures of central tendency coincide at exactly the same point: the center of the curve. The <em>mean</em> is the arithmetic average; the <em>median</em> is the value that splits the area exactly in half (50% on each side); the <em>mode</em> is the value at which the curve reaches its maximum height. In a normal distribution, all three equal μ. This is a special property — many other distributions (like the right-skewed income distribution or the left-skewed distribution of age at retirement) have mean, median, and mode in different locations.</p>
+
+<p><strong>Asymptotic tails.</strong> The tails of the normal distribution extend infinitely in both directions (toward −∞ and +∞) but <em>approach</em> zero without ever actually reaching it. In mathematical terms, the PDF is always positive for any finite value of x, no matter how far from the mean. In practice this means the normal distribution technically assigns a non-zero probability to any value on the number line. Of course, the probabilities in the extreme tails become astronomically small very quickly, but this property is important to keep in mind: a normal model never assigns an absolute probability of zero to any finite outcome.</p>
+
+<p><strong>Total area under the curve equals 1.</strong> Like all valid probability density functions, the area under the entire normal curve integrates to exactly 1. This represents the certainty that some outcome must occur — the probability that X takes on <em>some</em> value across all of (−∞, +∞) is 100%. In practical terms, whenever we compute the probability that X falls in some interval [a, b], we are calculating the area under the curve between those two x-values, which will always be a number between 0 and 1.</p>
+
+<p><strong>Mean and Standard Deviation Parameters</strong></p>
+
+<p>The two parameters <code>μ</code> and <code>σ</code> are not just numbers in a formula — they control the entire shape and position of the normal curve in intuitive and visually obvious ways.</p>
+
+<p><strong>The mean (μ) as the location parameter.</strong> The mean determines where the bell curve sits on the number line. It is the horizontal coordinate of the curve's peak, its axis of symmetry, and its center of balance. Changing μ without changing σ simply slides the entire curve left or right without altering its shape at all. Consider three normal distributions: N(0, 1), N(5, 1), and N(−3, 1). All three curves have identical shapes and spreads, but their peaks are located at x = 0, x = 5, and x = −3 respectively. If you were looking at a plot of all three, they would appear as identical bells shifted to different positions along the x-axis.</p>
+
+<p><strong>The standard deviation (σ) as the scale parameter.</strong> The standard deviation controls the <em>spread</em> or <em>dispersion</em> of the distribution. A <strong>small σ</strong> produces a tall, narrow, sharply peaked bell curve — most of the probability mass is concentrated close to the mean, and values far from the mean are very unlikely. A <strong>large σ</strong> produces a short, wide, flat bell curve — the probability is spread out over a much wider range of values, and extreme values are relatively more probable. Consider N(0, 0.5), N(0, 1), and N(0, 2): all three are centered at zero, but the first is the tallest and narrowest, the last is the flattest and widest. Note that the total area under each curve is still exactly 1, regardless of σ — making the curve wider necessarily makes it shorter to compensate.</p>
+
+<p>The <strong>variance</strong> is simply σ² (the square of the standard deviation). You will often see normal distributions parameterized as N(μ, σ²) in textbooks, but Python's <code>scipy.stats.norm</code> functions use the standard deviation σ directly (via the <code>scale</code> parameter), so it is important to keep track of which form is being used.</p>
+
+<p><strong>The standard normal distribution.</strong> A particularly important special case is the normal distribution with μ = 0 and σ = 1, called the <strong>standard normal distribution</strong> and typically denoted by the letter <em>Z</em>. We write Z ~ N(0, 1). Historically, before computers, all normal probability calculations were performed by first converting any normal random variable X ~ N(μ, σ²) into a standard normal Z using the <em>standardization formula</em>:</p>
+
+<pre><code>Z = (X - μ) / σ</code></pre>
+
+<p>This transformation shifts the distribution so its mean is at zero (by subtracting μ) and rescales it so the standard deviation is 1 (by dividing by σ). The resulting Z-score tells you how many standard deviations away from the mean a particular value lies. A Z-score of +2 means the value is 2 standard deviations above the mean; a Z-score of −1.5 means it is 1.5 standard deviations below the mean. Statisticians would then look up probabilities in printed <em>Z-tables</em>. Today, Python handles all of this automatically, but understanding Z-scores remains essential for interpreting results and communicating findings.</p>
+
+<p><strong>The Empirical Rule (68-95-99.7 Rule)</strong></p>
+
+<p>One of the most practical and memorable facts about the normal distribution is the <strong>empirical rule</strong>, sometimes called the <strong>68-95-99.7 rule</strong>. This rule quantifies exactly how much of the data falls within 1, 2, and 3 standard deviations of the mean for any normal distribution, and it gives an immediate, intuitive sense of scale.</p>
+
+<p><strong>Within one standard deviation (μ ± 1σ):</strong> Approximately <strong>68%</strong> of all values fall in the interval [μ − σ, μ + σ]. This means that if you randomly draw one observation from a normal distribution, there is roughly a 68% chance it will be within one standard deviation of the mean — slightly better than two-in-three odds. For example, if adult male heights follow N(70 inches, 3 inches), then about 68% of men are between 67 and 73 inches tall.</p>
+
+<p><strong>Within two standard deviations (μ ± 2σ):</strong> Approximately <strong>95%</strong> of all values fall in the interval [μ − 2σ, μ + 2σ]. This leaves only about 5% of values in the two tails combined — roughly 2.5% in each tail. The "two standard deviations" threshold is the basis for the widely used 95% confidence interval in inferential statistics. Continuing the height example, about 95% of men are between 64 and 76 inches tall.</p>
+
+<p><strong>Within three standard deviations (μ ± 3σ):</strong> Approximately <strong>99.7%</strong> of all values fall in the interval [μ − 3σ, μ + 3σ]. This leaves only 0.3% — less than 1 in 333 — outside this range, split between the two extreme tails. Values more than 3 standard deviations from the mean are considered genuinely unusual or anomalous under a normal model. In the height example, about 99.7% of men are between 61 and 79 inches tall, and only about 3 in 1000 men fall outside this range. This is why "3-sigma" events are treated as extremely rare in quality control and risk management — the famous "six sigma" manufacturing standard targets defect rates below 3.4 per million.</p>
+
+<p>The empirical rule applies specifically to <em>normal</em> distributions. For other distribution shapes, a more general result — Chebyshev's inequality — provides weaker but universally applicable bounds. The table below summarizes the empirical rule:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Range</th>
+      <th>Interval</th>
+      <th>Approximate % of Data</th>
+      <th>Data Outside Range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>μ ± 1σ</td>
+      <td>[μ − σ, μ + σ]</td>
+      <td>~68%</td>
+      <td>~32% (16% each tail)</td>
+    </tr>
+    <tr>
+      <td>μ ± 2σ</td>
+      <td>[μ − 2σ, μ + 2σ]</td>
+      <td>~95%</td>
+      <td>~5% (2.5% each tail)</td>
+    </tr>
+    <tr>
+      <td>μ ± 3σ</td>
+      <td>[μ − 3σ, μ + 3σ]</td>
+      <td>~99.7%</td>
+      <td>~0.3% (0.15% each tail)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Visualizing the Normal Distribution in Python</strong></p>
+
+<p>Python provides excellent tools for generating and visualizing normal distributions. The two primary libraries are <code>scipy.stats</code> for distribution computations and <code>matplotlib.pyplot</code> for plotting. The workflow typically involves generating a range of x-values, computing the corresponding PDF values using <code>scipy.stats.norm.pdf()</code>, and then plotting the result.</p>
+
+<p>The <code>scipy.stats.norm</code> class is the main entry point. It accepts a <code>loc</code> argument for the mean and a <code>scale</code> argument for the standard deviation. Calling <code>.pdf(x, loc=μ, scale=σ)</code> evaluates the probability density function at each x-value — this gives the <em>height</em> of the bell curve at each point, which is what you plot to see the curve's shape.</p>
+
+<p><strong>Plotting a single normal curve:</strong></p>
+
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+# Define the distribution parameters
+mu = 50       # mean
+sigma = 10    # standard deviation
+
+# Generate x values spanning several standard deviations around the mean
+x = np.linspace(mu - 4*sigma, mu + 4*sigma, 300)
+
+# Compute the PDF at each x value
+y = norm.pdf(x, loc=mu, scale=sigma)
+
+# Plot the bell curve
+plt.plot(x, y, color='steelblue', linewidth=2)
+plt.xlabel('x')
+plt.ylabel('Probability Density')
+plt.title(f'Normal Distribution: μ={mu}, σ={sigma}')
+plt.fill_between(x, y, alpha=0.2, color='steelblue')
+plt.grid(True, alpha=0.3)
+plt.show()</code></pre>
+
+<p>The <code>np.linspace()</code> call generates 300 evenly spaced x-values from μ − 4σ to μ + 4σ. Choosing a range of ±4 standard deviations ensures the tails are visible without wasting space on regions where the curve is indistinguishably close to zero. The <code>fill_between()</code> call shades the area under the curve, which helps reinforce the idea of probability as area.</p>
+
+<p><strong>Overlaying multiple curves to illustrate parameter effects:</strong> Plotting several normal distributions on the same axes is one of the best ways to develop intuition for how μ and σ affect shape. The example below plots three distributions that share the same mean but differ in standard deviation, making the spread effect immediately visible.</p>
+
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+x = np.linspace(-15, 15, 500)
+
+# Three distributions with same mean but different standard deviations
+params = [
+    (0, 0.5, 'σ=0.5 (narrow)'),
+    (0, 1.5, 'σ=1.5 (medium)'),
+    (0, 3.0, 'σ=3.0 (wide)')
+]
+
+for mu, sigma, label in params:
+    plt.plot(x, norm.pdf(x, loc=mu, scale=sigma), linewidth=2, label=label)
+
+plt.xlabel('x')
+plt.ylabel('Probability Density')
+plt.title('Effect of Standard Deviation on Normal Curve Shape')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()</code></pre>
+
+<p>To illustrate the effect of changing the mean instead, you would fix sigma and vary the <code>loc</code> argument, which would shift the three bells left and right without changing their shapes.</p>
+
+<p><strong>Overlaying a histogram of sampled data with the theoretical curve:</strong> A powerful diagnostic plot is to draw a histogram of actual data alongside the theoretical normal PDF. If the data is approximately normal, the histogram bars should align closely with the bell curve. This technique is used to visually assess normality before applying statistical methods that assume it.</p>
+
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+# Simulate data from a normal distribution
+np.random.seed(42)
+mu, sigma = 75, 8
+data = np.random.normal(loc=mu, scale=sigma, size=1000)
+
+# Plot histogram with density normalization so it is on the same scale as PDF
+plt.hist(data, bins=30, density=True, alpha=0.6, color='coral',
+         edgecolor='white', label='Sampled Data (n=1000)')
+
+# Overlay theoretical normal curve
+x = np.linspace(mu - 4*sigma, mu + 4*sigma, 300)
+plt.plot(x, norm.pdf(x, loc=mu, scale=sigma),
+         color='darkred', linewidth=2.5, label='Theoretical Normal PDF')
+
+plt.xlabel('Value')
+plt.ylabel('Density')
+plt.title('Histogram vs. Theoretical Normal Distribution')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()</code></pre>
+
+<p>The key technical point here is using <code>density=True</code> in <code>plt.hist()</code>. This normalizes the histogram so that the total bar area sums to 1, which puts it on the same vertical scale as the PDF. Without this, the histogram bars would show raw counts (potentially in the hundreds or thousands), while the PDF values are tiny numbers like 0.05, making them impossible to compare on the same plot.</p>
+
+<p><strong>Computing Normal Distribution Probabilities in Python</strong></p>
+
+<p>Visualizing the curve is valuable, but in practice we most often need to compute specific probabilities — the chance that a value falls below some threshold, above some threshold, or between two values. Python's <code>scipy.stats.norm</code> provides three functions that make these calculations direct and effortless: <code>.cdf()</code>, <code>.sf()</code>, and <code>.ppf()</code>.</p>
+
+<p><strong>The Cumulative Distribution Function (CDF).</strong> The CDF at a value x gives P(X ≤ x) — the probability that the random variable takes a value <em>less than or equal to</em> x. Geometrically, it is the area under the bell curve to the <em>left</em> of x. Because the total area is 1, CDF values range from 0 (for x → −∞) to 1 (for x → +∞).</p>
+
+<pre><code>from scipy.stats import norm
+
+mu = 100    # mean IQ score (a classic example)
+sigma = 15  # standard deviation of IQ
+
+# P(X <= 115): probability of IQ at most 115
+prob_below_115 = norm.cdf(115, loc=mu, scale=sigma)
+print(f"P(X ≤ 115) = {prob_below_115:.4f}")
+# Output: P(X ≤ 115) = 0.8413
+
+# P(X <= 85): probability of IQ at most 85
+prob_below_85 = norm.cdf(85, loc=mu, scale=sigma)
+print(f"P(X ≤ 85)  = {prob_below_85:.4f}")
+# Output: P(X ≤ 85)  = 0.1587</code></pre>
+
+<p>Notice that P(X ≤ 115) ≈ 0.8413 and P(X ≤ 85) ≈ 0.1587. Both 115 and 85 are exactly one standard deviation from the mean (μ + σ and μ − σ respectively). Their CDF values sum to 1.0 exactly, confirming the symmetry of the distribution. Also note that 0.8413 − 0.1587 = 0.6826 ≈ 68%, consistent with the empirical rule.</p>
+
+<p><strong>Computing the probability above a threshold (right tail).</strong> To find P(X > x), you can either compute <code>1 - norm.cdf(x)</code> or use <code>norm.sf(x)</code> (the survival function, which is defined as 1 − CDF). The survival function is numerically preferred for very extreme x values where floating-point arithmetic might cause <code>1 - cdf</code> to lose precision.</p>
+
+<pre><code># P(X > 130): probability of IQ above 130 (often cited as "gifted" threshold)
+prob_above_130 = norm.sf(130, loc=mu, scale=sigma)
+# Equivalently: 1 - norm.cdf(130, loc=mu, scale=sigma)
+print(f"P(X > 130) = {prob_above_130:.4f}")
+# Output: P(X > 130) = 0.0228</code></pre>
+
+<p>So approximately 2.28% of the population would score above 130 on this IQ scale — consistent with the empirical rule's statement that ~2.5% fall beyond two standard deviations on one side.</p>
+
+<p><strong>Computing the probability between two values.</strong> To find P(a < X < b), you subtract two CDF values: P(a < X < b) = CDF(b) − CDF(a). This gives the area under the curve between the two x-values — the probability that an observation falls in that interval.</p>
+
+<pre><code># P(85 < X < 115): probability of IQ between 85 and 115 (within 1 standard deviation)
+prob_between = norm.cdf(115, loc=mu, scale=sigma) - norm.cdf(85, loc=mu, scale=sigma)
+print(f"P(85 < X < 115) = {prob_between:.4f}")
+# Output: P(85 < X < 115) = 0.6827
+
+# P(70 < X < 130): probability within 2 standard deviations
+prob_2sd = norm.cdf(130, loc=mu, scale=sigma) - norm.cdf(70, loc=mu, scale=sigma)
+print(f"P(70 < X < 130) = {prob_2sd:.4f}")
+# Output: P(70 < X < 130) = 0.9545</code></pre>
+
+<p>These results beautifully confirm the empirical rule: 68.27% within ±1σ, 95.45% within ±2σ (you can verify ±3σ similarly gives ~99.73%).</p>
+
+<p><strong>The Percent-Point Function (PPF) — the inverse of the CDF.</strong> Sometimes the question is reversed: instead of asking "what is the probability of being below x?", we ask "what value of x corresponds to a given probability?" The PPF (also called the <em>quantile function</em> or <em>inverse CDF</em>) answers this. <code>norm.ppf(p, loc=mu, scale=sigma)</code> returns the value x such that P(X ≤ x) = p.</p>
+
+<pre><code># What IQ score marks the 90th percentile?
+x_90th = norm.ppf(0.90, loc=mu, scale=sigma)
+print(f"90th percentile IQ = {x_90th:.2f}")
+# Output: 90th percentile IQ = 119.22
+
+# What IQ score marks the bottom 5%?
+x_5th = norm.ppf(0.05, loc=mu, scale=sigma)
+print(f"5th percentile IQ = {x_5th:.2f}")
+# Output: 5th percentile IQ = 75.33
+
+# What are the central 95% boundaries? (0.025 and 0.975 quantiles)
+lower = norm.ppf(0.025, loc=mu, scale=sigma)
+upper = norm.ppf(0.975, loc=mu, scale=sigma)
+print(f"Central 95% interval: ({lower:.2f}, {upper:.2f})")
+# Output: Central 95% interval: (70.60, 129.40)</code></pre>
+
+<p>The PPF is especially important in inferential statistics. For example, the widely used critical value of ±1.96 for 95% confidence intervals is simply <code>norm.ppf(0.975, loc=0, scale=1)</code> ≈ 1.9600 for the standard normal distribution.</p>
+
+<p>The table below summarizes all the key <code>scipy.stats.norm</code> functions and their uses:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Call Syntax</th>
+      <th>Returns</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PDF</td>
+      <td><code>norm.pdf(x, loc=μ, scale=σ)</code></td>
+      <td>Height of curve at x</td>
+      <td>Plotting the bell curve</td>
+    </tr>
+    <tr>
+      <td>CDF</td>
+      <td><code>norm.cdf(x, loc=μ, scale=σ)</code></td>
+      <td>P(X ≤ x)</td>
+      <td>Left-tail probability</td>
+    </tr>
+    <tr>
+      <td>SF (Survival Function)</td>
+      <td><code>norm.sf(x, loc=μ, scale=σ)</code></td>
+      <td>P(X > x)</td>
+      <td>Right-tail probability</td>
+    </tr>
+    <tr>
+      <td>Between two values</td>
+      <td><code>norm.cdf(b) - norm.cdf(a)</code></td>
+      <td>P(a < X < b)</td>
+      <td>Interval probability</td>
+    </tr>
+    <tr>
+      <td>PPF (Quantile Function)</td>
+      <td><code>norm.ppf(p, loc=μ, scale=σ)</code></td>
+      <td>x such that P(X ≤ x) = p</td>
+      <td>Finding percentile cutpoints</td>
+    </tr>
+    <tr>
+      <td>Random samples</td>
+      <td><code>norm.rvs(loc=μ, scale=σ, size=n)</code></td>
+      <td>Array of n random values</td>
+      <td>Simulation and histograms</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Together, these functions eliminate the need for Z-tables entirely and allow you to answer any probability question about any normal distribution in a single line of Python code. The key is understanding which function maps to which question: CDF for "what is the probability below this value?", SF for "what is the probability above?", CDF subtraction for "what is the probability between these values?", and PPF for "what value corresponds to this probability?" Mastering these four question types gives you full computational fluency with the normal distribution.</p>
+        <div class="notes"><strong>Notes</strong>Code examples use scipy.stats.norm with loc/scale convention consistently. The empirical rule values shown (68.27%, 95.45%, 99.73%) are the precise values — students should know both the rounded rule-of-thumb versions (68, 95, 99.7) and that the Python CDF confirms these precisely. The IQ distribution N(100, 15) is used as a concrete running example throughout the probability section to maintain continuity.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

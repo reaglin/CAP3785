@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tables, Rows, and Columns</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Database Basics and Relational Data Concepts</a></div>
+  <header>
+    <h1>Tables, Rows, and Columns</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Tables, Rows, and Columns</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>At the heart of every relational database lies a deceptively simple concept: the <strong>table</strong>. Whether you are storing customer orders, employee records, medical histories, or product inventories, the table is the primary container that gives your data structure, meaning, and accessibility. Understanding how tables work — and how their internal components relate to one another — is the single most important foundation for learning SQL and database design. Before you can write a query, design a schema, or interpret a result set, you need a clear mental model of what a table actually is and how it organizes information.</p>
+
+<p>A table groups related data about a <strong>single subject or entity</strong> into one organized structure. The keyword here is <em>related</em>. A well-designed table does not mix unrelated subjects. A table named <code>Employees</code> stores facts about employees. A table named <code>Invoices</code> stores facts about invoices. Keeping subjects separate and then <em>linking</em> tables together when needed is what gives relational databases their power. In a real system, a single database might contain dozens or even hundreds of tables, each focused on its own subject, all working in concert to represent the full picture of the organization's data. For example, an e-commerce database might contain tables such as <code>Customers</code>, <code>Products</code>, <code>Orders</code>, <code>OrderItems</code>, <code>Suppliers</code>, and <code>Shipments</code>. Each table is its own organized unit, and together they model the complete business domain.</p>
+
+<p>Descriptive naming is not merely a convention — it is an act of communication. A table named <code>Employees</code> immediately tells every developer, analyst, and administrator what kind of entity that table describes. Ambiguous or cryptic names like <code>Table1</code> or <code>tbl_x</code> create confusion and slow down everyone who works with the database. Good table names are plural nouns that reflect the entity type stored within them.</p>
+
+<p>To make these concepts concrete, consider the following example of an <code>Employees</code> table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>EmployeeID</th>
+      <th>FirstName</th>
+      <th>LastName</th>
+      <th>Department</th>
+      <th>HireDate</th>
+      <th>Salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Maria</td>
+      <td>Gonzalez</td>
+      <td>Engineering</td>
+      <td>2019-03-15</td>
+      <td>92000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>James</td>
+      <td>Okafor</td>
+      <td>Marketing</td>
+      <td>2021-07-01</td>
+      <td>78000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Priya</td>
+      <td>Nair</td>
+      <td>Engineering</td>
+      <td>2020-11-22</td>
+      <td>95000</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Chen</td>
+      <td>Wei</td>
+      <td>Finance</td>
+      <td>2018-05-30</td>
+      <td>110000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This table illustrates all the structural concepts we are about to explore. Study it as you read through each section below.</p>
+
+<p><strong>Rows as Records</strong></p>
+
+<p>Each <strong>row</strong> in a table represents one complete, individual entry — a single instance of the entity the table describes. In the <code>Employees</code> table above, each row represents one employee. The first row tells us everything the table knows about Maria Gonzalez: her ID, her name, her department, when she was hired, and her salary. All of those details belong to the same person and are stored together in a single horizontal line.</p>
+
+<p>This is why rows are also called <strong>records</strong> — a term borrowed from older file-based database systems — or <strong>tuples</strong> in formal relational theory (the word "tuple" comes from mathematics and refers to an ordered set of values). In everyday SQL work, "row" and "record" are used interchangeably, while "tuple" appears more often in academic or theoretical contexts.</p>
+
+<p>A table can hold <em>any</em> number of rows. A brand-new table that has just been created contains zero rows — it is an empty table with a defined structure but no data yet. As records are inserted, the row count grows. In large production systems, a single table may contain millions or even billions of rows. The database engine is optimized to search, retrieve, and manipulate records at this scale efficiently, which is one of the key advantages relational databases offer over simpler storage formats.</p>
+
+<p>Crucially, rows within a table are not guaranteed to be stored or returned in any particular order unless you explicitly ask for a sorted result. In relational theory, a table is considered a <em>set</em> of tuples with no inherent ordering — a point that surprises many beginners who expect rows to always come back in the order they were inserted.</p>
+
+<p><strong>Columns as Attributes</strong></p>
+
+<p>While rows represent individual instances, <strong>columns</strong> represent the <em>attributes</em> — the specific characteristics or properties — that the table tracks for every instance. In the <code>Employees</code> table, the columns are <code>EmployeeID</code>, <code>FirstName</code>, <code>LastName</code>, <code>Department</code>, <code>HireDate</code>, and <code>Salary</code>. These six attributes apply uniformly to every single employee in the table. Maria Gonzalez has a <code>HireDate</code>. James Okafor has a <code>HireDate</code>. Every row, without exception, has the same set of columns.</p>
+
+<p>This uniformity is one of the defining characteristics of a relational table. Columns are defined once — at the time the table is created — and that definition applies permanently to all existing and future rows. You cannot have one employee with five attributes and another with seven different ones. Every row conforms to the same schema.</p>
+
+<p>Each column is designed to hold <strong>one specific type of data</strong>. The <code>Salary</code> column holds numbers. The <code>HireDate</code> column holds date values. The <code>FirstName</code> column holds text (character strings). This strict typing is enforced by the database engine — if you try to store the word "hello" in a numeric <code>Salary</code> column, the database will reject it with an error. This enforcement is a major benefit: it means you can always trust that the data in a column conforms to its declared type, which makes calculations, comparisons, and sorting reliable and predictable.</p>
+
+<p>Columns are also referred to as <strong>fields</strong>, another term inherited from older database and programming traditions. Each column is identified by a name that must be unique within its table. Two columns in the same table cannot share the same name, though two different tables can each have a column called <code>Name</code> or <code>ID</code> without conflict.</p>
+
+<p><strong>The Intersection: Cells</strong></p>
+
+<p>Where a specific row and a specific column meet, you find a <strong>cell</strong>. Every cell stores exactly one <em>atomic</em> value — a single, indivisible piece of information. The cell at the intersection of Maria Gonzalez's row and the <code>Department</code> column contains the single value <code>Engineering</code>. The cell at the intersection of Chen Wei's row and the <code>Salary</code> column contains the single value <code>110000</code>.</p>
+
+<p>The principle of atomicity — that each cell contains exactly one value — is fundamental to relational database design. Storing a comma-separated list of values in a single cell (for example, putting <code>Engineering, Marketing</code> in a <code>Department</code> cell) violates this principle and makes querying much harder. Properly designed tables keep each piece of information in its own dedicated cell.</p>
+
+<p>A cell may sometimes be <strong>NULL</strong>. NULL is a special marker used in SQL to represent the absence of a value — meaning the data is unknown, not applicable, or simply not yet provided. For instance, if a new employee has not yet been assigned a department, their <code>Department</code> cell might be NULL. NULL is not the same as zero, and it is not the same as an empty string. It specifically means "no value exists here." NULL values require special handling in SQL queries because standard comparisons (like <code>= NULL</code>) do not work as expected — instead, you use <code>IS NULL</code> or <code>IS NOT NULL</code>.</p>
+
+<p>To see this in context, imagine extending the <code>Employees</code> table with a new hire whose department assignment is pending:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>EmployeeID</th>
+      <th>FirstName</th>
+      <th>LastName</th>
+      <th>Department</th>
+      <th>HireDate</th>
+      <th>Salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5</td>
+      <td>Amara</td>
+      <td>Diallo</td>
+      <td>NULL</td>
+      <td>2024-01-08</td>
+      <td>85000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Amara Diallo's <code>Department</code> cell is NULL — the value is absent. All other cells in her row contain real values. This is perfectly valid and common in real-world databases.</p>
+
+<p><strong>Table Structure and Consistency</strong></p>
+
+<p>The rigid, uniform structure of a relational table is not a limitation — it is a deliberate and powerful design choice. Because every row in the <code>Employees</code> table uses the exact same columns, the database engine can perform operations across all rows with remarkable efficiency. Searching for all employees in the <code>Engineering</code> department means scanning the <code>Department</code> column across every row — a straightforward operation because the engine always knows exactly where to look. Sorting by <code>Salary</code> is equally simple for the same reason.</p>
+
+<p>Adding a new record to a table means supplying a value (or NULL) for each column in the table's schema. You cannot invent new columns on the fly when inserting a row. If you need to track a new piece of information — say, an employee's phone number — you must formally alter the table's structure first by adding a <code>PhoneNumber</code> column, which will then exist for every row, past and future.</p>
+
+<p>This structure also enables <strong>constraints</strong> — rules the database enforces automatically to maintain data quality. For example, a <code>NOT NULL</code> constraint on the <code>LastName</code> column ensures that no employee record can ever be inserted without a last name. A <code>UNIQUE</code> constraint on <code>EmployeeID</code> ensures no two employees can ever share the same ID. A <code>CHECK</code> constraint on <code>Salary</code> could ensure that no salary value is ever negative. These safeguards are enforced at the database level, meaning they apply regardless of which application or user is inserting the data.</p>
+
+<p>Here is a simplified example of the SQL statement used to create the <code>Employees</code> table, which makes the structural definition explicit:</p>
+
+<pre><code>CREATE TABLE Employees (
+    EmployeeID   INT           NOT NULL,
+    FirstName    VARCHAR(50)   NOT NULL,
+    LastName     VARCHAR(50)   NOT NULL,
+    Department   VARCHAR(100),
+    HireDate     DATE          NOT NULL,
+    Salary       DECIMAL(10,2) NOT NULL
+);</code></pre>
+
+<p>Every column is named, given a data type, and optionally given constraints. This definition is the schema — the blueprint that every row must conform to. The data types (<code>INT</code>, <code>VARCHAR</code>, <code>DATE</code>, <code>DECIMAL</code>) tell the database what kind of values are acceptable in each column. The <code>NOT NULL</code> constraints tell it which fields may never be left empty.</p>
+
+<p><strong>Real-World Analogy: The Spreadsheet Comparison</strong></p>
+
+<p>For many people beginning to learn databases, a helpful starting point is to think of a table as resembling a <strong>spreadsheet</strong>. In a spreadsheet, you typically have column headers in the first row that label each attribute — Name, Date, Amount — and then data fills the rows below. A database table looks similar: column names at the top, data in the rows beneath. This visual similarity is real and makes the initial concept easy to grasp.</p>
+
+<p>However, the analogy has important limits that you should understand early. Spreadsheets are highly flexible — perhaps <em>too</em> flexible. In a spreadsheet, nothing stops you from putting a date in one cell, a number in the cell below it, and a paragraph of text in the cell below that, all in the same column. You can merge cells, leave gaps, add formulas that reference arbitrary locations, and rearrange things freely. This flexibility is useful for human-facing documents but disastrous for a system that needs to process millions of records reliably.</p>
+
+<p>A database table imposes <strong>discipline</strong> that a spreadsheet does not. Every value in the <code>Salary</code> column is a number — always, without exception, enforced by the database engine. Every value in the <code>HireDate</code> column is a valid date. No merging of cells is possible. No irregular structures are permitted. This rigor is what allows databases to handle massive volumes of data with speed and consistency, to enforce business rules automatically, to support simultaneous access by thousands of users, and to maintain data integrity even in the face of application bugs or user errors. Spreadsheets can do none of these things reliably at scale.</p>
+
+<p>Furthermore, relational databases allow tables to be <strong>linked together</strong> through shared values — a capability that has no true equivalent in a standalone spreadsheet. An <code>Orders</code> table might reference an <code>EmployeeID</code> from the <code>Employees</code> table, allowing you to join these tables in a query and retrieve complete, combined information. This relational linking, enforced through foreign keys, is what allows a small set of well-designed tables to model the full complexity of a real-world business domain. The spreadsheet analogy is a useful on-ramp for beginners, but the destination — a fully relational database — is a considerably more powerful place to arrive.</p>
+        <div class="notes"><strong>Notes</strong>The spreadsheet analogy section deliberately contrasts database enforcement with spreadsheet flexibility to build intuition for why database structure matters. The NULL concept is introduced here at a conceptual level since it will likely be covered more deeply in a later module. The CREATE TABLE example is included to show concretely how the schema is defined, not as a full SQL lesson.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

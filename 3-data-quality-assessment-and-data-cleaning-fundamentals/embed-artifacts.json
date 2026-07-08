@@ -1,0 +1,82 @@
+﻿[
+  {
+    "title": "3 - Data Quality Assessment and Data Cleaning Fundamentals \u2014 Topics \u0026 Learning Outcomes",
+    "href": "topics-outcomes.html",
+    "type": "Page"
+  },
+  {
+    "title": "3 - Data Quality Assessment and Data Cleaning Fundamentals \u2014 Module Topics",
+    "href": "topics.html",
+    "type": "Page"
+  },
+  {
+    "title": "Data Quality Assessment: Identifying and Classifying Data Quality Issues",
+    "href": "assignments/data-quality-assessment-identifying-and-classify.html",
+    "type": "Assignments"
+  },
+  {
+    "title": "Assignments \u2014 3 - Data Quality Assessment and Data Cleaning Fundamentals",
+    "href": "assignments/index.html",
+    "type": "Assignments"
+  },
+  {
+    "title": "Preparing Clean Data for Analysis",
+    "href": "content/Data_Quality_Assessment_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Introduction to Data Quality",
+    "href": "content/Data_Quality_Assessment_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Identifying Missing Values",
+    "href": "content/Data_Quality_Assessment_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Handling Duplicate Data",
+    "href": "content/Data_Quality_Assessment_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Detecting and Managing Outliers",
+    "href": "content/Data_Quality_Assessment_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Resolving Data Inconsistencies",
+    "href": "content/Data_Quality_Assessment_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Systematic Data Cleaning Strategies",
+    "href": "content/Data_Quality_Assessment_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "Preparing Clean Data for Analysis",
+    "href": "content/Data_Quality_Assessment_interactive_topics_t7.html",
+    "type": "Content"
+  },
+  {
+    "title": "3 - Data Quality Assessment and Data Cleaning Fundamentals \u2014 Module Topics",
+    "href": "content/module_topics.html",
+    "type": "Content"
+  },
+  {
+    "title": "Data Quality Crossword Puzzle",
+    "href": "interactive/crossword-puzzle.html",
+    "type": "Interactive"
+  },
+  {
+    "title": "Interactive Activities \u2014 3 - Data Quality Assessment and Data Cleaning Fundamentals",
+    "href": "interactive/index.html",
+    "type": "Interactive"
+  },
+  {
+    "title": "Quiz \u2014 3 - Data Quality Assessment and Data Cleaning Fundamentals",
+    "href": "quiz/index.html",
+    "type": "Quiz"
+  }
+]

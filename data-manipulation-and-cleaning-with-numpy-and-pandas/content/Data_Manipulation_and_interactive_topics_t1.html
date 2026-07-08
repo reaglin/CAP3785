@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to NumPy for Data Manipulation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Data Manipulation and Cleaning with NumPy and Pandas</a></div>
+  <header>
+    <h1>Introduction to NumPy for Data Manipulation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to NumPy for Data Manipulation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>NumPy, short for <strong>Numerical Python</strong>, is the foundational library for numerical and scientific computing in Python. Before NumPy existed, Python programmers who needed to process large collections of numbers were forced to rely on plain Python lists and explicit <code>for</code> loops. While lists are flexible and convenient for general-purpose programming, they carry significant overhead: every element in a Python list is a full Python object with its own type information, reference count, and memory allocation. When you loop over thousands or millions of such elements in pure Python, that overhead accumulates and performance suffers dramatically. NumPy was designed from the ground up to eliminate this bottleneck for numerical workloads.</p>
+
+<p>At the heart of NumPy is a concept borrowed from compiled languages like C and Fortran: store all elements of a collection in a <strong>single, contiguous block of memory</strong>, where every element is the same fixed-size data type. This design means NumPy can hand off entire blocks of computation to pre-compiled C and Fortran routines, bypassing the Python interpreter for the heavy lifting. The result is that NumPy operations on large arrays can be <em>hundreds of times faster</em> than equivalent pure Python code. This performance profile makes NumPy not merely a convenience, but a necessity for any serious data analysis, machine learning, or scientific computing workflow in Python.</p>
+
+<p>NumPy also underpins nearly the entire scientific Python ecosystem. Libraries such as Pandas, SciPy, Matplotlib, scikit-learn, and TensorFlow all depend on NumPy arrays as their common data currency. Learning NumPy thoroughly therefore pays dividends well beyond NumPy itself.</p>
+
+<p><strong>The ndarray: NumPy's Core Data Structure</strong></p>
+
+<p>The central object provided by NumPy is the <strong>ndarray</strong> (n-dimensional array). An ndarray is a grid of values, all of the <em>same type</em>, indexed by a tuple of non-negative integers. The number of dimensions is called the array's <strong>rank</strong>, and the size of the array along each dimension is described by its <strong>shape</strong>, which is expressed as a tuple of integers.</p>
+
+<p>The three most important attributes of any ndarray are:</p>
+<ul>
+  <li><strong>shape</strong> — a tuple giving the size along each dimension. A 1D array with 6 elements has shape <code>(6,)</code>. A 2D array with 3 rows and 4 columns has shape <code>(3, 4)</code>.</li>
+  <li><strong>dtype</strong> — the data type of the elements (e.g., <code>float64</code>, <code>int32</code>, <code>bool</code>). All elements share exactly the same dtype, which is what allows the compact memory layout.</li>
+  <li><strong>ndim</strong> — an integer equal to the number of dimensions (also called axes). For a shape of <code>(3, 4)</code>, <code>ndim</code> is 2.</li>
+</ul>
+
+<p>Arrays can be one-dimensional (a <em>vector</em>), two-dimensional (a <em>matrix</em>), or higher-dimensional (<em>tensors</em>). A grayscale image might be stored as a 2D array of shape <code>(height, width)</code>, while a batch of color images might be stored as a 4D array of shape <code>(batch_size, height, width, channels)</code>.</p>
+
+<p>NumPy provides many convenient functions for creating arrays:</p>
+
+<pre><code>import numpy as np
+
+# From a Python list
+a = np.array([1, 2, 3, 4, 5])
+print(a.shape)   # (5,)
+print(a.dtype)   # int64 (platform-dependent)
+print(a.ndim)    # 1
+
+# 2D array from a nested list
+b = np.array([[1, 2, 3], [4, 5, 6]])
+print(b.shape)   # (2, 3)
+print(b.ndim)    # 2
+
+# Array of zeros
+zeros = np.zeros((3, 4))          # 3 rows, 4 columns, dtype float64 by default
+
+# Array of ones with integer dtype
+ones = np.ones((2, 5), dtype=np.int32)
+
+# Evenly spaced values: start, stop (exclusive), step
+r = np.arange(0, 10, 2)           # array([0, 2, 4, 6, 8])
+
+# Evenly spaced values: start, stop (inclusive), num points
+ls = np.linspace(0, 1, 5)         # array([0.  , 0.25, 0.5 , 0.75, 1.  ])
+
+# Identity matrix
+eye = np.eye(3)                   # 3x3 identity matrix
+</code></pre>
+
+<p>The fact that all elements share the same dtype is crucial. When NumPy knows every element is, say, a 64-bit floating-point number occupying exactly 8 bytes, it can compute the memory address of element <code>[i, j]</code> in a 2D array using simple arithmetic rather than pointer chasing. This <strong>contiguous memory layout</strong> is what allows NumPy to perform batch operations without any Python-level looping overhead.</p>
+
+<p><strong>Vectorized Operations</strong></p>
+
+<p>One of the most powerful ideas in NumPy is <strong>vectorization</strong>: expressing operations on entire arrays as single expressions rather than writing explicit loops. When you write <code>a + b</code> where <code>a</code> and <code>b</code> are ndarrays, NumPy applies the addition element-by-element using compiled C code, with no Python loop visible to you or executed at the Python level.</p>
+
+<pre><code>a = np.array([1.0, 2.0, 3.0, 4.0])
+b = np.array([10.0, 20.0, 30.0, 40.0])
+
+print(a + b)    # [11. 22. 33. 44.]
+print(a * b)    # [ 10.  40.  90. 160.]
+print(b / a)    # [10. 10. 10. 10.]
+print(a ** 2)   # [ 1.  4.  9. 16.]
+</code></pre>
+
+<p>To appreciate the performance difference, consider computing the square of every element in a large array. The pure Python approach:</p>
+
+<pre><code># Pure Python — slow
+data = list(range(1_000_000))
+result = [x ** 2 for x in data]
+</code></pre>
+
+<p>The NumPy approach:</p>
+
+<pre><code># NumPy — fast
+data = np.arange(1_000_000)
+result = data ** 2
+</code></pre>
+
+<p>On typical hardware, the NumPy version runs roughly 50–200 times faster. The reason is not just that C is faster than Python—it's also that modern CPUs have <strong>SIMD (Single Instruction, Multiple Data)</strong> instructions that can perform the same operation on multiple numbers simultaneously, and NumPy's compiled routines exploit these instructions.</p>
+
+<p>NumPy also supports <strong>broadcasting</strong>, one of its most powerful and initially surprising features. Broadcasting describes the rules by which NumPy automatically expands arrays of different but compatible shapes to perform element-wise operations. The simplest example is adding a scalar to an array:</p>
+
+<pre><code>a = np.array([1, 2, 3])
+print(a + 10)   # [11, 12, 13]  — the scalar 10 is "broadcast" to match a's shape
+</code></pre>
+
+<p>Broadcasting generalizes to higher dimensions. If you have a 2D array of shape <code>(3, 4)</code> and a 1D array of shape <code>(4,)</code>, NumPy treats the 1D array as having shape <code>(1, 4)</code> and then conceptually replicates it across the 3 rows:</p>
+
+<pre><code>matrix = np.array([[1, 2, 3, 4],
+                   [5, 6, 7, 8],
+                   [9,10,11,12]])   # shape (3, 4)
+row    = np.array([10, 20, 30, 40]) # shape (4,)
+
+print(matrix + row)
+# [[11, 22, 33, 44],
+#  [15, 26, 37, 48],
+#  [19, 30, 41, 52]]
+</code></pre>
+
+<p>Broadcasting never actually copies data in memory—it operates as if the data were replicated, gaining the conceptual simplicity of having equal-shaped arrays without the memory cost.</p>
+
+<p><strong>Array Indexing and Slicing</strong></p>
+
+<p>NumPy provides several rich mechanisms for selecting subsets of array data.</p>
+
+<p><em>Basic slicing</em> uses the familiar Python <code>[start:stop:step]</code> syntax, extended to multiple dimensions by separating dimension slices with commas:</p>
+
+<pre><code>a = np.arange(10)            # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(a[2:7])                # [2, 3, 4, 5, 6]
+print(a[::2])                # [0, 2, 4, 6, 8]
+
+m = np.array([[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]])
+
+print(m[0, :])    # First row:    [1, 2, 3]
+print(m[:, 1])    # Second column:[2, 5, 8]
+print(m[1:, 1:])  # Bottom-right 2x2:
+                  # [[5, 6],
+                  #  [8, 9]]
+</code></pre>
+
+<p>A critical and often surprising aspect of NumPy slicing is that slices return <strong>views</strong>, not copies. A view shares the underlying memory with the original array. Modifying a view modifies the original:</p>
+
+<pre><code>original = np.array([10, 20, 30, 40, 50])
+view = original[1:4]   # [20, 30, 40]
+view[0] = 999
+print(original)        # [ 10, 999,  30,  40,  50]
+</code></pre>
+
+<p>This behavior is intentional and performance-friendly—it avoids unnecessary data copying. When you do need an independent copy, use <code>.copy()</code>: <code>view = original[1:4].copy()</code>.</p>
+
+<p><em>Boolean (mask) indexing</em> lets you select elements based on a logical condition. The condition produces a boolean array of the same shape, and NumPy returns only those elements where the mask is <code>True</code>:</p>
+
+<pre><code>scores = np.array([45, 82, 61, 90, 55, 78])
+mask   = scores > 70
+print(mask)           # [False  True False  True False  True]
+print(scores[mask])   # [82, 90, 78]
+
+# Often written inline:
+print(scores[scores > 70])   # [82, 90, 78]
+
+# Modify elements in-place using a mask:
+scores[scores < 60] = 0      # Zero out failing scores
+print(scores)                # [ 0, 82, 61, 90,  0, 78]
+</code></pre>
+
+<p><em>Fancy indexing</em> allows you to select arbitrary elements by passing a list or array of integer indices:</p>
+
+<pre><code>a = np.array([100, 200, 300, 400, 500])
+idx = [0, 2, 4]
+print(a[idx])    # [100, 300, 500]
+
+# In 2D, fancy indexing can select specific rows
+m = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+print(m[[0, 2, 3]])   # rows 0, 2, and 3:
+                       # [[1, 2],
+                       #  [5, 6],
+                       #  [7, 8]]
+</code></pre>
+
+<p>Unlike basic slices, fancy indexing always returns a <em>copy</em> of the data.</p>
+
+<p><strong>Universal Functions (ufuncs)</strong></p>
+
+<p>A <strong>universal function</strong>, or <em>ufunc</em>, is a function that operates element-wise on ndarray inputs, implemented in compiled C for performance. NumPy ships with dozens of built-in ufuncs covering mathematical, trigonometric, comparison, and logical operations.</p>
+
+<pre><code>a = np.array([1.0, 4.0, 9.0, 16.0])
+
+print(np.sqrt(a))     # [1. 2. 3. 4.]
+print(np.log(a))      # [0.     1.386  2.197  2.773]
+print(np.exp(a))      # [  2.718   54.598  8103.08  ...]
+print(np.abs(np.array([-3, -1, 0, 2])))   # [3, 1, 0, 2]
+</code></pre>
+
+<p>Many ufuncs also act as <strong>aggregation functions</strong> that reduce an array to a summary statistic. The <code>axis</code> parameter controls which dimension is collapsed:</p>
+
+<pre><code>m = np.array([[1, 2, 3],
+              [4, 5, 6]])
+
+print(np.sum(m))           # 21  — sum of all elements
+print(np.sum(m, axis=0))   # [5, 7, 9]  — column sums (collapse rows)
+print(np.sum(m, axis=1))   # [ 6, 15]   — row sums (collapse columns)
+print(np.mean(m))          # 3.5
+print(np.max(m, axis=1))   # [3, 6]     — max of each row
+print(np.argmax(m, axis=1))# [2, 2]     — index of max in each row
+</code></pre>
+
+<p>The axis convention is that <code>axis=0</code> collapses along rows (operates <em>down</em> the columns) and <code>axis=1</code> collapses along columns (operates <em>across</em> the rows). This is a consistent rule: <strong>the axis you specify is the axis that disappears</strong> in the output.</p>
+
+<p>Using ufuncs instead of Python loops also produces cleaner, more readable code. Compare:</p>
+
+<pre><code># Loop-based — verbose and slow
+total = 0
+for x in data:
+    total += x
+
+# NumPy ufunc — concise and fast
+total = np.sum(data)
+</code></pre>
+
+<p><strong>Array Reshaping and Manipulation</strong></p>
+
+<p>NumPy provides a comprehensive set of tools for rearranging and combining array data.</p>
+
+<p><em>Reshaping</em> changes the shape of an array without changing its data. The total number of elements must remain the same. <code>reshape()</code> returns a view whenever possible:</p>
+
+<pre><code>a = np.arange(12)           # shape (12,)
+b = a.reshape(3, 4)         # shape (3, 4)
+c = a.reshape(2, 2, 3)      # shape (2, 2, 3) — 3D
+
+# Using -1 lets NumPy infer one dimension automatically
+d = a.reshape(4, -1)        # shape (4, 3), NumPy calculates 3
+e = a.reshape(-1, 6)        # shape (2, 6)
+</code></pre>
+
+<p><code>flatten()</code> always returns a 1D copy. <code>ravel()</code> returns a 1D view when the memory layout allows it (and a copy otherwise). Prefer <code>ravel()</code> for performance when you don't need a copy:</p>
+
+<pre><code>m = np.array([[1, 2, 3], [4, 5, 6]])
+print(m.flatten())    # [1, 2, 3, 4, 5, 6] — always a copy
+print(m.ravel())      # [1, 2, 3, 4, 5, 6] — view if possible
+</code></pre>
+
+<p><em>Transposing</em> swaps the axes of an array. For a 2D matrix, this turns rows into columns:</p>
+
+<pre><code>m = np.array([[1, 2, 3],
+              [4, 5, 6]])   # shape (2, 3)
+
+print(m.T)                  # shape (3, 2)
+# [[1, 4],
+#  [2, 5],
+#  [3, 6]]
+</code></pre>
+
+<p><em>Concatenation and stacking</em> combine multiple arrays. The key functions are summarized in the table below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Example (shapes)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>np.concatenate([a, b], axis=0)</code></td>
+      <td>Join arrays along an existing axis</td>
+      <td><code>(3,4)</code> + <code>(2,4)</code> → <code>(5,4)</code></td>
+    </tr>
+    <tr>
+      <td><code>np.vstack([a, b])</code></td>
+      <td>Stack arrays vertically (row-wise, axis 0)</td>
+      <td><code>(3,4)</code> + <code>(2,4)</code> → <code>(5,4)</code></td>
+    </tr>
+    <tr>
+      <td><code>np.hstack([a, b])</code></td>
+      <td>Stack arrays horizontally (column-wise, axis 1)</td>
+      <td><code>(3,4)</code> + <code>(3,2)</code> → <code>(3,6)</code></td>
+    </tr>
+    <tr>
+      <td><code>np.stack([a, b], axis=0)</code></td>
+      <td>Join arrays along a <em>new</em> axis</td>
+      <td><code>(3,4)</code> + <code>(3,4)</code> → <code>(2,3,4)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>a = np.ones((2, 3))
+b = np.zeros((2, 3))
+
+print(np.vstack([a, b]).shape)          # (4, 3)
+print(np.hstack([a, b]).shape)          # (2, 6)
+print(np.concatenate([a, b], axis=0).shape)  # (4, 3)
+print(np.stack([a, b], axis=0).shape)   # (2, 2, 3)
+</code></pre>
+
+<p><strong>NumPy's Role in the Data Analysis Ecosystem</strong></p>
+
+<p>NumPy is not just a standalone tool—it is the <em>lingua franca</em> of numerical Python. Pandas DataFrames store their column data as NumPy arrays internally; Matplotlib accepts NumPy arrays as inputs to all its plotting functions; scikit-learn's models consume and produce NumPy arrays; TensorFlow and PyTorch share a compatible array abstraction with NumPy and can interconvert with it.</p>
+
+<p>NumPy also provides a reproducible random number generation system via <code>np.random</code>, which is indispensable for experiments, simulations, and machine learning:</p>
+
+<pre><code>rng = np.random.default_rng(seed=42)  # Recommended modern API
+samples = rng.normal(loc=0, scale=1, size=(1000,))  # 1000 draws from N(0,1)
+integers = rng.integers(0, 100, size=(5, 5))         # 5x5 grid of ints in [0,100)
+</code></pre>
+
+<p>Understanding how NumPy arrays are created, manipulated, indexed, and operated on is therefore not optional background knowledge—it is the bedrock on which all higher-level data science work in Python is built. Every performance optimization, every broadcasting trick, every axis-aware aggregation you learn in NumPy will pay off directly when you later work with Pandas, build machine learning pipelines, or process scientific data at scale.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full content of Topic 1 including what NumPy is and why it was created, the ndarray data structure and its key attributes, vectorized operations and broadcasting, all three indexing modes (basic slicing, boolean masking, fancy indexing) with the view-vs-copy distinction, universal functions and axis-based aggregation, and reshaping/manipulation functions. The tabular summary of concatenation functions is rendered as a proper HTML table. Code examples are self-contained and progressively build understanding.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

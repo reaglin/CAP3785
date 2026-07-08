@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Chart Types and When to Use Them</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Data Visualization with Python Libraries</a></div>
+  <header>
+    <h1>Core Chart Types and When to Use Them</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Core Chart Types and When to Use Them</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Choosing the right chart type is one of the most consequential decisions in data visualization. A well-chosen chart makes a pattern immediately obvious; a poorly chosen one obscures meaning, invites misinterpretation, or simply fails to communicate at all. Every major chart type exists because it solves a specific visual problem — bar charts answer "how do categories compare?", line plots answer "how does something change over time?", scatter plots answer "do these two things move together?", and histograms answer "what does this variable's distribution look like?". Understanding not just <em>how</em> to build these charts but <em>when</em> each is appropriate — and when it is not — is the foundation of effective data storytelling.</p>
+
+<p><strong>Bar Charts for Categorical Comparisons</strong></p>
+
+<p>Bar charts are the workhorse of categorical comparison. Their core strength is simple: the human visual system is exceptionally good at judging the relative lengths of parallel bars, making it easy to rank and compare values at a glance. A bar chart is best suited for comparing a single metric — revenue, count, score, percentage — across a set of distinct, non-continuous categories such as sales by region, number of products by type, or average rating by brand.</p>
+
+<p>Consider a dataset of quarterly sales across four regional offices. A bar chart immediately answers which region performed best and by how much, whereas a pie chart of the same data forces the viewer to compare arc lengths and angles, a cognitively harder task. The bar chart wins here not because it is prettier, but because it is perceptually more accurate.</p>
+
+<p><strong>Grouped and stacked variants</strong> extend the basic bar chart to handle multiple sub-categories. In a <em>grouped bar chart</em>, bars for each sub-category are placed side by side within each main category group, enabling direct comparison within and across groups. For example, comparing Q1 and Q2 sales for each of four regions places eight bars on the chart, arranged in four pairs. The viewer can immediately see both which region leads and how each region changed quarter-over-quarter.</p>
+
+<p>A <em>stacked bar chart</em> addresses a different question: it shows how a total is composed of parts. Each bar is divided into colored segments representing sub-categories, and the full bar height represents the total. This is useful when the part-to-whole relationship matters as much as the total itself — for instance, showing total website traffic broken down by source (organic, direct, referral, paid). However, stacked bars make it difficult to compare the inner segments across categories, because only the bottom segment shares a common baseline. Use stacked bars when the total and the composition both matter; use grouped bars when comparing specific sub-categories is the priority.</p>
+
+<p>There are important pitfalls to avoid with bar charts. The most serious is <strong>not starting the y-axis at zero</strong>. Because bar length encodes value, truncating the axis dramatically exaggerates differences. A bar representing 98 units and another representing 100 units look nearly identical on a zero-based axis — which is honest — but if the axis starts at 97, the second bar appears roughly twice as tall as the first, a profound distortion. Always anchor the value axis at zero for bar charts.</p>
+
+<p>The second pitfall is using too many categories. When the number of categories exceeds roughly 15, bars become narrow and labels overlap, making the chart hard to read. In those cases, consider showing only the top N categories, grouping smaller categories into an "Other" bucket, or switching to a horizontal bar chart — which handles longer label text far more gracefully than a vertical bar chart — or even a table if exact values matter more than visual comparison.</p>
+
+<pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+data = pd.DataFrame({
+    'Region': ['North', 'South', 'East', 'West'],
+    'Sales':  [42000,   31000,  58000,  47000]
+})
+
+sns.barplot(data=data, x='Region', y='Sales', color='steelblue')
+plt.ylim(0, None)          # explicitly anchor y-axis at zero
+plt.title('Sales by Region')
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p><strong>Line Plots for Trends Over Time</strong></p>
+
+<p>Line plots are designed for data where the x-axis represents an <em>ordered, continuous variable</em> — most commonly dates, times, or sequential measurements such as experiment iterations or page numbers. The connecting line between data points is the key feature: it visually implies continuity and direction, communicating that the variable moves through a progression rather than existing as isolated categories. This makes line plots the natural choice for time-series data: stock prices, monthly sales, sensor readings, website traffic over weeks, or temperature over a year.</p>
+
+<p>The power of the line plot is its ability to reveal <em>trends</em> (long-term direction), <em>seasonality</em> (repeating cycles), <em>volatility</em> (how much the line fluctuates), and <em>anomalies</em> (sudden spikes or dips that break the pattern). A bar chart of the same monthly data would show the values but make it harder to trace the trajectory; the eye would jump between bars rather than follow a continuous path.</p>
+
+<p><strong>Multiple lines</strong> on a single plot allow direct comparison of trends across different groups — for example, revenue growth for three product lines over 24 months. Seaborn makes this straightforward with the <code>hue</code> parameter. However, beyond about five lines, the chart becomes a tangled mass of overlapping traces that is difficult to read. When you have many groups, consider small multiples (a grid of individual line plots, one per group) instead of cramming everything onto a single axis.</p>
+
+<p><strong>Markers at data points</strong> — small circles, squares, or diamonds plotted at each observation — are valuable when data is sparse or irregularly spaced. If you have only six data points per year, the line between them is an interpolation, and markers remind the viewer of where the actual measurements lie. With dense data (thousands of daily observations), markers clutter the chart and can be omitted.</p>
+
+<p>A critical misuse of line plots is applying them to <em>unordered categorical data</em>. Suppose you have average salary for five job roles: Engineer, Designer, Manager, Analyst, and Recruiter. There is no natural order to these categories — the line connecting them implies a progression that does not exist and misleads the viewer into inferring trends between categories. Use a bar chart instead. Reserve line plots strictly for ordered, sequential x-axis variables.</p>
+
+<pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+monthly = pd.DataFrame({
+    'Month':   range(1, 13),
+    'Revenue': [21, 19, 24, 28, 35, 40, 38, 42, 37, 31, 29, 45],
+    'Costs':   [15, 14, 16, 17, 20, 22, 21, 23, 20, 18, 17, 24]
+})
+
+monthly_long = monthly.melt('Month', var_name='Metric', value_name='Value')
+sns.lineplot(data=monthly_long, x='Month', y='Value', hue='Metric', marker='o')
+plt.title('Monthly Revenue vs. Costs')
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p><strong>Scatter Plots for Relationships Between Variables</strong></p>
+
+<p>Scatter plots are designed to answer one fundamental question: <em>is there a relationship between two quantitative variables?</em> Each point represents one observation, plotted according to its values on the x-axis (one variable) and the y-axis (another). The resulting cloud of points reveals whether the variables tend to rise together (positive correlation), move in opposite directions (negative correlation), or show no discernible pattern (no correlation). Scatter plots are exploratory workhorses in data analysis — before fitting models, analysts routinely scatter-plot their variables to check for linearity, outliers, and unexpected clustering.</p>
+
+<p>Scatter plots can encode a <strong>third variable</strong> using color (hue), which distinguishes groups or categories through color variation — for example, coloring points by species in a biological dataset. A <strong>fourth variable</strong> can be encoded through marker size (so larger dots represent higher values of a fourth metric), though size encoding is harder for viewers to read precisely than position or color. These multi-variable encodings add analytical depth without requiring additional subplots, but should be used judiciously: the more variables encoded, the more the viewer must work to extract meaning.</p>
+
+<p>Overlaying a <strong>trend line or regression line</strong> is a powerful complement to a scatter plot. The line summarizes the direction and strength of the relationship and makes it easier to see which points deviate from the general pattern. In Seaborn, <code>sns.regplot()</code> draws the scatter plot and a linear regression line with a confidence interval shading simultaneously:</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset('tips')
+sns.regplot(data=tips, x='total_bill', y='tip', scatter_kws={'alpha': 0.4})
+plt.title('Tip vs. Total Bill with Regression Line')
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p>The confidence interval band around the regression line (shaded by default in <code>regplot</code>) communicates uncertainty: a narrow band indicates the estimate is reliable; a wide band suggests the relationship is less certain, often because data is sparse at the extremes of x.</p>
+
+<p><strong>Overplotting</strong> is the principal challenge with large datasets. When thousands of points stack on top of each other, the scatter plot becomes a solid blob with no visible structure. Several techniques address this:</p>
+
+<ul>
+  <li><strong>Reduce marker size</strong> so individual points take up less space and overlapping becomes visible.</li>
+  <li><strong>Add transparency</strong> using the <code>alpha</code> parameter (e.g., <code>alpha=0.1</code>), so dense regions appear darker and sparse regions remain light.</li>
+  <li><strong>Use a 2D density plot</strong> (e.g., <code>sns.kdeplot()</code> with <code>fill=True</code> or <code>sns.histplot()</code> with two variables), which replaces individual points with a smooth surface showing where data concentrates.</li>
+  <li><strong>Use a hexbin plot</strong> (<code>plt.hexbin()</code>), which divides the plot into hexagonal bins and colors them by point count, handling millions of points efficiently.</li>
+</ul>
+
+<p><strong>Histograms for Distributions of Single Variables</strong></p>
+
+<p>A histogram answers the question: <em>how is this variable distributed?</em> It divides the range of a continuous variable into equal-width intervals (bins) and draws a bar for each bin whose height represents the frequency (count) or density of observations falling within that interval. Unlike a bar chart — where each bar represents a discrete category — histogram bars represent a range of a continuous variable, and the bars typically touch each other to signal that continuity.</p>
+
+<p>The shape of a histogram reveals critical information about a dataset:</p>
+
+<ul>
+  <li>A <strong>normal (bell-shaped) distribution</strong> is symmetric, with most values near the center and fewer toward the tails.</li>
+  <li>A <strong>right-skewed distribution</strong> has a long tail extending to the right — common in income data or response times, where most values are low but a few are very high.</li>
+  <li>A <strong>left-skewed distribution</strong> has a long tail to the left — perhaps test scores where most students do well but a few score very low.</li>
+  <li>A <strong>bimodal distribution</strong> has two peaks, suggesting the data might contain two distinct subpopulations mixed together.</li>
+  <li>A distribution with extreme bars far from the main body signals <strong>outliers</strong>.</li>
+</ul>
+
+<p>The most consequential choice when building a histogram is the <strong>bin count</strong>. Too few bins produce a blocky chart that hides important shape details; too many bins create a jagged, noisy chart that makes it hard to discern the overall pattern. Most plotting libraries provide automatic bin selection — Matplotlib's default uses a heuristic, Seaborn's <code>histplot</code> defaults to a reasonable estimate — but it is always worth experimenting. Common automatic rules include <em>Sturges' rule</em> (bins ≈ 1 + log₂(n), appropriate for roughly normal data), <em>Freedman-Diaconis rule</em> (bin width based on interquartile range, more robust for skewed or heavy-tailed data), and <em>Scott's rule</em> (based on the standard deviation).</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+penguins = sns.load_dataset('penguins').dropna()
+
+# Compare distributions across species with transparency
+for species, subset in penguins.groupby('species'):
+    plt.hist(subset['body_mass_g'], bins=20, alpha=0.5, label=species)
+
+plt.xlabel('Body Mass (g)')
+plt.ylabel('Count')
+plt.legend()
+plt.title('Penguin Body Mass Distribution by Species')
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p><strong>Overlapping histograms with transparency</strong> are useful for comparing two or three distributions on the same axes. Setting <code>alpha</code> to around 0.4–0.6 makes all groups visible where they overlap. Beyond three groups, this approach becomes visually confusing and it is better to switch to a <strong>box plot</strong> or <strong>violin plot</strong>. A box plot compactly summarizes median, quartiles, and outliers for many groups side by side. A violin plot adds a kernel density estimate to show the full shape of the distribution, combining the compactness of a box plot with the shape information of a histogram.</p>
+
+<p><strong>Selecting the Right Chart Type for Your Data and Message</strong></p>
+
+<p>With a toolkit of chart types available, the real skill lies in selecting the one that most clearly and honestly matches both the nature of your data and the message you need to communicate. A structured decision process helps enormously here.</p>
+
+<p>The first step is to <strong>identify your variable types</strong>. Categorical variables (region, product name, species) call for bar charts or box plots. Continuous variables (temperature, revenue, age) call for histograms for single-variable distribution or scatter plots for relationships between two variables. Time-indexed variables call for line plots. Understanding whether variables are categorical, ordinal, or continuous, and whether the question is about comparison, distribution, relationship, or composition, immediately narrows the viable chart types.</p>
+
+<p>The following table summarizes the primary use case, key strength, and a common pitfall for each core chart type:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Chart Type</th>
+      <th>Primary Use Case</th>
+      <th>Key Strength</th>
+      <th>Common Pitfall</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bar Chart</td>
+      <td>Compare a metric across categories</td>
+      <td>Easy to rank and compare magnitudes</td>
+      <td>Truncated y-axis exaggerates differences</td>
+    </tr>
+    <tr>
+      <td>Line Plot</td>
+      <td>Show trends over ordered time or sequence</td>
+      <td>Highlights direction, rate of change</td>
+      <td>Applied to unordered categories (misleading)</td>
+    </tr>
+    <tr>
+      <td>Scatter Plot</td>
+      <td>Explore relationship between two quantitative variables</td>
+      <td>Reveals correlation, clusters, outliers</td>
+      <td>Overplotting hides structure in large datasets</td>
+    </tr>
+    <tr>
+      <td>Histogram</td>
+      <td>Show distribution of a single continuous variable</td>
+      <td>Reveals shape, skew, modality</td>
+      <td>Wrong bin count distorts the apparent shape</td>
+    </tr>
+    <tr>
+      <td>Box Plot</td>
+      <td>Compare distributions across many groups</td>
+      <td>Compact, shows median and spread together</td>
+      <td>Hides shape and multimodality</td>
+    </tr>
+    <tr>
+      <td>Violin Plot</td>
+      <td>Compare distributions with shape detail</td>
+      <td>Combines box plot and density estimate</td>
+      <td>Harder to read for non-technical audiences</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The second consideration is your <strong>audience and communication goal</strong>. A general business audience reading a presentation will extract meaning faster from a clean bar chart than from a multi-dimensional scatter plot with encoded color, size, and a regression line. Exploratory analysis for fellow data scientists can afford more complexity. Always ask: will the intended viewer understand this chart in under ten seconds? If not, simplify.</p>
+
+<p>Resist the temptation to choose a chart type because it appears visually impressive. 3D bar charts, donut charts with many thin slices, and elaborate multi-axis plots often sacrifice readability for aesthetic novelty. Complexity that does not add insight subtracts trust — if a viewer cannot interpret a chart quickly, they may distrust the analysis behind it.</p>
+
+<p>When you are genuinely uncertain which chart type best serves your data, the most reliable strategy is to <strong>create two or three candidates</strong> and compare them side by side. You may find that what you thought was a trend story is actually a distribution story, or that a scatter plot reveals a clustering you would have missed with a bar chart. This iterative approach is normal and productive. Seaborn's <code>PairGrid</code> and <code>FacetGrid</code> make it practical to generate many chart variants quickly:</p>
+
+<pre><code>import seaborn as sns
+
+penguins = sns.load_dataset('penguins').dropna()
+
+# Quickly visualize relationships across multiple variable pairs
+g = sns.PairGrid(penguins, hue='species', vars=['bill_length_mm', 'flipper_length_mm', 'body_mass_g'])
+g.map_diag(sns.histplot)           # distributions on the diagonal
+g.map_offdiag(sns.scatterplot)     # relationships on off-diagonals
+g.add_legend()
+</code></pre>
+
+<p>Finally, consider <strong>combining chart types</strong> when a single chart cannot capture the full story. A scatter plot with marginal histograms (achievable with <code>sns.jointplot()</code>) simultaneously shows the relationship between two variables <em>and</em> the individual distributions of each. A bar chart with individual data points overlaid (using <code>sns.stripplot()</code>) shows both the summary statistic and the raw spread. These combinations are powerful precisely because they provide multiple layers of context in a single view — as long as they remain interpretable to the intended audience.</p>
+
+<pre><code>import seaborn as sns
+
+tips = sns.load_dataset('tips')
+
+# Joint plot: scatter with marginal histograms
+sns.jointplot(data=tips, x='total_bill', y='tip', kind='scatter', marginal_kws={'bins': 20})
+</code></pre>
+
+<p>The overarching principle is that the chart type serves the data and the viewer, not the other way around. Every choice — chart type, axis range, color, annotation — should be made in service of making the true pattern in the data as clear and as honest as possible.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five major subtopic areas: bar charts (including grouped/stacked variants and the zero-baseline rule), line plots (ordered vs. unordered data, multiple lines, markers), scatter plots (overplotting strategies, regression overlay, multi-variable encoding), histograms (bin selection, distribution shapes, overlapping with transparency), and chart-type selection heuristics. Includes a summary comparison table and runnable Seaborn/Matplotlib code examples for each chart type. Box and violin plots are mentioned as alternatives where appropriate, consistent with the notes field.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

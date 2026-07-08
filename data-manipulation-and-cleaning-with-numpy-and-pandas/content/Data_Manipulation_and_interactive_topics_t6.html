@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handling Missing Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Data Manipulation and Cleaning with NumPy and Pandas</a></div>
+  <header>
+    <h1>Handling Missing Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Handling Missing Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Missing data is one of the most common and consequential problems encountered in real-world data analysis. Whether caused by sensor failures, survey non-responses, data entry errors, or system outages, missing values can silently distort statistical summaries, bias machine learning models, and produce misleading visualizations. Pandas provides a rich set of tools for detecting, understanding, removing, and filling missing data, allowing you to make deliberate, defensible decisions about how to handle gaps before your analysis begins. The strategies you choose should be informed by the nature and extent of the missingness, the type of data involved, and the downstream use of your results.</p>
+
+<p><strong>Detecting Missing Values</strong></p>
+
+<p>The first step in handling missing data is knowing where it exists and how much of it you have. Pandas makes this straightforward with a pair of complementary methods. <code>df.isnull()</code> returns a boolean DataFrame of the same shape as the original, where every cell that contains a missing value is marked <code>True</code> and every present value is marked <code>False</code>. Its inverse, <code>df.notnull()</code>, returns <code>True</code> wherever a value is present. These boolean DataFrames can themselves be used for filtering or masking operations.</p>
+
+<pre><code>import pandas as pd
+import numpy as np
+
+data = {
+    'name':  ['Alice', 'Bob', None, 'Diana'],
+    'age':   [25, np.nan, 30, 22],
+    'score': [88.0, 91.0, np.nan, np.nan]
+}
+df = pd.DataFrame(data)
+
+print(df.isnull())
+#     name    age  score
+# 0  False  False  False
+# 1  False   True  False
+# 2   True  False   True
+# 3  False  False   True
+</code></pre>
+
+<p>To get a practical count of how many values are missing per column, chain <code>.sum()</code> after <code>.isnull()</code>. Because Python treats <code>True</code> as 1 and <code>False</code> as 0, summing the boolean values produces an integer count of missing entries in each column.</p>
+
+<pre><code>print(df.isnull().sum())
+# name     1
+# age      1
+# score    2
+# dtype: int64
+</code></pre>
+
+<p>For larger datasets with many columns, raw counts can be hard to interpret. Computing <code>df.isnull().mean()</code> instead gives the <em>proportion</em> of missing values per column, expressed as a float between 0 and 1. This is immediately actionable: a column where 5% of values are missing calls for a different strategy than one where 70% are missing.</p>
+
+<pre><code>print(df.isnull().mean())
+# name     0.25
+# age      0.25
+# score    0.50
+# dtype: float64
+</code></pre>
+
+<p>You can also get a full overview of the DataFrame including non-null counts by calling <code>df.info()</code>, which prints a concise summary of each column's dtype and the number of non-null entries alongside the total row count.</p>
+
+<p><strong>Understanding NaN and None in NumPy and Pandas</strong></p>
+
+<p>Before deciding how to handle missing values, it is important to understand the different sentinels Pandas uses to represent them, because they behave differently depending on the column's data type.</p>
+
+<p><strong>NumPy's <code>np.nan</code></strong> is a special IEEE 754 floating-point value that stands for "Not a Number." It is the standard representation for missing data in numerical columns. One critical property of <code>np.nan</code> is that it is <em>not equal to itself</em> — <code>np.nan == np.nan</code> evaluates to <code>False</code>. This means you can never use equality checks to find NaN values; you must use <code>pd.isnull()</code> or <code>np.isnan()</code> instead. Furthermore, any arithmetic operation involving <code>np.nan</code> propagates NaN through the calculation by default:</p>
+
+<pre><code>print(5 + np.nan)   # nan
+print(np.nan * 0)   # nan  — even multiplying by zero gives nan
+print(np.mean([1, 2, np.nan]))  # nan
+</code></pre>
+
+<p>This propagation can silently corrupt summary statistics. Pandas aggregation functions like <code>.mean()</code>, <code>.sum()</code>, and <code>.std()</code> skip NaN by default (via <code>skipna=True</code>), which is usually helpful, but raw NumPy operations do not.</p>
+
+<p><strong>Python's <code>None</code></strong> is an object-type missing value. In columns with dtype <code>object</code> (typically string columns), Pandas treats <code>None</code> and <code>np.nan</code> as equivalent missing value representations. In numeric columns, assigning <code>None</code> will cause Pandas to upcast the column to <code>float64</code> and store it as <code>np.nan</code> automatically, because a pure integer array cannot hold a floating-point sentinel.</p>
+
+<pre><code>s = pd.Series([1, 2, None])
+print(s.dtype)   # float64  — Pandas upcasted the column
+print(s)
+# 0    1.0
+# 1    2.0
+# 2    NaN
+</code></pre>
+
+<p><strong>Pandas 1.0 introduced <code>pd.NA</code></strong> as a more consistent and type-aware missing value indicator. Unlike <code>np.nan</code>, <code>pd.NA</code> works correctly with integer, boolean, and string extension array types (e.g., <code>Int64</code>, <code>boolean</code>, <code>StringDtype</code>) without forcing a dtype upcast. This means you can now have an integer column that natively contains missing values:</p>
+
+<pre><code>s = pd.Series([1, 2, pd.NA], dtype="Int64")
+print(s.dtype)   # Int64  — no upcast to float
+print(s)
+# 0       1
+# 1       2
+# 2    &lt;NA&gt;
+# dtype: Int64
+</code></pre>
+
+<p><code>pd.NA</code> also propagates through boolean operations more predictably than <code>np.nan</code>, following three-valued logic (True, False, NA) rather than always returning NaN.</p>
+
+<p><strong>Removing Missing Values with dropna()</strong></p>
+
+<p>The most direct way to deal with missing data is to remove the rows or columns that contain it. Pandas provides <code>df.dropna()</code> for this purpose. With no arguments, it drops every row that contains <em>at least one</em> missing value:</p>
+
+<pre><code>df_clean = df.dropna()
+print(df_clean)
+#     name   age  score
+# 0  Alice  25.0   88.0
+</code></pre>
+
+<p>Only row 0 survives because every other row has at least one NaN. The original DataFrame is unchanged; <code>dropna()</code> returns a new object unless you pass <code>inplace=True</code>.</p>
+
+<p>The <strong><code>axis</code> parameter</strong> determines the direction of dropping. By default <code>axis=0</code> drops rows. Setting <code>axis=1</code> drops columns that contain any missing value, which is useful when an entire column is mostly empty:</p>
+
+<pre><code>df_no_missing_cols = df.dropna(axis=1)
+print(df_no_missing_cols)
+#     name
+# 0  Alice
+# 1    Bob
+# 2   None
+# 3  Diana
+# Hmm — only the 'name' column survived (but it also has a None!)
+# Let's check more carefully:
+print(df.dropna(axis=1))
+# Returns only columns where NO value is missing — in this case none survive
+# because every column has at least one NaN/None.
+</code></pre>
+
+<p>The <strong><code>how</code> parameter</strong> fine-tunes the dropping condition. <code>how='any'</code> (the default) drops a row if <em>any</em> value in it is missing. <code>how='all'</code> is much more conservative — it drops a row only if <em>every</em> value in that row is missing, which is appropriate when you expect some sparseness but want to eliminate entirely empty records:</p>
+
+<pre><code>df_sparse = pd.DataFrame({
+    'a': [1, np.nan, np.nan],
+    'b': [2, 3,      np.nan],
+    'c': [4, np.nan, np.nan]
+})
+
+print(df_sparse.dropna(how='all'))
+#      a    b    c
+# 0  1.0  2.0  4.0
+# 1  NaN  3.0  NaN
+# Row 2 is dropped because all its values are NaN.
+</code></pre>
+
+<p>The <strong><code>thresh</code> parameter</strong> offers a middle ground. It keeps only rows that have at least <code>thresh</code> non-NaN values. This is particularly useful for wide datasets where you can tolerate a few missing fields but not rows that are mostly empty:</p>
+
+<pre><code>print(df_sparse.dropna(thresh=2))
+#      a    b    c
+# 0  1.0  2.0  4.0
+# 1  NaN  3.0  NaN
+# Row 0 has 3 non-NaN values, row 1 has 1 (fails thresh=2), row 2 has 0.
+# Wait — row 1 has only b=3, so 1 non-null value: dropped.
+# Only row 0 survives with thresh=2 requiring >=2 non-null values... let's verify:
+print(df_sparse.dropna(thresh=2))
+#      a    b    c
+# 0  1.0  2.0  4.0
+# Row 1 has 1 non-null (b), row 2 has 0 non-null — both dropped.
+</code></pre>
+
+<p>You can also pass a <code>subset</code> parameter listing specific columns to consider when deciding whether to drop a row, which is useful when only certain fields are critical to your analysis.</p>
+
+<p><strong>Imputing Missing Values with fillna()</strong></p>
+
+<p>Dropping rows is simple but comes at the cost of losing potentially valuable data — especially in small datasets. Imputation, the practice of filling missing values with estimated or derived ones, is often preferable. Pandas' <code>df.fillna()</code> method is the primary tool for this.</p>
+
+<p>The most basic form replaces every NaN with a single constant value, which makes sense when you have domain knowledge about what the missing value likely represents:</p>
+
+<pre><code>df_filled = df.fillna(0)
+print(df_filled)
+#     name   age  score
+# 0  Alice  25.0   88.0
+# 1    Bob   0.0   91.0
+# 2      0  30.0    0.0
+# 3  Diana  22.0    0.0
+</code></pre>
+
+<p>To apply different fill values per column, pass a dictionary mapping column names to their fill values:</p>
+
+<pre><code>df_filled = df.fillna({'name': 'Unknown', 'age': df['age'].median(), 'score': 0})
+print(df_filled)
+#      name   age  score
+# 0   Alice  25.0   88.0
+# 1     Bob  25.0   91.0  # median of [25, 30, 22] = 25.0
+# 2  Unknown  30.0    0.0
+# 3   Diana  22.0    0.0
+</code></pre>
+
+<p><strong>Forward fill (<code>method='ffill'</code>)</strong> propagates the last valid observation forward to fill subsequent NaN values. This is especially natural for time-series data where the most recently observed value is a reasonable proxy for missing future readings:</p>
+
+<pre><code>ts = pd.Series([1.0, np.nan, np.nan, 4.0, np.nan])
+print(ts.ffill())
+# 0    1.0
+# 1    1.0
+# 2    1.0
+# 3    4.0
+# 4    4.0
+</code></pre>
+
+<p>Notice that index 1 and 2 are filled with the previous valid value (1.0), and index 4 is filled with 4.0. If the first value in the Series is NaN, ffill has nothing to propagate and it remains NaN.</p>
+
+<p><strong>Backward fill (<code>method='bfill'</code>)</strong> works in the opposite direction, using the next valid observation to fill earlier gaps:</p>
+
+<pre><code>print(ts.bfill())
+# 0    1.0
+# 1    4.0
+# 2    4.0
+# 3    4.0
+# 4    NaN   # no future value to backfill from
+</code></pre>
+
+<p><strong>Statistical imputation</strong> replaces missing values with a computed statistic — most commonly the mean, median, or mode of the column. Mean imputation preserves the column mean but reduces variance and distorts correlations. It is a reasonable first approach when the proportion of missing values is small:</p>
+
+<pre><code>df['score'] = df['score'].fillna(df['score'].mean())
+# mean of [88.0, 91.0] = 89.5
+print(df['score'])
+# 0    88.0
+# 1    91.0
+# 2    89.5
+# 3    89.5
+</code></pre>
+
+<p>For skewed distributions, median imputation is more robust because the median is not pulled by extreme values. For categorical or discrete variables, mode imputation (filling with the most frequent value) is more appropriate than mean or median.</p>
+
+<p><strong>Interpolation for Missing Values</strong></p>
+
+<p>When data has a natural ordering — such as a time series, a sequence of measurements, or regularly spaced observations — interpolation offers a more sophisticated filling strategy than forward-fill or statistical imputation. Rather than copying a neighboring value or using a global statistic, interpolation estimates missing values by fitting a smooth curve through the surrounding known points.</p>
+
+<p><code>df.interpolate()</code> with default settings performs <strong>linear interpolation</strong>, computing a value that lies proportionally between the two nearest non-missing neighbors:</p>
+
+<pre><code>s = pd.Series([0.0, np.nan, np.nan, 9.0, np.nan, 15.0])
+print(s.interpolate())
+# 0     0.0
+# 1     3.0   # 1/3 of the way from 0 to 9
+# 2     6.0   # 2/3 of the way from 0 to 9
+# 3     9.0
+# 4    12.0   # midpoint between 9 and 15
+# 5    15.0
+</code></pre>
+
+<p>The <strong><code>method</code> parameter</strong> controls the interpolation algorithm. A few important options include:</p>
+
+<ul>
+  <li><strong>'linear'</strong> (default): assumes equal spacing between index positions. Does not use the actual index values.</li>
+  <li><strong>'time'</strong>: designed for DatetimeIndex data; it uses the actual timestamps to weight the interpolation, so gaps of different durations are handled proportionally.</li>
+  <li><strong>'polynomial'</strong> and <strong>'spline'</strong>: fit higher-order polynomial curves through the known points, requiring an <code>order</code> argument. Useful for smoothly curved data but can oscillate dangerously if the order is too high or data is sparse.</li>
+</ul>
+
+<pre><code>s_poly = pd.Series([0.0, np.nan, np.nan, 8.0, np.nan, 20.0])
+print(s_poly.interpolate(method='polynomial', order=2))
+</code></pre>
+
+<p>The <strong><code>limit</code> parameter</strong> caps how many consecutive NaN values will be filled. This is a safeguard against filling very long gaps where the interpolated values would be unreliable:</p>
+
+<pre><code>s_long_gap = pd.Series([1.0, np.nan, np.nan, np.nan, np.nan, 10.0])
+print(s_long_gap.interpolate(limit=2))
+# 0     1.0
+# 1     2.8   # filled (within limit)
+# 2     4.6   # filled (within limit)
+# 3     NaN   # not filled (limit=2 exhausted)
+# 4     NaN   # not filled
+# 5    10.0
+</code></pre>
+
+<p>Critically, interpolation is <em>only appropriate when the ordering of rows is meaningful</em>. It should never be applied to categorical variables, unordered data, or situations where missingness is not related to position or time. Interpolating a "country" column or a binary flag, for instance, would produce meaningless or invalid values.</p>
+
+<p><strong>Strategy Selection Based on Missingness Type</strong></p>
+
+<p>Choosing the right handling strategy requires understanding <em>why</em> data is missing, not just where. Statisticians classify missingness into three structural types, each with different implications:</p>
+
+<p><strong>Missing Completely at Random (MCAR)</strong> means the probability that a value is missing is entirely unrelated to the data itself — observed or unobserved. A sensor randomly failing once a week regardless of the measurement value is an example. MCAR is the most benign case: dropping rows introduces no systematic bias, and simple imputation strategies (mean, median, constant fill) are generally safe, though they still reduce variance and inflate apparent precision.</p>
+
+<p><strong>Missing at Random (MAR)</strong> means the probability of missingness is related to <em>other observed variables</em>, but not to the missing value itself. For example, younger survey respondents might be less likely to report income, but among respondents of the same age, income reporting is random. You cannot safely drop MAR data without introducing bias. More advanced imputation methods — such as using a regression model trained on other columns to predict the missing values, or multiple imputation techniques — can recover reliable estimates because the pattern is explainable by observed data.</p>
+
+<p><strong>Missing Not at Random (MNAR)</strong> is the most difficult case. Here, the probability of missingness depends on the unobserved value itself. High-income earners might deliberately skip an income question precisely because their income is high. No purely data-driven imputation can fully correct for MNAR because the information you need to impute the missing value is the same information that is missing. Handling MNAR typically requires domain knowledge, sensitivity analysis, or collecting additional data to understand the missingness mechanism.</p>
+
+<p>The following table summarizes the three types and their recommended handling approaches:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Missingness Type</th>
+      <th>Definition</th>
+      <th>Example</th>
+      <th>Recommended Strategy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MCAR</strong></td>
+      <td>Missingness is unrelated to any data</td>
+      <td>Random sensor dropout</td>
+      <td>Drop rows or simple imputation (mean/median/mode)</td>
+    </tr>
+    <tr>
+      <td><strong>MAR</strong></td>
+      <td>Missingness depends on other observed variables</td>
+      <td>Age predicts whether income is reported</td>
+      <td>Model-based or multiple imputation using other columns</td>
+    </tr>
+    <tr>
+      <td><strong>MNAR</strong></td>
+      <td>Missingness depends on the missing value itself</td>
+      <td>High earners skip income question</td>
+      <td>Domain-specific treatment, sensitivity analysis, data collection</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Beyond structural type, the proportion of missing data matters. As a rough guide: columns with more than 40–50% missing values are often better dropped outright, as any imputation would be fabricating more than half the data. Columns with under 5% missing data are usually safe to impute or drop rows with minimal impact on the analysis.</p>
+
+<p>Visualizing missingness patterns can reveal relationships between missing fields that are invisible from column-level counts alone. The <code>missingno</code> library offers several useful plots for this. <code>msno.matrix(df)</code> renders a visual grid where present values appear as white bars and missing values appear as dark gaps, allowing you to spot row-level correlations — for example, whether the same rows tend to be missing across multiple columns simultaneously. <code>msno.heatmap(df)</code> shows the correlation between columns' missingness patterns numerically. <code>msno.bar(df)</code> produces a simple bar chart of non-null counts per column.</p>
+
+<pre><code># pip install missingno
+import missingno as msno
+import matplotlib.pyplot as plt
+
+msno.matrix(df)
+plt.show()
+
+msno.heatmap(df)
+plt.show()
+</code></pre>
+
+<p>A strong positive correlation in the heatmap between two columns' missingness patterns (meaning they tend to be missing in the same rows) is a signal that the data may be MAR — the missingness of one might be predictable from the other — which in turn informs a more sophisticated imputation strategy rather than simple row deletion.</p>
+
+<p>In summary, handling missing data well is not a single-step mechanical operation but an analytical process: detect the scope of the problem, understand the type of missingness, choose a strategy proportionate to the extent and mechanism of the gaps, apply it carefully, and validate that the resulting dataset behaves as expected before moving on to analysis or modeling.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six subtopic groups: detection methods (isnull/notnull/sum/mean), NaN vs None vs pd.NA semantics, dropna() with axis/how/thresh, fillna() with scalar/dict/ffill/bfill/statistical imputation, interpolate() with method/limit caveats, and MCAR/MAR/MNAR framework with missingno visualization. Includes runnable code examples throughout and a summary comparison table for missingness types.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

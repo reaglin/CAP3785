@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keys and Identifiers</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Database Basics and Relational Data Concepts</a></div>
+  <header>
+    <h1>Keys and Identifiers</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Keys and Identifiers</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>In any relational database, every piece of data must be traceable, reachable, and unambiguously identifiable. Keys and identifiers are the mechanism that makes this possible. A key is a column — or a set of columns — whose values serve a specific structural role: they uniquely identify rows, enforce business rules, or create navigable links between tables. Without well-designed keys, a database quickly devolves into a collection of disconnected, ambiguous data that cannot be reliably queried or trusted. Understanding keys at a deep level is therefore one of the most important foundations for anyone working with relational data.</p>
+
+<p><strong>What Is a Primary Key?</strong></p>
+
+<p>A primary key is a column or group of columns designated as the definitive identifier for every row in a table. Its job is simple but critical: given any row in the table, the primary key value for that row must be different from the primary key value of every other row. No two rows may share the same primary key, and no row may have a NULL primary key — because NULL means "unknown," and you cannot uniquely identify something whose identity is unknown.</p>
+
+<p>When you declare a primary key on a table, the database engine automatically creates a constraint that enforces both of these rules. If you attempt to insert a row whose primary key value already exists, the database will reject the operation with a constraint violation error. If you attempt to insert a row without providing a primary key value, the database will similarly reject it unless the column is configured to generate its own value automatically.</p>
+
+<p>Consider a simple <em>customers</em> table:</p>
+
+<pre><code>CREATE TABLE customers (
+    customer_id   INT          NOT NULL,
+    first_name    VARCHAR(50)  NOT NULL,
+    last_name     VARCHAR(50)  NOT NULL,
+    email         VARCHAR(100),
+    PRIMARY KEY (customer_id)
+);</code></pre>
+
+<p>Here <code>customer_id</code> is the primary key. Every customer that enters the system receives a unique integer value for this column. The database guarantees that no two customers will ever collide on this value, which means any query using <code>customer_id</code> as a filter will resolve to at most one row — a very powerful guarantee.</p>
+
+<p>A primary key built from a single column is called a <strong>simple key</strong>. A primary key built from two or more columns working together is called a <strong>composite key</strong>, which is discussed in detail later. Regardless of how many columns are involved, the rule is the same: the combined value must be unique across all rows and none of the participating columns may be NULL.</p>
+
+<p><strong>Natural Keys vs. Surrogate Keys</strong></p>
+
+<p>Once you decide that a table needs a primary key, the next decision is what that key should be made of. There are two broad strategies: using a <em>natural key</em> or using a <em>surrogate key</em>.</p>
+
+<p>A <strong>natural key</strong> is a value that already exists in the real-world data being modeled and carries inherent meaning. An employee's national identification number, a product's manufacturer barcode, a country's ISO two-letter code, or a user's email address are all examples of natural keys. The appeal is obvious — the key is self-describing, meaningful to humans, and does not require generating an artificial value.</p>
+
+<p>However, natural keys carry risks. Business data changes. A company might allow customers to change their email address, making an email-based primary key unstable. A product barcode might be reassigned after a product reformulation. A person's name is rarely unique enough and may also change. When a primary key value changes, every foreign key reference to that value in every related table must also change — a potentially enormous and error-prone cascade of updates.</p>
+
+<p>Natural keys may also carry sensitive information. Using a social security number as a primary key, for instance, means that number appears in every join, every log, every related table, and every query — vastly expanding its exposure.</p>
+
+<p>A <strong>surrogate key</strong> is a value that has no meaning in the real world. It exists only inside the database, manufactured purely to serve as an identifier. The most common form is an auto-incrementing integer: 1, 2, 3, and so on. Modern databases also support universally unique identifiers (UUIDs), which are 128-bit values generated to be globally unique even across separate systems.</p>
+
+<pre><code>-- Auto-incrementing surrogate key (PostgreSQL syntax)
+CREATE TABLE products (
+    product_id   SERIAL       PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    sku          VARCHAR(50)  UNIQUE NOT NULL
+);
+
+-- UUID surrogate key
+CREATE TABLE orders (
+    order_id    UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+    customer_id INT          NOT NULL,
+    order_date  DATE         NOT NULL
+);</code></pre>
+
+<p>Because a surrogate key carries no business meaning, it never needs to change when business data changes. The customer can update their email, change their name, or move to a new country — the surrogate <code>customer_id</code> remains the same, and every related record continues to point to the right customer without modification.</p>
+
+<p>The trade-off is that surrogate keys require an extra column and offer no self-evident meaning to a human reading the data. In practice, most production databases use surrogate keys for primary keys and then enforce uniqueness on the meaningful business attributes (like email or SKU) through separate unique constraints.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Natural Key</th>
+      <th>Surrogate Key</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Source</td>
+      <td>Real-world business data</td>
+      <td>System-generated (database or application)</td>
+    </tr>
+    <tr>
+      <td>Meaning</td>
+      <td>Carries business meaning</td>
+      <td>No inherent meaning</td>
+    </tr>
+    <tr>
+      <td>Stability</td>
+      <td>Can change as business data changes</td>
+      <td>Stable; never needs to change</td>
+    </tr>
+    <tr>
+      <td>Privacy risk</td>
+      <td>May expose sensitive information</td>
+      <td>No sensitive information</td>
+    </tr>
+    <tr>
+      <td>Human readability</td>
+      <td>Self-describing</td>
+      <td>Opaque without context</td>
+    </tr>
+    <tr>
+      <td>Common examples</td>
+      <td>Email, national ID, ISO country code</td>
+      <td>Auto-increment integer, UUID</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>What Is a Foreign Key?</strong></p>
+
+<p>A foreign key is a column (or set of columns) in one table that references the primary key of another table. It is the concrete mechanism through which relational databases express relationships between entities. Without foreign keys, tables would be isolated silos; with them, a database becomes a connected network of related information.</p>
+
+<p>Imagine an e-commerce database. Orders belong to customers. Rather than duplicating the customer's name, address, and contact details into every order row, you store the customer information once in the <em>customers</em> table and place only the customer's identifier in each order row:</p>
+
+<pre><code>CREATE TABLE orders (
+    order_id    INT  NOT NULL PRIMARY KEY,
+    customer_id INT  NOT NULL,
+    order_date  DATE NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);</code></pre>
+
+<p>The column <code>customer_id</code> in the <em>orders</em> table is a foreign key. The database enforces that every value stored in <code>orders.customer_id</code> must correspond to an existing value in <code>customers.customer_id</code>. You cannot create an order for a customer who does not exist.</p>
+
+<p>Foreign keys may also be NULL if the relationship is optional. For example, an order might be placed before it is assigned to a sales representative. If <code>sales_rep_id</code> is nullable, a NULL value legitimately means "not yet assigned" rather than a broken reference.</p>
+
+<p>A single table can carry multiple foreign keys, each linking to a different parent table. An order line item, for instance, might reference both the order it belongs to and the product being purchased:</p>
+
+<pre><code>CREATE TABLE order_items (
+    order_item_id INT            NOT NULL PRIMARY KEY,
+    order_id      INT            NOT NULL,
+    product_id    INT            NOT NULL,
+    quantity      INT            NOT NULL,
+    unit_price    DECIMAL(10,2)  NOT NULL,
+    FOREIGN KEY (order_id)   REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);</code></pre>
+
+<p>Here <code>order_items</code> has two foreign keys, tying each line item to both its parent order and the specific product involved. This is the relational model working as designed: normalised, non-redundant, and navigable.</p>
+
+<p><strong>Referential Integrity</strong></p>
+
+<p>Referential integrity is the database's guarantee that every foreign key value either points to a real, existing row in the referenced table or is deliberately NULL. When referential integrity is maintained, you will never find an order that references a customer who doesn't exist, or an order item linked to a product that was deleted from the system. Such "orphaned" records are a form of data corruption that produces wrong query results, failed report generation, and difficult-to-diagnose application bugs.</p>
+
+<p>Databases enforce referential integrity through <strong>referential actions</strong> — rules that define what happens when a referenced row is updated or deleted. The most common options are:</p>
+
+<ul>
+  <li><strong>RESTRICT / NO ACTION:</strong> The operation is blocked. If you try to delete a customer who has existing orders, the database refuses the deletion entirely. This is the safest and most common default behaviour.</li>
+  <li><strong>CASCADE:</strong> The operation propagates automatically. Deleting a customer also deletes all of that customer's orders. This is powerful but potentially dangerous if applied without careful thought.</li>
+  <li><strong>SET NULL:</strong> When the referenced row is deleted or its key is updated, the foreign key value in child rows is set to NULL. This is appropriate when the relationship is optional.</li>
+  <li><strong>SET DEFAULT:</strong> Similar to SET NULL, but replaces the foreign key value with a predefined default rather than NULL.</li>
+</ul>
+
+<pre><code>-- Cascade deletes to child rows
+CREATE TABLE orders (
+    order_id    INT  NOT NULL PRIMARY KEY,
+    customer_id INT  NOT NULL,
+    FOREIGN KEY (customer_id)
+        REFERENCES customers(customer_id)
+        ON DELETE CASCADE
+);
+
+-- Prevent deletion of referenced rows
+CREATE TABLE order_items (
+    order_item_id INT NOT NULL PRIMARY KEY,
+    product_id    INT NOT NULL,
+    FOREIGN KEY (product_id)
+        REFERENCES products(product_id)
+        ON DELETE RESTRICT
+);</code></pre>
+
+<p>Violations of referential integrity are a significant data quality issue. When data is loaded from external sources, migrated from legacy systems, or modified through backdoor processes that bypass the database constraints, orphaned records can accumulate. Before running analytical queries across related tables, it is wise to check whether foreign key constraints are actually enforced and whether historical data is clean. A JOIN against a corrupted dataset will silently return incomplete or misleading results.</p>
+
+<p><strong>Unique Constraints and Unique Identifiers</strong></p>
+
+<p>A unique constraint is a rule applied to a column or group of columns that prohibits duplicate values. It is similar to a primary key, but with two important distinctions.</p>
+
+<p>First, a table can have only one primary key, but it can have many unique constraints — one per column or group of columns that must be distinct across all rows. Second, in most database systems, a column under a unique constraint (but not a primary key) can contain NULL values, and typically multiple NULLs are permitted because NULL is not considered equal to another NULL.</p>
+
+<p>Returning to the <em>products</em> example: the surrogate key <code>product_id</code> is the primary key, but the business also requires that no two products share the same stock-keeping unit code (SKU). A unique constraint enforces this:</p>
+
+<pre><code>CREATE TABLE products (
+    product_id   SERIAL       PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    sku          VARCHAR(50)  NOT NULL UNIQUE,
+    price        DECIMAL(10,2)
+);</code></pre>
+
+<p>The <code>UNIQUE</code> keyword on the <code>sku</code> column tells the database to reject any insert or update that would create a duplicate SKU. This is a business rule enforced at the data layer, which is far more reliable than trying to enforce it only in application code.</p>
+
+<p>Unique constraints also serve an important role in query performance. Databases automatically create an index to support a unique constraint, so lookups on that column become very fast — the engine can scan the index in logarithmic time rather than scanning every row in the table.</p>
+
+<p>Unique identifiers in the broader sense — values that uniquely distinguish one record from another — are the conceptual backbone of data quality. They make it possible to join tables accurately, deduplicate records, and trace a single entity across multiple systems. An analyst who cannot identify a unique, reliable key for a dataset will struggle to merge it correctly with other data sources.</p>
+
+<p><strong>Composite Keys</strong></p>
+
+<p>A composite key is a primary key (or unique constraint) that spans two or more columns. No single column alone is sufficient to uniquely identify a row; it is the <em>combination</em> of values across all participating columns that must be unique.</p>
+
+<p>The most natural home for composite keys is a <strong>junction table</strong> (also called a bridge table or associative entity), which represents a many-to-many relationship. Consider a course enrollment system where a student can enroll in many courses, and each course can have many students. The relationship itself lives in a junction table:</p>
+
+<pre><code>CREATE TABLE enrollments (
+    student_id  INT  NOT NULL,
+    course_id   INT  NOT NULL,
+    enrolled_on DATE NOT NULL,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id)  REFERENCES courses(course_id)
+);</code></pre>
+
+<p>Here neither <code>student_id</code> alone nor <code>course_id</code> alone is unique — a student appears in many rows (once per course) and a course appears in many rows (once per student). But the pair <code>(student_id, course_id)</code> <em>is</em> unique: a given student can only be enrolled in a given course once. The composite primary key enforces exactly this rule.</p>
+
+<p>Composite keys work correctly but introduce complexity. Any foreign key that references a composite primary key must itself be composite — it must include all the same columns in the same order. Queries involving composite key joins are longer to write and slightly harder to read than those using a single integer.</p>
+
+<p>For these reasons, many database designers add a surrogate key to junction tables and demote the natural composite columns to a unique constraint:</p>
+
+<pre><code>CREATE TABLE enrollments (
+    enrollment_id INT  NOT NULL PRIMARY KEY,  -- surrogate
+    student_id    INT  NOT NULL,
+    course_id     INT  NOT NULL,
+    enrolled_on   DATE NOT NULL,
+    UNIQUE (student_id, course_id),           -- composite unique, not PK
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id)  REFERENCES courses(course_id)
+);</code></pre>
+
+<p>This approach preserves the uniqueness guarantee while giving other tables a simple, single-column integer to reference if they ever need to link to a specific enrollment record.</p>
+
+<p><strong>How Keys Link Data Across Tables</strong></p>
+
+<p>The entire architecture of a relational database rests on a simple but profound pattern: one table stores its primary key, and another table stores a copy of that key as a foreign key. This arrangement creates a directed link — a relationship — between the two tables that can be traversed in SQL using a JOIN.</p>
+
+<p>Visualise the flow of keys through a small e-commerce schema:</p>
+
+<ul>
+  <li>The <em>customers</em> table stores <code>customer_id</code> as its primary key.</li>
+  <li>The <em>orders</em> table stores its own <code>order_id</code> as its primary key, and holds <code>customer_id</code> as a foreign key linking back to customers.</li>
+  <li>The <em>order_items</em> table stores its own <code>order_item_id</code> as its primary key, holds <code>order_id</code> as a foreign key linking to orders, and holds <code>product_id</code> as a foreign key linking to products.</li>
+  <li>The <em>products</em> table stores <code>product_id</code> as its primary key.</li>
+</ul>
+
+<p>This chain of keys means that starting from a single customer, you can navigate through their orders, into the individual items in each order, and out to the products those items represent — all using JOIN operations that match primary keys to foreign keys:</p>
+
+<pre><code>SELECT
+    c.first_name,
+    c.last_name,
+    o.order_date,
+    p.product_name,
+    oi.quantity,
+    oi.unit_price
+FROM customers      c
+JOIN orders         o  ON o.customer_id   = c.customer_id
+JOIN order_items    oi ON oi.order_id     = o.order_id
+JOIN products       p  ON p.product_id    = oi.product_id
+WHERE c.customer_id = 42;</code></pre>
+
+<p>Without correctly designed keys, this query would be impossible or would return garbage results. With properly defined primary and foreign keys, the database engine can optimise the join using indexes built on those key columns, making the query fast even over millions of rows.</p>
+
+<p>Well-designed keys deliver four interconnected benefits:</p>
+
+<ul>
+  <li><strong>Data integrity:</strong> Constraints prevent invalid data from entering the system in the first place, ensuring that every relationship refers to something real.</li>
+  <li><strong>Reduced redundancy:</strong> Information is stored once, in the table that owns it, and referenced everywhere else by key. Changes made in one place propagate correctly to all queries rather than requiring updates scattered across multiple tables.</li>
+  <li><strong>Query correctness:</strong> When you join on a primary key–foreign key pair, you know that every match is intentional and unambiguous — not an accidental collision on a non-unique value.</li>
+  <li><strong>Performance:</strong> Indexes created automatically on primary and foreign keys dramatically accelerate lookups and joins, keeping queries responsive as data volumes grow.</li>
+</ul>
+
+<p>Investing time in understanding and correctly designing keys is one of the highest-leverage activities in database work. Every query you write, every report you generate, and every analysis you conduct depends on the accuracy and reliability of the underlying key structure.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers primary keys, natural vs. surrogate keys, foreign keys, referential integrity, unique constraints, composite keys, and how keys link data across tables. All SQL examples use standard ANSI SQL with minor dialect notes (SERIAL for PostgreSQL). The comparison table renders natural vs. surrogate key trade-offs clearly. The final schema walkthrough ties all concepts together into a cohesive relational picture.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

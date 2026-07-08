@@ -10,6 +10,36 @@
     "type": "Page"
   },
   {
+    "title": "Introduction to Matplotlib and Seaborn",
+    "href": "content/Advanced_Data_Visualization_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Core Chart Types and When to Use Them",
+    "href": "content/Advanced_Data_Visualization_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Advanced Visualizations: Heatmaps and Pair Plots",
+    "href": "content/Advanced_Data_Visualization_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Customization and Publication-Quality Styling",
+    "href": "content/Advanced_Data_Visualization_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Storytelling with Data and Visual Best Practices",
+    "href": "content/Advanced_Data_Visualization_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Building Interactive Figures",
+    "href": "content/Advanced_Data_Visualization_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
     "title": "Advanced Data Visualization with Python Libraries \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

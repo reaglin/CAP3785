@@ -9,217 +9,197 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
       background: #f4f6f9;
-      color: #2c3340;
+      color: #1e2a38;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header Banner ── */
+    /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #1e5799 60%, #2980b9 100%);
+      background: linear-gradient(135deg, #0d3b6e 0%, #1565a8 60%, #1a78c2 100%);
       color: #fff;
       padding: 2.8rem 2rem 2.2rem;
+      text-align: center;
     }
 
-    .header-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-
-    .course-label {
+    header .course-label {
       display: inline-block;
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 3px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.85rem;
+      border-radius: 20px;
+      padding: 0.25rem 0.85rem;
+      margin-bottom: 1rem;
+      color: #d6e9ff;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-size: clamp(1.45rem, 3.5vw, 2.15rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 0.8rem;
+      max-width: 800px;
+      margin: 0 auto 1.1rem;
       letter-spacing: -0.01em;
     }
 
-    header p {
+    header p.intro {
       font-size: 1rem;
-      max-width: 700px;
-      color: rgba(255,255,255,0.88);
-      line-height: 1.65;
+      max-width: 680px;
+      margin: 0 auto;
+      color: #c8dff5;
+      font-weight: 400;
     }
 
     /* ── Main Content ── */
     main {
-      max-width: 1080px;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem 3rem;
+      max-width: 1100px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
     }
 
-    .section-label {
+    .section-heading {
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: #5a6580;
+      color: #5a7190;
       margin-bottom: 1.2rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dde2ec;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde4ee;
     }
 
     /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 1.2rem;
     }
 
     .card {
       background: #ffffff;
-      border: 1px solid #dde2ec;
-      border-radius: 8px;
+      border: 1px solid #dde4ee;
+      border-radius: 10px;
       padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      position: relative;
     }
 
     .card:hover {
-      box-shadow: 0 4px 18px rgba(30, 87, 153, 0.10);
-      border-color: #b0bdd6;
+      box-shadow: 0 6px 22px rgba(13,59,110,0.10);
+      transform: translateY(-2px);
     }
 
-    /* ── Card Header Row ── */
-    .card-header {
+    /* ── Type Badge ── */
+    .card-meta {
       display: flex;
-      align-items: flex-start;
-      gap: 0.55rem;
-      flex-wrap: wrap;
-    }
-
-    .card-title {
-      font-size: 0.97rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-      min-width: 0;
-      word-break: break-word;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #1558a8;
-      text-decoration: none;
-    }
-
-    .card-title a:hover {
-      text-decoration: underline;
-      color: #0e3f7a;
-    }
-
-    .card-title a:visited {
-      color: #4a3a8c;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #fff;
-      background: #5a7fa8;
-      border-radius: 3px;
-      padding: 0.18rem 0.5rem;
-      text-decoration: none;
-      white-space: nowrap;
-      align-self: flex-start;
-      margin-top: 0.1rem;
-      transition: background 0.15s;
-    }
-
-    .source-link:hover {
-      background: #3b5f85;
-      text-decoration: none;
-    }
-
-    /* ── Badges ── */
-    .badge-row {
-      display: flex;
-      gap: 0.45rem;
-      flex-wrap: wrap;
       align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .badge {
       font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      border-radius: 3px;
-      padding: 0.18rem 0.55rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 4px;
       white-space: nowrap;
     }
 
-    .badge-type {
-      background: #e8f0fc;
-      color: #1558a8;
-      border: 1px solid #c5d6f5;
+    /* Badge colour map */
+    .badge-module-topics    { background: #e3f0ff; color: #0d5aa7; }
+    .badge-presentation     { background: #eaf4eb; color: #2a7a35; }
+    .badge-topic-detail     { background: #f3eeff; color: #6433b8; }
+    .badge-text-content     { background: #fff4e3; color: #a05c00; }
+    .badge-quiz             { background: #ffeaea; color: #b52525; }
+    .badge-default          { background: #eef1f5; color: #3a4f66; }
+
+    .filetype-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #8095ae;
+      background: #f0f3f8;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      font-family: 'Courier New', Courier, monospace;
     }
 
-    .badge-filetype {
-      background: #f0f1f5;
-      color: #4d5568;
-      border: 1px solid #d6d9e3;
-      font-family: 'Courier New', monospace;
-      font-size: 0.66rem;
+    /* ── Card Title Row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
     }
 
-    /* Type-specific badge colours */
-    .badge-type-presentation  { background: #fff3e0; color: #b45309; border-color: #f9d9a0; }
-    .badge-type-quiz          { background: #e8faf2; color: #166534; border-color: #a7f0c8; }
-    .badge-type-module-topics { background: #f3e8ff; color: #6b21a8; border-color: #d8b4fe; }
-    .badge-type-text          { background: #e8f0fc; color: #1558a8; border-color: #c5d6f5; }
+    .card-title {
+      font-size: 0.985rem;
+      font-weight: 700;
+      color: #1e2a38;
+      line-height: 1.35;
+      word-break: break-word;
+    }
 
-    /* ── Card Description ── */
+    .card-title a {
+      color: #1255a0;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .card-title a:hover {
+      color: #0b3f7a;
+      border-bottom-color: #1255a0;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      background: #5a7190;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .source-link:hover {
+      background: #3a5068;
+    }
+
+    /* ── Description ── */
     .card-description {
       font-size: 0.875rem;
-      color: #4a5260;
-      line-height: 1.6;
+      color: #4a5f76;
+      line-height: 1.58;
       flex: 1;
-    }
-
-    /* ── Artifact count summary ── */
-    .artifact-count {
-      font-size: 0.82rem;
-      color: #6b7490;
-      margin-bottom: 1.2rem;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.6rem 1rem;
-      font-size: 0.78rem;
-      color: #8a92a8;
-      border-top: 1px solid #dde2ec;
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.8rem;
+      color: #8095ae;
+      border-top: 1px solid #dde4ee;
       background: #f4f6f9;
     }
 
     /* ── Responsive tweaks ── */
     @media (max-width: 520px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-      header {
-        padding: 2rem 1.2rem 1.8rem;
-      }
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 2rem 1.25rem 1.6rem; }
     }
   </style>
 </head>
@@ -228,211 +208,167 @@
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
   <header>
-    <div class="header-inner">
-      <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
-      <h1>SQL Joins, Relationships, and Advanced Query Techniques</h1>
-      <p>
-        This module builds core SQL competency around relational database design, JOIN operations,
-        subqueries, and aggregation. Work through the readings, review the slide deck, and test your
-        knowledge with the quiz to master multi-table analytical queries.
-      </p>
-    </div>
+    <div class="course-label">CAP3785 — Data Analytics and Visualization</div>
+    <h1>SQL Joins, Relationships, and Advanced Query Techniques</h1>
+    <p class="intro">
+      Explore relational database foundations, master JOIN operations, and build advanced queries
+      using subqueries and aggregation. This module equips you with the analytical SQL skills needed
+      to extract meaningful insights from multi-table datasets.
+    </p>
   </header>
 
   <main>
-    <div class="section-label">Module Artifacts</div>
-    <p class="artifact-count">10 artifacts &mdash; readings, presentation, quiz, and reference materials</p>
+    <p class="section-heading">Module Artifacts &mdash; 10 items</p>
 
     <div class="card-grid">
 
       <!-- 1. Module Topics -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-module-topics">Module Topics</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/module_topics.html">Module Topics</a>
           </span>
           <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-module-topics">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          A structured outline listing the module's core topics—relational database foundations,
-          INNER and OUTER JOINs, and subqueries—used by instructors to plan lessons and by learners
-          to navigate what will be covered.
-        </p>
+        <p class="card-description">A structured outline listing the module's core topics—relational database foundations, INNER and OUTER JOINs, and subqueries—used by instructors to plan lessons and by learners to navigate what will be covered.</p>
       </div>
 
       <!-- 2. Presentation -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-presentation">Presentation</span>
+          <span class="filetype-tag">.pptx</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="presentation/SQL_Joins_Relationships_generated.pptx">SQL_Joins_Relationships_generated.pptx</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-presentation">Presentation</span>
-          <span class="badge badge-filetype">.pptx</span>
-        </div>
-        <p class="card-description">
-          A slide deck introducing SQL joins, relationships, and advanced query techniques—covering
-          relational database concepts, JOIN types, subqueries, and aggregation—used by instructors
-          to deliver lectures or by learners to review key concepts and examples.
-        </p>
+        <p class="card-description">A slide deck introducing SQL joins, relationships, and advanced query techniques—covering relational database concepts, JOIN types, subqueries, and aggregation—used by instructors to deliver lectures or by learners to review key concepts and examples.</p>
       </div>
 
       <!-- 3. Relational Database Foundations -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/SQL_Joins_Relationships_interactive_topics_t1.html">Relational Database Foundations</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading introduces relational database concepts including the mathematical basis of
-          relations, how tables are structured, and how foreign keys link tables together, serving as
-          foundational background before learners work with JOIN operations.
-        </p>
+        <p class="card-description">This reading introduces relational database concepts including the mathematical basis of relations, how tables are structured, and how foreign keys link tables together, serving as foundational background before learners work with JOIN operations.</p>
       </div>
 
       <!-- 4. INNER JOIN -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/SQL_Joins_Relationships_interactive_topics_t2.html">INNER JOIN and Matching Records</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading explains how INNER JOIN works to combine rows from multiple tables based on
-          matching key values, covering syntax, filtering logic, and practical business query examples
-          so learners can retrieve related data across tables.
-        </p>
+        <p class="card-description">This reading explains how INNER JOIN works to combine rows from multiple tables based on matching key values, covering syntax, filtering logic, and practical business query examples so learners can retrieve related data across tables.</p>
       </div>
 
       <!-- 5. Outer JOINs -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/SQL_Joins_Relationships_interactive_topics_t3.html">Outer JOINs: LEFT, RIGHT, and FULL</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading covers LEFT, RIGHT, and FULL OUTER JOIN operations, explaining when and why
-          each is used to retain unmatched rows from one or both tables, with examples that contrast
-          their behavior against INNER JOIN.
-        </p>
+        <p class="card-description">This reading covers LEFT, RIGHT, and FULL OUTER JOIN operations, explaining when and why each is used to retain unmatched rows from one or both tables, with examples that contrast their behavior against INNER JOIN.</p>
       </div>
 
       <!-- 6. Subqueries -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/SQL_Joins_Relationships_interactive_topics_t4.html">Subqueries and Nested SELECT Statements</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading explains how to write and use subqueries — SELECT statements nested inside
-          other queries — covering scalar, row, and table subqueries as well as correlated subqueries,
-          so learners can build complex multi-step filtering and comparison logic.
-        </p>
+        <p class="card-description">This reading explains how to write and use subqueries — SELECT statements nested inside other queries — covering scalar, row, and table subqueries as well as correlated subqueries, so learners can build complex multi-step filtering and comparison logic.</p>
       </div>
 
-      <!-- 7. GROUP BY and HAVING -->
+      <!-- 7. Aggregation -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/SQL_Joins_Relationships_interactive_topics_t5.html">Aggregation with GROUP BY and HAVING</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading covers SQL aggregation using GROUP BY to segment data into logical groups and
-          HAVING to filter those groups, explaining aggregate functions such as COUNT, SUM, and AVG
-          so learners can produce summary statistics from large datasets.
-        </p>
+        <p class="card-description">This reading covers SQL aggregation using GROUP BY to segment data into logical groups and HAVING to filter those groups, explaining aggregate functions such as COUNT, SUM, and AVG so learners can produce summary statistics from large datasets.</p>
       </div>
 
-      <!-- 8. Multi-Table Analytical Problems (t6) -->
+      <!-- 8. Solving Multi-Table (Topic Detail) -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/SQL_Joins_Relationships_interactive_topics_t6.html">Solving Multi-Table Analytical Problems</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading walks learners through a structured methodology for tackling complex analytical
-          questions that span multiple tables, combining JOINs, subqueries, and aggregation into
-          cohesive queries that address real-world business scenarios.
-        </p>
+        <p class="card-description">This reading walks learners through a structured methodology for tackling complex analytical questions that span multiple tables, combining JOINs, subqueries, and aggregation into cohesive queries that address real-world business scenarios.</p>
       </div>
 
-      <!-- 9. Multi-Table Analytical Problems (interactive) -->
+      <!-- 9. Solving Multi-Table (Text Content) -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-text-content">Text Content</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="content/SQL_Joins_Relationships_interactive.html">Solving Multi-Table Analytical Problems</a>
           </span>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading walks learners through a structured methodology for tackling complex analytical
-          questions that span multiple tables, combining JOINs, subqueries, and aggregation into
-          cohesive queries that address real-world business scenarios.
-        </p>
+        <p class="card-description">This reading walks learners through a structured methodology for tackling complex analytical questions that span multiple tables, combining JOINs, subqueries, and aggregation into cohesive queries that address real-world business scenarios.</p>
       </div>
 
-      <!-- 10. Quiz Question Bank -->
+      <!-- 10. Quiz -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-quiz">Quiz</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-title">
             <a href="quiz/index.html">Quiz Question Bank (20 questions)</a>
           </span>
           <a class="source-link" href="source/quiz_questions.json">source file</a>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type badge-type-quiz">Quiz</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          A 20-question quiz bank assessing learners' understanding of relational database concepts,
-          primary and foreign keys, JOIN behavior, and related query logic, used by instructors to
-          build graded assessments or knowledge checks.
-        </p>
+        <p class="card-description">A 20-question quiz bank assessing learners' understanding of relational database concepts, primary and foreign keys, JOIN behavior, and related query logic, used by instructors to build graded assessments or knowledge checks.</p>
       </div>
 
-    </div><!-- /.card-grid -->
+    </div>
   </main>
 
   <footer>
-    CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp;
-    SQL Joins, Relationships, and Advanced Query Techniques
+    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; SQL Joins, Relationships, and Advanced Query Techniques
   </footer>
 
 

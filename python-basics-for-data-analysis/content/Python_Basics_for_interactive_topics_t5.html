@@ -1,0 +1,496 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Input and Output for Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Python Basics for Data Analysis</a></div>
+  <header>
+    <h1>File Input and Output for Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>File Input and Output for Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most essential skills in data analytics with Python is the ability to read from and write to external files. Real-world data rarely lives inside a Python script — it arrives as text files, spreadsheets exported as CSV, log files, or structured plain-text reports. Understanding how Python interacts with the file system allows you to load that data into memory, process and clean it, and save your results back to disk. This topic walks through every key aspect of file I/O: opening and safely closing files, reading content in different ways, writing output, working with the widely used CSV format, cleaning raw data as it is read, and navigating the file system reliably across operating systems.</p>
+
+<p><strong>Opening and Closing Text Files</strong></p>
+
+<p>Before you can read from or write to a file, Python must open a connection to it. The built-in <code>open()</code> function establishes that connection and returns a <em>file object</em> through which all subsequent operations are performed. The two most important arguments to <code>open()</code> are the file path and the <em>mode</em>, which tells Python what you intend to do with the file.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mode</th>
+      <th>Symbol</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Read</td>
+      <td><code>'r'</code></td>
+      <td>Opens an existing file for reading. Raises <code>FileNotFoundError</code> if the file does not exist.</td>
+    </tr>
+    <tr>
+      <td>Write</td>
+      <td><code>'w'</code></td>
+      <td>Opens a file for writing. Creates the file if it does not exist; <strong>overwrites</strong> all existing content if it does.</td>
+    </tr>
+    <tr>
+      <td>Append</td>
+      <td><code>'a'</code></td>
+      <td>Opens a file for writing, but preserves existing content and adds new data at the end.</td>
+    </tr>
+    <tr>
+      <td>Read + Write</td>
+      <td><code>'r+'</code></td>
+      <td>Opens an existing file for both reading and writing without truncating it.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The simplest way to open a file is a direct call to <code>open()</code>, assigning the result to a variable:</p>
+
+<pre><code>f = open('sales.txt', 'r')
+content = f.read()
+f.close()
+</code></pre>
+
+<p>Notice the explicit call to <code>f.close()</code>. Closing a file releases the operating system resource tied to it. If you skip this step, several problems can follow: data you intended to write may not be flushed from the buffer to disk, the file may appear locked to other programs or processes, and in long-running scripts you may exhaust the limit of simultaneously open file handles. These bugs are particularly insidious because they often go unnoticed in small scripts yet cause failures in production environments.</p>
+
+<p>The recommended and far safer approach is the <strong><code>with</code> statement</strong>, also called a context manager:</p>
+
+<pre><code>with open('sales.txt', 'r') as f:
+    content = f.read()
+# The file is automatically closed here, even if an exception occurred inside the block
+</code></pre>
+
+<p>When execution leaves the <code>with</code> block — whether normally or because an exception was raised — Python automatically calls <code>f.close()</code> on your behalf. This removes an entire category of resource-leak bugs and is the standard idiom you will see in professional Python code.</p>
+
+<p>A common beginner mistake is providing the wrong file path. If <code>'sales.txt'</code> does not exist in the directory from which the script is run, Python raises a <code>FileNotFoundError</code>. Always double-check that your path is correct relative to your working directory, or use an absolute path. The section on file paths later in this topic explains both strategies in depth.</p>
+
+<p><strong>Reading Data from Text Files</strong></p>
+
+<p>Once a file is open in read mode, Python provides several methods for extracting its contents. The right choice depends on the size of the file and what you plan to do with the data.</p>
+
+<p><em>Reading the entire file at once with <code>.read()</code></em></p>
+
+<p>Calling <code>f.read()</code> loads the complete file into a single string:</p>
+
+<pre><code>with open('notes.txt', 'r') as f:
+    text = f.read()
+
+print(text)
+</code></pre>
+
+<p>This is convenient for small configuration files or documents you want to search with string methods, but it is dangerous with large files because the entire content is held in memory simultaneously. A 2 GB log file would consume 2 GB of RAM the instant <code>.read()</code> is called.</p>
+
+<p><em>Reading one line at a time with <code>.readline()</code></em></p>
+
+<p><code>f.readline()</code> reads and returns the next line from the file, including its trailing newline character <code>'\n'</code>. Calling it repeatedly advances through the file line by line:</p>
+
+<pre><code>with open('notes.txt', 'r') as f:
+    first_line  = f.readline()
+    second_line = f.readline()
+
+print(first_line.strip())
+print(second_line.strip())
+</code></pre>
+
+<p>When the end of the file is reached, <code>.readline()</code> returns an empty string <code>''</code>, which can be used to control a loop. This method is useful when you need fine-grained, one-at-a-time control over reading.</p>
+
+<p><em>Reading all lines into a list with <code>.readlines()</code></em></p>
+
+<p><code>f.readlines()</code> reads every line and returns them as a Python list, where each element is a string representing one line, newline character included:</p>
+
+<pre><code>with open('notes.txt', 'r') as f:
+    lines = f.readlines()
+
+print(lines)
+# ['First line\n', 'Second line\n', 'Third line\n']
+</code></pre>
+
+<p>This is handy when you need random access to lines by index, but like <code>.read()</code> it loads everything into memory at once.</p>
+
+<p><em>Iterating directly over the file object</em></p>
+
+<p>The most memory-efficient strategy for large files is to iterate over the file object itself in a <code>for</code> loop. Python reads one line at a time from disk, keeping only that single line in memory:</p>
+
+<pre><code>with open('large_dataset.txt', 'r') as f:
+    for line in f:
+        processed = line.strip()
+        print(processed)
+</code></pre>
+
+<p>This pattern scales to files of any size and is the preferred approach in data analytics when you cannot guarantee the file will fit comfortably in RAM.</p>
+
+<p><em>Stripping newlines and whitespace</em></p>
+
+<p>Every line read from a text file retains its trailing newline character <code>'\n'</code>. If you compare or convert that line without removing it, you can introduce subtle bugs. The <code>.strip()</code> string method removes all leading and trailing whitespace — including <code>'\n'</code>, <code>'\r'</code>, tabs, and spaces — making it essential for cleaning raw lines:</p>
+
+<pre><code>raw_line = '  42.5\n'
+clean    = raw_line.strip()   # '42.5'
+value    = float(clean)       # 42.5
+</code></pre>
+
+<p>Use <code>.lstrip()</code> or <code>.rstrip()</code> if you only want to strip from one side.</p>
+
+<p><strong>Writing Data to Text Files</strong></p>
+
+<p>Writing to a file follows the same <code>open()</code> pattern, but with mode <code>'w'</code> or <code>'a'</code>. The two primary methods are <code>.write()</code> and <code>.writelines()</code>.</p>
+
+<p><em>Writing a string with <code>.write()</code></em></p>
+
+<pre><code>with open('output.txt', 'w') as f:
+    f.write('Hello, world!')
+</code></pre>
+
+<p>Unlike the built-in <code>print()</code> function, <code>.write()</code> does <strong>not</strong> append a newline automatically. If you write multiple lines without explicitly including <code>'\n'</code>, the text will run together on a single line in the file:</p>
+
+<pre><code># Incorrect — all text ends up on one line
+with open('output.txt', 'w') as f:
+    f.write('Line one')
+    f.write('Line two')
+
+# Correct — each line is separated properly
+with open('output.txt', 'w') as f:
+    f.write('Line one\n')
+    f.write('Line two\n')
+</code></pre>
+
+<p>Opening in <code>'w'</code> mode creates the file if it does not already exist, which is extremely convenient for generating new output or report files programmatically. Be aware, however, that if the file <em>does</em> already exist, <strong>all of its contents are erased immediately</strong> when the file is opened — not when you call <code>.write()</code>. Use <code>'a'</code> (append) mode when you want to preserve existing content and add to it:</p>
+
+<pre><code>with open('log.txt', 'a') as f:
+    f.write('Session ended at 14:32\n')
+</code></pre>
+
+<p><em>Writing a list of strings with <code>.writelines()</code></em></p>
+
+<p><code>.writelines()</code> accepts any iterable of strings and writes them all to the file in one call. It is a convenient shortcut when you have already assembled your lines into a list:</p>
+
+<pre><code>lines = ['apple\n', 'banana\n', 'cherry\n']
+
+with open('fruits.txt', 'w') as f:
+    f.writelines(lines)
+</code></pre>
+
+<p>Like <code>.write()</code>, <code>.writelines()</code> does not add newlines for you — each string in the list must already contain <code>'\n'</code> if you want line breaks in the file. A common pattern is to build the list with newlines included, or to use a list comprehension:</p>
+
+<pre><code>items = ['apple', 'banana', 'cherry']
+
+with open('fruits.txt', 'w') as f:
+    f.writelines(item + '\n' for item in items)
+</code></pre>
+
+<p><strong>Working with CSV Files Using Python's csv Module</strong></p>
+
+<p>Comma-Separated Values (CSV) is one of the most universally used formats for tabular data. Every major spreadsheet application and database tool can export to CSV, making it the lingua franca of data exchange. While you could technically parse a CSV by splitting each line on commas, this naive approach breaks immediately when field values contain commas, quotation marks, or embedded newlines. Python's built-in <code>csv</code> module handles all of these edge cases correctly.</p>
+
+<p><em>Reading a CSV with <code>csv.reader()</code></em></p>
+
+<pre><code>import csv
+
+with open('sales.csv', 'r', newline='') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)
+</code></pre>
+
+<p>Each <code>row</code> yielded by the reader is a plain Python <strong>list of strings</strong>, where each element corresponds to one column in that row. For example, a CSV file containing:</p>
+
+<pre><code>product,quantity,price
+apple,100,0.50
+banana,80,0.30
+</code></pre>
+
+<p>Would produce the following rows:</p>
+
+<pre><code>['product', 'quantity', 'price']
+['apple', '100', '0.50']
+['banana', '80', '0.30']
+</code></pre>
+
+<p>Notice that all values are strings — <code>'100'</code> not <code>100</code>, and <code>'0.50'</code> not <code>0.50</code>. Type conversion is always your responsibility and is covered in the parsing section below.</p>
+
+<p>The <code>newline=''</code> argument inside <code>open()</code> is important, particularly on Windows. Without it, the CSV module can misinterpret the line endings used inside quoted fields, or insert extra blank rows into output. The csv module documentation explicitly recommends always passing <code>newline=''</code>.</p>
+
+<p><em>Skipping the header row</em></p>
+
+<p>When the first row contains column names rather than data, use <code>next()</code> to advance the reader past it before your main loop:</p>
+
+<pre><code>import csv
+
+with open('sales.csv', 'r', newline='') as f:
+    reader = csv.reader(f)
+    headers = next(reader)          # consumes and returns the header row
+    for row in reader:
+        product  = row[0]
+        quantity = int(row[1])
+        price    = float(row[2])
+        print(f'{product}: {quantity} units at ${price:.2f}')
+</code></pre>
+
+<p><em>Reading with <code>csv.DictReader()</code></em></p>
+
+<p><code>csv.DictReader()</code> is a powerful alternative that reads each row as a Python <strong>dictionary</strong>, where the keys are taken from the header row automatically:</p>
+
+<pre><code>import csv
+
+with open('sales.csv', 'r', newline='') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row['product'], row['quantity'], row['price'])
+</code></pre>
+
+<p>This makes column access by name rather than by position, which produces much more readable and maintainable code. If a colleague adds a column to the CSV, positional indexing silently breaks; named access with <code>DictReader</code> continues to work correctly as long as the column name is unchanged.</p>
+
+<p><em>Writing a CSV with <code>csv.writer()</code></em></p>
+
+<pre><code>import csv
+
+rows = [
+    ['product', 'quantity', 'price'],
+    ['apple',   100,        0.50],
+    ['banana',  80,         0.30],
+]
+
+with open('output.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    for row in rows:
+        writer.writerow(row)
+</code></pre>
+
+<p><code>writer.writerow()</code> accepts a list and writes it as one CSV row, handling quoting and escaping automatically. You can also write all rows at once with <code>writer.writerows(rows)</code>.</p>
+
+<p>If you are working with a list of dictionaries — a common result of API calls or data transformation — <code>csv.DictWriter</code> is the matching counterpart to <code>DictReader</code>:</p>
+
+<pre><code>import csv
+
+data = [
+    {'product': 'apple',  'quantity': 100, 'price': 0.50},
+    {'product': 'banana', 'quantity': 80,  'price': 0.30},
+]
+
+with open('output.csv', 'w', newline='') as f:
+    fieldnames = ['product', 'quantity', 'price']
+    writer = csv.DictWriter(f, fieldnames=fieldnames)
+    writer.writeheader()        # writes the header row from fieldnames
+    writer.writerows(data)
+</code></pre>
+
+<p><strong>Parsing and Cleaning Data During File Reading</strong></p>
+
+<p>Raw data read from a file is always text. For analytical work, numeric fields must be converted to <code>int</code> or <code>float</code>, and messy real-world datasets will inevitably contain missing values, inconsistent spacing, or placeholder strings. Building robust parsing logic into your file-reading loop is a foundational data analytics skill.</p>
+
+<p><em>Type conversion</em></p>
+
+<p>Apply the appropriate constructor function to each field after reading it:</p>
+
+<pre><code>import csv
+
+with open('sales.csv', 'r', newline='') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        product  = row['product'].strip()
+        quantity = int(row['quantity'])
+        price    = float(row['price'])
+        total    = quantity * price
+        print(f'{product}: ${total:.2f}')
+</code></pre>
+
+<p><em>Handling missing or invalid values</em></p>
+
+<p>If a field might be empty or contain a placeholder like <code>'N/A'</code> or <code>'null'</code>, attempting a direct conversion will raise a <code>ValueError</code> and crash your script. Always guard conversions with a check:</p>
+
+<pre><code>raw_quantity = row['quantity'].strip()
+
+if raw_quantity == '' or raw_quantity.lower() == 'n/a':
+    quantity = 0          # substitute a safe default
+else:
+    quantity = int(raw_quantity)
+</code></pre>
+
+<p>For more compact code, a <code>try</code>/<code>except</code> block achieves the same goal:</p>
+
+<pre><code>try:
+    quantity = int(row['quantity'].strip())
+except ValueError:
+    quantity = 0
+</code></pre>
+
+<p><em>Skipping malformed rows</em></p>
+
+<p>Some rows may be corrupted, have too few columns, or contain unexpected content. You can skip them with a <code>continue</code> statement inside a conditional check:</p>
+
+<pre><code>import csv
+
+with open('data.csv', 'r', newline='') as f:
+    reader = csv.reader(f)
+    next(reader)   # skip header
+    for row in reader:
+        if len(row) < 3:
+            continue   # skip rows that don't have enough columns
+        product, quantity_str, price_str = row[0], row[1], row[2]
+        # ... rest of processing
+</code></pre>
+
+<p><em>Stripping whitespace from every field</em></p>
+
+<p>It is good practice to apply <code>.strip()</code> to every string field, not just those you suspect have whitespace. Invisible leading or trailing spaces cause string comparisons to fail silently and prevent numeric conversions:</p>
+
+<pre><code>product = row['product'].strip()
+# 'apple ' and 'apple' would otherwise be treated as different values
+</code></pre>
+
+<p>When using <code>csv.reader</code>, you can create a simple helper to strip all fields in a row at once:</p>
+
+<pre><code>cleaned_row = [field.strip() for field in row]
+</code></pre>
+
+<p><strong>File Paths and Directory Navigation</strong></p>
+
+<p>Every file operation requires Python to locate the file on disk. Understanding paths is critical for writing scripts that work reliably across different machines and operating systems.</p>
+
+<p><em>Relative paths</em></p>
+
+<p>A relative path is interpreted starting from the <em>current working directory</em> — the folder from which the Python script is launched, not necessarily the folder where the script file lives. For example:</p>
+
+<pre><code>with open('data/sales.csv', 'r') as f:
+    ...
+</code></pre>
+
+<p>This tells Python to look for a <code>data</code> folder inside the current working directory, then open <code>sales.csv</code> inside it. If you run your script from a different directory, the path breaks. Relative paths are compact and portable, but you must be aware of where your script is being run from.</p>
+
+<p><em>Absolute paths</em></p>
+
+<p>An absolute path specifies the full location from the root of the file system. It works regardless of the current working directory:</p>
+
+<pre><code># Windows
+with open('C:/Users/alice/project/data/sales.csv', 'r') as f:
+    ...
+
+# macOS / Linux
+with open('/home/alice/project/data/sales.csv', 'r') as f:
+    ...
+</code></pre>
+
+<p>Absolute paths are reliable on the machine where they were written, but break immediately when the project is moved to a different machine or user account. They are best used for quick debugging, not for code you intend to share.</p>
+
+<p><em>Building portable paths with <code>os.path.join()</code></em></p>
+
+<p>The safest approach for paths that must work on any operating system is to use the <code>os</code> module's <code>os.path.join()</code> function. Windows uses backslashes (<code>\</code>) as path separators while macOS and Linux use forward slashes (<code>/</code>). Hardcoding either in your string will cause failures on the other OS. <code>os.path.join()</code> inserts the correct separator automatically:</p>
+
+<pre><code>import os
+
+path = os.path.join('data', 'sales.csv')
+# On Windows: 'data\\sales.csv'
+# On macOS/Linux: 'data/sales.csv'
+
+with open(path, 'r') as f:
+    ...
+</code></pre>
+
+<p>For scripts that need to reference files relative to their own location rather than the working directory, combine <code>os.path.join()</code> with <code>__file__</code> and <code>os.path.dirname()</code>:</p>
+
+<pre><code>import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+data_path  = os.path.join(script_dir, 'data', 'sales.csv')
+
+with open(data_path, 'r') as f:
+    ...
+</code></pre>
+
+<p>This makes the path relative to the script itself, so it works correctly no matter what directory the user runs the script from.</p>
+
+<p><em>Checking the current working directory with <code>os.getcwd()</code></em></p>
+
+<p>When a <code>FileNotFoundError</code> is raised and you are unsure why, print the current working directory to understand Python's frame of reference:</p>
+
+<pre><code>import os
+
+print(os.getcwd())
+# Example output: '/home/alice/my_project'
+</code></pre>
+
+<p>This is an invaluable debugging step. Once you know the working directory, you can determine whether your relative path points to the correct location or needs adjustment.</p>
+
+<p><em>Checking whether a file exists before opening it</em></p>
+
+<p>To avoid a <code>FileNotFoundError</code> when a file's presence is uncertain, use <code>os.path.exists()</code>:</p>
+
+<pre><code>import os
+
+path = os.path.join('data', 'sales.csv')
+
+if os.path.exists(path):
+    with open(path, 'r') as f:
+        content = f.read()
+else:
+    print(f'File not found: {path}')
+</code></pre>
+
+<p>Bringing all of these concepts together — safe file handling with <code>with</code>, appropriate reading methods, robust type conversion and cleaning, the <code>csv</code> module for structured tabular data, and platform-independent path construction — gives you a complete, production-quality foundation for ingesting and producing data files in Python. These skills are the starting point for every real-world data pipeline you will build.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six subtopic clusters from the module outline. The csv module section includes both reader/writer and DictReader/DictWriter patterns. The os.path section extends to os.path.exists() and __file__-based path resolution as practical complements to the listed subtopics.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -10,6 +10,41 @@
     "type": "Page"
   },
   {
+    "title": "Measures of Central Tendency",
+    "href": "content/Descriptive_Statistics_and_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Measures of Spread and Variability",
+    "href": "content/Descriptive_Statistics_and_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Skewness and Distribution Shape",
+    "href": "content/Descriptive_Statistics_and_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Introduction to Probability Distributions",
+    "href": "content/Descriptive_Statistics_and_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "The Normal Distribution",
+    "href": "content/Descriptive_Statistics_and_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "The Binomial Distribution",
+    "href": "content/Descriptive_Statistics_and_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "The Poisson Distribution",
+    "href": "content/Descriptive_Statistics_and_interactive_topics_t7.html",
+    "type": "Content"
+  },
+  {
     "title": "Descriptive Statistics and Probability Distributions \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

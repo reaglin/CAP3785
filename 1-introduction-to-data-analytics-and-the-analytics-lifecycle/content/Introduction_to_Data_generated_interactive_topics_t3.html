@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The CRISP-DM Process Framework</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 1 - Introduction to Data Analytics and the Analytics Lifecycle</a></div>
+  <header>
+    <h1>The CRISP-DM Process Framework</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The CRISP-DM Process Framework</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data analytics projects often fail not because of poor algorithms or insufficient computing power, but because teams lack a shared, structured process for moving from a vague business question to a deployed, trustworthy solution. The <strong>Cross-Industry Standard Process for Data Mining (CRISP-DM)</strong> was developed in the late 1990s through a consortium of industry partners — including DaimlerChrysler, SPSS, and NCR — precisely to address this gap. It has since become one of the most widely adopted frameworks for organizing and executing analytics and data science projects across virtually every industry.</p>
+
+<p>CRISP-DM is not a rigid methodology that dictates specific tools or algorithms. Instead, it provides a <strong>process scaffold</strong> — a logical sequence of phases with defined inputs, outputs, and decision points — that reduces ambiguity, improves communication across teams, and increases the likelihood that analytical work will deliver genuine organizational value. Because the framework is industry-agnostic, it applies equally well to fraud detection in banking, predictive maintenance in manufacturing, customer churn modeling in telecommunications, and clinical outcome prediction in healthcare.</p>
+
+<p>The framework consists of <strong>six interconnected phases</strong>: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment. Although these phases are often depicted in a circular diagram suggesting a sequential flow, their most important characteristic is their <strong>iterative and non-linear nature</strong>. Teams routinely cycle back to earlier phases as new information surfaces. A modeling result might reveal that an important variable was dropped during data preparation; an evaluation review might expose a misalignment between the analytic objective and the original business goal. CRISP-DM explicitly accommodates — and encourages — these feedback loops rather than treating them as failures of planning.</p>
+
+<p>The six phases and their relationships can be summarized as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Phase</th>
+      <th>Primary Goal</th>
+      <th>Key Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1. Business Understanding</td>
+      <td>Translate the organizational problem into an analytic objective</td>
+      <td>Project plan; defined success criteria</td>
+    </tr>
+    <tr>
+      <td>2. Data Understanding</td>
+      <td>Assess data availability, relevance, and quality</td>
+      <td>Data exploration report; initial quality findings</td>
+    </tr>
+    <tr>
+      <td>3. Data Preparation</td>
+      <td>Construct a clean, analysis-ready dataset</td>
+      <td>Curated dataset; feature engineering decisions</td>
+    </tr>
+    <tr>
+      <td>4. Modeling</td>
+      <td>Build and tune models suited to the problem type</td>
+      <td>Trained model(s); parameter settings; performance metrics</td>
+    </tr>
+    <tr>
+      <td>5. Evaluation</td>
+      <td>Confirm the model meets business success criteria</td>
+      <td>Go/no-go deployment decision; lessons learned</td>
+    </tr>
+    <tr>
+      <td>6. Deployment</td>
+      <td>Deliver, monitor, and maintain the solution in production</td>
+      <td>Deployment plan; monitoring reports; retraining triggers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Phase 1: Business Understanding</strong> is the foundation upon which the entire project rests, and experienced practitioners consistently identify skipping or rushing it as the single most common cause of analytics project failure. The core activity in this phase is <em>problem translation</em>: converting a stakeholder's business concern — "we are losing too many customers" or "our equipment is failing unexpectedly" — into a precise, answerable analytic question such as "predict the probability that a customer will cancel their subscription within the next 30 days" or "classify whether a piece of equipment will fail within the next 72 hours based on sensor readings."</p>
+
+<p>Teams performing Business Understanding engage stakeholders to surface the following:</p>
+<ul>
+  <li><strong>The business objective:</strong> What decision will this model inform? What action will change as a result of its output?</li>
+  <li><strong>Success criteria:</strong> How will we know the project succeeded? This should include both a business criterion (e.g., reduce unplanned downtime by 15%) and a technical criterion (e.g., achieve at least 85% recall on the test set).</li>
+  <li><strong>Constraints and resources:</strong> What data is accessible? What are the timelines, budget limits, and regulatory restrictions?</li>
+  <li><strong>Stakeholder expectations:</strong> Does the business need an interpretable model that a domain expert can explain to regulators, or is raw predictive accuracy the primary concern?</li>
+</ul>
+
+<p>The deliverable is a <strong>project plan</strong> that documents all of the above and articulates the analytic objective in unambiguous terms. Consider a retail bank concerned about loan defaults. A vague objective — "understand who defaults" — offers little guidance. A properly scoped objective — "build a binary classifier to predict whether a personal loan applicant will default within 12 months, using application and bureau data, with the primary goal of maximizing recall for the positive class while maintaining precision above 60%" — gives every subsequent phase a clear target to work toward.</p>
+
+<p><strong>Phase 2: Data Understanding</strong> begins concurrently with or immediately after Business Understanding. Its purpose is to determine whether the data that actually exists can support the analytic objective that has been defined. A surprisingly large number of projects discover in this phase that the data they assumed was available is either missing, incomplete, too sparse, or measured at the wrong level of granularity to answer the intended question. Catching these problems early is far less costly than discovering them after weeks of data preparation and modeling work.</p>
+
+<p>Analysts in this phase typically perform <em>exploratory data analysis (EDA)</em>: examining distributions, calculating summary statistics, visualizing relationships between variables, and profiling data quality. Specific activities include:</p>
+<ul>
+  <li><strong>Assessing completeness:</strong> What percentage of records have missing values for each field? Is the missingness random or systematic (e.g., a sensor that only fails to record under certain operating conditions)?</li>
+  <li><strong>Identifying duplicates and anomalies:</strong> Are there duplicate transaction records? Are there outlier values that represent genuine extremes or likely data entry errors?</li>
+  <li><strong>Evaluating relevance:</strong> Does the available data contain features that could plausibly be related to the target variable? Domain knowledge is essential here — a field like "customer tenure in months" is plausibly related to churn; a field like "internal system record ID" is not.</li>
+  <li><strong>Checking temporal alignment:</strong> If the model will make predictions about future events, are all features observable at the time the prediction would be made in production? Including features that would only be known <em>after</em> the event introduces <em>data leakage</em> and produces unrealistically optimistic performance estimates.</li>
+</ul>
+
+<p>The output of this phase is a <strong>data exploration report</strong> — a written or documented summary of findings that informs the data preparation strategy. It may also prompt a return to Business Understanding if the available data proves insufficient to answer the stated analytic question, necessitating a revised scope.</p>
+
+<p><strong>Phase 3: Data Preparation</strong> is typically the most time-consuming phase in practice, often consuming 60–80% of total project effort. It transforms raw, messy source data into the clean, structured dataset that modeling algorithms require. The specific tasks vary considerably depending on the data and the modeling technique, but common activities include:</p>
+
+<ul>
+  <li><strong>Handling missing values:</strong> Options include deleting records with missing data (acceptable only when missingness is rare and random), imputing values using the mean, median, or mode of the column, or using more sophisticated approaches such as model-based imputation or flagging missingness as an informative feature in its own right.</li>
+  <li><strong>Correcting or removing erroneous records:</strong> Records with impossible values (e.g., a patient age of 300, a transaction amount of −$50,000) must be investigated and either corrected with authoritative source data or excluded.</li>
+  <li><strong>Normalizing and scaling numerical features:</strong> Many algorithms — including k-nearest neighbors, support vector machines, and neural networks — are sensitive to the scale of input features. Standardization (subtracting the mean, dividing by the standard deviation) or min-max scaling ensures no single feature dominates due to its units of measurement.</li>
+  <li><strong>Encoding categorical variables:</strong> Most algorithms require numerical input. Nominal categories (e.g., country of origin) are commonly encoded using one-hot encoding, which creates a binary column for each category level. Ordinal categories (e.g., education level) may be label-encoded to preserve rank order.</li>
+  <li><strong>Feature engineering:</strong> This is the creative, domain-knowledge-driven activity of constructing new variables from existing data to capture relationships that raw features may not express directly. Examples include computing a customer's average monthly spend over the past six months, extracting the day of the week from a timestamp, calculating the ratio of two correlated variables, or creating interaction terms between features.</li>
+</ul>
+
+<p>A concrete example illustrates the importance of feature engineering: a raw dataset of retail transactions might include only a timestamp and a purchase amount. From the timestamp alone, a skilled analyst can derive the hour of day, day of week, week of year, whether the transaction occurred on a public holiday, and the number of days since the customer's previous purchase — each of which may carry substantial predictive signal for a model aimed at detecting fraudulent transactions.</p>
+
+<p><strong>Phase 4: Modeling</strong> is where statistical and machine learning algorithms are applied to the prepared dataset. Technique selection is guided primarily by the <em>nature of the analytic problem</em> and the <em>characteristics of the data</em>:</p>
+
+<ul>
+  <li><strong>Classification</strong> problems (predicting a categorical outcome, such as "will this customer churn: yes or no?") call for algorithms such as logistic regression, decision trees, random forests, gradient boosting machines, or neural networks.</li>
+  <li><strong>Regression</strong> problems (predicting a continuous outcome, such as "what will this property sell for?") call for linear regression, regression trees, or gradient boosting regressors.</li>
+  <li><strong>Clustering</strong> problems (grouping records into natural segments without predefined labels, such as customer segmentation) call for k-means, hierarchical clustering, or DBSCAN.</li>
+  <li><strong>Association rule mining</strong> (identifying co-occurrence patterns, such as which products are frequently purchased together) uses algorithms like Apriori or FP-Growth.</li>
+</ul>
+
+<p>Once an algorithm family is selected, models are <strong>trained</strong> on a portion of the data and <strong>tested</strong> on a held-out portion to estimate how well they generalize to new data. <em>Cross-validation</em> — particularly k-fold cross-validation — is a standard technique that partitions the data into k subsets, trains the model k times each time using a different subset as the test fold, and averages performance across all folds. This produces a more reliable performance estimate than a single train/test split, especially on smaller datasets.</p>
+
+<p>A critical concern during modeling is <strong>overfitting</strong>: a model that learns the noise and idiosyncrasies of the training data rather than the underlying signal will perform excellently on training data but poorly on new data. Techniques to combat overfitting include regularization (adding a penalty to model complexity in linear models), pruning (limiting tree depth in decision trees), dropout (randomly deactivating neurons during neural network training), and ensemble methods (combining many weak learners to smooth out individual model variance).</p>
+
+<p>Modeling frequently triggers a return to Phase 3. A gradient boosting model may reveal through feature importance scores that several engineered features are highly predictive while others are redundant — prompting refinement of the feature set. Alternatively, the model may exhibit high error rates for a specific subgroup of records, suggesting that those records were not adequately handled during data preparation.</p>
+
+<p><strong>Phase 5: Evaluation</strong> is a critical checkpoint that distinguishes CRISP-DM from purely technical modeling exercises. Its central question is not "does this model have good technical performance metrics?" but rather "does this model deliver the value that was promised in Phase 1?" The evaluation phase reconnects technical work to business context.</p>
+
+<p>Evaluation activities include:</p>
+<ul>
+  <li><strong>Reviewing results against success criteria:</strong> If Phase 1 defined success as achieving 85% recall on default prediction while maintaining precision above 60%, the evaluation phase formally measures whether the deployed candidate model meets these thresholds on the test data.</li>
+  <li><strong>Stakeholder and domain expert review:</strong> Business stakeholders and subject matter experts review model outputs — often through representative sample predictions — to assess whether the results are <em>interpretable</em>, <em>trustworthy</em>, and <em>actionable</em>. A model that predicts correctly but outputs scores that no loan officer can explain or act upon may be technically successful but practically unusable.</li>
+  <li><strong>Identifying unresolved issues:</strong> Are there important customer segments where the model performs poorly? Are there ethical or regulatory concerns about how certain protected attributes influence predictions? These must be documented even if they do not immediately block deployment.</li>
+  <li><strong>Go/no-go decision:</strong> The phase concludes with an explicit decision: proceed to deployment, return to an earlier phase for further refinement, or abandon the project if it is determined that the available data fundamentally cannot support the analytic objective.</li>
+</ul>
+
+<p>A well-executed evaluation phase also produces <strong>lessons learned documentation</strong> — a record of what worked, what did not, what data gaps were encountered, and what would be done differently on a future project. This institutional knowledge is one of CRISP-DM's most undervalued outputs, enabling organizations to improve their analytics process over time rather than repeating the same mistakes.</p>
+
+<p><strong>Phase 6: Deployment</strong> is where analytical work produces real organizational impact. Many projects treat deployment as a trivial final step, but it is frequently one of the most technically and organizationally complex phases. A <strong>deployment plan</strong> must address:</p>
+
+<ul>
+  <li><strong>Delivery mechanism:</strong> How will the model's predictions reach the decision-makers or systems that need them? Options range from a batch scoring job that updates a database nightly, to a real-time API endpoint that scores new records in milliseconds, to an embedded model inside a mobile or web application.</li>
+  <li><strong>Integration:</strong> How does the model fit into existing business workflows, software systems, and data pipelines? Integration work is often more time-consuming than the modeling itself.</li>
+  <li><strong>Documentation and knowledge transfer:</strong> End users, IT teams, and future maintainers need clear documentation of the model's inputs, outputs, assumptions, known limitations, and performance benchmarks.</li>
+  <li><strong>Monitoring:</strong> Once deployed, model performance must be tracked continuously. Business conditions change, data distributions shift (a phenomenon called <em>data drift</em> or <em>concept drift</em>), and a model that was accurate at deployment may degrade significantly over months or years. Monitoring systems track metrics such as prediction accuracy, input feature distributions, and business outcome rates, and they trigger alerts when performance falls below acceptable thresholds.</li>
+  <li><strong>Retraining and revision cycles:</strong> When monitoring detects degradation, the team must decide whether to retrain the existing model on fresh data, revise the feature set, or return to earlier CRISP-DM phases to develop a new model architecture. This loop back to earlier phases is a natural and expected aspect of operating a production analytics system.</li>
+</ul>
+
+<p>To appreciate the iterative character of CRISP-DM concretely, consider a telecommunications company building a customer churn model. The project begins in Phase 1 by defining churn as cancellation within 30 days and setting a target AUC of 0.80. Phase 2 discovers that the most predictive variable — customer service call sentiment — is not available in structured form. Phase 3 proceeds with proxy variables. Phase 4 produces a model with AUC 0.74. The team loops back to Phase 2 to explore whether unstructured call log data can be processed using text analysis, then returns to Phase 3 to engineer new sentiment-derived features, then re-enters Phase 4, this time achieving AUC 0.83. Phase 5 confirms that the improvement meets the business success criterion, and Phase 6 deploys the model as a daily batch scoring job. Six months post-deployment, monitoring detects that churn rates have shifted following a pricing change; the team re-enters Phase 1 to revisit the business objective and success criteria under the new market conditions.</p>
+
+<p>This iterative, feedback-driven character is what makes CRISP-DM durable and practical across the enormous variety of real-world analytics projects. It does not promise that projects will succeed simply by following its phases; rather, it provides a <strong>shared language and structure</strong> that helps teams surface problems early, collaborate effectively across technical and business roles, and continuously improve both the solutions they build and the processes by which they build them.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six CRISP-DM phases in depth with concrete examples illustrating phase outputs, iteration loops, and common pitfalls. Includes a summary table of phases, goals, and outputs. The churn model narrative at the end ties the iterative nature together across all phases.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

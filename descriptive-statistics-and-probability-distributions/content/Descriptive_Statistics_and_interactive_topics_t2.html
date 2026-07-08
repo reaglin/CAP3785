@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Measures of Spread and Variability</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Descriptive Statistics and Probability Distributions</a></div>
+  <header>
+    <h1>Measures of Spread and Variability</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Measures of Spread and Variability</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When we analyze a dataset, knowing where the data is centered — for example, its mean or median — is only part of the story. Two datasets can share the exact same mean yet look completely different because their values are distributed in very different ways. This is where <strong>measures of spread</strong>, also called measures of variability or dispersion, become essential. Spread describes how much the individual data values differ from one another and from the center of the distribution. Understanding spread allows analysts to assess consistency, reliability, and risk in a dataset, and it forms the foundation for many advanced statistical techniques.</p>
+
+<p>Consider two small businesses that each average $500 in daily sales. Business A records sales of $490, $495, $505, $510, and $500 across five days — very consistent. Business B records $100, $200, $900, $800, and $500 — wildly inconsistent. The mean is identical ($500), but the spread tells a completely different story about predictability and reliability. Measures of spread give us the numerical tools to capture and communicate that difference precisely.</p>
+
+<p><strong>Understanding Spread and Why It Matters</strong></p>
+
+<p>A measure of central tendency such as the mean summarizes where data tends to cluster, but it says nothing about how tightly or loosely the individual values are packed around that center. Spread fills this gap. <strong>High spread</strong> means data points are far from the center — the values are inconsistent, unpredictable, or highly variable. <strong>Low spread</strong> means data points are clustered near the center — values are consistent and predictable.</p>
+
+<p>The importance of spread shows up across many real-world scenarios:</p>
+
+<ul>
+  <li><strong>Reliability of the mean:</strong> When spread is low, the mean is a trustworthy representative of the data. When spread is high, the mean may be misleading — a single extreme value can pull it far away from most of the observations.</li>
+  <li><strong>Comparing datasets:</strong> If two manufacturing processes both produce parts with a target length of 10 cm, but one process has much higher variability, the more consistent process is preferable — even if both have the same average.</li>
+  <li><strong>Risk and uncertainty:</strong> In finance, a higher spread in investment returns signals higher risk. Two portfolios may have the same expected return, but the one with lower variability is safer and more predictable.</li>
+  <li><strong>Quality control:</strong> Low variance in a production process means the output is stable and within specification. High variance signals a process that needs investigation and correction.</li>
+</ul>
+
+<p>Spread measures are not standalone numbers — they gain meaning through context: the units of the data, the size of the mean, and comparisons with other datasets. The two most important and widely used measures of spread are <strong>variance</strong> and <strong>standard deviation</strong>.</p>
+
+<p><strong>Variance: Quantifying Average Squared Deviation</strong></p>
+
+<p>Variance measures spread by quantifying how far, on average, each data point lies from the mean — but with a critical twist: the deviations are <em>squared</em> before averaging. This has two important consequences. First, squaring eliminates negative signs, so deviations below the mean don't cancel out deviations above the mean. Second, squaring penalizes larger deviations more heavily than smaller ones — a deviation of 10 contributes 100 to the sum, while a deviation of 2 contributes only 4.</p>
+
+<p>The mathematical definition of <strong>population variance</strong> (when you have data for the entire population) is:</p>
+
+<pre><code>σ² = Σ(xᵢ - μ)² / N</code></pre>
+
+<p>Where <code>σ²</code> is the population variance, <code>μ</code> is the population mean, <code>xᵢ</code> represents each individual data value, and <code>N</code> is the total number of observations. When working with a <strong>sample</strong> (a subset of a larger population), we divide by <code>N - 1</code> instead of <code>N</code>:</p>
+
+<pre><code>s² = Σ(xᵢ - x̄)² / (N - 1)</code></pre>
+
+<p>The reason for dividing by <code>N - 1</code> in the sample case is a concept called <strong>Bessel's correction</strong>. When we estimate the population mean from a sample, the sample deviations tend to slightly underestimate the true population deviations. Dividing by <code>N - 1</code> inflates the result slightly, producing an unbiased estimate of the true population variance.</p>
+
+<p>Key properties of variance to remember:</p>
+
+<ul>
+  <li>A variance of <strong>zero</strong> means every data point is identical — there is no spread whatsoever.</li>
+  <li>Variance is always <strong>non-negative</strong> because it is a sum of squared values.</li>
+  <li>Larger variance values indicate greater spread and less consistency.</li>
+  <li>Variance is expressed in <strong>squared units</strong> of the original measurement. If data is measured in dollars, variance is in dollars squared. This makes direct interpretation alongside the raw data awkward — a variance of 2,500 dollars² is not intuitively meaningful next to individual values measured in dollars.</li>
+</ul>
+
+<p><strong>Standard Deviation: A More Interpretable Spread Metric</strong></p>
+
+<p>Standard deviation solves the interpretability problem of variance by taking the square root of the variance. This "undoes" the squaring step and returns the spread measure to the <em>same units</em> as the original data. If your measurements are in centimeters, standard deviation is also in centimeters. If your data is in dollars, standard deviation is in dollars.</p>
+
+<pre><code>Population standard deviation:  σ = √(σ²) = √[ Σ(xᵢ - μ)² / N ]
+Sample standard deviation:      s = √(s²) = √[ Σ(xᵢ - x̄)² / (N - 1) ]</code></pre>
+
+<p>Standard deviation is one of the most universally used statistics in data analysis. Its interpretability makes it powerful:</p>
+
+<ul>
+  <li>A <strong>small standard deviation</strong> tells you that values tend to hover close to the mean — the dataset is tight and consistent.</li>
+  <li>A <strong>large standard deviation</strong> tells you that values are spread out widely — the dataset is variable and the mean is less representative of any individual value.</li>
+  <li>Standard deviation allows you to describe how typical or unusual a single observation is. An observation that lies two or three standard deviations away from the mean is considered unusual or a potential outlier.</li>
+  <li>Like variance, standard deviation has both a population form (dividing by N inside the square root) and a sample form (dividing by N - 1).</li>
+</ul>
+
+<p>For example, if exam scores have a mean of 75 and a standard deviation of 5, you can immediately say that most students scored between roughly 70 and 80. If instead the standard deviation were 20, scores would be spread from roughly 55 to 95 — the same mean, but a very different picture of the class's performance.</p>
+
+<p><strong>Calculating Variance and Standard Deviation Step by Step</strong></p>
+
+<p>Let's walk through a concrete example with a small dataset to make the calculation process completely transparent. Suppose we have the following five exam scores from a sample of students:</p>
+
+<pre><code>Scores: 72, 85, 90, 68, 95</code></pre>
+
+<p><strong>Step 1: Compute the mean.</strong></p>
+
+<pre><code>Mean = (72 + 85 + 90 + 68 + 95) / 5
+     = 410 / 5
+     = 82</code></pre>
+
+<p><strong>Step 2: Subtract the mean from each value to find each deviation.</strong></p>
+
+<pre><code>72 - 82 = -10
+85 - 82 =   3
+90 - 82 =   8
+68 - 82 = -14
+95 - 82 =  13</code></pre>
+
+<p>Notice that the deviations sum to zero: <code>-10 + 3 + 8 + (-14) + 13 = 0</code>. This is always true — the positive and negative deviations perfectly cancel each other. This is exactly why we cannot just average the raw deviations to measure spread.</p>
+
+<p><strong>Step 3: Square each deviation.</strong></p>
+
+<pre><code>(-10)² = 100
+  (3)² =   9
+  (8)² =  64
+(-14)² = 196
+ (13)² = 169</code></pre>
+
+<p><strong>Step 4: Sum the squared deviations and divide by N - 1 (sample variance).</strong></p>
+
+<pre><code>Sum of squared deviations = 100 + 9 + 64 + 196 + 169 = 538
+
+Sample variance (s²) = 538 / (5 - 1) = 538 / 4 = 134.5</code></pre>
+
+<p><strong>Step 5: Take the square root to get the standard deviation.</strong></p>
+
+<pre><code>Sample standard deviation (s) = √134.5 ≈ 11.60</code></pre>
+
+<p>The full calculation summarized in a table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Score (xᵢ)</th>
+      <th>Deviation (xᵢ - x̄)</th>
+      <th>Squared Deviation (xᵢ - x̄)²</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>72</td>
+      <td>-10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>85</td>
+      <td>3</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>90</td>
+      <td>8</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td>-14</td>
+      <td>196</td>
+    </tr>
+    <tr>
+      <td>95</td>
+      <td>13</td>
+      <td>169</td>
+    </tr>
+    <tr>
+      <td><strong>Mean = 82</strong></td>
+      <td><strong>Sum = 0</strong></td>
+      <td><strong>Sum = 538</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The sample variance is <strong>134.5</strong> (in units of score²), and the sample standard deviation is approximately <strong>11.60 score points</strong>. This means the typical exam score deviates from the mean of 82 by about 11.6 points.</p>
+
+<p><strong>Interpreting Variance and Standard Deviation in Context</strong></p>
+
+<p>Raw numbers for variance and standard deviation only become meaningful when interpreted in context. Here are the key interpretive strategies:</p>
+
+<ul>
+  <li><strong>Compare standard deviation to the mean:</strong> A standard deviation that is large relative to the mean suggests high relative variability. For example, a mean of 100 with a standard deviation of 5 (5% relative variability) indicates consistency; a mean of 100 with a standard deviation of 50 (50% relative variability) signals extreme inconsistency. The ratio of standard deviation to mean is known as the <em>coefficient of variation</em> and is especially useful when comparing datasets measured in different units or at different scales.</li>
+  <li><strong>Comparing two datasets:</strong> Suppose Dataset A has a mean of 50 and a standard deviation of 3, while Dataset B has the same mean of 50 but a standard deviation of 15. Dataset A is far more consistent — if this represented product weight in grams, Dataset A's production process is much tighter and more reliable.</li>
+  <li><strong>Identifying outliers:</strong> The standard deviation anchors the common rule for flagging outliers. Values more than <strong>two standard deviations</strong> from the mean are sometimes considered unusual; values more than <strong>three standard deviations</strong> from the mean are typically flagged as potential outliers. In our exam score example (mean = 82, SD ≈ 11.6), a score below 82 - 3(11.6) = 47.2 or above 82 + 3(11.6) = 116.8 would be considered extreme.</li>
+  <li><strong>Quality control:</strong> In manufacturing and process control, low variance is a goal — it means parts are consistently meeting specifications. High variance triggers investigation into the process. The famous "Six Sigma" methodology is literally named after the goal of keeping defects within six standard deviations of the process mean.</li>
+</ul>
+
+<p><strong>Computing Spread Statistics in Python</strong></p>
+
+<p>Python's scientific computing ecosystem makes it straightforward to calculate variance and standard deviation on any dataset. The two most commonly used tools are <strong>NumPy</strong> and <strong>Pandas</strong>.</p>
+
+<p>Using <strong>NumPy</strong>:</p>
+
+<pre><code>import numpy as np
+
+scores = [72, 85, 90, 68, 95]
+
+# Population variance (divide by N)
+pop_var = np.var(scores)
+print("Population variance:", pop_var)       # 107.6
+
+# Sample variance (divide by N-1, ddof=1)
+samp_var = np.var(scores, ddof=1)
+print("Sample variance:", samp_var)          # 134.5
+
+# Population standard deviation
+pop_std = np.std(scores)
+print("Population std dev:", pop_std)        # ~10.37
+
+# Sample standard deviation
+samp_std = np.std(scores, ddof=1)
+print("Sample std dev:", samp_std)           # ~11.60</code></pre>
+
+<p>The <code>ddof</code> parameter stands for <strong>Delta Degrees of Freedom</strong>. Setting <code>ddof=0</code> (the default) divides by <code>N</code> and gives population statistics. Setting <code>ddof=1</code> divides by <code>N - 1</code> and gives sample statistics. Forgetting to specify <code>ddof=1</code> when working with sample data is a very common mistake that leads to slightly underestimated variance and standard deviation.</p>
+
+<p>Using <strong>Pandas</strong>:</p>
+
+<pre><code>import pandas as pd
+
+scores_series = pd.Series([72, 85, 90, 68, 95])
+
+# Pandas .var() and .std() default to ddof=1 (sample statistics)
+print("Sample variance:", scores_series.var())    # 134.5
+print("Sample std dev:", scores_series.std())     # ~11.60
+
+# To compute population statistics with Pandas, explicitly set ddof=0
+print("Population variance:", scores_series.var(ddof=0))   # 107.6
+print("Population std dev:", scores_series.std(ddof=0))    # ~10.37</code></pre>
+
+<p>An important difference to keep in mind: <strong>Pandas defaults to <code>ddof=1</code></strong> (sample statistics), while <strong>NumPy defaults to <code>ddof=0</code></strong> (population statistics). When you call <code>df['column'].std()</code> in Pandas, you are getting the sample standard deviation. When you call <code>np.std(data)</code> without a <code>ddof</code> argument, you are getting the population standard deviation. Being aware of this distinction prevents subtle errors, especially in data analysis pipelines where both libraries may be used together.</p>
+
+<p>A good practice is to always verify Python results against manual calculations on a small, known dataset first. This builds confidence that you are using the right function with the right parameters before applying it to larger datasets where manual checking is impractical.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function / Method</th>
+      <th>Default ddof</th>
+      <th>Computes</th>
+      <th>To Get the Other, Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>np.var(data)</code></td>
+      <td>0</td>
+      <td>Population variance</td>
+      <td><code>np.var(data, ddof=1)</code> for sample variance</td>
+    </tr>
+    <tr>
+      <td><code>np.std(data)</code></td>
+      <td>0</td>
+      <td>Population std dev</td>
+      <td><code>np.std(data, ddof=1)</code> for sample std dev</td>
+    </tr>
+    <tr>
+      <td><code>series.var()</code></td>
+      <td>1</td>
+      <td>Sample variance</td>
+      <td><code>series.var(ddof=0)</code> for population variance</td>
+    </tr>
+    <tr>
+      <td><code>series.std()</code></td>
+      <td>1</td>
+      <td>Sample std dev</td>
+      <td><code>series.std(ddof=0)</code> for population std dev</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mastering variance and standard deviation — how to calculate them, what they mean, and how to compute them in code — provides a robust foundation for virtually all subsequent work in statistics and data analysis. They appear in hypothesis tests, confidence intervals, machine learning model evaluation, and countless other contexts. The ability to look at a standard deviation and immediately understand something meaningful about the consistency and reliability of a dataset is one of the most practical skills a data analyst can develop.</p>
+        <div class="notes"><strong>Notes</strong>Covers variance and standard deviation as key indicators of how data values are dispersed around the center. Students will calculate and interpret these statistics to understand data consistency and spread.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -10,6 +10,41 @@
     "type": "Page"
   },
   {
+    "title": "Foundations of Hypothesis Testing",
+    "href": "content/Hypothesis_Testing_Correlati_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "P-Values and Statistical Significance",
+    "href": "content/Hypothesis_Testing_Correlati_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "A/B Testing in Practice",
+    "href": "content/Hypothesis_Testing_Correlati_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Correlation Analysis",
+    "href": "content/Hypothesis_Testing_Correlati_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Simple Linear Regression",
+    "href": "content/Hypothesis_Testing_Correlati_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Multiple Linear Regression",
+    "href": "content/Hypothesis_Testing_Correlati_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "Drawing Data-Driven Conclusions",
+    "href": "content/Hypothesis_Testing_Correlati_interactive_topics_t7.html",
+    "type": "Content"
+  },
+  {
     "title": "Hypothesis Testing, Correlation, and Regression Analysis \u2014 Module Topics",
     "href": "content/module_topics.html",
     "type": "Content"

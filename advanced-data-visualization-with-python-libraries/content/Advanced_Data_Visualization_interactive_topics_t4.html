@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customization and Publication-Quality Styling</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Data Visualization with Python Libraries</a></div>
+  <header>
+    <h1>Customization and Publication-Quality Styling</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Customization and Publication-Quality Styling</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Producing a visualization that communicates clearly in a journal article, conference poster, or technical report demands far more than simply calling a plot function and accepting its defaults. Default Matplotlib figures are functional but deliberately spartan; their font sizes are optimized for an interactive notebook screen, their colors are chosen for general-purpose readability, and their spacing is designed to accommodate a wide variety of content rather than your specific data. Publication-quality styling is the discipline of deliberately overriding every one of those defaults so that the finished figure looks intentional, professional, and appropriate for its target medium. This topic covers the full pipeline: applying coherent visual themes, selecting accessible color palettes, controlling typography, adding annotations and reference lines, managing layout and spacing, configuring legends and colorbars, and finally exporting the figure in a format and resolution that meets professional requirements.</p>
+
+<p><strong>Applying Themes and Style Sheets</strong></p>
+
+<p>A Matplotlib style sheet is a plain-text file that sets dozens of <code>rcParams</code> values simultaneously, giving every subsequent plot a coherent look without repeating the same configuration code. Calling <code>plt.style.use('seaborn-v0_8-whitegrid')</code> before any plotting command applies that style globally for the entire Python session. Matplotlib ships with a rich library of built-in styles — <code>'ggplot'</code>, <code>'bmh'</code>, <code>'fivethirtyeight'</code>, <code>'grayscale'</code>, and many Seaborn-derived variants — each tuned for a different aesthetic goal.</p>
+
+<pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+plt.style.use('seaborn-v0_8-whitegrid')
+
+x = np.linspace(0, 2 * np.pi, 200)
+fig, ax = plt.subplots(figsize=(6, 3))
+ax.plot(x, np.sin(x), label='sin(x)')
+ax.plot(x, np.cos(x), label='cos(x)')
+ax.legend()
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p>Seaborn provides its own layered theming system through <code>sns.set_theme()</code>. The <code>style</code> parameter controls background and grid elements (<code>'white'</code>, <code>'whitegrid'</code>, <code>'dark'</code>, <code>'darkgrid'</code>, <code>'ticks'</code>), while the <code>context</code> parameter scales all text and line elements for the intended viewing size. Use <code>context='paper'</code> for a small figure destined for a two-column journal layout, <code>context='notebook'</code> for exploratory work, and <code>context='talk'</code> or <code>'poster'</code> when the audience will read from a distance.</p>
+
+<pre><code>import seaborn as sns
+
+sns.set_theme(style='whitegrid', context='paper', font_scale=1.2)
+</code></pre>
+
+<p>When you want a style to apply only to a specific block of code without contaminating other figures produced later in the same script, wrap that block in the context manager <code>plt.style.context()</code>. Everything inside the <code>with</code> block uses the requested style; everything outside is unaffected.</p>
+
+<pre><code>with plt.style.context('grayscale'):
+    fig, ax = plt.subplots()
+    ax.plot([1, 2, 3], [4, 1, 3])
+    plt.savefig('grayscale_preview.pdf', bbox_inches='tight')
+# Outside the block, the previous style is restored automatically
+</code></pre>
+
+<p>For a research group or organization that wants a consistent house style across dozens of notebooks, the most scalable solution is a custom <code>.mplstyle</code> file. Place a file such as <code>myjournal.mplstyle</code> in Matplotlib's configuration directory (found via <code>matplotlib.get_configdir()</code>) or pass its full path to <code>plt.style.use()</code>. The file uses the same key-value syntax as <code>rcParams</code>:</p>
+
+<pre><code># myjournal.mplstyle
+figure.figsize    : 3.5, 2.5
+font.family       : serif
+font.size         : 8
+axes.linewidth    : 0.8
+axes.spines.top   : False
+axes.spines.right : False
+lines.linewidth   : 1.2
+</code></pre>
+
+<p>Loading this file at the top of every notebook guarantees that every figure produced by every team member will share the same line weights, font sizes, and spine configuration without manual repetition.</p>
+
+<p><strong>Selecting and Managing Color Palettes</strong></p>
+
+<p>Color is one of the most powerful and most frequently misused visual channels in data graphics. Choosing a palette is not merely an aesthetic decision; it directly affects whether readers can extract accurate information from the figure. Seaborn's <code>sns.color_palette()</code> function is the primary tool for inspecting and constructing palettes. Called with no arguments it returns the current palette; called with a name and an integer it returns that many colors from the named palette as a list of RGB tuples that can be passed anywhere Matplotlib accepts a color list.</p>
+
+<pre><code>palette = sns.color_palette('Set2', 6)
+sns.palplot(palette)   # renders swatches in a Jupyter notebook
+</code></pre>
+
+<p>To apply a palette globally so that every subsequent plot automatically cycles through those colors, use <code>sns.set_palette()</code>:</p>
+
+<pre><code>sns.set_palette('colorblind')
+</code></pre>
+
+<p>The choice of palette type should follow the nature of the data being encoded:</p>
+
+<ul>
+  <li><strong>Sequential palettes</strong> such as <code>'Blues'</code>, <code>'viridis'</code>, <code>'plasma'</code>, or <code>'YlOrRd'</code> progress from a light, low-saturation color to a dark, high-saturation color. They are appropriate when the variable being colored has a natural order and a meaningful zero or minimum — for example, population density, temperature, or probability.</li>
+  <li><strong>Diverging palettes</strong> such as <code>'RdBu'</code>, <code>'coolwarm'</code>, or <code>'PuOr'</code> have a pale, neutral midpoint flanked by two contrasting hues. They are the right choice when the data has a meaningful center (often zero) and deviations in both directions are equally important — for example, correlation coefficients, anomalies relative to a baseline, or z-scores.</li>
+  <li><strong>Qualitative palettes</strong> such as <code>'Set1'</code>, <code>'Set2'</code>, <code>'tab10'</code>, or <code>'Paired'</code> assign visually distinct hues to categorical groups without implying any ordering. They are appropriate for nominal variables like species, country, or treatment arm.</li>
+</ul>
+
+<p>A critical professional requirement is accessibility. Roughly 8 percent of men have some form of red-green color vision deficiency, meaning a figure that relies on distinguishing red from green will be unreadable for a substantial fraction of readers. Seaborn's <code>'colorblind'</code> palette is specifically designed to remain distinguishable under the most common forms of color vision deficiency. Additionally, any figure that may be printed in a journal that uses black-and-white printing for some figures must also be interpretable in grayscale. The <code>'viridis'</code> and <code>'cividis'</code> sequential palettes were designed to be perceptually uniform and fully legible in grayscale. For categorical line plots, combining color differences with distinct line styles (<code>linestyle='-'</code>, <code>'--'</code>, <code>':'</code>) or markers provides a redundant encoding that survives both grayscale conversion and color vision deficiency.</p>
+
+<p><strong>Customizing Fonts and Text Elements</strong></p>
+
+<p>Typography in a figure must be consistent with the typography of the surrounding document. A journal article typeset in a 10 pt serif font looks incongruous if its embedded figures use a different sans-serif font at a mismatched size. Matplotlib exposes all font properties through the <code>rcParams</code> dictionary, which can be modified globally before creating any figures:</p>
+
+<pre><code>import matplotlib as mpl
+
+mpl.rcParams['font.family'] = 'serif'
+mpl.rcParams['font.serif'] = ['Times New Roman', 'DejaVu Serif']
+mpl.rcParams['font.size'] = 9
+mpl.rcParams['axes.titlesize'] = 10
+mpl.rcParams['axes.labelsize'] = 9
+mpl.rcParams['xtick.labelsize'] = 8
+mpl.rcParams['ytick.labelsize'] = 8
+mpl.rcParams['legend.fontsize'] = 8
+</code></pre>
+
+<p>Individual text elements can override the global settings through keyword arguments. The most commonly used are <code>fontsize</code>, <code>fontweight</code> (<code>'normal'</code>, <code>'bold'</code>), <code>fontstyle</code> (<code>'italic'</code>), and <code>fontfamily</code>:</p>
+
+<pre><code>ax.set_title('Experimental Results', fontsize=11, fontweight='bold')
+ax.set_xlabel('Time (s)', fontsize=9, fontfamily='sans-serif')
+</code></pre>
+
+<p>For figures that include mathematical notation — axis labels like <em>R²</em>, units like μm, or equations in annotations — Matplotlib supports two rendering paths. The first is its own internal MathText engine, which interprets LaTeX-like syntax wrapped in dollar signs without requiring a LaTeX installation:</p>
+
+<pre><code>ax.set_ylabel(r'$\Delta F / F_0$ (%)')
+ax.set_title(r'Mean $\pm$ SEM, $n = 12$')
+</code></pre>
+
+<p>The second is full external LaTeX rendering, which produces output indistinguishable from the rest of a LaTeX-typeset document. It requires a working LaTeX installation and is activated by setting <code>plt.rcParams['text.usetex'] = True</code>. When this is enabled, all text strings are passed through LaTeX, so ordinary text must be wrapped in <code>\text{}</code> commands and special characters must be escaped.</p>
+
+<pre><code>mpl.rcParams['text.usetex'] = True
+mpl.rcParams['font.family'] = 'serif'
+ax.set_xlabel(r'\textit{Concentration} ($\mu$mol\,L$^{-1}$)')
+</code></pre>
+
+<p>A frequent mistake when preparing figures for publication is choosing font sizes that look fine on a large monitor but become illegible after the figure is scaled to column width. A typical single-column figure in a two-column journal is approximately 3.5 inches wide. If the figure was designed at 7 inches and then reduced by half, all font sizes are effectively halved. The safest approach is to set <code>figsize</code> at the outset to match the final printed dimensions and choose font sizes of 7–9 pt, which are standard in journal figures.</p>
+
+<p><strong>Adding Annotations and Reference Lines</strong></p>
+
+<p>Annotations transform a graphic from a raw display of data into a guided narrative. They direct the reader's attention to the features that matter most and provide the contextual information needed to interpret those features correctly.</p>
+
+<p>The most expressive annotation tool is <code>ax.annotate()</code>, which combines a text label with an optional arrow. The <code>xy</code> parameter specifies the point being annotated (the arrowhead destination) in data coordinates; <code>xytext</code> specifies the position of the text in data or axes coordinates; and <code>arrowprops</code> is a dictionary controlling the arrow style:</p>
+
+<pre><code>ax.annotate(
+    'Local maximum',
+    xy=(np.pi / 2, 1.0),          # point being annotated
+    xytext=(np.pi / 2 + 0.5, 0.7),  # text position
+    fontsize=8,
+    arrowprops=dict(arrowstyle='->', color='black', lw=0.8),
+    ha='left'
+)
+</code></pre>
+
+<p>The <code>arrowstyle</code> string supports many styles: <code>'->'</code>, <code>'-|>'</code>, <code>'fancy'</code>, <code>'wedge'</code>, and others. The <code>xycoords</code> and <code>textcoords</code> parameters allow mixing coordinate systems; for example, placing the text at a fixed position in axes fraction coordinates (where <code>(0, 0)</code> is the lower-left corner and <code>(1, 1)</code> is the upper-right corner) while the arrow points to a data coordinate ensures the label stays in a readable position regardless of axis limits:</p>
+
+<pre><code>ax.annotate(
+    'Threshold exceeded',
+    xy=(3.2, 0.95),
+    xycoords='data',
+    xytext=(0.65, 0.92),
+    textcoords='axes fraction',
+    arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.2')
+)
+</code></pre>
+
+<p>For simple text labels without arrows, <code>ax.text()</code> is more concise. It accepts <code>x</code>, <code>y</code>, and the string, plus all the usual font keyword arguments:</p>
+
+<pre><code>ax.text(0.05, 0.95, 'Panel A', transform=ax.transAxes,
+        fontsize=10, fontweight='bold', va='top')
+</code></pre>
+
+<p>Passing <code>transform=ax.transAxes</code> switches to axes fraction coordinates, which is the standard way to place panel labels like <em>A</em>, <em>B</em>, <em>C</em> in a consistent position across all subplots regardless of the data range.</p>
+
+<p>Horizontal and vertical reference lines are drawn with <code>ax.axhline()</code> and <code>ax.axvline()</code>. They span the full width or height of the axes by default, or can be limited to a fractional range with the <code>xmin</code>/<code>xmax</code> or <code>ymin</code>/<code>ymax</code> parameters:</p>
+
+<pre><code>ax.axhline(y=0, color='black', linewidth=0.8, linestyle='--')
+ax.axvline(x=treatment_start, color='gray', linewidth=1.0,
+           linestyle=':', label='Treatment start')
+</code></pre>
+
+<p>To shade a region rather than draw a single line, use <code>ax.axhspan()</code> or <code>ax.axvspan()</code>. These functions fill a horizontal or vertical band across the axes and are ideal for marking confidence intervals, acceptable operating ranges, or periods of interest in a time series:</p>
+
+<pre><code>ax.axhspan(ymin=lower_ci, ymax=upper_ci, alpha=0.15,
+           color='steelblue', label='95% CI')
+ax.axvspan(xmin=phase2_start, xmax=phase2_end, alpha=0.10,
+           color='orange', label='Phase II')
+</code></pre>
+
+<p><strong>Fine-Tuning Layout and Spacing</strong></p>
+
+<p>Poor layout is one of the most common reasons an otherwise excellent figure looks unprofessional. Tick labels that are clipped by the figure boundary, subplots whose titles overlap with the axes below, or unequal whitespace on different sides of the figure all signal that the author did not control their output carefully.</p>
+
+<p>The first decision is figure size. Setting it explicitly via <code>plt.figure(figsize=(width, height))</code> or the equivalent <code>fig, ax = plt.subplots(figsize=(width, height))</code> is mandatory for publication work. Dimensions should be specified in inches to match journal column widths. Common targets are 3.5 inches (single column), 5.0–5.5 inches (1.5 columns), and 7.0–7.5 inches (double column).</p>
+
+<p>Once figure size is set, spacing between subplots and between plot elements and the figure boundary must be managed. <code>plt.tight_layout()</code> is a quick automatic solution that inspects the bounding boxes of all text and axis elements and adjusts subplot parameters to prevent overlap. Passing <code>constrained_layout=True</code> as a parameter to <code>plt.subplots()</code> activates a more robust algorithm that handles colorbars and other axes-level decorations that <code>tight_layout()</code> sometimes misses:</p>
+
+<pre><code>fig, axes = plt.subplots(2, 3, figsize=(7, 4.5), constrained_layout=True)
+</code></pre>
+
+<p>When automatic adjustment is insufficient, <code>plt.subplots_adjust()</code> provides manual control over six parameters:</p>
+
+<ul>
+  <li><strong>left, right, top, bottom</strong>: the position of the subplot area boundaries as fractions of the figure width or height (0 to 1).</li>
+  <li><strong>hspace</strong>: the fraction of the average subplot height reserved for vertical space between rows.</li>
+  <li><strong>wspace</strong>: the fraction of the average subplot width reserved for horizontal space between columns.</li>
+</ul>
+
+<pre><code>plt.subplots_adjust(left=0.10, right=0.95, top=0.92, bottom=0.12,
+                    hspace=0.40, wspace=0.30)
+</code></pre>
+
+<p>For multi-panel figures where different panels should occupy different amounts of space — for example, a large main plot with a narrow marginal distribution — <code>matplotlib.gridspec.GridSpec</code> allows precise proportional sizing and subplot spanning:</p>
+
+<pre><code>import matplotlib.gridspec as gridspec
+
+fig = plt.figure(figsize=(7, 5))
+gs = gridspec.GridSpec(2, 3, figure=fig,
+                       height_ratios=[3, 1],
+                       width_ratios=[2, 2, 1],
+                       hspace=0.35, wspace=0.30)
+
+ax_main   = fig.add_subplot(gs[0, :2])   # spans first two columns, first row
+ax_right  = fig.add_subplot(gs[0, 2])    # third column, first row
+ax_bottom = fig.add_subplot(gs[1, :])    # full width, second row
+</code></pre>
+
+<p>This approach gives complete control over the relative sizes of panels and is standard practice for complex figures in high-impact publications.</p>
+
+<p><strong>Configuring Legends and Colorbars</strong></p>
+
+<p>A legend must be readable and must not obscure data. Matplotlib's automatic placement algorithm (<code>loc='best'</code>) attempts to find the emptiest region of the axes, which works well for simple figures but fails when data fills the entire axes area. In those cases, the safest strategy is to move the legend outside the plot area using <code>bbox_to_anchor</code>:</p>
+
+<pre><code>ax.legend(loc='upper left', bbox_to_anchor=(1.02, 1.0),
+          borderaxespad=0, frameon=True, fontsize=8)
+fig.savefig('figure.pdf', bbox_inches='tight')
+# bbox_inches='tight' ensures the legend is not clipped at export
+</code></pre>
+
+<p>Additional legend customization options worth knowing:</p>
+
+<ul>
+  <li><code>ncol=2</code> arranges legend entries in two columns, reducing height for wide figures.</li>
+  <li><code>framealpha=0.9</code> controls the opacity of the legend background box.</li>
+  <li><code>handlelength=1.5</code> and <code>handleheight=1.0</code> control the size of the color/line/marker sample in each legend entry.</li>
+  <li>Passing explicit <code>handles</code> and <code>labels</code> lists to <code>ax.legend()</code> allows complete control over which series appear and what labels they carry, enabling removal of redundant entries that are already obvious from axis labels or the figure caption.</li>
+</ul>
+
+<pre><code># Remove a specific series from the legend
+handles, labels = ax.get_legend_handles_labels()
+filtered = [(h, l) for h, l in zip(handles, labels) if l != '_nolegend_']
+ax.legend(*zip(*filtered), fontsize=8)
+</code></pre>
+
+<p>Colorbars appear alongside mappable plots such as heatmaps, scatter plots with a color-mapped variable, or filled contour plots. The standard call is:</p>
+
+<pre><code>scatter = ax.scatter(x, y, c=z, cmap='viridis', vmin=0, vmax=100)
+cbar = plt.colorbar(scatter, ax=ax, shrink=0.85, pad=0.03)
+cbar.set_label('Fluorescence Intensity (a.u.)', fontsize=8)
+cbar.ax.tick_params(labelsize=7)
+</code></pre>
+
+<p>The <code>shrink</code> parameter scales the colorbar length relative to the axes height; <code>pad</code> controls the gap between the axes and the colorbar. For multi-axes figures, a single colorbar can serve several subplots by passing a list of axes to the <code>ax</code> parameter:</p>
+
+<pre><code>cbar = fig.colorbar(mappable, ax=[ax1, ax2], location='right', shrink=0.6)
+</code></pre>
+
+<p>Always label the colorbar with the variable name and its units. A colorbar strip with no label forces readers to consult the caption to understand what the color channel encodes, which slows comprehension.</p>
+
+<p><strong>Exporting Publication-Ready Figures</strong></p>
+
+<p>The final step is saving the figure in a format and at a resolution appropriate for its destination. The key function is <code>plt.savefig()</code> (or equivalently <code>fig.savefig()</code>), and several parameters must be set deliberately:</p>
+
+<ul>
+  <li><strong>dpi</strong>: dots per inch. For raster formats, use at least 300 DPI for print; many journals require 600 DPI for line art. For vector formats, <code>dpi</code> controls only the resolution of any embedded raster elements (such as images used as backgrounds) and does not affect the sharpness of vector elements.</li>
+  <li><strong>bbox_inches='tight'</strong>: trims the saved figure to the smallest bounding box that contains all visible elements, eliminating excess white space. This parameter is almost always desirable and is especially important when legends or axis labels extend beyond the default figure boundary.</li>
+  <li><strong>transparent=True</strong>: sets the figure and axes backgrounds to transparent rather than white. Use this when embedding figures in presentations with colored slide backgrounds or in documents with tinted page backgrounds.</li>
+  <li><strong>format</strong>: inferred from the file extension but can be specified explicitly with <code>format='pdf'</code> to avoid ambiguity.</li>
+</ul>
+
+<pre><code>fig.savefig('figure_1.pdf', dpi=300, bbox_inches='tight')
+fig.savefig('figure_1.tiff', dpi=600, bbox_inches='tight')
+fig.savefig('figure_1.png', dpi=300, bbox_inches='tight', transparent=True)
+</code></pre>
+
+<p>The choice between vector and raster formats has significant practical consequences:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Format</th>
+      <th>Type</th>
+      <th>Best for</th>
+      <th>Editable after export?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PDF</td>
+      <td>Vector</td>
+      <td>LaTeX inclusion, journal submission, infinite rescaling</td>
+      <td>Yes (Illustrator, Inkscape)</td>
+    </tr>
+    <tr>
+      <td>SVG</td>
+      <td>Vector</td>
+      <td>Web publication, further editing in Inkscape</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>EPS</td>
+      <td>Vector</td>
+      <td>Older journal submission systems that require EPS</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PNG</td>
+      <td>Raster</td>
+      <td>Presentations, web, journals requiring raster at 300 DPI</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>TIFF</td>
+      <td>Raster</td>
+      <td>High-resolution journal submissions, archival storage</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vector formats preserve every line, curve, and text character as a mathematical description, so the figure remains perfectly sharp at any zoom level and can be opened in a vector editor to adjust individual elements. Raster formats capture the figure as a fixed grid of pixels; once saved, resolution cannot be increased without resampling artifacts. As a practical rule, save a vector copy as the archival master and generate raster versions from it as needed, rather than the reverse.</p>
+
+<p>One final consideration is font embedding. When saving to PDF, Matplotlib embeds font subsets by default, which is correct behavior for submission. However, if the target journal or print house requires all fonts to be outlined (converted to vector paths) to avoid font substitution, this can be achieved by opening the PDF in Inkscape or Illustrator and converting text to outlines before final submission. Alternatively, using <code>text.usetex=True</code> with a standard LaTeX font ensures maximum compatibility with LaTeX-based journal production workflows.</p>
+        <div class="notes"><strong>Notes</strong>Covers all subtopics: style sheets (plt.style.use, sns.set_theme, context manager, custom .mplstyle), color palettes (sequential/diverging/qualitative, accessibility), fonts (rcParams, keyword overrides, MathText, usetex), annotations (annotate, text, axhline/axvline, axhspan/axvspan), layout (figsize, tight_layout, constrained_layout, subplots_adjust, GridSpec), legends/colorbars (loc, bbox_to_anchor, colorbar parameters), and export (savefig parameters, vector vs raster formats table).</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

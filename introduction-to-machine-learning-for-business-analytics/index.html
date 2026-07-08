@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Introduction to Machine Learning for Business Analytics — CAP3785</title>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
       color: #2c3e50;
       line-height: 1.6;
       min-height: 100vh;
@@ -21,208 +18,190 @@
 
     /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
-      color: #ffffff;
-      padding: 2.5rem 1.5rem 2rem;
+      background: linear-gradient(135deg, #1a3c5e 0%, #2d6a9f 100%);
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
     }
 
     .header-inner {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     .course-label {
-      display: inline-block;
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.15);
-      color: #d6e8f7;
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.85rem;
+      color: #a8ccec;
+      margin-bottom: 0.5rem;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.75rem;
       line-height: 1.25;
+      margin-bottom: 1rem;
     }
 
     header p {
       font-size: 1rem;
-      color: #cce0f5;
-      max-width: 700px;
-      line-height: 1.65;
+      color: #d4e8f7;
+      max-width: 720px;
+      line-height: 1.7;
     }
 
-    /* ── Main content ── */
+    /* ── Main Content ── */
     main {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
+      padding: 0 1.5rem 3rem;
     }
 
     .section-heading {
-      font-size: 0.75rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #7f8c9a;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #dde3ea;
+      letter-spacing: 0.08em;
+      color: #5a7a99;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #d0dce8;
     }
 
-    /* ── Card grid ── */
+    /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
     .card {
       background: #ffffff;
-      border: 1px solid #dde3ea;
+      border: 1px solid #dde5ef;
       border-radius: 8px;
       padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 6px 20px rgba(29, 78, 137, 0.12);
       transform: translateY(-2px);
     }
 
-    /* ── Card top row ── */
-    .card-header {
+    /* ── Card Top Row ── */
+    .card-top {
       display: flex;
       align-items: flex-start;
+      justify-content: space-between;
       gap: 0.5rem;
-      flex-wrap: wrap;
     }
 
-    .card-title {
-      font-size: 1rem;
+    .card-name {
+      font-size: 0.98rem;
       font-weight: 700;
-      color: #1a3a5c;
+      color: #1a3c5e;
+      line-height: 1.35;
       word-break: break-word;
-      flex: 1 1 auto;
     }
 
-    .card-title a {
-      color: #1a3a5c;
+    .card-name a {
+      color: #1a6bbf;
       text-decoration: none;
-      border-bottom: 2px solid #2d6a9f;
-      padding-bottom: 1px;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s;
     }
 
-    .card-title a:hover,
-    .card-title a:focus {
-      color: #2d6a9f;
-      border-color: #5ba0d0;
-      outline: none;
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #0f4a8a;
+      text-decoration: underline;
     }
 
-    /* ── Source file link ── */
+    /* ── Source Link ── */
     .source-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.25rem;
       font-size: 0.72rem;
       font-weight: 600;
-      color: #5b7fa6;
+      color: #5a7a99;
       text-decoration: none;
-      background: #eaf2fb;
-      border: 1px solid #b8d4ee;
+      background: #eef3f9;
+      border: 1px solid #c4d4e4;
       border-radius: 4px;
       padding: 0.18rem 0.5rem;
       white-space: nowrap;
-      margin-top: 0.1rem;
+      flex-shrink: 0;
       transition: background 0.15s, color 0.15s;
-      align-self: flex-start;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background: #d0e6f7;
-      color: #1a4f80;
-      outline: none;
+      background: #d4e4f4;
+      color: #1a3c5e;
     }
 
     .source-link::before {
-      content: '⬇';
-      font-size: 0.68rem;
+      content: "⬇";
+      font-size: 0.65rem;
     }
 
     /* ── Badges ── */
-    .badge-row {
+    .card-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.4rem;
       align-items: center;
     }
 
     .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.68rem;
+      font-weight: 700;
       letter-spacing: 0.04em;
-      border-radius: 4px;
-      padding: 0.2rem 0.55rem;
       text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
     }
 
     .badge-type {
-      background-color: #e8f0fe;
-      color: #2558c9;
-      border: 1px solid #c3d3f8;
+      background: #e8f0fb;
+      color: #2d5f9e;
+      border: 1px solid #c2d5f0;
     }
 
     .badge-filetype {
-      background-color: #f0faf3;
-      color: #1f7a40;
-      border: 1px solid #b6e4c4;
+      background: #eef7ee;
+      color: #2d7a3a;
+      border: 1px solid #b8debb;
     }
 
     /* ── Description ── */
     .card-description {
       font-size: 0.875rem;
-      color: #4a5a6b;
-      line-height: 1.6;
-      flex: 1 1 auto;
+      color: #4a5e70;
+      line-height: 1.65;
+      flex-grow: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
+      padding: 1.5rem 1rem;
       font-size: 0.78rem;
-      color: #9aa5b1;
-      padding: 1.25rem 1rem 1.75rem;
-      border-top: 1px solid #dde3ea;
+      color: #8fa8bf;
+      border-top: 1px solid #dde5ef;
+      background: #f4f6f9;
     }
 
-    /* ── Responsive tweaks ── */
+    /* ── Responsive ── */
     @media (max-width: 480px) {
-      header {
-        padding: 2rem 1rem 1.75rem;
-      }
-
-      main {
-        margin-top: 1.75rem;
-      }
-
-      .card {
-        padding: 1.15rem 1.1rem;
-      }
+      header { padding: 2rem 1.2rem 1.5rem; }
+      main { padding: 0 1rem 2.5rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .card-top { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -232,61 +211,162 @@
 
   <header>
     <div class="header-inner">
-      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <p class="course-label">CAP3785 &mdash; Data Analytics and Visualization</p>
       <h1>Introduction to Machine Learning for Business Analytics</h1>
       <p>
-        This module introduces foundational machine learning concepts within a business analytics
-        context. Learners will explore supervised and unsupervised learning, key algorithms, and
-        model evaluation techniques — equipping them to apply ML thinking to real-world data
-        challenges. Browse the course artifacts below to get started.
+        This module introduces the core concepts, terminology, and workflows of machine learning
+        as applied to business analytics. Learners will explore foundational theory, key algorithm
+        families, model evaluation techniques, and real-world organizational use cases — building
+        the knowledge needed to incorporate ML methods into data-driven decision-making.
       </p>
     </div>
   </header>
 
   <main>
-    <h2 class="section-heading">Course Artifacts</h2>
+    <h2 class="section-heading">Module Artifacts</h2>
 
     <div class="card-grid">
 
-      <!-- Artifact 1: Module Topics -->
+      <!-- Card 1: Module Topics -->
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">
+        <div class="card-top">
+          <span class="card-name">
             <a href="content/module_topics.html">Module Topics</a>
-          </div>
-          <a
-            class="source-link"
-            href="source/hierarchy.json"
-            title="Download source file"
-          >source file</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
-        <div class="badge-row">
+        <div class="card-meta">
           <span class="badge badge-type">Module Topics</span>
           <span class="badge badge-filetype">.json</span>
         </div>
         <p class="card-description">
-          A structured outline of the module's four main topic areas — ML foundations, supervised
-          vs. unsupervised learning, common algorithms (linear regression, decision trees, k-means),
-          and model evaluation — that instructors use to plan lessons and learners use to navigate
-          what will be covered.
+          A structured outline of the module's four main topic areas — ML foundations, supervised vs. unsupervised learning,
+          common algorithms (linear regression, decision trees, k-means), and model evaluation — that instructors use to plan
+          lessons and learners use to navigate what will be covered.
         </p>
       </div>
 
-      <!-- Artifact 2: Presentation (no viewHref link, no sourceHref) -->
+      <!-- Card 2: Presentation -->
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">
+        <div class="card-top">
+          <span class="card-name">
             <a href="presentation/Introduction_to_Machine_generated.pptx">Introduction_to_Machine_generated.pptx</a>
-          </div>
+          </span>
         </div>
-        <div class="badge-row">
+        <div class="card-meta">
           <span class="badge badge-type">Presentation</span>
           <span class="badge badge-filetype">.pptx</span>
         </div>
         <p class="card-description">
-          A slide deck introducing machine learning in a business analytics context, walking learners
-          through core ML concepts, key terminology, and the end-to-end ML workflow, intended for use
-          as the primary presentation during lectures or self-paced study.
+          A slide deck introducing machine learning in a business analytics context, walking learners through core ML concepts,
+          key terminology, and the end-to-end ML workflow, intended for use as the primary presentation during lectures or
+          self-paced study.
+        </p>
+      </div>
+
+      <!-- Card 3: Foundations of Machine Learning -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Introduction_to_Machine_interactive_topics_t1.html">Foundations of Machine Learning</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading introduces the mathematical and statistical foundations underlying machine learning, covering core
+          concepts and principles that learners need before studying specific algorithms or business applications.
+        </p>
+      </div>
+
+      <!-- Card 4: Supervised vs. Unsupervised Learning -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Introduction_to_Machine_interactive_topics_t2.html">Supervised vs. Unsupervised Learning</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading explains the distinction between supervised and unsupervised learning, describing how the presence
+          or absence of labeled training data shapes algorithm selection, data preparation, and analytical decisions.
+        </p>
+      </div>
+
+      <!-- Card 5: Common Machine Learning Algorithms -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Introduction_to_Machine_interactive_topics_t3.html">Common Machine Learning Algorithms</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading surveys commonly used machine learning algorithms, explaining how they identify patterns in historical
+          data to generate predictions, classifications, or groupings, giving learners a practical reference for algorithm
+          selection.
+        </p>
+      </div>
+
+      <!-- Card 6: Model Evaluation and Performance Metrics -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Introduction_to_Machine_interactive_topics_t4.html">Model Evaluation and Performance Metrics</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading covers model evaluation methods and performance metrics, explaining how to measure a model's
+          effectiveness on unseen data and avoid pitfalls such as overfitting, serving as a guide for assessing model
+          reliability.
+        </p>
+      </div>
+
+      <!-- Card 7: Machine Learning Applications in Business -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Introduction_to_Machine_interactive_topics_t5.html">Machine Learning Applications in Business</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading explores real-world business applications of machine learning — including recommendation systems,
+          fraud detection, and personalization — helping learners connect algorithmic concepts to practical organizational
+          use cases.
+        </p>
+      </div>
+
+      <!-- Card 8: End-to-End Exploratory Analytics Project -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Introduction_to_Machine_interactive_topics_t6.html">End-to-End Exploratory Analytics Project</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading walks learners through every stage of a complete analytics project, from defining a business problem
+          to delivering results to stakeholders, providing a practical end-to-end framework that integrates all module
+          concepts.
         </p>
       </div>
 
@@ -294,7 +374,7 @@
   </main>
 
   <footer>
-    <p>CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp; Introduction to Machine Learning for Business Analytics</p>
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp; Introduction to Machine Learning for Business Analytics
   </footer>
 
 

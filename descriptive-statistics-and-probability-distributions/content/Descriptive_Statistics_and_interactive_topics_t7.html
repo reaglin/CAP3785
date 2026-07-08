@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Poisson Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Descriptive Statistics and Probability Distributions</a></div>
+  <header>
+    <h1>The Poisson Distribution</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Poisson Distribution</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The Poisson distribution is one of the most practically important probability distributions in statistics, used whenever you want to model how many times a particular event occurs within a fixed interval — whether that interval is measured in time, space, distance, area, or volume. Classic examples include the number of customer arrivals at a service desk per hour, the number of emails received in a day, the number of defects found per square metre of fabric, or the number of traffic accidents at an intersection per month. What all of these scenarios share is a focus on <em>counts</em>: non-negative whole numbers (0, 1, 2, 3, …) that accumulate over some well-defined, bounded context.</p>
+
+<p>Because it deals with whole-number counts, the Poisson distribution is a <strong>discrete probability distribution</strong>. This distinguishes it from continuous distributions like the normal or exponential, which model measurements that can take any value along a number line. The Poisson distribution assigns a probability to every possible count — 0 events, 1 event, 2 events, and so on, all the way to infinity in theory — and those probabilities must sum to exactly 1. One of the most elegant features of the Poisson distribution is that it is completely described by a <strong>single parameter</strong>, called <strong>lambda (λ)</strong>. Lambda represents the <em>average</em> number of events expected to occur in the chosen interval. If you know λ, you know everything about the distribution: its centre, its spread, and the probability of any particular count.</p>
+
+<p>Three conditions must hold for the Poisson distribution to be an appropriate model. First, events must occur <strong>independently</strong> of one another: knowing that one event just happened tells you nothing about when the next event will occur. Second, events must occur <strong>singly</strong> — two events cannot happen at exactly the same instant (in a continuous-time sense, the probability of two simultaneous occurrences is zero). Third, the <strong>average rate λ must remain constant</strong> throughout the interval; a rate that speeds up or slows down over time would violate this assumption. When these conditions hold, the Poisson distribution provides an excellent model for count data.</p>
+
+<p><strong>The Poisson Probability Formula</strong></p>
+
+<p>The probability of observing exactly <em>k</em> events in an interval, given that the average rate is λ, is given by:</p>
+
+<pre><code>P(X = k) = (e^(-λ) × λ^k) / k!</code></pre>
+
+<p>Let's unpack each component of this formula carefully:</p>
+
+<ul>
+  <li><strong>e</strong> is Euler's number, the base of the natural logarithm, approximately equal to 2.71828. The factor <em>e<sup>−λ</sup></em> acts as a normalising constant that ensures all the probabilities across every possible value of k sum to 1. It can be thought of as a "decay" factor that keeps probabilities from growing without bound.</li>
+  <li><strong>λ<sup>k</sup></strong> is the mean rate raised to the power of the count of interest. This term grows as k increases (for λ &gt; 1), capturing the idea that events whose average rate is high are more likely to produce larger counts.</li>
+  <li><strong>k!</strong> (read "k factorial") is the product of all positive integers up to k: k! = k × (k−1) × (k−2) × … × 2 × 1, with the special definition 0! = 1. The factorial in the denominator grows very rapidly and counteracts the growth of λ<sup>k</sup>, ensuring probabilities for very large counts become vanishingly small.</li>
+</ul>
+
+<p>To make this concrete, suppose a hospital emergency department receives an average of <strong>λ = 4</strong> ambulance arrivals per hour. What is the probability of exactly <strong>k = 2</strong> arrivals in the next hour?</p>
+
+<pre><code>P(X = 2) = (e^(-4) × 4^2) / 2!
+         = (0.01832 × 16) / 2
+         = 0.29312 / 2
+         = 0.1465</code></pre>
+
+<p>So there is roughly a 14.65% chance of exactly 2 ambulance arrivals in a given hour when the average rate is 4 per hour. Notice that even though 2 is below the mean, it still has a meaningful probability — the distribution spreads probability across all non-negative integers.</p>
+
+<p>Now consider k = 0 (no arrivals at all):</p>
+
+<pre><code>P(X = 0) = (e^(-4) × 4^0) / 0!
+         = (0.01832 × 1) / 1
+         = 0.0183</code></pre>
+
+<p>There is only about a 1.83% chance of zero arrivals in an hour — relatively unlikely when the mean rate is as high as 4.</p>
+
+<p>As λ increases, the Poisson distribution <strong>shifts rightward</strong> along the k-axis (the most probable count increases) and also <strong>spreads out</strong>. Importantly, it also becomes more <em>symmetric</em>. For small λ (say λ = 0.5 or λ = 1), the distribution is strongly right-skewed: zero and one are the most common outcomes, and the probability drops off sharply. For large λ (say λ = 20 or λ = 50), the distribution looks remarkably like a bell curve — a phenomenon explained by the Central Limit Theorem, which tells us that sums of independent random variables tend toward normality.</p>
+
+<p><strong>Key Properties of the Poisson Distribution</strong></p>
+
+<p>The Poisson distribution has a remarkable and convenient property: its <strong>mean and variance are both equal to λ</strong>. This is unusual — most distributions have separate parameters for location (mean) and spread (variance). Here, a single number controls both.</p>
+
+<ul>
+  <li><strong>Mean:</strong> E[X] = λ</li>
+  <li><strong>Variance:</strong> Var(X) = λ</li>
+  <li><strong>Standard deviation:</strong> σ = √λ</li>
+</ul>
+
+<p>This equality has a practical implication: if you observe count data in the real world and the <em>sample variance is much larger than the sample mean</em>, that is a warning sign that the data may not be well-modelled by a Poisson distribution. This condition, called <strong>overdispersion</strong>, often occurs when events are not truly independent (for example, accidents tend to cluster, which inflates variance beyond what Poisson predicts). In such cases, a negative binomial distribution or other model may be more appropriate.</p>
+
+<p>The relationship between λ and skewness is also governed by the formula: skewness = 1/√λ. When λ is small (e.g., 0.5), skewness is large (about 1.41), meaning the distribution has a long right tail. When λ = 25, skewness drops to 0.2 — very close to symmetric. This progression is illustrated in the table below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>λ (Mean Rate)</th>
+      <th>Mean</th>
+      <th>Variance</th>
+      <th>Std Dev (√λ)</th>
+      <th>Skewness (1/√λ)</th>
+      <th>Shape</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.71</td>
+      <td>1.41</td>
+      <td>Strongly right-skewed</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>Right-skewed</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>2.00</td>
+      <td>0.50</td>
+      <td>Moderately skewed</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>3.16</td>
+      <td>0.32</td>
+      <td>Slightly skewed</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>5.00</td>
+      <td>0.20</td>
+      <td>Near-symmetric</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Calculating Poisson Probabilities in Python</strong></p>
+
+<p>Python's <strong>SciPy</strong> library makes Poisson probability calculations straightforward. The <code>scipy.stats.poisson</code> object provides access to the probability mass function (PMF), the cumulative distribution function (CDF), and many other statistical tools.</p>
+
+<p>First, import the distribution:</p>
+
+<pre><code>from scipy.stats import poisson</code></pre>
+
+<p>The three most commonly used functions are <code>poisson.pmf</code>, <code>poisson.cdf</code>, and the complement of the CDF. Each is described in detail below.</p>
+
+<p><strong>Exact probability — the PMF:</strong> <code>poisson.pmf(k, mu)</code> computes P(X = k) for a Poisson distribution with mean <code>mu</code> (SciPy uses <code>mu</code> as the parameter name for λ).</p>
+
+<pre><code># Probability of exactly 2 arrivals when lambda = 4
+prob_exact = poisson.pmf(2, mu=4)
+print(f"P(X = 2) = {prob_exact:.4f}")
+# Output: P(X = 2) = 0.1465</code></pre>
+
+<p>You can also compute the PMF for a range of values, which is useful for building a table or plotting:</p>
+
+<pre><code>import numpy as np
+
+k_values = np.arange(0, 15)
+pmf_values = poisson.pmf(k_values, mu=4)
+
+for k, p in zip(k_values, pmf_values):
+    print(f"P(X = {k:2d}) = {p:.4f}")</code></pre>
+
+<p><strong>Cumulative probability — the CDF:</strong> <code>poisson.cdf(k, mu)</code> computes P(X ≤ k), the probability of observing <em>at most</em> k events. This is the sum of the PMF from k = 0 up to and including k.</p>
+
+<pre><code># Probability of 3 or fewer arrivals when lambda = 4
+prob_at_most_3 = poisson.cdf(3, mu=4)
+print(f"P(X ≤ 3) = {prob_at_most_3:.4f}")
+# Output: P(X ≤ 3) = 0.4335</code></pre>
+
+<p>This tells us there is roughly a 43.35% chance of observing three or fewer arrivals — so on slightly less than half of all hours, we would see three or fewer ambulances arrive.</p>
+
+<p><strong>Tail probability — the complement:</strong> <code>1 - poisson.cdf(k, mu)</code> gives P(X &gt; k), the probability of observing <em>more than</em> k events.</p>
+
+<pre><code># Probability of more than 6 arrivals when lambda = 4
+prob_more_than_6 = 1 - poisson.cdf(6, mu=4)
+print(f"P(X > 6) = {prob_more_than_6:.4f}")
+# Output: P(X > 6) = 0.1107</code></pre>
+
+<p>There is about an 11% chance of more than 6 arrivals when the mean rate is 4 — a relatively rare but not negligible event that a hospital administrator should plan for.</p>
+
+<p>A useful summary of all three function types:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question Type</th>
+      <th>Python Expression</th>
+      <th>Probability Computed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Exactly k events</td>
+      <td><code>poisson.pmf(k, mu)</code></td>
+      <td>P(X = k)</td>
+    </tr>
+    <tr>
+      <td>At most k events</td>
+      <td><code>poisson.cdf(k, mu)</code></td>
+      <td>P(X ≤ k)</td>
+    </tr>
+    <tr>
+      <td>Fewer than k events</td>
+      <td><code>poisson.cdf(k-1, mu)</code></td>
+      <td>P(X &lt; k)</td>
+    </tr>
+    <tr>
+      <td>More than k events</td>
+      <td><code>1 - poisson.cdf(k, mu)</code></td>
+      <td>P(X &gt; k)</td>
+    </tr>
+    <tr>
+      <td>At least k events</td>
+      <td><code>1 - poisson.cdf(k-1, mu)</code></td>
+      <td>P(X ≥ k)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Visualizing the Poisson Distribution</strong></p>
+
+<p>Plotting the PMF is one of the most effective ways to build intuition for how the Poisson distribution behaves. The following code plots PMFs for three different values of λ on the same chart:</p>
+
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import poisson
+
+k = np.arange(0, 20)
+lambdas = [1, 4, 9]
+colors = ['steelblue', 'darkorange', 'seagreen']
+
+fig, ax = plt.subplots(figsize=(9, 5))
+
+for lam, color in zip(lambdas, colors):
+    pmf = poisson.pmf(k, mu=lam)
+    ax.plot(k, pmf, 'o-', color=color, label=f'λ = {lam}', linewidth=2, markersize=6)
+
+ax.set_xlabel('Number of Events (k)', fontsize=12)
+ax.set_ylabel('P(X = k)', fontsize=12)
+ax.set_title('Poisson PMF for Different Values of λ', fontsize=14)
+ax.legend()
+ax.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()</code></pre>
+
+<p>When you examine such a plot, several important patterns become visible:</p>
+
+<ul>
+  <li>For <strong>λ = 1</strong>, the tallest bar sits at k = 0 and k = 1 (they happen to be equal), and the distribution drops off rapidly. The distribution is heavily right-skewed.</li>
+  <li>For <strong>λ = 4</strong>, the tallest bar is at k = 4 (or k = 3, since floor(4) = 4 — but for non-integer λ, the mode is floor(λ)). The distribution is more spread out.</li>
+  <li>For <strong>λ = 9</strong>, the tallest bar is at k = 9, and the distribution looks roughly bell-shaped, confirming the convergence toward normality.</li>
+</ul>
+
+<p>The <strong>mode</strong> of a Poisson distribution — the single most probable count — equals <strong>floor(λ)</strong> for non-integer λ. For integer λ, there are actually <em>two</em> modes: k = λ and k = λ − 1 share the highest probability. For example, if λ = 3, then P(X = 3) = P(X = 2) and both are the most probable outcomes. This is a subtle but interesting feature of the distribution.</p>
+
+<p>Bar charts (rather than line plots) are sometimes preferred for visualising discrete distributions, because they more clearly communicate that only integer values of k are possible:</p>
+
+<pre><code>lam = 5
+k = np.arange(0, 16)
+pmf = poisson.pmf(k, mu=lam)
+
+plt.bar(k, pmf, color='steelblue', edgecolor='white', alpha=0.85)
+plt.xlabel('k')
+plt.ylabel('P(X = k)')
+plt.title(f'Poisson PMF, λ = {lam}')
+plt.xticks(k)
+plt.grid(axis='y', alpha=0.3)
+plt.show()</code></pre>
+
+<p><strong>Interpreting Poisson Results in Context</strong></p>
+
+<p>Calculating probabilities is only half the work — the other half is translating those numbers into actionable insight. Consider each of the following interpretive scenarios:</p>
+
+<p><em>Scenario 1 — Low probability of zero events:</em> Suppose a busy call centre receives an average of λ = 8 calls per minute. Computing P(X = 0) = e<sup>−8</sup> ≈ 0.000335 (about 0.03%) tells us that a full minute with zero calls is essentially unheard of. This is useful for staffing: the centre can be confident it will always have active calls and needs staff continuously available.</p>
+
+<p><em>Scenario 2 — Capacity planning with CDFs:</em> Imagine a web server can handle at most 10 simultaneous requests before performance degrades, and the average arrival rate is λ = 7 requests per second.</p>
+
+<pre><code>capacity_prob = poisson.cdf(10, mu=7)
+overload_prob = 1 - poisson.cdf(10, mu=7)
+print(f"P(X ≤ 10) = {capacity_prob:.4f}")
+print(f"P(X > 10) = {overload_prob:.4f}")
+# Output:
+# P(X ≤ 10) = 0.9015
+# P(X > 10) = 0.0985</code></pre>
+
+<p>The server will be overloaded about 9.85% of the time — roughly 1 second in every 10. Whether that is acceptable depends on the service-level agreement. If the requirement is 99% uptime, you would need to find the capacity k such that <code>poisson.cdf(k, 7) ≥ 0.99</code>, which can be found programmatically:</p>
+
+<pre><code>for k in range(0, 25):
+    if poisson.cdf(k, mu=7) >= 0.99:
+        print(f"Need capacity of at least {k} to meet 99% SLA")
+        break
+# Output: Need capacity of at least 14 to meet 99% SLA</code></pre>
+
+<p><em>Scenario 3 — Model validation:</em> Suppose you observe counts of defects per unit over 200 production runs and find that the sample mean is 2.3 and the sample variance is 2.1. These are close to each other, which is consistent with a Poisson model (recall mean = variance = λ). You could use λ = 2.3 to compute expected probabilities and compare them to your observed frequencies using a goodness-of-fit test. If the sample variance were instead 8.4 — far above the mean — this would signal overdispersion and suggest a Poisson model is inappropriate.</p>
+
+<p>The table below summarises a few key probability computations for λ = 4, giving the kind of rounded, interpretable output you might include in a business report:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Expression</th>
+      <th>Probability</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Exactly 4 arrivals</td>
+      <td>P(X = 4)</td>
+      <td>0.1954</td>
+      <td>The single most likely outcome (~19.5% of hours)</td>
+    </tr>
+    <tr>
+      <td>No arrivals</td>
+      <td>P(X = 0)</td>
+      <td>0.0183</td>
+      <td>Very rare; occurs in fewer than 2% of hours</td>
+    </tr>
+    <tr>
+      <td>At most 3 arrivals</td>
+      <td>P(X ≤ 3)</td>
+      <td>0.4335</td>
+      <td>Fewer than half of all hours have 3 or fewer arrivals</td>
+    </tr>
+    <tr>
+      <td>More than 6 arrivals</td>
+      <td>P(X &gt; 6)</td>
+      <td>0.1107</td>
+      <td>High-demand periods occur about 11% of the time</td>
+    </tr>
+    <tr>
+      <td>At least 8 arrivals</td>
+      <td>P(X ≥ 8)</td>
+      <td>0.0511</td>
+      <td>Very high demand; happens roughly 1 hour in 20</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By working through both exact probabilities (from the PMF) and cumulative probabilities (from the CDF), practitioners gain a complete picture of the distribution's behaviour and can make well-grounded decisions about staffing levels, infrastructure capacity, risk thresholds, and quality control limits — all from a single, elegant parameter λ.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full Poisson distribution topic including conceptual foundations, the PMF formula with worked arithmetic, key statistical properties (mean = variance = λ), Python implementation with scipy.stats.poisson (pmf, cdf, complement), visualisation code, and multiple real-world interpretive examples with a capacity-planning worked example. Tables included for properties by λ value, function-type reference, and worked probability results.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

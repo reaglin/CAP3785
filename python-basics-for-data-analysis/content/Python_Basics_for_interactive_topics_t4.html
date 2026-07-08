@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing and Using Functions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Python Basics for Data Analysis</a></div>
+  <header>
+    <h1>Writing and Using Functions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Writing and Using Functions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Functions are one of the most powerful organizational tools in Python. At their core, a function is a named, reusable block of code that performs a specific task. Instead of writing the same logic repeatedly throughout a script, you define it once as a function and call it whenever you need it. In data analytics work, this matters enormously: you might need to clean a dataset, compute a summary statistic, or format an output dozens of times across a project. Functions let you encode that logic once, test it carefully, and then trust it everywhere it is used. This topic walks through every essential aspect of writing and using functions in Python — from the basic syntax of defining one, through parameters, return values, scope, and documentation — with practical examples drawn from realistic data processing scenarios.</p>
+
+<p><strong>Defining a Function with <code>def</code></strong></p>
+
+<p>Every Python function begins with the <code>def</code> keyword, followed by the function name, a pair of parentheses (which may contain parameters), and a colon. The code that belongs to the function — its <em>body</em> — must be indented consistently beneath that line. The Python community standard is four spaces per indentation level, and mixing tabs and spaces will cause errors. Here is the simplest possible function:</p>
+
+<pre><code>def greet():
+    print("Hello, analyst!")
+</code></pre>
+
+<p>A critical concept for beginners: writing a <code>def</code> block does <em>not</em> execute the code inside it. It merely registers the function under the given name so it can be called later. Think of the definition as writing a recipe — the meal is not cooked until you actually follow the recipe. Until you call <code>greet()</code>, the <code>print</code> statement inside never runs.</p>
+
+<p>Choosing descriptive function names is not just a style preference; it is a form of self-documentation. A function named <code>remove_duplicates</code> tells every reader — including your future self — exactly what that block of code does, without requiring them to read its body. In contrast, a function named <code>process</code> or <code>func1</code> forces readers to inspect the implementation every time they encounter the call. In data analytics scripts that may be shared with colleagues or revisited months later, clear naming is indispensable.</p>
+
+<pre><code>def load_sales_data(filepath):
+    # Opens a CSV and returns a list of rows
+    with open(filepath, "r") as f:
+        return f.readlines()
+
+def remove_blank_rows(rows):
+    return [row for row in rows if row.strip() != ""]
+</code></pre>
+
+<p>Even without reading the bodies, the purpose of each function is immediately obvious from its name alone.</p>
+
+<p><strong>Parameters and Arguments</strong></p>
+
+<p>A function that always does exactly the same thing has limited usefulness. Parameters are the mechanism that makes functions flexible: they are placeholders defined in the function signature, and they receive concrete values — called <em>arguments</em> — when the function is called. A function can accept one parameter, many parameters, or none at all.</p>
+
+<pre><code>def compute_average(values):
+    return sum(values) / len(values)
+
+scores = [88, 92, 75, 100, 67]
+print(compute_average(scores))   # 84.4
+</code></pre>
+
+<p>Here <code>values</code> is a parameter; <code>scores</code> is the argument passed when the function is called. Inside the function body, <code>values</code> refers to whatever list was passed in.</p>
+
+<p><strong>Default parameter values</strong> make some arguments optional. When a caller does not supply a value for a parameter that has a default, Python uses the default automatically. This is particularly useful in analytics functions where sensible defaults exist for options like rounding precision or a missing-value placeholder:</p>
+
+<pre><code>def summarize(data, decimals=2):
+    mean = round(sum(data) / len(data), decimals)
+    minimum = round(min(data), decimals)
+    maximum = round(max(data), decimals)
+    return mean, minimum, maximum
+
+print(summarize([10.5, 20.333, 15.1]))         # uses decimals=2
+print(summarize([10.5, 20.333, 15.1], decimals=4))  # overrides to 4
+</code></pre>
+
+<p>Parameters with defaults must always appear <em>after</em> parameters without defaults in the function signature, otherwise Python raises a <code>SyntaxError</code>.</p>
+
+<p><strong>Positional arguments</strong> are matched to parameters strictly by order — the first argument goes to the first parameter, the second to the second, and so on. <strong>Keyword arguments</strong> are matched by name, regardless of position. Keyword arguments make call sites far more readable, especially when a function has several parameters:</p>
+
+<pre><code>def filter_records(data, column, threshold, above=True):
+    if above:
+        return [row for row in data if row[column] > threshold]
+    else:
+        return [row for row in data if row[column] <= threshold]
+
+# Positional call — must remember the order:
+result = filter_records(records, "revenue", 5000, True)
+
+# Keyword call — self-documenting:
+result = filter_records(data=records, column="revenue", threshold=5000, above=True)
+</code></pre>
+
+<p>Mixing positional and keyword arguments in a single call is allowed, but positional arguments must always come first.</p>
+
+<p><strong>Returning Values with <code>return</code></strong></p>
+
+<p>The <code>return</code> statement sends a value back to the caller and immediately ends the function's execution. Without an explicit <code>return</code>, a function silently returns <code>None</code> — a common source of bugs when a developer forgets to include it:</p>
+
+<pre><code>def double(x):
+    result = x * 2
+    # Forgot to write: return result
+
+output = double(5)
+print(output)   # None  <-- not 10!
+</code></pre>
+
+<p>A function can return any Python object: a number, a string, a list, a dictionary, or even another function. When you need to return several related values, Python lets you return them as a <em>tuple</em> simply by separating them with commas on the <code>return</code> line:</p>
+
+<pre><code>import statistics
+
+def descriptive_stats(data):
+    mean   = statistics.mean(data)
+    median = statistics.median(data)
+    mode   = statistics.mode(data)
+    return mean, median, mode    # returns a tuple (mean, median, mode)
+
+prices = [12, 15, 12, 18, 20, 15, 12]
+avg, med, mod = descriptive_stats(prices)   # tuple unpacking
+print(f"Mean: {avg}, Median: {med}, Mode: {mod}")
+</code></pre>
+
+<p>Tuple unpacking on the left side of the assignment lets you assign each returned value to its own variable in a single, readable line. Capturing return values in named variables is essential for chaining processing steps: the output of one function becomes the input of the next, building a clear data pipeline:</p>
+
+<pre><code>raw       = load_sales_data("sales_2024.csv")
+cleaned   = remove_blank_rows(raw)
+converted = parse_numeric_fields(cleaned)
+summary   = descriptive_stats(converted)
+</code></pre>
+
+<p>Each line is easy to read, and each intermediate result has a meaningful name.</p>
+
+<p><strong>Calling Functions</strong></p>
+
+<p>Calling a function is straightforward: write its name followed by parentheses containing any required arguments. However, a function must be <em>defined before it is called</em> in the script's execution order. Attempting to call a function before its <code>def</code> block has been executed raises a <code>NameError</code>:</p>
+
+<pre><code># This raises NameError: name 'clean' is not defined
+result = clean(data)
+
+def clean(data):
+    return [x for x in data if x is not None]
+</code></pre>
+
+<p>The conventional solution is to place all function definitions at the top of the script (or in a separate module) and put the main execution logic at the bottom. Many Python scripts wrap their top-level calls inside a <code>if __name__ == "__main__":</code> block for exactly this reason.</p>
+
+<p>Functions can call other functions freely, enabling <em>layered, modular pipelines</em>. A high-level function can orchestrate several lower-level ones:</p>
+
+<pre><code>def normalize(value, min_val, max_val):
+    return (value - min_val) / (max_val - min_val)
+
+def normalize_column(data, column):
+    values = [row[column] for row in data]
+    min_val = min(values)
+    max_val = max(values)
+    for row in data:
+        row[column] = normalize(row[column], min_val, max_val)
+    return data
+
+def preprocess(data):
+    data = remove_blank_rows(data)
+    data = normalize_column(data, "revenue")
+    data = normalize_column(data, "units_sold")
+    return data
+</code></pre>
+
+<p><code>preprocess</code> calls <code>remove_blank_rows</code> and <code>normalize_column</code>; <code>normalize_column</code> in turn calls <code>normalize</code>. Each layer handles one level of abstraction, making the code easy to reason about and test independently.</p>
+
+<p><strong>Organizing Code with Modular Functions</strong></p>
+
+<p>The principle of <em>modularity</em> is that each function should ideally do exactly one well-defined thing. A function that reads a file, cleans the data, computes statistics, and writes a report is doing too much. If anything goes wrong — or if you later need to reuse just one of those steps — the monolithic design makes it hard. Breaking the logic into focused functions solves both problems:</p>
+
+<pre><code>def read_csv(filepath):
+    """Read a CSV file and return a list of dictionaries."""
+    import csv
+    with open(filepath, newline="") as f:
+        return list(csv.DictReader(f))
+
+def drop_nulls(records, required_fields):
+    """Remove records that are missing values in any required field."""
+    return [r for r in records if all(r.get(f) for f in required_fields)]
+
+def compute_totals(records, value_field):
+    """Return the sum of a numeric field across all records."""
+    return sum(float(r[value_field]) for r in records)
+
+def write_summary(filepath, summary_dict):
+    """Write a summary dictionary to a text file."""
+    with open(filepath, "w") as f:
+        for key, value in summary_dict.items():
+            f.write(f"{key}: {value}\n")
+</code></pre>
+
+<p>Each function has a single responsibility. They can be mixed, matched, and reused across entirely different scripts or datasets. If your next project uses a different file format, you replace only <code>read_csv</code> — everything else stays the same. This is the practical power of modular design.</p>
+
+<p>Grouping related functions together in a script and naming them with a consistent vocabulary also acts as inline documentation. A reader skimming the function names in a file gets a high-level map of the entire data workflow without reading a single line of function body code.</p>
+
+<p><strong>Docstrings for Function Documentation</strong></p>
+
+<p>A <em>docstring</em> is a string literal placed immediately after the <code>def</code> line, enclosed in triple quotes. It is not a comment — Python stores it as the function's <code>__doc__</code> attribute, making it accessible to documentation tools, IDEs, and the built-in <code>help()</code> function.</p>
+
+<pre><code>def compute_growth_rate(current, previous):
+    """
+    Calculate the percentage growth rate between two values.
+
+    Parameters:
+        current  (float): The more recent value.
+        previous (float): The baseline value to compare against.
+
+    Returns:
+        float: The growth rate as a percentage, rounded to two decimal places.
+               Returns None if previous is zero to avoid division by zero.
+    """
+    if previous == 0:
+        return None
+    return round(((current - previous) / previous) * 100, 2)
+</code></pre>
+
+<p>A well-written docstring answers three questions: what does the function do, what does each parameter expect (including type and meaning), and what does it return. In a data analytics team context, colleagues using your function should not have to read its implementation to understand how to call it correctly — the docstring should be sufficient.</p>
+
+<p>You can inspect a docstring interactively:</p>
+
+<pre><code>help(compute_growth_rate)
+# or
+print(compute_growth_rate.__doc__)
+</code></pre>
+
+<p>Popular documentation styles include Google style, NumPy style, and reStructuredText (Sphinx). The specific style matters less than consistency — pick one and use it throughout a project.</p>
+
+<p><strong>Variable Scope Inside Functions</strong></p>
+
+<p>Every variable defined inside a function exists only within that function. This is called <em>local scope</em>. When the function finishes, its local variables are discarded. This is a feature, not a limitation: it means that intermediate variables created during data processing — counters, temporary lists, loop variables — do not leak into the rest of the script and cannot accidentally overwrite something important.</p>
+
+<pre><code>total = 1000   # global variable
+
+def compute_tax(amount, rate=0.08):
+    tax = amount * rate      # 'tax' is local to this function
+    net = amount + tax       # 'net' is also local
+    return net
+
+result = compute_tax(500)
+print(result)   # 540.0
+print(tax)      # NameError: name 'tax' is not defined
+</code></pre>
+
+<p>The variable <code>total</code> defined outside the function is in the <em>global scope</em>. A function can <em>read</em> a global variable without any special declaration. However, to <em>modify</em> a global variable from inside a function, you must explicitly declare it with the <code>global</code> keyword:</p>
+
+<pre><code>record_count = 0
+
+def process_record(record):
+    global record_count
+    record_count += 1
+    # ... processing logic ...
+</code></pre>
+
+<p>While the <code>global</code> keyword works, using it is generally discouraged. Functions that modify global state are harder to test, harder to reason about, and can introduce subtle bugs — especially in larger scripts where many functions might interact with the same global variable. The preferred pattern is to pass data in as arguments and return results explicitly, keeping each function self-contained:</p>
+
+<pre><code># Preferred: no global modification
+def process_all_records(records):
+    count = 0
+    for record in records:
+        # ... process each record ...
+        count += 1
+    return count
+
+total_processed = process_all_records(my_records)
+</code></pre>
+
+<p>Understanding scope also prevents a common class of bug where a developer expects a function to have modified some data structure, but because Python sometimes works with copies rather than references (depending on the type), the original remains unchanged — or vice versa, a function unintentionally mutates a list that was supposed to stay intact elsewhere in the script. The safest habit is to treat function parameters as read-only inside the function body, working on copies when modification is needed:</p>
+
+<pre><code>def cap_outliers(data, upper_limit):
+    """Return a new list with values capped at upper_limit."""
+    return [min(x, upper_limit) for x in data]   # original 'data' untouched
+</code></pre>
+
+<p>The following table summarises the key concepts covered in this topic and their practical relevance in data analytics work:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Syntax / Keyword</th>
+      <th>Primary Benefit in Data Analytics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Function definition</td>
+      <td><code>def name():</code></td>
+      <td>Encapsulates reusable processing logic</td>
+    </tr>
+    <tr>
+      <td>Parameters</td>
+      <td><code>def f(a, b):</code></td>
+      <td>Makes functions flexible across different datasets</td>
+    </tr>
+    <tr>
+      <td>Default parameters</td>
+      <td><code>def f(a, b=2):</code></td>
+      <td>Provides sensible defaults while allowing overrides</td>
+    </tr>
+    <tr>
+      <td>Keyword arguments</td>
+      <td><code>f(a=1, b=2)</code></td>
+      <td>Improves readability at the call site</td>
+    </tr>
+    <tr>
+      <td>Return values</td>
+      <td><code>return value</code></td>
+      <td>Passes transformed data to the next pipeline step</td>
+    </tr>
+    <tr>
+      <td>Multiple returns</td>
+      <td><code>return a, b, c</code></td>
+      <td>Returns several statistics in a single call</td>
+    </tr>
+    <tr>
+      <td>Docstrings</td>
+      <td><code>"""..."""</code></td>
+      <td>Documents intent for team use and tool support</td>
+    </tr>
+    <tr>
+      <td>Local scope</td>
+      <td>Variables inside <code>def</code></td>
+      <td>Prevents temporary variables from polluting global state</td>
+    </tr>
+    <tr>
+      <td>Global keyword</td>
+      <td><code>global var</code></td>
+      <td>Allowed but discouraged; prefer return values</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Putting all these ideas together, a well-structured analytics script defines small, clearly named, documented functions near the top; passes data explicitly through parameters; captures results with meaningful variable names; and reserves the main execution flow for calling those functions in sequence. This approach makes scripts easier to read, debug, test, and extend — whether you are working alone or as part of a team.</p>
+        <div class="notes"><strong>Notes</strong>Topic covers all listed subtopics in depth. Practical data analytics examples used throughout (CSV loading, cleaning, normalization, statistics). Table rendered as HTML. Global keyword usage addressed with recommended alternatives. Tuple unpacking on return values demonstrated explicitly.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

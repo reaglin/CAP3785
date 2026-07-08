@@ -1,0 +1,448 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Interactive Figures</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Advanced Data Visualization with Python Libraries</a></div>
+  <header>
+    <h1>Building Interactive Figures</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Building Interactive Figures</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Static charts have long been the default output of data analysis workflows, but they impose a fundamental limitation: the reader can only see exactly what the author chose to show. <strong>Interactive visualizations</strong> break that constraint by allowing the viewer to explore the data themselves — zooming into a dense scatter plot, hovering over a bar to read its precise value, filtering a time series to a specific date range, or clicking a legend entry to isolate one category. The result is a richer analytical experience that shortens the distance between a question and its answer, both during exploratory analysis and when presenting findings to stakeholders.</p>
+
+<p>This topic covers the full arc of building interactive figures in Python: understanding what interactivity means in a visualization context, using <strong>Matplotlib widgets</strong> for notebook-based exploration, creating production-quality interactive charts with <strong>Plotly</strong>, designing meaningful <strong>hover tooltips and click events</strong>, integrating interactive figures into real data workflows, and following best practices that keep interactivity purposeful rather than decorative.</p>
+
+<p><strong>Introduction to Interactivity in Python Visualizations</strong></p>
+
+<p>Interactivity in a visualization refers to any mechanism that lets the user change what is displayed or how it is displayed <em>without</em> modifying the underlying code. The most common interactive affordances are:</p>
+
+<ul>
+  <li><strong>Zooming and panning</strong> — letting the user focus on a sub-region of the data space.</li>
+  <li><strong>Hover tooltips</strong> — revealing data values, labels, or contextual metadata when the cursor passes over a data point.</li>
+  <li><strong>Filtering and selection</strong> — isolating subsets by clicking legend entries, drawing a selection box, or using a slider to restrict a range.</li>
+  <li><strong>Animation</strong> — playing through a sequence of frames (e.g., year-over-year data) to show change over time.</li>
+  <li><strong>Linked views</strong> — selecting points in one chart that are simultaneously highlighted in another chart showing a different dimension of the same data.</li>
+</ul>
+
+<p>The three Python libraries most commonly used for interactive visualization each occupy a distinct niche:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Library</th>
+      <th>Primary Interactivity Mechanism</th>
+      <th>Best Deployment Target</th>
+      <th>Learning Curve</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Matplotlib + ipywidgets</td>
+      <td>Python callbacks running in a Jupyter kernel</td>
+      <td>Jupyter notebooks (local or JupyterHub)</td>
+      <td>Low to medium</td>
+    </tr>
+    <tr>
+      <td>Plotly</td>
+      <td>Client-side JavaScript rendered from Python objects</td>
+      <td>Notebooks, standalone HTML, Dash web apps</td>
+      <td>Low to medium</td>
+    </tr>
+    <tr>
+      <td>Bokeh</td>
+      <td>Client-side JS with optional Python server callbacks</td>
+      <td>Standalone HTML files, Bokeh server apps</td>
+      <td>Medium to high</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Choosing the right tool depends on where the output will live. If the figure will always be consumed inside a live Jupyter notebook by an analyst, Matplotlib widgets are perfectly adequate. If the figure needs to be e-mailed as a self-contained file or embedded in a website, Plotly's HTML export is the natural choice. If the interactivity must respond to server-side computation (e.g., querying a database in response to a user click), Bokeh's server model or a Plotly Dash application is more appropriate.</p>
+
+<p><strong>Enabling Interactivity with Matplotlib Widgets</strong></p>
+
+<p>Matplotlib was originally designed for static publication-quality figures, but it gains interactive capabilities when paired with <strong>ipywidgets</strong>, a library that provides UI controls — sliders, dropdowns, text boxes, toggle buttons — that run inside Jupyter notebooks. The key idea is simple: a Python function re-draws (or updates) a Matplotlib figure, and a widget is bound to that function so that every time the user moves a slider or picks a dropdown value, the function is called and the figure refreshes.</p>
+
+<p>The simplest binding mechanism is <code>ipywidgets.interact</code>, which introspects the type of each function argument and automatically creates an appropriate widget. For example, passing an integer creates a slider; passing a list creates a dropdown.</p>
+
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+import ipywidgets as widgets
+from ipywidgets import interact
+
+# A simple sine wave whose frequency and amplitude are controlled by sliders
+def plot_sine(frequency=1.0, amplitude=1.0):
+    x = np.linspace(0, 2 * np.pi, 500)
+    y = amplitude * np.sin(frequency * x)
+
+    fig, ax = plt.subplots(figsize=(7, 3))
+    ax.plot(x, y, color="steelblue", linewidth=2)
+    ax.set_ylim(-3, 3)
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.set_title(f"Sine wave  |  freq={frequency:.1f}  amp={amplitude:.1f}")
+    plt.tight_layout()
+    plt.show()
+
+# interact() creates sliders automatically from the default values
+interact(
+    plot_sine,
+    frequency=widgets.FloatSlider(min=0.5, max=10.0, step=0.5, value=1.0),
+    amplitude=widgets.FloatSlider(min=0.1, max=3.0,  step=0.1, value=1.0),
+)
+</code></pre>
+
+<p>When the user drags either slider, Matplotlib re-renders the figure in place. This pattern is powerful for exploratory analysis: a data scientist can expose model hyperparameters, date ranges, or category filters as widgets and watch the visualization respond in real time — all without leaving the familiar Matplotlib API.</p>
+
+<p>For more control over layout, <code>interactive()</code> returns a widget object that can be composed with other widgets before being displayed:</p>
+
+<pre><code>from ipywidgets import interactive, HBox, VBox, Output
+
+out = Output()
+
+def plot_distribution(n_samples=200, bins=20):
+    with out:
+        out.clear_output(wait=True)
+        data = np.random.randn(n_samples)
+        fig, ax = plt.subplots(figsize=(6, 3))
+        ax.hist(data, bins=bins, color="coral", edgecolor="white")
+        ax.set_title(f"Normal distribution  |  n={n_samples}  bins={bins}")
+        plt.tight_layout()
+        plt.show()
+
+w = interactive(
+    plot_distribution,
+    n_samples=widgets.IntSlider(min=50, max=2000, step=50, value=200),
+    bins=widgets.IntSlider(min=5, max=100, step=5, value=20),
+)
+
+VBox([w.children[0], w.children[1], out])
+</code></pre>
+
+<p>This approach keeps the Matplotlib ecosystem intact — all existing customization options, colormaps, subplots, and annotations remain available — while adding a lightweight interactive layer that is sufficient for most exploratory tasks.</p>
+
+<p><strong>Creating Interactive Figures with Plotly</strong></p>
+
+<p>Plotly takes a fundamentally different architectural approach. Instead of executing Python code every time the user interacts, Plotly converts the figure specification into a <strong>JSON data structure</strong> that is rendered by the <strong>Plotly.js</strong> JavaScript library running entirely in the browser. The result is an interactive figure that requires no running Python kernel — it can be saved as a standalone HTML file and opened by anyone with a web browser.</p>
+
+<p>The modern high-level interface is <code>plotly.express</code> (usually imported as <code>px</code>). It mirrors the grammar of <code>seaborn</code>: pass a DataFrame, name columns, and get a complete figure in one line.</p>
+
+<pre><code>import plotly.express as px
+import pandas as pd
+
+# Built-in Gapminder dataset
+df = px.data.gapminder().query("year == 2007")
+
+fig = px.scatter(
+    df,
+    x="gdpPercap",
+    y="lifeExp",
+    size="pop",
+    color="continent",
+    hover_name="country",           # shown as bold heading in tooltip
+    hover_data={"pop": True,        # show population in tooltip
+                "gdpPercap": ":.0f"},  # format GDP with no decimals
+    log_x=True,
+    size_max=60,
+    title="GDP per Capita vs Life Expectancy (2007)",
+    labels={"gdpPercap": "GDP per Capita (log scale)", "lifeExp": "Life Expectancy"},
+)
+
+fig.show()  # renders in Jupyter or opens in the default browser
+</code></pre>
+
+<p>Out of the box, the resulting figure supports hover tooltips showing country name, continent, population, and GDP; zooming and panning via click-and-drag; double-clicking to reset the view; and legend filtering by clicking or double-clicking continent names. All of this happens without a single additional line of code.</p>
+
+<p>Beyond scatter plots, Plotly excels at several chart types that benefit especially from interactivity:</p>
+
+<ul>
+  <li><strong>Choropleth maps</strong> — geographic heatmaps where hovering reveals the value for each country or region, and zooming lets the user focus on a specific area.</li>
+  <li><strong>Animated charts</strong> — adding an <code>animation_frame</code> argument wraps the figure in a play/pause animation that cycles through a dimension (e.g., year).</li>
+  <li><strong>Treemaps and sunburst charts</strong> — hierarchical charts where clicking drills down into a sub-category.</li>
+  <li><strong>Candlestick and OHLC charts</strong> — financial charts with built-in range selectors and crosshair tooltips.</li>
+</ul>
+
+<pre><code># Animated bubble chart cycling through years
+df_all = px.data.gapminder()
+
+fig_animated = px.scatter(
+    df_all,
+    x="gdpPercap",
+    y="lifeExp",
+    size="pop",
+    color="continent",
+    hover_name="country",
+    animation_frame="year",         # creates the Play button and year slider
+    animation_group="country",      # smooth transitions between frames per country
+    log_x=True,
+    size_max=55,
+    range_x=[100, 100_000],
+    range_y=[25, 90],
+    title="World Development 1952–2007",
+)
+
+fig_animated.show()
+</code></pre>
+
+<p>For lower-level control — for example, combining multiple trace types or adding shapes and annotations programmatically — the <code>plotly.graph_objects</code> module (imported as <code>go</code>) provides full access to every Plotly.js property.</p>
+
+<pre><code>import plotly.graph_objects as go
+
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(
+    x=[1, 2, 3, 4, 5],
+    y=[10, 15, 13, 17, 12],
+    mode="lines+markers",
+    name="Series A",
+    hovertemplate="<b>x:</b> %{x}<br><b>y:</b> %{y}<extra></extra>",
+))
+
+fig.add_trace(go.Bar(
+    x=[1, 2, 3, 4, 5],
+    y=[5, 8, 6, 9, 7],
+    name="Series B",
+    hovertemplate="<b>Category:</b> %{x}<br><b>Value:</b> %{y}<extra></extra>",
+))
+
+fig.update_layout(
+    title="Mixed Chart Example",
+    xaxis_title="Category",
+    yaxis_title="Value",
+    legend_title="Traces",
+    hovermode="x unified",  # shows all traces at once when hovering a vertical line
+)
+
+fig.show()
+</code></pre>
+
+<p><strong>Adding Hover Tooltips and Click Events</strong></p>
+
+<p>Tooltips are the most universally useful form of interactivity because they provide detail on demand — the chart remains uncluttered until the user explicitly asks for more information by moving the cursor. Designing good tooltips requires balancing completeness (showing everything relevant) against conciseness (not overwhelming the user with a wall of text).</p>
+
+<p>In Plotly, tooltip content is controlled via the <code>hovertemplate</code> property, which accepts an HTML-like string with variable substitutions:</p>
+
+<pre><code>import plotly.express as px
+
+df = px.data.tips()
+
+fig = px.scatter(
+    df,
+    x="total_bill",
+    y="tip",
+    color="sex",
+    symbol="smoker",
+    hover_data={"day": True, "time": True, "size": True},
+)
+
+# Override the default template for fine-grained control
+fig.update_traces(
+    hovertemplate=(
+        "<b>Bill:</b> $%{x:.2f}<br>"
+        "<b>Tip:</b>  $%{y:.2f}<br>"
+        "<b>Party size:</b> %{customdata[2]}<br>"
+        "<b>Day:</b> %{customdata[0]}<br>"
+        "<b>Time:</b> %{customdata[1]}"
+        "<extra></extra>"   # removes the trace name from the secondary box
+    )
+)
+
+fig.show()
+</code></pre>
+
+<p>The <code>&lt;extra&gt;&lt;/extra&gt;</code> tag at the end suppresses the automatic secondary tooltip box that shows the trace name, giving a cleaner look. The <code>%{customdata[n]}</code> syntax accesses columns passed through <code>hover_data</code> or <code>customdata</code> in the order they were added.</p>
+
+<p>Plotly also supports three <strong>hover modes</strong> controlled via <code>fig.update_layout(hovermode=...)</code>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>hovermode value</th>
+      <th>Behavior</th>
+      <th>Best for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>"closest"</code></td>
+      <td>Shows tooltip for the nearest single point</td>
+      <td>Scatter plots with non-overlapping points</td>
+    </tr>
+    <tr>
+      <td><code>"x"</code></td>
+      <td>Shows tooltips for all points sharing the same x value</td>
+      <td>Time series with multiple traces</td>
+    </tr>
+    <tr>
+      <td><code>"x unified"</code></td>
+      <td>Combines all traces at a given x into one tooltip box</td>
+      <td>Time series comparison</td>
+    </tr>
+    <tr>
+      <td><code>"y unified"</code></td>
+      <td>Combines all traces at a given y into one tooltip box</td>
+      <td>Horizontal bar comparisons</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Click events</strong> that trigger Python callbacks are available when figures are embedded in a <strong>Dash application</strong> or inside a Jupyter notebook using <code>plotly.graph_objects</code> with <code>FigureWidget</code>. <code>FigureWidget</code> is a Jupyter widget version of a Plotly figure that supports Python-side event handlers:</p>
+
+<pre><code>import plotly.graph_objects as go
+import pandas as pd
+
+df = px.data.iris()
+
+fig = go.FigureWidget(data=go.Scatter(
+    x=df["sepal_width"],
+    y=df["sepal_length"],
+    mode="markers",
+    marker=dict(color="lightskyblue", size=8, line=dict(width=1, color="navy")),
+    text=df["species"],
+))
+
+def handle_click(trace, points, state):
+    # Change the color of clicked points to highlight them
+    colors = list(trace.marker.color) if isinstance(trace.marker.color, list) \
+             else ["lightskyblue"] * len(df)
+    for i in points.point_inds:
+        colors[i] = "crimson"
+    with fig.batch_update():
+        trace.marker.color = colors
+
+fig.data[0].on_click(handle_click)
+fig
+</code></pre>
+
+<p>Every time the user clicks a point, its color flips to crimson, and subsequent clicks on other points accumulate. This pattern extends naturally to linked views: the click handler can update a second <code>FigureWidget</code> to show a filtered subset corresponding to the selected point.</p>
+
+<p><strong>Integrating Interactive Figures into Python Workflows</strong></p>
+
+<p>Interactivity delivers its full value only when it is woven into the places where the data actually lives and where the audience will actually view it. Several integration patterns matter in practice:</p>
+
+<p><em>Direct DataFrame integration</em> is the simplest and most valuable. Both <code>plotly.express</code> and Bokeh accept Pandas DataFrames directly, meaning there is no need to extract NumPy arrays or reshape data. Column names become axis labels, hover fields, and color dimensions with minimal boilerplate:</p>
+
+<pre><code>import pandas as pd
+import plotly.express as px
+
+# Load data from any source — CSV, SQL, API, etc.
+df = pd.read_csv("sales_data.csv", parse_dates=["date"])
+
+# Group and aggregate in Pandas, then pass directly to Plotly
+monthly = df.groupby(df["date"].dt.to_period("M")).agg(
+    revenue=("revenue", "sum"),
+    orders=("order_id", "count"),
+).reset_index()
+monthly["date"] = monthly["date"].dt.to_timestamp()
+
+fig = px.line(
+    monthly,
+    x="date",
+    y="revenue",
+    hover_data={"orders": True},
+    markers=True,
+    title="Monthly Revenue",
+)
+fig.show()
+</code></pre>
+
+<p><em>Exporting to standalone HTML</em> is essential when the audience includes people who do not have Python installed. The <code>fig.write_html()</code> method bundles the Plotly.js library and the figure data into a single self-contained file that opens in any modern browser:</p>
+
+<pre><code># All interactivity (hover, zoom, pan, legend toggle) is preserved in the file
+fig.write_html(
+    "monthly_revenue.html",
+    include_plotlyjs="cdn",   # loads Plotly.js from CDN rather than embedding it
+    full_html=True,
+)
+
+# For embedding in an existing webpage (no <html>/<body> wrapper):
+fig.write_html("snippet.html", full_html=False, include_plotlyjs=False)
+</code></pre>
+
+<p>Setting <code>include_plotlyjs="cdn"</code> reduces file size dramatically (from ~3 MB to a few KB) by referencing the library from a content delivery network. Use <code>include_plotlyjs=True</code> (the default) when the file must work completely offline.</p>
+
+<p><em>Dash applications</em> extend the pattern further: an entire web application is built in pure Python, where Plotly figures serve as the visual components and <strong>callbacks</strong> — Python functions decorated with <code>@app.callback</code> — update those figures in response to user inputs such as dropdowns, date pickers, or range sliders. This allows interactivity to be backed by live computation, database queries, or machine learning model inference, none of which is possible with a static HTML export.</p>
+
+<p><em>Workflow integration at every stage</em> means that the same code patterns used during exploratory analysis (quickly checking a distribution or outlier) can be adapted for a polished stakeholder dashboard. A figure built with <code>px.scatter</code> for initial exploration requires only cosmetic changes — titles, color schemes, label formatting — before it is export-ready.</p>
+
+<p><strong>Best Practices for Designing Interactive Visualizations</strong></p>
+
+<p>Interactivity does not automatically make a visualization better; it introduces new ways for a figure to confuse or frustrate users if not designed thoughtfully. The following principles help ensure that interactivity enhances rather than obstructs communication:</p>
+
+<ul>
+  <li><strong>Never omit static labeling.</strong> Axis titles, legends, and chart titles remain essential even in interactive figures. A user exploring an interactive chart still needs to understand what each axis represents and what each color means without having to hover over every element to find out. Think of static labels as the permanent scaffolding and tooltips as the optional detail layer.</li>
+  <li><strong>Design tooltips around user questions, not data columns.</strong> A tooltip that dumps every column in the DataFrame is not useful. Ask what question a user is trying to answer when they hover over a point, and surface exactly that information — formatted appropriately (dates as readable dates, currencies with symbols, percentages with % signs).</li>
+  <li><strong>Test across environments.</strong> A figure that works beautifully in JupyterLab may render differently in VS Code, in a Jupyter Classic notebook, in a standalone HTML file, or inside a Dash app. Always test in the actual delivery environment. Pay particular attention to figure size, font scaling, and whether animations play correctly.</li>
+  <li><strong>Use animation purposefully.</strong> Animation is most effective when it shows genuine change over a meaningful dimension — time being the clearest example. Avoid animating between categories that have no natural ordering (e.g., animating through a list of countries alphabetically conveys nothing). Also provide static fallbacks or still-frame exports for audiences who may view the material in a context where animation cannot play.</li>
+  <li><strong>Respect performance limits.</strong> Plotly figures with tens of thousands of points can become sluggish in the browser. For large datasets, consider server-side aggregation before plotting, using <code>datashader</code> for density visualization, or enabling WebGL rendering with <code>go.Scattergl</code> instead of <code>go.Scatter</code>.</li>
+  <li><strong>Maintain accessibility.</strong> Interactive figures should not rely on color alone to convey information (use shapes or patterns as well), and tooltips should be readable by screen reader users where possible. Dash provides ARIA attributes and keyboard navigation support for building more accessible interactive applications.</li>
+  <li><strong>Keep the interaction model discoverable.</strong> Users who are unfamiliar with Plotly do not automatically know they can double-click a legend entry to isolate a trace, or that they can box-select by holding Shift. A brief annotation, a help icon, or simply a sentence of explanatory text beside the figure dramatically improves usability.</li>
+</ul>
+
+<p>Bringing these principles together, interactive Python visualizations become a genuine analytical tool rather than a novelty. When the right data is surfaced through the right interactive affordances — clear labels, well-crafted tooltips, purposeful animation, and reliable behavior across environments — the distance between raw data and human understanding shrinks considerably. The visualizations produced in this module serve both the analyst exploring data for the first time and the stakeholder encountering it for the last time in a boardroom presentation.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six subtopic clusters: introduction/tool selection, Matplotlib widgets, Plotly figure creation, tooltip/click-event design, workflow integration, and best practices. Code examples are self-contained and progressively build on each other. The three comparison tables (library comparison, hover modes) are rendered as proper HTML tables.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

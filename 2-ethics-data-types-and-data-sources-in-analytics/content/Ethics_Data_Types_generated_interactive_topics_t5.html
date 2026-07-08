@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structured and Unstructured Data Types</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Ethics, Data Types, and Data Sources in Analytics</a></div>
+  <header>
+    <h1>Structured and Unstructured Data Types</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Structured and Unstructured Data Types</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every analytical project begins with a fundamental question: what kind of data are we working with, and what does that mean for how we store, process, and draw conclusions from it? At the heart of this question lies a distinction that shapes the entire data lifecycle — the difference between <strong>structured</strong> and <strong>unstructured</strong> data. Understanding these two categories, their defining characteristics, their respective strengths, and the challenges they pose is essential for any analyst, data scientist, or business intelligence professional. This topic provides a thorough examination of both data types, the trade-offs involved in working with each, and the practical considerations that guide analysts in choosing the right approach for a given problem.</p>
+
+<p><strong>Defining Structured Data</strong></p>
+
+<p>Structured data is information that has been organized according to a <em>fixed schema</em> — a predetermined blueprint that specifies what fields exist, what type of value each field holds, and how records relate to one another. Think of it as data that fits neatly into a spreadsheet or a database table: every row represents one record, and every column represents one clearly labeled attribute. Because the format is defined in advance, every record in a structured dataset conforms to the same shape.</p>
+
+<p>This rigid organization is not a limitation — it is precisely what makes structured data so powerful for many analytical tasks. When a database administrator defines a table to store customer orders, for example, they specify that the <em>order_id</em> column will always be an integer, the <em>order_date</em> will always be a date, and the <em>total_price</em> will always be a decimal number. Any record that violates these rules is rejected before it enters the system. The result is a clean, consistent dataset that is immediately ready for analysis.</p>
+
+<p>Structured data is most commonly stored in <strong>relational database management systems (RDBMS)</strong> such as PostgreSQL, MySQL, Microsoft SQL Server, and Oracle. These systems allow analysts to query data using <strong>Structured Query Language (SQL)</strong>, a declarative language that makes it straightforward to filter, sort, join, and aggregate records. Consider a simple example: a retail company maintains a <em>sales_transactions</em> table. An analyst can retrieve the total revenue for a specific month with a query like the one below.</p>
+
+<pre><code>SELECT
+    SUM(total_price) AS monthly_revenue
+FROM sales_transactions
+WHERE EXTRACT(MONTH FROM order_date) = 3
+  AND EXTRACT(YEAR FROM order_date) = 2024;
+</code></pre>
+
+<p>This query runs in milliseconds even over millions of records because the database engine can exploit indexes and optimized storage layouts designed specifically for structured data. Real-world examples of structured datasets include customer account records (name, address, account number, balance), sales transactions (product ID, quantity, price, date), employee payroll records, inventory logs, and financial ledgers. Each of these datasets has a well-understood shape, enabling reliable aggregation, filtering, and statistical analysis without extensive preliminary work.</p>
+
+<p><strong>Defining Unstructured Data</strong></p>
+
+<p>Unstructured data is the opposite: it does not conform to a predefined schema and cannot be organized neatly into rows and columns without significant transformation. It is information in its most natural, raw form — the way a customer writes a product review, the way a photograph captures a scene, or the way a call center recording captures a conversation. The content is rich and meaningful, but it lacks the uniform organization that makes structured data so immediately queryable.</p>
+
+<p>The range of unstructured data types is vast. <strong>Free-form text</strong> includes emails, chat logs, news articles, social media posts, legal contracts, and customer reviews. <strong>Visual data</strong> includes photographs, medical imaging scans, satellite imagery, and video recordings. <strong>Audio data</strong> includes call center recordings, music files, and voice memos. <strong>Binary and mixed-format files</strong> include PDF documents, presentation slides, and web pages that blend text, images, and markup. What all of these have in common is that their meaning is embedded in their content rather than in a surrounding schema.</p>
+
+<p>Because no predefined schema governs how unstructured data is organized, it is typically stored in systems designed to handle heterogeneous content. <strong>Data lakes</strong> — large-scale storage repositories, often built on cloud object storage such as Amazon S3 or Azure Data Lake Storage — are a common home for raw unstructured data. <strong>NoSQL databases</strong> such as MongoDB (document store) or Elasticsearch (search and analytics engine) can accommodate flexible, schema-less records. These systems sacrifice some of the query efficiency of relational databases in exchange for the flexibility needed to store diverse content.</p>
+
+<p>Extracting meaningful insights from unstructured data requires specialized analytical methods. <strong>Natural Language Processing (NLP)</strong> techniques such as tokenization, sentiment analysis, named entity recognition, and topic modeling are used for text data. <strong>Computer vision</strong> algorithms — often powered by convolutional neural networks — are used for image and video analysis. <strong>Speech recognition</strong> models convert audio to text, after which NLP techniques can be applied. These methods add significant analytical power but also add complexity, cost, and interpretability challenges.</p>
+
+<p><strong>Key Characteristics and Differences</strong></p>
+
+<p>Placing structured and unstructured data side by side reveals a set of complementary strengths and weaknesses that explain why each type is suited to different analytical tasks. The table below summarizes the most important dimensions of comparison.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Structured Data</th>
+      <th>Unstructured Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Organization</td>
+      <td>Fixed schema; rows and columns</td>
+      <td>No fixed schema; raw content</td>
+    </tr>
+    <tr>
+      <td>Storage systems</td>
+      <td>Relational databases (SQL)</td>
+      <td>Data lakes, NoSQL, object storage</td>
+    </tr>
+    <tr>
+      <td>Query methods</td>
+      <td>SQL and BI tools</td>
+      <td>NLP, computer vision, ML models</td>
+    </tr>
+    <tr>
+      <td>Searchability</td>
+      <td>Highly searchable and indexable</td>
+      <td>Requires preprocessing to enable search</td>
+    </tr>
+    <tr>
+      <td>Analysis type</td>
+      <td>Quantitative, statistical</td>
+      <td>Qualitative, pattern-based</td>
+    </tr>
+    <tr>
+      <td>Preprocessing burden</td>
+      <td>Low — data is already organized</td>
+      <td>High — normalization, tagging, parsing required</td>
+    </tr>
+    <tr>
+      <td>Global data volume</td>
+      <td>Minority (~20% of all data generated)</td>
+      <td>Majority (~80% of all data generated)</td>
+    </tr>
+    <tr>
+      <td>Typical examples</td>
+      <td>Sales records, payroll, inventory</td>
+      <td>Emails, images, audio, social media</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One of the most striking facts about the current data landscape is the sheer volume imbalance between the two types. It is widely estimated that unstructured data accounts for roughly 80% or more of all data being generated globally — driven by the explosion of social media content, video streaming, messaging platforms, IoT sensor streams, and digital photography. This imbalance makes developing the capability to analyze unstructured data increasingly strategically important, even though structured data remains the workhorse of traditional business intelligence.</p>
+
+<p>The choice between structured and unstructured approaches is rarely arbitrary. It is driven by the <em>business question at hand</em> and the <em>analytical infrastructure available</em>. A company tracking daily sales performance needs structured data in a relational database with a well-designed reporting layer. The same company trying to understand why customers are leaving negative reviews needs unstructured data — the text of those reviews — and the NLP tools to analyze it.</p>
+
+<p><strong>Advantages of Structured Data</strong></p>
+
+<p>Structured data's greatest advantage is its <em>immediate analytical readiness</em>. Because the format of every field is known before any data enters the system, validation and cleaning are largely automated. A database enforcing a <em>NOT NULL</em> constraint on a required field, a <em>CHECK</em> constraint limiting values to an acceptable range, or a <em>FOREIGN KEY</em> constraint ensuring referential integrity — all of these mechanisms catch errors at the point of entry. This makes the resulting dataset trustworthy and consistent with minimal additional cleaning work.</p>
+
+<p>Structured data integrates seamlessly with the broad ecosystem of <strong>business intelligence (BI) tools</strong> — platforms such as Tableau, Power BI, Looker, and Microsoft Excel — that non-technical stakeholders use to explore data and make decisions. These tools are designed to connect directly to relational databases and generate charts, dashboards, and summary reports without requiring any programming. This accessibility democratizes data use across an organization.</p>
+
+<p>Query performance is another major advantage. Relational databases are engineered to retrieve specific records or compute aggregated summaries across millions of rows with remarkable speed, thanks to indexing strategies (B-trees, hash indexes), query optimizers, and columnar storage formats (used in analytical databases like Amazon Redshift or Google BigQuery). An analyst running a monthly revenue report or a year-over-year comparison gets results almost instantly.</p>
+
+<p>Error detection is also significantly easier with structured data. Any value that falls outside the expected domain — a negative price, a date in the wrong format, a zip code with letters — is immediately identifiable because the schema defines what is acceptable. This makes audit trails and data quality monitoring straightforward to implement and maintain.</p>
+
+<p><strong>Advantages of Unstructured Data</strong></p>
+
+<p>While structured data excels at answering "how much" and "how many," unstructured data excels at answering "why," "what do people think," and "what patterns exist that we haven't yet defined." This qualitative richness is its defining advantage. A customer satisfaction score (structured) tells you that a rating dropped from 4.2 to 3.8 — but only the text of the customer reviews (unstructured) tells you that the drop was caused by complaints about shipping delays, not product quality.</p>
+
+<p>Unstructured data encompasses an extraordinarily broad range of information sources. Images can convey visual damage to infrastructure, fashion trends, facial expressions, or geographic change over time. Audio recordings capture tone, hesitation, and emotion that transcend the literal words spoken. Social media posts capture real-time public opinion during a product launch, a political event, or a public health crisis. No structured database table can hold this richness — it must be captured and analyzed in its original form.</p>
+
+<p>Analyzing unstructured data can surface <strong>emergent patterns</strong> — trends, topics, and sentiments that analysts did not know to look for in advance. Sentiment analysis of social media posts might reveal that a new product feature is resonating unexpectedly well with a demographic the marketing team had not targeted. Topic modeling of support tickets might surface a recurring technical problem that customer service representatives had not formally escalated. These discoveries are possible precisely because unstructured data is not pre-filtered by a schema.</p>
+
+<p>Advances in <strong>machine learning and artificial intelligence</strong> — particularly deep learning architectures such as transformer-based language models (e.g., BERT, GPT) and convolutional neural networks for images — have dramatically improved the practical ability to extract quantifiable insights from large volumes of unstructured data. Tasks that were computationally impractical a decade ago, such as automatically classifying thousands of customer emails by intent or detecting objects in millions of images, are now routine in modern data pipelines.</p>
+
+<p><strong>Analytical Challenges of Unstructured Data</strong></p>
+
+<p>The richness of unstructured data comes at a cost. Before any model can be applied, the raw data must undergo extensive <strong>preprocessing</strong> — a stage that is often more time-consuming than the analysis itself. Text data must be tokenized (split into words or subwords), stop words (common words like "the" and "is") may be removed, words may be lemmatized (reduced to their root form), and the resulting tokens must be converted into numerical representations (vectors) that a model can process. Images must be resized, normalized, and possibly augmented. Audio must be converted to spectrograms or text transcripts. Each of these steps introduces decisions that can affect the quality of downstream analysis.</p>
+
+<p>The volume and variety of unstructured data can overwhelm traditional storage and processing infrastructure. A single hour of HD video generates gigabytes of data; a large social media platform generates terabytes of text and images every day. Processing this at scale requires <strong>distributed computing frameworks</strong> (such as Apache Spark), <strong>cloud-based storage and compute</strong> (such as AWS, Google Cloud, or Azure), and carefully designed data pipelines that can handle parallelism, fault tolerance, and schema evolution.</p>
+
+<p>A particularly important challenge is <strong>model interpretability</strong>. The machine learning models best suited to unstructured data — deep neural networks — are notoriously difficult to interpret. When a neural network classifies a medical image as showing signs of disease, it is not straightforward to explain exactly which features of the image drove that prediction. This opacity creates difficulties in regulated industries where decisions must be explainable, and in any context where stakeholders need to trust and act on model outputs. Techniques such as LIME (Local Interpretable Model-Agnostic Explanations) and SHAP (SHapley Additive exPlanations) partially address this, but interpretability remains an active research challenge.</p>
+
+<p><strong>Data quality assurance</strong> is inherently harder with unstructured data. With structured data, a missing value in a required field triggers an immediate error. With unstructured data, there is no schema to flag problems: a blurry photograph, a garbled audio recording, a text document written in an unexpected language, or a social media post containing sarcasm that reverses its apparent sentiment — all of these degrade data quality in ways that are difficult to detect automatically. Analysts must invest in human review processes, data validation heuristics, and model robustness testing to manage quality in unstructured pipelines.</p>
+
+<p>Finally, unstructured data raises heightened <strong>privacy and ethical concerns</strong>. Images may contain faces, identifying locations, or sensitive personal details. Audio recordings may capture private conversations. Text messages may reveal medical, financial, or legal information. These considerations are governed by regulations such as the GDPR in Europe and HIPAA in the United States for healthcare data. Analysts working with unstructured data must implement data anonymization, access controls, and governance policies appropriate to the sensitivity of the content — an organizational and technical burden that does not arise to the same degree with aggregate structured data.</p>
+
+<p><strong>Choosing the Right Data Type for Analysis</strong></p>
+
+<p>Selecting the appropriate data type for a given analytical task is a strategic decision that involves evaluating several intersecting factors: the nature of the business question, the richness required in the answer, the available tools and expertise, the processing budget, and the interpretability standards required by decision-makers.</p>
+
+<p>When the goal is <strong>quantitative measurement or performance tracking</strong> — monthly revenue, customer churn rate, inventory turnover, website conversion rate — structured data is almost always the most efficient and reliable choice. The data is clean, query times are fast, and results are immediately legible to business stakeholders through standard dashboards. Building and maintaining this infrastructure is well understood, and the talent pool for SQL-based analytics is large.</p>
+
+<p>When the goal involves <strong>understanding sentiment, context, intent, or visual information</strong>, unstructured data becomes essential. A retailer wanting to understand customer reactions to a new collection cannot rely solely on return rates (structured) — they need to analyze the language of reviews and social posts. A hospital wanting to detect anomalies in radiology scans cannot encode all relevant visual information into a structured table — they need image analysis models. In these cases, the additional complexity of working with unstructured data is justified by the unique insights it provides.</p>
+
+<p><strong>Hybrid approaches</strong> — combining structured and unstructured data — often yield the richest analytical outcomes. Consider a bank analyzing loan default risk: structured data provides credit scores, income levels, and payment history, while unstructured data from customer correspondence or call center recordings might provide early warning signals about financial stress. Combining both streams in a unified model can outperform either alone. However, hybrid pipelines are substantially more complex to build, maintain, and govern, requiring engineering expertise across both domains.</p>
+
+<p>Ultimately, analysts must weigh a set of practical trade-offs when making this decision. The table below summarizes the key considerations.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Factor</th>
+      <th>Favors Structured Data</th>
+      <th>Favors Unstructured Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Business question type</td>
+      <td>Quantitative, performance-based</td>
+      <td>Qualitative, contextual, exploratory</td>
+    </tr>
+    <tr>
+      <td>Processing cost</td>
+      <td>Lower — minimal preprocessing needed</td>
+      <td>Higher — significant pipeline investment</td>
+    </tr>
+    <tr>
+      <td>Tool availability</td>
+      <td>Mature, widely available BI tools</td>
+      <td>Specialized ML/AI platforms required</td>
+    </tr>
+    <tr>
+      <td>Interpretability need</td>
+      <td>High — results must be directly explainable</td>
+      <td>Lower — pattern discovery acceptable</td>
+    </tr>
+    <tr>
+      <td>Data richness required</td>
+      <td>Moderate — predefined metrics suffice</td>
+      <td>High — nuance and context are critical</td>
+    </tr>
+    <tr>
+      <td>Team skill set</td>
+      <td>SQL, statistics, BI development</td>
+      <td>NLP, computer vision, deep learning</td>
+    </tr>
+    <tr>
+      <td>Regulatory sensitivity</td>
+      <td>Standard data governance applies</td>
+      <td>Heightened privacy and ethics review needed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The distinction between structured and unstructured data is not a hierarchy where one type is superior — it is a spectrum of tools suited to different kinds of questions. Mastering both, and knowing when to use each or how to combine them effectively, is one of the most valuable skills in modern data analytics. As artificial intelligence continues to lower the barriers to unstructured data analysis, the ability to bridge these two worlds will only grow in importance.</p>
+        <div class="notes"><strong>Notes</strong>Distinguishes between structured data organized in predefined formats and unstructured data such as text, images, and video. Examines the characteristics, advantages, and analytical challenges associated with each data type. Two comparison tables are included — one covering key dimensions of difference, one covering decision factors — rendered as proper HTML tables. SQL code example illustrates structured querying in context.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skewness and Distribution Shape</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Descriptive Statistics and Probability Distributions</a></div>
+  <header>
+    <h1>Skewness and Distribution Shape</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Skewness and Distribution Shape</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When we summarize a dataset, we typically reach first for measures of central tendency — the mean, median, and mode — and measures of spread like the standard deviation or interquartile range. These numbers are enormously useful, but they can hide a critical feature of a distribution: its <strong>shape</strong>. A distribution is not just a center and a spread; it also has a silhouette, and that silhouette can be symmetric or it can lean — sometimes dramatically — to one side. The technical term for this leaning is <strong>skewness</strong>, and understanding it is essential for interpreting data honestly and choosing the right statistical tools.</p>
+
+<p><strong>Skewness</strong> is a numerical measure of the asymmetry of a probability distribution or a frequency distribution of observed data. It tells us whether the data values are bunched up toward one end of the scale with a long trailing tail reaching toward the other end. The concept is not merely academic: skewness directly influences which summary statistics are trustworthy, which models are appropriate, and which conclusions are defensible.</p>
+
+<p>Before diving into positive and negative skew, it helps to anchor the concept with the baseline case. A <strong>skewness value of zero</strong> indicates a perfectly symmetric distribution — one where the left side is a mirror image of the right side. The classic example is the normal (bell-shaped) distribution. In a perfectly symmetric distribution, the mean, median, and mode all coincide at the center. Real-world datasets rarely achieve perfect symmetry, but when the skewness value is close to zero, we treat the distribution as approximately symmetric. <strong>The further the skewness value is from zero</strong> — in either direction — the more asymmetric the distribution, and the more caution we must exercise when summarizing it with the mean.</p>
+
+<p>The most widely used formula for the skewness coefficient (sometimes called Pearson's moment coefficient of skewness) is based on the standardized third central moment:</p>
+
+<pre><code>skewness = (1/n) * Σ[(xᵢ - x̄) / s]³</code></pre>
+
+<p>where <em>n</em> is the number of observations, <em>x̄</em> is the sample mean, and <em>s</em> is the sample standard deviation. Cubing the standardized deviations is what gives skewness its directional sensitivity: large positive deviations contribute large positive cubed values, and large negative deviations contribute large negative cubed values. If the distribution has a long right tail, the positive cubed values dominate and the result is positive; if the distribution has a long left tail, the negative cubed values dominate and the result is negative.</p>
+
+<p><strong>Positive (Right) Skewness</strong> describes a distribution whose tail stretches out toward the higher, right-hand end of the number line. Visually, the bulk of the data — the hump — sits on the left, and a smaller number of unusually large values pull the tail to the right. Think of income distributions in most countries: the majority of people earn somewhere near the median, but a small number of very high earners pull the tail far to the right. Other classic examples include house prices in a metropolitan area, waiting times in emergency departments, and the number of customer complaints per month.</p>
+
+<p>In a right-skewed distribution, the relationship among the three measures of central tendency follows a predictable pattern:</p>
+
+<ul>
+  <li><strong>The mean is typically greater than the median.</strong> The mean is calculated by summing all values, so those large outliers on the right tail inflate it upward. The median, which simply identifies the middle-ranked value, is not affected by how extreme the high values are — only by how many there are. This is why the mean sits to the right of the median in a right-skewed distribution.</li>
+  <li><strong>The median is typically greater than the mode.</strong> The mode is the most frequently occurring value, which in a right-skewed distribution is typically found near the left-side hump of the data. So the order of the three measures runs: mode &lt; median &lt; mean.</li>
+  <li><strong>Outliers on the high end of the scale are the primary driver of positive skewness.</strong> Remove those extreme high values and the distribution would become much more symmetric. This is an important diagnostic: if you see a high positive skewness, look for high-end outliers.</li>
+  <li><strong>Skewness values greater than +1 are generally considered highly positively skewed.</strong> Values between 0.5 and 1 are often described as moderately skewed, and values below 0.5 are considered approximately symmetric. These thresholds are conventions, not hard rules, but they provide useful benchmarks.</li>
+</ul>
+
+<p><strong>Negative (Left) Skewness</strong> is the mirror image: the tail stretches toward the lower, left-hand end of the number line. The bulk of the data is clustered toward the higher end of the scale, and a smaller number of unusually low values pull the tail to the left. Examples include age at retirement (most people retire in a fairly narrow range, but a few retire very early), exam scores on an easy test (most students score high, but a few score very low), and the lifespan of light bulbs from a high-quality batch.</p>
+
+<ul>
+  <li><strong>In a left-skewed distribution, the mean is typically less than the median.</strong> The few very low values on the left tail drag the mean downward, while the median remains anchored near the central cluster.</li>
+  <li><strong>The mode tends to be the highest of the three central tendency measures in a negatively skewed distribution.</strong> The mode sits near the right-side peak, the median is slightly to its left, and the mean is further left still. The order runs: mean &lt; median &lt; mode.</li>
+  <li><strong>Outliers on the low end of the scale drive negative skewness.</strong> Just as high-end outliers are diagnostic of positive skew, low-end outliers are diagnostic of negative skew.</li>
+  <li><strong>Skewness values less than -1 are generally considered highly negatively skewed.</strong> The same magnitude-based benchmarks apply symmetrically: -1 to -0.5 is moderate, -0.5 to 0 is mild or near-symmetric.</li>
+</ul>
+
+<p>The following table summarizes the typical ordering of the three central tendency measures across the three skewness scenarios:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Distribution Shape</th>
+      <th>Skewness Value</th>
+      <th>Typical Order of Measures</th>
+      <th>Which Measure Is Pulled by Outliers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Symmetric</td>
+      <td>≈ 0</td>
+      <td>Mean ≈ Median ≈ Mode</td>
+      <td>None significantly</td>
+    </tr>
+    <tr>
+      <td>Positively (Right) Skewed</td>
+      <td>&gt; 0</td>
+      <td>Mode &lt; Median &lt; Mean</td>
+      <td>Mean pulled toward high tail</td>
+    </tr>
+    <tr>
+      <td>Negatively (Left) Skewed</td>
+      <td>&lt; 0</td>
+      <td>Mean &lt; Median &lt; Mode</td>
+      <td>Mean pulled toward low tail</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Skewness and the Interpretation of Central Tendency</strong> are inseparably linked. One of the most common analytical mistakes is reporting only the mean for a skewed distribution, which can create a seriously misleading picture of what is "typical." Consider household income in a country. Suppose the mean household income is $85,000 and the median is $58,000. The $27,000 gap tells you immediately that the distribution is right-skewed — a relatively small number of very wealthy households are pulling the mean far above the experience of most households. Reporting the mean as the "average" income is technically correct but practically misleading; it overstates the income of a typical household.</p>
+
+<ul>
+  <li><strong>In symmetric distributions, the mean, median, and mode are approximately equal and any can serve as a reliable center measure.</strong> When skewness is near zero, all three tell essentially the same story, and the mean is preferred because it has the best mathematical properties for further statistical work.</li>
+  <li><strong>In skewed distributions, the mean is pulled in the direction of the tail, making it less representative of the typical value.</strong> The strength of this pull grows with the degree of skewness and with the extremity of the outliers.</li>
+  <li><strong>The median is resistant to the influence of extreme values and is preferred as a central tendency measure for skewed data.</strong> This is why real estate markets report median home prices, why income statistics often foreground the median wage, and why medical research on survival times typically reports median survival rather than mean survival.</li>
+  <li><strong>Understanding skewness helps analysts choose appropriate statistical summaries and avoid misleading conclusions.</strong> Beyond the choice between mean and median, skewness also influences whether a standard t-test is appropriate (which assumes approximate normality), whether a log transformation might normalize the data, and how to set expectations for predictive models.</li>
+</ul>
+
+<p><strong>Computing Skewness in Python</strong> is straightforward with either SciPy or pandas, and knowing both approaches gives you flexibility depending on whether you are working with raw arrays or structured tabular data.</p>
+
+<p>Using <strong>SciPy</strong>, import the <code>skew</code> function from <code>scipy.stats</code> and pass it any array-like object:</p>
+
+<pre><code>import numpy as np
+from scipy.stats import skew
+
+# Simulate a right-skewed dataset using an exponential distribution
+data = np.random.exponential(scale=2.0, size=1000)
+
+skewness_value = skew(data)
+print(f"Skewness: {skewness_value:.4f}")
+# Output will be a positive number, typically around 2.0 for an exponential distribution</code></pre>
+
+<p>The <code>skew()</code> function returns a single float. A positive output confirms right skew, a negative output confirms left skew, and a value near zero suggests approximate symmetry. By default, SciPy uses the adjusted Fisher-Pearson standardized moment coefficient, which includes a small-sample correction.</p>
+
+<p>Using <strong>pandas</strong>, the <code>.skew()</code> method is available directly on a Series or any column of a DataFrame, making it especially convenient when you are doing exploratory data analysis on a dataset loaded from a CSV or database:</p>
+
+<pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    'income': [32000, 38000, 41000, 45000, 47000, 52000, 60000, 75000, 95000, 210000],
+    'age_at_retirement': [68, 67, 65, 66, 69, 70, 64, 62, 71, 45]
+})
+
+print("Income skewness:          ", df['income'].skew())
+print("Age at retirement skewness:", df['age_at_retirement'].skew())
+# Income should return a positive value (right skew)
+# Age at retirement should return a negative value (left skew)</code></pre>
+
+<p>Both <code>scipy.stats.skew()</code> and the pandas <code>.skew()</code> method return a single float representing the skewness coefficient of the dataset. Positive output values confirm right skew, negative values confirm left skew, and values near zero suggest approximate symmetry. Note that the two methods may give slightly different results for small samples due to differences in bias correction, but they converge for large samples.</p>
+
+<p>You can also call <code>df.skew()</code> on an entire DataFrame to receive the skewness coefficient for every numeric column at once — a powerful tool during initial exploratory analysis when you want to quickly identify which variables deviate substantially from symmetry.</p>
+
+<p><strong>Visualizing Skewness</strong> is arguably the most intuitive way to understand and communicate distributional shape. Numbers like 1.7 or -0.8 become immediately meaningful when you see the corresponding histogram.</p>
+
+<ul>
+  <li><strong>A histogram with a longer right tail visually confirms positive skewness.</strong> The bars are tallest on the left and taper off gradually to the right, sometimes with a few isolated bars far from the main cluster representing the outlying high values.</li>
+  <li><strong>A histogram with a longer left tail visually confirms negative skewness.</strong> The tallest bars are on the right, and the distribution trails off to the left.</li>
+  <li><strong>Kernel Density Estimate (KDE) plots provide a smooth curve that makes distributional shape and skewness easier to assess than raw histograms.</strong> A histogram's appearance can change substantially with the choice of bin width, which can obscure or exaggerate skewness. A KDE smooths over these artifacts and reveals the underlying shape more reliably. In pandas and seaborn, adding <code>kde=True</code> to a histogram call or using <code>sns.kdeplot()</code> generates this overlay easily.</li>
+  <li><strong>Plotting vertical lines for the mean and median on a histogram highlights how skewness separates these two central tendency measures.</strong> This is one of the most pedagogically effective visualizations in all of introductory statistics.</li>
+</ul>
+
+<p>Here is a complete example that generates a right-skewed dataset, plots a histogram with a KDE overlay, and adds vertical lines for the mean and median:</p>
+
+<pre><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import skew
+
+# Generate right-skewed data
+np.random.seed(42)
+data = np.random.exponential(scale=3.0, size=500)
+
+mean_val   = np.mean(data)
+median_val = np.median(data)
+skew_val   = skew(data)
+
+# Plot
+fig, ax = plt.subplots(figsize=(9, 5))
+
+# Histogram with KDE
+pd.Series(data).plot(kind='hist', bins=40, density=True,
+                     alpha=0.5, color='steelblue', ax=ax, label='Histogram')
+pd.Series(data).plot(kind='kde', color='steelblue', ax=ax, label='KDE')
+
+# Vertical lines for mean and median
+ax.axvline(mean_val,   color='red',    linestyle='--', linewidth=2,
+           label=f'Mean = {mean_val:.2f}')
+ax.axvline(median_val, color='green',  linestyle='-',  linewidth=2,
+           label=f'Median = {median_val:.2f}')
+
+ax.set_title(f'Right-Skewed Distribution  |  Skewness = {skew_val:.2f}')
+ax.set_xlabel('Value')
+ax.set_ylabel('Density')
+ax.legend()
+plt.tight_layout()
+plt.show()</code></pre>
+
+<p>In the resulting plot, the red dashed line (mean) sits visibly to the right of the green solid line (median), providing a direct visual demonstration of how a right-skewed distribution separates these two measures. The longer right tail of the histogram makes the skewness immediately interpretable at a glance.</p>
+
+<p>Developing a habit of checking skewness — both numerically and visually — before interpreting summary statistics or fitting models is one of the most valuable skills in applied data analysis. It guards against the common error of treating the mean as the "center" of a distribution when it is actually being tugged far away from the typical value by a handful of extreme observations.</p>
+        <div class="notes"><strong>Notes</strong>Key threshold conventions to reinforce: |skewness| &gt; 1 = high skew, 0.5–1 = moderate, &lt; 0.5 = approximately symmetric. Emphasize that the mean–median–mode ordering rule is a tendency, not an absolute law — unusual multimodal distributions can violate it. The pandas .skew() method uses an unbiased estimator by default (bias=False equivalent), while scipy.stats.skew() uses bias=True by default; students working with small samples should be aware of this difference and can pass bias=False to scipy to match pandas.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>
