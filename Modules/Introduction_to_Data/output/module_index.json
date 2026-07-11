@@ -2,7 +2,7 @@
   "ModuleName": "1 - Introduction to Data Analytics and the Analytics Lifecycle",
   "CourseName": "CAP3785 - Data Analytics and Visualization",
   "ModuleFolderName": "Introduction_to_Data",
-  "GeneratedUtc": "2026-07-08T20:13:29.3772369Z",
+  "GeneratedUtc": "2026-07-11T00:10:05.0204276Z",
   "HtmlIndexSignature": "5C0E28EE49AAAFFB0167716BB9077C82A5F130A919EBA0B41DF3BFB6DE031CBA",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "This page outlines the key topics covered in the module \u2014 including definitions of data analytics, its role in organizational decision-making, and the stages of the analytics lifecycle \u2014 serving as a navigational overview that helps learners and instructors understand what concepts will be taught and in what order.",
+      "Description": "This page outlines the key topics covered in Module 1, including the definition and purpose of data analytics, how organizations use data for decision-making, and the stages of the analytics lifecycle; learners would use it as an overview to understand what the module will cover before engaging with detailed content.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639187015526434858
+      "SourceModifiedTicks": 639191384094163560
     },
     {
       "Name": "Introduction_to_Data_generated.pptx",

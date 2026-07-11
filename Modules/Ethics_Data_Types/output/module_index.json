@@ -2,7 +2,7 @@
   "ModuleName": "2 - Ethics, Data Types, and Data Sources in Analytics",
   "CourseName": "CAP3785 - Data Analytics and Visualization",
   "ModuleFolderName": "Ethics_Data_Types",
-  "GeneratedUtc": "2026-07-08T20:14:17.6728997Z",
+  "GeneratedUtc": "2026-07-11T00:10:07.1311574Z",
   "HtmlIndexSignature": "A4D9B6BF40823FA673F99597E81E4B6FB257E9EDCBCE299E9561BABCEA93B40F",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "A navigation page listing the module\u0027s topics\u2014ethical foundations, fairness, transparency, and accountability in data-driven decision-making\u2014that learners use to orient themselves and access the module\u0027s individual lessons.",
+      "Description": "This page outlines the topics covered in Module 2, including ethical principles in data analytics (fairness, transparency, accountability), data types, and data sources, serving as a navigational overview that helps learners and instructors understand what the module will address before diving into lessons.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639187015952300607
+      "SourceModifiedTicks": 639191384578383061
     },
     {
       "Name": "Ethics_Data_Types_generated.pptx",

@@ -2,7 +2,7 @@
   "ModuleName": "4 - Database Basics and Relational Data Concepts",
   "CourseName": "CAP3785 - Data Analytics and Visualization",
   "ModuleFolderName": "Database_Basics_and",
-  "GeneratedUtc": "2026-07-08T20:16:10.1076729Z",
+  "GeneratedUtc": "2026-07-11T00:10:11.9647381Z",
   "HtmlIndexSignature": "F5C03765EC021A1707E9208FFDADF1EE47F677778BFA4CED8BBAFFB12F29E177",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "A navigational overview of the \u0027Database Basics and Relational Data Concepts\u0027 module listing and summarising its core topics \u2014 including what databases are, how they differ from spreadsheets and flat files, and foundational relational data concepts \u2014 which learners and instructors can use to preview the module\u0027s scope and structure before engaging with detailed content.",
+      "Description": "An overview page listing the topics covered in Module 4, including what databases are, why they are used, and how they differ from spreadsheets and flat files; learners use it as a navigational guide to understand what the module will cover before engaging with individual lessons.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639187016765773139
+      "SourceModifiedTicks": 639191385701505275
     },
     {
       "Name": "Database_Basics_and_generated.pptx",

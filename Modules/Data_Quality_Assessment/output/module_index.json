@@ -2,7 +2,7 @@
   "ModuleName": "3 - Data Quality Assessment and Data Cleaning Fundamentals",
   "CourseName": "CAP3785 - Data Analytics and Visualization",
   "ModuleFolderName": "Data_Quality_Assessment",
-  "GeneratedUtc": "2026-07-08T20:15:16.4843113Z",
+  "GeneratedUtc": "2026-07-11T00:10:09.619011Z",
   "HtmlIndexSignature": "9E5AC0C5B329B26067EAE1B548929369BC07BEA01A2DC723F4A03700560CCBE5",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "Lists the topics covered in the Data Quality Assessment and Data Cleaning Fundamentals module\u2014including data quality dimensions (accuracy, completeness, consistency, reliability) and related concepts\u2014serving as a navigational overview for learners to see what the module covers before diving into individual lessons.",
+      "Description": "A navigational overview of Module 3 topics listing and briefly describing the key subject areas covered\u2014including data quality dimensions (accuracy, completeness, consistency, reliability) and data cleaning fundamentals\u2014that learners would use to preview or locate specific content within the module.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639187016364735543
+      "SourceModifiedTicks": 639191385165764008
     },
     {
       "Name": "Data_Quality_Assessment_generated.pptx",
