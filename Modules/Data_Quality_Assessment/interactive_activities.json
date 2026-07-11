@@ -1,0 +1,19 @@
+{
+  "activities": [
+    {
+      "id": "49ead283-284a-4eb1-a44a-df1cbca746fc",
+      "title": "Crossword Puzzle",
+      "fileName": "crossword-puzzle.html",
+      "templateName": "Crossword Puzzle",
+      "objective": "Create an interactive activity that helps students achieve outcome MO1: Classify a dataset\u0027s quality issues according to the dimensions of accuracy, completeness, consistency, and reliability",
+      "moduleStudentOutcomeIds": [
+        "744df5bb-bf17-4e62-a434-59365eecc512"
+      ],
+      "topicIds": [],
+      "currentVersion": 1,
+      "totalVersions": 1,
+      "createdDate": "2026-07-05T20:02:53.2509469-04:00",
+      "modifiedDate": "2026-07-05T20:02:53.2509923-04:00"
+    }
+  ]
+}

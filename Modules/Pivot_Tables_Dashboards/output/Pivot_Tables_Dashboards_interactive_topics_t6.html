@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Transformation with Power Query</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Data Transformation with Power Query</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Data Transformation with Power Query</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Power Query is one of the most powerful data preparation tools built directly into Microsoft Excel and Power BI. Before data can be meaningfully analyzed with pivot tables, charts, or formulas, it almost always needs to be cleaned, reshaped, and standardized. Raw data from real-world sources — exported spreadsheets, database dumps, CSV files from third-party systems — is rarely ready to use as-is. Power Query solves this problem by providing a dedicated, visual environment where you can apply a sequence of transformation steps to your data in a completely controlled, repeatable, and non-destructive way. Once you understand how to work inside this environment, you eliminate hours of tedious manual data preparation and replace it with a process that runs automatically every time your data updates.</p>
+
+<p><strong>Introduction to the Power Query Editor</strong></p>
+
+<p>The Power Query Editor is a separate window that opens when you create or edit a query in Excel (via <em>Data &gt; Get Data</em> or <em>Data &gt; Queries &amp; Connections</em>). Think of it as a dedicated workbench for shaping your data before it ever arrives in your spreadsheet or data model. Unlike working directly on a worksheet, every change you make inside the editor is recorded as a discrete, named step.</p>
+
+<p>These steps accumulate in the <strong>Applied Steps</strong> pane on the right side of the editor window. Each step represents a single transformation — for example, "Removed Blank Rows," "Changed Type," or "Split Column." You can click on any step to see exactly what the data looked like at that point in the process, making it straightforward to identify where something went wrong or to understand the logic of a query someone else built. This sequential, visible approach is what makes Power Query so much easier to audit and troubleshoot compared to a tangled chain of worksheet formulas.</p>
+
+<p>A critical principle to understand from the start is that <strong>all transformations in Power Query are non-destructive</strong>. The original data source — whether it is a CSV file on your desktop, a table in a SQL Server database, or a SharePoint list — is never modified. Power Query reads the source, applies your steps in memory, and delivers the result. If you delete a step, the underlying source is completely unaffected. This safety net encourages experimentation: you can try a transformation, see the result, and roll it back instantly by clicking the small <em>X</em> next to the step in the Applied Steps pane.</p>
+
+<p>For users who want to go beyond point-and-click, the <strong>formula bar</strong> at the top of the editor displays the M language expression that corresponds to the currently selected step. M (also called Power Query Formula Language) is a functional language purpose-built for data transformation. For example, when you change a column's data type to Date, the formula bar will show something like:</p>
+
+<pre><code>= Table.TransformColumnTypes(#"Previous Step Name", {{"OrderDate", type date}})</code></pre>
+
+<p>You can edit this expression directly, which gives you fine-grained control that exceeds what the graphical interface exposes. Most users begin entirely with the visual tools and gradually learn M as their needs grow more complex. Even at the beginner level, understanding that each step is just an M expression demystifies what Power Query is doing under the hood.</p>
+
+<p><strong>Connecting to and Importing Raw Data Sources</strong></p>
+
+<p>The first step in any Power Query workflow is connecting to a data source. Excel's Power Query supports an extensive range of sources, which can be grouped into a few broad categories:</p>
+
+<ul>
+  <li><strong>Local files:</strong> Excel workbooks (.xlsx, .xls), comma-separated values (.csv), text files (.txt), XML files, and JSON files. These are among the most common starting points for business analysts.</li>
+  <li><strong>Relational databases:</strong> SQL Server, Microsoft Access, MySQL, PostgreSQL, Oracle, and many others via ODBC drivers. Power Query connects directly and can even pass through custom SQL queries to filter data at the source before importing.</li>
+  <li><strong>Online and cloud services:</strong> SharePoint lists, SharePoint folders, Microsoft Dataverse, Power BI datasets, Azure SQL, and various REST API endpoints via the Web connector.</li>
+  <li><strong>Folder sources:</strong> Entire folders of files of the same type (for example, twelve monthly CSV exports) can be combined into a single query automatically, with Power Query stacking the files on top of each other.</li>
+</ul>
+
+<p>One of the most practical capabilities is <strong>combining multiple sources</strong> into a single query. The <em>Append Queries</em> operation stacks tables with the same columns on top of each other — ideal for consolidating monthly reports into an annual dataset. The <em>Merge Queries</em> operation performs a join (similar to a VLOOKUP or SQL JOIN) between two tables on one or more matching key columns, so you can enrich a sales table with product descriptions from a separate lookup table, all within Power Query.</p>
+
+<p>For teams working with regularly changing file locations or wanting to make a query reusable, <strong>parameterized connections</strong> are a powerful technique. A parameter in Power Query is a named, changeable value — for instance, a file path or a folder location. Instead of hard-coding <code>C:\Reports\January.csv</code> into your query, you reference a parameter called <code>FilePath</code>. When you want to point the query at a different file, you update the parameter value in one place and every query that references it adjusts automatically. This is particularly valuable for template workbooks distributed across a team.</p>
+
+<p><strong>Cleaning Data: Removing Errors, Duplicates, and Blanks</strong></p>
+
+<p>Raw data almost always contains noise that distorts analysis: duplicate records that inflate counts, blank rows that break calculations, and error values that propagate through formulas. Power Query provides dedicated, easy-to-use tools for each of these problems.</p>
+
+<p><strong>Removing duplicates</strong> is accomplished by selecting one or more columns (hold Ctrl to select multiple), right-clicking, and choosing <em>Remove Duplicates</em>. Power Query keeps the first occurrence of each unique combination of values in the selected columns and removes all subsequent duplicates. For example, if your customer table was exported twice and contains every customer record twice over, selecting the CustomerID column and removing duplicates instantly resolves the problem. This is far faster and less error-prone than using Excel's built-in Remove Duplicates feature on a worksheet, because it becomes a permanent, automatically re-applied step in your query.</p>
+
+<p><strong>Blank rows and null values</strong> are a separate but related problem. A blank row — a row where every cell is empty — typically enters data through poor export formatting and has no analytical value. You can remove all blank rows at once using <em>Home &gt; Remove Rows &gt; Remove Blank Rows</em>. Individual null values within columns (shown as <em>null</em> in the editor) can be handled in two ways: you can filter them out entirely using the column's dropdown filter, or you can replace them with a meaningful default by right-clicking the column and selecting <em>Replace Values</em>, entering <em>null</em> as the value to find and your default (such as <code>0</code> or <code>Unknown</code>) as the replacement. Replacing nulls with zero in numeric columns is especially important before loading data into a pivot table, where null values can cause totals to appear lower than expected or cause certain aggregation functions to behave unexpectedly.</p>
+
+<p><strong>Error values</strong> — cells that contain an error rather than a valid data value — often arrive when you import data from a source system that has its own calculation errors (such as division by zero represented as <code>#DIV/0!</code> in an exported Excel file, which Power Query reads as an error type). Left uncleaned, these errors propagate and cause problems downstream. You can handle them using <em>Transform &gt; Replace Errors</em>, which lets you specify a replacement value (commonly <em>null</em>, <code>0</code>, or a text label like <code>"Error"</code>) for any error in the selected column. Alternatively, you can remove entire rows that contain errors using <em>Home &gt; Remove Rows &gt; Remove Errors</em>, which is appropriate when a row with an error is genuinely unusable rather than salvageable with a default value.</p>
+
+<p><strong>Reshaping Data: Splitting, Merging, and Pivoting Columns</strong></p>
+
+<p>Beyond cleaning, data often needs to be restructured — its shape changed — before it is useful. Power Query's reshaping tools let you split compound values into separate columns, combine multiple columns into one, and convert between wide and tall table formats.</p>
+
+<p><strong>Split Column</strong> is used when a single column contains multiple pieces of information jammed together. A classic example is a "Full Name" column containing values like <code>Smith, John</code>. Using <em>Transform &gt; Split Column &gt; By Delimiter</em>, you specify the comma as the delimiter and Power Query creates two new columns: <code>Full Name.1</code> (containing <code>Smith</code>) and <code>Full Name.2</code> (containing <code>John</code>), which you then rename to <code>LastName</code> and <code>FirstName</code>. You can also split by a fixed number of characters — useful for codes like <code>US-2024-00142</code> where each segment has a known length — or by the transition between lowercase and uppercase letters for camel-cased identifiers.</p>
+
+<p><strong>Merge Columns</strong> does the opposite: it takes two or more existing columns and concatenates their values into a single column with a separator you choose. For instance, merging a <code>City</code> column and a <code>Country</code> column with a comma-space separator would produce values like <code>Berlin, Germany</code>. This is useful for creating display labels or composite keys.</p>
+
+<p><strong>Unpivot Columns</strong> is arguably the most transformative reshaping operation, and one of the most important to understand. It converts a <em>wide-format</em> table — where multiple column headers represent categories or time periods — into a <em>tall-format</em> (also called normalized or long-format) table, which has one row per observation. Consider this example of a wide-format sales table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>January</th>
+      <th>February</th>
+      <th>March</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget A</td>
+      <td>1200</td>
+      <td>1500</td>
+      <td>1100</td>
+    </tr>
+    <tr>
+      <td>Widget B</td>
+      <td>800</td>
+      <td>950</td>
+      <td>870</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this layout, the month names are column headers, which makes it visually readable but analytically rigid — you cannot easily filter by month, and a pivot table cannot group or sum across months as a dimension. After selecting the January, February, and March columns and applying <em>Unpivot Columns</em>, the result becomes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Attribute</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget A</td>
+      <td>January</td>
+      <td>1200</td>
+    </tr>
+    <tr>
+      <td>Widget A</td>
+      <td>February</td>
+      <td>1500</td>
+    </tr>
+    <tr>
+      <td>Widget A</td>
+      <td>March</td>
+      <td>1100</td>
+    </tr>
+    <tr>
+      <td>Widget B</td>
+      <td>January</td>
+      <td>800</td>
+    </tr>
+    <tr>
+      <td>Widget B</td>
+      <td>February</td>
+      <td>950</td>
+    </tr>
+    <tr>
+      <td>Widget B</td>
+      <td>March</td>
+      <td>870</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now the month is a proper data dimension in the <code>Attribute</code> column (which you would rename to <code>Month</code>), and the sales figure is consistently in the <code>Value</code> column (renamed to <code>Sales</code>). This tall-format table is exactly what a pivot table needs to slice and dice sales by product and by month simultaneously.</p>
+
+<p><strong>Pivot Column</strong> is the reverse operation: it takes a column of unique values and turns each distinct value into its own column header, populating each new column with an aggregated value from another column. This is useful for creating summary views inside Power Query itself, though most analysts use pivot tables in Excel for this purpose and reserve Power Query's Pivot Column for specific structural transformations mid-query.</p>
+
+<p><strong>Changing Data Types and Formatting Values</strong></p>
+
+<p>Every column in Power Query has a data type, indicated by an icon in the column header — an <em>ABC</em> icon for text, <em>123</em> for whole numbers, a calendar icon for dates, and so on. Setting the correct data type is not optional: it is foundational to everything else working correctly.</p>
+
+<p>To change a column's type, click the type icon at the top left of the column header and select from the list: <em>Whole Number</em>, <em>Decimal Number</em>, <em>Text</em>, <em>Date</em>, <em>Date/Time</em>, <em>Date/Time/Timezone</em>, <em>Duration</em>, <em>True/False</em> (Boolean), or <em>Binary</em>. When you import a CSV file, Power Query will attempt to auto-detect types in an automatically inserted "Changed Type" step, but this auto-detection is not always correct and should always be verified. A column of product codes like <code>00145</code> might be incorrectly inferred as a Whole Number (losing the leading zeros) when it should remain Text.</p>
+
+<p>Date columns deserve special attention. A column of dates stored as text (for example, the string <code>"2024-03-15"</code>) looks like a date but is not one. Calculations, sorting, and time-intelligence functions in pivot tables will all fail or produce incorrect results unless the column is typed as <em>Date</em> or <em>Date/Time</em>. Once correctly typed, Excel pivot tables can group dates by Year, Quarter, Month, and Day automatically, and Power BI's time-intelligence DAX functions will work as expected.</p>
+
+<p>Beyond types, the <strong>Format</strong> options under the Transform tab let you standardize the content of text columns:</p>
+
+<ul>
+  <li><strong>Trim:</strong> Removes leading and trailing spaces. This is essential when text has been entered or exported with inconsistent spacing, because <code>"London"</code> and <code>" London"</code> will be treated as two different values in a pivot table.</li>
+  <li><strong>Clean:</strong> Removes non-printable characters — invisible characters that sometimes appear in data exported from legacy systems and that can cause lookups and comparisons to silently fail.</li>
+  <li><strong>Uppercase / Lowercase / Capitalize Each Word:</strong> Standardizes casing so that <code>"SMITH"</code>, <code>"smith"</code>, and <code>"Smith"</code> all become the same value. This is particularly important for joining tables on name fields, where inconsistent casing would cause matches to fail.</li>
+</ul>
+
+<p><strong>Adding Custom and Conditional Columns</strong></p>
+
+<p>Sometimes the columns that exist in your source data are not sufficient — you need to derive new values from them. Power Query provides two primary ways to add calculated columns without touching the source data.</p>
+
+<p><strong>Custom Column</strong> (accessed via <em>Add Column &gt; Custom Column</em>) opens a dialog where you write an M language expression. The result of the expression becomes the value for that column in every row. For example, to calculate a total price from a <code>Quantity</code> column and a <code>UnitPrice</code> column, your expression would be:</p>
+
+<pre><code>[Quantity] * [UnitPrice]</code></pre>
+
+<p>Column names are referenced in square brackets. You can also write more complex expressions — for instance, to concatenate a first name and last name with a space:</p>
+
+<pre><code>[FirstName] &amp; " " &amp; [LastName]</code></pre>
+
+<p>Or to calculate a discounted price conditionally, using M's <code>if</code> expression directly in the custom column formula:</p>
+
+<pre><code>if [Quantity] >= 100 then [UnitPrice] * 0.9 else [UnitPrice]</code></pre>
+
+<p><strong>Conditional Column</strong> (accessed via <em>Add Column &gt; Conditional Column</em>) provides a point-and-click interface for building if-then-else logic without writing M code. You define one or more conditions — for example, <em>if [Region] equals "North" then "Northern Division"</em> — and specify what value to return when each condition is met and what default to return otherwise. This is functionally equivalent to Excel's nested IF formula, but applied across the entire dataset automatically through Power Query rather than needing to be dragged down through rows on a worksheet.</p>
+
+<p>The key advantage of both approaches is <strong>automatic refresh coverage</strong>. Because the column logic lives inside the query, it is recalculated across the entire dataset every time the query refreshes — including any new rows that have been added to the source since the last refresh. Compare this to a worksheet formula in column H that you have to remember to copy down to row 5000 every time you get new data: Power Query eliminates that manual step entirely and removes the risk of a formula being missing from some rows.</p>
+
+<p><strong>Refreshing Queries and Automating Data Preparation</strong></p>
+
+<p>A query that you have meticulously built and configured is only as valuable as its ability to stay current. Power Query's refresh mechanism is what transforms a one-time data cleaning exercise into a repeatable, automated data pipeline.</p>
+
+<p>To manually refresh a query or all queries in a workbook, navigate to the <em>Data</em> tab in Excel and click <em>Refresh</em> (for the selected query) or <em>Refresh All</em> (to refresh every query and connection in the workbook simultaneously). Power Query re-reads the data source(s), re-applies every step in the Applied Steps sequence, and delivers the updated, transformed result to its output destination — either a worksheet table or the Excel Data Model.</p>
+
+<p>For workbooks that need to stay up to date without manual intervention, you can configure <strong>automatic refresh on open</strong>. Right-click a query in the <em>Queries &amp; Connections</em> pane and select <em>Properties</em>. Under the <em>Usage</em> tab, check <em>Refresh data when opening the file</em>. From that point on, every time the workbook is opened, Power Query will automatically re-read and re-transform the source data. This is ideal for daily dashboards where the underlying CSV or database records are updated overnight — the analyst simply opens the workbook each morning and sees fresh data.</p>
+
+<p>A common concern with automated pipelines is <strong>schema changes in the source</strong> — situations where the source data structure changes, such as a new column being added to a database export, a column being renamed, or a file being saved in a slightly different format. When this happens, Power Query will often display errors in the Applied Steps pane pointing to the step where the schema assumption broke down. Because the query's logic is transparent and editable step by step, you can navigate to the problematic step, update it to reflect the new structure, and restore the query to working order without rebuilding it from scratch. For example, if a column called <code>CustomerName</code> is renamed <code>Client_Name</code> in the source, you can edit the specific step in the formula bar to reference the new name rather than recreating all the downstream transformations that depend on it.</p>
+
+<p>Understanding this refresh and maintenance model positions Power Query not just as a cleanup tool, but as the foundation of a robust, low-maintenance data preparation layer — one that handles the messy, repetitive work of turning raw source data into analysis-ready datasets automatically, every time.</p>
+        <div class="notes"><strong>Notes</strong>This topic provides comprehensive coverage of all listed subtopics. The wide-to-tall unpivot transformation is illustrated with before/after HTML tables to make the concept concrete. M language code examples are kept simple and accessible while demonstrating real use cases. The refresh and automation section emphasizes practical business workflow benefits to reinforce why these capabilities matter beyond technical correctness.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

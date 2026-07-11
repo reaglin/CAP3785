@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Linear Regression</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Simple Linear Regression</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Simple Linear Regression</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Simple linear regression is one of the most foundational and widely used techniques in statistics and data analysis. Its core purpose is to model and quantify the relationship between a single predictor variable, conventionally called <strong>X</strong>, and a continuous outcome variable, conventionally called <strong>Y</strong>. Rather than merely describing how two variables move together (as correlation does), simple linear regression goes a step further by fitting a specific mathematical equation that allows us to understand the direction and magnitude of the relationship, assess how well X explains the variation in Y, and ultimately make predictions about Y for given values of X.</p>
+
+<p>The technique rests on a deceptively simple idea: if we believe the relationship between X and Y is approximately straight-line in nature, we can summarize that relationship with a line equation, estimate its parameters from our data, and then use that line for inference and prediction. What makes regression especially powerful is that it gives us a principled, mathematically optimal way to draw that line — not by eye, but by minimizing prediction error — and it comes equipped with a rich set of diagnostic and inferential tools.</p>
+
+<p><strong>What Is Simple Linear Regression?</strong></p>
+
+<p>The formal model is written as:</p>
+
+<pre><code>Y = β₀ + β₁X + ε</code></pre>
+
+<p>Every component of this equation carries specific meaning. <strong>Y</strong> is the response or dependent variable — the quantity we are trying to understand or predict. <strong>X</strong> is the predictor or independent variable — the quantity we believe carries information about Y. <strong>β₀</strong> is the <em>intercept</em>, representing the expected value of Y when X equals zero. <strong>β₁</strong> is the <em>slope</em>, representing how much Y is expected to change for every one-unit increase in X. Finally, <strong>ε</strong> (epsilon) is the <em>error term</em> — a catch-all for all the variability in Y that X does not explain.</p>
+
+<p>The intercept β₀ has a literal geometric interpretation: it is the point where the regression line crosses the Y-axis (i.e., where X = 0). In some practical contexts this value is directly interpretable — for example, if X is years of experience and Y is salary, the intercept would theoretically represent the salary of someone with zero years of experience. In other contexts the intercept lies outside the range of sensible X values and is best treated as a mathematical anchor rather than a meaningful quantity in itself.</p>
+
+<p>The slope β₁ is usually the more interesting parameter. A positive β₁ means Y tends to increase as X increases; a negative β₁ means Y tends to decrease. The magnitude tells us how steep this relationship is. If β₁ = 3.5, for instance, each additional unit of X is associated with an average increase of 3.5 units in Y.</p>
+
+<p>The error term ε is critical and often underappreciated. No real-world relationship is perfectly linear, and even if the underlying process were linear, measurement imprecision and omitted variables would still introduce scatter around any fitted line. The error term formally acknowledges this reality. It is assumed to be a random variable with a mean of zero (so the model is correct on average), and it obeys several other assumptions discussed in detail later. The entire framework of inference — hypothesis tests, confidence intervals, and prediction intervals — rests on assumptions about ε.</p>
+
+<p>Simple linear regression is explicitly distinguished from <strong>multiple linear regression</strong> by the number of predictors: simple regression uses exactly one X. This constraint makes the model easier to visualize (as a line in two dimensions) and easier to teach, but it also means the model can only capture the linear effect of one variable at a time. Multiple regression extends the framework to two or more predictors, but the core logic of coefficient estimation, model fit assessment, and significance testing carries over directly.</p>
+
+<p><strong>Estimating Regression Coefficients</strong></p>
+
+<p>In practice, we do not know the true population parameters β₀ and β₁. We estimate them from sample data, producing estimates denoted <strong>β̂₀</strong> and <strong>β̂₁</strong> (read "beta-hat zero" and "beta-hat one"). The standard method of estimation is <em>ordinary least squares</em> (OLS), which chooses the line that minimizes the sum of the squared vertical distances between each observed data point and the fitted line.</p>
+
+<p>The least-squares formulas are:</p>
+
+<pre><code>β̂₁ = Cov(X, Y) / Var(X) = Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] / Σ[(Xᵢ − X̄)²]
+
+β̂₀ = Ȳ − β̂₁ · X̄</code></pre>
+
+<p>The slope estimate β̂₁ is the ratio of the covariance of X and Y to the variance of X. Intuitively, the covariance in the numerator captures how X and Y vary together — it is large and positive when high X values tend to pair with high Y values, large and negative when high X values pair with low Y values, and near zero when there is no systematic pattern. The variance of X in the denominator scales this by how spread out the X values are. A wider spread in X gives us more leverage to pin down the slope precisely, which is why experiments that deliberately vary X over a wide range often produce more precise slope estimates than observational studies where X varies only narrowly.</p>
+
+<p>Once β̂₁ is determined, the intercept β̂₀ follows from a key geometric fact: the least-squares line <em>always passes through the point (X̄, Ȳ)</em> — the joint mean of the two variables. This is a mathematical consequence of the OLS criterion and is worth remembering as a built-in check: if you plug X = X̄ into your fitted equation, you should get exactly Ȳ.</p>
+
+<p>Consider a concrete example. Suppose we have data on study hours (X) and exam scores (Y) for five students:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Study Hours (X)</th>
+      <th>Exam Score (Y)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>1</td><td>52</td></tr>
+    <tr><td>2</td><td>2</td><td>58</td></tr>
+    <tr><td>3</td><td>3</td><td>65</td></tr>
+    <tr><td>4</td><td>4</td><td>71</td></tr>
+    <tr><td>5</td><td>5</td><td>79</td></tr>
+  </tbody>
+</table>
+
+<p>Here X̄ = 3, Ȳ = 65. Computing the sums needed for the slope:</p>
+
+<pre><code>Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] = (−2)(−13) + (−1)(−7) + (0)(0) + (1)(6) + (2)(14)
+                       = 26 + 7 + 0 + 6 + 28 = 67
+
+Σ[(Xᵢ − X̄)²] = 4 + 1 + 0 + 1 + 4 = 10
+
+β̂₁ = 67 / 10 = 6.7
+
+β̂₀ = 65 − 6.7 × 3 = 65 − 20.1 = 44.9</code></pre>
+
+<p>The fitted line is therefore: <strong>Ŷ = 44.9 + 6.7X</strong>. This tells us that each additional hour of study is associated with an average increase of 6.7 points on the exam, and that a student who studied zero hours would be predicted to score about 44.9 points (though we should be cautious about this interpretation since zero hours may be outside the practical range of data).</p>
+
+<p>The magnitude of β̂₁ signals the strength of the linear effect. If β̂₁ were 0.3 instead of 6.7, we would conclude that study hours have only a weak influence on exam scores (or that there is a lot of noise in the data). Conversely, β̂₁ = 20 would suggest a very steep, practically important relationship.</p>
+
+<p><strong>Assessing Model Fit with R²</strong></p>
+
+<p>Knowing that a slope estimate is nonzero is useful, but it does not immediately tell us whether the model does a good job of explaining variation in Y. For that, we turn to the <strong>coefficient of determination, R²</strong> (R-squared).</p>
+
+<p>R² is built on a decomposition of variability. We define three key sums of squares:</p>
+
+<pre><code>SS_tot = Σ(Yᵢ − Ȳ)²      — Total sum of squares: total variability in Y
+SS_res = Σ(Yᵢ − Ŷᵢ)²     — Residual sum of squares: variability unexplained by the model
+SS_reg = Σ(Ŷᵢ − Ȳ)²      — Regression sum of squares: variability explained by the model
+
+SS_tot = SS_reg + SS_res  — The fundamental decomposition</code></pre>
+
+<p>R² is then defined as:</p>
+
+<pre><code>R² = SS_reg / SS_tot = 1 − (SS_res / SS_tot)</code></pre>
+
+<p>It represents the proportion of the total variability in Y that is accounted for by the linear relationship with X. R² always lies between 0 and 1. An R² of 0 means the regression line explains none of the variation in Y — the predictor is completely uninformative. An R² of 1 means all the variation in Y is perfectly explained — all data points lie exactly on the line, with no scatter at all. In practice, R² values in the range 0.7 to 0.9 are often considered good in many applied fields, though what constitutes "good" is strongly context-dependent. Physical science experiments might routinely achieve R² > 0.99, while behavioral or social science data might be well-modeled with R² of 0.3 or 0.4.</p>
+
+<p>An especially elegant property of simple linear regression (but not multiple regression) is that R² equals the square of the Pearson correlation coefficient r between X and Y:</p>
+
+<pre><code>R² = r²</code></pre>
+
+<p>This means that if the correlation between study hours and exam scores is r = 0.95, the regression of exam scores on study hours will have R² = 0.9025 — study hours explain about 90% of the variance in exam scores. This relationship holds only when there is a single predictor; once a second predictor is added, R² no longer equals the square of any single pairwise correlation.</p>
+
+<p>Despite its popularity, R² should never be interpreted in isolation. A high R² can coexist with serious violations of model assumptions, and a low R² does not necessarily mean the model is useless — a statistically significant slope with modest R² still provides genuine predictive information. Always examine residual plots and significance tests alongside R² for a complete assessment of model adequacy. It is also worth noting that R² can always be made larger by adding more predictors, which is why <em>adjusted R²</em> is preferred in multiple regression contexts, but in simple linear regression with exactly one predictor, plain R² is the standard summary.</p>
+
+<p><strong>Testing the Statistical Significance of the Slope</strong></p>
+
+<p>Even when β̂₁ appears nonzero in our sample, we must ask: could this be a fluke of sampling? If the true population slope β₁ were actually zero, would we still sometimes observe a nonzero β̂₁ just by chance? The answer is yes — random sampling variation can produce apparent slopes even when no true relationship exists. Hypothesis testing formalizes this question.</p>
+
+<p>The hypotheses are:</p>
+
+<pre><code>H₀: β₁ = 0   (no linear relationship between X and Y)
+H₁: β₁ ≠ 0   (a linear relationship exists)</code></pre>
+
+<p>Under H₀, the test statistic follows a t-distribution:</p>
+
+<pre><code>t = β̂₁ / SE(β̂₁)</code></pre>
+
+<p>where SE(β̂₁) is the standard error of the slope estimate, given by:</p>
+
+<pre><code>SE(β̂₁) = √[MSE / Σ(Xᵢ − X̄)²]
+
+MSE = SS_res / (n − 2)   — Mean squared error, the variance estimate of ε</code></pre>
+
+<p>The test statistic is compared against a t-distribution with <strong>n − 2 degrees of freedom</strong>. We lose two degrees of freedom because we estimated two parameters (β₀ and β₁) from the data. If the absolute value of the computed t-statistic exceeds the critical value at our chosen significance level (commonly α = 0.05), we reject H₀ and conclude that the slope is statistically significantly different from zero.</p>
+
+<p>A statistically significant slope tells us that the observed relationship between X and Y is unlikely to be a product of random sampling variation alone. It does not, by itself, tell us that the relationship is large or practically important — a tiny but precisely estimated slope can be highly significant in a large sample. Always consider both statistical significance and effect size (the magnitude of β̂₁ and R²) together.</p>
+
+<p>Complementing the hypothesis test, a <strong>confidence interval</strong> for β₁ expresses the range of plausible values for the true slope:</p>
+
+<pre><code>β̂₁ ± t* · SE(β̂₁)</code></pre>
+
+<p>where t* is the critical value from the t-distribution with n − 2 degrees of freedom at the desired confidence level (e.g., 1.96 for 95% CI in large samples). A 95% confidence interval that does not include zero is equivalent to rejecting H₀ at α = 0.05, but the interval is more informative because it shows the magnitude and direction of plausible slopes, not just a binary reject/fail-to-reject conclusion. For example, a 95% CI of (5.1, 8.3) for β₁ tells us both that the slope is significantly positive and that it is likely somewhere between 5.1 and 8.3 — a practically useful range.</p>
+
+<p><strong>Making Predictions from the Fitted Model</strong></p>
+
+<p>One of the most practical uses of a fitted regression model is prediction. Once we have estimated β̂₀ and β̂₁, we can substitute any value of X into the fitted equation to obtain a predicted value of Y:</p>
+
+<pre><code>Ŷ = β̂₀ + β̂₁X</code></pre>
+
+<p>Returning to our study hours example, if a student studies 3.5 hours, the predicted exam score is:</p>
+
+<pre><code>Ŷ = 44.9 + 6.7 × 3.5 = 44.9 + 23.45 = 68.35</code></pre>
+
+<p>We predict this student will score about 68 points. This is a <em>point prediction</em> — a single number — but every prediction carries uncertainty, and we need intervals to express that uncertainty honestly.</p>
+
+<p>Two types of intervals are important and frequently confused:</p>
+
+<ul>
+  <li><strong>Confidence interval for the mean response:</strong> This expresses uncertainty about the <em>average</em> value of Y for all individuals with a given X value. It answers: "What is the mean exam score for all students who study exactly 3.5 hours?" This interval is narrower because averaging over many observations reduces random variation.</li>
+  <li><strong>Prediction interval for a single new observation:</strong> This expresses uncertainty about the Y value for one specific new individual with a given X. It answers: "What score will <em>this particular student</em> who studies 3.5 hours actually get?" This interval is wider because it must account both for uncertainty in the mean and for the individual variability around that mean (i.e., the error term ε).</li>
+</ul>
+
+<p>Both intervals are widest at the extremes of the X range and narrowest at X = X̄, reflecting the fact that our line is most precisely anchored at the mean. Both intervals can be expressed as:</p>
+
+<pre><code>Ŷ ± t* · SE_appropriate</code></pre>
+
+<p>where SE_appropriate differs depending on whether you want a confidence interval or a prediction interval (the prediction interval's SE includes an extra term for the individual error variance).</p>
+
+<p>A critical distinction in prediction is between <strong>interpolation</strong> and <strong>extrapolation</strong>. Interpolation means predicting Y for X values within the range of the observed data — these predictions are supported by the data and are generally reliable. Extrapolation means predicting Y for X values outside that range — these predictions assume the linear relationship holds beyond what has been observed, which may or may not be true. For instance, predicting exam scores for a student who studies 20 hours based on data collected from students studying 1 to 5 hours would be extrapolation; the relationship might well become nonlinear at extreme values. Extrapolation should always be flagged and approached with substantial caution.</p>
+
+<p>After fitting the model, <strong>residuals</strong> — defined as eᵢ = Yᵢ − Ŷᵢ — should be examined carefully. Residuals are the observed prediction errors. They are the data's way of telling us where the model is doing well and where it is not. Patterns in residuals (such as a curve, a funnel, or clusters) signal violations of model assumptions and indicate that a more complex model or a data transformation may be needed. A well-fitting model will produce residuals that look like random scatter with no discernible structure.</p>
+
+<p><strong>Checking Regression Assumptions</strong></p>
+
+<p>Simple linear regression relies on four key assumptions about the error term ε. Violations of these assumptions can compromise the validity of coefficient estimates, hypothesis tests, and predictions. It is essential to check them rather than assume they hold automatically.</p>
+
+<ul>
+  <li><strong>Linearity:</strong> The relationship between X and Y must be linear — that is, the expected value of Y given X must follow a straight line. If the true relationship is curved, the straight-line model will systematically over- or under-predict in different regions of X, and the slope estimate will be biased. This assumption is most easily checked by plotting residuals against fitted values (Ŷ) or against X. A well-behaved plot shows residuals scattered randomly around zero with no pattern. A curved or U-shaped pattern in this plot is a clear signal of nonlinearity and suggests adding a quadratic term or transforming X or Y.</li>
+  <li><strong>Independence:</strong> Each observation must be independent of the others — knowing one residual should tell us nothing about any other. This assumption is primarily satisfied through proper study design: random sampling from a population, or random assignment in an experiment. It can be violated in time-series data (where observations close together in time are correlated), in clustered data (e.g., students nested within classrooms), or in spatial data. Independence violations are often not detectable from residual plots alone; they require knowledge of the data collection process and sometimes specialized tests like the Durbin-Watson test for autocorrelation.</li>
+  <li><strong>Homoscedasticity (equal variance):</strong> The variance of the residuals must be constant across all values of X. This property — homoscedasticity — ensures that the model is equally reliable for all values of X and that the OLS standard errors are valid. A classic sign of violation (called <em>heteroscedasticity</em>) is a fan-shaped or trumpet-shaped residual plot, where residuals become increasingly spread out (or increasingly compressed) as Ŷ increases. Heteroscedasticity does not bias the slope estimate but inflates or deflates standard errors, making hypothesis tests and confidence intervals unreliable. Common remedies include transforming Y (e.g., using log Y), weighted least squares, or robust standard errors.</li>
+  <li><strong>Normality of residuals:</strong> The error terms ε should be approximately normally distributed. This assumption is needed for the t-statistics and F-statistics used in inference to follow their stated distributions exactly. The assumption is most often checked using a <em>Q-Q plot</em> (quantile-quantile plot) of the residuals: if the residuals are normally distributed, the points will fall approximately along a straight diagonal line. Heavy tails, S-shaped curves, or strong skewness in the Q-Q plot indicate departures from normality. It is worth noting that for large samples, the Central Limit Theorem provides some robustness — inference based on OLS is approximately valid even with modest non-normality, as long as no extreme outliers are driving the results.</li>
+</ul>
+
+<p>The four assumptions are sometimes summarized by the acronym <strong>LINE</strong>: Linearity, Independence, Normal errors, Equal variance. Checking these assumptions is not a bureaucratic formality — it is an essential part of building a trustworthy model. A regression analysis that reports only a coefficient and a p-value, without any diagnostic checks, may be presenting conclusions that rest on a flawed foundation.</p>
+
+<p>The following table summarizes the key components of simple linear regression, what each represents, how it is computed or checked, and what its values imply:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Symbol / Term</th>
+      <th>How It Is Obtained</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Slope estimate</td>
+      <td>β̂₁</td>
+      <td>Cov(X,Y) / Var(X)</td>
+      <td>Change in mean Y per one-unit increase in X</td>
+    </tr>
+    <tr>
+      <td>Intercept estimate</td>
+      <td>β̂₀</td>
+      <td>Ȳ − β̂₁ · X̄</td>
+      <td>Predicted Y when X = 0</td>
+    </tr>
+    <tr>
+      <td>Coefficient of determination</td>
+      <td>R²</td>
+      <td>1 − SS_res / SS_tot</td>
+      <td>Proportion of variance in Y explained by X</td>
+    </tr>
+    <tr>
+      <td>Residual</td>
+      <td>eᵢ = Yᵢ − Ŷᵢ</td>
+      <td>Observed minus predicted Y</td>
+      <td>Individual prediction error; used for diagnostics</td>
+    </tr>
+    <tr>
+      <td>t-statistic for slope</td>
+      <td>t = β̂₁ / SE(β̂₁)</td>
+      <td>Compared to t-distribution, df = n−2</td>
+      <td>Tests whether true slope differs from zero</td>
+    </tr>
+    <tr>
+      <td>Confidence interval for slope</td>
+      <td>β̂₁ ± t* · SE(β̂₁)</td>
+      <td>Constructed from t-distribution</td>
+      <td>Range of plausible values for true β₁</td>
+    </tr>
+    <tr>
+      <td>Prediction interval</td>
+      <td>Ŷ ± t* · SE_pred</td>
+      <td>Wider than CI for mean</td>
+      <td>Uncertainty around a single new observation's Y</td>
+    </tr>
+    <tr>
+      <td>Linearity check</td>
+      <td>Residuals vs. fitted plot</td>
+      <td>Visual inspection</td>
+      <td>Curved pattern signals nonlinearity</td>
+    </tr>
+    <tr>
+      <td>Homoscedasticity check</td>
+      <td>Residuals vs. fitted plot</td>
+      <td>Visual inspection</td>
+      <td>Fan shape signals unequal variance</td>
+    </tr>
+    <tr>
+      <td>Normality check</td>
+      <td>Q-Q plot of residuals</td>
+      <td>Visual inspection</td>
+      <td>Deviations from diagonal line signal non-normality</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Simple linear regression, taken as a whole, is far more than a formula for drawing a line through data. It is an integrated framework for quantifying relationships, assessing evidence, making principled predictions, and critically evaluating the assumptions that underpin those activities. Mastery of simple linear regression — including its limitations and the discipline of checking assumptions — provides a robust foundation for understanding more advanced regression methods and statistical modeling more broadly.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: the model equation and its components, OLS coefficient estimation with a worked numeric example, R&#178; and its relationship to the Pearson correlation, hypothesis testing and confidence intervals for the slope, interpolation vs. extrapolation, prediction vs. confidence intervals, residuals, and all four LINE assumptions with diagnostic approaches.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

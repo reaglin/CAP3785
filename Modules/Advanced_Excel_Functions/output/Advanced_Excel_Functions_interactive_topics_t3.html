@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Built-in Statistical Functions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Built-in Statistical Functions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Built-in Statistical Functions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Descriptive statistics form the backbone of any data analysis workflow, and spreadsheet applications like Excel provide a powerful suite of built-in functions that make computing these measures fast, accurate, and repeatable. Rather than manually calculating sums, counts, and squared deviations, analysts can leverage functions such as <strong>AVERAGE</strong>, <strong>MEDIAN</strong>, <strong>STDEV.S</strong>, <strong>VAR.P</strong>, <strong>LARGE</strong>, and <strong>COUNTIF</strong> to instantly summarize the central tendency, spread, and shape of any dataset. Understanding not just how to use these functions, but <em>why</em> each one exists and when to choose one over another, is essential for producing statistically sound and meaningful analyses. This topic covers each major category of built-in statistical function in depth, explains the mathematical logic behind them, and demonstrates their application with concrete examples.</p>
+
+<p><strong>AVERAGE and AVERAGEIF Functions</strong></p>
+
+<p>The <strong>AVERAGE</strong> function computes the arithmetic mean of a set of values by summing all numeric entries and dividing by the count of those entries. A critically important behavioral detail is that <strong>AVERAGE silently ignores empty cells and cells containing text</strong>. This is not always obvious to new users. If a column contains 10 rows but two are blank and one contains the label "N/A", AVERAGE will divide the sum of the remaining seven numeric values by 7, not by 10. This can produce a misleading result if missing data is not intentional. Always audit your data for blanks and non-numeric entries before relying on AVERAGE.</p>
+
+<p>Consider a simple example. Suppose column A contains the values 80, 90, "", 70, and "absent" (where "" is an empty cell). The formula <code>=AVERAGE(A1:A5)</code> returns <code>(80+90+70)/3 = 80</code>, not <code>240/5 = 48</code>. The function quietly excluded the non-numeric entries.</p>
+
+<p><strong>AVERAGEIF</strong> extends the basic average by adding a condition. It requires exactly three arguments: the <em>criteria range</em> (the range checked against the condition), the <em>condition</em> itself, and the <em>average range</em> (the values to average when the condition is met). The syntax is:</p>
+
+<pre><code>=AVERAGEIF(criteria_range, criteria, [average_range])</code></pre>
+
+<p>For example, imagine a sales table where column A contains region names ("North", "South", "East") and column B contains sales figures. To find the average sales for the North region only:</p>
+
+<pre><code>=AVERAGEIF(A2:A100, "North", B2:B100)</code></pre>
+
+<p>If the <em>average_range</em> argument is omitted, AVERAGEIF averages the values in the criteria range itself that meet the condition — useful when the range you are filtering and the range you are averaging are the same column.</p>
+
+<p><strong>AVERAGEIFS</strong> generalizes this further by accepting multiple criteria pairs, making it possible to apply two or more filters simultaneously. The syntax is:</p>
+
+<pre><code>=AVERAGEIFS(average_range, criteria_range1, criteria1, criteria_range2, criteria2, ...)</code></pre>
+
+<p>For instance, to find average sales in the North region specifically during Q1:</p>
+
+<pre><code>=AVERAGEIFS(B2:B100, A2:A100, "North", C2:C100, "Q1")</code></pre>
+
+<p>Note that in AVERAGEIFS, the <em>average_range</em> comes <strong>first</strong>, which is the reverse of the argument order used in SUMIFS. These conditional averaging functions are indispensable for segmented analysis — computing group means within a larger dataset without manually filtering the data first.</p>
+
+<p><strong>MEDIAN and MODE Functions</strong></p>
+
+<p>While the mean is the most familiar measure of central tendency, it has a significant vulnerability: it is strongly influenced by extreme values (outliers). The <strong>MEDIAN</strong> represents the middle value when all data points are sorted in order — or the average of the two middle values when the dataset has an even count. Because it is a positional measure rather than a mathematical average, the median is <em>resistant to outliers</em>.</p>
+
+<p>Consider household income data for a neighborhood. If nine households earn between $40,000 and $80,000 and one household earns $2,000,000, the mean income might be over $230,000 — a figure that does not represent any typical resident. The median, however, would fall somewhere in the $40,000–$80,000 range, far more representative of the typical household. In skewed distributions, the median is often the preferred measure of center.</p>
+
+<pre><code>=MEDIAN(A2:A100)</code></pre>
+
+<p>The <strong>MODE</strong> identifies the most frequently occurring value in a dataset. Excel offers two modern variants. <strong>MODE.SNGL</strong> returns a single mode — the one most common value. If there are ties (multiple values appear equally often), it returns the one that appears first in the range. <strong>MODE.MULT</strong> is an array function that returns all tied modes simultaneously, which is essential when the distribution is genuinely multimodal.</p>
+
+<pre><code>=MODE.SNGL(A2:A100)
+=MODE.MULT(A2:A100)   ' Enter with Ctrl+Shift+Enter in older Excel versions</code></pre>
+
+<p>The legacy <code>=MODE()</code> function still works but is equivalent to MODE.SNGL and is considered deprecated in favor of the newer functions.</p>
+
+<p>The relationship between mean, median, and mode reveals the shape of a distribution. In a perfectly <em>symmetric, bell-shaped distribution</em>, all three measures are approximately equal. When the mean is pulled higher than the median, the distribution is said to be <em>right-skewed</em> (positively skewed), meaning a tail extends to the right — common in income, wealth, and wait-time data. When the mean falls below the median, the distribution is <em>left-skewed</em> (negatively skewed). Checking these three statistics together is a quick and effective way to assess distributional shape without visualizing the data.</p>
+
+<p><strong>Standard Deviation Functions: STDEV.S and STDEV.P</strong></p>
+
+<p>Standard deviation measures how spread out values are around the mean. A low standard deviation means values cluster tightly near the mean; a high standard deviation means they are widely dispersed. However, the <em>formula used to compute it</em> depends critically on whether your dataset is a <strong>sample</strong> (a subset drawn from a larger population) or the <strong>entire population</strong>.</p>
+
+<p><strong>STDEV.S</strong> — the sample standard deviation — divides the sum of squared deviations from the mean by <em>(n − 1)</em> rather than <em>n</em>. This adjustment, known as <em>Bessel's correction</em>, compensates for the fact that a sample tends to underestimate the true spread of the population. When you measure a sample, the deviations are computed relative to the <em>sample</em> mean, not the true population mean, which introduces a slight downward bias. Dividing by (n − 1) corrects for this bias, producing an unbiased estimator of the population standard deviation.</p>
+
+<pre><code>=STDEV.S(B2:B50)   ' Use when your data is a sample from a larger population</code></pre>
+
+<p><strong>STDEV.P</strong> — the population standard deviation — divides by <em>n</em> directly. It is mathematically correct only when your dataset <em>is</em> the complete population — meaning there is no larger group from which it was drawn. For example, if you have the exam scores for every student in one specific class (and you care only about that class, not students in general), STDEV.P is appropriate.</p>
+
+<pre><code>=STDEV.P(B2:B50)   ' Use only when your data IS the entire population</code></pre>
+
+<p>In practice, the difference between STDEV.S and STDEV.P becomes negligible for large datasets (n &gt; 100), but for small samples the difference can be meaningful. The legacy <code>=STDEV()</code> function is equivalent to STDEV.S and remains functional but is superseded by the explicitly named modern functions.</p>
+
+<p>To interpret standard deviation practically: if a dataset of student test scores has a mean of 75 and a standard deviation of 5, roughly 68% of students (assuming a normal distribution) scored between 70 and 80. If the standard deviation were 20, the same rule would place 68% of students between 55 and 95 — a far more dispersed group.</p>
+
+<p><strong>Variance Functions: VAR.S and VAR.P</strong></p>
+
+<p>Variance is simply the <em>square</em> of the standard deviation. It measures the average squared deviation from the mean. <strong>VAR.S</strong> computes sample variance using (n − 1) in the denominator, and <strong>VAR.P</strong> computes population variance using n — exactly parallel to STDEV.S and STDEV.P respectively.</p>
+
+<pre><code>=VAR.S(C2:C100)    ' Sample variance
+=VAR.P(C2:C100)    ' Population variance</code></pre>
+
+<p>Because variance is expressed in <em>squared units</em> of the original data, it is less intuitive for reporting. If your data is in dollars, variance is in dollars-squared, which has no natural real-world interpretation. Standard deviation, being the square root of variance, returns the measure to the original unit scale and is therefore preferred for human-readable summaries. Nevertheless, variance is not merely a stepping stone — it is the foundational quantity in many advanced statistical methods. <strong>Analysis of Variance (ANOVA)</strong> decomposes total variance into components attributable to different sources. <strong>Regression analysis</strong> minimizes the variance of residuals. <strong>Portfolio theory</strong> in finance models risk as variance of returns. Understanding how VAR.S and VAR.P work in Excel prepares analysts to engage meaningfully with these more advanced techniques.</p>
+
+<p>A practical note: the relationship between the functions is exact. <code>=VAR.S(range)</code> is always equal to <code>=STDEV.S(range)^2</code>, and similarly for the population variants. You can verify this relationship in any dataset as a useful sanity check.</p>
+
+<p><strong>MIN, MAX, and LARGE/SMALL Functions</strong></p>
+
+<p><strong>MIN</strong> and <strong>MAX</strong> return the smallest and largest values in a range, respectively. They provide an immediate sense of the <em>total range</em> of the data — the distance from the lowest to the highest observed value — and can flag potential outliers or data entry errors at the extremes.</p>
+
+<pre><code>=MIN(D2:D200)
+=MAX(D2:D200)</code></pre>
+
+<p>The range statistic itself is simply <code>=MAX(range)-MIN(range)</code>, and while easy to compute, it is sensitive to even a single extreme value. This is where <strong>LARGE</strong> and <strong>SMALL</strong> become valuable. <code>LARGE(range, k)</code> returns the <em>k</em>-th largest value in the range, and <code>SMALL(range, k)</code> returns the <em>k</em>-th smallest. These functions allow percentile-style analysis without sorting or rearranging the dataset.</p>
+
+<pre><code>=LARGE(D2:D200, 1)    ' Same as MAX
+=LARGE(D2:D200, 2)    ' Second largest value
+=LARGE(D2:D200, 10)   ' 10th largest value
+=SMALL(D2:D200, 1)    ' Same as MIN
+=SMALL(D2:D200, 5)    ' 5th smallest value</code></pre>
+
+<p>These functions are useful for identifying the top or bottom performers in a dataset. For example, a manager reviewing the top 5 sales representatives can use <code>=LARGE(sales_range, 1)</code> through <code>=LARGE(sales_range, 5)</code> to extract those thresholds instantly. Combined with AVERAGEIF or COUNTIF, they enable targeted conditional analysis (e.g., "how many sales exceeded the 5th largest value?").</p>
+
+<p>LARGE and SMALL also approximate percentiles. For a dataset of 100 values, <code>=LARGE(range, 10)</code> approximates the 90th percentile and <code>=SMALL(range, 25)</code> approximates the 25th percentile (first quartile). While Excel's dedicated PERCENTILE functions are more precise for these purposes, LARGE and SMALL provide fast, intuitive alternatives.</p>
+
+<p>Together, MIN, MAX, LARGE, and SMALL complement AVERAGE and MEDIAN by revealing not just where the center of the data lies but how extreme the tails are. This helps analysts answer questions like: Is the gap between the mean and the maximum suspiciously large? Do the top and bottom 10 values look like genuine data or likely errors?</p>
+
+<p><strong>COUNT, COUNTA, and COUNTIF Functions</strong></p>
+
+<p>Before summarizing data statistically, analysts must understand what they are working with. The <strong>COUNT</strong> function counts cells in a range that contain <em>numeric values only</em>. Text, blanks, logical values (TRUE/FALSE), and errors are all excluded. This makes COUNT ideal for verifying that a column intended to hold numbers actually does — a discrepancy between the expected row count and COUNT's result signals missing or malformed numeric data.</p>
+
+<pre><code>=COUNT(E2:E500)    ' Returns count of numeric cells only</code></pre>
+
+<p><strong>COUNTA</strong> counts <em>any non-empty cell</em>, regardless of data type. It counts numbers, text, dates, logical values, and even cells containing error values like #DIV/0!. Use COUNTA to assess the overall count of records in a column, regardless of type.</p>
+
+<pre><code>=COUNTA(E2:E500)   ' Returns count of all non-empty cells</code></pre>
+
+<p>The difference between COUNT and COUNTA on the same range can reveal data quality issues. If COUNTA returns 480 but COUNT returns 450, there are 30 cells with non-numeric content that may require attention.</p>
+
+<p><strong>COUNTIF</strong> and <strong>COUNTIFS</strong> allow frequency counting based on conditions. COUNTIF takes two arguments — a range and a single criterion — and returns the count of cells meeting that criterion. COUNTIFS extends this to multiple criteria pairs.</p>
+
+<pre><code>=COUNTIF(F2:F500, "Approved")           ' Count cells containing "Approved"
+=COUNTIF(G2:G500, ">1000")              ' Count cells with values greater than 1000
+=COUNTIFS(F2:F500, "Approved", H2:H500, "Q2")  ' Count cells where status is Approved AND quarter is Q2</code></pre>
+
+<p>These functions are the foundation for computing <em>relative frequencies</em> and simple probability estimates directly in Excel. Dividing a COUNTIF result by the total count (using COUNTA or COUNT) gives the proportion of records meeting a condition — a basic empirical probability. For example:</p>
+
+<pre><code>=COUNTIF(F2:F500,"Approved")/COUNTA(F2:F500)</code></pre>
+
+<p>This formula returns the proportion (and probability, under a frequentist interpretation) that a randomly selected record is in the "Approved" category. COUNTIFS similarly supports conditional probability estimates by restricting the denominator to a sub-population.</p>
+
+<p><strong>Interpreting Descriptive Statistics Output</strong></p>
+
+<p>Computing these statistics is only the first step — the real analytical value lies in interpreting them together to form a coherent picture of the dataset. No single statistic tells the whole story, and reading them in isolation can lead to flawed conclusions.</p>
+
+<p>The relationship between the <strong>mean and median</strong> is the most immediate diagnostic. When these two values are close together, the distribution is approximately symmetric. When the mean exceeds the median substantially, the distribution is right-skewed — there are some very high values pulling the mean upward while the median (unaffected by magnitude) remains anchored to the middle. The reverse pattern — mean below median — signals left skew. These comparisons guide the choice of which central tendency measure to report.</p>
+
+<p><strong>Standard deviation and variance</strong> quantify consistency. A low standard deviation relative to the mean (captured formally by the <em>coefficient of variation</em>, computed as <code>=STDEV.S(range)/AVERAGE(range)</code>) indicates that observations are reliably close to the average. A high standard deviation raises questions: Is the process or phenomenon being measured inherently variable? Or are there distinct subgroups within the data that should be analyzed separately?</p>
+
+<p><strong>MIN, MAX, and the LARGE/SMALL values</strong> anchor the interpretation by revealing the extremes. If the mean is 50 and the standard deviation is 8, but MAX returns 200, that single outlier deserves investigation. It may represent a legitimate extreme observation, a data entry error, or evidence that the dataset mixes two different populations. A useful practice is to compare <code>=LARGE(range,1)</code> and <code>=LARGE(range,2)</code> — a dramatic gap between the largest and second-largest values often signals an isolated outlier.</p>
+
+<p>The following table illustrates how a combined reading of descriptive statistics supports interpretation:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Observation</th>
+      <th>Likely Interpretation</th>
+      <th>Recommended Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mean &gt;&gt; Median</td>
+      <td>Right-skewed distribution; high-value outliers present</td>
+      <td>Report median as primary center; investigate extreme values</td>
+    </tr>
+    <tr>
+      <td>Mean ≈ Median</td>
+      <td>Approximately symmetric distribution</td>
+      <td>Mean and standard deviation are appropriate summary measures</td>
+    </tr>
+    <tr>
+      <td>Mean &lt;&lt; Median</td>
+      <td>Left-skewed distribution; low-value outliers present</td>
+      <td>Report median as primary center; review minimum values</td>
+    </tr>
+    <tr>
+      <td>High STDEV relative to mean</td>
+      <td>High variability; possible mixed subgroups</td>
+      <td>Segment data and compute group-level statistics with AVERAGEIFS</td>
+    </tr>
+    <tr>
+      <td>MAX far exceeds LARGE(range,2)</td>
+      <td>Single isolated outlier at the high end</td>
+      <td>Verify data accuracy; consider robust statistics (median, IQR)</td>
+    </tr>
+    <tr>
+      <td>COUNT &lt; COUNTA on same range</td>
+      <td>Non-numeric entries exist; data may be incomplete or miscoded</td>
+      <td>Audit data quality before drawing statistical conclusions</td>
+    </tr>
+    <tr>
+      <td>Multiple modes (MODE.MULT returns array)</td>
+      <td>Bimodal or multimodal distribution; possible subgroups</td>
+      <td>Investigate whether subpopulations should be analyzed separately</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The power of Excel's built-in statistical functions is not in any individual formula but in the <em>integrated picture</em> they collectively provide. A thorough descriptive analysis computes the mean and median together (to assess symmetry), standard deviation alongside the mean (to gauge relative spread), MODE to identify clustering, MIN and MAX alongside LARGE and SMALL (to characterize extremes), and COUNT alongside COUNTA (to verify data integrity). This holistic approach transforms raw numbers into actionable insight and lays the foundation for more sophisticated inferential analysis.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to have students compute these statistics on the same dataset using both the individual functions and Excel&#39;s Data Analysis ToolPak (Descriptive Statistics output) to compare results and reinforce understanding. Emphasize the STDEV.S vs. STDEV.P distinction early, as this is a common source of errors in student work. The COUNT vs. COUNTA comparison is also a useful data-quality exercise when working with real-world messy datasets.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

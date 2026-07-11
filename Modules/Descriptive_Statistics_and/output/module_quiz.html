@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descriptive Statistics and Probability Distributions — Quiz Question Bank</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.5}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+.count{color:#666}
+.q{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:14px 0}
+.qnum{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.qtype{background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 6px;margin-left:6px}
+.qtext{font-weight:600;margin:6px 0}
+ul.opts{margin:6px 0 0 4px}
+ul.opts li{margin:3px 0}
+ul.opts li.correct{color:#137333;font-weight:600}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Descriptive Statistics and Probability Distributions — Quiz Question Bank</h1>
+<p class="count">20 questions</p>
+<div class="q">
+<div class="qnum">Question 1<span class="qtype">MC</span></div>
+<div class="qtext">Given the dataset [4, 8, 6, 5, 3], what is the mean?</div>
+<ul class="opts">
+<li class="correct">5.2  ✓</li>
+<li>5.0</li>
+<li>6.0</li>
+<li>4.8</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 2<span class="qtype">MC</span></div>
+<div class="qtext">What is the median of the dataset [3, 4, 5, 6, 8]?</div>
+<ul class="opts">
+<li class="correct">5  ✓</li>
+<li>5.2</li>
+<li>4.5</li>
+<li>6</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 3<span class="qtype">MC</span></div>
+<div class="qtext">Which statement best describes the sensitivity of the mean to extreme values (outliers)?</div>
+<ul class="opts">
+<li class="correct">The mean is sensitive to outliers and can be skewed by extreme values.  ✓</li>
+<li>The mean is unaffected by outliers because it uses the middle value.</li>
+<li>The mean always equals the median regardless of outliers.</li>
+<li>The mean is less sensitive to outliers than the median.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 4<span class="qtype">MC</span></div>
+<div class="qtext">If the mean of a dataset is greater than the median, what does this indicate about the distribution?</div>
+<ul class="opts">
+<li class="correct">The distribution is likely right-skewed (positive skew).  ✓</li>
+<li>The distribution is likely left-skewed (negative skew).</li>
+<li>The distribution is perfectly symmetric.</li>
+<li>The distribution has no outliers.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 5<span class="qtype">MC</span></div>
+<div class="qtext">Which NumPy function is used to compute the median of an array in Python?</div>
+<ul class="opts">
+<li class="correct">numpy.median()  ✓</li>
+<li>numpy.mean()</li>
+<li>numpy.std()</li>
+<li>numpy.var()</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 6<span class="qtype">MC</span></div>
+<div class="qtext">Why is the median household income typically reported instead of the mean household income?</div>
+<ul class="opts">
+<li class="correct">Because a small number of very high earners inflate the mean, making it unrepresentative.  ✓</li>
+<li>Because the mean cannot be calculated for income data.</li>
+<li>Because the median is always larger than the mean for income data.</li>
+<li>Because income data never contains outliers.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 7<span class="qtype">MC</span></div>
+<div class="qtext">What does variance measure in a dataset?</div>
+<ul class="opts">
+<li class="correct">The average squared difference between each data point and the mean.  ✓</li>
+<li>The difference between the maximum and minimum values.</li>
+<li>The square root of the average deviation from the mean.</li>
+<li>The middle value of the squared dataset.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 8<span class="qtype">MC</span></div>
+<div class="qtext">Why does sample variance use N-1 in the denominator instead of N?</div>
+<ul class="opts">
+<li class="correct">To produce an unbiased estimate of the population variance.  ✓</li>
+<li>To make the calculation easier by reducing the denominator.</li>
+<li>Because sample datasets always have one missing observation.</li>
+<li>To inflate the variance so it is always larger than the standard deviation.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 9<span class="qtype">MC</span></div>
+<div class="qtext">Why is standard deviation often preferred over variance as a measure of spread?</div>
+<ul class="opts">
+<li class="correct">It returns the measure of spread to the original units of the data.  ✓</li>
+<li>It is always a smaller number than the variance.</li>
+<li>It is easier to compute than variance.</li>
+<li>It is not affected by outliers in the dataset.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 10<span class="qtype">MC</span></div>
+<div class="qtext">When using numpy.std() to compute the sample standard deviation, which parameter must be set?</div>
+<ul class="opts">
+<li class="correct">ddof=1  ✓</li>
+<li>ddof=0</li>
+<li>axis=1</li>
+<li>sample=True</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 11<span class="qtype">MC</span></div>
+<div class="qtext">What is the skewness value of a perfectly symmetric distribution, such as the normal distribution?</div>
+<ul class="opts">
+<li class="correct">Zero  ✓</li>
+<li>One</li>
+<li>Negative one</li>
+<li>It depends on the mean.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 12<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following is a classic real-world example of a positively skewed distribution?</div>
+<ul class="opts">
+<li class="correct">Income distribution, where most earn moderate incomes but a few earn very high incomes.  ✓</li>
+<li>Exam scores where most students score very high but a few score very low.</li>
+<li>Heights of adult men, which follow a roughly normal distribution.</li>
+<li>Test scores that cluster tightly around the mean.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 13<span class="qtype">MC</span></div>
+<div class="qtext">Which Python function from the SciPy library is used to compute sample skewness?</div>
+<ul class="opts">
+<li class="correct">scipy.stats.skew()  ✓</li>
+<li>scipy.stats.kurtosis()</li>
+<li>scipy.stats.norm()</li>
+<li>scipy.stats.variance()</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 14<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following is an example of a discrete probability distribution?</div>
+<ul class="opts">
+<li class="correct">The Binomial distribution modeling the number of successes in trials.  ✓</li>
+<li>The distribution of human heights.</li>
+<li>The distribution of temperature readings.</li>
+<li>The distribution of blood pressure measurements.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 15<span class="qtype">MC</span></div>
+<div class="qtext">Which two parameters fully define a normal distribution?</div>
+<ul class="opts">
+<li class="correct">Mean (μ) and standard deviation (σ)  ✓</li>
+<li>Variance and skewness</li>
+<li>Median and range</li>
+<li>Number of trials (n) and probability of success (p)</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 16<span class="qtype">MC</span></div>
+<div class="qtext">According to the empirical rule, approximately what percentage of data falls within two standard deviations of the mean in a normal distribution?</div>
+<ul class="opts">
+<li class="correct">95%  ✓</li>
+<li>68%</li>
+<li>99.7%</li>
+<li>90%</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 17<span class="qtype">MC</span></div>
+<div class="qtext">Which situation would VIOLATE the conditions required to apply the binomial distribution?</div>
+<ul class="opts">
+<li class="correct">Sampling without replacement from a small population.  ✓</li>
+<li>Flipping a fair coin 10 times and counting heads.</li>
+<li>Testing 50 products where each has a known constant defect probability.</li>
+<li>Counting the number of correct answers on a 20-question true/false test with random guessing.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 18<span class="qtype">MC</span></div>
+<div class="qtext">For a binomial distribution with n = 100 trials and p = 0.3, what is the expected number of successes (mean)?</div>
+<ul class="opts">
+<li class="correct">30  ✓</li>
+<li>0.3</li>
+<li>70</li>
+<li>21</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 19<span class="qtype">MC</span></div>
+<div class="qtext">What is a distinctive property of the Poisson distribution regarding its mean and variance?</div>
+<ul class="opts">
+<li class="correct">The mean and variance are both equal to λ.  ✓</li>
+<li>The mean is always greater than the variance.</li>
+<li>The variance is the square root of the mean.</li>
+<li>The mean and variance are both equal to n &#215; p.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 20<span class="qtype">MC</span></div>
+<div class="qtext">Which SciPy function computes the cumulative probability P(X ≤ k) for a Poisson distribution?</div>
+<ul class="opts">
+<li class="correct">scipy.stats.poisson.cdf(k, mu=λ)  ✓</li>
+<li>scipy.stats.poisson.pmf(k, mu=λ)</li>
+<li>scipy.stats.norm.cdf(k, mu=λ)</li>
+<li>scipy.stats.binom.cdf(k, n, p)</li>
+</ul>
+</div>
+</body>
+</html>

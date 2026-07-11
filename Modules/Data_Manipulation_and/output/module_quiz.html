@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Manipulation and Cleaning with NumPy and Pandas — Quiz Question Bank</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.5}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+.count{color:#666}
+.q{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:14px 0}
+.qnum{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.qtype{background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 6px;margin-left:6px}
+.qtext{font-weight:600;margin:6px 0}
+ul.opts{margin:6px 0 0 4px}
+ul.opts li{margin:3px 0}
+ul.opts li.correct{color:#137333;font-weight:600}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Data Manipulation and Cleaning with NumPy and Pandas — Quiz Question Bank</h1>
+<p class="count">35 questions</p>
+<div class="q">
+<div class="qnum">Question 1<span class="qtype">MC</span></div>
+<div class="qtext">What does the name &#39;NumPy&#39; stand for?</div>
+<ul class="opts">
+<li class="correct">Numerical Python  ✓</li>
+<li>New Universal Python</li>
+<li>Numeric Utility Python</li>
+<li>Networked Universal Python</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 2<span class="qtype">MC</span></div>
+<div class="qtext">What is the primary data structure provided by NumPy for storing and manipulating data?</div>
+<ul class="opts">
+<li class="correct">ndarray  ✓</li>
+<li>DataFrame</li>
+<li>Series</li>
+<li>Dictionary</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 3<span class="qtype">MC</span></div>
+<div class="qtext">What is the primary advantage of vectorized operations in NumPy compared to standard Python loops?</div>
+<ul class="opts">
+<li class="correct">They apply computations to entire arrays at once, eliminating the need for explicit loops  ✓</li>
+<li>They allow arrays to store multiple data types simultaneously</li>
+<li>They automatically resize arrays when new elements are added</li>
+<li>They convert NumPy arrays into Python lists for easier processing</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 4<span class="qtype">MC</span></div>
+<div class="qtext">What does the NumPy expression `arr[arr &gt; 5]` do?</div>
+<ul class="opts">
+<li class="correct">Returns all elements in the array that are greater than 5  ✓</li>
+<li>Deletes all elements in the array greater than 5</li>
+<li>Replaces all elements greater than 5 with the value 5</li>
+<li>Returns the index positions of elements greater than 5</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 5<span class="qtype">MC</span></div>
+<div class="qtext">Using NumPy, how would you reshape a 1D array of 12 elements into a 3&#215;4 matrix?</div>
+<ul class="opts">
+<li class="correct">arr.reshape(3, 4)  ✓</li>
+<li>arr.resize(3, 4)</li>
+<li>arr.transform(3, 4)</li>
+<li>arr.convert(3, 4)</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 6<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following best describes a Pandas Series?</div>
+<ul class="opts">
+<li class="correct">A one-dimensional labeled array capable of holding any data type  ✓</li>
+<li>A two-dimensional table with labeled rows and columns</li>
+<li>A built-in Python list with numeric indices only</li>
+<li>A multi-dimensional array used for numerical computation</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 7<span class="qtype">MC</span></div>
+<div class="qtext">Pandas is described as being built on top of which Python library?</div>
+<ul class="opts">
+<li class="correct">NumPy  ✓</li>
+<li>Matplotlib</li>
+<li>SciPy</li>
+<li>Scikit-learn</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 8<span class="qtype">MC</span></div>
+<div class="qtext">Which code example correctly creates a Pandas DataFrame from a dictionary?</div>
+<ul class="opts">
+<li class="correct">pd.DataFrame({&#39;Name&#39;: [&#39;Alice&#39;, &#39;Bob&#39;], &#39;Age&#39;: [25, 30]})  ✓</li>
+<li>pd.Series({&#39;Name&#39;: [&#39;Alice&#39;, &#39;Bob&#39;], &#39;Age&#39;: [25, 30]})</li>
+<li>pd.DataFrame([&#39;Alice&#39;, &#39;Bob&#39;], [25, 30])</li>
+<li>pd.DataFrame(Name=[&#39;Alice&#39;, &#39;Bob&#39;], Age=[25, 30])</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 9<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following correctly lists the three fundamental components of every Pandas DataFrame?</div>
+<ul class="opts">
+<li class="correct">Index, columns, and values  ✓</li>
+<li>Rows, cells, and headers</li>
+<li>Keys, arrays, and dtypes</li>
+<li>Series, index, and NumPy arrays</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 10<span class="qtype">MC</span></div>
+<div class="qtext">According to the content, why are built-in inspection methods important in a data analysis workflow?</div>
+<ul class="opts">
+<li class="correct">They help identify data types, spot missing values, and understand data distribution  ✓</li>
+<li>They automatically clean and remove all missing values from the dataset</li>
+<li>They convert a DataFrame into a NumPy array for faster computation</li>
+<li>They create visualizations of the dataset for reporting purposes</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 11<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following best describes how the loc accessor selects data in a Pandas DataFrame?</div>
+<ul class="opts">
+<li class="correct">It selects data by explicit row and column labels or index names.  ✓</li>
+<li>It selects data purely by integer position.</li>
+<li>It selects data based on Boolean conditions only.</li>
+<li>It selects only single columns using dot notation.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 12<span class="qtype">MC</span></div>
+<div class="qtext">How does the iloc accessor select data from a Pandas DataFrame?</div>
+<ul class="opts">
+<li class="correct">By integer position, similar to Python list indexing.  ✓</li>
+<li>By explicit row and column label names.</li>
+<li>By applying logical conditions to column values.</li>
+<li>By resetting the DataFrame index before selection.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 13<span class="qtype">MC</span></div>
+<div class="qtext">When using conditional filtering in Pandas, which operators are used to combine multiple conditions?</div>
+<ul class="opts">
+<li class="correct">&amp; for AND and | for OR  ✓</li>
+<li>&#39;and&#39; and &#39;or&#39; keywords</li>
+<li>+ for AND and - for OR</li>
+<li>&#39;&amp;&amp;&#39; and &#39;||&#39;</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 14<span class="qtype">MC</span></div>
+<div class="qtext">After executing df.set_index(&#39;StudentID&#39;), which of the following correctly retrieves the record for student &#39;S001&#39;?</div>
+<ul class="opts">
+<li class="correct">df.loc[&#39;S001&#39;]  ✓</li>
+<li>df.iloc[&#39;S001&#39;]</li>
+<li>df[&#39;S001&#39;]</li>
+<li>df[df[&#39;StudentID&#39;] == &#39;S001&#39;]</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 15<span class="qtype">MC</span></div>
+<div class="qtext">Which code snippet correctly updates the &#39;Grade&#39; column to &#39;F&#39; only for rows where the &#39;Score&#39; column is below 50?</div>
+<ul class="opts">
+<li class="correct">df.loc[df[&#39;Score&#39;] &lt; 50, &#39;Grade&#39;] = &#39;F&#39;  ✓</li>
+<li>df.iloc[df[&#39;Score&#39;] &lt; 50, &#39;Grade&#39;] = &#39;F&#39;</li>
+<li>df[df[&#39;Score&#39;] &lt; 50] = &#39;F&#39;</li>
+<li>df[&#39;Grade&#39;][df[&#39;Score&#39;] &lt; 50] = &#39;F&#39;</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 16<span class="qtype">MC</span></div>
+<div class="qtext">When using pd.concat([df1, df2], axis=0), what does axis=0 specify?</div>
+<ul class="opts">
+<li class="correct">Stacks the DataFrames vertically by combining their rows  ✓</li>
+<li>Stacks the DataFrames horizontally by aligning their columns side by side</li>
+<li>Resets the index of the resulting DataFrame</li>
+<li>Merges the DataFrames based on a common key column</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 17<span class="qtype">MC</span></div>
+<div class="qtext">What does the &#39;how&#39; parameter control when using pd.merge()?</div>
+<ul class="opts">
+<li>It specifies the column(s) to use as the join key</li>
+<li class="correct">It determines which rows from each DataFrame are included based on key matches  ✓</li>
+<li>It resets the index of the merged DataFrame</li>
+<li>It appends suffixes to duplicate column names</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 18<span class="qtype">MC</span></div>
+<div class="qtext">If both DataFrames passed to pd.merge() contain a column named &#39;value&#39;, what will the merged result&#39;s column names be by default?</div>
+<ul class="opts">
+<li>&#39;value_left&#39; and &#39;value_right&#39;</li>
+<li>&#39;value_1&#39; and &#39;value_2&#39;</li>
+<li class="correct">&#39;value_x&#39; and &#39;value_y&#39;  ✓</li>
+<li>&#39;value_df1&#39; and &#39;value_df2&#39;</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 19<span class="qtype">MC</span></div>
+<div class="qtext">When is the DataFrame .join() method most efficient for combining DataFrames?</div>
+<ul class="opts">
+<li>When joining on multiple composite key columns</li>
+<li>When the DataFrames have duplicate column names that need suffixes</li>
+<li class="correct">When the joining keys are already set as the DataFrame index  ✓</li>
+<li>When stacking DataFrames vertically with a reset index</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 20<span class="qtype">MC</span></div>
+<div class="qtext">What is the purpose of the validate parameter in pd.merge()?</div>
+<ul class="opts">
+<li>It specifies custom suffixes for overlapping column names</li>
+<li>It determines the type of join to perform, such as inner or outer</li>
+<li>It resets the index of the merged DataFrame to avoid duplicates</li>
+<li class="correct">It verifies that the merge relationship matches an expected type and raises an error if not  ✓</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 21<span class="qtype">MC</span></div>
+<div class="qtext">Why should you use pivot_table() instead of pivot() when your dataset contains duplicate entries for the same index and column combination?</div>
+<ul class="opts">
+<li class="correct">Because pivot_table() supports aggregation functions like mean, sum, or count to handle duplicate entries  ✓</li>
+<li>Because pivot_table() automatically removes all duplicate rows before restructuring</li>
+<li>Because pivot_table() converts the DataFrame into long-format data instead of wide-format</li>
+<li>Because pivot_table() is faster than pivot() for all types of datasets</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 22<span class="qtype">MC</span></div>
+<div class="qtext">What transformation does the pandas melt() function perform on a DataFrame?</div>
+<ul class="opts">
+<li class="correct">It transforms wide-format data into long-format data by unpivoting columns into rows  ✓</li>
+<li>It restructures a DataFrame by turning unique row values into new column headers</li>
+<li>It moves the innermost column level into the innermost row index</li>
+<li>It splits a DataFrame into groups based on one or more columns</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 23<span class="qtype">MC</span></div>
+<div class="qtext">What does calling df.stack() do to a DataFrame?</div>
+<ul class="opts">
+<li class="correct">It moves the innermost column level into the innermost row index, compressing columns into rows  ✓</li>
+<li>It expands row index levels into new columns, widening the DataFrame</li>
+<li>It aggregates all columns into a single summarized column</li>
+<li>It sorts the DataFrame by its column index in ascending order</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 24<span class="qtype">MC</span></div>
+<div class="qtext">Which pattern describes the sequence of operations performed by the pandas groupby() method?</div>
+<ul class="opts">
+<li class="correct">Split-apply-combine: data is split into groups, a function is applied, and results are combined  ✓</li>
+<li>Filter-transform-load: data is filtered, transformed in place, and loaded into a new structure</li>
+<li>Pivot-melt-stack: data is pivoted, melted, and then stacked into a MultiIndex</li>
+<li>Merge-aggregate-reshape: data is merged, aggregated by key, and reshaped into wide format</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 25<span class="qtype">MC</span></div>
+<div class="qtext">What is the effect of using -1 as a dimension argument in NumPy&#39;s reshape() function, such as arr.reshape(-1, 1)?</div>
+<ul class="opts">
+<li class="correct">NumPy automatically infers the correct size for that dimension based on the total number of elements  ✓</li>
+<li>NumPy sets that dimension to zero and removes it from the resulting array shape</li>
+<li>NumPy copies the data into a new array and reverses the order of elements</li>
+<li>NumPy transposes the array so that rows become columns and columns become rows</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 26<span class="qtype">MC</span></div>
+<div class="qtext">Which two Pandas methods are recommended for detecting missing values in a dataset?</div>
+<ul class="opts">
+<li class="correct">df.info() and df.isnull().sum()  ✓</li>
+<li>df.describe() and df.isna().mean()</li>
+<li>df.head() and df.count()</li>
+<li>df.shape() and df.notnull().sum()</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 27<span class="qtype">MC</span></div>
+<div class="qtext">What is a key difference between np.nan and None when used in Pandas?</div>
+<ul class="opts">
+<li class="correct">np.nan is a float that may cast columns to float dtype; None is a Python object used in object-type columns.  ✓</li>
+<li>np.nan is an integer placeholder; None is a float used in numeric columns.</li>
+<li>np.nan and None are interchangeable and have identical effects on column dtypes.</li>
+<li>None causes columns to be cast to float dtype; np.nan is only used in object-type columns.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 28<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, what is a primary risk of using dropna() to remove missing values?</div>
+<ul class="opts">
+<li class="correct">It can reduce dataset size significantly and introduce bias if data is not missing at random.  ✓</li>
+<li>It permanently converts NaN values to zeros, distorting numeric calculations.</li>
+<li>It automatically fills missing values with column means, which may not be appropriate.</li>
+<li>It only removes columns, never rows, limiting its effectiveness.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 29<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following is listed in the module as a common scalar fill value when using fillna() for imputation?</div>
+<ul class="opts">
+<li class="correct">The column median  ✓</li>
+<li>The column range</li>
+<li>The column standard deviation</li>
+<li>The column maximum value</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 30<span class="qtype">MC</span></div>
+<div class="qtext">Which three categories of missingness must be understood when selecting a missing data strategy?</div>
+<ul class="opts">
+<li class="correct">Missing Completely at Random (MCAR), Missing at Random (MAR), and Missing Not at Random (MNAR)  ✓</li>
+<li>Missing by Design (MBD), Missing at Random (MAR), and Missing Completely at Random (MCAR)</li>
+<li>Structurally Missing (SM), Randomly Missing (RM), and Systematically Missing (SMM)</li>
+<li>Missing Completely at Random (MCAR), Missing by Imputation (MBI), and Missing Not at Random (MNAR)</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 31<span class="qtype">MC</span></div>
+<div class="qtext">According to a professional end-to-end data cleaning workflow, which step comes immediately after loading the data?</div>
+<ul class="opts">
+<li class="correct">Inspecting the dataset&#39;s structure  ✓</li>
+<li>Removing duplicate records</li>
+<li>Transforming columns</li>
+<li>Exporting the cleaned dataset</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 32<span class="qtype">MC</span></div>
+<div class="qtext">Which combination of tools is recommended for identifying and visualizing missingness patterns in a dataset at scale?</div>
+<ul class="opts">
+<li class="correct">df.isnull().sum() and a seaborn heatmap  ✓</li>
+<li>df.describe() and a matplotlib bar chart</li>
+<li>df.info() and a Pandas scatter plot</li>
+<li>df.dropna() and a NumPy histogram</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 33<span class="qtype">MC</span></div>
+<div class="qtext">Why does Pandas sometimes read numeric columns as object data type?</div>
+<ul class="opts">
+<li class="correct">The column contains a mix of numbers and strings or special characters  ✓</li>
+<li>The dataset was loaded from a JSON file instead of CSV</li>
+<li>The column has too many unique values to classify numerically</li>
+<li>NumPy does not support integer arrays larger than 32 bits</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 34<span class="qtype">MC</span></div>
+<div class="qtext">In the context of fraud detection, how should statistical outliers generally be treated during data cleaning?</div>
+<ul class="opts">
+<li class="correct">Retained, because they may represent the fraudulent events being detected  ✓</li>
+<li>Removed automatically using the IQR method</li>
+<li>Replaced with the column mean to reduce distortion</li>
+<li>Flagged and moved to a separate dataset before analysis</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 35<span class="qtype">MC</span></div>
+<div class="qtext">When reshaping data for downstream statistical modeling, which data format is generally preferred?</div>
+<ul class="opts">
+<li class="correct">Long format  ✓</li>
+<li>Wide format</li>
+<li>Pivot table format</li>
+<li>Melted and aggregated simultaneously</li>
+</ul>
+</div>
+</body>
+</html>

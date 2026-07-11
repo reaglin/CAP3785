@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Dynamic Dashboards</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Building Dynamic Dashboards</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Building Dynamic Dashboards</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A dynamic Excel dashboard is one of the most powerful deliverables a data analyst or business professional can produce. Rather than sending static screenshots or rows of raw numbers, a well-built dashboard lets decision-makers explore data interactively, filter by dimension, and absorb key insights at a glance. Building one successfully requires deliberate planning, a clear understanding of Excel's pivot infrastructure, and careful attention to visual design. The sections below walk through every stage of that process — from sketching the layout to enabling one-click data refresh — so the finished product looks professional and behaves reliably.</p>
+
+<p><strong>Planning the Dashboard Layout</strong></p>
+
+<p>Before touching a single cell, invest time in defining <em>what</em> the dashboard must communicate and <em>to whom</em>. A dashboard built for a sales director who needs weekly revenue trends looks very different from one built for a warehouse manager tracking shipment volumes by location. Clarity about the audience drives every subsequent decision.</p>
+
+<p>Start by identifying the key metrics and KPIs. Ask questions like: What numbers does the viewer need to act on? What comparisons matter most — period over period, region vs. region, product vs. product? What is the single most important number on this page? Typical KPIs include total revenue, units sold, gross margin percentage, customer count, and on-time delivery rate. Write these down before opening Excel.</p>
+
+<p>Next, mentally divide the worksheet into distinct functional zones:</p>
+<ul>
+  <li><strong>Header band:</strong> Company logo, dashboard title, and last-refreshed date stamp across the top rows.</li>
+  <li><strong>Filter / slicer panel:</strong> A horizontal strip below the header, or a vertical column on the left, dedicated entirely to slicers and timeline controls. Keeping filters in one predictable zone means users never have to hunt for them.</li>
+  <li><strong>KPI summary band:</strong> A row of large, formatted cells showing the most critical headline numbers immediately below the filters.</li>
+  <li><strong>Charts section:</strong> The largest zone, containing pivot charts arranged in a logical reading order — typically left to right, most important to least important.</li>
+  <li><strong>Summary table section (optional):</strong> A compact data table at the bottom for viewers who want exact figures after reviewing the charts.</li>
+</ul>
+
+<p>Use a <em>separate sheet</em> for raw data and another for pivot tables. The dashboard sheet itself should contain only formatted display elements — charts, slicers, KPI cells, and decorative shapes. This separation makes maintenance easier and keeps the dashboard sheet uncluttered. Name your sheets clearly: <code>Data</code>, <code>Pivots</code>, and <code>Dashboard</code> is a clean convention.</p>
+
+<p>Finally, plan for consistent sizing and alignment from the start. Decide on a standard chart width and height — for example, every chart is exactly 10 columns wide and 15 rows tall. Use the same font family and a restricted color palette throughout. These decisions made in advance prevent the patchwork appearance that results from assembling elements ad hoc.</p>
+
+<p><strong>Connecting Pivot Tables to Dashboard Charts</strong></p>
+
+<p>Pivot charts are the engine of a dynamic dashboard. Unlike a standard chart built on a static range, a pivot chart is directly bound to a pivot table. When the pivot table's data source refreshes, or when a slicer changes the filter context, the chart updates automatically — no manual editing required.</p>
+
+<p>To create a pivot chart, click anywhere inside an existing pivot table, then go to <em>PivotTable Analyze &gt; PivotChart</em>. Choose the chart type that best represents the underlying data relationship:</p>
+
+<ul>
+  <li><strong>Clustered or stacked bar / column charts</strong> — ideal for comparing values across discrete categories, such as revenue by product line or headcount by department.</li>
+  <li><strong>Line charts</strong> — best for showing trends over time, such as monthly sales or daily website visits, because the connected line emphasizes continuity.</li>
+  <li><strong>Pie or donut charts</strong> — appropriate for illustrating proportional composition, such as market share by region, but only when there are five or fewer categories.</li>
+  <li><strong>Combo charts</strong> — useful when two measures have different scales, such as plotting revenue as bars on the primary axis and profit margin as a line on the secondary axis.</li>
+</ul>
+
+<p>Once a pivot chart is created, it appears on the same sheet as the pivot table by default. Before moving it to the dashboard, clean up the chart: remove the title if you will label it with a formatted cell instead, delete the legend if category labels make it redundant, and — critically — <strong>remove the pivot chart field buttons</strong>. These gray dropdown buttons (Fields, Legend Fields, Axis Fields, Values) appear automatically on pivot charts and look unprofessional on a finished dashboard. Right-click any field button and choose <em>Hide All Field Buttons on Chart</em> to remove them all at once.</p>
+
+<p>To position the chart on the dashboard sheet, cut the chart (<em>Ctrl+X</em>), navigate to the dashboard sheet, and paste. For precise alignment, hold the <strong>Alt key while dragging</strong> the chart — Excel will snap the chart edges to the nearest cell gridlines, making it straightforward to align multiple charts to the same row or column boundary.</p>
+
+<p><strong>Adding Slicers for Interactivity</strong></p>
+
+<p>Slicers transform a static pivot chart display into a genuinely interactive experience. A slicer is a floating filter panel that shows all available values for a chosen field — Region, Product Category, Sales Representative, and so on — as clickable buttons. Users click a button to filter; they click again to deselect. No formulas, no dropdowns, no data entry required.</p>
+
+<p>To insert a slicer, click inside a pivot table, go to <em>PivotTable Analyze &gt; Insert Slicer</em>, and check the fields you want. Each checked field produces its own slicer panel. Place slicers in the designated filter zone of your dashboard.</p>
+
+<p>The most powerful feature of slicers in a multi-chart dashboard is <strong>Report Connections</strong> (also called <em>PivotTable Connections</em> in some Excel versions). By default, a slicer controls only the pivot table it was created from. To make one slicer drive every chart on the dashboard simultaneously:</p>
+<ul>
+  <li>Right-click the slicer and select <em>Report Connections</em>.</li>
+  <li>A dialog lists every pivot table in the workbook. Check all pivot tables that the slicer should control.</li>
+  <li>Click OK. Now a single click on the slicer updates every connected pivot table — and by extension, every connected pivot chart — at once.</li>
+</ul>
+
+<p>Customize slicers to fit the dashboard's visual design. In the <em>Slicer</em> tab on the ribbon:</p>
+<ul>
+  <li>Set the number of <strong>columns</strong> so that all buttons fit neatly in the available width without scrolling. A Region slicer with five values fits well in five columns on a single row.</li>
+  <li>Adjust the <strong>button height and width</strong> to create compact but readable buttons.</li>
+  <li>Apply a <strong>Slicer Style</strong> that matches the dashboard's color scheme. You can also create a custom slicer style via <em>New Slicer Style</em> to match exact brand colors.</li>
+</ul>
+
+<p>Always place slicers in a consistent, labeled filter panel. When users know exactly where filters live, they interact with the dashboard confidently. A thin colored rectangle behind the slicer area, labeled "Filters" in a small header cell, reinforces this zone visually.</p>
+
+<p><strong>Using Timeline Slicers for Date Filtering</strong></p>
+
+<p>When a dataset includes a date field, the Timeline slicer provides a purpose-built date filter that is far more intuitive than a standard slicer showing hundreds of individual date values. The timeline renders a scrollable horizontal bar representing the span of dates in the data, and users drag or click to select a range.</p>
+
+<p>To insert a timeline, click inside a pivot table that has a date field, go to <em>PivotTable Analyze &gt; Insert Timeline</em>, and select the date field. The timeline appears as a floating object.</p>
+
+<p>One of the timeline's most useful features is the <strong>granularity selector</strong> — a dropdown in the upper-right corner of the timeline control offering:</p>
+<ul>
+  <li><strong>Days</strong> — shows individual day blocks; useful for operational dashboards tracking daily activity.</li>
+  <li><strong>Months</strong> — the most common setting for sales and financial dashboards; shows one block per month.</li>
+  <li><strong>Quarters</strong> — ideal for executive quarterly review dashboards.</li>
+  <li><strong>Years</strong> — for high-level strategic views spanning multiple years.</li>
+</ul>
+
+<p>Switching granularity does not require any formula changes — the timeline automatically redraws and the connected pivot tables update. For example, a user might start at the Year level to see an overall trend, then switch to Months to investigate a specific quarter's performance, all without leaving the dashboard.</p>
+
+<p>Just like standard slicers, connect the timeline to all relevant pivot tables using <em>Report Connections</em> (right-click the timeline &gt; Report Connections). This ensures that selecting March–June on the timeline simultaneously updates the revenue chart, the product mix chart, and the regional comparison chart.</p>
+
+<p>Resize the timeline to span the full width of the filter zone so it feels integrated rather than like an afterthought. Apply a timeline style from the <em>Timeline</em> tab that complements the slicer styles already chosen.</p>
+
+<p><strong>Incorporating Summary KPI Cells</strong></p>
+
+<p>KPI cells are the headline numbers at the top of the dashboard — the figures a viewer's eye should land on first. They answer the most important questions instantly: "What was total revenue this period?" "How many units did we sell?" "What is our current margin?"</p>
+
+<p>The best way to populate KPI cells from a pivot table is with the <strong>GETPIVOTDATA</strong> function. This function reaches into a pivot table and retrieves a specific value by field name and item, rather than by cell address. This makes it robust — if the pivot table layout changes, GETPIVOTDATA still finds the right number because it navigates by field names, not by row and column positions.</p>
+
+<p>The syntax is:</p>
+<pre><code>=GETPIVOTDATA("Sum of Revenue", Pivots!$A$3, "Region", "North", "Year", 2024)</code></pre>
+
+<p>This reads: "From the pivot table whose top-left corner is at <code>Pivots!A3</code>, return the sum of Revenue where Region is North and Year is 2024." When a slicer changes the filter context, the pivot table updates, and GETPIVOTDATA automatically returns the new value.</p>
+
+<p>Excel generates GETPIVOTDATA automatically when you click a pivot table cell while typing a formula in another cell. You can then edit the generated formula to add field/item pairs for the specific slice you need.</p>
+
+<p>Format KPI cells for maximum visual impact:</p>
+<ul>
+  <li>Use a <strong>large font size</strong> (20–28 pt) for the numeric value so it reads from a distance.</li>
+  <li>Apply <strong>bold formatting</strong> and a colored background that draws the eye — a dark navy or brand-color background with white text is a classic, high-contrast choice.</li>
+  <li>Place a smaller <strong>descriptive label</strong> in the cell directly above or below the value (e.g., "Total Revenue", "Units Sold", "Avg. Order Value") so the number is never ambiguous.</li>
+  <li>Consider adding <strong>conditional formatting icon sets</strong> or a small sparkline beside each KPI to show direction (up/down vs. prior period).</li>
+</ul>
+
+<p>Group all KPI cells together in a horizontal summary band immediately below the filter panel. A typical layout might show four to six KPIs across the top of the dashboard, each in its own formatted box, giving executives an instant snapshot before they engage with the charts below.</p>
+
+<p><strong>Formatting and Polishing the Dashboard</strong></p>
+
+<p>The difference between a spreadsheet and a professional dashboard is largely cosmetic. The underlying data may be identical, but a polished presentation communicates credibility and respect for the viewer's time.</p>
+
+<p>Begin by stripping away Excel's default chrome from the dashboard sheet:</p>
+<ul>
+  <li>Go to <em>View</em> and uncheck <strong>Gridlines</strong>, <strong>Headings</strong> (row numbers and column letters), and <strong>Formula Bar</strong> (optional, for a fully clean view).</li>
+  <li>Set the worksheet tab color to match the dashboard's primary color so the Dashboard tab stands out from the Data and Pivots tabs.</li>
+</ul>
+
+<p>Apply a <strong>consistent color palette</strong> throughout. Choose two or three primary colors drawn from the organization's brand guide or a harmonious theme, and use them exclusively for chart series colors, slicer button colors, KPI cell backgrounds, and section header fills. Resist the temptation to use Excel's default rainbow palette — it signals an unfinished product.</p>
+
+<p>Use <strong>cell shading and thin borders</strong> to define dashboard sections visually. For example:</p>
+<ul>
+  <li>Shade the header rows in the primary brand color with white text.</li>
+  <li>Apply a light gray background to the filter zone to visually separate it from the chart area.</li>
+  <li>Use a slightly darker gray border line between the KPI band and the charts section.</li>
+</ul>
+
+<p>Once layout and formatting are finalized, <strong>protect the dashboard sheet</strong> to prevent accidental disruption. Go to <em>Review &gt; Protect Sheet</em>. In the protection dialog, check <strong>"Use PivotTable reports"</strong> and <strong>"Use AutoFilter"</strong> (which covers slicers) so users can still interact with filters after the sheet is locked. Leave the password optional — protection here is a safeguard against accidental edits, not a security measure. This prevents users from inadvertently moving a chart or deleting a KPI formula.</p>
+
+<p>Finally, <strong>test the dashboard</strong> at multiple zoom levels (75%, 100%, 125%) and on different screen sizes or projector resolutions. Elements that look perfectly spaced at 100% on a large monitor may overlap at 75% on a laptop screen. Adjust column widths and chart sizes as needed until the layout holds across all likely viewing environments.</p>
+
+<p><strong>Enabling One-Click Data Refresh</strong></p>
+
+<p>A dashboard is only as valuable as its data is current. Building a reliable, simple refresh mechanism is the final step in making the dashboard genuinely useful over time.</p>
+
+<p>The most direct method is the <strong>Refresh All</strong> button on the <em>Data</em> tab. Clicking it updates every pivot table, every Power Query connection, and every connected chart in the workbook in a single operation. Instruct end users to press Refresh All every time they open the file or whenever the underlying data source has been updated. You can even place a clearly labeled button on the dashboard itself using a macro assigned to <code>ActiveWorkbook.RefreshAll</code> so users never need to navigate away from the dashboard sheet.</p>
+
+<p>For files that are opened regularly, enable <strong>automatic refresh on open</strong>: right-click any pivot table, choose <em>PivotTable Options &gt; Data tab</em>, and check <strong>"Refresh data when opening the file."</strong> This ensures the pivot tables pull fresh data the moment someone opens the workbook — no manual action required. Note that if the data source requires a network connection, users must be connected at the time of opening.</p>
+
+<p>When the data layer is built with <strong>Power Query</strong> (Get &amp; Transform), the refresh sequence is even more powerful. Clicking Refresh All triggers the following chain automatically:</p>
+<ul>
+  <li><strong>Step 1:</strong> Power Query re-runs all transformation steps and loads updated data into the Data sheet.</li>
+  <li><strong>Step 2:</strong> Every pivot table that references the query's output table recalculates against the new data.</li>
+  <li><strong>Step 3:</strong> All pivot charts and GETPIVOTDATA-based KPI cells update to reflect the new pivot table values.</li>
+</ul>
+
+<p>This end-to-end automation means that a dashboard connected to a daily export file or a live database query can be kept current with a single click, regardless of how complex the underlying transformations are.</p>
+
+<p>Document the refresh process clearly for end users. A simple note in the dashboard header — for example, a cell formatted to read <em>"Last Refreshed: "</em> followed by a formula like <code>=TEXT(NOW(),"DD MMM YYYY HH:MM")</code> updated via a small macro on refresh — communicates data currency at a glance. Pair this with written instructions (a separate Instructions sheet or an emailed guide) so every user knows exactly what to click and when.</p>
+
+<p>The table below summarizes the core dashboard components, their purpose, and the key Excel features that implement them:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dashboard Component</th>
+      <th>Purpose</th>
+      <th>Key Excel Feature(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>KPI Summary Band</td>
+      <td>Displays headline metrics at a glance for executive-level reading</td>
+      <td>GETPIVOTDATA, cell formatting, conditional formatting</td>
+    </tr>
+    <tr>
+      <td>Pivot Charts</td>
+      <td>Visualizes trends, comparisons, and proportions dynamically</td>
+      <td>PivotChart (from PivotTable Analyze tab), chart type selection</td>
+    </tr>
+    <tr>
+      <td>Standard Slicers</td>
+      <td>Lets users filter all charts by category dimensions with one click</td>
+      <td>Insert Slicer, Report Connections</td>
+    </tr>
+    <tr>
+      <td>Timeline Slicer</td>
+      <td>Provides an intuitive scrollable date-range filter with granularity switching</td>
+      <td>Insert Timeline, Report Connections</td>
+    </tr>
+    <tr>
+      <td>Sheet Protection</td>
+      <td>Prevents accidental edits while keeping slicers interactive</td>
+      <td>Review &gt; Protect Sheet (allow PivotTable interaction)</td>
+    </tr>
+    <tr>
+      <td>Data Refresh</td>
+      <td>Updates all pivot tables and charts from the latest source data</td>
+      <td>Refresh All (Data tab), PivotTable Options auto-refresh, Power Query</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>Topic covers the full dashboard build lifecycle from layout planning through data refresh. Instructors may wish to provide a partially built workbook with raw data already loaded so students focus on the pivot table, chart, slicer, and formatting steps rather than data entry. Demonstrating Report Connections live is especially impactful — seeing all charts update simultaneously from one slicer click is a clear motivating moment for students.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

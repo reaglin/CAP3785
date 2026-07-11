@@ -1,0 +1,470 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pivot Tables, Dashboards, and Power Query in Excel – CAP3785</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #f4f6f9;
+      --color-surface: #ffffff;
+      --color-primary: #1a4f8a;
+      --color-primary-light: #2563a8;
+      --color-accent: #0e7c5a;
+      --color-accent-hover: #0a5e44;
+      --color-border: #dde3ec;
+      --color-text: #1e2d3d;
+      --color-text-muted: #5a6a7e;
+      --color-badge-bg: #e8eef7;
+      --color-badge-text: #1a4f8a;
+      --color-filetype-bg: #f0f4f0;
+      --color-filetype-text: #2d6a4f;
+      --color-header-bg: #1a3a5c;
+      --color-header-text: #ffffff;
+      --radius: 8px;
+      --shadow: 0 1px 4px rgba(0,0,0,0.08), 0 2px 12px rgba(0,0,0,0.06);
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background-color: var(--color-header-bg);
+      color: var(--color-header-text);
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #c8daf5;
+    }
+
+    header h1 {
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.9rem;
+      color: #ffffff;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      color: #b8cfe8;
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    /* ── Main container ── */
+    main {
+      max-width: 1100px;
+      margin: 2rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.15rem;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.35rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1), 0 6px 24px rgba(0,0,0,0.07);
+      border-color: #b8c9e0;
+    }
+
+    /* Card top row: badges */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: var(--color-badge-bg);
+      color: var(--color-badge-text);
+    }
+
+    .badge-filetype {
+      background: var(--color-filetype-bg);
+      color: var(--color-filetype-text);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Card title row */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-title {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.35;
+    }
+
+    .card-title a {
+      color: var(--color-primary-light);
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      text-decoration: underline;
+      color: var(--color-primary);
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #b2d8c8;
+      border-radius: 4px;
+      padding: 0.12rem 0.45rem;
+      background: #f0faf5;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover {
+      background: #d9f2e8;
+      color: var(--color-accent-hover);
+    }
+
+    .source-link::before {
+      content: "↗";
+      font-size: 0.68rem;
+    }
+
+    /* Card description */
+    .card-description {
+      font-size: 0.855rem;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 1.75rem 1rem 1.5rem;
+      }
+
+      main {
+        margin-top: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
+      <h1>Pivot Tables, Dashboards, and Power Query in Excel</h1>
+      <p>
+        This module guides learners through the essential Excel skills for data analysis and reporting —
+        from building and customizing pivot tables to designing interactive dashboards and automating
+        data preparation with Power Query. Use the resources below to navigate readings, presentations,
+        assessments, and reference materials for this module.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts — 11 items</p>
+
+    <div class="card-grid">
+
+      <!-- 1: Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's learning topics spanning pivot table fundamentals,
+          advanced techniques, dashboard building, interactivity, and Power Query, used by instructors
+          to plan lessons and by learners to navigate the module's scope.
+        </p>
+      </div>
+
+      <!-- 2: Presentation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="../presentations/Pivot_Tables_Dashboards_generated.pptx">Pivot_Tables_Dashboards_generated.pptx</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A slide deck covering how to create, customize, and use pivot tables, build interactive
+          dashboards with slicers and charts, and automate data preparation with Power Query, intended
+          for instructor-led presentations or learner self-study.
+        </p>
+      </div>
+
+      <!-- 3: Introduction to Pivot Tables -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive_topics_t1.html">Introduction to Pivot Tables</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that introduces the fundamentals of pivot tables, explaining what they are, how to
+          create and configure them, and how to use them to summarize and explore large datasets;
+          learners read this before attempting hands-on pivot table tasks.
+        </p>
+      </div>
+
+      <!-- 4: Advanced Pivot Table Techniques -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive_topics_t2.html">Advanced Pivot Table Techniques</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading covering advanced pivot table features such as calculated fields, custom grouping,
+          and advanced filtering, enabling learners to move beyond basic summarization and extract
+          deeper insights from their data.
+        </p>
+      </div>
+
+      <!-- 5: Building Dynamic Dashboards -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive_topics_t3.html">Building Dynamic Dashboards</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that guides learners through the process of designing and assembling a dynamic Excel
+          dashboard, covering planning, layout, linking pivot tables and charts, and producing an
+          interactive reporting tool for decision-makers.
+        </p>
+      </div>
+
+      <!-- 6: Dashboard Interactivity and Visual Design -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive_topics_t4.html">Dashboard Interactivity and Visual Design</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading focused on enhancing Excel dashboards with interactivity controls (such as slicers
+          and timelines), consistent visual design, chart formatting, and layout discipline to create
+          polished, user-friendly reporting tools.
+        </p>
+      </div>
+
+      <!-- 7: Introduction to Power Query -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive_topics_t5.html">Introduction to Power Query</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that introduces Power Query as an automated data preparation tool within Excel,
+          explaining how to connect to data sources, load data, and begin cleaning and shaping it
+          without manual copy-paste or fragile macros.
+        </p>
+      </div>
+
+      <!-- 8: Data Transformation with Power Query -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive_topics_t6.html">Data Transformation with Power Query</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading covering practical Power Query data transformation techniques — including cleaning,
+          reshaping, standardizing columns, and handling errors — to prepare raw real-world data for
+          analysis with pivot tables and charts.
+        </p>
+      </div>
+
+      <!-- 9: Automating Refresh Workflows (Topic Detail) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive_topics_t7.html">Automating Refresh Workflows</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading explaining how to configure Excel and Power Query to automatically refresh data
+          connections so that dashboards and reports stay current whenever source data changes, without
+          requiring manual re-import or re-cleaning.
+        </p>
+      </div>
+
+      <!-- 10: Automating Refresh Workflows (Text Content) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Pivot_Tables_Dashboards_interactive.html">Automating Refresh Workflows</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading explaining how to configure Excel and Power Query to automatically refresh data
+          connections so that dashboards and reports stay current whenever source data changes, without
+          requiring manual re-import or re-cleaning.
+        </p>
+      </div>
+
+      <!-- 11: Quiz Question Bank -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="source-link" href="../quiz_questions.json">source file</a>
+        </div>
+        <p class="card-description">
+          A 20-question bank assessing learners on pivot table concepts, data source requirements,
+          calculated fields, grouping, and related Excel features, used by instructors to build quizzes
+          or exams for the module.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp;
+    Pivot Tables, Dashboards, and Power Query in Excel
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

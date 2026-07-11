@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cleaning and Transforming Real-World Datasets</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Cleaning and Transforming Real-World Datasets</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Cleaning and Transforming Real-World Datasets</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Real-world datasets are almost never ready for analysis straight out of the source. They arrive with missing values scattered across dozens of columns, dates stored as plain strings, duplicate records introduced by ETL bugs, outliers that distort statistical summaries, and free-text fields that encode multiple pieces of information in a single messy column. Professional data scientists spend a substantial portion of their time—often cited at 60–80% of a project—on exactly this kind of preparation work. The goal of a thorough cleaning and transformation workflow is not just to fix obvious errors; it is to produce a dataset whose quality can be demonstrated, whose provenance can be traced, and whose preparation logic can be reapplied automatically to every future batch of data that arrives from the same source. This topic walks through every major stage of that workflow in depth, from the first diagnostic look at a raw file all the way through to validated export.</p>
+
+<p><strong>Establishing an End-to-End Cleaning Workflow</strong></p>
+
+<p>Before touching a single value, the first responsibility is to understand what you actually have. Three Pandas methods together give a rapid, comprehensive portrait of any DataFrame. <code>df.info()</code> prints the number of rows, the name and dtype of every column, and the count of non-null entries per column, making it immediately obvious where data is absent and where types are wrong. <code>df.describe()</code> computes count, mean, standard deviation, minimum, quartiles, and maximum for every numeric column, revealing scale mismatches, impossibly large values, and columns where the mean and median diverge sharply. <code>df.head()</code> (and <code>df.tail()</code>) show literal cell values, which often exposes formatting artifacts—leading spaces, inconsistent capitalisation, currency symbols embedded in numeric fields—that statistics alone cannot reveal.</p>
+
+<pre><code>import pandas as pd
+import numpy as np
+
+df = pd.read_csv('sales_raw.csv')
+
+print(df.info())        # shape, dtypes, non-null counts
+print(df.describe())    # numeric distributions
+print(df.head(10))      # sample rows
+</code></pre>
+
+<p>Running these three lines at the start of every project is a non-negotiable habit. They form the audit that drives every subsequent decision. Once the audit is complete, the cleaning steps should be assembled into a <em>repeatable pipeline</em>—either a function, a class, or an ordered series of cells in a notebook that is treated as code rather than a scratchpad. The key design principle is idempotency: running the pipeline twice on the same raw data should produce exactly the same cleaned output. This matters because data sources are rarely static; new monthly exports will need to go through the same transformations.</p>
+
+<p>At every meaningful stage of the pipeline—after type conversion, after imputation, after deduplication—it is good practice to insert assertions that act as automated checks. If an assertion fails, the pipeline stops with a clear error rather than silently passing corrupt data downstream.</p>
+
+<pre><code>def validate_after_type_conversion(df):
+    assert df['order_date'].dtype == 'datetime64[ns]', "order_date must be datetime"
+    assert df['revenue'].dtype in ['float64', 'int64'], "revenue must be numeric"
+    assert df.shape[1] == 12, f"Expected 12 columns, got {df.shape[1]}"
+    print("Type conversion validation passed.")
+
+validate_after_type_conversion(df)
+</code></pre>
+
+<p>This style of defensive programming transforms the pipeline from a fragile sequence of manual steps into a self-documenting, auditable process that raises a hand the moment something unexpected happens.</p>
+
+<p><strong>Diagnosing and Handling Missing Data at Scale</strong></p>
+
+<p>Missing data is the most pervasive quality problem in real datasets. The first step is always to <em>quantify</em> it, not guess at it. <code>df.isnull().mean()</code> returns the fraction of missing values per column as a float between 0 and 1, making it straightforward to apply a threshold-based decision rule.</p>
+
+<pre><code>missing_fractions = df.isnull().mean().sort_values(ascending=False)
+print(missing_fractions)
+
+# Drop columns where more than 40% of values are missing
+threshold = 0.40
+df = df.loc[:, missing_fractions <= threshold]
+</code></pre>
+
+<p>Columns missing more than 40% of their values rarely contribute reliable signal to analysis or models; retaining them risks introducing more noise than information. For columns below the threshold, the appropriate imputation strategy depends on the nature of the data and the mechanism behind the missingness.</p>
+
+<p><strong>Mean, median, and mode imputation</strong> with <code>fillna()</code> is appropriate when data is <em>missing at random</em>—that is, the fact that a value is missing is unrelated to the value itself. Mean imputation works for roughly symmetric numeric distributions; median imputation is more robust when the distribution is skewed because the median is not pulled by extreme values; mode imputation is the standard choice for categorical columns.</p>
+
+<pre><code># Numeric: fill with median (robust to outliers)
+df['age'] = df['age'].fillna(df['age'].median())
+
+# Categorical: fill with most frequent value
+df['region'] = df['region'].fillna(df['region'].mode()[0])
+</code></pre>
+
+<p><strong>Forward-fill and backward-fill</strong> are the correct strategy for time-series or any dataset where rows represent sequential observations and the nearest known value is the best available estimate. Forward-fill (<code>ffill</code>) propagates the last valid observation forward; backward-fill (<code>bfill</code>) propagates the next valid observation backward. Both are available as arguments to <code>fillna()</code> or as dedicated methods.</p>
+
+<pre><code># Time-ordered sensor readings: carry last known value forward
+df['temperature'] = df['temperature'].fillna(method='ffill')
+
+# Or equivalently:
+df['temperature'] = df['temperature'].ffill()
+</code></pre>
+
+<p>For datasets with complex, non-random missingness patterns, <strong>interpolation</strong> via <code>df.interpolate()</code> estimates missing values from the surrounding data using a chosen mathematical method. Linear interpolation (the default) fits a straight line between the nearest non-null neighbours; polynomial and spline methods are available for smoother estimation curves.</p>
+
+<pre><code># Linear interpolation between known values
+df['stock_price'] = df['stock_price'].interpolate(method='linear')
+</code></pre>
+
+<p>When missingness is structural and correlated with other features—for example, income is missing specifically for respondents who skipped the survey question—simple statistical imputation introduces bias. In those cases, <strong>model-based imputation</strong> using scikit-learn's <code>IterativeImputer</code> (which models each feature with missing values as a function of the others) or <code>KNNImputer</code> (which fills values from the k nearest complete rows) produces much more defensible estimates. These estimators accept and return NumPy arrays, so the workflow is to extract the relevant columns, impute, and write back.</p>
+
+<pre><code>from sklearn.impute import KNNImputer
+
+imputer = KNNImputer(n_neighbors=5)
+cols_to_impute = ['income', 'savings', 'debt']
+df[cols_to_impute] = imputer.fit_transform(df[cols_to_impute])
+</code></pre>
+
+<p><strong>Correcting and Converting Data Types</strong></p>
+
+<p>A freshly loaded CSV assigns every column one of only a handful of inferred dtypes—usually <code>object</code>, <code>int64</code>, or <code>float64</code>. The inferred type is frequently wrong. A column of dates arrives as <code>object</code>. A column of integer IDs arrives as <code>float64</code> because one row had a missing value. A column of category labels arrives as <code>object</code>, consuming far more memory than necessary. Correcting these types early in the pipeline improves both correctness and performance for everything that follows.</p>
+
+<p>The general-purpose tool is <code>df['col'].astype()</code>. It accepts Python built-in types, NumPy dtype strings, and Pandas extension types.</p>
+
+<pre><code>df['customer_id'] = df['customer_id'].astype('int64')
+df['score']       = df['score'].astype('float64')
+df['is_active']   = df['is_active'].astype('bool')
+</code></pre>
+
+<p><strong>Parsing dates</strong> requires special treatment. <code>pd.to_datetime()</code> attempts automatic inference of the format, but automatic inference is slow on large datasets and can silently misparse ambiguous dates (is <code>01/02/03</code> January 2nd or February 1st?). Providing the <code>format</code> parameter removes ambiguity and is significantly faster.</p>
+
+<pre><code>df['order_date'] = pd.to_datetime(df['order_date'], format='%Y-%m-%d')
+
+# If the source mixes formats, use errors='coerce' to turn failures into NaT
+df['order_date'] = pd.to_datetime(df['order_date'], errors='coerce')
+</code></pre>
+
+<p>Once a column is <code>datetime64</code>, Pandas exposes the full <code>.dt</code> accessor, enabling clean extraction of year, month, day, weekday, hour, and so on—all without string parsing.</p>
+
+<pre><code>df['order_year']  = df['order_date'].dt.year
+df['order_month'] = df['order_date'].dt.month
+df['day_of_week'] = df['order_date'].dt.day_name()
+</code></pre>
+
+<p><strong>The category dtype</strong> is one of the most underused optimisations in Pandas. A column of string labels with low cardinality—country names, product categories, status codes—stored as <code>object</code> holds a full Python string object for every single row. Converting to <code>category</code> stores each unique label once in a lookup table and replaces each cell with a small integer index. For a million-row DataFrame with a column of 50 country names, the memory reduction can be 10× or more, and <code>groupby</code> operations on category columns run considerably faster.</p>
+
+<pre><code>df['country']  = df['country'].astype('category')
+df['status']   = df['status'].astype('category')
+
+print(df.memory_usage(deep=True))   # compare before and after
+</code></pre>
+
+<p>When a column <em>should</em> be numeric but contains textual noise—cells like <code>"N/A"</code>, <code>"--"</code>, or <code>"12.4 USD"</code>—a direct <code>astype(float)</code> raises an exception. <code>pd.to_numeric()</code> with <code>errors='coerce'</code> handles this gracefully: values that cannot be parsed become <code>NaN</code>, which can then be handled by the imputation strategies already in place.</p>
+
+<pre><code>df['revenue'] = pd.to_numeric(df['revenue'], errors='coerce')
+# rows that had "N/A" or "--" now have NaN; handle with fillna or drop
+</code></pre>
+
+<p><strong>Detecting and Removing Duplicates and Outliers</strong></p>
+
+<p>Duplicate rows are a common artefact of data ingestion pipelines that process overlapping time windows, merge files from multiple sources, or retry failed operations without deduplication logic. <code>df.duplicated()</code> returns a boolean Series where <code>True</code> marks every row that is a duplicate of an earlier row. <code>df.drop_duplicates()</code> removes them, keeping the first occurrence by default.</p>
+
+<pre><code>print(f"Duplicate rows: {df.duplicated().sum()}")
+df = df.drop_duplicates()
+
+# When only specific columns should be unique (e.g., one row per order_id):
+df = df.drop_duplicates(subset=['order_id'], keep='first')
+</code></pre>
+
+<p>The <code>subset</code> parameter is important: in many business datasets, a full-row duplicate is not expected, but a duplicate on a business key (order ID, customer ID, transaction reference) represents a genuine data error that must be resolved.</p>
+
+<p><strong>Outlier detection with the IQR method</strong> is the most widely used non-parametric approach because it makes no assumption about the underlying distribution. The interquartile range is defined as Q3 − Q1 (the 75th percentile minus the 25th percentile). Any value more than 1.5 × IQR below Q1 or above Q3 is flagged as a potential outlier. This threshold is the conventional default; for very strict cleaning, 1.0 × IQR is used; for lenient cleaning, 3.0 × IQR.</p>
+
+<pre><code>Q1  = df['revenue'].quantile(0.25)
+Q3  = df['revenue'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+outliers = df[(df['revenue'] < lower_bound) | (df['revenue'] > upper_bound)]
+print(f"Outlier rows: {len(outliers)}")
+</code></pre>
+
+<p>Rather than dropping outlier rows—which reduces the sample size and can introduce selection bias—a common and often preferable strategy is <strong>capping (Winsorisation)</strong>: replacing values below the lower bound with the lower bound and values above the upper bound with the upper bound. Pandas provides <code>clip()</code> for exactly this operation.</p>
+
+<pre><code># Cap revenue at IQR boundaries, preserving all rows
+df['revenue'] = df['revenue'].clip(lower=lower_bound, upper=upper_bound)
+</code></pre>
+
+<p>NumPy's <code>np.where()</code> offers a more expressive alternative when different replacement logic is needed for different conditions:</p>
+
+<pre><code>df['revenue'] = np.where(df['revenue'] > upper_bound, upper_bound,
+                np.where(df['revenue'] < lower_bound, lower_bound,
+                         df['revenue']))
+</code></pre>
+
+<p>The decision to drop versus cap versus transform (e.g., log-transform) outliers should always be informed by visualisation. A box plot immediately shows the spread and position of outliers; a z-score histogram shows how many standard deviations each point lies from the mean. These visual checks are the evidence base for a defensible treatment decision.</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+# Box plot
+df.boxplot(column='revenue')
+plt.title('Revenue Distribution')
+plt.show()
+
+# Z-score distribution
+from scipy import stats
+z_scores = np.abs(stats.zscore(df['revenue'].dropna()))
+plt.hist(z_scores, bins=50)
+plt.axvline(x=3, color='red', linestyle='--', label='z=3 threshold')
+plt.legend()
+plt.show()
+</code></pre>
+
+<p><strong>String Cleaning and Feature Extraction</strong></p>
+
+<p>Text columns in real datasets are an almost unlimited source of inconsistency. The same city may be recorded as <code>"New York"</code>, <code>"new york"</code>, <code>"  New York  "</code>, and <code>"NEW YORK"</code> in different rows, making every group count on that column wrong. The Pandas <code>.str</code> accessor exposes a rich set of vectorised string methods that apply to every element of a Series without a Python loop.</p>
+
+<p>The most fundamental cleaning operations are whitespace removal and case normalisation, and they should almost always be applied together as the very first transformation on any text column:</p>
+
+<pre><code>df['city'] = df['city'].str.strip().str.lower()
+</code></pre>
+
+<p><code>str.replace()</code> accepts both literal substrings and full regular expressions, making it powerful enough to remove currency symbols, percentage signs, parentheses, and other formatting artefacts that prevent type conversion:</p>
+
+<pre><code># Remove currency symbol and commas before numeric conversion
+df['price'] = df['price'].str.replace(r'[$,]', '', regex=True)
+df['price'] = pd.to_numeric(df['price'], errors='coerce')
+
+# Remove all non-alphanumeric characters from a product code
+df['product_code'] = df['product_code'].str.replace(r'[^a-zA-Z0-9]', '', regex=True)
+</code></pre>
+
+<p><strong>Extracting structured information</strong> from free-text fields is one of the most valuable string operations in practical data work. <code>str.extract()</code> applies a regular expression with named capture groups and returns each group as a new column. Consider a column that contains entries like <code>"Order #12345 - 2024-03-15"</code>:</p>
+
+<pre><code>extracted = df['order_notes'].str.extract(
+    r'Order #(?P<order_id>\d+) - (?P<order_date>\d{4}-\d{2}-\d{2})'
+)
+df['order_id']   = pd.to_numeric(extracted['order_id'])
+df['order_date'] = pd.to_datetime(extracted['order_date'])
+</code></pre>
+
+<p>Each named group becomes a column in the returned DataFrame. This is far more maintainable than ad-hoc string slicing because the intent is explicit in the pattern itself.</p>
+
+<p><strong>Splitting compound fields</strong> is another common task. A column containing full names, addresses, or combined codes can be split into separate, individually queryable columns using <code>str.split()</code> with <code>expand=True</code>, which returns a DataFrame rather than a Series of lists:</p>
+
+<pre><code>name_parts = df['full_name'].str.split(' ', n=1, expand=True)
+df['first_name'] = name_parts[0]
+df['last_name']  = name_parts[1]
+
+# Split "city, state" into two columns
+location_parts = df['location'].str.split(',', expand=True)
+df['city']  = location_parts[0].str.strip()
+df['state'] = location_parts[1].str.strip()
+</code></pre>
+
+<p><strong>Reshaping and Aggregating for Analysis-Ready Structure</strong></p>
+
+<p>Cleaning fixes data quality problems, but reshaping addresses structural problems—datasets that are technically valid but organised in a way that makes analysis or visualisation awkward. The two most common structural issues are wide format (too many columns, each representing a measurement at a different time or category) and the need to compute summaries across groups.</p>
+
+<p><strong>Wide to long with <code>melt()</code></strong>: Many datasets arrive in wide format because that is how spreadsheet users naturally organise data—one column per month, one column per product category, and so on. This structure makes it impossible to use <code>groupby</code> effectively because the dimension of interest is encoded in column names rather than values. <code>df.melt()</code> unpivots the DataFrame, collecting the column names into a new variable column and the cell values into a new value column.</p>
+
+<pre><code># Wide format: one column per quarter
+#   customer_id | Q1_revenue | Q2_revenue | Q3_revenue | Q4_revenue
+
+df_long = df.melt(
+    id_vars=['customer_id'],
+    value_vars=['Q1_revenue', 'Q2_revenue', 'Q3_revenue', 'Q4_revenue'],
+    var_name='quarter',
+    value_name='revenue'
+)
+# Result: customer_id | quarter | revenue
+# Now groupby('quarter') works naturally
+</code></pre>
+
+<p><strong>Summary tables with <code>pivot_table()</code></strong>: The inverse operation—collapsing a long-format DataFrame into a compact summary grid—is handled by <code>pivot_table()</code>. It is analogous to a spreadsheet pivot table and supports multiple aggregation functions, multiple index and column dimensions, and automatic handling of missing combinations via the <code>fill_value</code> parameter.</p>
+
+<pre><code>summary = df.pivot_table(
+    values='revenue',
+    index='region',
+    columns='product_category',
+    aggfunc='sum',
+    fill_value=0
+)
+print(summary)
+</code></pre>
+
+<p><strong>Multiple aggregations with <code>groupby().agg()</code></strong>: When the goal is not a pivot grid but rather a flat summary table with multiple statistics per group, passing a dictionary to <code>.agg()</code> computes them all in a single, efficient pass over the data—far more efficient than calling <code>.mean()</code>, <code>.sum()</code>, and <code>.count()</code> separately.</p>
+
+<pre><code>summary = df.groupby('region').agg(
+    total_revenue=('revenue', 'sum'),
+    avg_revenue=('revenue', 'mean'),
+    order_count=('order_id', 'count'),
+    unique_customers=('customer_id', 'nunique')
+).reset_index()
+
+print(summary)
+</code></pre>
+
+<p>The named aggregation syntax (a tuple of <code>(source_column, function)</code> assigned to a new column name) produces clean, unambiguous column names in the output. Calling <code>reset_index()</code> at the end promotes the group keys from the index back into regular columns, producing a flat DataFrame that exports cleanly and is immediately usable downstream.</p>
+
+<p><strong>Validating and Exporting the Cleaned Dataset</strong></p>
+
+<p>The final stage of the pipeline is not export—it is validation. Before writing any output file, the cleaned DataFrame should be subjected to a set of programmatic assertions that confirm every invariant the cleaning process was supposed to establish. These checks serve as the automated acceptance criteria for the pipeline.</p>
+
+<pre><code>def validate_clean_dataset(df):
+    # No nulls in business-critical columns
+    critical_cols = ['order_id', 'customer_id', 'order_date', 'revenue']
+    for col in critical_cols:
+        null_count = df[col].isnull().sum()
+        assert null_count == 0, f"{col} still has {null_count} nulls"
+
+    # Revenue must be non-negative
+    assert (df['revenue'] >= 0).all(), "Negative revenue values found"
+
+    # Dates must be within a plausible range
+    assert df['order_date'].min() >= pd.Timestamp('2018-01-01'), "Dates too early"
+    assert df['order_date'].max() <= pd.Timestamp('2025-12-31'), "Dates in future"
+
+    # Row count should be within expected range after deduplication
+    assert 10_000 <= len(df) <= 500_000, f"Unexpected row count: {len(df)}"
+
+    print("All validation checks passed.")
+
+validate_clean_dataset(df)
+</code></pre>
+
+<p>After assertions pass, comparing the <code>describe()</code> output of the cleaned DataFrame against that of the raw DataFrame gives a distribution-level sanity check. The mean and standard deviation of numeric columns should change only to the extent that imputation and capping are expected to change them; a dramatic shift signals an unintended transformation.</p>
+
+<p>For <strong>export</strong>, the choice of format depends on the downstream use. CSV is universally readable but has no type information—a datetime column written to CSV comes back as a string on the next read, requiring the type conversion step again. Parquet preserves dtypes exactly (including <code>datetime64</code>, <code>category</code>, and <code>float32</code>), compresses efficiently using columnar encoding, and reads back far faster than CSV for large datasets. Use CSV when the consumer is a human or a non-Python tool; use Parquet for any programmatic downstream pipeline.</p>
+
+<pre><code># CSV: universally compatible, no type preservation
+df.to_csv('sales_clean.csv', index=False)
+
+# Parquet: compressed, type-preserving, fast for large datasets
+df.to_parquet('sales_clean.parquet', index=False, compression='snappy')
+</code></pre>
+
+<p>Finally, the cleaning script or notebook should be committed to version control as a first-class artefact of the project, not treated as a throwaway exploration. A well-documented, version-controlled pipeline means that when the data source changes schema next quarter, the pipeline can be updated in a single place, the change is tracked in git history with a clear commit message, and the same validated logic flows through to every downstream consumer automatically. The table below summarises the key methods covered across the entire workflow and their primary use cases.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method / Tool</th>
+      <th>Primary Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Audit</td>
+      <td><code>df.info()</code>, <code>df.describe()</code>, <code>df.head()</code></td>
+      <td>Understand shape, types, distributions before touching data</td>
+    </tr>
+    <tr>
+      <td>Missing data</td>
+      <td><code>df.isnull().mean()</code></td>
+      <td>Quantify missingness per column to drive drop/impute decisions</td>
+    </tr>
+    <tr>
+      <td>Missing data</td>
+      <td><code>fillna()</code>, <code>ffill()</code>, <code>bfill()</code></td>
+      <td>Statistical and sequential imputation</td>
+    </tr>
+    <tr>
+      <td>Missing data</td>
+      <td><code>df.interpolate()</code>, <code>KNNImputer</code></td>
+      <td>Curve-based and model-based imputation for complex patterns</td>
+    </tr>
+    <tr>
+      <td>Type conversion</td>
+      <td><code>astype()</code></td>
+      <td>Cast columns to correct dtype (int, float, bool, category)</td>
+    </tr>
+    <tr>
+      <td>Type conversion</td>
+      <td><code>pd.to_datetime()</code></td>
+      <td>Parse date strings into <code>datetime64</code> with explicit format</td>
+    </tr>
+    <tr>
+      <td>Type conversion</td>
+      <td><code>pd.to_numeric(errors='coerce')</code></td>
+      <td>Safely convert noisy numeric columns, turning failures into NaN</td>
+    </tr>
+    <tr>
+      <td>Duplicates</td>
+      <td><code>df.duplicated()</code>, <code>df.drop_duplicates()</code></td>
+      <td>Identify and remove duplicate rows or rows with duplicate keys</td>
+    </tr>
+    <tr>
+      <td>Outliers</td>
+      <td>IQR method, <code>clip()</code>, <code>np.where()</code></td>
+      <td>Detect and cap extreme values without reducing sample size</td>
+    </tr>
+    <tr>
+      <td>String cleaning</td>
+      <td><code>str.strip()</code>, <code>str.lower()</code>, <code>str.replace()</code></td>
+      <td>Standardise case, remove whitespace and formatting artefacts</td>
+    </tr>
+    <tr>
+      <td>String extraction</td>
+      <td><code>str.extract()</code>, <code>str.split(expand=True)</code></td>
+      <td>Parse structured information from free-text into new columns</td>
+    </tr>
+    <tr>
+      <td>Reshaping</td>
+      <td><code>df.melt()</code></td>
+      <td>Convert wide format to long format for groupby and plotting</td>
+    </tr>
+    <tr>
+      <td>Reshaping</td>
+      <td><code>df.pivot_table()</code></td>
+      <td>Create multi-dimensional summary grids with custom aggregations</td>
+    </tr>
+    <tr>
+      <td>Aggregation</td>
+      <td><code>groupby().agg()</code></td>
+      <td>Compute multiple statistics per group in a single efficient pass</td>
+    </tr>
+    <tr>
+      <td>Validation</td>
+      <td><code>assert</code> statements, <code>df.describe()</code></td>
+      <td>Confirm invariants and compare distributions before export</td>
+    </tr>
+    <tr>
+      <td>Export</td>
+      <td><code>to_csv()</code>, <code>to_parquet()</code></td>
+      <td>Write cleaned data; prefer Parquet for type preservation and compression</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>Covers all seven subtopic clusters in depth with code examples for every major method. The summary table at the end provides a quick-reference overview of the full workflow. Matplotlib and scipy.stats are referenced for visualisation of outliers, consistent with professional practice, though they are not the primary focus.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

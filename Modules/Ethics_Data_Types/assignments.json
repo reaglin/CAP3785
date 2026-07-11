@@ -1,0 +1,26 @@
+﻿{
+  "ModuleFolderName": "Ethics_Data_Types",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "LastModified": "2026-07-05T07:01:32.6608982-04:00",
+  "NextAssignmentNumber": 2,
+  "Assignments": [
+    {
+      "Id": "A001",
+      "Title": "Data on Trial: Evaluating Data Sources for Quality, Reliability, and Appropriateness",
+      "Type": "PresentationOrDebate",
+      "Level": "Medium",
+      "SubmissionFormat": "NotSpecified",
+      "TopicTitles": "",
+      "OutputFormat": "Html",
+      "ModuleStudentOutcomeIds": [
+        "5946a721-69be-464e-90af-5627efb2ee59"
+      ],
+      "TopicIds": [],
+      "FileName": "A001_Presentation_Deb_Data_on_Trial_Evaluating.html",
+      "GeneratedDate": "2026-07-05T06:59:42.3050206-04:00",
+      "TypeDisplayName": "Presentation / Debate",
+      "LevelDisplayName": "Medium  (2\u20134 hours)",
+      "FormatDisplayName": "Not specified"
+    }
+  ]
+}

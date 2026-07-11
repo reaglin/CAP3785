@@ -1,0 +1,14 @@
+﻿{
+  "SourceHtml": "Advanced_Data_Visualization_interactive_topics_t1.html",
+  "Total": 1,
+  "Pending": 0,
+  "Figures": [
+    {
+      "Id": "figure-and-axes-hierarchy",
+      "Number": "and",
+      "Title": "Figure and Axes hierarchy",
+      "Description": ". Grasping this structure resolves the majority of confusion that new users experience when trying to customize plots.",
+      "Status": "inserted"
+    }
+  ]
+}

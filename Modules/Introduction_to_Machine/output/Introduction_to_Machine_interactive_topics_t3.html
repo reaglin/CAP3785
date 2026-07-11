@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Common Machine Learning Algorithms</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Common Machine Learning Algorithms</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Common Machine Learning Algorithms</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Machine learning algorithms are the computational engines that allow systems to learn patterns from data and produce predictions, classifications, or groupings without being explicitly programmed for every scenario. Rather than following a fixed set of hand-written rules, these algorithms identify structure in historical data and generalize that structure to new, unseen observations. For business analysts and data practitioners, understanding how major algorithms work — not just how to run them — is essential for choosing the right tool, setting realistic expectations, and communicating results to stakeholders. This topic examines three of the most widely used algorithms in practice — <strong>linear regression</strong>, <strong>decision trees</strong>, and <strong>k-means clustering</strong> — and then addresses how to match algorithm type to a given business problem.</p>
+
+<p><strong>Linear Regression</strong> is one of the oldest and most foundational techniques in statistics and machine learning. Its goal is to model the relationship between one or more input variables (called features or predictors) and a continuous numeric output variable (called the target or dependent variable). The algorithm accomplishes this by fitting a straight line — or, in multiple dimensions, a hyperplane — through the data in a way that minimizes prediction error.</p>
+
+<p>The mathematical process behind this fitting is called <strong>ordinary least squares (OLS)</strong>. The core idea is to measure the difference between each actual observed value and the value that the model predicts for that observation. These differences are called <em>residuals</em>. Because some residuals will be positive (the model underestimates) and some negative (the model overestimates), they are squared before being summed so that positive and negative errors do not cancel each other out. The algorithm then finds the specific line that produces the smallest possible sum of those squared residuals. Mathematically, for a simple one-predictor case, the model takes the form:</p>
+
+<pre><code>ŷ = β₀ + β₁x</code></pre>
+
+<p>where <code>ŷ</code> is the predicted value, <code>x</code> is the input feature, <code>β₀</code> is the intercept (the predicted value when x equals zero), and <code>β₁</code> is the slope coefficient (how much the predicted value changes for each one-unit increase in x). In the multiple-predictor case, additional terms <code>β₂x₂, β₃x₃, …</code> are added, one per feature.</p>
+
+<p>The coefficients produced by linear regression are directly interpretable, which gives the model significant practical value in business settings. For example, if a model predicts monthly revenue and the coefficient on advertising spend is 3.5, that means every additional dollar spent on advertising is associated with a $3.50 increase in predicted revenue, holding all other variables constant. This kind of plain-language interpretation helps executives understand which business levers matter most.</p>
+
+<p>However, linear regression rests on a set of assumptions that must be verified before trusting the model's outputs. The most important are:</p>
+
+<ul>
+  <li><strong>Linearity:</strong> The relationship between each predictor and the target should be approximately linear. If the true relationship is curved or follows a different functional form, predictions will be systematically biased. Scatter plots and residual plots help diagnose this.</li>
+  <li><strong>Independence of errors:</strong> The residuals for different observations should not be correlated with one another. This assumption is commonly violated in time-series data, where errors in consecutive periods tend to move together (called autocorrelation).</li>
+  <li><strong>Constant variance (homoscedasticity):</strong> The spread of the residuals should remain roughly the same across all levels of the predicted values. When variance increases with the predicted value — a pattern called heteroscedasticity — standard errors and confidence intervals become unreliable.</li>
+  <li><strong>Normality of errors:</strong> For valid inference (p-values, confidence intervals), residuals should be approximately normally distributed. This is less critical when the model is used purely for prediction with large samples.</li>
+  <li><strong>No severe multicollinearity:</strong> When two or more predictors are highly correlated with each other, it becomes difficult to isolate their individual effects, and coefficient estimates become unstable.</li>
+</ul>
+
+<p>Linear regression is best suited to problems where the target variable is continuous — for example, predicting the selling price of a house given its square footage and location, forecasting next quarter's sales given historical trends, or estimating a patient's blood pressure based on demographic and lifestyle factors.</p>
+
+<p><strong>Decision Trees</strong> take a fundamentally different approach to learning. Instead of fitting a global equation, a decision tree recursively partitions the data into smaller and smaller subgroups by asking a series of yes/no questions about feature values. The result is a branching structure that resembles a flowchart, where each internal node represents a decision rule on a feature, each branch represents the outcome of that rule, and each leaf node represents a final prediction.</p>
+
+<p>The algorithm builds the tree top-down, starting with the full dataset at the root. At each node, it evaluates every possible split across every feature — for example, "Is annual income greater than $50,000?" or "Is the applicant's age less than 35?" — and selects the split that best separates the data according to a splitting criterion. For <strong>classification trees</strong> (predicting a category), the most common criteria are:</p>
+
+<ul>
+  <li><strong>Gini impurity:</strong> Measures the probability that a randomly chosen element from the node would be incorrectly classified if it were randomly labeled according to the class distribution in that node. A Gini value of 0 means the node is perfectly pure — all observations belong to one class. Lower Gini is better.</li>
+  <li><strong>Information gain (entropy):</strong> Borrowed from information theory, entropy measures the disorder or uncertainty in a node. Information gain quantifies how much a given split reduces entropy. Higher information gain is better.</li>
+</ul>
+
+<p>For <strong>regression trees</strong> (predicting a continuous value), splits are typically chosen to minimize the variance or the mean squared error within the resulting child nodes.</p>
+
+<p>Consider a credit-scoring example. The root node might ask: "Does the applicant have more than 2 years of credit history?" If yes, the right branch might then ask: "Is the debt-to-income ratio below 35%?" Each successive question narrows down the population until a leaf node is reached that assigns a prediction — approved or denied. A business analyst or auditor can trace exactly why a specific applicant was classified in a certain way, which is a key advantage over more opaque models.</p>
+
+<p>The primary weakness of decision trees is their tendency to <strong>overfit</strong> the training data. An unconstrained tree will keep splitting until every leaf contains only one or a few observations, memorizing noise in the training set rather than learning generalizable patterns. On new data, such a tree performs poorly. Several techniques address this:</p>
+
+<ul>
+  <li><strong>Pruning:</strong> After the tree is fully grown, branches that provide only marginal improvement in accuracy are removed (post-pruning), or growth is halted early when a split does not meet a minimum improvement threshold (pre-pruning).</li>
+  <li><strong>Maximum depth:</strong> Limiting how many levels deep the tree can grow prevents it from becoming too specialized.</li>
+  <li><strong>Minimum samples per leaf:</strong> Requiring that each leaf contain at least a certain number of observations prevents splits that are driven by a handful of data points.</li>
+</ul>
+
+<p>Decision trees are also the building block for more powerful ensemble methods — <em>random forests</em> and <em>gradient boosting machines</em> — which combine many trees to achieve higher accuracy while reducing overfitting. Understanding the single tree is therefore foundational to understanding those more advanced techniques.</p>
+
+<p><strong>K-Means Clustering</strong> belongs to a completely different category of machine learning. Unlike linear regression and decision trees, which are <em>supervised</em> algorithms that learn from labeled examples, k-means is an <em>unsupervised</em> algorithm. There is no target variable to predict. Instead, the algorithm explores the structure of the data itself, grouping observations that are similar to one another into clusters.</p>
+
+<p>The algorithm operates through the following iterative process:</p>
+
+<ul>
+  <li><strong>Step 1 — Initialization:</strong> The analyst specifies the number of clusters, <em>k</em>. The algorithm randomly places <em>k</em> centroids in the feature space (or selects <em>k</em> actual data points as starting centroids).</li>
+  <li><strong>Step 2 — Assignment:</strong> Each data point is assigned to the cluster whose centroid is nearest to it, typically measured using Euclidean distance.</li>
+  <li><strong>Step 3 — Update:</strong> The centroid of each cluster is recalculated as the mean of all data points currently assigned to that cluster.</li>
+  <li><strong>Step 4 — Repeat:</strong> Steps 2 and 3 are repeated until the cluster assignments no longer change (convergence), meaning the centroids have stabilized.</li>
+</ul>
+
+<p>The algorithm minimizes the <strong>within-cluster sum of squares (WCSS)</strong> — the total squared distance between each point and its cluster's centroid. Smaller WCSS means points within each cluster are more tightly packed and thus more similar to one another.</p>
+
+<p>A practical challenge is that <em>k</em> must be specified before running the algorithm, yet in most real problems the "correct" number of clusters is unknown. The <strong>elbow method</strong> is a common heuristic: the analyst runs k-means for a range of k values (say k = 1 through 10), plots the resulting WCSS for each, and looks for the point where the reduction in WCSS begins to diminish sharply — the "elbow" in the curve. Adding more clusters beyond that point yields diminishing returns in compactness, suggesting the elbow value is a reasonable choice.</p>
+
+<p>K-means has important structural assumptions. It works best when clusters are roughly <strong>spherical</strong> (isotropic), <strong>similarly sized</strong>, and have <strong>similar densities</strong>. When these conditions are not met — for instance, when clusters are elongated, crescent-shaped, or drastically different in size — k-means may produce counterintuitive groupings. In those cases, alternative clustering methods such as DBSCAN or hierarchical clustering may be more appropriate.</p>
+
+<p>Because features with larger numeric scales can dominate the distance calculations, it is standard practice to <strong>standardize or normalize features</strong> before applying k-means, ensuring that each variable contributes proportionally to the clustering.</p>
+
+<p><strong>Supervised vs. Unsupervised Algorithm Selection</strong> is not merely a technical choice — it is a strategic one that flows directly from the nature of the business problem and the data available.</p>
+
+<p><strong>Supervised algorithms</strong> require a labeled dataset: historical records where both the input features and the correct output (the label) are known. The algorithm learns a mapping from inputs to outputs by studying those historical examples. Linear regression and decision trees are both supervised. Supervised learning is appropriate when the business question is predictive: "What will next month's revenue be?" (regression) or "Will this customer churn in the next 90 days?" (classification). Producing accurate answers requires having past examples where the outcome was observed and recorded.</p>
+
+<p><strong>Unsupervised algorithms</strong> receive only input features — there are no labels to guide learning. The algorithm must find structure on its own. K-means is unsupervised. These methods are used when no historical labels exist, or when the goal is exploration and discovery rather than prediction. A retailer who wants to understand whether their customers fall into meaningful behavioral groups does not start with pre-defined groups; they let the algorithm reveal what groupings emerge from the data itself.</p>
+
+<p>The following table summarizes the key distinctions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Supervised Learning</th>
+      <th>Unsupervised Learning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Requires labeled data</td>
+      <td>Yes — labels are essential for training</td>
+      <td>No — only features are required</td>
+    </tr>
+    <tr>
+      <td>Primary goal</td>
+      <td>Predict or classify new observations</td>
+      <td>Discover hidden structure or natural groupings</td>
+    </tr>
+    <tr>
+      <td>Evaluation approach</td>
+      <td>Compare predictions to known labels (e.g., RMSE, accuracy)</td>
+      <td>Internal metrics (e.g., WCSS, silhouette score) or domain judgment</td>
+    </tr>
+    <tr>
+      <td>Typical business use cases</td>
+      <td>Forecasting, churn prediction, fraud detection, credit scoring</td>
+      <td>Customer segmentation, anomaly detection, topic modeling</td>
+    </tr>
+    <tr>
+      <td>Example algorithms</td>
+      <td>Linear regression, decision trees, random forests, logistic regression</td>
+      <td>K-means, DBSCAN, hierarchical clustering, PCA</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Misaligning the algorithm type with the problem type is a common source of failure in machine learning projects. Attempting to use a supervised model when reliable historical labels do not exist will produce misleading results. Conversely, applying an unsupervised method to a problem that requires predicting a specific outcome misses the opportunity to leverage available labeled data.</p>
+
+<p><strong>Practical Business Applications</strong> of these algorithms are wide-ranging and well-established across industries.</p>
+
+<p><strong>Linear regression</strong> is a staple in any domain that requires a quantitative forecast. Retailers use it to forecast demand for products based on seasonality, promotions, and economic indicators. Real estate platforms use it to estimate property values from features such as square footage, number of bedrooms, and neighborhood characteristics. Financial analysts build cost models that decompose total expenses into fixed and variable components. In all these cases, the interpretability of the coefficients is as important as predictive accuracy — decision-makers want to understand not just what the model predicts, but why.</p>
+
+<p><strong>Decision trees</strong> are prized in regulated industries where model transparency and auditability are mandatory. In <em>credit scoring</em>, a lender using a decision tree can provide a straightforward explanation for why an application was denied — a legal requirement under regulations such as the Equal Credit Opportunity Act in the United States. In <em>medical diagnosis support</em>, a tree-based model can present clinicians with a logical, step-by-step reasoning path that mirrors clinical decision-making. In <em>fraud detection</em>, trees can be constructed to flag transactions that match known fraud patterns, and the rules can be reviewed and validated by fraud analysts.</p>
+
+<p><strong>K-means clustering</strong> enables businesses to move beyond treating all customers identically. A telecommunications company might cluster subscribers by usage patterns — heavy data users, voice-heavy users, occasional users — and then design tailored retention offers for each segment. An e-commerce platform might cluster products by purchasing co-occurrence patterns to power recommendation engines. A supply-chain team might cluster warehouse items by velocity and size to optimize storage layouts. In each case, the value of k-means lies in letting the data reveal its own natural groupings rather than imposing arbitrary, manually defined categories.</p>
+
+<p>In practice, data scientists rarely commit to a single algorithm without experimentation. A common workflow involves training multiple candidate models — perhaps a linear regression, a decision tree, and a gradient boosted tree — on the same dataset, evaluating each using a held-out test set or cross-validation, and selecting the best-performing model based on relevant metrics such as <em>root mean squared error</em> for regression tasks or <em>AUC-ROC</em> for classification tasks. The final selection balances not only raw performance but also interpretability requirements, computational cost, and the ease of maintaining the model once deployed in production.</p>
+        <div class="notes"><strong>Notes</strong>Covers linear regression (OLS mechanics, coefficients, assumptions), decision trees (splitting criteria, overfitting, pruning), k-means clustering (iterative algorithm, elbow method, assumptions), supervised vs. unsupervised distinction, and practical business applications for each algorithm. Suitable for learners with introductory familiarity with data concepts.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

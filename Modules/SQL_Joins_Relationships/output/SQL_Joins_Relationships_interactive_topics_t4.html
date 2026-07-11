@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subqueries and Nested SELECT Statements</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Subqueries and Nested SELECT Statements</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Subqueries and Nested SELECT Statements</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most powerful features of SQL is the ability to embed one <code>SELECT</code> statement inside another. This technique is called a <strong>subquery</strong>, and it opens up a wide range of filtering, computation, and comparison possibilities that would be difficult or impossible to express in a single, flat query. Understanding subqueries — how they execute, where they can appear, and when to use them — is a cornerstone skill for anyone working with relational databases.</p>
+
+<p>A <strong>subquery</strong> (also called an <em>inner query</em> or <em>nested query</em>) is a complete <code>SELECT</code> statement enclosed in parentheses that is embedded within another SQL statement. The outer statement that contains it is called the <strong>outer query</strong>. The fundamental rule governing execution order is: <em>the inner query always executes first</em>, and its result is then handed to the outer query to use. Think of a subquery as a question whose answer is immediately fed into a larger question.</p>
+
+<p>Subqueries can return different shapes of data depending on context:</p>
+<ul>
+  <li><strong>A single scalar value</strong> — one row, one column (e.g., the maximum salary in a table)</li>
+  <li><strong>A single row</strong> — one row with multiple columns</li>
+  <li><strong>A result set (table)</strong> — multiple rows and columns, often used as a derived table</li>
+  <li><strong>A list of values</strong> — a single column with multiple rows, used with <code>IN</code></li>
+</ul>
+
+<p>Because the inner query runs independently before the outer query evaluates its conditions, subqueries let you perform complex, multi-step logic inside a single SQL statement without needing to store intermediate results in temporary tables or run multiple separate queries.</p>
+
+<p><strong>Subqueries in the WHERE Clause</strong> are the most common form. Here the subquery produces a value or set of values that the outer query uses as a filter condition. The right operator to use depends on what the subquery returns.</p>
+
+<p>When the subquery returns <em>exactly one value</em> (a scalar), you can use standard comparison operators such as <code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, or <code>&lt;&gt;</code>. For example, suppose you have an <code>employees</code> table and you want to find every employee who earns exactly the average salary:</p>
+
+<pre><code>SELECT first_name, last_name, salary
+FROM employees
+WHERE salary = (SELECT AVG(salary) FROM employees);</code></pre>
+
+<p>The inner query <code>SELECT AVG(salary) FROM employees</code> computes a single number — say, 55000. The outer query then filters rows where <code>salary = 55000</code>. If the subquery could return more than one row and you use <code>=</code>, the database engine will raise an error, so it is important to know your data and ensure scalar subqueries truly return only one value.</p>
+
+<p>When the subquery returns a <em>list of values</em> (a single column, many rows), use the <code>IN</code> operator. Suppose you want to find all orders placed by customers who live in a specific region, and that region information is in a separate <code>customers</code> table:</p>
+
+<pre><code>SELECT order_id, order_date, amount
+FROM orders
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM customers
+    WHERE region = 'Northwest'
+);</code></pre>
+
+<p>The subquery produces a list of <code>customer_id</code> values; the outer query then returns only those orders whose <code>customer_id</code> appears in that list. <code>NOT IN</code> works similarly, returning rows where the value is absent from the list — though be careful with <code>NOT IN</code> when the subquery result might contain <code>NULL</code> values, because any comparison with <code>NULL</code> using <code>NOT IN</code> causes the entire condition to evaluate as unknown, potentially returning zero rows.</p>
+
+<p>The <code>EXISTS</code> operator takes a different approach: it does not compare a column value at all. Instead, it simply checks whether the subquery returns <em>any rows whatsoever</em>. The outer query includes the current row if the subquery produces at least one row. This is covered in depth below.</p>
+
+<p><strong>Subqueries in the FROM Clause</strong> produce what is called a <strong>derived table</strong> (or inline view). The entire subquery is treated as if it were a real table, and the outer query selects from it. A critical requirement is that the derived table <em>must be given an alias</em>; without an alias the database engine cannot reference its columns.</p>
+
+<p>This pattern is especially useful when you need to filter on the result of an aggregate function. You cannot use <code>WHERE salary &gt; AVG(salary)</code> directly because <code>WHERE</code> is evaluated before aggregation. However, you <em>can</em> compute the aggregation first in a subquery and then filter in the outer query:</p>
+
+<pre><code>SELECT department_id, avg_salary
+FROM (
+    SELECT department_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department_id
+) AS dept_averages
+WHERE avg_salary > 60000;</code></pre>
+
+<p>Here the subquery <code>dept_averages</code> computes the average salary per department and gives it a name. The outer query then applies a <code>WHERE</code> filter on that computed column — something impossible to do in the same query without this layered approach. Derived tables make complex logic readable by breaking it into distinct, named steps.</p>
+
+<p><strong>Non-Correlated Subqueries</strong> are the simpler of the two main categories. In a non-correlated subquery, the inner query is completely self-contained — it contains no reference to any column from the outer query. This means the database executes the inner query <em>once</em>, produces a fixed result, and then uses that result throughout the evaluation of the outer query. The examples shown so far (finding employees who earn the average salary, finding orders for Northwest customers) are all non-correlated.</p>
+
+<p>A classic use case is finding rows that match a global extreme value. To retrieve the product with the highest unit price:</p>
+
+<pre><code>SELECT product_name, unit_price
+FROM products
+WHERE unit_price = (SELECT MAX(unit_price) FROM products);</code></pre>
+
+<p>The subquery runs once, returns a single maximum price, and then the outer query filters all products against that single number. Non-correlated subqueries are generally efficient because the inner query is evaluated only once regardless of how many rows the outer query processes.</p>
+
+<p><strong>Correlated Subqueries</strong> are fundamentally different in execution. In a correlated subquery, the inner query contains a reference to a column from the outer query. This means the subquery cannot run independently — it depends on the current row being evaluated by the outer query. The database conceptually executes the subquery once <em>for each row</em> in the outer query, passing in values from that row each time.</p>
+
+<p>Consider finding all employees who earn more than the average salary of their own department (not the company-wide average). Because the comparison must be department-specific and each row belongs to a different department, this is a natural fit for a correlated subquery:</p>
+
+<pre><code>SELECT e1.first_name, e1.last_name, e1.department_id, e1.salary
+FROM employees e1
+WHERE e1.salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.department_id = e1.department_id
+);</code></pre>
+
+<p>For each row in the outer query (aliased <code>e1</code>), the subquery uses <code>e1.department_id</code> to compute the average salary for that specific department. The subquery result changes row by row. This row-level, context-sensitive logic is the defining strength of correlated subqueries.</p>
+
+<p>The trade-off is performance. Because the subquery may be re-executed for every row in the outer table, correlated subqueries can be slow on large datasets. However, modern database engines often optimize them intelligently (for example, by caching subquery results for repeated values of the correlated column), so actual performance depends on the engine and the data distribution. Always examine the query execution plan when performance matters.</p>
+
+<p><strong>Using EXISTS and NOT EXISTS</strong> builds directly on the correlated subquery concept. <code>EXISTS</code> is a logical test: it evaluates to <code>TRUE</code> if the subquery returns one or more rows, and <code>FALSE</code> if it returns no rows. Crucially, <code>EXISTS</code> does not care about the actual column values returned — it only cares about row existence. For this reason it is common (and idiomatic) to write <code>SELECT 1</code> or <code>SELECT *</code> inside an <code>EXISTS</code> subquery, since the values themselves are discarded.</p>
+
+<pre><code>-- Find customers who have placed at least one order
+SELECT customer_id, company_name
+FROM customers c
+WHERE EXISTS (
+    SELECT 1
+    FROM orders o
+    WHERE o.customer_id = c.customer_id
+);</code></pre>
+
+<p>For each customer row, the subquery checks whether any row in <code>orders</code> has a matching <code>customer_id</code>. If yes, the customer is included in the result. The database engine can short-circuit as soon as it finds the first matching row, which can make <code>EXISTS</code> faster than <code>IN</code> when the subquery would return a large list.</p>
+
+<p><code>NOT EXISTS</code> inverts the logic and is one of the cleanest ways to perform an <strong>anti-join</strong> — finding records in one table that have no corresponding records in another:</p>
+
+<pre><code>-- Find customers who have never placed an order
+SELECT customer_id, company_name
+FROM customers c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM orders o
+    WHERE o.customer_id = c.customer_id
+);</code></pre>
+
+<p>This is equivalent in intent to <code>WHERE customer_id NOT IN (SELECT customer_id FROM orders)</code>, but with an important advantage: <code>NOT EXISTS</code> is <strong>null-safe</strong>. If the <code>orders</code> table contains a row where <code>customer_id</code> is <code>NULL</code>, <code>NOT IN</code> will return no results at all because comparing any value to <code>NULL</code> with <code>NOT IN</code> yields <em>unknown</em>, which fails the filter. <code>NOT EXISTS</code>, by contrast, is not affected by <code>NULL</code> values in the subquery and behaves correctly.</p>
+
+<p>The following table summarizes the key behavioral differences between <code>IN</code>, <code>EXISTS</code>, and a <code>JOIN</code> when used to match rows across tables:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>IN (subquery)</th>
+      <th>EXISTS (subquery)</th>
+      <th>JOIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>What the subquery returns</td>
+      <td>A list of values (one column)</td>
+      <td>Rows (values ignored)</td>
+      <td>N/A — no subquery</td>
+    </tr>
+    <tr>
+      <td>Short-circuits on first match?</td>
+      <td>No — full list evaluated</td>
+      <td>Yes — stops at first match</td>
+      <td>Depends on engine</td>
+    </tr>
+    <tr>
+      <td>NULL-safe for anti-pattern?</td>
+      <td>No — NOT IN breaks on NULLs</td>
+      <td>Yes — NOT EXISTS is safe</td>
+      <td>Yes (with LEFT JOIN + IS NULL)</td>
+    </tr>
+    <tr>
+      <td>Can duplicate outer rows?</td>
+      <td>No</td>
+      <td>No</td>
+      <td>Yes — requires DISTINCT if many-to-many</td>
+    </tr>
+    <tr>
+      <td>Best used for</td>
+      <td>Matching against a known list</td>
+      <td>Existence checks</td>
+      <td>Combining columns from multiple tables</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Choosing Between Subqueries and JOINs</strong> is a practical decision that depends on readability, the shape of the output, and performance characteristics. The key considerations are:</p>
+
+<ul>
+  <li><strong>Use a JOIN when you need columns from multiple tables in the same result set.</strong> JOINs are designed for combining data, and the optimizer has decades of tuning around join algorithms (nested loop, hash join, merge join). If you need <code>customer.name</code> and <code>order.amount</code> side by side, a JOIN is the natural and usually most efficient tool.</li>
+  <li><strong>Use a subquery when the inner logic is purely for filtering or scalar computation.</strong> If you only need data from one table but need to filter it based on a condition derived from another table, a subquery can be cleaner and more expressive than a JOIN with a <code>WHERE</code> clause or a <code>HAVING</code> clause.</li>
+  <li><strong>Use a correlated subquery for row-level comparisons that are difficult to express with a JOIN.</strong> The "each employee compared to their own department's average" example above is awkward with a JOIN and natural with a correlated subquery.</li>
+  <li><strong>Use execution plans to decide when performance is critical.</strong> Both approaches can be rewritten by the query optimizer into equivalent execution plans in many cases. Run <code>EXPLAIN</code> (or its equivalent in your database) to see what the engine actually does, and benchmark with realistic data volumes before assuming one approach is always faster.</li>
+</ul>
+
+<p>To illustrate the equivalence and the tradeoffs, here is the same logical question — "find customers who have placed at least one order" — written three ways:</p>
+
+<pre><code>-- Using IN
+SELECT customer_id, company_name
+FROM customers
+WHERE customer_id IN (SELECT customer_id FROM orders);
+
+-- Using EXISTS
+SELECT customer_id, company_name
+FROM customers c
+WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id);
+
+-- Using JOIN with DISTINCT
+SELECT DISTINCT c.customer_id, c.company_name
+FROM customers c
+INNER JOIN orders o ON c.customer_id = o.customer_id;</code></pre>
+
+<p>All three return the same logical result. The <code>JOIN</code> version requires <code>DISTINCT</code> because a customer with multiple orders would appear multiple times without it. The <code>EXISTS</code> version is null-safe and potentially short-circuits early. The <code>IN</code> version is the most concise but must materialize the full list from <code>orders</code>. Which one is "best" depends on your database engine, your data, and the context in which the query lives.</p>
+
+<p>Mastering subqueries means understanding not just the syntax but the <em>logic flow</em>: how results propagate from inner to outer, how correlated references tie executions together row by row, and how to choose the right tool for the problem at hand. Subqueries, derived tables, and the <code>EXISTS</code> family together form a flexible toolkit that complements — and sometimes surpasses — what joins alone can express.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: subquery fundamentals, WHERE-clause subqueries (scalar, IN, EXISTS), FROM-clause derived tables, non-correlated vs. correlated subqueries, EXISTS/NOT EXISTS including null-safety, and a comparative analysis of subqueries vs. JOINs. Includes a summary comparison table rendered as a proper HTML table.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

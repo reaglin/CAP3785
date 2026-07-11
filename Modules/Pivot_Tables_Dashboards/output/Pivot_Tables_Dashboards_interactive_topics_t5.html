@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Power Query</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Power Query</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Power Query</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data rarely arrives in the exact shape an analyst needs. Files come from different systems, columns are misnamed, dates are formatted inconsistently, and rows contain errors that must be removed before any meaningful analysis can begin. Traditionally, Excel users handled all of this by hand — copying and pasting, writing formulas, or recording fragile macros. <strong>Power Query</strong> fundamentally changes that workflow. It is a built-in data connectivity and transformation engine available in Excel (and Power BI) that lets you pull data in from virtually any source, clean and reshape it using a point-and-click interface, and then reload the finished result into your workbook automatically every time the underlying data changes. Understanding what Power Query is, where it gets its data, and how its editor and refresh system work gives you the foundation to build data workflows that are fast, reliable, and repeatable.</p>
+
+<p><strong>What Is Power Query?</strong></p>
+
+<p>Power Query is best understood through the lens of a concept borrowed from data engineering: <em>ETL</em>, which stands for <strong>Extract, Transform, Load</strong>. Each word describes a distinct stage of the data preparation journey.</p>
+
+<ul>
+  <li><strong>Extract</strong> — Power Query reaches out to a data source (a CSV file, a database, a website, a cloud service) and pulls the raw data into a staging environment where you can inspect it.</li>
+  <li><strong>Transform</strong> — Inside the Power Query Editor, you apply a series of cleaning and shaping operations: removing blank rows, splitting columns, changing data types, filtering out irrelevant records, merging tables, and much more.</li>
+  <li><strong>Load</strong> — Once the data looks exactly the way you need it, Power Query pushes the finished table into an Excel worksheet or directly into the workbook's internal data model, ready for PivotTables, charts, or formulas.</li>
+</ul>
+
+<p>What makes Power Query special compared to doing this work manually is its <em>step recording</em> capability. Every action you take inside the editor — renaming a column, removing duplicates, filtering a date — is recorded as a discrete step written in Power Query's own formula language, called <strong>M</strong>. These steps are stored in order and re-executed automatically every time you refresh the query. You never have to redo your data cleaning by hand. If a new month's data arrives in the same CSV file tomorrow, one click replays every transformation against the new data and delivers a freshly cleaned result in seconds.</p>
+
+<p>This design also dramatically reduces <strong>human error</strong>. Manual data preparation invites mistakes: a row accidentally deleted, a formula dragged one cell too far, a filter left on. Because Power Query's transformations are scripted and consistent, the same logic runs the same way every time, on every refresh, without variation.</p>
+
+<p><strong>Supported Data Sources</strong></p>
+
+<p>One of Power Query's greatest strengths is the breadth of systems it can connect to. Rather than forcing you to export everything to a CSV first, it speaks the native language of dozens of source types. Sources broadly fall into three families:</p>
+
+<ul>
+  <li><strong>Flat files and local workbooks</strong> — This is the most common starting point for Excel users. Power Query can import <em>comma-separated values (.csv)</em>, plain text files (<em>.txt</em>) with any delimiter, and other Excel workbooks (<em>.xlsx, .xlsb</em>). It can even loop through an entire folder of similarly structured files and stack them into one unified table automatically — a task that would take hours to do manually.</li>
+  <li><strong>Relational databases</strong> — Power Query includes native connectors for <em>Microsoft SQL Server</em>, <em>Microsoft Access</em>, <em>MySQL</em>, <em>PostgreSQL</em>, <em>Oracle</em>, and others. You provide the server address, database name, and credentials, and Power Query lets you browse tables and views just as a database tool would. For large databases, Power Query can even push filter and aggregation logic back to the database server (a feature called <em>query folding</em>), so only the rows you actually need travel across the network.</li>
+  <li><strong>Web-based and cloud sources</strong> — Power Query can scrape structured tables directly from web pages, connect to <em>SharePoint lists and document libraries</em>, pull from <em>Microsoft Dataverse</em>, import <em>JSON</em> or <em>XML</em> feeds from REST APIs, and connect to cloud platforms such as Azure, Salesforce, and Google Analytics through dedicated connectors. This makes it possible to build live-updating Excel reports driven entirely by cloud data without ever manually downloading a file.</li>
+</ul>
+
+<p>The table below summarises some representative source types and their typical use cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source Category</th>
+      <th>Example Sources</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flat Files</td>
+      <td>CSV, TXT, XLSX, folder of files</td>
+      <td>Importing exports from other software; combining monthly report files</td>
+    </tr>
+    <tr>
+      <td>Relational Databases</td>
+      <td>SQL Server, Access, MySQL, PostgreSQL</td>
+      <td>Pulling live transactional or CRM data directly into Excel</td>
+    </tr>
+    <tr>
+      <td>Web &amp; Online Services</td>
+      <td>Web pages, SharePoint, REST APIs, JSON/XML feeds</td>
+      <td>Live dashboards fed by cloud systems; scraping public data tables</td>
+    </tr>
+    <tr>
+      <td>Microsoft Cloud</td>
+      <td>Azure SQL, Dataverse, OneDrive for Business</td>
+      <td>Enterprise reporting connected to Microsoft 365 ecosystem</td>
+    </tr>
+    <tr>
+      <td>Other</td>
+      <td>OData feeds, ODBC/OLE DB connections, PDF tables</td>
+      <td>Connecting to legacy or specialised systems</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Connecting Excel to an External Dataset</strong></p>
+
+<p>The process of establishing a new Power Query connection follows a consistent pattern regardless of the source type. Here is how it works in practice:</p>
+
+<ul>
+  <li><strong>Step 1 — Open the Get Data menu.</strong> On the Excel ribbon, click the <em>Data</em> tab. In the <em>Get &amp; Transform Data</em> group you will find the <strong>Get Data</strong> button. Clicking it reveals a categorised menu of all available source types — From File, From Database, From Azure, From Online Services, and so on. Selecting the appropriate category then presents the specific connector options within it.</li>
+  <li><strong>Step 2 — Provide connection details.</strong> For a CSV file, you simply browse to the file location. For a SQL Server database, you type the server address, choose the database, and (if required) enter credentials. Power Query stores these details securely as part of the workbook's connection definitions.</li>
+  <li><strong>Step 3 — Preview before committing.</strong> Before anything is loaded into your spreadsheet, Power Query displays a <em>Navigator</em> window or a data preview pane. This is your chance to verify that you have connected to the right table or file and that the data looks as expected. You can see column names, data types, and sample rows. From here you choose either <strong>Load</strong> (send the data straight to Excel as-is) or <strong>Transform Data</strong> (open the Power Query Editor to clean the data first — the recommended path for any real-world dataset).</li>
+  <li><strong>Step 4 — Connection details are saved.</strong> Once you have completed the setup, the connection is stored inside the workbook. Future refreshes do not require you to re-enter the file path or server address. Excel remembers everything and uses those saved details to re-run the query on demand.</li>
+</ul>
+
+<p>For example, suppose your company's finance team drops a new CSV file called <code>sales_data.csv</code> into a shared network folder at the end of each month. You would connect to that file once using <em>Get Data → From File → From Text/CSV</em>, apply your cleaning steps in the editor, and load the result. Next month, when the file is updated, you simply click <strong>Refresh</strong> and the new data flows through the same pipeline automatically.</p>
+
+<p><strong>The Power Query Editor</strong></p>
+
+<p>When you choose <em>Transform Data</em> after connecting to a source, the <strong>Power Query Editor</strong> opens as a separate window. It is the core workspace where all data shaping happens, and it is worth understanding its layout in detail.</p>
+
+<ul>
+  <li><strong>The data preview grid</strong> — The central area shows a spreadsheet-like grid of your data. Column headers sit at the top, and you can scroll through rows to inspect values. Unlike a regular Excel sheet, this grid is <em>read-only</em>; you cannot type into cells directly. Instead, all changes are made through menu commands, right-click options, or the formula bar, which keeps the transformation logic cleanly separated from the data itself.</li>
+  <li><strong>The Queries pane (left side)</strong> — If your workbook contains multiple queries, they are listed here. You can click between them to switch the editor's view to a different query. This makes it easy to manage a complex workbook that pulls from several different sources.</li>
+  <li><strong>The Applied Steps pane (right side)</strong> — This is the heart of Power Query's power. Every action you take is recorded here as a named step. Common automatic steps include <em>Source</em> (the connection itself), <em>Navigation</em> (selecting a specific table or sheet), and <em>Changed Type</em> (Power Query's automatic guess at column data types). Steps you add manually — such as <em>Removed Columns</em>, <em>Filtered Rows</em>, or <em>Renamed Columns</em> — appear beneath these. You can click any step to see what the data looked like at that point in the sequence, rename steps to make them self-documenting, delete steps you no longer need, or reorder them by dragging. This creates a full, inspectable audit trail of every decision made during data preparation.</li>
+  <li><strong>The ribbon</strong> — The editor has its own multi-tab ribbon with commands organised into groups: <em>Home</em> (load, close, refresh), <em>Transform</em> (reshape existing columns), <em>Add Column</em> (create new calculated columns), and <em>View</em> (formula bar, data profiling tools). Most common operations — changing a data type, splitting a column by delimiter, replacing values — are a single click or right-click away.</li>
+</ul>
+
+<p>As a concrete example, imagine you import a CSV of customer orders. Power Query automatically detects columns for <code>OrderDate</code>, <code>CustomerName</code>, <code>Product</code>, <code>Quantity</code>, and <code>Price</code>. You notice that <code>OrderDate</code> has been read as plain text rather than a date. You click the column header's type icon and select <em>Date</em> — a <em>Changed Type</em> step is recorded. You then right-click the <code>CustomerName</code> header and choose <em>Transform → Trim</em> to remove accidental leading and trailing spaces — a <em>Trimmed Text</em> step is added. You filter the <code>Product</code> column to exclude a discontinued item — a <em>Filtered Rows</em> step appears. The Applied Steps pane now reads like a clear recipe: anyone reviewing it can understand exactly what was done to the raw data and why.</p>
+
+<p><strong>Automating Data Import with Refresh</strong></p>
+
+<p>The refresh mechanism is what converts Power Query from a one-time import tool into a genuine automation platform. When you click <strong>Refresh</strong> (either by right-clicking the query in the Queries &amp; Connections pane, or using <em>Data → Refresh All</em> on the ribbon), Excel re-executes every step in the Applied Steps sequence from scratch against the current state of the data source. The raw data is re-extracted, all transformations are re-applied in order, and the finished table in your worksheet is replaced with the updated result.</p>
+
+<ul>
+  <li><strong>On-demand refresh</strong> — You control exactly when the data updates by clicking Refresh manually. This is appropriate when data sources update infrequently or when you want to review results before they appear in reports.</li>
+  <li><strong>Refresh on open</strong> — In the query's <em>Properties</em> settings (accessible via <em>Data → Queries &amp; Connections → right-click a query → Properties</em>), you can enable the option <em>Refresh data when opening the file</em>. With this setting active, every time anyone opens the workbook, Power Query silently re-runs all queries and delivers the latest data before the user sees the sheet. Dashboards built on this data are always current.</li>
+  <li><strong>Scheduled refresh via Power BI or SharePoint</strong> — If you publish the workbook to SharePoint or Power BI, you can schedule automated refreshes on a timed basis (for example, every morning at 6 a.m.) without anyone needing to open the file at all.</li>
+</ul>
+
+<p>Consider a practical scenario: a sales manager has an Excel dashboard with a PivotTable summarising regional revenue. The underlying data comes from a Power Query that connects to a SQL Server database. Every Monday morning when the manager opens the workbook, the query refreshes automatically, pulling the latest week's transactions, applying all the cleaning steps, and updating the PivotTable — all before the manager has even looked at the numbers. What used to take 30 minutes of manual export and formatting now happens invisibly in seconds.</p>
+
+<p><strong>Why Power Query Improves Data Workflows</strong></p>
+
+<p>The cumulative effect of Power Query's features represents a genuine shift in how Excel can be used for data work. Several benefits stand out as particularly important:</p>
+
+<ul>
+  <li><strong>Reusability eliminates repeated effort.</strong> The single biggest time cost in traditional spreadsheet work is redoing the same data cleaning steps every time new data arrives. Power Query abolishes that cost. You do the work once, record the steps, and the engine repeats them indefinitely. An organisation that previously spent hours each month reformatting a supplier's data export can reduce that to a one-time setup and zero ongoing effort.</li>
+  <li><strong>Multiple sources, one destination.</strong> Real analytical questions rarely have a single data source. You might need to combine sales transactions from a database with customer demographic data from a CSV and product categories from a SharePoint list. Power Query can connect to all three simultaneously, merge the tables using common key columns (a process called <em>merging queries</em>), and deliver a single, unified table. This kind of multi-source integration used to require specialised database skills; Power Query makes it accessible to any Excel user.</li>
+  <li><strong>Transparency and auditability.</strong> Because every transformation is recorded as a named, inspectable step, Power Query creates an automatic audit trail. A colleague reviewing your workbook can open the editor and follow the Applied Steps to understand exactly how the raw data was turned into the finished report. This is invaluable for compliance, peer review, and troubleshooting. If a number in a report looks wrong, you can trace back through each step to find exactly where a value changed and why — something that is essentially impossible with manual copy-paste workflows.</li>
+  <li><strong>Reduced human error.</strong> Manual data preparation is error-prone by nature. Power Query's deterministic, scripted approach means the same logic is applied consistently every single time. Once a transformation is correct, it stays correct across every future refresh.</li>
+  <li><strong>Scalability.</strong> Whether your dataset has 100 rows or 10 million, Power Query handles the transformation pipeline the same way. For very large datasets, features like query folding push processing to the database server rather than Excel's memory, keeping performance manageable even at scale.</li>
+</ul>
+
+<p>In short, Power Query does not just make importing data easier — it reimagines the entire relationship between Excel and external data. It turns Excel from a destination where data is pasted and manually groomed into a live, connected reporting environment where clean, current data arrives automatically and the analyst's time is freed for actual analysis rather than data wrangling.</p>
+        <div class="notes"><strong>Notes</strong>Consider demonstrating the Applied Steps pane live during instruction — seeing steps appear in real time as transformations are applied is one of the most effective ways to make the concept concrete for new learners. Emphasise that students should always choose &quot;Transform Data&quot; rather than &quot;Load&quot; when first connecting to a new source, so they build the habit of inspecting and cleaning data before it enters the worksheet.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

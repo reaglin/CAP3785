@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervised vs. Unsupervised Learning</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Supervised vs. Unsupervised Learning</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Supervised vs. Unsupervised Learning</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Machine learning can be divided into two foundational paradigms that differ in a single, decisive way: whether the data used to train the algorithm includes known, pre-labeled outcomes or not. This distinction — <strong>supervised learning</strong> versus <strong>unsupervised learning</strong> — shapes every downstream decision a data practitioner makes, from how data must be collected and prepared, to which algorithms are appropriate, to how success is ultimately measured. Understanding both paradigms deeply, including their strengths, limitations, and natural business use cases, is essential before applying machine learning to any real-world problem.</p>
+
+<p><strong>What Is Supervised Learning?</strong></p>
+
+<p>Supervised learning is the process of training an algorithm on a dataset where every record contains both <em>input features</em> (the variables that describe an observation) and a <em>labeled output</em> (the correct answer the model should learn to predict). The word "supervised" is apt: a human has already done the work of tagging each training example with its true outcome, so the algorithm learns under that supervision — it can check its own guesses against reality during training and gradually improve.</p>
+
+<p>Consider a concrete example. A bank wants to predict whether a loan applicant will default. Its historical records contain thousands of past applicants, each described by features such as income, credit score, debt-to-income ratio, and employment length. Crucially, each record is also tagged with what actually happened: <em>defaulted</em> or <em>did not default</em>. That tag is the label. A supervised learning algorithm studies the relationship between the features and the labels across all of those historical examples and learns a <strong>mapping function</strong> — a mathematical rule that translates a new applicant's features into a prediction of their likely outcome.</p>
+
+<p>The mechanism by which learning happens is <strong>error minimization</strong>. During training, the model makes predictions on the training records and compares each prediction to the true label. The difference between the prediction and the true label is the error. The algorithm adjusts its internal parameters to reduce that error, repeating this process many times until predictions align as closely as possible with the known outcomes. Different algorithms (logistic regression, decision trees, neural networks, gradient boosting) use different mathematical strategies to minimize error, but the underlying principle is the same.</p>
+
+<p>Supervised learning naturally divides into two major task types:</p>
+
+<ul>
+  <li><strong>Classification</strong> — the output is a discrete category. Examples include predicting whether an email is spam or not spam, whether a patient has a disease or not, or which of several product categories a support ticket belongs to. The model learns to assign new inputs to one of a fixed set of classes.</li>
+  <li><strong>Regression</strong> — the output is a continuous numeric value. Examples include forecasting next quarter's sales revenue, predicting the price of a house given its characteristics, or estimating how many units of a product will be demanded next week. The model learns to output a number rather than a category label.</li>
+</ul>
+
+<p>Beyond loan default prediction, supervised learning powers a wide range of familiar business systems. <strong>Customer churn prediction</strong> trains on records of past customers, each tagged with whether they eventually cancelled, to flag currently at-risk subscribers. <strong>Demand forecasting</strong> uses historical sales data labeled with actual sales figures to predict future inventory needs. <strong>Customer support ticket classification</strong> uses previously categorized tickets to automatically route new ones by urgency or topic, reducing manual triage time. In each case, the availability of reliably labeled historical outcomes is what makes the supervised approach feasible and powerful.</p>
+
+<p><strong>What Is Unsupervised Learning?</strong></p>
+
+<p>Unsupervised learning tackles a fundamentally different situation: the data contains input features, but there are <em>no labels</em> — no pre-recorded "correct answers." Instead of learning to predict a known output, the algorithm explores the data's inherent structure, searching for natural groupings, recurring patterns, statistical regularities, or anomalous observations that stand out from the rest.</p>
+
+<p>Because there is no label to guide it, the algorithm cannot measure its own error against a ground truth. Instead, it optimizes for internal measures of structure quality. This makes unsupervised learning more open-ended and exploratory in nature — it is less about confirming a hypothesis and more about discovering what patterns exist in the first place.</p>
+
+<p>The major families of unsupervised tasks are:</p>
+
+<ul>
+  <li><strong>Clustering</strong> — grouping records so that observations within a cluster are more similar to each other than to observations in other clusters. A retailer might cluster customers by purchasing behavior to discover natural market segments without having predefined those segments in advance.</li>
+  <li><strong>Dimensionality reduction</strong> — compressing a dataset with many variables into a smaller set of variables (or dimensions) that still captures most of the meaningful variation. This makes data easier to visualize, speeds up downstream algorithms, and removes noise. Techniques like Principal Component Analysis (PCA) and t-SNE fall into this category.</li>
+  <li><strong>Association rule mining</strong> — discovering which items or events tend to co-occur. The classic example is market basket analysis: a grocery chain analyzes transaction records to find that customers who buy diapers also frequently buy beer, an insight that can inform shelf placement and promotions.</li>
+  <li><strong>Anomaly detection</strong> — identifying records that deviate significantly from the learned patterns of normal data. A credit card company can flag transactions that look nothing like a cardholder's usual behavior, surfacing potential fraud without having needed labeled fraud examples to train on.</li>
+</ul>
+
+<p>A critical practical consideration with unsupervised learning is that the algorithm finds patterns but <em>does not assign meaning</em> to them. If a clustering algorithm divides a customer base into five groups, it labels them only numerically — Cluster 0, Cluster 1, and so on. A domain expert must examine each cluster's characteristics and decide what those groups actually represent: "budget-conscious young adults," "high-value loyalists," "occasional seasonal buyers," and so forth. This interpretive step is not optional; without it, unsupervised results cannot drive business action.</p>
+
+<p><strong>The Role of Labeled vs. Unlabeled Data</strong></p>
+
+<p>The distinction between labeled and unlabeled data goes beyond a technical detail — it reflects how knowledge about outcomes is created and stored in an organization, and it has major practical implications for project feasibility.</p>
+
+<p><strong>Labeled data</strong> requires that someone — whether a human expert, an automated system, or the natural passage of time — has recorded the outcome for each observation. A loan labeled "defaulted" reflects what actually happened after the loan was issued. A support ticket labeled "high urgency" reflects a human agent's assessment. This prior knowledge is what makes the supervised approach possible. Labeled data is well-suited to <em>well-defined prediction problems</em> where the outcome of interest has been systematically tracked historically.</p>
+
+<p>The challenge is that obtaining high-quality labeled data is often expensive and slow. Labeling medical images requires trained clinicians. Labeling sentiment in product reviews requires human annotators. Reviewing thousands of transactions to mark which ones were fraudulent requires investigative work. The quality of labels also matters enormously: labels generated carelessly or inconsistently introduce noise that degrades model performance.</p>
+
+<p><strong>Unlabeled data</strong>, by contrast, is far more abundant in virtually every business environment. Web server logs, customer clickstreams, sensor readings from manufacturing equipment, raw text from emails and social media — all of this data is generated constantly and is rarely tagged with explicit outcome labels at the moment of collection. This abundance is one reason unsupervised learning is so practically valuable: it can extract useful structure from data that would otherwise sit untouched simply because no one has labeled it.</p>
+
+<p>The decision of which paradigm to use should therefore account for the realistic cost and feasibility of labeling. Asking "can we realistically obtain enough reliable labels within our timeline and budget?" is often the first and most decisive question in paradigm selection.</p>
+
+<p><strong>Choosing Between Supervised and Unsupervised Learning</strong></p>
+
+<p>The choice between supervised and unsupervised learning is not arbitrary — it should be driven by a clear understanding of the business objective, the nature of available data, and practical constraints. A useful mental framework:</p>
+
+<ul>
+  <li><strong>Use supervised learning</strong> when you have a specific, measurable outcome to predict, and when sufficient historical examples with reliable labels are available. The objective is prediction or classification of a predefined target variable. If you can clearly state "I want to predict X," and you have past records where X was observed, supervised learning is likely the right tool.</li>
+  <li><strong>Use unsupervised learning</strong> when the goal is exploration rather than prediction — when you want to discover unknown structure, uncover natural groupings, or detect anomalies without having defined in advance what those groups or anomalies look like. Unsupervised learning is also the natural choice when labels are not available and the cost or timeline of generating them is prohibitive.</li>
+  <li><strong>Consider semi-supervised learning</strong> when a small amount of labeled data exists alongside a large pool of unlabeled data. Semi-supervised approaches use the labeled examples to anchor the learning process while leveraging the unlabeled data to improve generalization. This is increasingly valuable in domains like medical imaging, where expert labeling is scarce but raw images are plentiful.</li>
+</ul>
+
+<p>Business factors also legitimately influence paradigm selection. Consider the following dimensions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Consideration</th>
+      <th>Favors Supervised Learning</th>
+      <th>Favors Unsupervised Learning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Outcome definition</td>
+      <td>Clear, predefined target variable</td>
+      <td>No predefined target; goal is discovery</td>
+    </tr>
+    <tr>
+      <td>Label availability</td>
+      <td>Sufficient historical labeled records exist</td>
+      <td>Labels absent, scarce, or too costly to obtain</td>
+    </tr>
+    <tr>
+      <td>Data volume</td>
+      <td>Moderate labeled dataset sufficient</td>
+      <td>Large unlabeled datasets available</td>
+    </tr>
+    <tr>
+      <td>Business objective</td>
+      <td>Prediction, scoring, classification</td>
+      <td>Segmentation, exploration, anomaly detection</td>
+    </tr>
+    <tr>
+      <td>Evaluation</td>
+      <td>Objective metrics against known labels</td>
+      <td>Internal metrics plus domain validation</td>
+    </tr>
+    <tr>
+      <td>Interpretability requirement</td>
+      <td>Output directly maps to actionable prediction</td>
+      <td>Requires domain expertise to interpret patterns</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Budget and timeline matter too. Supervised models, once trained on good labels, tend to produce immediately actionable outputs. Unsupervised analysis often requires several rounds of interpretation and refinement before business stakeholders can act on the findings. This is not a reason to avoid unsupervised learning, but it should be planned for.</p>
+
+<p><strong>Business Applications of Supervised Learning</strong></p>
+
+<p>Supervised learning is the workhorse of predictive analytics across virtually every industry. Understanding how the paradigm maps to specific business problems illuminates why it is so widely adopted.</p>
+
+<p><strong>Credit scoring</strong> is one of the oldest and most consequential applications. Banks and lenders use historical loan data — where every past applicant is tagged with their eventual repayment outcome — to train models that assign a risk score to new applicants. The model has learned which combinations of features (credit history, income stability, existing debt load) are associated with default, and it applies that learning to new cases in milliseconds, at a scale no human underwriter could match.</p>
+
+<p><strong>Customer churn prediction</strong> is pervasive in subscription businesses — telecommunications, streaming services, software-as-a-service platforms. The training data consists of past customers, each labeled either "churned" or "retained," along with features capturing their engagement patterns (login frequency, feature usage, support ticket history, payment delays). The trained model scores current customers by their churn likelihood, allowing customer success teams to intervene proactively with at-risk accounts before they cancel.</p>
+
+<p><strong>Demand forecasting</strong> applies regression models to historical sales records labeled with actual quantities sold. Retailers use these models to anticipate how much inventory to order for each SKU across different locations and seasons. Getting demand forecasting right reduces both overstock (which ties up capital and leads to markdowns) and stockouts (which lose sales and damage customer satisfaction). Modern demand forecasting also incorporates features beyond past sales, such as promotional calendars, weather forecasts, and economic indicators, all of which the supervised model learns to weight appropriately against the historical labeled outcomes.</p>
+
+<p><strong>Email spam filtering</strong> is an example most people interact with daily without realizing they are benefiting from a supervised classification model. Millions of emails labeled as spam or legitimate (often by users clicking "mark as spam") train models that analyze the content, metadata, and sender characteristics of incoming messages and classify them before they reach the inbox. The feedback loop — users continue to label new spam — keeps the model current as spam tactics evolve.</p>
+
+<p><strong>Business Applications of Unsupervised Learning</strong></p>
+
+<p>Unsupervised learning excels in situations where the business question is not "what will happen to this specific customer?" but rather "what kinds of customers do we have?" or "what is unusual about this transaction?" These exploratory questions are often the precursor to supervised work — unsupervised analysis reveals the structure of a problem, and subsequent supervised models can then be built to act on that structure.</p>
+
+<p><strong>Customer segmentation</strong> is perhaps the most universally applied unsupervised technique in marketing. Rather than relying on intuition or a handful of manually defined personas, clustering algorithms partition a customer base into groups that are statistically coherent. An e-commerce company might discover, purely from transaction data, that it has a segment of high-frequency, low-basket-size buyers who respond well to loyalty rewards, and another segment of infrequent but high-value buyers who respond better to exclusive product launches. These segments were not predefined; the algorithm revealed them from patterns in the data.</p>
+
+<p><strong>Anomaly detection</strong> leverages unsupervised learning to identify records that deviate sharply from what the model has learned to expect as normal. In fraud detection, a model trained on millions of normal transactions builds a profile of typical behavior for each cardholder — usual merchants, typical transaction amounts, geographic patterns. A transaction that violates multiple aspects of this profile is flagged for review. Critically, this approach does not require labeled examples of fraud. Since fraud tactics change constantly and fraudsters deliberately try to mimic legitimate behavior, models that depend purely on labeled historical fraud can become outdated quickly; unsupervised anomaly detection adapts to the current definition of normal.</p>
+
+<p><strong>Market basket analysis</strong> uses association rule mining algorithms (most famously the Apriori algorithm) to quantify item co-occurrence across transactions. The output is rules of the form: "Customers who buy X also buy Y with probability Z." These rules drive decisions about product placement on physical shelves and digital storefronts, cross-sell recommendations, and promotional bundling. A hardware store might discover that customers buying lumber are highly likely to also purchase sandpaper and wood stain, suggesting those items should be stocked and promoted together.</p>
+
+<p><strong>Dimensionality reduction</strong> addresses a practical challenge that arises when datasets contain dozens, hundreds, or even thousands of variables. Many of those variables will be correlated with each other, carrying redundant information. Dimensionality reduction techniques like PCA compress these many variables into a smaller set of new variables (principal components) that capture the majority of the variance in the data. This simplification makes visualization possible — a dataset with 200 variables cannot be plotted, but its top two or three principal components can — and it makes downstream machine learning algorithms faster and less prone to overfitting. In business settings, dimensionality reduction is often presented as a preprocessing step that makes complex datasets interpretable for executive audiences.</p>
+
+<p><strong>Evaluating the Success of Each Paradigm</strong></p>
+
+<p>How do you know whether a machine learning model is working? The answer differs substantially depending on whether the model is supervised or unsupervised, and understanding this difference is essential for setting realistic expectations with business stakeholders.</p>
+
+<p>For <strong>supervised models</strong>, evaluation is grounded in objective, quantitative metrics computed by comparing model predictions to known labels. Because labels exist, performance can be measured precisely:</p>
+
+<ul>
+  <li><strong>Accuracy</strong> — the proportion of predictions that are correct. Simple to interpret but misleading when classes are imbalanced (e.g., if 95% of loans don't default, a model that always predicts "no default" achieves 95% accuracy while being useless).</li>
+  <li><strong>Precision and Recall</strong> — particularly important for classification tasks with imbalanced classes. Precision measures how many of the model's positive predictions are actually positive (avoiding false alarms); recall measures how many actual positives the model successfully identifies (avoiding missed cases). These two metrics often trade off against each other.</li>
+  <li><strong>F1 Score</strong> — the harmonic mean of precision and recall, providing a single metric that balances both.</li>
+  <li><strong>Mean Squared Error (MSE) / Root Mean Squared Error (RMSE)</strong> — standard metrics for regression tasks, quantifying the average magnitude of prediction errors in the same units as the outcome variable.</li>
+  <li><strong>Area Under the ROC Curve (AUC-ROC)</strong> — measures how well a classifier separates positive from negative cases across all possible classification thresholds; a value of 1.0 is perfect, 0.5 is no better than random guessing.</li>
+</ul>
+
+<p>A critical principle in supervised learning evaluation is the use of a <strong>held-out test set</strong>. The model is trained on one portion of the labeled data and then evaluated on a separate portion it has never seen during training. This simulates real-world performance: the test set represents future, unseen cases. Evaluating only on training data is dangerously misleading — a model can memorize its training examples (a phenomenon called <em>overfitting</em>) and score perfectly on them while failing completely on new data.</p>
+
+<p>For <strong>unsupervised models</strong>, evaluation is inherently more challenging because there is no ground truth to compare against. The field has developed several internal metrics, but none fully replace the need for human judgment:</p>
+
+<ul>
+  <li><strong>Silhouette Score</strong> — measures how similar each data point is to its own cluster compared to other clusters. Values range from -1 (likely misclassified) to +1 (clearly assigned to the right cluster). A high average silhouette score suggests compact, well-separated clusters.</li>
+  <li><strong>Inertia (Within-Cluster Sum of Squares)</strong> — used in k-means clustering, this measures the total distance of all points from their assigned cluster centers. Lower inertia means tighter clusters, though it always decreases as the number of clusters increases, so it must be interpreted carefully (often using an "elbow" plot).</li>
+  <li><strong>Davies-Bouldin Index</strong> — the average ratio of within-cluster scatter to between-cluster separation. Lower values indicate better-defined clusters.</li>
+</ul>
+
+<p>Beyond these technical metrics, unsupervised model evaluation requires a <strong>domain validation step</strong> that is just as important as any quantitative score. Do the clusters make business sense? Can a marketing expert look at Cluster 2 and describe a coherent type of customer? Do the anomalies flagged by the detection algorithm correspond to transactions that, upon investigation, turn out to be genuinely suspicious? Do the association rules generated by market basket analysis reflect plausible consumer behavior rather than statistical noise?</p>
+
+<p>This necessity for human interpretation is not a weakness of unsupervised learning — it is a reflection of the open-ended nature of the questions it answers. Discovery requires judgment. The goal of unsupervised analysis is not to produce a number that is right or wrong; it is to surface structure in data that enables smarter business decisions, and that goal can only be assessed with domain expertise in the loop.</p>
+
+<p>Together, supervised and unsupervised learning form the two primary pillars on which the vast majority of practical machine learning systems are built. Knowing when to apply each — and how to evaluate whether it has worked — is the foundation for using data science effectively in any business context.</p>
+        <div class="notes"><strong>Notes</strong>The topic covers all listed subtopics in full depth. The comparison table uses only permitted HTML tags. Code blocks were not needed as the content is conceptual rather than programmatic. Semi-supervised learning is introduced where listed in the subtopics and positioned as a bridge between the two paradigms rather than a third major paradigm. All evaluation metrics are explained with enough context for business-oriented learners to understand their practical significance.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

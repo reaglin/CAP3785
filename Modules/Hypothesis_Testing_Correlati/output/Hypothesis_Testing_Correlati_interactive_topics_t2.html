@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P-Values and Statistical Significance</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>P-Values and Statistical Significance</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>P-Values and Statistical Significance</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Statistical hypothesis testing sits at the heart of data-driven decision-making, and the p-value is its most widely reported — and most widely misunderstood — output. Whenever a researcher runs an experiment, a data analyst compares two web page variants, or a clinician evaluates a new drug, they need a principled way to decide whether the pattern they observed in their sample is likely to reflect a real phenomenon in the world or is simply the result of random chance. The p-value provides exactly that: a numerical bridge between the observed data and a formal statement about how compatible those data are with the assumption that nothing interesting is happening.</p>
+
+<p>Understanding p-values deeply requires building up from the logic of hypothesis testing itself. Every test begins with a <strong>null hypothesis (H₀)</strong> — a default claim of "no effect," "no difference," or "no relationship" — and an <strong>alternative hypothesis (H₁)</strong> that represents the effect the researcher is trying to detect. The machinery of the test then asks: <em>if the null hypothesis were true, how surprising would it be to observe data at least as extreme as what we actually collected?</em> The p-value is the precise numerical answer to that question.</p>
+
+<p><strong>What Is a P-Value?</strong></p>
+
+<p>A p-value is the probability of obtaining a test statistic at least as extreme as the one calculated from the observed sample data, <em>assuming the null hypothesis is true</em>. This definition contains two critical pieces. First, it is a conditional probability — it lives entirely inside the hypothetical world in which H₀ is correct. Second, "at least as extreme" means the p-value accumulates probability in the tail or tails of the null distribution, not just at the single observed value.</p>
+
+<p>To make this concrete, imagine a pharmaceutical company testing whether a new painkiller reduces recovery time compared to a placebo. They recruit 60 patients, assign them randomly to two groups, and measure average recovery time in each group. They find the treatment group recovered 2.4 days faster on average. A t-test produces a test statistic of t = 2.31. The p-value answers: <em>if the drug truly had no effect whatsoever, what fraction of random experiments of this size would produce a t-statistic of 2.31 or larger in magnitude?</em> If that fraction is, say, 0.026, then p = 0.026.</p>
+
+<p>The p-value is computed from the <strong>test statistic</strong> using the appropriate <strong>sampling distribution</strong>. Different tests use different distributions:</p>
+
+<ul>
+  <li><strong>t-distribution:</strong> used for comparing means when the population standard deviation is unknown, as in one-sample t-tests, independent-samples t-tests, and paired t-tests.</li>
+  <li><strong>Standard normal (z) distribution:</strong> used when the population standard deviation is known, or for large samples where the Central Limit Theorem ensures approximate normality.</li>
+  <li><strong>Chi-square distribution:</strong> used in tests of independence between categorical variables and goodness-of-fit tests.</li>
+  <li><strong>F-distribution:</strong> used in analysis of variance (ANOVA) and in comparing model fits in regression.</li>
+</ul>
+
+<p>Each distribution has a characteristic shape determined by the degrees of freedom for the test. The test statistic is placed on that distribution, and the p-value is the area in the tail(s) beyond that value. Smaller p-values arise when the test statistic falls far into the tail of the null distribution — meaning the observed data would be very unusual if the null hypothesis were true. A p-value of 0.003 says the observed result would happen only 0.3% of the time by chance alone if H₀ held; a p-value of 0.72 says the observed result is entirely ordinary under H₀.</p>
+
+<p>Because it is derived from a probability, the p-value is always constrained to the interval [0, 1]. A p-value of exactly 0 is theoretically impossible (any outcome has at least infinitesimal probability under a continuous distribution), and a p-value of exactly 1 would mean the data perfectly match the null hypothesis prediction. In practice, software rounds very small p-values and may report them as "p < 0.001."</p>
+
+<p><strong>Significance Thresholds — The Alpha Level</strong></p>
+
+<p>A p-value by itself does not make a decision; it must be compared against a pre-specified threshold called the <strong>significance level</strong>, denoted <em>α</em> (alpha). The decision rule is straightforward:</p>
+
+<ul>
+  <li>If <strong>p ≤ α</strong>, the result is declared <em>statistically significant</em> and the null hypothesis is rejected in favor of the alternative.</li>
+  <li>If <strong>p &gt; α</strong>, the result is <em>not statistically significant</em> and we <em>fail to reject</em> the null hypothesis.</li>
+</ul>
+
+<p>The most commonly used significance level is <strong>α = 0.05</strong>, a convention introduced by statistician Ronald Fisher in the early twentieth century and since institutionalized across many scientific disciplines. Under this convention, a researcher accepts a 5% chance of incorrectly claiming an effect exists when it does not. However, α = 0.05 is a convention, not a law of nature, and different contexts warrant different thresholds.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field / Context</th>
+      <th>Typical Alpha Level</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Social sciences, marketing, A/B testing</td>
+      <td>0.05</td>
+      <td>Moderate tolerance for false positives; errors have limited real-world harm</td>
+    </tr>
+    <tr>
+      <td>Clinical trials, medical research</td>
+      <td>0.01 or 0.001</td>
+      <td>False positives could lead to adoption of harmful or ineffective treatments</td>
+    </tr>
+    <tr>
+      <td>Particle physics (e.g., Higgs boson)</td>
+      <td>~0.0000003 (5-sigma)</td>
+      <td>Extraordinary claims require extraordinary evidence; instruments generate millions of tests</td>
+    </tr>
+    <tr>
+      <td>Exploratory / preliminary research</td>
+      <td>0.10</td>
+      <td>Willingness to follow up on weaker leads; cost of missing effects is high</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A crucial distinction often blurred in practice: <strong>failing to reject H₀ is not the same as proving H₀ is true.</strong> When p &gt; α, the data simply do not provide sufficient evidence against the null hypothesis. The null may still be false — the study might have been underpowered, the sample too small, or the effect too subtle to detect. Absence of evidence is not evidence of absence.</p>
+
+<p><strong>Type I Errors — False Positives</strong></p>
+
+<p>A <strong>Type I error</strong> occurs when the null hypothesis is actually true but the statistical test rejects it anyway, producing a false positive. The rate of Type I errors is precisely equal to the significance level α. Setting α = 0.05 means that, in a world where H₀ is always true, 5% of experiments would still generate p-values below 0.05 purely by chance.</p>
+
+<p>Type I errors are sometimes called <strong>"false alarms"</strong> — the detector triggers even though nothing real is there. In everyday research contexts:</p>
+
+<ul>
+  <li>In <strong>A/B testing</strong> for a website, a Type I error would mean concluding that the new button color (version B) drives more conversions than the original (version A) when in reality there is no difference. The company might roll out a costly redesign based on noise.</li>
+  <li>In <strong>drug development</strong>, a Type I error in Phase II might advance an ineffective compound to expensive Phase III trials.</li>
+  <li>In <strong>genomics</strong>, where researchers simultaneously test hundreds of thousands of genetic variants, even a very small α level generates enormous numbers of false positives if not corrected for multiple comparisons.</li>
+</ul>
+
+<p>Lowering α directly reduces the probability of a Type I error. Switching from 0.05 to 0.01 means only 1% of truly null experiments will generate a spurious rejection. This tighter threshold is appropriate in high-stakes settings where the downstream consequences of a false positive are severe, such as approving an ineffective drug or implementing an expensive public health intervention.</p>
+
+<p>The concept of <strong>multiple testing</strong> amplifies Type I error risk dramatically. If a researcher conducts 20 independent tests each at α = 0.05, the probability of getting at least one false positive by chance alone is approximately 1 − (0.95)²⁰ ≈ 0.64. This is why corrections such as the <strong>Bonferroni correction</strong> (dividing α by the number of tests) or the <strong>false discovery rate (FDR)</strong> procedure are necessary in studies involving many simultaneous comparisons.</p>
+
+<p><strong>Type II Errors — False Negatives</strong></p>
+
+<p>A <strong>Type II error</strong> occurs when the null hypothesis is actually false — a real effect exists — but the test fails to reject H₀, producing a false negative. The probability of a Type II error is denoted <em>β</em>. The complementary quantity, <strong>1 − β</strong>, is called the <strong>statistical power</strong> of the test: the probability of correctly detecting an effect that truly exists.</p>
+
+<p>Type II errors represent missed discoveries. Consider a company that launches a modest but genuine improvement to its email subject lines. If the A/B test is run on too small a sample, it might produce p = 0.12, leading the team to incorrectly conclude the improvement does not work and abandon it — a Type II error. Similarly, a clinical trial that is too small to detect a real but modest treatment benefit may withhold an effective therapy from patients.</p>
+
+<p>There is a fundamental trade-off between Type I and Type II error rates. Holding sample size constant:</p>
+
+<ul>
+  <li><strong>Lowering α</strong> (being stricter about declaring significance) <em>reduces</em> the Type I error rate but <em>increases</em> β — the test becomes harder to pass, so real effects are more likely to be missed.</li>
+  <li><strong>Raising α</strong> (being more lenient) <em>reduces</em> β and <em>increases</em> the Type I error rate — the test is easier to pass, so more noise gets through.</li>
+</ul>
+
+<p>The only way to reduce <em>both</em> error rates simultaneously is to <strong>increase the sample size</strong> or to increase the underlying effect size (which is not under the researcher's control). This is why <strong>power analysis</strong> — conducted before data collection begins — is so important. A power analysis answers the question: <em>how large does my sample need to be so that, if a real effect of a specified size exists, I will detect it with probability 1 − β?</em> Conventional practice often targets power of 0.80, meaning a 20% chance of a Type II error, but higher power (0.90 or 0.95) is preferable in high-stakes studies.</p>
+
+<p>The four factors that jointly determine the Type II error rate are:</p>
+
+<ul>
+  <li><strong>Sample size (n):</strong> Larger samples produce more precise estimates and more powerful tests.</li>
+  <li><strong>Effect size:</strong> Larger, more dramatic effects are easier to detect. Cohen's d, odds ratios, and correlation coefficients are common effect-size measures.</li>
+  <li><strong>Significance level α:</strong> More permissive thresholds reduce β at the cost of higher Type I error risk.</li>
+  <li><strong>Variability in the data:</strong> Higher variance (noise) makes it harder to distinguish a real signal, increasing β.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>H₀ Is Actually True</th>
+      <th>H₀ Is Actually False</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Test Rejects H₀</strong></td>
+      <td>Type I Error (False Positive) — probability = α</td>
+      <td>Correct Decision (True Positive) — probability = Power = 1 − β</td>
+    </tr>
+    <tr>
+      <td><strong>Test Fails to Reject H₀</strong></td>
+      <td>Correct Decision (True Negative) — probability = 1 − α</td>
+      <td>Type II Error (False Negative) — probability = β</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Calculating P-Values from Test Statistics</strong></p>
+
+<p>The calculation pathway from raw data to a p-value follows a consistent sequence regardless of which statistical test is used.</p>
+
+<p><em>Step 1 — Formulate the hypotheses.</em> Define H₀ (e.g., "the population mean equals 50") and H₁ (e.g., "the population mean does not equal 50" for a two-tailed test, or "the population mean is greater than 50" for a one-tailed test).</p>
+
+<p><em>Step 2 — Compute the test statistic.</em> The test statistic is a single number that summarizes how far the observed data deviate from what H₀ predicts, expressed in units of standard error. For example, in a one-sample t-test:</p>
+
+<pre><code>t = (x̄ − μ₀) / (s / √n)
+
+where:
+  x̄  = sample mean
+  μ₀ = hypothesized population mean (from H₀)
+  s  = sample standard deviation
+  n  = sample size
+</code></pre>
+
+<p><em>Step 3 — Determine the null distribution.</em> The test statistic follows a known distribution under H₀. For the t-test above, it follows a t-distribution with <em>n − 1</em> degrees of freedom. The degrees of freedom shape the distribution: smaller df produce heavier tails, meaning more extreme values occur by chance, which makes it harder to achieve significance.</p>
+
+<p><em>Step 4 — Find the p-value.</em> The p-value is the area in the tail(s) of the null distribution beyond the observed test statistic.</p>
+
+<ul>
+  <li><strong>One-tailed test:</strong> The p-value is the area in one tail only — the tail in the direction specified by H₁. A one-tailed test yields a smaller p-value for effects in the predicted direction and is appropriate only when there is a strong a priori theoretical reason to rule out effects in the opposite direction.</li>
+  <li><strong>Two-tailed test:</strong> The p-value is the combined area in both tails beyond the absolute value of the test statistic. It is more conservative and more commonly appropriate because it accounts for effects in either direction.</li>
+</ul>
+
+<p>For example, suppose a quality-control engineer tests whether a production process produces parts with a mean diameter of 10.00 mm. A sample of 25 parts yields x̄ = 10.15 mm with s = 0.30 mm.</p>
+
+<pre><code>t = (10.15 − 10.00) / (0.30 / √25)
+t = 0.15 / 0.06
+t = 2.50
+
+Degrees of freedom = 25 − 1 = 24
+Two-tailed p-value ≈ 0.020
+</code></pre>
+
+<p>The engineer looks up t = 2.50 with 24 df in a t-distribution table or uses software to find that the two-tailed area is approximately 0.020. Since 0.020 &lt; 0.05, the engineer rejects H₀ and concludes that the process mean has shifted significantly from 10.00 mm.</p>
+
+<p>In practice, statistical software (R, Python's SciPy, SPSS, Stata, etc.) performs all of these calculations automatically. But understanding the underlying mechanism guards against misinterpretation of the output.</p>
+
+<p><strong>Common Misconceptions About P-Values</strong></p>
+
+<p>Despite decades of use, p-values are routinely misinterpreted even by experienced researchers. The following misconceptions are among the most consequential:</p>
+
+<ul>
+  <li>
+    <strong>Misconception 1: "The p-value is the probability that the null hypothesis is true."</strong>
+    <p>This is false. The p-value is computed <em>assuming</em> H₀ is true; it cannot therefore be a probability about whether H₀ is true. Saying "p = 0.03 means there is a 3% chance the null hypothesis is correct" conflates a conditional probability with a posterior probability. Making that leap requires Bayesian reasoning (and a prior distribution over hypotheses), which is entirely separate from the frequentist p-value framework.</p>
+  </li>
+  <li>
+    <strong>Misconception 2: "Statistical significance implies practical significance."</strong>
+    <p>A result can be highly statistically significant (tiny p-value) yet completely trivial in practice. With a sample of 500,000 customers, a website might detect a statistically significant 0.02% increase in click-through rate — real but utterly inconsequential for the business. Conversely, a study with 15 participants might fail to reach significance for an effect that is clinically very important. The p-value speaks to whether an effect is <em>detectable</em> given the sample; effect sizes and confidence intervals are needed to evaluate whether it is <em>meaningful</em>.</p>
+  </li>
+  <li>
+    <strong>Misconception 3: "A high p-value proves the null hypothesis."</strong>
+    <p>A non-significant result means only that the data are not sufficiently inconsistent with H₀ to warrant rejection at the chosen α level. The null hypothesis may still be false — perhaps the study was underpowered. "We found no significant difference between groups" and "we proved there is no difference between groups" are entirely different claims. The second requires an equivalence test or very high power to be meaningful.</p>
+  </li>
+  <li>
+    <strong>Misconception 4: "P-hacking produces reliable results."</strong>
+    <p><strong>P-hacking</strong> (also called "data dredging" or "fishing") refers to the practice of running numerous tests on the same data — trying different subsets of participants, outcome variables, time windows, or analytical choices — until a p-value below 0.05 appears. Because each additional test at α = 0.05 adds a 5% chance of a spurious positive, conducting 20 exploratory tests on a null dataset yields an expected one false positive. Studies relying on p-hacking are unlikely to replicate. Pre-registration of hypotheses and analysis plans before data collection is the key defense against this practice.</p>
+  </li>
+  <li>
+    <strong>Misconception 5: "P &lt; 0.05 is the universal gold standard."</strong>
+    <p>The 0.05 threshold is a widely adopted convention, not a scientifically derived constant. The American Statistical Association's 2016 statement explicitly warned against treating statistical significance as a binary pass/fail gate. The appropriate threshold depends on the domain, the cost of each error type, prior evidence, and the study design. Some fields now advocate for more stringent default thresholds (e.g., 0.005) to reduce the literature's false positive rate.</p>
+  </li>
+</ul>
+
+<p><strong>Interpreting and Reporting Statistical Significance</strong></p>
+
+<p>Good statistical practice goes well beyond producing a p-value and comparing it to 0.05. Comprehensive, transparent reporting requires several additional elements.</p>
+
+<p><em>Report the exact p-value.</em> Writing "p = 0.023" conveys far more information than "p &lt; 0.05." It allows readers to apply their own significance threshold and to appreciate the degree of evidence. The only exception is for extremely small values where precision is meaningless, reported conventionally as "p &lt; 0.001."</p>
+
+<p><em>Always report effect sizes.</em> An effect size is a standardized measure of the magnitude of the observed difference or relationship, independent of sample size. Common measures include:</p>
+
+<ul>
+  <li><strong>Cohen's d</strong> for the difference between two means (d = 0.2 small, 0.5 medium, 0.8 large by convention)</li>
+  <li><strong>Pearson's r</strong> for the correlation between two continuous variables</li>
+  <li><strong>Odds ratio (OR)</strong> or <strong>relative risk (RR)</strong> for binary outcomes in medical research</li>
+  <li><strong>η² (eta-squared)</strong> or <strong>ω²</strong> for the proportion of variance explained in ANOVA</li>
+</ul>
+
+<p><em>Report confidence intervals.</em> A <strong>95% confidence interval</strong> gives a range of values within which the true population parameter plausibly falls, consistent with the observed data. Confidence intervals communicate effect size, precision, and significance simultaneously — if a 95% CI for a difference does not include zero, the test is significant at α = 0.05. A narrow CI implies high precision; a wide CI signals that more data are needed. For example, reporting "the treatment reduced recovery time by 2.4 days (95% CI: 0.6 to 4.2 days, p = 0.010)" is vastly more informative than "the treatment was effective (p = 0.010)."</p>
+
+<p><em>Value replication.</em> A single statistically significant result, however compelling, remains tentative. The history of science is littered with findings that failed to replicate — the "replication crisis" in psychology, nutrition, and social science has demonstrated this starkly. Independent replication in a new sample by a different research team, combined with meta-analytic synthesis across studies, provides a far more robust evidential foundation than any individual p-value. A result that consistently shows p &lt; 0.05 across five independent studies is qualitatively more credible than a single study with p = 0.001.</p>
+
+<p>Bringing these elements together, a model results sentence might read: <em>"Participants in the intervention group scored significantly higher on the outcome measure than those in the control group (M<sub>intervention</sub> = 74.3, SD = 9.1; M<sub>control</sub> = 68.8, SD = 10.4; t(148) = 3.12, p = 0.002, d = 0.56, 95% CI for difference: [2.1, 8.9])."</em> This sentence reports the test statistic, degrees of freedom, exact p-value, effect size (Cohen's d), and a confidence interval — giving readers everything they need to evaluate the finding's statistical and practical significance.</p>
+        <div class="notes"><strong>Notes</strong>Comprehensive coverage of all listed subtopics. The error-type decision matrix is rendered as an HTML table. Code blocks illustrate the t-statistic formula and a worked numerical example. A second table summarises alpha levels across fields. Misconceptions section explicitly addresses p-hacking, the ASA statement on significance, and the null hypothesis probability confusion. Reporting section ties effect sizes and confidence intervals directly to practical interpretation.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

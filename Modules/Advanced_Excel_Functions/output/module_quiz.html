@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Excel Functions and Statistical Tools — Quiz Question Bank</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.5}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+.count{color:#666}
+.q{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:14px 0}
+.qnum{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.qtype{background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 6px;margin-left:6px}
+.qtext{font-weight:600;margin:6px 0}
+ul.opts{margin:6px 0 0 4px}
+ul.opts li{margin:3px 0}
+ul.opts li.correct{color:#137333;font-weight:600}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Advanced Excel Functions and Statistical Tools — Quiz Question Bank</h1>
+<p class="count">20 questions</p>
+<div class="q">
+<div class="qnum">Question 1<span class="qtype">MC</span></div>
+<div class="qtext">In a VLOOKUP function, where must the lookup value always be found in the table array?</div>
+<ul class="opts">
+<li class="correct">The leftmost column of the table array  ✓</li>
+<li>Any column within the table array</li>
+<li>The rightmost column of the table array</li>
+<li>The column specified by the column index number</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 2<span class="qtype">MC</span></div>
+<div class="qtext">In the formula =VLOOKUP(A2, B2:D100, 3, FALSE), what does the number 3 represent?</div>
+<ul class="opts">
+<li class="correct">The column number in the range from which to return a value  ✓</li>
+<li>The row number from which to return a value</li>
+<li>The number of rows to search in the table</li>
+<li>The number of matching values to return</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 3<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following best describes a common real-world use case for VLOOKUP?</div>
+<ul class="opts">
+<li class="correct">Matching customer IDs in a sales report to a name or region in a reference table  ✓</li>
+<li>Calculating the average sales value for a specific region</li>
+<li>Counting the number of completed transactions in a column</li>
+<li>Grouping data by month using a PivotTable</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 4<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following is a key advantage of INDEX-MATCH over VLOOKUP?</div>
+<ul class="opts">
+<li class="correct">It supports lookups where the return column is to the left of the lookup column  ✓</li>
+<li>It is faster to write for simple lookup tasks</li>
+<li>It requires only one function instead of two</li>
+<li>It always returns multiple matching results</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 5<span class="qtype">MC</span></div>
+<div class="qtext">What does the MATCH function return when used in an INDEX-MATCH combination?</div>
+<ul class="opts">
+<li class="correct">The relative position of a value within a range  ✓</li>
+<li>The actual cell value at a specified position</li>
+<li>The column letter of the matching cell</li>
+<li>The number of cells that match the lookup value</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 6<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following represents the correct syntax for the SUMIF function?</div>
+<ul class="opts">
+<li class="correct">=SUMIF(range, criteria, sum_range)  ✓</li>
+<li>=SUMIF(sum_range, range, criteria)</li>
+<li>=SUMIF(criteria, sum_range, range)</li>
+<li>=SUMIF(range, sum_range, criteria)</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 7<span class="qtype">MC</span></div>
+<div class="qtext">What does the formula =SUMIF(B2:B100, &#39;North&#39;, C2:C100) calculate?</div>
+<ul class="opts">
+<li class="correct">The total of all values in column C where column B equals &#39;North&#39;  ✓</li>
+<li>The count of all cells in column B that contain &#39;North&#39;</li>
+<li>The average of all values in column C where column B equals &#39;North&#39;</li>
+<li>The total of all values in column B where column C equals &#39;North&#39;</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 8<span class="qtype">MC</span></div>
+<div class="qtext">What is the primary purpose of the COUNTIF function in Excel?</div>
+<ul class="opts">
+<li class="correct">To count cells in a range that meet a single specified criterion  ✓</li>
+<li>To sum values in a range that meet a single specified criterion</li>
+<li>To calculate the average of cells that meet a specified criterion</li>
+<li>To return the position of the first cell meeting a criterion</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 9<span class="qtype">MC</span></div>
+<div class="qtext">What does the formula =AVERAGEIF(A2:A50, &#39;Q1&#39;, B2:B50) return?</div>
+<ul class="opts">
+<li class="correct">The mean of values in column B where column A equals &#39;Q1&#39;  ✓</li>
+<li>The total of values in column B where column A equals &#39;Q1&#39;</li>
+<li>The count of cells in column A that contain &#39;Q1&#39;</li>
+<li>The median of values in column B where column A equals &#39;Q1&#39;</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 10<span class="qtype">MC</span></div>
+<div class="qtext">How can criteria in conditional aggregation functions be made dynamic and easier to update?</div>
+<ul class="opts">
+<li class="correct">By referencing the criteria from a cell rather than hardcoding it  ✓</li>
+<li>By using the INDIRECT function to convert criteria to a range</li>
+<li>By nesting the criteria inside a VLOOKUP formula</li>
+<li>By placing all criteria in a separate PivotTable</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 11<span class="qtype">MC</span></div>
+<div class="qtext">When should STDEV.S be used instead of STDEV.P in Excel?</div>
+<ul class="opts">
+<li class="correct">When the data is a sample drawn from a larger population  ✓</li>
+<li>When the data represents the entire population</li>
+<li>When the dataset contains fewer than 30 values</li>
+<li>When you want to calculate variance instead of standard deviation</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 12<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, why is the median often more representative than the mean for skewed distributions?</div>
+<ul class="opts">
+<li class="correct">Because the median is not affected by extreme values that skew the mean  ✓</li>
+<li>Because the median always equals the most frequently occurring value</li>
+<li>Because the median calculation includes Bessel&#39;s correction</li>
+<li>Because the median is easier to compute than the mean in Excel</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 13<span class="qtype">MC</span></div>
+<div class="qtext">What does the formula =LARGE(E2:E100, 3) return?</div>
+<ul class="opts">
+<li class="correct">The third-largest value in the range E2:E100  ✓</li>
+<li>The third value from the top of the range E2:E100</li>
+<li>The largest value in the first three cells of E2:E100</li>
+<li>The value at the third row of the range E2:E100</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 14<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, what is the mathematical relationship between variance and standard deviation?</div>
+<ul class="opts">
+<li class="correct">Variance is the square of the standard deviation  ✓</li>
+<li>Standard deviation is the square of the variance</li>
+<li>Variance is the square root of the standard deviation</li>
+<li>Variance and standard deviation are equal for population data</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 15<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, what does it indicate when a dataset&#39;s mean is greater than its median?</div>
+<ul class="opts">
+<li class="correct">The dataset is likely right-skewed  ✓</li>
+<li>The dataset is likely left-skewed</li>
+<li>The dataset is symmetrically distributed</li>
+<li>The dataset has no outliers</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 16<span class="qtype">MC</span></div>
+<div class="qtext">What is a key benefit of converting raw data into a formal Excel Table before creating a PivotTable?</div>
+<ul class="opts">
+<li class="correct">Excel Tables automatically expand to include new data, keeping PivotTables current  ✓</li>
+<li>Excel Tables prevent any accidental changes to the source data</li>
+<li>Excel Tables eliminate the need for conditional aggregation functions</li>
+<li>Excel Tables automatically apply VLOOKUP formulas to new rows</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 17<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, what is the primary purpose of slicers in Excel PivotTable dashboards?</div>
+<ul class="opts">
+<li class="correct">To enable interactive filtering of PivotTable summaries without altering the data  ✓</li>
+<li>To automatically refresh PivotTables when the workbook is opened</li>
+<li>To convert raw data ranges into formal Excel Tables</li>
+<li>To apply conditional formatting to PivotTable results</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 18<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, which sequence correctly describes a structured analytical workflow on a real dataset?</div>
+<ul class="opts">
+<li class="correct">Clean data → enrich with lookups → conditional aggregations → statistical functions  ✓</li>
+<li>Statistical functions → conditional aggregations → lookups → clean data</li>
+<li>Lookups → statistical functions → clean data → conditional aggregations</li>
+<li>Conditional aggregations → clean data → lookups → statistical functions</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 19<span class="qtype">MC</span></div>
+<div class="qtext">What is the key difference between COUNT and COUNTA in Excel?</div>
+<ul class="opts">
+<li class="correct">COUNT tallies only numeric entries; COUNTA counts all non-empty cells  ✓</li>
+<li>COUNT counts all non-empty cells; COUNTA tallies only numeric entries</li>
+<li>COUNT includes blank cells; COUNTA excludes blank cells</li>
+<li>COUNT and COUNTA return the same result for numeric-only datasets</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 20<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, which combination of functions can identify that the top 10% of customers account for 60% of revenue?</div>
+<ul class="opts">
+<li class="correct">PERCENTILE and SUMIFS  ✓</li>
+<li>MEDIAN and COUNTIF</li>
+<li>LARGE and AVERAGEIF</li>
+<li>STDEV and VLOOKUP</li>
+</ul>
+</div>
+</body>
+</html>

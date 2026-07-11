@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Pivot Tables</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Pivot Tables</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Pivot Tables</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Pivot tables are one of the most powerful tools available in spreadsheet software like Microsoft Excel and Google Sheets. At their core, they allow you to take a large, unwieldy dataset — potentially thousands of rows — and instantly condense it into a meaningful, interactive summary. Whether you are analyzing sales figures, survey responses, inventory data, or financial records, a pivot table lets you ask questions of your data and get clear answers without writing a single formula or line of code. Understanding how to build and use pivot tables is a foundational skill for anyone who works with data regularly.</p>
+
+<p>A <strong>pivot table</strong> is a data summarization tool that reorganizes and aggregates information from a source dataset based on your instructions. The word "pivot" reflects the tool's ability to rotate or reorient your data — you can swap what appears in rows versus columns, add or remove groupings, and change what is being calculated, all with simple drag-and-drop actions. The result is always a compact, readable grid that highlights patterns, totals, and comparisons that would otherwise be buried in raw rows of data.</p>
+
+<p>Pivot tables are <strong>dynamic</strong> in two important ways. First, you can rearrange the fields at any time to instantly reframe the analysis — for example, switching from a view that groups sales by region to one that groups them by product category. Second, when the underlying source data changes (new rows are added, values are corrected), you can refresh the pivot table and the summary updates to reflect those changes. This makes pivot tables far more practical for ongoing reporting than a manually typed summary table.</p>
+
+<p>Critically, <strong>no programming or complex formulas are required</strong>. Excel handles all the aggregation logic behind the scenes. This makes pivot tables accessible to beginners while still being sophisticated enough for advanced analysts who combine them with calculated fields, slicers, and pivot charts.</p>
+
+<p>Before you can create a pivot table, your source data must be properly structured. Poorly organized data will lead to confusing or incorrect results, so it is worth taking a few minutes to prepare your dataset. The rules are straightforward but important.</p>
+
+<p>Every column in your dataset must have a <strong>clear, unique header</strong> in the very first row. These headers become the field names you will see in the PivotTable Fields pane. Avoid blank column headers, merged cells in the header row, or duplicate column names. For example, a sales dataset might have headers like <em>Date</em>, <em>Salesperson</em>, <em>Region</em>, <em>Product</em>, <em>Units Sold</em>, and <em>Revenue</em>. Each of these will appear as a draggable field when you build your pivot table.</p>
+
+<p>Your data should follow a <strong>flat, tabular format</strong> — sometimes called a "tidy" format — where each row represents exactly one record or observation, and each column represents one variable or attribute. There should be no blank rows separating groups of data, no subtotal rows embedded in the middle of the dataset, and no decorative merged cells. For instance, if you have sales data for multiple regions, every single sale should be its own row, with the region name repeated in a dedicated column for each applicable row. The pivot table will handle all the grouping and totaling for you.</p>
+
+<p>A best practice is to <strong>format your source data as an Excel Table</strong> before creating a pivot table. You can do this by selecting any cell in your data range and choosing <em>Insert &gt; Table</em> (or pressing Ctrl+T). Excel Tables automatically expand when new rows or columns are added, which means your pivot table's data source will capture newly added records after a refresh. Without this, if you add rows below your original data range, the pivot table may not include them unless you manually update the source range.</p>
+
+<p>Once your data is ready, creating a pivot table takes only a few clicks. Click anywhere inside your dataset, then navigate to the <strong>Insert tab</strong> on the ribbon and select <strong>PivotTable</strong>. A dialog box will appear asking you to confirm two things: the data range to use as the source, and where you want to place the pivot table.</p>
+
+<p>Excel will typically auto-detect your data range correctly, especially if your data is formatted as a Table or has no blank rows. You can also manually type or select a range such as <code>Sheet1!$A$1:$F$500</code>. For the placement, you have two options: <strong>New Worksheet</strong> (Excel inserts a fresh sheet and places the pivot table there — usually the cleanest choice) or <strong>Existing Worksheet</strong> (you specify a cell location on any sheet in the workbook). Click OK, and Excel generates an empty pivot table shell — a blank grid waiting for you to add fields — and simultaneously opens the <strong>PivotTable Fields pane</strong> on the right side of the screen.</p>
+
+<p>The <strong>PivotTable Fields pane</strong> is your control center for building and modifying the pivot table. At the top of the pane is a list of all available fields, derived directly from the column headers in your source data. Each field appears as a checkbox with a label. Below the field list are four drop zones called <strong>areas</strong>: Filters, Columns, Rows, and Values.</p>
+
+<p>You populate the pivot table by dragging fields from the list into these areas, or by checking a field's checkbox (Excel will make a reasonable default placement — numeric fields go to Values, text fields go to Rows). You can drag fields between areas to change the layout, or drag them out of an area entirely to remove them. The pivot table updates instantly with every change you make.</p>
+
+<p>Each area controls a different dimension of the summary:</p>
+
+<ul>
+  <li><strong>Rows:</strong> Fields placed here appear as row labels down the left side of the pivot table. They define the primary grouping of your data vertically. For example, placing <em>Region</em> in the Rows area will create one row for each unique region in your dataset.</li>
+  <li><strong>Columns:</strong> Fields placed here appear as column headers across the top of the pivot table, grouping data horizontally. For example, placing <em>Product Category</em> in the Columns area will create one column for each unique category.</li>
+  <li><strong>Values:</strong> This area determines what is actually calculated and displayed inside the grid. Typically you place numeric fields here, such as <em>Revenue</em> or <em>Units Sold</em>. Excel applies an aggregation function (Sum by default) to the numbers within each cell of the grid.</li>
+  <li><strong>Filters:</strong> Fields placed here appear above the pivot table as a dropdown filter, allowing you to filter the entire report by that field's values without it being visible as a row or column grouping. For example, placing <em>Year</em> in the Filters area lets you view data for only 2023 without disrupting the rest of the layout.</li>
+</ul>
+
+<p>The interplay between the Rows, Columns, and Values areas defines the structure of the pivot table. Where Rows and Columns intersect, the Values aggregation is displayed. For example, if Rows contains <em>Region</em>, Columns contains <em>Product Category</em>, and Values contains the Sum of <em>Revenue</em>, then each cell in the grid will show the total revenue for a specific region-and-product combination.</p>
+
+<p>Let's walk through a concrete example. Suppose you have a sales dataset with the following columns: <em>Salesperson</em>, <em>Region</em>, <em>Product</em>, <em>Quarter</em>, <em>Units Sold</em>, and <em>Revenue</em>. A portion of that raw data might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Salesperson</th>
+      <th>Region</th>
+      <th>Product</th>
+      <th>Quarter</th>
+      <th>Units Sold</th>
+      <th>Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alice</td>
+      <td>North</td>
+      <td>Widget A</td>
+      <td>Q1</td>
+      <td>120</td>
+      <td>$6,000</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>South</td>
+      <td>Widget B</td>
+      <td>Q1</td>
+      <td>95</td>
+      <td>$4,750</td>
+    </tr>
+    <tr>
+      <td>Alice</td>
+      <td>North</td>
+      <td>Widget B</td>
+      <td>Q2</td>
+      <td>80</td>
+      <td>$4,000</td>
+    </tr>
+    <tr>
+      <td>Carol</td>
+      <td>East</td>
+      <td>Widget A</td>
+      <td>Q1</td>
+      <td>150</td>
+      <td>$7,500</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>South</td>
+      <td>Widget A</td>
+      <td>Q2</td>
+      <td>110</td>
+      <td>$5,500</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you place <em>Region</em> in Rows and the Sum of <em>Revenue</em> in Values, the pivot table will summarize total revenue by region in just two columns. If you then also place <em>Product</em> in Columns, the table expands to show revenue broken down by both region and product simultaneously — a cross-tabulation you would struggle to build manually from raw data.</p>
+
+<p>One of the most useful features of the Rows and Columns areas is the ability to add <strong>multiple fields</strong> to create hierarchical groupings. For example, you could place both <em>Region</em> and <em>Salesperson</em> in the Rows area — in that order. The pivot table will first group rows by Region, and within each region, it will create subgroups for each Salesperson. This creates an expandable, multi-level hierarchy. You can add <em>Quarter</em> below <em>Salesperson</em> to go even deeper. Similarly, multiple fields in the Columns area create nested column groupings. The order in which fields appear in the area list controls the hierarchy, and you can reorder them by dragging.</p>
+
+<p>Once a pivot table is built, you have several tools for <strong>navigating and exploring</strong> the summary. If you have hierarchical groupings in Rows or Columns, small expand/collapse buttons (shown as <strong>+</strong> and <strong>−</strong> icons) appear next to group labels. Clicking them lets you drill down into detail or collapse back to a high-level view without removing the field from the layout.</p>
+
+<p>Every row label and column label in the pivot table also has a <strong>dropdown arrow</strong> that reveals a filter menu. From this menu, you can check or uncheck specific values to include or exclude them from the summary. For example, clicking the dropdown on the Region row label lets you show only "North" and "South" while hiding "East." This is a quick way to focus on a subset of your data without creating a separate filtered dataset.</p>
+
+<p>When the source data changes — for example, new sales records are added or existing values are corrected — the pivot table does <strong>not update automatically</strong>. You must explicitly refresh it. The fastest method is to right-click anywhere inside the pivot table and select <strong>Refresh</strong> from the context menu. Alternatively, you can go to the <strong>PivotTable Analyze</strong> tab (which appears on the ribbon whenever your cursor is inside a pivot table) and click the <strong>Refresh</strong> button. If your workbook contains multiple pivot tables and you want to update all of them at once, go to the <strong>Data tab</strong> on the ribbon and click <strong>Refresh All</strong>.</p>
+
+<p>By default, Excel uses <strong>SUM</strong> as the aggregation function for numeric fields placed in the Values area. However, you can change this to any of several other functions depending on what your analysis requires. To do so, right-click any cell in the Values column of the pivot table and choose <strong>Summarize Values By</strong>, then select from the available options:</p>
+
+<ul>
+  <li><strong>Sum:</strong> Adds up all values in each group. Best for totals like revenue or units sold.</li>
+  <li><strong>Count:</strong> Counts the number of records (rows) in each group, regardless of their value. Useful for counting transactions or responses. Note that Count also works on text fields, making it useful even when numeric data isn't available.</li>
+  <li><strong>Average:</strong> Calculates the arithmetic mean of values in each group. Useful for average sale price, average score, etc.</li>
+  <li><strong>Max / Min:</strong> Returns the largest or smallest value in each group. Useful for identifying peaks or floors in data.</li>
+  <li><strong>Product, StdDev, Var:</strong> More specialized statistical functions available for deeper analysis.</li>
+</ul>
+
+<p>Beyond choosing what to calculate, you can also control <strong>how the values are displayed</strong> using the <em>Show Values As</em> option (also accessible by right-clicking a value cell). This is particularly powerful for comparative analysis. Some of the most useful display modes include:</p>
+
+<ul>
+  <li><strong>% of Grand Total:</strong> Each cell's value is shown as a percentage of the overall total, making it easy to see each group's share of the whole.</li>
+  <li><strong>% of Row Total:</strong> Each value is shown as a percentage of its row's total — useful for comparing how revenue is distributed across products within each region.</li>
+  <li><strong>% of Column Total:</strong> Similar to above, but calculated down each column.</li>
+  <li><strong>Running Total In:</strong> Accumulates values progressively as you move down a row or column — useful for showing cumulative sales over quarters.</li>
+  <li><strong>Rank Smallest to Largest / Largest to Smallest:</strong> Ranks each group relative to others.</li>
+</ul>
+
+<p>Finally, you can apply <strong>number formatting</strong> to the values displayed in the pivot table so they are easier to read. To do this, right-click a value cell and select <strong>Value Field Settings</strong>, then click the <strong>Number Format</strong> button. This opens the standard Excel Format Cells dialog, where you can apply currency symbols (e.g., $1,234.56), set the number of decimal places, show values as percentages, or use any other built-in or custom number format. Applying formatting through Value Field Settings is important because it ensures the format persists even after a refresh, unlike formatting applied directly to individual cells.</p>
+
+<p>To illustrate how these pieces come together, consider a complete example. Starting from the sales dataset described earlier, you could build a pivot table where <em>Region</em> is in Rows, <em>Quarter</em> is in Columns, and the Sum of <em>Revenue</em> is in Values. After building the basic table, you change the Values display to <em>% of Row Total</em> to see what proportion of each region's annual revenue came from each quarter. You then apply a Currency number format. The result is a clean, formatted matrix that immediately reveals seasonal patterns — all without a single formula.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Region</th>
+      <th>Q1</th>
+      <th>Q2</th>
+      <th>Q3</th>
+      <th>Q4</th>
+      <th>Grand Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>East</td>
+      <td>32%</td>
+      <td>28%</td>
+      <td>21%</td>
+      <td>19%</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td>North</td>
+      <td>25%</td>
+      <td>30%</td>
+      <td>26%</td>
+      <td>19%</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td>South</td>
+      <td>22%</td>
+      <td>24%</td>
+      <td>29%</td>
+      <td>25%</td>
+      <td>100%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This table immediately tells a story: the East region is front-loaded with Q1 revenue, while the South region is more evenly distributed with a slight lean toward Q3. That kind of insight, surfaced in seconds from raw data, is exactly what makes pivot tables such a valuable tool for anyone working with structured information.</p>
+        <div class="notes"><strong>Notes</strong>The topic covers all listed subtopics comprehensively. The example tables use illustrative data consistent with the sales dataset scenario described in the subtopics. Students should practice building the pivot table step-by-step using a sample dataset to reinforce the concepts of field placement and value configuration.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

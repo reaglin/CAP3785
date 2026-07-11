@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Evaluation and Performance Metrics</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Model Evaluation and Performance Metrics</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Model Evaluation and Performance Metrics</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Model evaluation is the process of measuring how well a predictive model performs — not just on the data it was trained on, but on new, unseen data that reflects real-world conditions. Without rigorous evaluation, a data scientist has no reliable way of knowing whether a model is genuinely useful or simply overfitted to historical patterns that will not hold in production. In business analytics, where models directly inform decisions about customers, revenue, risk, and operations, the stakes of deploying a poorly evaluated model are substantial. Evaluation transforms model building from an art into a disciplined, evidence-based practice.</p>
+
+<p><strong>Why Model Evaluation Matters in Business Analytics</strong></p>
+
+<p>Evaluation metrics provide an objective basis for comparing competing models. Suppose a business is choosing between a logistic regression model and a decision tree for predicting customer churn. Without a shared, rigorously computed metric applied to the same held-out test data, any comparison is subjective. A common evaluation framework levels the playing field and makes the selection process defensible to technical peers and business stakeholders alike.</p>
+
+<p>Crucially, the choice of which metric to optimize must be driven by business goals, not statistical convention. Consider two scenarios: a hospital screening tool for a rare disease, and a spam filter for a marketing email platform. In the hospital context, a false negative — failing to flag a sick patient as at risk — could result in a missed diagnosis and serious harm. In the spam filter context, a false positive — incorrectly blocking a legitimate email — is a minor annoyance. These two problems demand fundamentally different evaluation priorities even though both are binary classification tasks. Analytics professionals must translate business consequences into metric choices before a single model is trained.</p>
+
+<p>Proper evaluation also guards against <em>overfitting</em>, one of the most persistent failure modes in machine learning. An overfit model has essentially memorized the training data, including its noise and idiosyncrasies, and achieves artificially high accuracy on data it has seen before. When deployed against new customer records or fresh transaction data, performance collapses. Evaluation techniques that withhold data during training — discussed later in this topic — are the primary defense against this problem.</p>
+
+<p><strong>Accuracy as a Performance Metric</strong></p>
+
+<p>Accuracy is the most intuitive classification metric and the most commonly misapplied one. It is computed as:</p>
+
+<pre><code>Accuracy = (Number of Correct Predictions) / (Total Number of Predictions)</code></pre>
+
+<p>For example, if a model correctly classifies 870 out of 1,000 customers as either churned or retained, its accuracy is 87%. This figure is easy to communicate, easy to compute, and meaningful when two conditions hold: the classes in the data are approximately balanced, and the cost of different types of errors is roughly equal.</p>
+
+<p>The critical limitation of accuracy emerges with imbalanced datasets, which are extremely common in business analytics. Consider fraud detection: in a dataset of 10,000 transactions, only 100 might be fraudulent — a 1% positive class rate. A naive model that predicts "not fraud" for every single transaction achieves 99% accuracy while detecting zero fraudulent cases. By any practical measure this model is useless, yet its accuracy score looks impressive. This is why accuracy alone is insufficient and must always be paired with additional metrics when class distributions are skewed, as they often are in churn prediction, medical diagnosis, insurance claims, and cybersecurity applications.</p>
+
+<p><strong>Precision and Recall: Balancing Error Types</strong></p>
+
+<p>To move beyond accuracy, practitioners rely on <em>precision</em> and <em>recall</em>, two metrics that examine different aspects of how a model handles the positive class.</p>
+
+<p><strong>Precision</strong> answers the question: "Of all the cases the model predicted as positive, what fraction were actually positive?" It penalizes false alarms.</p>
+
+<pre><code>Precision = TP / (TP + FP)</code></pre>
+
+<p><strong>Recall</strong> (also called sensitivity or the true positive rate) answers: "Of all the actual positive cases in the data, what fraction did the model successfully identify?" It penalizes missed detections.</p>
+
+<pre><code>Recall = TP / (TP + FN)</code></pre>
+
+<p>Where TP = True Positives, FP = False Positives, and FN = False Negatives.</p>
+
+<p>A concrete business example illustrates the trade-off. Imagine a model that identifies customers likely to default on a loan. A bank that flags too many non-defaulters as risky (low precision) wastes resources on unnecessary interventions and harms customer relationships. A bank that misses actual defaulters (low recall) incurs financial losses. Different institutions, with different risk appetites and cost structures, will rationally optimize for different points on the precision-recall trade-off curve.</p>
+
+<p>Precision and recall exist in tension: it is generally possible to increase one at the expense of the other by adjusting the model's classification threshold. Raising the threshold (requiring the model to be more confident before predicting "positive") typically increases precision but reduces recall. Lowering the threshold does the opposite. The right threshold is a business decision, not a purely statistical one.</p>
+
+<p>The <strong>F1-score</strong> is the harmonic mean of precision and recall, providing a single number that balances both concerns:</p>
+
+<pre><code>F1 = 2 × (Precision × Recall) / (Precision + Recall)</code></pre>
+
+<p>The harmonic mean is used rather than the arithmetic mean because it is sensitive to extreme imbalances — a model with very high precision but near-zero recall will have a low F1-score, appropriately reflecting that it is not practically useful. The F1-score is particularly valuable in information retrieval, fraud detection, and medical screening. When precision and recall should not be weighted equally, a generalized version called the F-beta score allows practitioners to explicitly weight one more than the other.</p>
+
+<p><strong>Error Measures for Regression Models</strong></p>
+
+<p>When the target variable is continuous — predicting sales revenue, customer lifetime value, house prices, or demand volume — classification metrics no longer apply. Regression models are evaluated using measures of how far predictions deviate from actual values.</p>
+
+<p><strong>Mean Absolute Error (MAE)</strong> is the average of the absolute differences between each prediction and the actual value:</p>
+
+<pre><code>MAE = (1/n) × Σ |yᵢ - ŷᵢ|</code></pre>
+
+<p>MAE is intuitive and expressed in the same units as the target variable. If a model predicts monthly store revenue with an MAE of $4,200, a manager immediately understands that predictions are off by about $4,200 on average. MAE treats all errors equally regardless of magnitude, which is appropriate when errors of different sizes carry proportional cost.</p>
+
+<p><strong>Mean Squared Error (MSE)</strong> squares each error before averaging:</p>
+
+<pre><code>MSE = (1/n) × Σ (yᵢ - ŷᵢ)²</code></pre>
+
+<p>Squaring errors disproportionately penalizes large mistakes. A prediction that is off by $10,000 contributes 100 times more to MSE than one off by $1,000. This property is desirable when large errors are especially damaging — for instance, in supply chain forecasting where a massive stock-out or overstocking event is far more costly than a small miscalculation. The drawback is that MSE is expressed in squared units, which is difficult to interpret directly.</p>
+
+<p><strong>Root Mean Squared Error (RMSE)</strong> corrects this by taking the square root of MSE:</p>
+
+<pre><code>RMSE = √[(1/n) × Σ (yᵢ - ŷᵢ)²]</code></pre>
+
+<p>RMSE returns the error to the original unit of the target variable while retaining the large-error penalty inherited from MSE. It is the most widely reported regression metric in business analytics and machine learning research. A model predicting housing prices with an RMSE of $25,000 is easier to explain to a stakeholder than one with an MSE of 625,000,000 squared dollars.</p>
+
+<p>The practical decision between MAE and RMSE hinges on whether outlier errors are disproportionately expensive. In pricing models, where a few catastrophically wrong predictions could cause significant financial damage, RMSE's sensitivity to large errors is a useful property. In customer satisfaction scoring, where errors are roughly equally costly regardless of size, MAE may be more appropriate.</p>
+
+<p><strong>The Confusion Matrix: A Detailed View of Classification Results</strong></p>
+
+<p>The confusion matrix is a tabular summary of a classification model's predictions versus the actual ground truth. For a binary classifier, it has four cells:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Predicted Positive</th>
+      <th>Predicted Negative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Actual Positive</strong></td>
+      <td>True Positive (TP)</td>
+      <td>False Negative (FN)</td>
+    </tr>
+    <tr>
+      <td><strong>Actual Negative</strong></td>
+      <td>False Positive (FP)</td>
+      <td>True Negative (TN)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>True Positives (TP)</strong>: The model predicted positive and the actual label was positive. Correct detections — fraud cases correctly flagged, sick patients correctly identified.</p>
+
+<p><strong>True Negatives (TN)</strong>: The model predicted negative and the actual label was negative. Correct dismissals — legitimate transactions correctly cleared, healthy patients correctly released.</p>
+
+<p><strong>False Positives (FP)</strong>: The model predicted positive but the actual label was negative. Also called a Type I error. In fraud detection, this means accusing a legitimate customer of fraud — a costly error in customer experience.</p>
+
+<p><strong>False Negatives (FN)</strong>: The model predicted negative but the actual label was positive. Also called a Type II error. In fraud detection, this means allowing fraudulent activity to pass undetected — a direct financial loss.</p>
+
+<p>Consider a concrete example. A credit card fraud model is tested on 10,000 transactions, of which 200 are actually fraudulent:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Predicted Fraud</th>
+      <th>Predicted Legitimate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Actual Fraud</strong></td>
+      <td>160 (TP)</td>
+      <td>40 (FN)</td>
+    </tr>
+    <tr>
+      <td><strong>Actual Legitimate</strong></td>
+      <td>180 (FP)</td>
+      <td>9,620 (TN)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From this matrix, accuracy is (160 + 9,620) / 10,000 = 97.8%. But precision is 160 / (160 + 180) = 47.1%, and recall is 160 / (160 + 40) = 80%. The accuracy figure looks excellent; the precision figure reveals that more than half of fraud alerts are false alarms, meaning the fraud investigation team is spending significant effort on legitimate transactions. The confusion matrix makes this pattern immediately visible in a way a single accuracy number cannot.</p>
+
+<p>Business stakeholders can use the confusion matrix to set classification thresholds aligned with their risk tolerance. If missing actual fraud cases (FN) is more costly than inconveniencing legitimate customers (FP), they might lower the prediction threshold, increasing recall at the expense of precision. The confusion matrix provides the vocabulary for exactly this kind of informed business conversation.</p>
+
+<p><strong>Train-Test Split and Cross-Validation</strong></p>
+
+<p>All of the metrics above are only meaningful if they are computed on data the model has never seen during training. Measuring performance on training data produces optimistically biased results because any sufficiently complex model can memorize its training examples.</p>
+
+<p>The simplest solution is a <strong>train-test split</strong>: the full dataset is divided into two non-overlapping subsets. A common split is 70–80% of rows for training and 20–30% for testing. The model is fit exclusively on the training set, then evaluated on the held-out test set. Because the model has never encountered the test records, performance on those records is an honest estimate of how the model will behave on new business data.</p>
+
+<p>A limitation of a single train-test split is variance: depending on which records happen to end up in the test set, performance estimates can vary substantially, especially with smaller datasets. <strong>K-fold cross-validation</strong> addresses this by systematically rotating the test set. The data is divided into <em>k</em> equally sized folds. The model is trained on k–1 folds and evaluated on the remaining fold, and this process repeats k times with each fold serving as the test set exactly once. The final performance estimate is the average across all k trials.</p>
+
+<pre><code>Example with k = 5:
+Fold 1: Train on folds 2-5, test on fold 1  → Accuracy: 84%
+Fold 2: Train on folds 1,3-5, test on fold 2 → Accuracy: 86%
+Fold 3: Train on folds 1-2,4-5, test on fold 3 → Accuracy: 83%
+Fold 4: Train on folds 1-3,5, test on fold 4 → Accuracy: 85%
+Fold 5: Train on folds 1-4, test on fold 5  → Accuracy: 87%
+
+Average CV Accuracy: 85%  (± variation reflects true variance in model performance)</code></pre>
+
+<p>Cross-validation is especially valuable when data is limited, because it effectively uses every observation for both training and evaluation at different points in the process. It is also the standard approach for hyperparameter tuning — when selecting the best model configuration, using cross-validation prevents the test set from being "used up" in the selection process, which would re-introduce bias.</p>
+
+<p>A related concept is <em>stratified</em> cross-validation, which ensures each fold contains approximately the same proportion of each class as the full dataset. This is essential in imbalanced classification problems: without stratification, some folds may contain very few positive examples, making performance estimates unreliable.</p>
+
+<p><strong>Interpreting Evaluation Results to Make Modeling Decisions</strong></p>
+
+<p>Collecting evaluation metrics is only the first step. The real skill lies in interpreting those numbers to decide what to do next.</p>
+
+<p>When comparing multiple models, every comparison must use the same metric, applied to the same held-out test data. A random forest evaluated on one test set and a logistic regression evaluated on a different test set cannot be fairly compared. Consistency in evaluation protocol is the foundation of sound model selection.</p>
+
+<p>Every model's performance should be benchmarked against a <em>baseline</em> — the simplest possible predictor that requires no machine learning. Common baselines include:</p>
+
+<ul>
+  <li><strong>Majority class predictor</strong>: Always predicts the most common class. In a 95% / 5% imbalanced dataset, this baseline achieves 95% accuracy — any model must beat this to demonstrate value.</li>
+  <li><strong>Mean predictor</strong>: For regression, always predicts the average of the training target. A model with RMSE of $5,000 that barely outperforms a mean predictor with RMSE of $4,800 has added little practical value.</li>
+  <li><strong>Simple business rule</strong>: "Flag any transaction over $500 as potentially fraudulent." A model should outperform obvious heuristics before it justifies the complexity of deployment.</li>
+</ul>
+
+<p>Evaluation results also diagnose specific modeling problems. A large gap between training performance and test performance is a hallmark of overfitting — the model is too complex for the amount of data available, and interventions include regularization, feature reduction, gathering more training data, or switching to a simpler model family. Conversely, poor performance on both training and test sets signals underfitting — the model is too simple to capture the patterns in the data, and interventions include adding features, increasing model complexity, or allowing more training iterations.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Observation</th>
+      <th>Likely Problem</th>
+      <th>Suggested Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>High train accuracy, low test accuracy</td>
+      <td>Overfitting</td>
+      <td>Regularize, reduce features, gather more data</td>
+    </tr>
+    <tr>
+      <td>Low train accuracy, low test accuracy</td>
+      <td>Underfitting</td>
+      <td>Add features, increase model complexity</td>
+    </tr>
+    <tr>
+      <td>High precision, low recall</td>
+      <td>Model too conservative</td>
+      <td>Lower classification threshold</td>
+    </tr>
+    <tr>
+      <td>Low precision, high recall</td>
+      <td>Model too permissive</td>
+      <td>Raise classification threshold</td>
+    </tr>
+    <tr>
+      <td>Model barely beats baseline</td>
+      <td>Insufficient signal or features</td>
+      <td>Engineer new features, collect additional data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Finally, communicating evaluation results to non-technical stakeholders requires translating statistical measures into business language. Telling a retail executive that a churn model achieves an F1-score of 0.72 conveys little. Saying instead that "the model correctly identifies 78% of customers who will churn in the next 30 days, and 68% of the customers it flags for intervention do actually churn — giving the retention team a much better hit rate than the current approach of targeting everyone" makes the same information immediately actionable. The ability to bridge the gap between statistical rigor and business communication is one of the defining competencies of an effective analytics professional.</p>
+        <div class="notes"><strong>Notes</strong>Covers the methods and metrics used to assess how well a machine learning model performs, such as accuracy, precision, recall, and error measures. Students learn how to interpret evaluation results to make informed modeling decisions.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

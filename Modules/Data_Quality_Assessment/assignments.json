@@ -1,0 +1,27 @@
+﻿{
+  "ModuleFolderName": "Data_Quality_Assessment",
+  "CourseName": "CAP3785 - Data Analytics and Visualization",
+  "LastModified": "2026-07-05T07:09:49.028126-04:00",
+  "NextAssignmentNumber": 2,
+  "Assignments": [
+    {
+      "Id": "A001",
+      "Title": "Data Quality Assessment: Identifying and Classifying Data Quality Issues",
+      "Type": "DataAnalysis",
+      "Level": "Short",
+      "SubmissionFormat": "NotSpecified",
+      "TopicTitles": "",
+      "ExtraInstructions": "The students will use a given data set that contains poor quality data, the students must identify the improper data and determine the correct action to take for specific data.",
+      "OutputFormat": "Html",
+      "ModuleStudentOutcomeIds": [
+        "744df5bb-bf17-4e62-a434-59365eecc512"
+      ],
+      "TopicIds": [],
+      "FileName": "A001_Analysis_of_Data_Data_Quality_Assessment_Identi.html",
+      "GeneratedDate": "2026-07-05T07:09:21.0426877-04:00",
+      "TypeDisplayName": "Analysis of Data",
+      "LevelDisplayName": "Short  (\u003C 1 hour)",
+      "FormatDisplayName": "Not specified"
+    }
+  ]
+}

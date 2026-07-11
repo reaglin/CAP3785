@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relational Database Concepts</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Relational Database Concepts</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Relational Database Concepts</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Relational databases are the backbone of modern data management, powering everything from small business applications to global enterprise systems. At the heart of every relational database is a deceptively simple idea: all data can be organized into tables, and tables can be connected to one another through shared values. This model, first formally described by Edgar F. Codd in 1970, has endured for over five decades because it balances mathematical rigor with practical flexibility. Understanding how it works—from individual cells all the way up to multi-table relationships—is the essential foundation for anyone working with data.</p>
+
+<p><strong>The Relational Model</strong></p>
+
+<p>The relational model represents all data as a collection of tables, where each table captures information about one specific entity or concept. A table for a retail business might store customer information, another might store product details, and a third might store orders. Each table is self-contained and logically independent—you can query a single table without any knowledge of the others. Yet the tables are not isolated islands. Because they can share data values, they can be joined together at query time to answer complex, cross-cutting questions like "Which customers placed orders for products in the electronics category during the last quarter?"</p>
+
+<p>One of the most important and underappreciated aspects of the relational model is its separation of <em>logical structure</em> from <em>physical storage</em>. When you design a relational database, you define what data exists and how it relates to other data—not how that data is stored on disk, how it is indexed, or how it is retrieved by the database engine. This abstraction means that the database engine can change its internal storage strategies, add indexes, or migrate to new hardware without requiring any changes to the application code or the queries that access the data. This separation is what makes relational databases so maintainable over long periods of time.</p>
+
+<p><strong>Tables, Rows, and Columns</strong></p>
+
+<p>The table is the fundamental unit of organization in a relational database. Think of a table as a structured spreadsheet with a fixed set of named columns and a potentially unlimited number of rows. Each part of the table plays a distinct role:</p>
+
+<ul>
+  <li><strong>Columns (also called fields or attributes)</strong> define the categories of information the table stores. Every column has a name and a designated data type. The data type constrains what kind of value may be entered—a column defined as <code>INTEGER</code> will reject text, a column defined as <code>DATE</code> will reject arbitrary strings, and so on. This enforcement happens automatically, protecting data quality without requiring application-level checks.</li>
+  <li><strong>Rows (also called records or tuples)</strong> represent individual instances of the entity described by the table. In a <code>customers</code> table, each row is one customer. In an <code>orders</code> table, each row is one order. The number of rows grows and shrinks as data is inserted and deleted, while the column structure remains stable.</li>
+  <li><strong>Cells</strong> sit at the intersection of a row and a column and hold a single, atomic data value. "Atomic" means the value is not broken into sub-parts within the cell—it cannot itself be a list or another table. This atomicity rule is what keeps the structure clean and queries predictable.</li>
+</ul>
+
+<p>To make this concrete, consider the following <code>customers</code> table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>signup_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Maria</td>
+      <td>Santos</td>
+      <td>maria.santos@email.com</td>
+      <td>2022-03-15</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>James</td>
+      <td>Okafor</td>
+      <td>j.okafor@email.com</td>
+      <td>2023-01-08</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Priya</td>
+      <td>Nair</td>
+      <td>priya.nair@email.com</td>
+      <td>2023-07-22</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here, five columns define the structure, and each row captures a complete, independent record for one customer. The cell at row 2, column <code>email</code> holds exactly one value: <code>j.okafor@email.com</code>. There is no ambiguity, no nesting, and no duplication of structure.</p>
+
+<p><strong>Keys: Primary and Foreign</strong></p>
+
+<p>Tables on their own are useful, but the real power of the relational model comes from connecting tables through keys. There are two kinds of keys that form the backbone of these connections.</p>
+
+<p>A <strong>primary key</strong> is a column—or sometimes a combination of columns—whose value uniquely identifies every single row in a table. No two rows can ever share the same primary key value, and the primary key column can never be empty (null). In the <code>customers</code> table above, <code>customer_id</code> serves as the primary key. Because it is unique for every customer, you can always refer to a specific customer unambiguously by citing their <code>customer_id</code>. Many designers use a simple auto-incrementing integer as the primary key because it is guaranteed to be unique and carries no business meaning that might change over time.</p>
+
+<p>A <strong>foreign key</strong> is a column in one table that holds values matching the primary key of another table. It creates an explicit, enforceable link between the two tables. Consider an <code>orders</code> table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>order_date</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1001</td>
+      <td>2</td>
+      <td>2024-02-10</td>
+      <td>149.99</td>
+    </tr>
+    <tr>
+      <td>1002</td>
+      <td>1</td>
+      <td>2024-02-11</td>
+      <td>89.50</td>
+    </tr>
+    <tr>
+      <td>1003</td>
+      <td>2</td>
+      <td>2024-03-01</td>
+      <td>220.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code>customer_id</code> column in <code>orders</code> is a foreign key referencing the <code>customer_id</code> primary key in <code>customers</code>. Order 1001 belongs to customer 2 (James Okafor), and order 1002 belongs to customer 1 (Maria Santos). The database engine uses this relationship to enforce <strong>referential integrity</strong>: it will refuse to insert an order with a <code>customer_id</code> of 99 if no customer with that ID exists, and it will raise an error if you try to delete customer 2 while orders still reference that customer. This automatic enforcement prevents "orphaned" records—rows that reference something that no longer exists—without requiring application code to police every transaction.</p>
+
+<p><strong>Schemas and Database Structure</strong></p>
+
+<p>The <strong>schema</strong> is the complete blueprint of a database. It specifies every table that exists, every column in each table, the data type of each column, and the constraints applied to each column and relationship. The schema is written in SQL's Data Definition Language (DDL) using statements like <code>CREATE TABLE</code>. Here is a minimal example:</p>
+
+<pre><code>CREATE TABLE customers (
+    customer_id   INTEGER      PRIMARY KEY,
+    first_name    VARCHAR(50)  NOT NULL,
+    last_name     VARCHAR(50)  NOT NULL,
+    email         VARCHAR(100) UNIQUE NOT NULL,
+    signup_date   DATE         NOT NULL
+);
+
+CREATE TABLE orders (
+    order_id      INTEGER        PRIMARY KEY,
+    customer_id   INTEGER        NOT NULL,
+    order_date    DATE           NOT NULL,
+    total_amount  DECIMAL(10,2)  NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+</code></pre>
+
+<p>This schema definition does several important things simultaneously. It names each table and column, assigns data types (<code>INTEGER</code>, <code>VARCHAR</code>, <code>DATE</code>, <code>DECIMAL</code>), and applies constraints like <code>NOT NULL</code> (the column must always have a value), <code>UNIQUE</code> (no two rows may share the same value), <code>PRIMARY KEY</code>, and <code>FOREIGN KEY</code>. Any attempt to insert data that violates these rules is rejected immediately.</p>
+
+<p>A well-designed schema reduces <strong>data redundancy</strong>—the same fact appearing in multiple places. If a customer's email address were stored in both the <code>customers</code> table and every row of the <code>orders</code> table, updating that address would require finding and changing every order row, creating opportunities for inconsistency. By storing the email once in <code>customers</code> and referencing the customer by ID in <code>orders</code>, the email lives in exactly one place. A single update keeps everything consistent automatically.</p>
+
+<p>Schemas are not immutable. As business needs evolve, columns are added, data types are changed, and new tables are introduced using <code>ALTER TABLE</code> statements. However, schema changes must be managed carefully. Dropping a column deletes all its data permanently. Changing a data type may cause existing values to be rejected or silently truncated. Adding a <code>NOT NULL</code> column to a table that already has rows requires a default value strategy. In production environments, schema migrations are treated as carefully as code deployments.</p>
+
+<p><strong>Relationships Between Tables</strong></p>
+
+<p>The connections between tables fall into a small number of well-defined patterns. Understanding these patterns is crucial for designing a schema that accurately reflects the real-world relationships in the data.</p>
+
+<ul>
+  <li><strong>One-to-Many</strong> is the most common relationship type. A single row in table A corresponds to many rows in table B, but each row in table B corresponds to exactly one row in table A. The <code>customers</code>-to-<code>orders</code> relationship above is a classic one-to-many: one customer can place many orders, but each order belongs to exactly one customer. This relationship is implemented simply by placing the foreign key on the "many" side—<code>customer_id</code> lives in the <code>orders</code> table, not in the <code>customers</code> table.</li>
+  <li><strong>Many-to-Many</strong> relationships arise when both sides can have multiple associations. Consider students and courses: a student can enroll in many courses, and a course can have many students. You cannot represent this with a single foreign key. Instead, you introduce a <strong>junction table</strong> (also called a bridge or associative table) that holds a row for each pairing. An <code>enrollments</code> table with columns <code>student_id</code> and <code>course_id</code>—each a foreign key to its respective table—captures every enrollment without duplicating student or course data. The junction table can also carry attributes of the relationship itself, such as the date of enrollment or the grade received.</li>
+  <li><strong>One-to-One</strong> relationships are less common but occasionally useful. A single row in table A corresponds to at most one row in table B. This pattern often appears when a table is intentionally split for security or performance reasons—for example, keeping sensitive employee compensation data in a separate table from general employee profile data, with a one-to-one link between them.</li>
+</ul>
+
+<p>The following table summarizes the three relationship types, how they are implemented, and a practical example of each:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Relationship Type</th>
+      <th>Description</th>
+      <th>Implementation</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>One-to-Many</td>
+      <td>One row in A links to many rows in B</td>
+      <td>Foreign key on the "many" side (table B)</td>
+      <td>One customer → many orders</td>
+    </tr>
+    <tr>
+      <td>Many-to-Many</td>
+      <td>Many rows in A link to many rows in B</td>
+      <td>Junction table with foreign keys to both A and B</td>
+      <td>Students ↔ courses via enrollments</td>
+    </tr>
+    <tr>
+      <td>One-to-One</td>
+      <td>One row in A links to at most one row in B</td>
+      <td>Foreign key in B with a UNIQUE constraint</td>
+      <td>Employee profile ↔ compensation record</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Defining these relationships explicitly in the schema—through foreign key declarations—allows the database to enforce <strong>referential integrity</strong> automatically. This means you never end up with an order that references a non-existent customer, an enrollment that points to a deleted course, or any other kind of dangling reference that would silently corrupt your data.</p>
+
+<p><strong>Benefits of the Relational Model for Data Management</strong></p>
+
+<p>The enduring popularity of the relational model is no accident. It provides a set of concrete, practical benefits that directly address the challenges of storing, maintaining, and querying large volumes of business data.</p>
+
+<ul>
+  <li><strong>Minimized data duplication.</strong> By storing each fact in exactly one place and referencing it by key everywhere else, the relational model eliminates the inconsistency problems caused by redundant copies of data. When a supplier changes their phone number, that update touches one row in one table, and every query that references the supplier automatically sees the new value.</li>
+  <li><strong>Enforced data integrity.</strong> The schema's constraints—data types, <code>NOT NULL</code>, <code>UNIQUE</code>, primary keys, and foreign keys—form a system of automatic checks that run on every insert, update, and delete. Bad data is rejected at the point of entry rather than silently stored and discovered later during analysis.</li>
+  <li><strong>Flexible querying with SQL.</strong> The Structured Query Language (SQL) allows users to combine data from multiple tables, filter rows, aggregate values, sort results, and perform complex calculations—all in a single, declarative statement. A well-designed relational schema can answer questions that were never anticipated when the schema was first built, because SQL can freely join any tables that share a common key. This makes the relational model highly adaptable for reporting, analytics, and application development alike.</li>
+  <li><strong>Logical independence from physical storage.</strong> Applications interact with the logical structure—table names, column names, relationships—without caring how the database engine physically stores or retrieves data. This independence means performance optimizations like adding an index or partitioning a large table can be made transparently, without changing any application code.</li>
+  <li><strong>Mature ecosystem and tooling.</strong> Decades of development have produced robust database management systems (such as PostgreSQL, MySQL, Microsoft SQL Server, and Oracle), comprehensive administration tools, and a vast body of best practices and knowledge. Relational databases benefit from proven techniques for backup, replication, security, and transaction management.</li>
+</ul>
+
+<p>Together, these benefits explain why the relational model remains the default choice for structured data in the vast majority of business, scientific, and government applications, and why understanding it is the essential starting point for any serious study of data management.</p>
+        <div class="notes"><strong>Notes</strong>Topic covers the full relational model introduction including tables/rows/columns, primary and foreign keys, schemas, relationship types (one-to-many, many-to-many, one-to-one), and the practical benefits of the relational approach. Tabular examples and a DDL code snippet are included to ground abstract concepts in concrete illustrations.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

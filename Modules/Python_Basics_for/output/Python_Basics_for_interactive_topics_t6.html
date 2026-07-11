@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Foundational Data Analysis Scripts</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Writing Foundational Data Analysis Scripts</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Writing Foundational Data Analysis Scripts</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data analysis with Python is not simply a matter of knowing individual language features in isolation — it is about combining those features into a coherent, repeatable workflow that takes raw data from a file and turns it into meaningful insight. A well-written data analysis script reads almost like a story: data enters, it is cleaned and shaped, calculations are performed, and findings are presented clearly. This topic brings together Python fundamentals — file I/O, control structures, functions, data types, and output formatting — and shows how they fit together into complete, professional-quality scripts. Whether you are summarizing a spreadsheet of sales figures or exploring a dataset of survey responses, the same structural principles apply.</p>
+
+<p><strong>Structuring a Complete Data Analysis Script</strong></p>
+
+<p>The single most important habit you can build as a data analyst is giving your scripts a clear, predictable structure. A script that is organized into named sections is far easier to debug, hand off to a colleague, or return to after a week away. Think of the structure as a pipeline: each section receives the outputs of the previous section, transforms or uses them, and passes its own outputs forward.</p>
+
+<p>A conventional layout follows four broad stages:</p>
+
+<ul>
+  <li><strong>Imports</strong> — Every script begins with <code>import</code> statements. Placing all imports at the top makes dependencies immediately visible and avoids the confusion of discovering a missing library halfway through execution.</li>
+  <li><strong>Load data</strong> — Read the raw data from its source (a file, a database query, an API) and store it in an in-memory structure.</li>
+  <li><strong>Clean and transform</strong> — Correct types, remove invalid records, derive new fields, and reshape the data into a form suited to analysis.</li>
+  <li><strong>Analyze and report</strong> — Compute summary statistics, apply business logic, and produce output — whether printed to the console or written to a file.</li>
+</ul>
+
+<p>Section-dividing comments such as <code># --- Load Data ---</code> or <code># === Summary Statistics ===</code> are a lightweight but powerful documentation tool. They cost nothing and make the script's intent legible at a glance. A reader skimming the file can jump straight to the section they care about without reading every line. A clear structure also enforces a healthy dependency discipline: the analysis section can only use data that the loading and cleaning sections have already prepared, which prevents a common class of bugs where a variable is used before it has been properly initialized or validated.</p>
+
+<pre><code>import csv
+import os
+
+# --- Configuration ---
+INPUT_FILE  = "sales_data.csv"
+OUTPUT_FILE = "sales_summary.txt"
+
+# --- Load Data ---
+# ... (loading logic here)
+
+# --- Clean and Transform ---
+# ... (type conversion, filtering here)
+
+# --- Analyze ---
+# ... (summary statistics here)
+
+# --- Report Results ---
+# ... (output logic here)
+</code></pre>
+
+<p>Even before a single line of real logic is written, this skeleton communicates the script's shape and intent.</p>
+
+<p><strong>Reading Datasets from Files</strong></p>
+
+<p>Most real-world datasets live in files — commonly plain text or CSV (comma-separated values) format. Python gives you two complementary tools: the built-in <code>open()</code> function for raw file access, and the standard library's <code>csv</code> module for structured CSV parsing.</p>
+
+<p>The <code>open()</code> function returns a file object. Using it as a context manager with the <code>with</code> statement is best practice because Python automatically closes the file when the block exits, even if an exception occurs:</p>
+
+<pre><code>with open("sales_data.csv", "r", newline="") as f:
+    content = f.read()          # read entire file as one string
+</code></pre>
+
+<p>For CSV files specifically, the <code>csv</code> module handles the details of quoted fields, embedded commas, and line endings that would be tedious to handle manually. <code>csv.DictReader</code> is especially useful because it uses the first row as field names and returns each subsequent row as a dictionary, making the data self-documenting:</p>
+
+<pre><code>import csv
+
+records = []
+with open("sales_data.csv", "r", newline="") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        records.append(row)
+
+# records is now a list of dicts, e.g.:
+# [{'date': '2024-01-03', 'product': 'Widget', 'units': '14', 'revenue': '210.00'}, ...]
+</code></pre>
+
+<p>A critical robustness concern is handling files that do not exist. Any production-quality script must account for this with a <code>try/except</code> block. Without it, a missing file causes an unhandled <code>FileNotFoundError</code> that crashes the script and gives the user no helpful guidance:</p>
+
+<pre><code>records = []
+try:
+    with open("sales_data.csv", "r", newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            records.append(row)
+except FileNotFoundError:
+    print("Error: 'sales_data.csv' was not found. Please check the file path.")
+    raise SystemExit(1)
+</code></pre>
+
+<p>Storing loaded data as a <strong>list of dictionaries</strong> is a natural and flexible choice. The list preserves row order, supports iteration, and can be sliced or filtered. Each dictionary maps column names to values, which makes downstream code readable — <code>row["revenue"]</code> is far clearer than <code>row[3]</code>.</p>
+
+<p><strong>Applying Control Structures to Process Data</strong></p>
+
+<p>Once data is in memory, control structures — loops and conditionals — are the workhorses that process it. A <code>for</code> loop lets you visit every record exactly once and apply the same transformation or check uniformly across the entire dataset:</p>
+
+<pre><code># Tag each record with its sales tier
+for record in records:
+    units = int(record["units"])
+    if units >= 50:
+        record["tier"] = "High"
+    elif units >= 20:
+        record["tier"] = "Medium"
+    else:
+        record["tier"] = "Low"
+</code></pre>
+
+<p>Conditional statements (<code>if</code> / <code>elif</code> / <code>else</code>) let you branch logic based on data values. Common use cases include filtering out invalid rows, assigning categorical labels (as shown above), flagging outliers, or routing records into different accumulators for group-level analysis.</p>
+
+<p>Nested loops and conditions handle multi-level logic. For example, grouping records by product category before summing revenue requires an outer structure (a dictionary keyed by category) populated inside the loop:</p>
+
+<pre><code>revenue_by_product = {}
+
+for record in records:
+    product = record["product"]
+    revenue = float(record["revenue"])
+
+    if product not in revenue_by_product:
+        revenue_by_product[product] = 0.0
+    revenue_by_product[product] += revenue
+</code></pre>
+
+<p>A practical discipline here is keeping each loop body focused on <em>one responsibility</em>. If a loop is simultaneously filtering, transforming, accumulating, and printing, it becomes difficult to test or reason about. When a loop body grows long, that is usually a signal to extract part of it into a helper function.</p>
+
+<p><strong>Computing Summary Statistics with Functions</strong></p>
+
+<p>Functions are the mechanism for turning repeated patterns of logic into named, reusable units. For data analysis, the most common summary statistics are total (sum), average (mean), minimum, and maximum. Defining functions for these keeps the analysis section of the script clean and makes it trivial to apply the same calculation to different columns.</p>
+
+<pre><code>def compute_total(values):
+    """Return the sum of a list of numeric values."""
+    return sum(values)
+
+def compute_average(values):
+    """Return the mean of a list of numeric values, or 0 if the list is empty."""
+    if len(values) == 0:
+        return 0
+    return sum(values) / len(values)
+
+def compute_min(values):
+    return min(values)
+
+def compute_max(values):
+    return max(values)
+</code></pre>
+
+<p>Each function accepts a list as its argument, which means you can call it on any column simply by extracting that column's values first:</p>
+
+<pre><code>revenues = [float(r["revenue"]) for r in records]
+units    = [int(r["units"])    for r in records]
+
+total_revenue   = compute_total(revenues)
+average_revenue = compute_average(revenues)
+peak_units      = compute_max(units)
+</code></pre>
+
+<p>Notice that the functions <em>return</em> their results rather than printing them. This is a crucial design choice: a function that prints directly is hard to reuse because you cannot capture its output for further computation. By returning a value, the caller decides what to do with it — store it, pass it to another function, or format it for output.</p>
+
+<p>Python's built-in <code>sum()</code>, <code>len()</code>, <code>min()</code>, and <code>max()</code> already handle simple cases efficiently. Custom functions add value when you need guarded behavior (like the empty-list check in <code>compute_average</code>), weighted calculations, or domain-specific logic (such as computing a median or a percentage contribution).</p>
+
+<p><strong>Integrating Data Types Appropriately</strong></p>
+
+<p>A near-universal source of bugs in file-based data analysis is forgetting that <em>everything read from a file is a string</em>. When <code>csv.DictReader</code> gives you <code>row["units"] == "14"</code>, that is the string <code>"14"</code>, not the integer <code>14</code>. Adding two such strings gives <code>"1420"</code> (concatenation), not <code>34</code> (addition). Type conversion must happen explicitly.</p>
+
+<p>The cleaning stage is the right place to perform these conversions, so that all downstream code can assume correct types:</p>
+
+<pre><code>clean_records = []
+
+for row in records:
+    try:
+        clean_records.append({
+            "date":    row["date"],
+            "product": row["product"],
+            "units":   int(row["units"]),
+            "revenue": float(row["revenue"]),
+        })
+    except (ValueError, KeyError) as e:
+        print(f"Skipping malformed row {row}: {e}")
+</code></pre>
+
+<p>Wrapping conversions in <code>try/except</code> catches rows where a field is missing or contains a non-numeric value (such as an empty string or the word "N/A"). Rather than crashing, the script skips the bad row and logs a warning — a far better experience for the user.</p>
+
+<p>Choosing the right data structure matters too. The table below summarizes when to reach for each core Python container in a data analysis context:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Structure</th>
+      <th>Best Used For</th>
+      <th>Example in Analysis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>list</code></td>
+      <td>Ordered sequences of records or extracted values</td>
+      <td>All rows from a CSV; a column of revenue figures</td>
+    </tr>
+    <tr>
+      <td><code>dict</code></td>
+      <td>Named fields for a single record; grouping accumulators</td>
+      <td>One CSV row; revenue totals keyed by product</td>
+    </tr>
+    <tr>
+      <td><code>set</code></td>
+      <td>Unique values; membership testing</td>
+      <td>Distinct product names in the dataset</td>
+    </tr>
+    <tr>
+      <td><code>tuple</code></td>
+      <td>Fixed, immutable groupings</td>
+      <td>A (min, max) pair returned from a function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code>isinstance()</code> can guard logic that depends on type when you are not certain what a variable holds:</p>
+
+<pre><code>def safe_float(value):
+    if isinstance(value, float):
+        return value
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return 0.0
+</code></pre>
+
+<p><strong>Outputting and Presenting Results</strong></p>
+
+<p>Computed results have no value if they are not communicated clearly. Python's f-strings (formatted string literals, introduced in Python 3.6) make it easy to embed variables directly in text and control numeric formatting:</p>
+
+<pre><code>print(f"Total Revenue:    ${total_revenue:,.2f}")
+print(f"Average Revenue:  ${average_revenue:,.2f}")
+print(f"Peak Units Sold:  {peak_units}")
+</code></pre>
+
+<p>The format specification <code>:,.2f</code> means: use a comma as the thousands separator and show exactly two decimal places. This kind of formatting is essential when presenting financial figures. Without it, <code>210000.5</code> appears instead of <code>$210,000.50</code> — technically correct but hard to read.</p>
+
+<p>When results need to be saved or shared, write them to a file instead of (or in addition to) printing:</p>
+
+<pre><code>with open("sales_summary.txt", "w") as out:
+    out.write("=== Sales Summary ===\n\n")
+    out.write(f"Total Revenue:   ${total_revenue:,.2f}\n")
+    out.write(f"Average Revenue: ${average_revenue:,.2f}\n\n")
+    out.write("--- Revenue by Product ---\n")
+    for product, rev in sorted(revenue_by_product.items()):
+        out.write(f"  {product:<20} ${rev:,.2f}\n")
+</code></pre>
+
+<p>Organizing output logically makes results easier to interpret. A common convention is to present high-level totals first, then drill into category-level breakdowns. This mirrors the way a reader naturally wants to consume information — understand the whole before examining the parts. Labeling every value explicitly (<em>"Total Revenue"</em>, not just the number) ensures the output file is self-explanatory without requiring someone to read the script to understand what the numbers mean.</p>
+
+<p><strong>Bringing It All Together: An End-to-End Script Workflow</strong></p>
+
+<p>The following complete script demonstrates every principle discussed above, applied to a realistic scenario: reading a CSV file of sales transactions, cleaning and typing the data, computing overall and per-product summary statistics, and writing a formatted report.</p>
+
+<pre><code>import csv
+import os
+
+# --- Configuration ---
+INPUT_FILE  = "sales_data.csv"
+OUTPUT_FILE = "sales_summary.txt"
+
+# --- Helper Functions ---
+
+def load_records(filepath):
+    """Load CSV file and return a list of raw string dicts."""
+    rows = []
+    try:
+        with open(filepath, "r", newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                rows.append(row)
+    except FileNotFoundError:
+        print(f"Error: '{filepath}' not found.")
+        raise SystemExit(1)
+    return rows
+
+def clean_records(raw_rows):
+    """Convert string fields to appropriate types; skip malformed rows."""
+    clean = []
+    for row in raw_rows:
+        try:
+            clean.append({
+                "date":    row["date"],
+                "product": row["product"].strip(),
+                "units":   int(row["units"]),
+                "revenue": float(row["revenue"]),
+            })
+        except (ValueError, KeyError) as e:
+            print(f"Warning: skipping row {row} — {e}")
+    return clean
+
+def compute_average(values):
+    """Return mean of a non-empty list, else 0."""
+    return sum(values) / len(values) if values else 0
+
+def group_by_product(records):
+    """Return a dict mapping product name to total revenue."""
+    totals = {}
+    for r in records:
+        product = r["product"]
+        totals[product] = totals.get(product, 0.0) + r["revenue"]
+    return totals
+
+def write_report(filepath, records, product_totals):
+    """Write a formatted summary report to a text file."""
+    revenues = [r["revenue"] for r in records]
+    units    = [r["units"]   for r in records]
+
+    with open(filepath, "w") as out:
+        out.write("========================================\n")
+        out.write("           SALES ANALYSIS REPORT\n")
+        out.write("========================================\n\n")
+
+        out.write("OVERALL SUMMARY\n")
+        out.write(f"  Records Processed : {len(records)}\n")
+        out.write(f"  Total Revenue     : ${sum(revenues):,.2f}\n")
+        out.write(f"  Average Revenue   : ${compute_average(revenues):,.2f}\n")
+        out.write(f"  Total Units Sold  : {sum(units)}\n")
+        out.write(f"  Min Units (sale)  : {min(units)}\n")
+        out.write(f"  Max Units (sale)  : {max(units)}\n\n")
+
+        out.write("REVENUE BY PRODUCT\n")
+        for product, rev in sorted(product_totals.items(),
+                                   key=lambda x: x[1], reverse=True):
+            out.write(f"  {product:<25} ${rev:,.2f}\n")
+
+        out.write("\n========================================\n")
+    print(f"Report written to '{filepath}'.")
+
+# --- Main Workflow ---
+
+raw_rows      = load_records(INPUT_FILE)
+records       = clean_records(raw_rows)
+product_totals = group_by_product(records)
+write_report(OUTPUT_FILE, records, product_totals)
+</code></pre>
+
+<p>Several practices in this script are worth highlighting explicitly:</p>
+
+<ul>
+  <li><strong>Incremental development:</strong> Build and test the script in stages. First, call <code>load_records()</code> and print a few rows to confirm the file is being read correctly. Then add <code>clean_records()</code> and verify types. Then add <code>group_by_product()</code> and print the dictionary. Finally, add <code>write_report()</code>. Each stage gives you a checkpoint where you can confirm correctness before adding complexity.</li>
+  <li><strong>Function reuse:</strong> <code>compute_average()</code> is defined once and used inside <code>write_report()</code>. If the averaging logic ever needs to change — say, to compute a weighted average — there is only one place to update.</li>
+  <li><strong>Separation of concerns:</strong> Loading, cleaning, analysis, and output are handled by separate functions. None of them does another's job. This makes each function independently testable and the main workflow easy to read.</li>
+  <li><strong>Self-documenting output:</strong> The report file labels every figure and uses consistent alignment. A manager reading the output file needs no knowledge of the script to understand what the numbers represent.</li>
+  <li><strong>Robustness:</strong> File-not-found is handled gracefully; malformed rows are skipped with a warning rather than crashing the script.</li>
+</ul>
+
+<p>Planning before coding is equally important. Before writing the first line, sketch out the stages, identify what inputs each stage needs, and decide what structure will hold the data between stages. A five-minute planning sketch prevents hours of restructuring later. Once the script is complete, read it top to bottom as if you were seeing it for the first time — if any section's purpose is unclear, add a comment or rename a variable. Code that is readable is code that can be trusted, maintained, and extended.</p>
+        <div class="notes"><strong>Notes</strong>This topic is the capstone of the module. It synthesizes file I/O, control structures, functions, data types, and output formatting into a single end-to-end workflow. Instructors may wish to provide a sample CSV file (e.g., sales_data.csv) so learners can run the complete script as written. Emphasize incremental testing as a professional habit, not just a learning scaffold.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

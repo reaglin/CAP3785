@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Basic SELECT Queries</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Writing Basic SELECT Queries</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Writing Basic SELECT Queries</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The <strong>SELECT statement</strong> is the cornerstone of working with relational databases. Every time you need to look at data stored in a database — whether you want to see a list of customers, review product prices, or examine transaction records — you write a SELECT query. Before diving into filtering, grouping, or joining tables, you must first understand how to retrieve raw data from a single table. That is exactly what this topic covers: how SELECT works, why it is structured the way it is, and how to write queries that are both correct and purposeful.</p>
+
+<p>A critical concept to understand from the start is that SELECT is a <strong>read-only operation</strong>. When you execute a SELECT query, the database engine reads the requested data and returns it to you as a <em>result set</em> — a temporary, in-memory table of rows and columns that exists only for the duration of your query session. The underlying table in the database is completely untouched. No rows are added, changed, or deleted. This makes SELECT safe to run at any time, even against live production databases, without any risk of corrupting or altering your data.</p>
+
+<p>The <strong>result set</strong> itself behaves like a table: it has named columns and zero or more rows of data. If your query finds ten matching rows, you get ten rows back. If the table is empty, you get zero rows back — but you still get the column headers. Understanding that the result set is separate from the actual stored table is important as queries become more complex.</p>
+
+<p>At its most fundamental level, a SELECT query requires exactly two clauses working together. The <strong>SELECT clause</strong> tells the database <em>what</em> to retrieve — which columns of data you want. The <strong>FROM clause</strong> tells the database <em>where</em> to look — which table contains that data. Every basic SELECT query you write will have both of these clauses. Additional clauses like WHERE, ORDER BY, and GROUP BY build on top of this foundation, but SELECT and FROM are always the starting point.</p>
+
+<p>Here is the fundamental syntax pattern for a SELECT query:</p>
+
+<pre><code>SELECT column1, column2, column3
+FROM table_name;</code></pre>
+
+<p>Breaking this down piece by piece:</p>
+
+<ul>
+  <li><strong>SELECT</strong> — the keyword that opens the statement and signals to the database engine that you want to retrieve data.</li>
+  <li><strong>column1, column2, column3</strong> — a comma-separated list of the specific column names you want included in the result set. These must match column names that actually exist in the table specified in the FROM clause.</li>
+  <li><strong>FROM</strong> — the keyword that introduces the source of the data.</li>
+  <li><strong>table_name</strong> — the name of the table you are querying. This must be a real table (or view) that exists in the database you are connected to.</li>
+  <li><strong>;</strong> — the semicolon terminates the SQL statement. It signals to the database engine that the query is complete and ready to execute. While some tools will run a query without the semicolon, it is best practice to always include it, especially when writing scripts that contain multiple statements.</li>
+</ul>
+
+<p>One important note about <strong>case sensitivity</strong>: SQL keywords like SELECT and FROM are case-insensitive. The database engine will interpret <code>select</code>, <code>Select</code>, and <code>SELECT</code> identically. However, the widely accepted convention in professional SQL writing is to write keywords in <strong>UPPERCASE</strong>. This makes the structural parts of a query stand out visually from the table and column names, making code much easier to read and maintain. Throughout this module, uppercase keywords are used consistently.</p>
+
+<p>Now consider a concrete example. Imagine a database for a retail business that contains a table called <code>products</code>. This table stores information about every item the company sells. The table has the following columns:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>product_id</td>
+      <td>A unique numeric identifier for each product</td>
+    </tr>
+    <tr>
+      <td>product_name</td>
+      <td>The name of the product</td>
+    </tr>
+    <tr>
+      <td>category</td>
+      <td>The product category (e.g., Electronics, Clothing)</td>
+    </tr>
+    <tr>
+      <td>unit_price</td>
+      <td>The price per unit in dollars</td>
+    </tr>
+    <tr>
+      <td>stock_quantity</td>
+      <td>The number of units currently in inventory</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Selecting specific columns</strong> is the recommended approach for most real queries. Rather than pulling every column from a table, you specify only the columns relevant to the question you are trying to answer. This has two important benefits: it keeps the result set focused and easy to read, and it reduces the amount of data the database engine must retrieve and transfer, improving performance — especially on large tables with many columns.</p>
+
+<p>Suppose a business analyst wants to see just the name and price of every product. The query would be:</p>
+
+<pre><code>SELECT product_name, unit_price
+FROM products;</code></pre>
+
+<p>The result set would look something like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>product_name</th>
+      <th>unit_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Wireless Keyboard</td>
+      <td>49.99</td>
+    </tr>
+    <tr>
+      <td>USB-C Hub</td>
+      <td>34.95</td>
+    </tr>
+    <tr>
+      <td>Laptop Stand</td>
+      <td>27.50</td>
+    </tr>
+    <tr>
+      <td>Noise-Cancelling Headphones</td>
+      <td>129.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that the columns <code>product_id</code>, <code>category</code>, and <code>stock_quantity</code> are entirely absent — because the query did not ask for them. Only <code>product_name</code> and <code>unit_price</code> were listed after SELECT, so only those two columns appear in the result.</p>
+
+<p>Also notice that <strong>the order of columns in the result set matches the order you listed them</strong> in the SELECT clause — not the order they appear in the underlying table. If you wanted price listed before name, you would simply reverse them:</p>
+
+<pre><code>SELECT unit_price, product_name
+FROM products;</code></pre>
+
+<p>This flexibility lets you tailor the presentation of data to match what makes the most sense for whoever is reading the results.</p>
+
+<p>If you want to retrieve <strong>all columns</strong> from a table at once, SQL provides a shorthand: the <strong>asterisk wildcard (<code>*</code>)</strong>. Instead of listing every column name individually, you write a single asterisk after SELECT:</p>
+
+<pre><code>SELECT *
+FROM products;</code></pre>
+
+<p>This instructs the database engine to return every column in the table, in the order they are physically defined in the table's schema. The result would include all five columns — <code>product_id</code>, <code>product_name</code>, <code>category</code>, <code>unit_price</code>, and <code>stock_quantity</code> — for every row in the table.</p>
+
+<p><code>SELECT *</code> is genuinely useful in specific situations:</p>
+
+<ul>
+  <li><strong>Exploration and investigation:</strong> When you first encounter an unfamiliar table, running <code>SELECT *</code> gives you an immediate picture of what data the table contains and how it is structured.</li>
+  <li><strong>Quick ad-hoc checks:</strong> During development or debugging, it is often faster to grab everything and scan the results than to type out every column name.</li>
+</ul>
+
+<p>However, <code>SELECT *</code> comes with important drawbacks that make it inappropriate for production code or queries embedded in applications:</p>
+
+<ul>
+  <li><strong>Performance cost:</strong> Retrieving columns you do not need wastes database resources — network bandwidth, memory, and processing time. On tables with dozens of columns or millions of rows, this waste becomes significant.</li>
+  <li><strong>Schema change risk:</strong> If a developer adds a new column to the table later, <code>SELECT *</code> will automatically include it. An application that was expecting a specific number of columns in a specific order may break or behave unpredictably when the column count changes. Explicit column lists insulate your code from these changes.</li>
+  <li><strong>Clarity:</strong> Explicit column names make a query self-documenting. A reader immediately knows what data the query is fetching. <code>SELECT *</code> gives no such information without also inspecting the table's definition.</li>
+</ul>
+
+<p>The professional standard is: use <code>SELECT *</code> when exploring, but use explicit column names in any query that will be saved, shared, or run in a production context.</p>
+
+<p>Understanding SELECT queries in the context of <strong>real datasets</strong> is where the concepts come to life. Real databases are built around a domain — a business, a system, or an organization — and their table and column names reflect that domain directly. A retail company might have tables named <code>orders</code>, <code>customers</code>, <code>products</code>, and <code>employees</code>. A hospital system might have tables named <code>patients</code>, <code>appointments</code>, <code>diagnoses</code>, and <code>staff</code>. Before writing any query, you need to understand the structure of the dataset you are working with.</p>
+
+<p>This understanding begins with a few key questions:</p>
+
+<ul>
+  <li>What tables exist in this database?</li>
+  <li>What columns does each table have, and what type of data does each column store?</li>
+  <li>Which table contains the data that answers my business question?</li>
+</ul>
+
+<p>Once you know the table and column names, translating a business question into SQL becomes straightforward. Consider the question: <em>"What products does our company currently sell?"</em> Knowing that the <code>products</code> table holds product information, and that <code>product_name</code> and <code>category</code> are the most descriptive columns, you can write:</p>
+
+<pre><code>SELECT product_name, category
+FROM products;</code></pre>
+
+<p>This directly answers the question. Similarly, if a manager asks: <em>"I need a list of all our products with their prices and current stock levels,"</em> you know to include the relevant columns:</p>
+
+<pre><code>SELECT product_name, unit_price, stock_quantity
+FROM products;</code></pre>
+
+<p>Practicing on real datasets trains you to think in this question-first, data-second manner — identifying what information you need, finding where it lives, and constructing a precise query to retrieve exactly that. This approach becomes the foundation for every more advanced SQL technique you learn going forward.</p>
+
+<p>To bring all of these concepts together, consider this comparison of several queries against the same <code>products</code> table and what each one returns:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Query</th>
+      <th>Columns Returned</th>
+      <th>When to Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>SELECT * FROM products;</code></td>
+      <td>All 5 columns</td>
+      <td>Quick exploration of the table</td>
+    </tr>
+    <tr>
+      <td><code>SELECT product_name FROM products;</code></td>
+      <td>product_name only</td>
+      <td>When only the name matters (e.g., building a dropdown list)</td>
+    </tr>
+    <tr>
+      <td><code>SELECT product_name, unit_price FROM products;</code></td>
+      <td>product_name, unit_price</td>
+      <td>Answering "what do we sell and for how much?"</td>
+    </tr>
+    <tr>
+      <td><code>SELECT product_id, product_name, stock_quantity FROM products;</code></td>
+      <td>product_id, product_name, stock_quantity</td>
+      <td>Inventory audit — identifying what needs restocking</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each query is syntactically valid and follows the same two-clause pattern. What changes is <em>which columns</em> are requested — and that choice should always be driven by what the query is actually meant to accomplish. Writing targeted, purposeful SELECT statements is the first and most fundamental skill in SQL.</p>
+        <div class="notes"><strong>Notes</strong>Students should practice running each variation of the SELECT query against a provided sample dataset. Encourage them to look up table structures before writing queries — using commands like DESCRIBE (MySQL) or \d (PostgreSQL) to inspect column names and data types. Reinforce that SELECT * is a tool for exploration, not production code. Assessment exercises could include translating plain-English business questions into SELECT queries against a provided schema.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Data Visualization with Python Libraries – CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:          #f4f6f9;
+      --color-surface:     #ffffff;
+      --color-border:      #dde2ea;
+      --color-primary:     #1a4f8a;
+      --color-primary-dk:  #133a68;
+      --color-accent:      #2e7fc1;
+      --color-accent-lt:   #e8f2fa;
+      --color-text:        #1e2531;
+      --color-muted:       #5b6578;
+      --color-tag-bg:      #edf0f5;
+      --color-tag-text:    #3d4d66;
+      --radius:            8px;
+      --shadow:            0 2px 8px rgba(0,0,0,.08);
+      --shadow-hover:      0 6px 20px rgba(0,0,0,.13);
+      --font-sans:         'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, #1e6aaa 100%);
+      color: #fff;
+      padding: 2.75rem 1.5rem 2.25rem;
+    }
+
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 4px;
+      padding: .25rem .65rem;
+      margin-bottom: 1rem;
+    }
+
+    .site-header h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: .85rem;
+      letter-spacing: -.01em;
+    }
+
+    .site-header p {
+      font-size: 1rem;
+      color: rgba(255,255,255,.88);
+      max-width: 700px;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    .main {
+      max-width: 1080px;
+      margin: 2.5rem auto 3.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .section-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 1.25rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .2s ease, transform .2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-top {
+      padding: 1.2rem 1.3rem .9rem;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: .55rem;
+    }
+
+    /* Badge row */
+    .badge-row {
+      display: flex;
+      gap: .45rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: .18rem .52rem;
+      border-radius: 3px;
+      background: var(--color-tag-bg);
+      color: var(--color-tag-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .badge-filetype {
+      background: var(--color-accent-lt);
+      color: var(--color-accent);
+      border-color: #c4ddf2;
+    }
+
+    /* Artifact name / link */
+    .artifact-name {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--color-text);
+      word-break: break-word;
+    }
+
+    .artifact-name a.primary-link {
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color .15s, color .15s;
+    }
+
+    .artifact-name a.primary-link:hover,
+    .artifact-name a.primary-link:focus {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+      outline: none;
+    }
+
+    /* Source link */
+    .source-link-wrap {
+      margin-top: .3rem;
+    }
+
+    .source-link {
+      font-size: .75rem;
+      font-weight: 500;
+      color: var(--color-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      border-bottom: 1px dashed var(--color-border);
+      transition: color .15s, border-color .15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+      outline: none;
+    }
+
+    .source-link::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%235b6578'%3E%3Cpath d='M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-3a.75.75 0 0 0-1.5 0v3c0 .552-.448 1-1 1h-7c-.552 0-1-.448-1-1v-7c0-.552.448-1 1-1h3a.75.75 0 0 0 0-1.5h-3zM10.25 2a.75.75 0 0 0 0 1.5h1.69l-5.72 5.72a.75.75 0 1 0 1.06 1.06l5.72-5.72v1.69a.75.75 0 0 0 1.5 0V2.75A.75.75 0 0 0 13.25 2h-3z'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      flex-shrink: 0;
+    }
+
+    /* Card body – description */
+    .card-body {
+      padding: 1rem 1.3rem 1.3rem;
+      flex: 1;
+    }
+
+    .card-body p {
+      font-size: .875rem;
+      color: var(--color-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem 1.5rem;
+      font-size: .78rem;
+      color: var(--color-muted);
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .site-header { padding: 2rem 1.2rem 1.75rem; }
+      .main { margin-top: 2rem; }
+    }
+
+    /* ── Focus styles for accessibility ── */
+    a:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ Header ══ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>Advanced Data Visualization with Python Libraries</h1>
+      <p>
+        This module introduces powerful Python visualization tools — primarily Matplotlib and
+        Seaborn — guiding learners from foundational concepts through core chart types,
+        advanced multivariate techniques, publication-quality styling, data storytelling, and
+        interactive figure building. Use the resources below to explore topics, review slides,
+        and assess your understanding.
+      </p>
+    </div>
+  </header>
+
+  <!-- ══ Main ══ -->
+  <main class="main">
+    <p class="section-label">Module Artifacts &mdash; 9 items</p>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="module_topics.html">Module Topics</a>
+          </div>
+          <div class="source-link-wrap">
+            <a class="source-link" href="../hierarchy.json">source file</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>A structured outline of the module's learning topics, covering Matplotlib and Seaborn fundamentals, core chart types (bar, line, scatter), and advanced visualizations like heatmaps and pair plots, used by instructors to plan lessons and by learners to navigate what the module will teach.</p>
+        </div>
+      </article>
+
+      <!-- Card 2: Presentation -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Presentation</span>
+            <span class="badge badge-filetype">.pptx</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="../presentations/Advanced_Data_Visualization_generated.pptx">Advanced_Data_Visualization_generated.pptx</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>A slide deck introducing advanced data visualization with Python, explaining Matplotlib and Seaborn concepts, core chart types, and customization techniques, used by instructors to deliver lectures and by learners to follow along or review key ideas.</p>
+        </div>
+      </article>
+
+      <!-- Card 3: Topic 1 -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="Advanced_Data_Visualization_interactive_topics_t1.html">Introduction to Matplotlib and Seaborn</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>This reading introduces the Matplotlib and Seaborn libraries, explaining what data visualization is, why it matters, and how these two Python libraries fit into the broader ecosystem; learners read it to build foundational context before writing any plotting code.</p>
+        </div>
+      </article>
+
+      <!-- Card 4: Topic 2 -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="Advanced_Data_Visualization_interactive_topics_t2.html">Core Chart Types and When to Use Them</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>This reading explains the major chart types (bar, line, scatter, histogram, etc.), the specific visual problems each solves, and the criteria for choosing among them; learners consult it to make informed chart-selection decisions for their own datasets.</p>
+        </div>
+      </article>
+
+      <!-- Card 5: Topic 3 -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="Advanced_Data_Visualization_interactive_topics_t3.html">Advanced Visualizations: Heatmaps and Pair Plots</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>This reading covers heatmaps and pair plots in Seaborn, explaining how each technique surfaces relationships across multiple variables simultaneously and how to construct and interpret them during exploratory data analysis; learners use it to extend their EDA toolkit beyond single-variable charts.</p>
+        </div>
+      </article>
+
+      <!-- Card 6: Topic 4 -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="Advanced_Data_Visualization_interactive_topics_t4.html">Customization and Publication-Quality Styling</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>This reading covers how to move beyond Matplotlib's defaults to produce publication-quality figures, addressing font sizing, layout, color, labelling, and export settings; learners and instructors use it as a reference when preparing visualizations for reports, papers, or presentations.</p>
+        </div>
+      </article>
+
+      <!-- Card 7: Topic 5 -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="Advanced_Data_Visualization_interactive_topics_t5.html">Storytelling with Data and Visual Best Practices</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>This reading introduces data storytelling principles and visual design best practices, explaining how to structure a narrative around analytical findings and apply perceptual and rhetorical guidelines to make charts more persuasive and clear; learners use it to evaluate and improve the communicative impact of their visualizations.</p>
+        </div>
+      </article>
+
+      <!-- Card 8: Topic 6 -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="Advanced_Data_Visualization_interactive_topics_t6.html">Building Interactive Figures</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>This reading explains how to build interactive figures in Python — covering zooming, hovering, filtering, and related techniques — and contrasts interactive with static charts; learners use it to implement figures that let end-users explore data directly rather than viewing a fixed snapshot.</p>
+        </div>
+      </article>
+
+      <!-- Card 9: Quiz -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-row">
+            <span class="badge">Quiz</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <div class="artifact-name">
+            <a class="primary-link" href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+          </div>
+          <div class="source-link-wrap">
+            <a class="source-link" href="../quiz_questions.json">source file</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>A 20-question quiz bank assessing learners' understanding of Matplotlib and Seaborn fundamentals, library relationships, chart selection, and environment setup, used by instructors to build graded assessments or practice quizzes for the module.</p>
+        </div>
+      </article>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <!-- ══ Footer ══ -->
+  <footer class="site-footer">
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp; Advanced Data Visualization with Python Libraries
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

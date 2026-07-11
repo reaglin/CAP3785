@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Data Types and Structures</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Python Data Types and Structures</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Python Data Types and Structures</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Python provides a rich set of built-in data types and structures that form the foundation of every analytical program. Choosing the right type or structure is not merely a stylistic preference — it directly affects correctness, performance, and the ease with which data can be cleaned, transformed, and analyzed. This topic examines the most essential Python data types used in analytics: numeric types (integers and floats), strings, lists, tuples, and dictionaries. For each, we explore how it works internally, how to use it effectively, and when to prefer it over the alternatives.</p>
+
+<p><strong>Numeric Data Types: Integers and Floats</strong></p>
+
+<p>Numbers in Python are represented by two primary types: <em>integers</em> (<code>int</code>) and <em>floating-point numbers</em> (<code>float</code>). Understanding the difference between them is critical for writing accurate analytical code.</p>
+
+<p><strong>Integers</strong> store whole numbers — positive, negative, or zero — with no fractional component. Python integers have arbitrary precision, meaning they can grow as large as available memory allows, unlike many lower-level languages that cap integer size at 32 or 64 bits. Integers are the natural choice for counts, array indices, loop counters, and any categorical code that should never be fractional.</p>
+
+<pre><code># Integer examples
+record_count = 1500
+year = 2024
+customer_id = 40821
+
+print(type(record_count))   # &lt;class 'int'&gt;
+print(record_count + 1)     # 1501
+print(record_count // 100)  # 15  (integer division)
+print(record_count % 7)     #  6  (remainder / modulo)
+</code></pre>
+
+<p><strong>Floats</strong> store numbers with a decimal point and are implemented as IEEE 754 double-precision values, giving roughly 15–17 significant decimal digits of precision. Floats are essential whenever you work with measurements, probabilities, percentages, monetary amounts, or any result of ordinary division.</p>
+
+<pre><code># Float examples
+temperature = 98.6
+conversion_rate = 0.034
+pi_approx = 3.14159
+
+print(type(temperature))    # &lt;class 'float'&gt;
+print(10 / 3)               # 3.3333333333333335  (always float in Python 3)
+print(round(10 / 3, 4))    # 3.3333
+</code></pre>
+
+<p>A key behavior to internalize is <em>type promotion</em>: whenever Python performs arithmetic between an integer and a float, the result is always a float. This happens automatically and silently, which is usually convenient but can mask unexpected type changes in a pipeline.</p>
+
+<pre><code>result = 5 + 2.0   # int + float → float
+print(result)      # 7.0
+print(type(result))# &lt;class 'float'&gt;
+</code></pre>
+
+<p>Analysts must also be aware of <em>floating-point precision</em> limitations. Because floats are stored in binary, some decimal fractions cannot be represented exactly, leading to small rounding errors that can accumulate across many calculations.</p>
+
+<pre><code>print(0.1 + 0.2)          # 0.30000000000000004  — not exactly 0.3
+print(0.1 + 0.2 == 0.3)   # False
+
+# Use round() or math.isclose() for comparisons
+import math
+print(math.isclose(0.1 + 0.2, 0.3))  # True
+</code></pre>
+
+<p>For financial or high-precision work, Python's <code>decimal.Decimal</code> class provides exact decimal arithmetic, though at the cost of some performance. Knowing when to use <code>int</code>, <code>float</code>, or <code>Decimal</code> prevents subtle bugs that are notoriously hard to detect in large datasets.</p>
+
+<p><strong>Strings and Text Data</strong></p>
+
+<p>A <em>string</em> (<code>str</code>) is an ordered sequence of Unicode characters. In Python 3, all strings are Unicode by default, meaning they can represent virtually any character from any human language — an important feature when handling international datasets. Strings are delimited by single quotes (<code>'…'</code>), double quotes (<code>"…"</code>), or triple quotes (<code>"""…"""</code> or <code>'''…'''</code>) for multi-line content.</p>
+
+<pre><code>name = 'Alice'
+city = "New York"
+description = """This dataset contains
+customer records from Q1 2024."""
+
+print(type(name))   # &lt;class 'str'&gt;
+print(len(city))    # 8
+print(city[0])      # N   (zero-based indexing)
+print(city[-1])     # k   (negative indexing counts from the end)
+</code></pre>
+
+<p>Strings are <em>immutable</em>: once created, the characters inside cannot be changed in place. Any operation that appears to "modify" a string actually creates a new string object. This is an important distinction when writing performance-sensitive loops.</p>
+
+<pre><code>greeting = "hello"
+# greeting[0] = "H"   # ← raises TypeError — strings are immutable
+
+greeting = greeting.capitalize()  # creates a NEW string
+print(greeting)   # Hello
+</code></pre>
+
+<p>Python includes a large library of built-in string methods that are invaluable for data cleaning:</p>
+
+<ul>
+  <li><strong>.strip() / .lstrip() / .rstrip()</strong> — remove leading and/or trailing whitespace, fixing a common data-entry problem.</li>
+  <li><strong>.lower() / .upper() / .title()</strong> — normalize case before comparisons or grouping operations.</li>
+  <li><strong>.split(delimiter)</strong> — breaks a string into a list of substrings, useful for parsing CSV-style fields or tokenizing text.</li>
+  <li><strong>.replace(old, new)</strong> — substitutes substrings, helpful for removing unwanted characters.</li>
+  <li><strong>.startswith() / .endswith()</strong> — boolean checks for filtering rows based on string patterns.</li>
+  <li><strong>.find() / .count()</strong> — locate or count occurrences of a substring within a larger string.</li>
+</ul>
+
+<pre><code>raw = "  Sales_Region_North  "
+cleaned = raw.strip().lower().replace("_", " ")
+print(cleaned)   # "sales region north"
+
+csv_row = "Alice,28,New York,Engineer"
+fields = csv_row.split(",")
+print(fields)    # ['Alice', '28', 'New York', 'Engineer']
+print(fields[3]) # Engineer
+</code></pre>
+
+<p><strong>String formatting</strong> is essential for constructing readable output from variable data. The modern, preferred approach is <em>f-strings</em> (formatted string literals), introduced in Python 3.6. An f-string is prefixed with <code>f</code>, and expressions inside curly braces <code>{}</code> are evaluated and embedded directly into the string.</p>
+
+<pre><code>name = "Bob"
+score = 94.756
+
+# f-string with format specifier for 2 decimal places
+message = f"Analyst {name} achieved a score of {score:.2f} out of 100."
+print(message)  # Analyst Bob achieved a score of 94.76 out of 100.
+
+# Embedding calculations directly
+items = 320
+rate = 0.08
+print(f"Tax on {items} items: ${items * rate:.2f}")  # Tax on 320 items: $25.60
+</code></pre>
+
+<p>Older alternatives include <code>str.format()</code> and %-formatting, which you may encounter in legacy code, but f-strings are cleaner and faster for new work.</p>
+
+<p><strong>Lists: Ordered and Mutable Collections</strong></p>
+
+<p>A <em>list</em> is Python's most versatile built-in data structure. It is an <em>ordered</em>, <em>mutable</em> sequence that can hold items of any type — including mixed types — in a single container. Lists are defined with square brackets, with items separated by commas.</p>
+
+<pre><code>scores = [88, 92, 75, 100, 67]
+mixed  = [1, "Alice", 3.14, True, None]
+nested = [[1, 2], [3, 4], [5, 6]]   # list of lists (like a 2-D table)
+
+print(type(scores))   # &lt;class 'list'&gt;
+print(len(scores))    # 5
+</code></pre>
+
+<p><strong>Indexing and slicing</strong> are the primary ways to access list elements. Python uses <em>zero-based</em> indexing, so the first element is at index 0. Negative indices count backwards from the end. Slicing uses the syntax <code>list[start:stop:step]</code> and returns a new list containing the selected elements (the <code>stop</code> index is exclusive).</p>
+
+<pre><code>scores = [88, 92, 75, 100, 67]
+
+print(scores[0])      # 88    — first element
+print(scores[-1])     # 67    — last element
+print(scores[1:4])    # [92, 75, 100]  — indices 1, 2, 3
+print(scores[::2])    # [88, 75, 67]   — every other element
+print(scores[::-1])   # [67, 100, 75, 92, 88]  — reversed
+</code></pre>
+
+<p>Because lists are <em>mutable</em>, you can modify them in place using direct assignment or built-in methods:</p>
+
+<ul>
+  <li><strong>.append(item)</strong> — adds a single item to the end of the list.</li>
+  <li><strong>.extend(iterable)</strong> — appends all items from another iterable.</li>
+  <li><strong>.insert(index, item)</strong> — inserts an item at a specified position.</li>
+  <li><strong>.remove(value)</strong> — removes the first occurrence of a value.</li>
+  <li><strong>.pop(index)</strong> — removes and returns the item at the given index (default: last).</li>
+  <li><strong>.sort()</strong> — sorts the list in place; use <code>sorted()</code> to return a new sorted list.</li>
+  <li><strong>.reverse()</strong> — reverses the list in place.</li>
+  <li><strong>len(list)</strong> — returns the number of items.</li>
+</ul>
+
+<pre><code>regions = ["North", "South", "East"]
+regions.append("West")
+print(regions)          # ['North', 'South', 'East', 'West']
+
+regions.remove("South")
+print(regions)          # ['North', 'East', 'West']
+
+regions.sort()
+print(regions)          # ['East', 'North', 'West']
+
+popped = regions.pop(0)
+print(popped)           # East
+print(regions)          # ['North', 'West']
+</code></pre>
+
+<p><strong>List comprehensions</strong> are a concise, Pythonic way to build or transform lists in a single readable expression, avoiding verbose for-loops:</p>
+
+<pre><code>raw_scores = [88, 92, 75, 100, 67]
+
+# Normalize each score to a 0–1 scale
+normalized = [s / 100 for s in raw_scores]
+print(normalized)   # [0.88, 0.92, 0.75, 1.0, 0.67]
+
+# Filter only passing scores (>= 70)
+passing = [s for s in raw_scores if s >= 70]
+print(passing)      # [88, 92, 75, 100]
+</code></pre>
+
+<p><strong>Tuples: Ordered and Immutable Sequences</strong></p>
+
+<p>A <em>tuple</em> looks and behaves much like a list, but with one fundamental difference: it is <em>immutable</em>. Once a tuple is created, its contents cannot be changed — no adding, removing, or reassigning elements. Tuples are defined using parentheses (though the parentheses are technically optional; it is the comma that makes a tuple).</p>
+
+<pre><code>coordinates = (40.7128, -74.0060)   # latitude, longitude of New York
+rgb_red     = (255, 0, 0)
+single      = (42,)                 # trailing comma required for single-element tuple
+
+print(type(coordinates))   # &lt;class 'tuple'&gt;
+print(coordinates[0])      # 40.7128
+print(len(rgb_red))        # 3
+
+# Attempting to modify raises an error:
+# coordinates[0] = 51.5   # TypeError: 'tuple' object does not support item assignment
+</code></pre>
+
+<p>Tuples support the same <strong>indexing and slicing</strong> syntax as lists, making element access straightforward:</p>
+
+<pre><code>point = (10, 20, 30, 40, 50)
+print(point[2])     # 30
+print(point[1:4])   # (20, 30, 40)
+print(point[::-1])  # (50, 40, 30, 20, 10)
+</code></pre>
+
+<p><strong>Tuple unpacking</strong> is a powerful feature that assigns each element of a tuple to a separate variable in a single statement. It is frequently used to return multiple values from a function or to destructure rows of data:</p>
+
+<pre><code>employee = ("Diana", "Engineering", 95000)
+name, department, salary = employee   # unpacking
+
+print(name)        # Diana
+print(department)  # Engineering
+print(salary)      # 95000
+
+# Swap two variables elegantly using tuple packing/unpacking
+a, b = 10, 20
+a, b = b, a
+print(a, b)        # 20 10
+</code></pre>
+
+<p>Because tuples are immutable, Python can optimize their storage and access slightly better than lists. They also serve as <em>valid dictionary keys</em> (since they are hashable), whereas lists cannot. This makes tuples the right choice for composite keys in lookup tables — for example, <code>(country, year)</code> as a key to retrieve a GDP value.</p>
+
+<pre><code>gdp = {
+    ("USA", 2022): 25.46,
+    ("DEU", 2022): 4.07,
+    ("JPN", 2022): 4.23
+}
+print(gdp[("USA", 2022)])   # 25.46
+</code></pre>
+
+<p>Use tuples to represent <em>records with fixed fields</em> (e.g., a database row, a geographic coordinate, an RGB color) or any data that should be treated as a single, unchangeable unit. The immutability acts as self-documenting intent: any reader of the code understands that this data should not change.</p>
+
+<p><strong>Dictionaries: Key-Value Data Storage</strong></p>
+
+<p>A <em>dictionary</em> (<code>dict</code>) stores data as <strong>key-value pairs</strong>. It is the go-to structure when your data has named attributes — think of it as a flexible, in-memory record or row from a database table. Dictionaries are defined with curly braces; each pair is written as <code>key: value</code>, separated by commas. Keys must be unique within a dictionary and must be of an immutable type (strings, numbers, and tuples all work; lists do not).</p>
+
+<pre><code>customer = {
+    "id": 40821,
+    "name": "Alice Chen",
+    "region": "West",
+    "annual_spend": 12450.75,
+    "active": True
+}
+
+print(type(customer))           # &lt;class 'dict'&gt;
+print(customer["name"])         # Alice Chen
+print(customer["annual_spend"]) # 12450.75
+</code></pre>
+
+<p>Values are retrieved by specifying the key in square brackets. Using a key that does not exist raises a <code>KeyError</code>; to avoid this, use the safer <code>.get(key, default)</code> method, which returns <code>None</code> (or a specified default) if the key is absent.</p>
+
+<pre><code>print(customer.get("email"))              # None  (key doesn't exist, no error)
+print(customer.get("email", "N/A"))       # N/A
+</code></pre>
+
+<p>Dictionaries are <em>mutable</em>: keys and values can be added, updated, or removed at any time:</p>
+
+<pre><code>customer["email"] = "alice@example.com"   # add a new key
+customer["annual_spend"] = 13200.00       # update an existing value
+del customer["active"]                    # remove a key-value pair
+
+print(customer)
+# {'id': 40821, 'name': 'Alice Chen', 'region': 'West',
+#  'annual_spend': 13200.0, 'email': 'alice@example.com'}
+</code></pre>
+
+<p>Python dictionaries (since version 3.7) maintain <em>insertion order</em>, so iterating over a dictionary visits keys in the order they were added. Three essential iteration methods are:</p>
+
+<ul>
+  <li><strong>.keys()</strong> — returns a view of all keys.</li>
+  <li><strong>.values()</strong> — returns a view of all values.</li>
+  <li><strong>.items()</strong> — returns a view of (key, value) tuples, most commonly used in loops.</li>
+</ul>
+
+<pre><code>for key, value in customer.items():
+    print(f"{key}: {value}")
+
+# id: 40821
+# name: Alice Chen
+# region: West
+# annual_spend: 13200.0
+# email: alice@example.com
+</code></pre>
+
+<p>Dictionaries offer <strong>O(1) average-time complexity</strong> for lookups, insertions, and deletions, achieved through an internal hash table. This makes them dramatically faster than scanning a list when you need to find a value by name. A common analytics pattern is building a frequency dictionary (word count, category count) by incrementing values as data is processed:</p>
+
+<pre><code>transactions = ["North", "South", "North", "West", "North", "South"]
+
+region_counts = {}
+for region in transactions:
+    region_counts[region] = region_counts.get(region, 0) + 1
+
+print(region_counts)   # {'North': 3, 'South': 2, 'West': 1}
+</code></pre>
+
+<p>Dictionaries can also be <em>nested</em> — values can themselves be dictionaries — enabling hierarchical data representations similar to JSON:</p>
+
+<pre><code>company = {
+    "name": "DataCorp",
+    "headquarters": {"city": "Chicago", "state": "IL"},
+    "employee_count": 450
+}
+print(company["headquarters"]["city"])   # Chicago
+</code></pre>
+
+<p><strong>Choosing the Right Data Structure for Analytics</strong></p>
+
+<p>Selecting the most appropriate data structure is a skill that separates readable, efficient analytics code from code that is fragile or slow. The decision often comes down to three properties: <em>mutability</em> (can the data change?), <em>ordering</em> (does sequence matter?), and <em>access pattern</em> (do you look up by position or by name?).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Structure</th>
+      <th>Ordered?</th>
+      <th>Mutable?</th>
+      <th>Duplicates?</th>
+      <th>Lookup By</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>list</code></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Integer index</td>
+      <td>Sequences to iterate, filter, or sort</td>
+    </tr>
+    <tr>
+      <td><code>tuple</code></td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Integer index</td>
+      <td>Fixed records, function return values, dict keys</td>
+    </tr>
+    <tr>
+      <td><code>dict</code></td>
+      <td>Yes (insertion order)</td>
+      <td>Yes</td>
+      <td>Keys: No; Values: Yes</td>
+      <td>Named key</td>
+      <td>Records with named fields, fast lookups, frequency counts</td>
+    </tr>
+    <tr>
+      <td><code>str</code></td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Integer index</td>
+      <td>Text data, labels, messages</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To make these trade-offs concrete, consider a practical scenario: you are processing a dataset of customer transactions.</p>
+
+<ul>
+  <li><strong>Use a list</strong> to hold all transaction amounts when you need to iterate through them, compute a sum, filter by threshold, or sort by value. The mutability lets you append new transactions as they arrive.</li>
+  <li><strong>Use a tuple</strong> to represent each individual transaction as an immutable record — for example, <code>(transaction_id, date, amount, region)</code> — where the structure is fixed and you want to prevent accidental modification. Tuples can also serve as composite dictionary keys, like <code>(customer_id, product_id)</code>.</li>
+  <li><strong>Use a dictionary</strong> to map customer IDs to their cumulative spend, or to store a single customer's attributes (name, region, tier). The O(1) lookup means you can check or update any customer's record instantly, regardless of how many customers are in the dataset.</li>
+</ul>
+
+<pre><code># Practical example combining all three structures
+
+# Raw data as a list of tuples (immutable records)
+transactions = [
+    (1001, "Alice", "North", 250.00),
+    (1002, "Bob",   "South", 480.50),
+    (1003, "Alice", "North", 130.75),
+    (1004, "Carol", "West",  920.00),
+    (1005, "Bob",   "South",  60.25),
+]
+
+# Aggregate spend per customer using a dictionary
+spend_by_customer = {}
+for txn_id, customer, region, amount in transactions:   # tuple unpacking
+    spend_by_customer[customer] = spend_by_customer.get(customer, 0) + amount
+
+print(spend_by_customer)
+# {'Alice': 380.75, 'Bob': 540.75, 'Carol': 920.0}
+
+# Find the top spender
+top_customer = max(spend_by_customer, key=spend_by_customer.get)
+print(f"Top spender: {top_customer} (${spend_by_customer[top_customer]:.2f})")
+# Top spender: Carol ($920.00)
+
+# Collect amounts as a list for statistical operations
+amounts = [t[3] for t in transactions]   # list comprehension
+print(f"Average transaction: ${sum(amounts)/len(amounts):.2f}")
+# Average transaction: $368.30
+</code></pre>
+
+<p>This example illustrates how the three structures complement each other in real analytical workflows: tuples provide safe, structured raw records; lists support iteration and aggregation; and dictionaries enable fast, named lookups and accumulation. Developing fluency with all three — and understanding when each earns its place — is a foundational skill for any Python data analyst.</p>
+        <div class="notes"><strong>Notes</strong>The topic covers all five major data types and structures listed in the outline. The comparison table synthesizes the trade-offs section. The combined practical example at the end reinforces all structures working together, which aids retention and reflects realistic analytics code patterns. Instructors may wish to pair this content with a hands-on exercise where learners profile list vs. dict lookup speed using the timeit module.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

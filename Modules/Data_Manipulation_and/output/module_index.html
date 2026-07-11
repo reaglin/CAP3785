@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Manipulation and Cleaning with NumPy and Pandas — CAP3785</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #f4f6f9;
+      --color-surface: #ffffff;
+      --color-primary: #1a4f8a;
+      --color-primary-dark: #133a68;
+      --color-accent: #2e7d9f;
+      --color-accent-light: #e8f3f8;
+      --color-text: #1e2533;
+      --color-text-muted: #5a6375;
+      --color-border: #dde3ec;
+      --color-badge-bg: #eef1f7;
+      --color-badge-text: #3a4a66;
+      --color-tag-html: #d4edda;
+      --color-tag-html-text: #1b5e31;
+      --color-tag-json: #fff3cd;
+      --color-tag-json-text: #7a4f00;
+      --color-tag-pptx: #fce4ec;
+      --color-tag-pptx-text: #7b1234;
+      --radius: 8px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.07);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.12);
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      color: #ffffff;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 16px;
+      color: #e8f3f8;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 780px;
+      margin: 0 auto 16px;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      max-width: 660px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.88);
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .artifact-count {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-type {
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--color-badge-bg);
+      color: var(--color-badge-text);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    .badge-filetype {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    .ft-html  { background: var(--color-tag-html);  color: var(--color-tag-html-text); }
+    .ft-json  { background: var(--color-tag-json);  color: var(--color-tag-json-text); }
+    .ft-pptx  { background: var(--color-tag-pptx);  color: var(--color-tag-pptx-text); }
+    .ft-other { background: #ede9fe; color: #4c1d95; }
+
+    /* ── Card Name ── */
+    .card-name-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .card-name a {
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: var(--color-primary-dark);
+      border-bottom-color: var(--color-primary);
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      background: var(--color-accent-light);
+      border: 1px solid #bddcec;
+      border-radius: 4px;
+      padding: 3px 8px;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #cce8f4;
+      color: var(--color-primary);
+      outline: none;
+    }
+
+    .source-link::before {
+      content: "↓";
+      font-size: 0.8rem;
+    }
+
+    /* ── Card Description ── */
+    .card-description {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      border-top: 1px solid var(--color-border);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      header {
+        padding: 36px 16px 30px;
+      }
+
+      main {
+        padding: 28px 14px 48px;
+      }
+
+      .card {
+        padding: 18px 16px 16px;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="course-label">CAP3785 — Data Analytics and Visualization</div>
+    <h1>Data Manipulation and Cleaning with NumPy and Pandas</h1>
+    <p>
+      This module covers the essential tools and techniques for working with structured data in Python —
+      from NumPy array fundamentals and Pandas DataFrame operations to indexing, merging, reshaping,
+      and end-to-end data cleaning workflows on real-world datasets.
+    </p>
+  </header>
+
+  <main>
+    <div class="section-header">
+      <h2>Module Artifacts</h2>
+      <span class="artifact-count">10 items</span>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Module Topics</span>
+          <span class="badge-filetype ft-json">.json</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
+          A structured list of all topics covered in the module — including NumPy arrays, Pandas DataFrames,
+          indexing, merging, and data cleaning — used by learners and instructors to understand the scope and
+          sequence of the module's content.
+        </p>
+      </div>
+
+      <!-- Presentation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Presentation</span>
+          <span class="badge-filetype ft-pptx">.pptx</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="../presentations/Data_Manipulation_and_generated.pptx">Data_Manipulation_and_generated.pptx</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A slide deck walking learners through key concepts in NumPy and Pandas, covering ndarray fundamentals,
+          DataFrame operations, indexing methods, merging, and data cleaning techniques, used as the primary
+          instructional presentation for the module.
+        </p>
+      </div>
+
+      <!-- Topic 1 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Topic Detail</span>
+          <span class="badge-filetype ft-html">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="Data_Manipulation_and_interactive_topics_t1.html">Introduction to NumPy for Data Manipulation</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that introduces NumPy arrays, explaining their performance advantages over plain Python lists
+          and covering core concepts of numerical computing in Python, intended for learners to study before
+          working with array-based data manipulation.
+        </p>
+      </div>
+
+      <!-- Topic 2 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Topic Detail</span>
+          <span class="badge-filetype ft-html">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="Data_Manipulation_and_interactive_topics_t2.html">Getting Started with Pandas DataFrames</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that introduces the Pandas library, its key data structures (Series and DataFrame), and how
+          they build on NumPy to support structured data analysis, giving learners the foundation needed before
+          performing data operations.
+        </p>
+      </div>
+
+      <!-- Topic 3 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Topic Detail</span>
+          <span class="badge-filetype ft-html">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="Data_Manipulation_and_interactive_topics_t3.html">Indexing and Selecting Data</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains how to access and subset data in Pandas DataFrames and Series using
+          label-based, position-based, and conditional indexing techniques, serving as a reference learners
+          apply when selecting specific rows, columns, or cells during analysis.
+        </p>
+      </div>
+
+      <!-- Topic 4 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Topic Detail</span>
+          <span class="badge-filetype ft-html">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="Data_Manipulation_and_interactive_topics_t4.html">Merging, Joining, and Concatenating Data</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that covers how to combine multiple DataFrames using Pandas merge, join, and concatenation
+          operations, explaining different join types and use cases so learners can integrate data arriving from
+          separate sources.
+        </p>
+      </div>
+
+      <!-- Topic 5 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Topic Detail</span>
+          <span class="badge-filetype ft-html">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="Data_Manipulation_and_interactive_topics_t5.html">Reshaping and Transforming Data</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains how to reshape and restructure DataFrames using techniques such as pivoting,
+          melting, and stacking, helping learners reformat datasets into the layout required for a given
+          analysis or pipeline.
+        </p>
+      </div>
+
+      <!-- Topic 6 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Topic Detail</span>
+          <span class="badge-filetype ft-html">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="Data_Manipulation_and_interactive_topics_t6.html">Handling Missing Data</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that covers how to detect, remove, and impute missing values in Pandas, explaining the
+          causes of missing data and the tools available so learners can make informed decisions about handling
+          gaps in real datasets.
+        </p>
+      </div>
+
+      <!-- Topic 7 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Topic Detail</span>
+          <span class="badge-filetype ft-html">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="Data_Manipulation_and_interactive_topics_t7.html">Cleaning and Transforming Real-World Datasets</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that walks through end-to-end data cleaning workflows on realistic messy datasets, addressing
+          issues such as duplicates, inconsistent formats, outliers, and mixed-type fields, giving learners a
+          practical guide to preparing raw data for analysis.
+        </p>
+      </div>
+
+      <!-- Quiz -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge-type">Quiz</span>
+          <span class="badge-filetype ft-json">.json</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="module_quiz.html">Quiz Question Bank (35 questions)</a>
+          </span>
+          <a class="source-link" href="../quiz_questions.json">source file</a>
+        </div>
+        <p class="card-description">
+          A 35-question bank covering NumPy and Pandas fundamentals — including NumPy's naming, core data
+          structures, vectorized operations, boolean indexing, and array reshaping — used by instructors to build
+          quizzes or assessments that test learners' data manipulation and cleaning skills.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; Data Manipulation and Cleaning with NumPy and Pandas</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

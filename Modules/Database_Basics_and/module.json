@@ -1,9 +1,9 @@
 {
   "Id": "4d5166f5-bc77-40b8-ac22-f37556946b05",
-  "Name": "Database Basics and Relational Data Concepts",
+  "Name": "4 - Database Basics and Relational Data Concepts",
   "Description": "This lesson introduces relational database concepts including tables, keys, schemas, and relationships. Students will gain foundational knowledge of how data is structured and stored in databases as a prerequisite for SQL querying and analysis.",
   "CreatedBy": "Ron Eaglin",
   "CreatedDate": "2026-07-03T11:17:00.6526713-04:00",
-  "LastModifiedDate": "2026-07-03T11:17:00.6535872-04:00",
+  "LastModifiedDate": "2026-07-05T20:28:35.4167263-04:00",
   "Actions": []
 }

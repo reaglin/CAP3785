@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 1 – Introduction to Data Analytics and the Analytics Lifecycle</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1e2535;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1b3a6b 0%, #2d62b8 100%);
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #cde0ff;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      max-width: 740px;
+      color: #c8daf7;
+      line-height: 1.7;
+    }
+
+    /* ── Main Container ── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a6a85;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dce3ef;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce3ef;
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(29, 62, 130, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    /* Type badge colours */
+    .badge-type {
+      background: #e8edf7;
+      color: #2d62b8;
+    }
+    .badge-type.quiz       { background: #fff3e0; color: #bf6d00; }
+    .badge-type.assignment { background: #e8f5e9; color: #2e7d32; }
+    .badge-type.presentation { background: #f3e5f5; color: #6a1b9a; }
+    .badge-type.text       { background: #fce4ec; color: #880e4f; }
+
+    /* FileType pill */
+    .badge-filetype {
+      background: #f0f3f8;
+      color: #556080;
+      border: 1px solid #d0d9ea;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+
+    /* ── Card Title Row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1b3a6b;
+      line-height: 1.3;
+    }
+
+    .card-title a {
+      color: #1b3a6b;
+      text-decoration: none;
+      border-bottom: 2px solid #2d62b8;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-title a:hover {
+      color: #2d62b8;
+      border-color: #5a9eff;
+    }
+
+    .card-title-plain {
+      color: #3a4a65;
+    }
+
+    /* Source link */
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7eaf;
+      text-decoration: none;
+      background: #edf2fb;
+      border: 1px solid #c5d5ef;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover {
+      background: #2d62b8;
+      color: #fff;
+      border-color: #2d62b8;
+    }
+
+    /* ── Card Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a95a8;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dce3ef;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 1.75rem 1.1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>Module 1 &mdash; Introduction to Data Analytics and the Analytics Lifecycle</h1>
+      <p>
+        This module establishes the foundations of data analytics: what it is, why it matters, and how
+        structured frameworks guide real-world projects. Explore the four analytics types, the CRISP-DM
+        lifecycle, and industry case studies that connect theory to practice. Use the resources below to
+        navigate readings, presentations, assessments, and assignments for this module.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts &mdash; 10 items</p>
+
+    <div class="card-grid">
+
+      <!-- 1 · Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">A structured outline of the module's learning topics, covering the definition and purpose of data analytics, the four types of analytics (descriptive, diagnostic, predictive, and prescriptive), and the phases of the CRISP-DM framework; used by instructors to plan lessons and by learners to navigate the module's scope.</p>
+      </div>
+
+      <!-- 2 · Presentation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type presentation">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="../presentations/Introduction_to_Data_generated.pptx">Introduction_to_Data_generated.pptx</a>
+          </span>
+        </div>
+        <p class="card-desc">A slide deck introducing data analytics and the analytics lifecycle, explaining what data analytics is, how organizations derive competitive advantage from insights, the four analytics types, and the CRISP-DM process; used by instructors to deliver lectures and by learners to review core concepts.</p>
+      </div>
+
+      <!-- 3 · What is Data Analytics? -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Introduction_to_Data_generated_interactive_topics_t1.html">What is Data Analytics?</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading introduces data analytics by explaining what it is, why organizations collect and analyze data, and how turning raw information into actionable insights creates business value — serving as a foundational orientation for learners new to the field.</p>
+      </div>
+
+      <!-- 4 · The Four Types of Analytics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Introduction_to_Data_generated_interactive_topics_t2.html">The Four Types of Analytics</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading explains the four types of analytics — descriptive, diagnostic, predictive, and prescriptive — by defining what question each answers and how businesses use each type to progress from understanding past events to guiding future decisions.</p>
+      </div>
+
+      <!-- 5 · The CRISP-DM Process Framework -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Introduction_to_Data_generated_interactive_topics_t3.html">The CRISP-DM Process Framework</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading covers the CRISP-DM framework by walking learners through its six phases — from business understanding to deployment — giving instructors and learners a shared process model for structuring real-world data analytics projects.</p>
+      </div>
+
+      <!-- 6 · Real-World Business Applications -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Introduction_to_Data_generated_interactive_topics_t4.html">Real-World Business Applications</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading surveys how data analytics is applied across multiple industries, providing concrete examples of descriptive, predictive, and prescriptive analytics in practice so learners can connect theoretical concepts to real organizational problems.</p>
+      </div>
+
+      <!-- 7 · Foundational Case Studies (Topic Detail) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Introduction_to_Data_generated_interactive_topics_t5.html">Foundational Case Studies</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading presents foundational case studies from industries such as retail, healthcare, finance, sports, and e-commerce to illustrate how organizations shifted from intuition-based to data-driven decision-making, helping learners contextualize core analytics concepts.</p>
+      </div>
+
+      <!-- 8 · Foundational Case Studies (Text Content) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type text">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Introduction_to_Data_generated_interactive.html">Foundational Case Studies</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading presents foundational case studies from industries such as retail, healthcare, finance, sports, and e-commerce to illustrate how organizations shifted from intuition-based to data-driven decision-making, helping learners contextualize core analytics concepts.</p>
+      </div>
+
+      <!-- 9 · Quiz Question Bank -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type quiz">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="source-link" href="../quiz_questions.json">source file</a>
+        </div>
+        <p class="card-desc">A 20-question quiz bank assessing learners' understanding of key module concepts, including the definition of data analytics, the distinction between analytics types, and CRISP-DM phases, with scenario-based questions; used by instructors to build graded assessments or by learners for self-testing.</p>
+      </div>
+
+      <!-- 10 · Assignment -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type assignment">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="../assignments/A001_Case_Study_Analy_Case_Study_Analysis_Data.html">Case Study Analysis: Data Analytics in Real Business Practice</a>
+          </span>
+        </div>
+        <p class="card-desc">An individual case study assignment (2–4 hours) in which learners analyse real business scenarios to apply data analytics concepts and the analytics lifecycle, using the TILT framework to understand the purpose, task, and criteria before submitting their analysis as directed by the instructor.</p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <footer>
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;|&nbsp; Module 1 &nbsp;|&nbsp; All rights reserved.
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

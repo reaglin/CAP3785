@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avoiding Misleading Representations</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Avoiding Misleading Representations</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Avoiding Misleading Representations</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data visualization is one of the most powerful tools available for communicating information, but that power comes with serious responsibility. A chart does not merely display data — it shapes how an audience perceives, interprets, and ultimately acts on that data. When a visualization is constructed carelessly or deceptively, the resulting misunderstanding can be just as harmful as presenting false numbers outright. This topic examines the most common and consequential ways that charts mislead, teaches you how to construct honest visualizations, and equips you with a framework for critically evaluating the charts you encounter in the wild.</p>
+
+<p>Understanding misleading representations is not just about catching bad actors. Many distortions arise from well-intentioned designers who do not realize the perceptual effects of their choices. A truncated axis, a poorly chosen chart type, or a missing label can silently corrupt the message of an otherwise accurate dataset. Developing sensitivity to these issues makes you both a more ethical creator and a more discerning consumer of visual information.</p>
+
+<p><strong>Truncated Axes and False Impressions</strong></p>
+
+<p>The axis of a chart is not a neutral container — it is itself a visual claim about magnitude and proportion. When the axis is truncated, meaning it starts at a value other than zero or cuts off before the full range of data, it changes the visual impression readers take away from the chart, often dramatically so.</p>
+
+<p>The key principle is that <strong>bar and column charts should almost always start at zero</strong>. This is because the visual encoding in a bar chart is <em>length</em>. A bar that is twice as tall as another communicates to every viewer that the quantity it represents is twice as large. If the y-axis starts at 80 instead of 0, a bar reaching 100 and a bar reaching 90 will look vastly different — perhaps one appears three or four times the height of the other — even though the actual difference is only about 10 percent. This is not an abstract concern; it is a well-documented perceptual effect that occurs regardless of the viewer's analytical sophistication.</p>
+
+<p>Consider the following example. Suppose a company's quarterly revenue figures are 98, 99, 100, and 101 million dollars. On a zero-based axis, these four bars look nearly identical, communicating genuine stability. If the axis is truncated to start at 97, the bars appear to show explosive growth, with the final bar looking almost infinitely taller than the first. The numbers have not changed — only the framing has — yet the conclusion a viewer draws is completely different.</p>
+
+<p><strong>Line charts occupy a more nuanced position.</strong> Because line charts encode data in the <em>slope</em> and <em>position</em> of a line rather than in bar length, a non-zero baseline is sometimes defensible, particularly when the data varies over a narrow range and the goal is to show the shape of a trend rather than compare absolute magnitudes. A chart of daily body temperature over the course of an illness, for example, might reasonably start at 97°F rather than 0°F, since nobody has a body temperature near zero and the clinically meaningful variation happens within a narrow band. However, even in such cases, the axis range must be <strong>clearly and prominently labeled</strong> so viewers understand what scale they are interpreting. A line chart that appears to show a catastrophic plunge is misleading if the axis quietly starts near the minimum value of the data.</p>
+
+<p>Regardless of chart type, always label axis ranges explicitly. Include the minimum and maximum values, unit of measurement, and scale intervals. This allows viewers to form their own judgments about the significance of differences rather than relying solely on visual impression.</p>
+
+<p><strong>Inappropriate Scaling and Dual Axes</strong></p>
+
+<p>Dual-axis charts — those that display two different variables each measured against its own y-axis, one on the left and one on the right — are among the most frequently abused chart types in professional communication. When used carefully and labeled transparently, they can legitimately display two related variables that share an x-axis (often time) but differ in units or magnitude. When used carelessly or manipulatively, they can imply relationships between variables that do not exist.</p>
+
+<p>The fundamental danger of a dual-axis chart is that the designer controls the scaling of both axes independently. By compressing one axis and stretching another, it is possible to make any two time series appear to move in perfect lockstep — regardless of whether any actual relationship exists. A famous satirical illustration of this problem involves charts purporting to show that the number of people who drowned in swimming pools correlates perfectly with the number of films Nicolas Cage appeared in each year. The correlation is statistically real but entirely coincidental, yet a dual-axis chart makes it look like evidence of causation.</p>
+
+<p>When you construct a dual-axis chart, you must follow these principles:</p>
+<ul>
+  <li>Label both axes clearly, including the variable name, unit of measurement, and scale.</li>
+  <li>Use distinct visual styles (for example, different colors and line types) for the two data series, and include a legend that makes unambiguous which series corresponds to which axis.</li>
+  <li>Explain in accompanying text <em>why</em> these two variables are being compared and what the expected or established relationship between them is.</li>
+  <li>Never scale the axes specifically to make two unrelated series appear correlated.</li>
+</ul>
+
+<p>A better approach in many cases is to <strong>avoid dual axes altogether</strong>. When comparing two datasets, ask whether a single normalized scale (such as showing both variables as percentage change from a baseline) or two separate side-by-side charts would communicate the relationship more honestly. Normalizing both series to a common index eliminates the arbitrary scaling problem and makes genuine co-movement visible without creating false visual alignment.</p>
+
+<p><strong>Cherry-Picking Data Ranges</strong></p>
+
+<p>A related form of misrepresentation involves selecting only a portion of the available data — the portion that best supports a particular conclusion — and presenting it as if it were the complete picture. This is called cherry-picking, and it is one of the most insidious forms of visual dishonesty because the data shown may be entirely accurate; the deception lies in what is omitted.</p>
+
+<p>Suppose a company's stock price rose steadily for three years, then crashed, and then partially recovered. A presentation showing only the three-year rise would give investors a false sense of the stock's trajectory. A presentation showing only the crash would be equally misleading in the opposite direction. Honest visualization requires showing the <strong>full available range</strong> of data and, when a subset is displayed, <strong>explicitly disclosing the reason</strong> for the selection and the range that has been excluded.</p>
+
+<p>Outliers are a particular challenge. There are legitimate statistical reasons to exclude outliers from some analyses — for instance, a single data entry error should not distort an entire chart. However, any exclusion of data points must be disclosed in the chart itself or in accompanying notes, and the justification must be methodologically sound rather than motivated by the conclusion the designer wants to reach. Omitting outliers simply because they contradict your story is a form of misrepresentation.</p>
+
+<p>Good practice requires that every visualization include:</p>
+<ul>
+  <li>The full date or value range of the underlying dataset, even when a subset is displayed.</li>
+  <li>A citation of the data source, so viewers can verify completeness.</li>
+  <li>The data collection date or version, since datasets are sometimes updated and older snapshots may no longer be representative.</li>
+  <li>A clear notation of any filters, exclusions, or transformations applied to the data.</li>
+</ul>
+
+<p><strong>Distorted Proportions in Pie and Area Charts</strong></p>
+
+<p>Proportional representations — pie charts, bubble charts, area charts — carry a specific implicit promise: that the visual size of an element is directly and accurately proportional to the quantity it represents. When this promise is broken, the chart becomes actively misleading.</p>
+
+<p><strong>Three-dimensional effects</strong> are one of the most common sources of proportion distortion. When a pie chart is rendered in 3D perspective, the slices at the "front" of the chart appear larger than slices of equal size at the "back." This is a straightforward consequence of perspective projection — closer objects look bigger — but it has no informational value in a chart. The 3D effect adds visual noise and distorts the very proportions the chart is supposed to communicate accurately. The same problem applies to 3D bar charts and 3D area charts. These effects should be avoided in almost all circumstances.</p>
+
+<p><strong>Exploding pie slices</strong> — where one slice is pulled away from the center for emphasis — draw the viewer's eye to that segment and make it appear more significant than its actual proportion warrants. If a slice representing 15 percent of a pie is exploded while others are not, viewers tend to overestimate that slice's share. This technique is often used intentionally to make a particular category seem more dominant or important than the data supports.</p>
+
+<p>For <strong>bubble charts and area charts</strong>, a critical and frequently violated rule is that <em>area</em>, not radius, must be proportional to the data value. The area of a circle is proportional to the square of its radius (A = πr²). If a designer makes the radius of a bubble proportional to the data value, the area — which is what the human eye perceives as "size" — will be proportional to the <em>square</em> of that value. This means a data point that is twice as large will appear to have four times the visual area, producing a severe and systematic exaggeration of differences. Always verify that the software or method you are using encodes area correctly when creating proportional symbol maps or bubble charts.</p>
+
+<p><strong>Misleading Chart Type Selection</strong></p>
+
+<p>Choosing the wrong chart type is not merely an aesthetic error — it is an accuracy problem that can lead viewers to draw incorrect conclusions from correct data. Each chart type encodes a specific kind of relationship and makes specific implicit claims about the data.</p>
+
+<p><strong>Pie charts</strong> should be reserved exclusively for part-to-whole relationships, where the slices represent mutually exclusive categories that together sum to a meaningful whole (such as 100 percent of a budget or 100 percent of survey respondents). They work best with a small number of categories — ideally five or fewer — because human perception cannot accurately compare the areas of many small slices. Using a pie chart for data that does not represent parts of a whole, or for data with many fine-grained categories, produces a visualization that is both perceptually difficult to read and conceptually misleading about the nature of the data.</p>
+
+<p><strong>Line charts</strong> imply continuity. When two data points are connected by a line, the visual message is that there is a smooth, continuous progression from one point to the next. This makes line charts appropriate for time series data (where measurements are taken at regular intervals over a continuous span of time) and other genuinely sequential variables. Using a line chart to connect data points from discrete, unordered categories — for example, connecting sales figures for different product categories — implies a relationship between those categories that does not exist. The correct chart for comparing discrete categories is a bar or column chart.</p>
+
+<p>The following table summarizes appropriate and inappropriate uses of common chart types:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Chart Type</th>
+      <th>Appropriate Use</th>
+      <th>Common Misuse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bar / Column Chart</td>
+      <td>Comparing discrete categories; must start at zero</td>
+      <td>Truncated axis inflating differences; 3D effects</td>
+    </tr>
+    <tr>
+      <td>Line Chart</td>
+      <td>Trends over continuous or sequential variables (e.g., time)</td>
+      <td>Connecting unordered categories; implying continuity where none exists</td>
+    </tr>
+    <tr>
+      <td>Pie Chart</td>
+      <td>Part-to-whole with few (≤5) mutually exclusive categories</td>
+      <td>Too many slices; non-part-to-whole data; 3D or exploded effects</td>
+    </tr>
+    <tr>
+      <td>Bubble / Area Chart</td>
+      <td>Proportional comparisons where area encodes value</td>
+      <td>Encoding radius instead of area, causing quadratic size inflation</td>
+    </tr>
+    <tr>
+      <td>Dual-Axis Chart</td>
+      <td>Two related variables sharing a time axis, clearly labeled</td>
+      <td>Arbitrary scaling to imply false correlation between unrelated series</td>
+    </tr>
+    <tr>
+      <td>Scatter Plot</td>
+      <td>Showing relationship or correlation between two continuous variables</td>
+      <td>Cherry-picked axis ranges obscuring true spread; overplotting without transparency</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Ethical Responsibilities in Data Visualization</strong></p>
+
+<p>The ethical dimension of data visualization is not a separate concern from the technical dimension — it is embedded in every design choice you make. Every decision about axis range, chart type, color emphasis, and data filtering is simultaneously a technical decision and an ethical one, because each choice shapes what conclusion the viewer will reach.</p>
+
+<p>The foundational ethical obligation is transparency. A visualization should accurately reflect the underlying data, not shape a predetermined narrative by exploiting perceptual vulnerabilities. This means asking yourself, before publishing any chart, whether your design choices are serving the data or overriding it. If you find yourself selecting an axis range, a subset of data, or a chart style specifically because it makes your preferred conclusion look more compelling, that is a signal that you are crossing a line from communication into manipulation.</p>
+
+<p>Practically, ethical data visualization requires the following minimum standards:</p>
+<ul>
+  <li><strong>Label all axes</strong> with variable names, units of measurement, and scale intervals.</li>
+  <li><strong>Cite your data sources</strong> directly on or adjacent to the chart, not merely in a footnote buried in a report appendix.</li>
+  <li><strong>Note any transformations</strong> applied to the data, including logarithmic scaling, normalization, smoothing, seasonal adjustment, or exclusion of outliers.</li>
+  <li><strong>Disclose sample sizes</strong> when presenting survey data or experimental results, since a trend based on 12 data points warrants very different confidence than one based on 12,000.</li>
+  <li><strong>Include full context</strong> about the data collection period and methodology, so viewers can assess whether the data is current, relevant, and representative.</li>
+</ul>
+
+<p>The consequences of violating these standards are real and serious. In journalism, misleading infographics can shape public opinion on policy questions. In business, distorted financial charts can influence investor decisions. In public health, inaccurate data visualizations about disease risk or treatment efficacy can lead people to make harmful choices. In professional and legal contexts, deliberately misleading data presentations can constitute fraud, breach of fiduciary duty, or violation of industry regulations. Even in academic settings, fabricating or selectively presenting data in charts is a form of research misconduct subject to formal sanction.</p>
+
+<p>Beyond the consequences for any individual, there is a broader harm: erosion of trust. When audiences encounter misleading charts — whether they recognize the deception consciously or not — they become less willing to trust data-driven communication in general. A culture of honest visualization is a public good; every chart you produce either contributes to or degrades it.</p>
+
+<p><strong>Critically Evaluating Charts You Encounter</strong></p>
+
+<p>Because misleading visualizations are common, every person who reads charts — which is to say, everyone — benefits from a systematic approach to evaluating them. Critical evaluation is not about cynicism; it is about applying the same analytical discipline to visual information that you would apply to a written statistical claim.</p>
+
+<p>The first thing to examine is the <strong>y-axis starting point and scale</strong>. Before interpreting any trend or comparison, check where the axis begins. If a bar chart does not start at zero, the visual differences between bars are inflated and cannot be taken at face value. Ask yourself: if this axis started at zero, would the differences look as dramatic? In many cases, the answer is no, and that tells you something important about how the chart was constructed.</p>
+
+<p>Next, look for <strong>missing or misleading labels</strong>. A chart without labeled axes is making a claim without providing the evidence needed to evaluate it. Unlabeled axes, missing units, absent legends on multi-series charts, and missing source citations are all red flags. They may indicate careless design, but they may also indicate a deliberate attempt to prevent you from scrutinizing the data too closely.</p>
+
+<p>Then examine the <strong>data range and selection</strong>. Ask what time period is shown and why. If a chart shows three years of data, ask what happened in the years before and after. If a chart shows selected countries or regions, ask which ones are omitted and why. If a chart excludes any data points, ask on what grounds. Omissions can be as misleading as distortions in what is displayed — sometimes more so, because they are invisible without additional investigation.</p>
+
+<p>Finally, <strong>compare the visual impression to the actual numbers</strong>. Many charts include the underlying data values as labels on bars, in data tables, or in accompanying text. When this information is available, compare it directly to the visual. If the chart shows one bar appearing three times taller than another, but the labeled values are 103 and 97, you know the visual impression does not match the data, and you should trust the numbers, not the picture.</p>
+
+<p>A useful checklist for evaluating any chart you encounter:</p>
+<ul>
+  <li>Does the y-axis start at zero for bar or column charts? If not, is there a clear justification?</li>
+  <li>Are all axes labeled with variable names and units?</li>
+  <li>Is the data source cited, and is it credible?</li>
+  <li>What is the full date range of available data, and does the chart show all of it?</li>
+  <li>Are any data points excluded, and if so, is the reason stated?</li>
+  <li>Does the chart type match the nature of the data (part-to-whole, trend over time, comparison of categories)?</li>
+  <li>Are there 3D effects, exploded slices, or other stylistic choices that distort proportion?</li>
+  <li>If it is a dual-axis chart, are the axes scaled to genuinely compare the series, or to manufacture apparent correlation?</li>
+  <li>Does the visual emphasis — larger elements, brighter colors, pulled-out slices — match actual differences in the data?</li>
+  <li>What is not shown? What question would you need to ask to get the complete picture?</li>
+</ul>
+
+<p>Applying this checklist consistently will not make you immune to well-crafted deception, but it will dramatically increase your ability to distinguish honest visualization from manipulation. More importantly, internalizing these questions as a <em>creator</em> of visualizations will anchor your own practice in the habits of accuracy and transparency that make data communication genuinely useful.</p>
+        <div class="notes"><strong>Notes</strong>Identifies common ways charts can distort or misrepresent data, such as truncated axes or inappropriate scaling. Teaches students to critically evaluate and ethically construct accurate visual displays.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

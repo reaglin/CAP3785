@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Basics for Data Analysis — CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2533;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #fff;
+      padding: 3rem 2rem 2.5rem;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 1rem;
+      color: #cfe3ff;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #cfe3ff;
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a6a82;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e0e6ef;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 1.1rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce4ef;
+      border-radius: 10px;
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(37, 99, 168, 0.10);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-name {
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: #1a3a5c;
+      word-break: break-word;
+    }
+
+    .card-name a {
+      color: #1a5fb4;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover {
+      border-bottom-color: #1a5fb4;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #2563a8;
+      background: #eef4ff;
+      border: 1px solid #c3d7f7;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .source-link:hover {
+      background: #2563a8;
+      color: #fff;
+      border-color: #2563a8;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+    }
+
+    .badge-type {
+      background: #eef4ff;
+      color: #1a5fb4;
+      border: 1px solid #c3d7f7;
+    }
+
+    .badge-filetype {
+      background: #f0f4f8;
+      color: #4a5568;
+      border: 1px solid #d1dce8;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a99ae;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dce4ef;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      header { padding: 2rem 1.25rem 2rem; }
+      .card { padding: 1rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
+      <h1>Python Basics for Data Analysis</h1>
+      <p>
+        This module introduces the foundational Python skills required for data analytics work.
+        Learners will configure a professional development environment, explore Python's core data
+        types and structures, apply control-flow logic, write reusable functions, handle file
+        input/output, and assemble complete data analysis scripts from scratch.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-heading">Module Artifacts &mdash; 10 items</p>
+
+    <div class="card-grid">
+
+      <!-- 1. Module Topics -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="module_topics.html">Module Topics</a>
+            </span>
+            <a class="source-link" href="../hierarchy.json">source file</a>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's three main topic areas — environment setup, Python data
+          types and structures, and control structures — that serves as a navigation guide for both
+          learners and instructors to understand the scope and sequence of the module.
+        </p>
+      </div>
+
+      <!-- 2. Presentation -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="../presentations/Python_Basics_for_generated.pptx">Python_Basics_for_generated.pptx</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <p class="card-description">
+          A slide deck introducing Python basics for data analytics students, covering environment setup
+          (installing Python, pip, and virtual environments), verification of the setup, and foundational
+          Python concepts, intended for use as lecture material or a self-paced visual reference.
+        </p>
+      </div>
+
+      <!-- 3. Topic Detail – Setting Up the Analytics Environment -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="Python_Basics_for_interactive_topics_t1.html">Setting Up the Analytics Environment</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that guides learners through setting up a Python development environment for data
+          analytics, covering the Python interpreter, essential libraries, and virtual environments so
+          they are ready to write and run analytics code.
+        </p>
+      </div>
+
+      <!-- 4. Topic Detail – Python Data Types and Structures -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="Python_Basics_for_interactive_topics_t2.html">Python Data Types and Structures</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading covers Python's core built-in data types (integers, floats, strings, booleans)
+          and data structures (lists, tuples, dictionaries, sets), explaining how each works and how to
+          choose the right one to support accurate and efficient data cleaning and analysis tasks.
+        </p>
+      </div>
+
+      <!-- 5. Topic Detail – Control Structures and Logic -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="Python_Basics_for_interactive_topics_t3.html">Control Structures and Logic</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading explains how to use conditional statements, loops, and other control-flow
+          mechanisms in Python to direct program execution, make decisions, and repeat operations —
+          skills applied directly to filtering, iterating over, and processing datasets.
+        </p>
+      </div>
+
+      <!-- 6. Topic Detail – Writing and Using Functions -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="Python_Basics_for_interactive_topics_t4.html">Writing and Using Functions</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading covers how to define and call Python functions, including concepts such as
+          parameters, return values, and reusability, so learners can organize analytical code into
+          modular, repeatable blocks rather than duplicating logic throughout a script.
+        </p>
+      </div>
+
+      <!-- 7. Topic Detail – File Input and Output for Data -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="Python_Basics_for_interactive_topics_t5.html">File Input and Output for Data</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading explains how to read data from and write data to external files in Python —
+          particularly text and CSV files — covering file-system interaction methods that allow learners
+          to load real-world datasets into scripts and save processed results.
+        </p>
+      </div>
+
+      <!-- 8. Topic Detail – Writing Foundational Data Analysis Scripts -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="Python_Basics_for_interactive_topics_t6.html">Writing Foundational Data Analysis Scripts</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          This reading shows learners how to combine Python fundamentals — data types, control
+          structures, functions, and file I/O — into a complete, structured data analysis script that
+          takes raw input data and produces meaningful analytical output.
+        </p>
+      </div>
+
+      <!-- 9. Text Content – Setting Up the Analytics Environment -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="Python_Basics_for_interactive.html">Setting Up the Analytics Environment</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that guides learners through setting up a Python development environment for data
+          analytics, covering the Python interpreter, essential libraries, and virtual environments so
+          they are ready to write and run analytics code.
+        </p>
+      </div>
+
+      <!-- 10. Quiz Question Bank -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-name">
+              <a href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+            </span>
+            <a class="source-link" href="../quiz_questions.json">source file</a>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          A 20-question bank assessing learners on Python environment setup (recommended version, pip,
+          virtual environments), Jupyter Notebook features, and key analytics libraries such as pandas
+          and NumPy, for use in quizzes or knowledge checks throughout the module.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <footer>
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp; Python Basics for Data Analysis
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

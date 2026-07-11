@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 4 – Database Basics and Relational Data Concepts</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2531;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #1e5799 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.75rem;
+      color: #d6e8ff;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #c8ddf5;
+      max-width: 72ch;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.25rem 1.5rem 3rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6b7a94;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid #dde3ec;
+      padding-bottom: 0.4rem;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce3ed;
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px rgba(30, 87, 153, 0.11);
+      transform: translateY(-2px);
+    }
+
+    /* type badge row */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      line-height: 1.5;
+    }
+
+    /* type-specific badge colours */
+    .badge-module-topics   { background: #e8f0fe; color: #2c5fc9; }
+    .badge-presentation    { background: #fff0e0; color: #b05a00; }
+    .badge-topic-detail    { background: #e6f4ea; color: #276b35; }
+    .badge-text-content    { background: #f3e8fd; color: #6a1e9e; }
+    .badge-quiz            { background: #fff3cd; color: #7a5100; }
+    .badge-default         { background: #eef1f6; color: #4a5568; }
+
+    .filetype-tag {
+      font-size: 0.68rem;
+      color: #8694a8;
+      background: #f0f3f8;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+    }
+
+    /* artifact name / link */
+    .card-title {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #1e2531;
+      line-height: 1.35;
+    }
+
+    .card-title a {
+      color: #1a56a0;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      text-decoration: underline;
+      color: #0d3d80;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7fa8;
+      text-decoration: none;
+      background: #eef4fb;
+      border: 1px solid #c5d9ee;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      margin-left: 0.45rem;
+      vertical-align: middle;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .source-link:hover {
+      background: #d6e8f7;
+      color: #1a4a7a;
+    }
+
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.65rem;
+    }
+
+    /* description */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.58;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.8rem;
+      color: #8a97ab;
+      border-top: 1px solid #dde3ec;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 1.75rem 1rem 1.5rem; }
+      main { padding: 1.5rem 1rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 &mdash; Data Analytics and Visualization</span>
+      <h1>Module 4: Database Basics and Relational Data Concepts</h1>
+      <p>
+        This module introduces the foundational principles of relational databases — what they are,
+        how data is structured into tables, how rows and columns store records, and how keys and
+        schemas connect and govern that data. Explore the artifacts below to read topics, review
+        slides, and test your knowledge.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts &mdash; 11 items</p>
+
+    <div class="card-grid">
+
+      <!-- 1. Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-module-topics">Module Topics</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title">
+          <a href="module_topics.html">Module Topics</a>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">A structured outline of the module's learning topics spanning database fundamentals, relational concepts, tables, keys, and schemas, used by instructors to plan content and by learners to navigate what will be covered.</p>
+      </div>
+
+      <!-- 2. Presentation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-presentation">Presentation</span>
+          <span class="filetype-tag">.pptx</span>
+        </div>
+        <div class="card-title">
+          <a href="../presentations/Database_Basics_and_generated.pptx">Database_Basics_and_generated.pptx</a>
+        </div>
+        <p class="card-desc">A slide deck introducing relational database concepts — including what databases are, how they differ from spreadsheets, and how tables, rows, columns, and keys organize and connect data — used by instructors to deliver lectures or by learners for self-study.</p>
+      </div>
+
+      <!-- 3. Introduction to Databases -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive_topics_t1.html">Introduction to Databases</a>
+        </div>
+        <p class="card-desc">This reading introduces what databases are, why they exist, and how they store and organize data, serving as a foundational orientation for learners beginning the module.</p>
+      </div>
+
+      <!-- 4. Relational Database Concepts -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive_topics_t2.html">Relational Database Concepts</a>
+        </div>
+        <p class="card-desc">This reading explains the relational database model — including how data is organized into tables connected through shared values — tracing the concept from its origins to its role in modern enterprise systems, for learners building core conceptual knowledge.</p>
+      </div>
+
+      <!-- 5. Tables, Rows, and Columns -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive_topics_t3.html">Tables, Rows, and Columns</a>
+        </div>
+        <p class="card-desc">This reading covers the structure of database tables, explaining how rows and columns function as the primary organizational units for storing records, and is used by learners to understand how data is physically arranged within a relational database.</p>
+      </div>
+
+      <!-- 6. Keys and Identifiers -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive_topics_t4.html">Keys and Identifiers</a>
+        </div>
+        <p class="card-desc">This reading explains the role of keys and identifiers in relational databases — including primary keys, foreign keys, and composite keys — covering how they uniquely identify rows and link tables, for learners who need to understand data integrity and navigation.</p>
+      </div>
+
+      <!-- 7. Database Schemas -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive_topics_t5.html">Database Schemas</a>
+        </div>
+        <p class="card-desc">This reading explains what a database schema is, how it serves as the structural blueprint governing a database's organization and validation rules, and is used by learners to understand how databases are designed before data is ever entered.</p>
+      </div>
+
+      <!-- 8. Relationships Between Tables -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive_topics_t6.html">Relationships Between Tables</a>
+        </div>
+        <p class="card-desc">This reading covers the types of relationships between database tables — such as one-to-one, one-to-many, and many-to-many — explaining why data is split across focused tables and how those relationships form the foundation of the relational model.</p>
+      </div>
+
+      <!-- 9. Foundations for SQL Querying (Topic Detail) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive_topics_t7.html">Foundations for SQL Querying</a>
+        </div>
+        <p class="card-desc">This reading introduces SQL as the standard language for querying relational databases, explaining the conceptual groundwork learners need — including how data is organized and accessed — before writing their first queries.</p>
+      </div>
+
+      <!-- 10. Foundations for SQL Querying (Text Content) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-text-content">Text Content</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title">
+          <a href="Database_Basics_and_interactive.html">Foundations for SQL Querying</a>
+        </div>
+        <p class="card-desc">This reading introduces SQL as the standard language for querying relational databases, explaining the conceptual groundwork learners need — including how data is organized and accessed — before writing their first queries.</p>
+      </div>
+
+      <!-- 11. Quiz Question Bank -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-quiz">Quiz</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title">
+          <a href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+          <a class="source-link" href="../quiz_questions.json">source file</a>
+        </div>
+        <p class="card-desc">A 20-question bank assessing learners on core database concepts such as the definition of a database, differences between databases and spreadsheets, flat file limitations, the origins of the relational model, and the role of primary keys, used to build quizzes or tests for the module.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 &mdash; Data Analytics and Visualization &nbsp;&bull;&nbsp; Module 4: Database Basics and Relational Data Concepts
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

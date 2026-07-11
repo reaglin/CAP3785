@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identifying Missing Values</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Identifying Missing Values</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Identifying Missing Values</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Missing data is one of the most pervasive challenges in real-world data analysis. Whether you are working with survey responses, sensor readings, medical records, or transaction logs, gaps in your data are almost inevitable. The way you identify, understand, and ultimately handle those gaps has a profound effect on the validity of every downstream analysis, model, or business decision. Before any imputation or removal strategy can be applied responsibly, you must first develop a thorough understanding of <em>where</em> missing values exist, <em>why</em> they are missing, and <em>what consequences</em> their presence or absence may have. This topic walks through all of those dimensions in depth.</p>
+
+<p><strong>What Are Missing Values?</strong></p>
+
+<p>A missing value is any data point that was expected but not recorded. At first glance this sounds straightforward, but in practice the concept is surprisingly nuanced. Missing values can surface in several distinct forms depending on the data source and the tools used to store or transmit it.</p>
+
+<p>In a pandas DataFrame — the most widely used tabular data structure in Python — missing values are typically represented as <code>NaN</code> (Not a Number), a floating-point sentinel inherited from the IEEE 754 standard. However, missing data in the wild does not always arrive pre-labeled as <code>NaN</code>. Common disguises include:</p>
+
+<ul>
+  <li><strong>Numeric placeholders:</strong> Values like <code>-1</code>, <code>0</code>, <code>999</code>, or <code>9999</code> are frequently used in legacy systems or exported files to signal "no data recorded." If treated as genuine numbers they will corrupt means, sums, and correlations.</li>
+  <li><strong>String sentinels:</strong> Fields may contain <code>"N/A"</code>, <code>"na"</code>, <code>"none"</code>, <code>"missing"</code>, <code>"unknown"</code>, or even a single space <code>" "</code>. These will be read as valid string categories unless explicitly handled.</li>
+  <li><strong>Empty strings:</strong> A cell that contains <code>""</code> is technically not null in most systems yet carries no information.</li>
+  <li><strong>Datetime gaps:</strong> A time series may simply have no row for certain dates, or a date field may contain an impossible value like <code>1900-01-01</code> used as a placeholder.</li>
+  <li><strong>Structural blanks:</strong> In Excel or CSV files, a cell may literally be empty, which pandas reads as <code>NaN</code> by default — but only if the column type is inferred correctly.</li>
+</ul>
+
+<p>The critical first step is therefore to <em>distinguish true missingness from placeholder values</em>. Failing to do this is a common and costly error. Suppose a healthcare dataset uses <code>-1</code> to indicate that a patient's age was not recorded. If you compute the mean age without removing those <code>-1</code> values, your average will be artificially deflated. The same logic applies to categorical fields where <code>"unknown"</code> might be a deliberate response category in one dataset and a data-entry error in another.</p>
+
+<p>pandas offers several tools for initial detection. The <code>isnull()</code> method (aliased as <code>isna()</code>) returns a Boolean DataFrame of the same shape, with <code>True</code> wherever a value is missing:</p>
+
+<pre><code>import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    'age':    [25, np.nan, 40, -1, 33],
+    'gender': ['M', 'F', None, 'unknown', 'F'],
+    'score':  [88.5, 76.0, np.nan, 91.0, np.nan]
+})
+
+print(df.isnull())
+</code></pre>
+
+<p>This will flag <code>np.nan</code> and <code>None</code> but will <em>not</em> flag <code>-1</code> or <code>"unknown"</code> because those are valid values as far as pandas is concerned. You must first replace known sentinels before running missingness checks:</p>
+
+<pre><code># Replace known placeholders with NaN
+df['age']    = df['age'].replace(-1, np.nan)
+df['gender'] = df['gender'].replace('unknown', np.nan)
+
+print(df.isnull().sum())
+</code></pre>
+
+<p>The <code>info()</code> method provides a quick dataset-level summary showing the count of non-null values per column alongside the inferred data type, making it easy to spot columns with substantial missingness at a glance:</p>
+
+<pre><code>df.info()
+# Output includes:
+# age      4 non-null float64
+# gender   3 non-null object
+# score    3 non-null float64
+</code></pre>
+
+<p><strong>Types of Missingness: MCAR, MAR, and MNAR</strong></p>
+
+<p>Once you know <em>where</em> values are missing, the next question is <em>why</em>. The statistical literature formalizes this into three missingness mechanisms, each with different implications for how you should handle the gaps and how much bias they introduce. These categories were formally described by Rubin (1976) and remain the standard framework in data science and statistics today.</p>
+
+<p><strong>Missing Completely At Random (MCAR)</strong> means that the probability of a value being missing has no relationship whatsoever to any variable in the dataset — observed or unobserved. In other words, missingness is pure random noise. An example would be a lab technician accidentally skipping a row when manually entering data, with no pattern tied to patient condition, demographics, or any other factor. Under MCAR, complete-case analysis (simply dropping rows with missing values) yields unbiased estimates, though it does reduce sample size. MCAR is the most benign form of missingness and the easiest to work with — but it is also the least common in real data. You can perform a rough check for MCAR by creating a binary indicator of missingness and testing whether it correlates with any observed variable. If no significant correlations are found, MCAR is more plausible.</p>
+
+<p><strong>Missing At Random (MAR)</strong> does <em>not</em> mean the data is missing randomly in the colloquial sense. It means the missingness is related to other <em>observed</em> variables in the dataset but, once you control for those variables, it is unrelated to the missing value itself. For example, suppose men in a survey are less likely to report their income than women, but within each gender group there is no further pattern. Income missingness depends on gender (an observed variable), not on income itself. Under MAR, complete-case analysis can produce biased results, but multiple imputation or model-based methods that account for the observed predictors of missingness can yield valid estimates. MAR is more common than MCAR in practice and is generally considered manageable with the right tools.</p>
+
+<p><strong>Missing Not At Random (MNAR)</strong> is the most problematic scenario. Here, the probability of missingness is directly related to the value that would have been recorded. For example, high-income individuals may be less likely to disclose their income precisely because it is high. Patients with severe depression may be more likely to drop out of a study — meaning the most severe cases are systematically underrepresented. MNAR introduces systematic bias that cannot be corrected simply by examining the observed data; it requires domain knowledge, external data sources, sensitivity analyses, or explicit modeling of the missingness mechanism itself. In practice, MNAR is difficult to prove definitively from the data alone, which makes domain expertise especially valuable.</p>
+
+<p>The table below summarizes the three mechanisms side by side:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mechanism</th>
+      <th>Missingness depends on…</th>
+      <th>Bias if ignored?</th>
+      <th>Typical remedy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MCAR</td>
+      <td>Nothing (purely random)</td>
+      <td>No bias, only reduced sample size</td>
+      <td>Complete-case analysis acceptable; imputation still beneficial for power</td>
+    </tr>
+    <tr>
+      <td>MAR</td>
+      <td>Other observed variables</td>
+      <td>Potentially biased without adjustment</td>
+      <td>Multiple imputation, model-based imputation using predictors</td>
+    </tr>
+    <tr>
+      <td>MNAR</td>
+      <td>The missing value itself</td>
+      <td>Systematic bias, often severe</td>
+      <td>Domain knowledge, sensitivity analysis, selection models</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Identifying which mechanism applies requires both quantitative investigation and contextual understanding of how the data was collected. A data analyst working purely with numbers may reach a different — and wrong — conclusion compared to one who also interviews the data collection team.</p>
+
+<p><strong>Detecting and Quantifying Missing Data</strong></p>
+
+<p>Knowing that missing values exist is not enough; you need to quantify and map their distribution to make informed decisions. The first step is calculating the percentage of missing values per column and per row.</p>
+
+<p><strong>Per-column missingness</strong> reveals which features are most affected and helps you decide whether a variable is viable for analysis at all. A column that is 90% missing may need to be dropped entirely, while a column that is 2% missing may be safely imputed:</p>
+
+<pre><code>missing_col = df.isnull().mean() * 100
+print(missing_col.sort_values(ascending=False))
+</code></pre>
+
+<p><strong>Per-row missingness</strong> reveals which observations are incomplete and to what degree. This is particularly useful in survey data where some respondents skipped many questions:</p>
+
+<pre><code>missing_row = df.isnull().mean(axis=1) * 100
+print(missing_row.describe())
+
+# Flag rows missing more than 30% of their fields
+high_missing_rows = df[missing_row > 30]
+print(f"{len(high_missing_rows)} rows are more than 30% incomplete")
+</code></pre>
+
+<p>Beyond simple counts, <strong>visualizations</strong> are powerful for revealing structure in missingness. A missingness matrix — where rows are observations, columns are variables, and cells are colored to indicate presence or absence — makes patterns immediately visible. The <code>missingno</code> library in Python was built specifically for this purpose:</p>
+
+<pre><code>import missingno as msno
+import matplotlib.pyplot as plt
+
+msno.matrix(df)
+plt.show()
+
+msno.heatmap(df)
+plt.show()
+</code></pre>
+
+<p>The <strong>heatmap</strong> produced by <code>msno.heatmap()</code> shows the correlation of missingness between pairs of variables. A high positive correlation between two variables' missingness indicators means they tend to be missing together — suggesting a common cause such as a shared data source, a specific survey question block, or a particular time window where data collection failed. A negative correlation would suggest they are rarely both missing, which is less common but equally informative.</p>
+
+<p>Beyond pairwise patterns, you should investigate whether missingness clusters around <strong>specific subgroups, time periods, or data sources</strong>. For example:</p>
+
+<ul>
+  <li>In longitudinal data, missingness may increase over time as participants drop out — a classic attrition bias pattern.</li>
+  <li>In multi-site clinical data, one hospital may consistently have missing lab values because it uses a different record system.</li>
+  <li>In e-commerce data, a payment field may be missing exclusively for guest checkouts rather than registered users.</li>
+</ul>
+
+<p>Detecting these patterns requires slicing your missingness analysis by known grouping variables:</p>
+
+<pre><code>
+# Example: check if missingness in 'score' varies by 'gender'
+df['score_missing'] = df['score'].isnull().astype(int)
+print(df.groupby('gender')['score_missing'].mean())
+</code></pre>
+
+<p>If one group has a substantially higher missingness rate than another, that is a strong signal of MAR at minimum and possibly MNAR.</p>
+
+<p><strong>Impact of Missing Values on Analytical Outcomes</strong></p>
+
+<p>The consequences of unaddressed missing data span every stage of the analytical pipeline. Understanding these impacts helps you prioritize which columns deserve the most careful attention.</p>
+
+<p><strong>Reduced statistical power:</strong> Every missing observation reduces your effective sample size. In hypothesis testing, smaller samples yield wider confidence intervals and less ability to detect true effects. If a study requires 500 participants for 80% power but 20% of outcome values are missing, you effectively have 400 observations — which may reduce power to an unacceptable level depending on the effect size.</p>
+
+<p><strong>Bias in estimates:</strong> Complete-case analysis — the default in most tools, where rows with any missing value are silently dropped — produces unbiased estimates only under MCAR. Under MAR or MNAR, the remaining complete cases are not a random sample of the population, and estimates of means, proportions, regression coefficients, and other statistics can be systematically wrong. For instance, if sicker patients are more likely to have missing lab values (MNAR), and you drop those rows, your analysis will overestimate health outcomes in the remaining sample.</p>
+
+<p><strong>Machine learning model failures:</strong> Most standard machine learning algorithms — including linear regression implementations in scikit-learn, support vector machines, and gradient boosted trees as implemented in XGBoost by default — cannot process <code>NaN</code> values and will raise an error or produce unpredictable results. Even algorithms that do handle missingness internally (such as LightGBM's native missing value handling) may produce degraded performance if the missingness is informative and not explicitly modeled. The absence of a value can itself be a feature — for example, whether a customer has ever made a complaint may be more predictive than the actual complaint count — and that information is lost if you simply impute a default value without also creating an indicator variable.</p>
+
+<p><strong>Cascading errors in pipelines:</strong> In automated data pipelines, undetected missing values can propagate silently. A missing price field might cause a revenue calculation to return <code>NaN</code>, which then causes a downstream aggregation to undercount totals, which then causes a dashboard metric to appear artificially low. Without explicit checks, these errors may go unnoticed for days or weeks.</p>
+
+<p>To prioritize handling efforts, it is helpful to create a combined missingness severity matrix that weighs both the proportion of missing values and the analytical importance of each variable:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>% Missing</th>
+      <th>Role in Analysis</th>
+      <th>Missingness Type (suspected)</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>outcome_score</td>
+      <td>15%</td>
+      <td>Primary outcome variable</td>
+      <td>MNAR (sicker patients drop out)</td>
+      <td>Critical</td>
+    </tr>
+    <tr>
+      <td>age</td>
+      <td>3%</td>
+      <td>Key covariate</td>
+      <td>MCAR (random entry omissions)</td>
+      <td>Moderate</td>
+    </tr>
+    <tr>
+      <td>zip_code</td>
+      <td>8%</td>
+      <td>Secondary feature</td>
+      <td>MAR (missing for phone registrations)</td>
+      <td>Moderate</td>
+    </tr>
+    <tr>
+      <td>middle_name</td>
+      <td>62%</td>
+      <td>Not used in model</td>
+      <td>MCAR</td>
+      <td>Low</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Documenting and Communicating Missing Data Findings</strong></p>
+
+<p>Identifying missing values is only valuable if the findings are documented and shared with the right people. This step is frequently skipped under time pressure but is essential for reproducibility, compliance, and analytical integrity.</p>
+
+<p><strong>Documentation of missing data patterns</strong> should be created <em>before</em> any cleaning or imputation is applied. This baseline snapshot — often called a data quality profile — records the original percentage of missingness per variable, the suspected mechanism, any known placeholder values that were identified, and the data types of each column. This profile serves as the reference point against which any cleaning decisions can later be justified. For regulated industries such as healthcare, finance, or government data, this documentation may be required by audit or compliance frameworks.</p>
+
+<p>A practical approach is to generate a missingness summary table programmatically and export it:</p>
+
+<pre><code>summary = pd.DataFrame({
+    'dtype':         df.dtypes,
+    'total_values':  len(df),
+    'missing_count': df.isnull().sum(),
+    'missing_pct':   (df.isnull().mean() * 100).round(2)
+})
+summary.to_csv('missing_value_profile.csv')
+print(summary)
+</code></pre>
+
+<p><strong>Communication with stakeholders</strong> transforms a technical finding into actionable knowledge. Domain experts — such as clinicians, operations managers, or product owners — often hold critical context that is invisible in the data itself. They may know that a particular field was not collected before a certain system upgrade, that a question was removed from a survey mid-study, or that a sensor was offline for a known period. Without that context, an analyst might impute values that corrupt the dataset in ways that are impossible to detect statistically. A brief structured conversation — "this field is missing 18% of values; can you tell me why?" — can save hours of misdirected imputation work.</p>
+
+<p>When presenting missing data findings to non-technical stakeholders, visual summaries are more effective than tables of numbers. A simple bar chart of missingness rates per column, or a timeline plot showing when missingness occurred in longitudinal data, communicates the problem clearly and invites the right questions. Frame the communication around impact: "If we proceed without addressing this gap, our model will be trained on data that systematically excludes the highest-risk customers" is far more actionable than "column X has 22% null values."</p>
+
+<p><strong>Recording the metadata</strong> of missingness — including timestamps, data sources, and which variables are affected — also supports reproducibility. If a colleague or auditor needs to replicate your analysis six months later, they should be able to reconstruct exactly what the raw data looked like before any transformations were applied. Version-controlling your raw data or at minimum your data quality profile is a professional best practice that safeguards the integrity of the entire analytical workflow.</p>
+        <div class="notes"><strong>Notes</strong>Examines how to detect and understand missing data within a dataset. Discusses the types of missingness (MCAR, MAR, MNAR) and their potential impact on analytical outcomes. Includes practical pandas code examples, a missingness mechanism comparison table, and a priority matrix for handling decisions.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying SQL to Business Questions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Applying SQL to Business Questions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Applying SQL to Business Questions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most powerful skills a data analyst or business professional can develop is the ability to look at a real-world business question and translate it directly into a working SQL query. SQL is not just a technical language — it is a precise way of expressing analytical intent. When you know how each part of a business question maps onto a SQL clause, you gain the ability to answer questions quickly, consistently, and at scale, pulling insights from thousands or even millions of rows of data in seconds. This topic walks through that entire process: from reading a business question, to structuring a query, to validating that the output actually answers what was asked.</p>
+
+<p><strong>Translating Business Questions into SQL Queries</strong></p>
+
+<p>Before writing a single line of SQL, the most important first step is identifying <em>which table or tables hold the relevant data</em>. A database may contain dozens of tables — customers, orders, products, employees, transactions — and choosing the wrong one will produce irrelevant or misleading results. Spend a moment thinking about what the business question is really asking about. If the question is "which products sold the most last quarter?", the relevant table is likely an orders or sales transactions table, not a customers table.</p>
+
+<p>Once you have identified the right table, break the business question into its components. Most business questions contain four natural parts, each of which maps directly to a SQL clause:</p>
+
+<ul>
+  <li><strong>What do you want to see?</strong> This is the <em>subject</em> of the question — the columns you need — and it maps to the <code>SELECT</code> clause.</li>
+  <li><strong>What conditions must be true?</strong> Any filtering criteria — a specific category, date range, or minimum value — map to the <code>WHERE</code> clause.</li>
+  <li><strong>How should results be ranked or ordered?</strong> The notion of "top", "lowest", "highest", or "most recent" maps to the <code>ORDER BY</code> clause.</li>
+  <li><strong>How many results do you need?</strong> "The top 10" or "the five worst" maps to the <code>LIMIT</code> clause.</li>
+</ul>
+
+<p>Consider the question: <em>"What are the names and total sales of the top 5 sales representatives in the Western region this year?"</em> Breaking it down: you want <strong>names and total sales</strong> (SELECT), from <strong>sales representatives in the Western region this year</strong> (WHERE), ranked by <strong>highest total sales first</strong> (ORDER BY … DESC), and only the <strong>top 5</strong> (LIMIT 5). Every word in the question has a corresponding SQL counterpart.</p>
+
+<p><strong>Combining SELECT and WHERE for Targeted Data Retrieval</strong></p>
+
+<p>The <code>SELECT</code> clause tells the database engine which columns you want to appear in your result set. You can list individual columns separated by commas, or use <code>*</code> to return all columns. In practice, listing only the columns you actually need is better habit — it makes results easier to read and reduces unnecessary data transfer.</p>
+
+<p>The <code>WHERE</code> clause narrows the result set by filtering out rows that do not meet your specified conditions. Without a <code>WHERE</code> clause, a query returns every row in the table. With <code>WHERE</code>, only rows that satisfy the condition are returned. For example, to see only sales from the Western region:</p>
+
+<pre><code>SELECT rep_name, total_sales
+FROM sales_reps
+WHERE region = 'Western';</code></pre>
+
+<p>When a business question involves more than one condition, you combine them using <code>AND</code> or <code>OR</code>. Use <code>AND</code> when <em>all</em> conditions must be true simultaneously, and <code>OR</code> when <em>at least one</em> condition must be true. For example, to find Western region reps whose total sales exceed $100,000:</p>
+
+<pre><code>SELECT rep_name, total_sales
+FROM sales_reps
+WHERE region = 'Western'
+  AND total_sales > 100000;</code></pre>
+
+<p>A critical habit when writing <code>WHERE</code> conditions is verifying that the column name exists in the schema exactly as written (including case sensitivity in some databases) and that the data type of your condition matches the column's data type. Comparing a numeric column to a quoted string, or misspelling a column name, will produce an error or silently return no rows. Always check the table schema before writing conditions.</p>
+
+<p><strong>Sorting Results with ORDER BY to Surface Insights</strong></p>
+
+<p>Raw filtered data is often not immediately useful without context about ordering. The <code>ORDER BY</code> clause sorts the result set by one or more columns. By default, sorting is <em>ascending</em> (smallest to largest, or A to Z). To reverse this and get the highest values first, append <code>DESC</code> (descending) after the column name.</p>
+
+<pre><code>SELECT rep_name, total_sales
+FROM sales_reps
+WHERE region = 'Western'
+ORDER BY total_sales DESC;</code></pre>
+
+<p>This query now returns Western region reps with the highest total sales at the top — far more useful for a manager trying to identify top performers.</p>
+
+<p>You can also sort by <em>multiple columns</em> to handle ties. Suppose two reps have identical sales figures; you might want to sort alphabetically by name as a tiebreaker. You achieve this by listing additional columns after the first, separated by commas:</p>
+
+<pre><code>SELECT rep_name, region, total_sales
+FROM sales_reps
+ORDER BY region ASC, total_sales DESC;</code></pre>
+
+<p>This query first groups results by region alphabetically, and within each region, lists reps from highest to lowest sales. Multi-column sorting is especially useful in reports where data is naturally grouped into categories.</p>
+
+<p>An important conceptual point: <code>ORDER BY</code> is applied <em>after</em> <code>WHERE</code> filtering. The database first eliminates rows that don't match the filter, then sorts the surviving rows. This means sorting never changes which rows are returned — only the order in which they are presented.</p>
+
+<p><strong>Using LIMIT to Focus on Top or Bottom Records</strong></p>
+
+<p>The <code>LIMIT</code> clause is placed at the very end of a query and accepts a positive whole number. It instructs the database to return no more than that many rows from the result set. This is most powerful when used alongside <code>ORDER BY</code>, because sorting determines <em>which</em> rows end up at the top, and <code>LIMIT</code> then captures just those top rows.</p>
+
+<pre><code>SELECT rep_name, total_sales
+FROM sales_reps
+WHERE region = 'Western'
+ORDER BY total_sales DESC
+LIMIT 5;</code></pre>
+
+<p>This query answers the original business question completely: the top 5 Western region sales reps by total sales. Without <code>ORDER BY</code>, the five rows returned would be essentially arbitrary — whichever five rows the database engine happened to retrieve first, which has no meaningful business interpretation.</p>
+
+<p>To find the <em>bottom</em> performers instead, simply switch to ascending order:</p>
+
+<pre><code>SELECT rep_name, total_sales
+FROM sales_reps
+WHERE region = 'Western'
+ORDER BY total_sales ASC
+LIMIT 5;</code></pre>
+
+<p>Beyond its analytical value, <code>LIMIT</code> also has a practical performance benefit: when working with tables containing millions of rows, returning only the top 10 or 20 results dramatically reduces the volume of data the database must send back to the client, making queries faster and results easier to review.</p>
+
+<p><strong>Writing Multi-Clause Queries: Clause Order and Syntax</strong></p>
+
+<p>SQL requires clauses to appear in a specific, fixed order. Writing them out of sequence will cause a syntax error. The correct order for a complete query is:</p>
+
+<pre><code>SELECT   column1, column2, ...
+FROM     table_name
+WHERE    condition
+ORDER BY column [ASC | DESC]
+LIMIT    n;</code></pre>
+
+<p>Each clause has a distinct, non-overlapping role. <code>SELECT</code> defines the output columns. <code>FROM</code> names the source table. <code>WHERE</code> filters rows. <code>ORDER BY</code> sorts the survivors. <code>LIMIT</code> caps the count. Placing <code>LIMIT</code> before <code>ORDER BY</code>, for instance, is a syntax error in most SQL databases.</p>
+
+<p>A useful mental discipline is to read a finished query from top to bottom and verify that each clause mirrors the logical steps you would take to answer the question by hand: "I want these columns, from this table, but only rows where this is true, arranged from highest to lowest, showing only the first five." If the query reads that way, it is almost certainly correct in structure.</p>
+
+<p><strong>Common Analytical Patterns in Business SQL Queries</strong></p>
+
+<p>Most business SQL queries fall into a small number of recognizable patterns. Learning these patterns lets you construct new queries quickly by adapting familiar templates.</p>
+
+<p>The <strong>"Top N by metric"</strong> pattern is among the most common. It uses <code>ORDER BY [metric] DESC</code> combined with <code>LIMIT N</code> to surface the best performers — highest revenue products, most active customers, busiest delivery routes, and so on:</p>
+
+<pre><code>SELECT product_name, revenue
+FROM products
+ORDER BY revenue DESC
+LIMIT 10;</code></pre>
+
+<p>The <strong>"filter by time period"</strong> pattern scopes an analysis to a specific date range using <code>WHERE</code> conditions on a date column. This is essential for period-over-period comparisons or monthly reporting:</p>
+
+<pre><code>SELECT order_id, customer_id, order_total
+FROM orders
+WHERE order_date >= '2024-01-01'
+  AND order_date <= '2024-03-31';</code></pre>
+
+<p>The <strong>"find records meeting a threshold"</strong> pattern uses comparison operators (<code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>) to isolate records above or below a business-defined cutoff. For example, finding customers with account balances below a minimum:</p>
+
+<pre><code>SELECT customer_id, customer_name, account_balance
+FROM customers
+WHERE account_balance < 500;</code></pre>
+
+<p>These patterns become especially powerful when <strong>combined</strong>. Suppose a business wants to know the top 5 products by revenue in Q1 2024. That combines time-period filtering with the Top N pattern:</p>
+
+<pre><code>SELECT product_name, revenue
+FROM sales
+WHERE sale_date >= '2024-01-01'
+  AND sale_date <= '2024-03-31'
+ORDER BY revenue DESC
+LIMIT 5;</code></pre>
+
+<p>The following table summarizes the common analytical patterns and the SQL clauses they rely on:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Analytical Pattern</th>
+      <th>Business Example</th>
+      <th>Key SQL Clauses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Top N by metric</td>
+      <td>Top 10 best-selling products</td>
+      <td><code>ORDER BY [metric] DESC</code>, <code>LIMIT N</code></td>
+    </tr>
+    <tr>
+      <td>Bottom N by metric</td>
+      <td>5 lowest-rated stores</td>
+      <td><code>ORDER BY [metric] ASC</code>, <code>LIMIT N</code></td>
+    </tr>
+    <tr>
+      <td>Filter by time period</td>
+      <td>All orders placed in Q1 2024</td>
+      <td><code>WHERE date_col &gt;= '...' AND date_col &lt;= '...'</code></td>
+    </tr>
+    <tr>
+      <td>Find records above a threshold</td>
+      <td>Customers who spent more than $1,000</td>
+      <td><code>WHERE metric &gt; value</code></td>
+    </tr>
+    <tr>
+      <td>Find records below a threshold</td>
+      <td>Products with fewer than 10 units in stock</td>
+      <td><code>WHERE metric &lt; value</code></td>
+    </tr>
+    <tr>
+      <td>Combined filter + ranking</td>
+      <td>Top 5 reps in Western region this year</td>
+      <td><code>WHERE</code> + <code>ORDER BY DESC</code> + <code>LIMIT</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Validating Query Results Against Business Expectations</strong></p>
+
+<p>Writing a query that runs without errors is not the same as writing a query that answers the business question correctly. Validation — checking that the results make sense — is an essential final step that experienced analysts never skip.</p>
+
+<p>Start by checking the <em>row count</em>. If your <code>LIMIT</code> is 10 and you receive only 3 rows, either fewer than 10 records exist after filtering, or a filter condition is more restrictive than intended. If you expected a small result and receive thousands of rows, a filter condition may be missing or incorrectly written.</p>
+
+<p>Next, <em>spot-check individual records</em>. Pick one or two rows from the result and verify them against a known source — a prior report, a spreadsheet, or direct knowledge of the data. If you know the top-selling product last quarter was "Widget Pro" and it does not appear in your results, something is wrong.</p>
+
+<p>When results are unexpected, debug the query <em>clause by clause</em>. A disciplined approach is to start with just <code>SELECT * FROM table_name</code> to confirm the table exists and contains data. Then add <code>WHERE</code> and run again to see how many rows survive filtering. Then add <code>ORDER BY</code> to check the sort. Finally, add <code>LIMIT</code>. This stepwise approach isolates exactly which clause is producing unexpected behavior.</p>
+
+<p>For example, if the following query returns zero rows:</p>
+
+<pre><code>SELECT rep_name, total_sales
+FROM sales_reps
+WHERE region = 'western'
+  AND total_sales > 100000
+ORDER BY total_sales DESC
+LIMIT 5;</code></pre>
+
+<p>A good first debugging step would be to remove the <code>WHERE</code> clause and check what values exist in the <code>region</code> column. You might discover that the correct value is <code>'Western'</code> (capital W) rather than <code>'western'</code>, or that the column is actually named <code>territory</code>, not <code>region</code>. Small mismatches like these are among the most common causes of unexpectedly empty result sets.</p>
+
+<p>Validation is not a sign of uncertainty — it is a sign of professionalism. The goal is not merely a query that runs, but a query whose output you can confidently stand behind when presenting findings to a business stakeholder.</p>
+        <div class="notes"><strong>Notes</strong>This topic integrates SELECT, WHERE, ORDER BY, and LIMIT into cohesive multi-clause queries. Emphasize the clause ordering rule and the debugging-by-clause approach as practical skills students will use repeatedly. The pattern table is useful as a quick reference. Encourage students to always ask &quot;does this answer the question?&quot; after running any query.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Joins, Relationships, and Advanced Query Techniques — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>SQL Joins, Relationships, and Advanced Query Techniques — Module Topics</h1>
+<h2>Relational Database Foundations</h2>
+<div class="summary">Introduces the concept of related tables and how foreign keys establish connections between them. Sets the foundation for understanding why JOIN operations are necessary in multi-table databases.</div>
+<ul>
+<li><strong>What Is a Relational Database?</strong> <span class="el-body">— A relational database organizes data into multiple structured tables, each representing a distinct entity or concept.</span></li>
+<li><strong>Primary Keys: Uniquely Identifying Records</strong> <span class="el-body">— A primary key is a column or set of columns that uniquely identifies each row within a table.</span></li>
+<li><strong>Foreign Keys: Creating Relationships Between Tables</strong> <span class="el-body">— A foreign key is a column in one table that references the primary key of another table, establishing a link between the two.</span></li>
+<li><strong>Types of Table Relationships</strong> <span class="el-body">— Relationships between tables are categorized by how many records on each side can be associated with records on the other side.</span></li>
+<li><strong>Why Data Is Split Across Multiple Tables</strong> <span class="el-body">— Storing all data in a single table leads to repetition, inconsistency, and difficulty maintaining accurate records over time.</span></li>
+<li><strong>The Need for JOIN Operations</strong> <span class="el-body">— Because related data lives in separate tables, queries that require information from more than one table must use JOIN operations to combine them.</span></li>
+</ul>
+<h2>INNER JOIN and Matching Records</h2>
+<div class="summary">Covers the INNER JOIN operation to retrieve only records with matching values in both tables. Explores common use cases and syntax for combining related data sets.</div>
+<ul>
+<li><strong>What Is an INNER JOIN?</strong> <span class="el-body">— An INNER JOIN combines rows from two or more tables based on a related column, returning only the rows where a match exists in both tables.</span></li>
+<li><strong>Basic INNER JOIN Syntax</strong> <span class="el-body">— The INNER JOIN clause is placed in the FROM section of a SELECT statement, followed by an ON condition that specifies which columns to match.</span></li>
+<li><strong>Matching on Primary and Foreign Keys</strong> <span class="el-body">— INNER JOIN most often links a foreign key in one table to the primary key in another, reflecting the underlying relational data model.</span></li>
+<li><strong>Using Table Aliases for Readability</strong> <span class="el-body">— Aliases assign short, readable names to tables within a query, simplifying the syntax when referencing columns from multiple tables.</span></li>
+<li><strong>Filtering INNER JOIN Results with WHERE</strong> <span class="el-body">— A WHERE clause can be appended after an INNER JOIN to further narrow the result set based on additional conditions beyond the join predicate.</span></li>
+<li><strong>Common Use Cases for INNER JOIN</strong> <span class="el-body">— INNER JOIN is used whenever analysis requires only records that have confirmed relationships across two or more tables.</span></li>
+<li><strong>Joining More Than Two Tables</strong> <span class="el-body">— Multiple INNER JOIN clauses can be chained in a single query to combine three or more related tables simultaneously.</span></li>
+</ul>
+<h2>Outer JOINs: LEFT, RIGHT, and FULL</h2>
+<div class="summary">Examines LEFT, RIGHT, and FULL OUTER JOIN operations and how they handle unmatched records from one or both tables. Highlights practical differences and when to apply each type.</div>
+<ul>
+<li><strong>What Is an Outer JOIN?</strong> <span class="el-body">— An OUTER JOIN retrieves rows from one or both tables even when no matching record exists in the other table, unlike INNER JOIN which only returns matched rows.</span></li>
+<li><strong>LEFT OUTER JOIN</strong> <span class="el-body">— A LEFT OUTER JOIN returns all rows from the left (first) table and only the matching rows from the right table, filling unmatched right-side columns with NULL.</span></li>
+<li><strong>RIGHT OUTER JOIN</strong> <span class="el-body">— A RIGHT OUTER JOIN mirrors the LEFT JOIN but preserves all rows from the right (second) table, filling unmatched left-side columns with NULL.</span></li>
+<li><strong>FULL OUTER JOIN</strong> <span class="el-body">— A FULL OUTER JOIN combines the behavior of LEFT and RIGHT JOINs, returning all rows from both tables and filling NULLs wherever no match exists on either side.</span></li>
+<li><strong>Handling NULL Values in Outer JOIN Results</strong> <span class="el-body">— Because OUTER JOINs introduce NULL values for unmatched rows, queries often need to account for NULLs in filtering and calculation logic.</span></li>
+<li><strong>Practical Differences and Choosing the Right Outer JOIN</strong> <span class="el-body">— Selecting the correct OUTER JOIN type depends on which dataset must remain complete and what business question is being answered.</span></li>
+</ul>
+<h2>Subqueries and Nested SELECT Statements</h2>
+<div class="summary">Introduces subqueries as a technique for embedding one SELECT statement inside another to filter, compute, or compare data. Covers both correlated and non-correlated subquery patterns.</div>
+<ul>
+<li><strong>What Is a Subquery?</strong> <span class="el-body">— A subquery is a SELECT statement nested inside another SQL statement, allowing you to use the result of one query as input to another.</span></li>
+<li><strong>Subqueries in the WHERE Clause</strong> <span class="el-body">— The most common use of a subquery is inside a WHERE clause to filter rows based on values computed from another table or query.</span></li>
+<li><strong>Subqueries in the FROM Clause (Derived Tables)</strong> <span class="el-body">— A subquery placed in the FROM clause creates a temporary result set, often called a derived table or inline view, that the outer query can reference.</span></li>
+<li><strong>Non-Correlated Subqueries</strong> <span class="el-body">— A non-correlated subquery is independent of the outer query and executes only once, with its result reused for every row evaluated by the outer query.</span></li>
+<li><strong>Correlated Subqueries</strong> <span class="el-body">— A correlated subquery references columns from the outer query, causing it to execute once for every row processed by the outer query.</span></li>
+<li><strong>Using EXISTS and NOT EXISTS</strong> <span class="el-body">— The EXISTS operator tests whether a correlated subquery returns at least one row, and NOT EXISTS tests whether it returns no rows.</span></li>
+<li><strong>Subqueries vs. JOINs: Choosing the Right Approach</strong> <span class="el-body">— Both subqueries and JOINs can solve many of the same data retrieval problems, but they differ in readability, performance, and capability.</span></li>
+</ul>
+<h2>Aggregation with GROUP BY and HAVING</h2>
+<div class="summary">Explores how to summarize data using aggregate functions alongside the GROUP BY clause to group results by one or more columns. Introduces the HAVING clause for filtering aggregated results after grouping.</div>
+<ul>
+<li><strong>Introduction to Aggregate Functions</strong> <span class="el-body">— Aggregate functions perform calculations on a set of rows and return a single summary value, making them essential for data analysis in SQL.</span></li>
+<li><strong>Grouping Data with GROUP BY</strong> <span class="el-body">— The GROUP BY clause divides rows into groups based on one or more columns, allowing aggregate functions to be applied to each group independently.</span></li>
+<li><strong>Combining Aggregate Functions with GROUP BY</strong> <span class="el-body">— Pairing aggregate functions with GROUP BY produces meaningful per-group summaries, enabling comparisons across categories, departments, time periods, or any other dimension.</span></li>
+<li><strong>Filtering Grouped Results with HAVING</strong> <span class="el-body">— The HAVING clause filters the results of a GROUP BY query based on conditions applied to aggregated values, similar to how WHERE filters individual rows.</span></li>
+<li><strong>WHERE vs. HAVING: Knowing When to Use Each</strong> <span class="el-body">— Understanding the difference between WHERE and HAVING is critical for writing correct aggregation queries, as each operates at a different stage of query execution.</span></li>
+<li><strong>Ordering and Presenting Aggregated Results</strong> <span class="el-body">— The ORDER BY clause can be combined with GROUP BY and HAVING to sort the final aggregated output in a meaningful way for analysis or reporting.</span></li>
+</ul>
+<h2>Solving Multi-Table Analytical Problems</h2>
+<div class="summary">Applies JOIN operations, subqueries, and aggregation together to solve complex, real-world analytical queries across multiple tables. Reinforces decision-making around query design and technique selection.</div>
+<ul>
+<li><strong>Decomposing a Complex Analytical Question</strong> <span class="el-body">— Before writing a single line of SQL, it is essential to break a complex business question into smaller, answerable sub-problems that map to specific tables and operations.</span></li>
+<li><strong>Choosing the Right JOIN Type for the Problem</strong> <span class="el-body">— Selecting the appropriate JOIN type is a critical design decision that directly affects which rows appear in the result set and whether the analysis is accurate.</span></li>
+<li><strong>Layering Aggregation with GROUP BY and HAVING</strong> <span class="el-body">— Multi-table analytical queries frequently require summarizing data after joining, using GROUP BY to segment results and HAVING to filter aggregated groups.</span></li>
+<li><strong>Using Subqueries to Stage Intermediate Results</strong> <span class="el-body">— Subqueries allow you to pre-process or filter data in one step and feed that result into a larger query, making complex logic easier to manage and reason about.</span></li>
+<li><strong>Combining JOINs and Subqueries in a Single Query</strong> <span class="el-body">— Real-world analytical queries often require both JOINs and subqueries working together, where a derived table or filtered subquery serves as one of the inputs to a JOIN.</span></li>
+<li><strong>Validating and Interpreting Multi-Table Query Results</strong> <span class="el-body">— After a complex query runs, verifying that the results are logically correct is just as important as writing syntactically valid SQL.</span></li>
+<li><strong>Query Design Decision-Making Framework</strong> <span class="el-body">— Selecting the right combination of techniques — joins, subqueries, aggregation — requires a systematic approach to weigh readability, correctness, and performance against the requirements of the problem.</span></li>
+</ul>
+</body>
+</html>

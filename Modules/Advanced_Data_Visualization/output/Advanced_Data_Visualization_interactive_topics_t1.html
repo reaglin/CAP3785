@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Matplotlib and Seaborn</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Matplotlib and Seaborn</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Matplotlib and Seaborn</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data visualization is one of the most powerful tools available to analysts, scientists, and engineers working in Python. Rather than presenting raw numbers in tables, visualization transforms data into patterns, trends, and relationships that the human eye can grasp instantly. The Python ecosystem offers many libraries for creating charts and graphs, but two dominate the landscape for nearly all use cases: <strong>Matplotlib</strong> and <strong>Seaborn</strong>. Understanding what each library does, how they relate to one another, and how to configure your environment correctly is the essential first step before any serious visualization work begins.</p>
+
+<p>These two libraries are not rivals — they are complementary tools designed to work together. Matplotlib provides the foundational engine, while Seaborn provides a high-level interface built on top of it. A professional Python developer fluent in both can produce everything from a quick exploratory scatter plot to a polished, publication-ready multi-panel figure.</p>
+
+<p><strong>What is Matplotlib?</strong></p>
+
+<p>Matplotlib is the oldest and most widely used plotting library in the Python ecosystem. It was created by John D. Hunter in 2003 with the explicit goal of replicating the plotting capabilities of MATLAB in Python, and it has since grown into a comprehensive, production-grade visualization toolkit. Its fundamental design philosophy is to give the programmer <em>complete, granular control</em> over every visual element in a figure — from the thickness of a single axis line to the exact pixel position of a legend.</p>
+
+<p>At its core, Matplotlib provides a <strong>low-level, highly customizable API</strong>. "Low-level" here does not mean primitive or limited — it means that the library exposes every individual component of a chart as an object that can be independently inspected and modified. Want a dashed red border only on the top and right sides of the plot? Want tick labels rotated at 45 degrees with a specific font family and size? Matplotlib makes all of this possible because it represents every visual artifact — lines, patches, text, ticks, legends — as a Python object with configurable properties.</p>
+
+<p>The most commonly used part of Matplotlib is the <strong>pyplot module</strong>, imported conventionally as <code>plt</code>. The pyplot module offers a MATLAB-style, stateful interface that tracks the "current figure" and "current axes" automatically, so simple plots can be created with very few lines of code:</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3, 4], [10, 20, 15, 25])
+plt.xlabel("X Axis")
+plt.ylabel("Y Axis")
+plt.title("A Simple Line Plot")
+plt.show()
+</code></pre>
+
+<p>This pyplot interface is intuitive for quick tasks, but for more complex figures, Matplotlib's <strong>object-oriented (OO) API</strong> is preferred because it makes the code explicit and avoids confusion about which figure or axes is currently "active."</p>
+
+<p>Internally, Matplotlib organizes every figure into a <strong>hierarchy of objects</strong>. At the top sits the <strong>Figure</strong> object — the overall canvas. Inside the Figure live one or more <strong>Axes</strong> objects — these are the actual plot areas where data is drawn, including their own axis lines, tick marks, and labels. Everything drawn within an Axes — lines, markers, text, fills — is an <strong>Artist</strong> object. This three-tier hierarchy (Figure → Axes → Artists) is central to understanding how Matplotlib works and why it is so flexible. Every customization ultimately comes down to finding the right object in this hierarchy and setting its properties.</p>
+
+<p>Because of this granular control, Matplotlib is the preferred choice whenever <strong>precise customization is required</strong> — for instance, when preparing figures for academic journals with strict formatting requirements, or when building custom chart types that no higher-level library supports out of the box.</p>
+
+<p><strong>What is Seaborn?</strong></p>
+
+<p>Seaborn was created by Michael Waskom and released in 2012. Its explicit purpose is to make <em>statistical data visualization</em> easier and more visually appealing by abstracting away the repetitive boilerplate that Matplotlib requires for common tasks. Where Matplotlib asks you to manually compute histograms, bin data, and draw bar patches, Seaborn does all of that internally and exposes a single function call.</p>
+
+<p>Consider plotting a distribution with Matplotlib versus Seaborn:</p>
+
+<pre><code># Matplotlib approach — manual steps
+import matplotlib.pyplot as plt
+import numpy as np
+
+data = np.random.randn(500)
+plt.hist(data, bins=30, edgecolor='black', color='steelblue')
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.show()
+
+# Seaborn approach — one function
+import seaborn as sns
+sns.histplot(data, bins=30, kde=True)
+plt.show()
+</code></pre>
+
+<p>The Seaborn version not only requires less code but also automatically adds a <strong>kernel density estimate (KDE)</strong> curve, applies a more aesthetically refined style, and handles the color intelligently. This illustrates Seaborn's core value proposition: <strong>complex chart types with minimal code</strong>.</p>
+
+<p>Seaborn excels particularly at visualizing <strong>statistical relationships, distributions, and categorical data</strong>. Its function library includes tools for pair plots (showing pairwise relationships across all columns of a dataset), heatmaps (for correlation matrices or pivot tables), box plots, violin plots, regression plots, and more. These would each require many lines of Matplotlib code to produce from scratch, but Seaborn handles them in one or two lines:</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset("penguins")
+
+# A pair plot across all numeric columns, colored by species
+sns.pairplot(df, hue="species")
+plt.show()
+</code></pre>
+
+<p>Beyond convenience, Seaborn ships with <strong>built-in themes and color palettes</strong> designed by professionals with expertise in perceptual color science. The default Seaborn output looks polished and publication-ready without any manual styling work. This is a significant advantage for users who want good-looking charts quickly, without spending time on aesthetics.</p>
+
+<p>Crucially, Seaborn's high-level interface does not eliminate flexibility. Because every Seaborn plot is ultimately a Matplotlib figure under the hood, you can <strong>continue customizing any Seaborn plot using Matplotlib commands</strong> after the Seaborn function call. This makes Seaborn a "best of both worlds" solution for most data science workflows.</p>
+
+<p><strong>The Relationship Between Matplotlib and Seaborn</strong></p>
+
+<p>Understanding the architectural relationship between these two libraries is essential for using them together effectively. The relationship is straightforward: <strong>Seaborn is built on top of Matplotlib</strong>. Every Seaborn function, internally, creates and manipulates Matplotlib Figure and Axes objects. When you call <code>sns.histplot()</code>, Seaborn computes the binning internally, then calls Matplotlib's drawing primitives to render rectangles, lines, and labels on a Matplotlib Axes.</p>
+
+<p>This means that both libraries can — and routinely should — be used <strong>together in the same script</strong>. A common pattern is to use Seaborn to draw the main content of a chart quickly, then use Matplotlib to fine-tune the details:</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset("tips")
+
+# Seaborn draws the main chart
+ax = sns.boxplot(data=df, x="day", y="total_bill", palette="Set2")
+
+# Matplotlib refines the details
+ax.set_title("Total Bill by Day of Week", fontsize=16, fontweight='bold')
+ax.set_xlabel("Day", fontsize=13)
+ax.set_ylabel("Total Bill (USD)", fontsize=13)
+ax.tick_params(axis='x', rotation=15)
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p>Another important behavior to understand is that <strong>importing Seaborn automatically applies its default theme to all subsequent Matplotlib plots</strong> in the same Python session. This is because Seaborn modifies Matplotlib's global <code>rcParams</code> (rendering configuration parameters) when it is imported. This is usually desirable — Seaborn's defaults look better than Matplotlib's raw defaults — but it is worth knowing so you are not surprised when a bare <code>plt.plot()</code> call suddenly looks different after adding <code>import seaborn as sns</code> to your script.</p>
+
+<p>This layered architecture — Matplotlib as the rendering engine, Seaborn as the high-level interface — gives Python users a uniquely powerful combination. You can write concise, expressive Seaborn code for 90% of your chart, then drop down to Matplotlib's granular API for the remaining 10% that requires precise control.</p>
+
+<p><strong>Setting Up Your Environment</strong></p>
+
+<p>Before any plotting can begin, the correct libraries must be installed and imported. The installation is straightforward using either pip or conda (for Anaconda/Miniconda environments):</p>
+
+<pre><code># Using pip (standard Python package manager)
+pip install matplotlib seaborn numpy pandas
+
+# Using conda (Anaconda/Miniconda)
+conda install matplotlib seaborn numpy pandas
+</code></pre>
+
+<p>It is strongly recommended to install <strong>NumPy</strong> and <strong>pandas</strong> alongside Matplotlib and Seaborn, because nearly every real visualization workflow depends on them. NumPy provides efficient array operations needed for generating and transforming numerical data, while pandas provides the DataFrame structure that Seaborn is especially optimized to work with. Most Seaborn functions accept a pandas DataFrame and a column name directly, making the data-to-chart pipeline seamless.</p>
+
+<p>At the top of any visualization script, the standard imports are:</p>
+
+<pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+</code></pre>
+
+<p>These aliases — <code>plt</code>, <code>sns</code>, <code>pd</code>, <code>np</code> — are universal conventions in the Python data science community. Using them makes your code immediately recognizable to any other Python practitioner.</p>
+
+<p>If you are working inside a <strong>Jupyter Notebook</strong>, you should add the magic command <code>%matplotlib inline</code> at the top of your notebook (in its own cell, before any plotting code). This instructs Jupyter to render Matplotlib figures as static images directly within the notebook output cells, rather than opening a separate pop-up window. In newer versions of JupyterLab, this is often the default behavior, but including it explicitly ensures consistent behavior across environments:</p>
+
+<pre><code>%matplotlib inline
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+</code></pre>
+
+<p>An alternative magic command, <code>%matplotlib notebook</code>, enables interactive figures within classic Jupyter Notebook (allowing zooming and panning), though it is less commonly used today since JupyterLab and tools like Plotly handle interactivity differently.</p>
+
+<p><strong>Configuring Plot Styles and Themes</strong></p>
+
+<p>One of the first decisions when building visualizations is choosing an overall visual style. Both Matplotlib and Seaborn offer style configuration systems, and they can be combined.</p>
+
+<p>Seaborn provides five built-in <strong>themes</strong> that control the background and grid appearance of plots:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Theme Name</th>
+      <th>Description</th>
+      <th>Best Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>darkgrid</code></td>
+      <td>Dark grey background with white grid lines (Seaborn default)</td>
+      <td>General exploratory analysis</td>
+    </tr>
+    <tr>
+      <td><code>whitegrid</code></td>
+      <td>White background with light grey grid lines</td>
+      <td>Charts where precise value reading matters</td>
+    </tr>
+    <tr>
+      <td><code>dark</code></td>
+      <td>Dark grey background, no grid lines</td>
+      <td>Presentations, dark-mode displays</td>
+    </tr>
+    <tr>
+      <td><code>white</code></td>
+      <td>White background, no grid lines</td>
+      <td>Minimal, clean publication figures</td>
+    </tr>
+    <tr>
+      <td><code>ticks</code></td>
+      <td>White background with tick marks only (no grid)</td>
+      <td>Academic publications, scientific journals</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Apply a Seaborn theme using <code>sns.set_theme()</code>:</p>
+
+<pre><code>sns.set_theme(style="whitegrid", palette="muted", font_scale=1.2)
+</code></pre>
+
+<p>The <code>font_scale</code> parameter scales all text elements uniformly, which is useful when preparing figures for posters or slides where larger text is needed. The <code>palette</code> parameter sets the default color cycle for all subsequent plots.</p>
+
+<p>Seaborn also offers a rich <strong>color palette system</strong>. Palettes can be set globally with <code>sns.set_palette()</code> or passed directly to individual plot functions. Common palettes include:</p>
+
+<ul>
+  <li><strong>Qualitative palettes</strong> (for categorical data): <code>"Set1"</code>, <code>"Set2"</code>, <code>"tab10"</code>, <code>"Paired"</code></li>
+  <li><strong>Sequential palettes</strong> (for ordered data): <code>"Blues"</code>, <code>"viridis"</code>, <code>"plasma"</code>, <code>"YlOrRd"</code></li>
+  <li><strong>Diverging palettes</strong> (for data with a meaningful midpoint): <code>"coolwarm"</code>, <code>"RdBu"</code>, <code>"vlag"</code></li>
+</ul>
+
+<pre><code>sns.set_palette("Set2")
+# All subsequent plots will use the Set2 color palette
+</code></pre>
+
+<p>On the Matplotlib side, <strong>style sheets</strong> offer an alternative or complementary approach to styling. These are accessed via <code>plt.style.use()</code>:</p>
+
+<pre><code>plt.style.use("ggplot")      # Mimics the ggplot2 look from R
+plt.style.use("fivethirtyeight")  # Mimics FiveThirtyEight journalism style
+plt.style.use("seaborn-v0_8")    # Applies a Seaborn-like look via Matplotlib
+</code></pre>
+
+<p>For fine-grained control over every rendering detail, Matplotlib exposes its global settings through <strong><code>plt.rcParams</code></strong> — a dictionary of configuration parameters that control default figure size, DPI, font sizes, line widths, and hundreds of other properties:</p>
+
+<pre><code>plt.rcParams['figure.figsize'] = (10, 6)    # Default figure size in inches
+plt.rcParams['figure.dpi'] = 150            # Resolution (dots per inch)
+plt.rcParams['font.size'] = 12             # Base font size
+plt.rcParams['axes.titlesize'] = 16        # Title font size
+plt.rcParams['lines.linewidth'] = 2.0      # Default line thickness
+</code></pre>
+
+<p>Setting <code>rcParams</code> at the top of a script establishes consistent formatting for all figures generated in that session, which is a best practice for any project where visual consistency matters.</p>
+
+<p><strong>Understanding the Figure and Axes Structure</strong></p>
+
+<p>No concept is more foundational to working with Matplotlib — and by extension Seaborn — than the <strong>Figure and Axes hierarchy</strong>. Grasping this structure resolves the majority of confusion that new users experience when trying to customize plots.</p>
+
+<p>A <strong>Figure</strong> is the top-level container for everything you see when a plot is displayed. Think of it as the blank canvas or the page. The Figure holds the overall dimensions, the background, the title at the figure level, the legend if it is figure-level, and most importantly, one or more Axes objects. You can think of the Figure as the frame, and the Axes as the paintings inside the frame.</p>
+
+<p>An <strong>Axes</strong> object (note: "Axes" refers to the plot area, not the x/y axis lines specifically) is where actual data visualization happens. Each Axes has its own x-axis, y-axis, tick marks, tick labels, gridlines, title, and drawn data elements. A single Figure can contain a <strong>grid of multiple Axes</strong>, enabling side-by-side or stacked subplot panels.</p>
+
+<p>The recommended way to create a Figure and Axes together is the <code>plt.subplots()</code> function:</p>
+
+<pre><code>fig, ax = plt.subplots()
+
+# Now 'fig' is the Figure object and 'ax' is the single Axes object
+ax.plot([1, 2, 3], [4, 5, 6], color='teal', linewidth=2)
+ax.set_title("My Chart")
+ax.set_xlabel("X")
+ax.set_ylabel("Y")
+plt.show()
+</code></pre>
+
+<p>For multiple subplots, pass row and column counts to <code>plt.subplots()</code>:</p>
+
+<pre><code>fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
+
+# axes is now a NumPy array of Axes objects
+axes[0].plot([1, 2, 3], [1, 4, 9], color='steelblue')
+axes[0].set_title("Left Panel")
+
+axes[1].bar(['A', 'B', 'C'], [10, 25, 15], color='coral')
+axes[1].set_title("Right Panel")
+
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p>The <code>plt.tight_layout()</code> call is a best practice that automatically adjusts spacing between subplots to prevent labels and titles from overlapping.</p>
+
+<p>Seaborn integrates cleanly with this structure through its <strong><code>ax</code> parameter</strong>. Most Seaborn "Axes-level" functions (such as <code>sns.histplot</code>, <code>sns.scatterplot</code>, <code>sns.boxplot</code>) accept an optional <code>ax</code> argument that tells Seaborn which specific Axes to draw into. This is how you place a Seaborn chart into one panel of a multi-panel Matplotlib figure:</p>
+
+<pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset("tips")
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Seaborn plot goes into the left Axes
+sns.histplot(data=df, x="total_bill", kde=True, ax=axes[0])
+axes[0].set_title("Distribution of Total Bill")
+
+# Seaborn plot goes into the right Axes
+sns.scatterplot(data=df, x="total_bill", y="tip", hue="sex", ax=axes[1])
+axes[1].set_title("Total Bill vs Tip")
+
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p>This example demonstrates the full power of the combined approach: Seaborn handles the statistical plotting logic concisely, while Matplotlib's Figure/Axes structure organizes the layout precisely. Understanding this workflow — creating a Figure with <code>plt.subplots()</code>, passing Axes to Seaborn functions via the <code>ax</code> parameter, and then refining with Matplotlib methods — is the single most important pattern for advanced Python visualization.</p>
+
+<p>It is also worth distinguishing between Seaborn's two categories of plotting functions. <strong>Axes-level functions</strong> (like <code>sns.histplot</code>, <code>sns.scatterplot</code>) draw onto a single Axes and support the <code>ax</code> parameter. <strong>Figure-level functions</strong> (like <code>sns.displot</code>, <code>sns.relplot</code>, <code>sns.catplot</code>) create their own Figure and manage their own Axes grid internally. Figure-level functions are more powerful for creating faceted, multi-panel plots automatically, but they are less directly compatible with the <code>plt.subplots()</code> workflow. Knowing which type of function you are calling prevents a common source of confusion when combining the two libraries.</p>
+        <div class="notes"><strong>Notes</strong>An overview of the two primary Python visualization libraries, their relationship to one another, and how to set up your environment for creating advanced plots.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

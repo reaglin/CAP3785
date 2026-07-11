@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A/B Testing in Practice</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>A/B Testing in Practice</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>A/B Testing in Practice</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A/B testing is one of the most widely used experimental methods in data science, product development, and digital marketing. At its core, it is a controlled experiment that compares two versions of something — a webpage, a recommendation algorithm, an email subject line, a pricing display — to determine which version produces a better outcome on a chosen metric. The power of A/B testing lies in its ability to replace guesswork, opinion, and HiPPO (Highest Paid Person's Opinion) dynamics with objective, statistically grounded evidence. Understanding how to design, execute, and interpret A/B tests correctly is an essential skill for any practitioner working with data in a business context.</p>
+
+<p><strong>What is A/B Testing?</strong></p>
+
+<p>An A/B test divides a population of users (or observations) into two groups. The <strong>control group (A)</strong> continues to receive the existing, unchanged experience — the baseline against which all comparisons are made. The <strong>treatment group (B)</strong> receives the new variation being evaluated, whether that is a redesigned button, a changed algorithm, a different price, or any other intervention.</p>
+
+<p>Both groups are observed simultaneously over the same time period under as identical conditions as possible, with the only intended difference being the single change under investigation. By measuring a chosen outcome metric in both groups and comparing the results, the experimenter can draw inferences about whether the variation caused a meaningful change in behavior.</p>
+
+<p>A/B testing is grounded in the principles of <strong>frequentist hypothesis testing</strong>. Before running the experiment, two competing hypotheses are stated formally:</p>
+
+<ul>
+  <li><strong>Null hypothesis (H₀):</strong> There is no difference between the control and treatment groups on the metric of interest. Any observed difference is due to random sampling variation alone.</li>
+  <li><strong>Alternative hypothesis (H₁):</strong> A real, meaningful difference exists between the two groups. The variation has a genuine effect on the metric.</li>
+</ul>
+
+<p>The experiment collects data, a test statistic is computed, and a p-value is derived. If the evidence is strong enough — that is, if the observed result would be very unlikely under the null hypothesis — we reject H₀ in favor of H₁. The goal throughout is to make a <em>statistically sound, data-driven decision</em> rather than relying on intuition, aesthetics, or anecdote. This framework forces teams to define success criteria upfront, reducing the risk of post-hoc rationalization of ambiguous results.</p>
+
+<p><strong>Designing a Valid A/B Experiment</strong></p>
+
+<p>The quality of an A/B test's conclusions depends entirely on the quality of its design. A poorly designed experiment can produce misleading results even with abundant data. Several principles govern sound experimental design.</p>
+
+<p><strong>Define a single primary metric.</strong> Before any data is collected, the team must agree on one primary metric — sometimes called the <em>Overall Evaluation Criterion (OEC)</em> — that the experiment is intended to move. Common choices include conversion rate, revenue per user, click-through rate, or average session duration. Defining a single primary metric is not merely a matter of focus; it is a statistical necessity. If a team tests a change and then examines fifteen different metrics to find one that is significant, the probability of finding at least one false positive inflates dramatically (a problem known as the <em>multiple comparisons problem</em>). Secondary metrics can and should be monitored for context and guardrail purposes, but decisions should be driven by the pre-specified primary metric.</p>
+
+<p><strong>Randomize user assignment.</strong> Users must be randomly assigned to control or treatment groups. Randomization is the mechanism that ensures the two groups are statistically comparable on both observed and unobserved characteristics — age, geography, device type, user tenure, and any other factor that might influence the outcome. Without proper randomization, systematic differences between groups (selection bias) can masquerade as a treatment effect. A common implementation is a deterministic hash of the user ID modulo the number of experiment buckets, which ensures consistent group assignment across sessions while maintaining random-like distribution.</p>
+
+<p><strong>Calculate required sample size in advance.</strong> One of the most consequential — and most frequently neglected — steps in experiment design is the <em>a priori</em> sample size calculation. Running a test without a pre-determined sample size leads to underpowered experiments, which fail to detect real effects, or to inflated false positives when the experimenter stops as soon as significance is reached. The required sample size depends on three inputs:</p>
+
+<ul>
+  <li><strong>Significance level (α):</strong> The acceptable false-positive rate, typically set at 0.05, meaning a 5% chance of incorrectly rejecting a true null hypothesis.</li>
+  <li><strong>Statistical power (1 − β):</strong> The probability of correctly detecting a true effect. A standard target is 80%, meaning β = 0.20.</li>
+  <li><strong>Minimum detectable effect (MDE):</strong> The smallest difference between A and B that would be practically meaningful to the business. A larger MDE requires a smaller sample; detecting smaller effects requires larger samples.</li>
+</ul>
+
+<p>For example, if a checkout page currently converts at 5% and the team considers a 0.5 percentage point increase (to 5.5%) to be the minimum worth detecting, a sample size calculator will yield the number of users needed per group — often tens of thousands — before the test should be stopped and evaluated.</p>
+
+<p><strong>Determine test duration deliberately.</strong> Sample size is a function of traffic volume and test duration. A test should run long enough to accumulate the required sample size, but it should also span at least one full natural variation cycle — typically one or two full weeks — to account for day-of-week effects. E-commerce sites, for instance, often see significantly higher traffic and conversion rates on weekends. Running a test only on weekdays and making decisions from that data introduces a temporal confound that can bias results in either direction.</p>
+
+<p><strong>Selecting the Appropriate Statistical Test</strong></p>
+
+<p>The choice of statistical test depends on the type of outcome variable being measured and the distributional properties of the data. Using the wrong test can produce invalid p-values and misleading conclusions.</p>
+
+<p><strong>Two-sample independent t-test</strong> is appropriate when the primary metric is a <em>continuous variable</em> — such as average revenue per user, session duration, or number of pages viewed — and the data in each group can be treated as approximately normally distributed (or the sample sizes are large enough for the Central Limit Theorem to apply). The t-test compares the means of the two independent groups and assesses whether the observed difference is larger than expected under random sampling alone.</p>
+
+<p>For example, suppose group A has a mean session duration of 4.2 minutes (std dev = 1.8 min, n = 5,000) and group B has a mean of 4.6 minutes (std dev = 1.9 min, n = 5,000). The t-test computes a t-statistic from the difference in means divided by the pooled standard error, yielding a p-value that can be compared against α.</p>
+
+<p><strong>Chi-square test or z-test for proportions</strong> is used when the outcome is a <em>binary or categorical variable</em>, such as whether a user converted (yes/no), clicked (yes/no), or chose one of several discrete options. The z-test for two proportions is algebraically equivalent to the chi-square test for a 2×2 contingency table and is well-suited to conversion rate comparisons. Suppose:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>Users</th>
+      <th>Conversions</th>
+      <th>Conversion Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Control (A)</td>
+      <td>10,000</td>
+      <td>500</td>
+      <td>5.00%</td>
+    </tr>
+    <tr>
+      <td>Treatment (B)</td>
+      <td>10,000</td>
+      <td>580</td>
+      <td>5.80%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The z-test evaluates whether the 0.80 percentage point difference is statistically significant or attributable to chance. The test statistic is computed as the difference in proportions divided by the pooled standard error of the proportion.</p>
+
+<p><strong>Mann-Whitney U test</strong> is a non-parametric alternative to the t-test. It is appropriate when the data distribution is heavily skewed, contains outliers, or otherwise violates normality assumptions. Revenue data in e-commerce, for instance, is often right-skewed: most users spend nothing or very little, while a small number of high-value purchases pull the mean upward. In such cases, the Mann-Whitney U test compares the rank distributions of the two groups rather than their means, providing a more robust inference. Note that it tests for stochastic dominance (whether values from one group tend to be higher than the other) rather than a difference in means specifically.</p>
+
+<p><strong>ANOVA and post-hoc tests</strong> become necessary when the experiment involves more than two variants — an A/B/C or multi-variant test. A one-way ANOVA tests whether <em>any</em> of the group means differ significantly, but it does not identify which specific pairs differ. Post-hoc procedures such as Tukey's HSD (Honest Significant Difference) or the Bonferroni correction are then applied to perform all pairwise comparisons while controlling the <em>family-wise error rate</em> — the probability that at least one comparison yields a false positive across all tests conducted.</p>
+
+<p><strong>Interpreting P-Values and Statistical Significance</strong></p>
+
+<p>The p-value is the probability of observing a test statistic at least as extreme as the one computed, <em>assuming the null hypothesis is true</em>. It is not the probability that the null hypothesis is true, nor is it the probability that the result occurred by chance — two common and consequential misinterpretations.</p>
+
+<p>The decision rule is straightforward: if <strong>p ≤ α</strong> (most commonly α = 0.05), the result is declared statistically significant and the null hypothesis is rejected. This means the observed difference is unlikely to be explained by sampling variation alone at the chosen significance threshold.</p>
+
+<p>However, <strong>statistical significance does not equal practical significance</strong>. With a large enough sample size, even a trivially small difference will produce a statistically significant result. Imagine an experiment with 2 million users per group detecting a conversion rate improvement of 0.01 percentage points (from 5.00% to 5.01%) with p = 0.002. The result is statistically significant, but the business impact may not justify the engineering effort, operational cost, or potential user experience trade-offs of deploying the change. This is why statistical significance should never be evaluated in isolation.</p>
+
+<p><strong>Confidence intervals</strong> should always accompany p-values. A 95% confidence interval for the difference in means or proportions provides a range of plausible values for the true effect size. If the interval for a conversion rate lift is [0.6%, 1.0%], the team can see not only that the result is significant but that the true effect is likely small-to-moderate in absolute terms. If the interval spans [−0.1%, 1.7%], the result is less certain and warrants more data or caution in interpretation.</p>
+
+<p>It is equally important to understand that a <strong>non-significant result does not prove that A and B are equivalent</strong>. It means only that the data did not provide sufficient evidence to reject the null hypothesis at the chosen α level. The test may have been underpowered — the sample too small to detect the true effect — or the true effect may simply be smaller than the MDE the test was designed to detect. Declaring a non-significant test "a win for the status quo" without examining power is a logical error.</p>
+
+<p><strong>Effect Size and Practical Significance</strong></p>
+
+<p>Effect size quantifies the <em>magnitude</em> of the difference between groups, independent of sample size. While p-values are heavily influenced by sample size — growing more significant as n increases even for trivial effects — effect sizes remain on a meaningful, interpretable scale.</p>
+
+<p>For continuous outcomes, <strong>Cohen's d</strong> is the most widely used standardized effect size measure. It is computed as the difference between the two group means divided by the pooled standard deviation:</p>
+
+<pre><code>Cohen's d = (mean_B - mean_A) / pooled_std_dev</code></pre>
+
+<p>Conventional benchmarks define d ≈ 0.2 as small, d ≈ 0.5 as medium, and d ≈ 0.8 as large, though these thresholds should be interpreted in the context of the specific domain. A d of 0.1 might be economically enormous in a high-volume financial application.</p>
+
+<p>For binary outcomes such as conversion rates, effect size is often reported as <strong>absolute lift</strong> (the raw percentage point difference between treatment and control) or <strong>relative lift</strong> (the percentage increase relative to the baseline rate). For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Control</th>
+      <th>Treatment</th>
+      <th>Absolute Lift</th>
+      <th>Relative Lift</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Conversion Rate</td>
+      <td>5.0%</td>
+      <td>5.8%</td>
+      <td>+0.8 pp</td>
+      <td>+16%</td>
+    </tr>
+    <tr>
+      <td>Conversion Rate</td>
+      <td>40.0%</td>
+      <td>40.8%</td>
+      <td>+0.8 pp</td>
+      <td>+2%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both rows show the same absolute lift, but the relative lift differs substantially — illustrating why both measures are useful. A 16% relative improvement on a 5% base rate is far more commercially significant than a 2% relative improvement on a 40% base rate, even though the absolute point change is identical.</p>
+
+<p>The <strong>minimum detectable effect (MDE)</strong> is the threshold below which the business has decided a result is not worth acting on, regardless of statistical significance. Establishing the MDE before the experiment begins — ideally through a cost-benefit analysis or ROI model — prevents teams from deploying changes that are statistically detectable but commercially negligible, and ensures the experiment is powered appropriately from the start.</p>
+
+<p><strong>Common Pitfalls in A/B Testing</strong></p>
+
+<p>Even well-intentioned A/B tests can produce misleading results when certain methodological errors are made. Awareness of these pitfalls is essential for avoiding invalid conclusions.</p>
+
+<p><strong>Peeking and early stopping</strong> is perhaps the most common source of inflated false-positive rates in practice. When experimenters monitor results in real time and stop the test as soon as the p-value crosses the 0.05 threshold, they are effectively performing multiple hypothesis tests on the accumulating data — a practice known as optional stopping or sequential peeking. Each additional look at the data inflates the Type I error rate. Simulations show that peeking at an experiment at every 10% of target sample size and stopping when p &lt; 0.05 can inflate the true false-positive rate to over 25%, far above the nominal 5%. If real-time monitoring is necessary (e.g., for safety reasons), <strong>sequential testing methods</strong> such as the alpha-spending function approach (O'Brien-Fleming boundaries) or fully <strong>Bayesian adaptive designs</strong> should be used, as they account for the sequential nature of the analysis.</p>
+
+<p><strong>Network effects and contamination</strong> occur when users in different experimental groups interact with each other, violating the fundamental independence assumption of the experiment. In social platforms, for example, if treatment-group users share a new feature's output with control-group users, the control group is inadvertently exposed to the treatment's effects. This deflates the measured treatment effect, potentially causing a genuinely powerful change to appear ineffective. Mitigation strategies include cluster randomization (assigning entire social clusters or geographic regions to the same group) rather than individual user randomization.</p>
+
+<p><strong>Novelty effects</strong> represent a form of temporal confounding. Users in the treatment group may exhibit a temporary behavioral change simply because the new design or feature is unfamiliar and draws their attention — not because it is genuinely superior. This can produce a short-lived lift that diminishes over time as novelty fades. Conversely, a change that introduces friction might see initially lower engagement that improves as users adapt. Running tests for an adequate duration (at least one to two weeks, ideally longer for features where learning curves matter) and monitoring the treatment effect's stability over time helps identify whether an observed lift is durable.</p>
+
+<p><strong>Segment imbalance and confounding</strong> can arise even with random assignment if the randomization is not stratified. By chance, one group may contain a higher proportion of mobile users, users from a high-converting geography, or users in a particular demographic cohort. These imbalances can introduce confounding: the measured difference may reflect the group composition rather than the treatment effect. <strong>Stratified randomization</strong> (ensuring that key covariates such as platform, country, and user tenure are balanced across groups before assignment) and <strong>pre-experiment covariate checks</strong> (running an A/A test to verify balance) are standard defenses. Additionally, regression adjustment (including pre-experiment covariates as controls in the analysis) can reduce variance and adjust for residual imbalances.</p>
+
+<p><strong>Translating Results into Data-Driven Decisions</strong></p>
+
+<p>The ultimate purpose of an A/B test is not to produce a p-value — it is to make a better decision. Statistical output must be interpreted in a broader context before any action is taken.</p>
+
+<p><strong>Ship only when results meet all criteria.</strong> A result should be acted upon only when it satisfies three simultaneous conditions: it is statistically significant (p ≤ α), it is practically significant (the effect size exceeds the MDE), and it is strategically aligned (the change supports the product's broader goals without creating harmful trade-offs on guardrail metrics). A statistically significant improvement in click-through rate that comes at the cost of a significant increase in user-reported frustration or a decline in long-term retention should not be shipped.</p>
+
+<p><strong>Segmented analysis</strong> can reveal whether the treatment effect is heterogeneous across user subgroups. A change that produces a 10% lift among new users but has no effect on returning users may warrant a targeted rollout. Segmented analysis should be framed as exploratory and hypothesis-generating — it is not a correction to the primary analysis — but it adds rich interpretive value and can guide follow-up experiments. Care must be taken to avoid data-dredging through excessive post-hoc segmentation without appropriate corrections for multiple comparisons.</p>
+
+<p><strong>Communicate uncertainty, not certainty.</strong> A common mistake is to present A/B test results in binary terms: "the treatment won." This framing obscures the inherent uncertainty. Best practice is to communicate the <em>estimated effect size and its confidence interval</em>: "the treatment increased the conversion rate by an estimated 0.8 percentage points (95% CI: 0.4 to 1.2 pp), representing a statistically and practically significant improvement." This framing invites informed deliberation rather than false confidence, and it helps stakeholders understand that even a "winning" result carries a range of uncertainty.</p>
+
+<p><strong>Null results have value.</strong> An experiment that fails to detect a significant improvement is not a failure — it is information. It tells the team that the hypothesized mechanism does not operate as expected, that the effect of the change is smaller than the MDE, or that the change simply does not drive the metric. This eliminates the proposed change from the development queue and frees engineering resources for higher-impact initiatives. Cataloguing null results in an experiment knowledge base helps organizations avoid repeating experiments and builds institutional knowledge about what does and does not move the needle for their users. A mature experimentation culture treats null results as first-class scientific outputs worthy of documentation and sharing.</p>
+        <div class="notes"><strong>Notes</strong>Applies hypothesis testing principles to real-world A/B testing scenarios used in business and product experimentation. Students learn how to design experiments, select appropriate tests, and interpret results to support data-driven decisions.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

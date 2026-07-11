@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descriptive Statistics and Probability Distributions — CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1e2533;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #25567e 60%, #1d7a8a 100%);
+      color: #fff;
+      padding: 2.6rem 2rem 2.2rem;
+    }
+
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.9rem;
+      color: #cde8f5;
+    }
+
+    header h1 {
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      color: #cde8f5;
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2.4rem 1.5rem 3.5rem;
+    }
+
+    .section-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a7089;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde3ec;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ec;
+      border-radius: 8px;
+      padding: 1.3rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 18px rgba(30, 70, 110, 0.10);
+      border-color: #b4c8dc;
+    }
+
+    /* ── Card top row ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    /* Type badge colours */
+    .badge-type {
+      background: #e8f0fb;
+      color: #2156a5;
+    }
+    .badge-type.presentation  { background: #fef3e2; color: #9a5500; }
+    .badge-type.quiz          { background: #e9faf0; color: #1a7840; }
+    .badge-type.module-topics { background: #f2eeff; color: #5832b8; }
+    .badge-type.topic-detail  { background: #e8f0fb; color: #2156a5; }
+
+    .badge-filetype {
+      background: #f1f3f6;
+      color: #5a7089;
+      border: 1px solid #dde3ec;
+    }
+
+    /* ── Card title row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-title {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #1e2533;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .card-title a {
+      color: #1a5fa8;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(26, 95, 168, 0.3);
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-title a:hover {
+      color: #0e3f75;
+      border-bottom-color: #0e3f75;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7089;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #c8d4e0;
+      border-radius: 4px;
+      padding: 0.12rem 0.45rem;
+      background: #f7f9fc;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .source-link:hover {
+      background: #e6edf5;
+      color: #1a3a5c;
+      border-color: #9ab5cc;
+    }
+
+    /* ── Card description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5a6e;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.4rem 1rem;
+      font-size: 0.78rem;
+      color: #8a9db5;
+      border-top: 1px solid #dde3ec;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 2rem 1.2rem 1.8rem; }
+      main { padding: 1.6rem 1rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
+      <h1>Descriptive Statistics and Probability Distributions</h1>
+      <p>
+        This module introduces the foundational statistical concepts used in data analysis —
+        from summarising datasets with measures of central tendency and spread, to understanding
+        distribution shape and applying key probability distributions including the Normal,
+        Binomial, and Poisson. Use the resources below to explore readings, review lecture slides,
+        and test your understanding.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-heading">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+      <!-- 1. Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type module-topics">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">A structured outline of the module's learning topics spanning measures of central tendency, spread and variability, skewness, and probability distributions, used by instructors to organize content and by learners to navigate what will be covered.</p>
+      </div>
+
+      <!-- 2. Presentation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type presentation">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="../presentations/Descriptive_Statistics_and_generated.pptx">Descriptive_Statistics_and_generated.pptx</a>
+          </span>
+        </div>
+        <p class="card-desc">A slide deck introducing descriptive statistics and probability distributions — covering mean, median, spread, skewness, and related Python implementation — used by instructors to deliver lectures and by learners to review core concepts and code examples.</p>
+      </div>
+
+      <!-- 3. Measures of Central Tendency -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type topic-detail">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Descriptive_Statistics_and_interactive_topics_t1.html">Measures of Central Tendency</a>
+          </span>
+        </div>
+        <p class="card-desc">A reading that introduces mean, median, and mode, explaining how each measure summarises the centre of a dataset so learners can choose the appropriate statistic when beginning an exploratory data analysis.</p>
+      </div>
+
+      <!-- 4. Measures of Spread and Variability -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type topic-detail">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Descriptive_Statistics_and_interactive_topics_t2.html">Measures of Spread and Variability</a>
+          </span>
+        </div>
+        <p class="card-desc">A reading that covers range, variance, standard deviation, and interquartile range, helping learners understand how to quantify how spread out or dispersed values in a dataset are beyond just its centre.</p>
+      </div>
+
+      <!-- 5. Skewness and Distribution Shape -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type topic-detail">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Descriptive_Statistics_and_interactive_topics_t3.html">Skewness and Distribution Shape</a>
+          </span>
+        </div>
+        <p class="card-desc">A reading that explains distribution shape and skewness — including positive, negative, and symmetric skew — enabling learners to recognise how asymmetry affects the interpretation of summary statistics.</p>
+      </div>
+
+      <!-- 6. Introduction to Probability Distributions -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type topic-detail">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Descriptive_Statistics_and_interactive_topics_t4.html">Introduction to Probability Distributions</a>
+          </span>
+        </div>
+        <p class="card-desc">A reading that introduces the concept of probability distributions, distinguishing between discrete and continuous types and explaining how they model uncertainty and the likelihood of outcomes, serving as a conceptual foundation before more specific distributions are studied.</p>
+      </div>
+
+      <!-- 7. The Normal Distribution -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type topic-detail">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Descriptive_Statistics_and_interactive_topics_t5.html">The Normal Distribution</a>
+          </span>
+        </div>
+        <p class="card-desc">A reading that covers the properties, shape, and real-world applications of the normal distribution, including its bell-curve symmetry and the role of mean and standard deviation, so learners can apply it to naturally occurring data.</p>
+      </div>
+
+      <!-- 8. The Binomial Distribution -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type topic-detail">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Descriptive_Statistics_and_interactive_topics_t6.html">The Binomial Distribution</a>
+          </span>
+        </div>
+        <p class="card-desc">A reading that explains the binomial distribution — its assumptions, formula, and use cases such as binary-outcome experiments — enabling learners to calculate the probability of a given number of successes across a fixed number of trials.</p>
+      </div>
+
+      <!-- 9. The Poisson Distribution -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type topic-detail">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Descriptive_Statistics_and_interactive_topics_t7.html">The Poisson Distribution</a>
+          </span>
+        </div>
+        <p class="card-desc">A reading that describes the Poisson distribution, including its assumptions and applications for modelling the count of events occurring within a fixed interval of time or space, so learners can apply it to real-world rate-based scenarios.</p>
+      </div>
+
+      <!-- 10. Quiz Question Bank -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type quiz">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="source-link" href="../quiz_questions.json">source file</a>
+        </div>
+        <p class="card-desc">A 20-question quiz bank assessing learners' ability to calculate and interpret descriptive statistics (mean, median, outlier sensitivity, distribution shape) and apply relevant NumPy functions in Python, used by instructors to build graded assessments or practice quizzes.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; Descriptive Statistics and Probability Distributions
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

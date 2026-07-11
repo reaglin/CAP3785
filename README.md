@@ -4,10 +4,10 @@ This course gives a broad overview of the various aspects of data analytics and 
 
 ## Modules
 
-1. Introduction to Data Analytics and the Analytics Lifecycle
-2. Ethics, Data Types, and Data Sources in Analytics
-3. Data Quality Assessment and Data Cleaning Fundamentals
-4. Database Basics and Relational Data Concepts
+1. 1 - Introduction to Data Analytics and the Analytics Lifecycle
+2. 2 - Ethics, Data Types, and Data Sources in Analytics
+3. 3 - Data Quality Assessment and Data Cleaning Fundamentals
+4. 4 - Database Basics and Relational Data Concepts
 5. Advanced Excel Functions and Statistical Tools
 6. Pivot Tables, Dashboards, and Power Query in Excel
 7. Data Visualization Principles and Excel Charting

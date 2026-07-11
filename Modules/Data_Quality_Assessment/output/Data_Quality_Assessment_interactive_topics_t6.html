@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Systematic Data Cleaning Strategies</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Systematic Data Cleaning Strategies</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Systematic Data Cleaning Strategies</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data cleaning is rarely a single action — it is a disciplined, multi-stage process that transforms raw, messy data into a reliable foundation for analysis. Without a systematic approach, cleaning decisions become ad hoc, undocumented, and irreproducible. A structured strategy ensures that every issue is identified before any modification is made, every transformation is intentional, and every decision can be audited or revisited later. The sections below walk through the complete lifecycle of data cleaning, from the very first look at a new dataset through final validation and documentation.</p>
+
+<p><strong>Initial Dataset Assessment</strong></p>
+
+<p>The first step before touching a single value is to understand what you actually have. Loading a dataset and immediately beginning to fix things is a common mistake that leads to missed problems and contradictory transformations. A proper assessment creates a clear inventory of issues that guides everything that follows.</p>
+
+<p>Begin by reviewing the dataset's <strong>shape, column names, and data types</strong>. Shape tells you whether the number of rows and columns matches your expectations — an import that truncated rows or merged columns silently is a serious problem worth catching early. Column names should be checked for consistency (no trailing spaces, no ambiguous abbreviations, no duplicate names). Data types are equally critical: a column that should hold integers but was inferred as <code>object</code> (string) in pandas, for example, is a red flag that numeric values may have been corrupted by stray characters.</p>
+
+<pre><code>import pandas as pd
+
+df = pd.read_csv("raw_sales_data.csv")
+
+# Shape: (rows, columns)
+print(df.shape)
+
+# Column names and dtypes
+print(df.dtypes)
+</code></pre>
+
+<p>Next, <strong>generate descriptive statistics</strong> for every column. For numeric columns, examine the minimum, maximum, mean, median, and standard deviation. An age column whose maximum value is 999, or a price column with negative values, signals a data quality problem immediately. For categorical columns, inspect the number of unique values and their frequency distribution — a gender column with ten distinct values when only two or three are expected reveals encoding inconsistencies.</p>
+
+<pre><code># Numeric summary
+print(df.describe())
+
+# Categorical summary
+print(df.describe(include="object"))
+
+# Unique value counts for a specific column
+print(df["country"].value_counts())
+</code></pre>
+
+<p>Finally, and crucially, <strong>document every observed issue in a cleaning log before making any modifications</strong>. This log can be as simple as a markdown file or a spreadsheet, but it must be written before the first fix is applied. Recording issues after the fact is unreliable and defeats the purpose of documentation. The log entry for this phase might note, for example: "Column <code>unit_price</code> has dtype <code>object</code> due to currency symbols; 14 values in <code>age</code> exceed 120; column <code>Country</code> contains mixed-case entries."</p>
+
+<p><strong>Identifying and Handling Missing Values</strong></p>
+
+<p>Missing data is one of the most pervasive problems in real-world datasets. The appropriate response depends on <em>how much</em> data is missing, <em>where</em> it is missing, and <em>why</em> it is missing. Treating all missing values identically is a mistake.</p>
+
+<p>Start by <strong>quantifying missing values per column</strong> as both a raw count and a percentage of total records. A column missing 0.1% of its values is very different from one missing 60%. The percentage framing is more meaningful because the impact of missingness scales with the size of the dataset.</p>
+
+<pre><code>missing_count = df.isnull().sum()
+missing_pct   = (df.isnull().sum() / len(df)) * 100
+
+missing_summary = pd.DataFrame({
+    "missing_count": missing_count,
+    "missing_pct":   missing_pct
+}).sort_values("missing_pct", ascending=False)
+
+print(missing_summary)
+</code></pre>
+
+<p>Once you know the extent of missingness, <strong>choose a handling strategy</strong> appropriate to the situation. The main options are:</p>
+
+<ul>
+  <li><strong>Deletion (listwise or column-wise):</strong> If a column is missing more than 50–70% of its values and is not critical, dropping the column is often justified. Dropping rows is appropriate when the missing values are few and appear to be randomly distributed (Missing Completely At Random, or MCAR), so that deletion does not introduce bias.</li>
+  <li><strong>Mean or median imputation:</strong> Replacing missing numeric values with the column mean works when the distribution is approximately symmetric. The median is preferred when the distribution is skewed, because the mean is pulled by extreme values. For categorical columns, the mode (most frequent value) is the analogous simple imputation.</li>
+  <li><strong>Model-based imputation:</strong> Techniques such as k-Nearest Neighbors imputation or iterative imputation (which trains a regression model to predict missing values from other columns) preserve more of the data's structure and are appropriate when missingness is not random and the dataset is large enough to support a model.</li>
+</ul>
+
+<pre><code>from sklearn.impute import SimpleImputer
+import numpy as np
+
+# Median imputation for a numeric column
+imputer = SimpleImputer(strategy="median")
+df["annual_income"] = imputer.fit_transform(df[["annual_income"]])
+
+# Mode imputation for a categorical column
+mode_val = df["region"].mode()[0]
+df["region"].fillna(mode_val, inplace=True)
+</code></pre>
+
+<p><strong>Apply the chosen strategy consistently</strong> — for instance, if you impute the median for <code>annual_income</code> in the training split of a dataset, you must apply the <em>same median</em> (computed on the training data only) when processing the test split. Every imputation decision must be recorded in the cleaning log: which column was affected, what strategy was used, and why.</p>
+
+<p><strong>Detecting and Removing Duplicate Records</strong></p>
+
+<p>Duplicate records inflate apparent sample sizes, distort aggregations (like totals and averages), and can introduce data leakage in machine learning contexts. Detecting them requires checking at two levels.</p>
+
+<p><strong>Exact duplicate rows</strong> — rows where every column has identical values — are the simplest case. Pandas provides a direct method for this:</p>
+
+<pre><code># Count and view exact duplicates
+n_exact_dupes = df.duplicated().sum()
+print(f"Exact duplicate rows: {n_exact_dupes}")
+
+# View the duplicate rows themselves
+print(df[df.duplicated(keep=False)])
+</code></pre>
+
+<p>More subtle are <strong>duplicates based on key identifier columns</strong>. A customer dataset might have two rows for the same customer ID with slightly different email addresses or phone numbers — these are not exact duplicates but represent the same real-world entity. Checking for uniqueness on the business key is therefore just as important as checking for row-level duplicates.</p>
+
+<pre><code># Duplicates based on a business key
+key_dupes = df.duplicated(subset=["customer_id"]).sum()
+print(f"Duplicate customer IDs: {key_dupes}")
+</code></pre>
+
+<p>Before removing duplicates, <strong>investigate their source</strong>. Duplicates in a transactional log might represent legitimate repeated events (a customer making two purchases on the same day for the same amount). Duplicates in a customer master table almost certainly represent a data entry error or a system merge failure. The context determines whether you drop, merge, or flag them.</p>
+
+<p>When dropping is appropriate, <strong>apply a defined rule</strong> — such as keeping the most recently updated record, the record with the fewest null values, or the record from the most authoritative source system. Document how many rows were dropped and why.</p>
+
+<pre><code># Keep the most recent record per customer_id
+df = df.sort_values("last_updated", ascending=False)
+df = df.drop_duplicates(subset=["customer_id"], keep="first")
+print(f"Rows after deduplication: {len(df)}")
+</code></pre>
+
+<p><strong>Correcting Inconsistencies and Standardizing Formats</strong></p>
+
+<p>Even when data is not missing or duplicated, it can be inconsistent in ways that silently break grouping, merging, and analysis. Standardization addresses these problems before they propagate downstream.</p>
+
+<p><strong>Audit categorical columns for label variations.</strong> A country column containing "USA", "U.S.A.", "us", "United States", and "united states" represents a single category fragmented into five. A product category column with "Electronics", "electronics ", and "ELECTRONICS" will produce three separate groups in any aggregation. These variations arise from data entry by multiple people, system migrations, or merged data sources.</p>
+
+<pre><code># Reveal inconsistencies
+print(df["country"].value_counts())
+
+# Normalize: lowercase and strip whitespace
+df["country"] = df["country"].str.lower().str.strip()
+
+# Replace known variants
+country_map = {
+    "u.s.a.": "usa",
+    "united states": "usa",
+    "us": "usa"
+}
+df["country"] = df["country"].replace(country_map)
+</code></pre>
+
+<p><strong>Standardize date, currency, and unit fields.</strong> Dates stored as strings in multiple formats ("2024-01-15", "15/01/2024", "Jan 15, 2024") cannot be compared or sorted correctly until they are parsed into a single consistent representation. Currency fields that include the symbol ("$1,200.50") must have symbols and commas stripped before conversion to a numeric type. Unit fields (distances in miles and kilometers mixed together, weights in pounds and kilograms) require explicit conversion to a canonical unit.</p>
+
+<pre><code># Standardize dates
+df["order_date"] = pd.to_datetime(df["order_date"], dayfirst=False, errors="coerce")
+
+# Strip currency symbols and convert
+df["unit_price"] = (
+    df["unit_price"]
+    .str.replace(r"[$,]", "", regex=True)
+    .astype(float)
+)
+</code></pre>
+
+<p><strong>Apply string normalization before any grouping or merging.</strong> If you plan to merge two dataframes on a <code>product_name</code> column, normalize the text in both frames identically first — otherwise a join will silently miss matching rows due to case or whitespace differences.</p>
+
+<p><strong>Detecting and Treating Outliers</strong></p>
+
+<p>An outlier is a value that deviates so substantially from the rest of the distribution that it warrants special attention. Outliers can represent real extreme events, measurement errors, or data entry mistakes. The appropriate treatment depends entirely on which of these it is.</p>
+
+<p><strong>Use statistical methods to flag potential outliers.</strong> Two standard approaches are the z-score and the interquartile range (IQR) method.</p>
+
+<ul>
+  <li><strong>Z-score:</strong> A z-score measures how many standard deviations a value lies from the mean. Values with an absolute z-score greater than 3 are commonly flagged as potential outliers. This method assumes an approximately normal distribution and is sensitive to the very extreme values it is trying to detect (because they inflate the mean and standard deviation).</li>
+  <li><strong>IQR method:</strong> The IQR is the range between the 25th and 75th percentiles (Q1 and Q3). Values below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR are flagged. This method is robust to extreme values because it uses percentiles rather than the mean, making it preferable for skewed distributions.</li>
+</ul>
+
+<pre><code>import numpy as np
+
+# Z-score method
+from scipy import stats
+z_scores = np.abs(stats.zscore(df["unit_price"].dropna()))
+outlier_mask_z = z_scores > 3
+
+# IQR method
+Q1  = df["unit_price"].quantile(0.25)
+Q3  = df["unit_price"].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+outlier_mask_iqr = (df["unit_price"] < lower_bound) | (df["unit_price"] > upper_bound)
+print(f"IQR outliers: {outlier_mask_iqr.sum()}")
+</code></pre>
+
+<p><strong>Investigate before treating.</strong> A flagged value of $50,000 in a unit price column for a dataset of consumer electronics might be a genuine luxury item or it might be a data entry error where someone typed an extra zero. Look at the surrounding context — other columns in the same row, the source system, domain knowledge — before deciding. Mechanically removing outliers without investigation can eliminate genuinely important extreme events and introduce bias.</p>
+
+<p>Treatment options include <strong>capping (Winsorization)</strong>, which replaces values beyond the threshold with the threshold value itself; <strong>log transformation</strong>, which compresses extreme values for heavily right-skewed distributions; and <strong>removal</strong>, appropriate only when the value is clearly a recording error. Whatever threshold and treatment you choose, log the details: the method used, the bounds applied, and the number of records affected.</p>
+
+<pre><code># Winsorize: cap values at the IQR bounds
+df["unit_price_clean"] = df["unit_price"].clip(lower=lower_bound, upper=upper_bound)
+</code></pre>
+
+<p><strong>Establishing a Repeatable Cleaning Workflow</strong></p>
+
+<p>A cleaning process performed once manually on a file is fragile, opaque, and not reproducible. When new data arrives, when a mistake is discovered, or when a colleague needs to replicate your work, a manual process fails. A repeatable workflow solves all of these problems.</p>
+
+<p><strong>Organize cleaning steps in a logical sequential order</strong> so that each step receives clean input from the previous one. A sensible general order is: (1) assess and log issues, (2) standardize data types and formats, (3) handle missing values, (4) remove duplicates, (5) correct categorical inconsistencies, (6) treat outliers, (7) validate. This order matters — for instance, removing duplicates before standardizing formats may miss duplicates that only become apparent once labels are normalized. Imputing missing values before removing duplicates may impute values into rows that will subsequently be dropped.</p>
+
+<p><strong>Script every transformation.</strong> Each cleaning step must be expressed as executable code, not a manual edit to the file. If you open a CSV in a spreadsheet and manually delete a row, that action is invisible to anyone reviewing the project later. A Python or R script that reads the raw file, applies every transformation explicitly, and writes the cleaned output is fully auditable. The raw data file itself must remain untouched — treat it as an immutable source of truth.</p>
+
+<pre><code># Example: a cleaning script skeleton (clean_data.py)
+
+import pandas as pd
+
+RAW_PATH     = "data/raw/sales_data.csv"
+CLEANED_PATH = "data/cleaned/sales_data_clean.csv"
+
+def load_data(path):
+    return pd.read_csv(path)
+
+def standardize_formats(df):
+    df["order_date"] = pd.to_datetime(df["order_date"], errors="coerce")
+    df["country"]    = df["country"].str.lower().str.strip()
+    return df
+
+def handle_missing(df):
+    df["annual_income"].fillna(df["annual_income"].median(), inplace=True)
+    return df
+
+def remove_duplicates(df):
+    before = len(df)
+    df = df.drop_duplicates(subset=["customer_id"], keep="first")
+    print(f"Removed {before - len(df)} duplicate rows.")
+    return df
+
+def main():
+    df = load_data(RAW_PATH)
+    df = standardize_formats(df)
+    df = handle_missing(df)
+    df = remove_duplicates(df)
+    df.to_csv(CLEANED_PATH, index=False)
+    print("Cleaning complete.")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<p><strong>Version-control the cleaning script and dataset metadata.</strong> Store the script in a Git repository alongside a metadata file (README or data dictionary) that describes the raw data's provenance, schema, and known issues. Every meaningful change to the script should be committed with a descriptive message explaining what was changed and why. This makes it possible to roll back to a previous version of the cleaning logic, compare behavior across versions, and understand the history of every decision.</p>
+
+<p><strong>Validating Cleaned Data and Documentation Best Practices</strong></p>
+
+<p>Once cleaning is complete, validation confirms that the work achieved its goals and did not introduce new problems. Validation also provides a formal record that the cleaned dataset meets defined quality standards.</p>
+
+<p><strong>Re-run the initial quality checks</strong> on the cleaned dataset. The same code used during the assessment phase — shape inspection, descriptive statistics, missing value counts, unique value distributions — should now show that every documented issue has been resolved. If the initial assessment found 340 missing values in <code>annual_income</code>, the post-cleaning check should show zero. If it found 12 distinct spellings of "United States," the post-cleaning check should show one. Automating this comparison (before vs. after) makes the validation systematic rather than dependent on memory.</p>
+
+<p><strong>Define and test explicit data quality rules.</strong> Beyond simply re-checking for known issues, a mature cleaning workflow defines formal constraints that the cleaned data must satisfy:</p>
+
+<ul>
+  <li><strong>Referential integrity:</strong> Every value in a foreign-key column must exist in the referenced table (e.g., every <code>product_id</code> in the sales table must exist in the products table).</li>
+  <li><strong>Value range constraints:</strong> Age must be between 0 and 120; price must be non-negative; date of delivery must not precede date of order.</li>
+  <li><strong>Required field completeness:</strong> Certain columns (like a primary key or a mandatory demographic field) must have zero missing values.</li>
+  <li><strong>Uniqueness constraints:</strong> The primary key column must contain only unique values after deduplication.</li>
+</ul>
+
+<pre><code># Example: automated validation assertions
+assert df["customer_id"].is_unique, "Duplicate customer IDs found after cleaning."
+assert df["age"].between(0, 120).all(), "Age values out of valid range."
+assert df["order_date"].notnull().all(), "Missing order dates remain."
+assert df["unit_price"].ge(0).all(), "Negative prices found."
+print("All validation checks passed.")
+</code></pre>
+
+<p><strong>Maintain a thorough cleaning log and data dictionary.</strong> The cleaning log should be a running record of every transformation applied, structured so that a reader can understand exactly what the dataset looked like before cleaning and what it looks like after. A useful log entry captures: the issue identified, the column(s) affected, the transformation applied, the rationale, and the before-and-after record counts or value distributions. The data dictionary complements the log by documenting the final schema — each column's name, data type, description, valid value range, and source.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Column(s) Affected</th>
+      <th>Issue Identified</th>
+      <th>Action Taken</th>
+      <th>Records Before</th>
+      <th>Records After</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>order_date</td>
+      <td>Mixed date formats (ISO and DD/MM/YYYY)</td>
+      <td>Parsed all values to ISO 8601 using pd.to_datetime</td>
+      <td>10,000</td>
+      <td>9,988 (12 coerced to NaT)</td>
+      <td>Consistent format required for time-series analysis</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>annual_income</td>
+      <td>340 missing values (3.4%)</td>
+      <td>Median imputation (median = $48,200)</td>
+      <td>10,000</td>
+      <td>10,000</td>
+      <td>Missing appears random; median preferred due to right skew</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>customer_id</td>
+      <td>87 duplicate customer IDs</td>
+      <td>Kept most recent record per ID (sorted by last_updated)</td>
+      <td>10,000</td>
+      <td>9,913</td>
+      <td>Each customer_id should map to one unique customer</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>country</td>
+      <td>12 spelling variants for USA</td>
+      <td>Lowercased, stripped whitespace, applied replacement map</td>
+      <td>9,913</td>
+      <td>9,913</td>
+      <td>Required for correct group-by aggregation by country</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>unit_price</td>
+      <td>23 values above IQR upper bound ($4,850)</td>
+      <td>Winsorized at upper bound; lower bound $0</td>
+      <td>9,913</td>
+      <td>9,913</td>
+      <td>Extreme values judged as recording errors after investigation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Together, the cleaning log, the validation checks, and the version-controlled script form a complete chain of evidence connecting the raw data to the cleaned dataset. Any analyst, auditor, or future team member can trace exactly what happened to every row and column, verify that the decisions were sound, and reproduce the cleaned dataset from scratch by running the script against the original raw file. This level of transparency is what separates professional data cleaning from ad hoc file editing.</p>
+        <div class="notes"><strong>Notes</strong>Covers all seven subtopic clusters in depth: initial assessment, missing values, duplicates, inconsistencies/formatting, outliers, repeatable workflow, and validation/documentation. Includes worked Python code examples throughout and a cleaning log rendered as an HTML table. No headings used per instructions — topic progression is guided by bold lead phrases within paragraph flow.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,9 +1,9 @@
 {
   "Id": "53f52098-07b3-4640-bfc6-64459cf700a3",
-  "Name": "Ethics, Data Types, and Data Sources in Analytics",
+  "Name": "2 - Ethics, Data Types, and Data Sources in Analytics",
   "Description": "This lesson covers ethical considerations in data analytics including privacy, bias, and responsible use, alongside an examination of structured and unstructured data types. Students will survey common data sources and collection methods including web APIs, public repositories, and databases.",
   "CreatedBy": "Ron Eaglin",
   "CreatedDate": "2026-07-03T11:17:00.634541-04:00",
-  "LastModifiedDate": "2026-07-03T11:17:00.6355728-04:00",
+  "LastModifiedDate": "2026-07-05T20:26:49.5658506-04:00",
   "Actions": []
 }

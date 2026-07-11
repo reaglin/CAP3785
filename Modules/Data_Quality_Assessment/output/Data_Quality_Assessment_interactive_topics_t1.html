@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Data Quality</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Data Quality</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Data Quality</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data is the foundation of every analysis, every model, and every data-driven decision. Yet raw data collected from the real world is rarely perfect. It can contain errors introduced during entry, gaps left by system failures, contradictions arising from merged sources, or values that simply do not reflect reality. <strong>Data quality</strong> is the discipline concerned with ensuring that data is fit for its intended purpose — that it is trustworthy enough to support sound conclusions and reliable enough to act upon with confidence. Understanding data quality is therefore not just a technical concern for engineers; it is a fundamental prerequisite for anyone who works with data in any capacity.</p>
+
+<p>At its core, high-quality data <em>accurately represents the real-world conditions or events it is meant to capture</em>. If a sales database records a transaction, that record should faithfully reflect the actual transaction that took place — the correct amount, the correct customer, the correct date. If a sensor network collects temperature readings, those readings should correspond to genuine environmental conditions, not artifacts of faulty hardware or transmission errors. When data faithfully mirrors reality, the insights derived from it are trustworthy. When it does not, every layer of analysis built on top of it inherits and often amplifies those distortions.</p>
+
+<p>Crucially, data quality is <em>not a single property</em> but rather a combination of multiple measurable dimensions. A dataset can be perfectly accurate in the values it records yet still be deeply problematic if it is riddled with missing entries, or if the same entity is represented in contradictory ways across different tables. Each dimension of quality captures a distinct way in which data can fail to serve its purpose. This multi-dimensional nature means that improving data quality requires a systematic, structured approach rather than a single corrective action.</p>
+
+<p>The consequences of poor data quality are far-reaching. Flawed data produces misleading insights that can guide organizations toward poor business decisions, misallocated budgets, or erroneous scientific conclusions. Predictive models trained on corrupted data learn spurious patterns and perform unreliably in production. Reports built on inconsistent records lose the trust of stakeholders. In regulated industries such as healthcare or finance, low-quality data can even create legal and compliance risks. The old computing adage — <em>garbage in, garbage out</em> — captures this reality precisely: no amount of sophisticated analysis can rescue conclusions drawn from fundamentally flawed inputs.</p>
+
+<p><strong>Why Data Quality Matters in Analysis</strong></p>
+
+<p>One of the most important lessons in data analysis is that low-quality data does not merely introduce minor noise — it can fundamentally distort results in ways that are not always obvious. Consider a retail company analyzing average order value to set pricing strategy. If 5% of order records have incorrect amounts due to a system bug, the computed average will be biased. Depending on the direction of the errors, the company might believe customers are spending more or less than they actually are, leading to pricing decisions that fail in the market.</p>
+
+<p>A second critical insight is that <em>data quality issues discovered late in an analysis pipeline are far more costly to fix than those caught early</em>. Imagine a data science team that spends three months building and tuning a machine learning model, only to discover during deployment review that the training dataset contained a systematic labeling error. Every experiment, every hyperparameter search, every stakeholder presentation built on those results must be revisited. By contrast, if the labeling error had been caught during an initial data audit — before any modeling began — the cost of remediation would have been limited to fixing the labels and rerunning a validation check. This is why data quality assessment should be among the very first steps in any analytical project, not an afterthought.</p>
+
+<p>Establishing data quality standards at the outset of a project also serves a protective function for all downstream work. When a team agrees in advance on what constitutes acceptable quality for each field or dataset — what percentage of missing values is tolerable, what the valid range for a numeric variable is, what the canonical spelling of categorical values should be — every subsequent step of the pipeline can be validated against those standards. This creates a reproducible, auditable process rather than a series of ad hoc judgment calls made under deadline pressure.</p>
+
+<p><strong>Accuracy as a Dimension of Data Quality</strong></p>
+
+<p><strong>Accuracy</strong> refers to the degree to which data values correctly reflect the true values of the entities or events they represent. An accurate record of a patient's blood pressure reading is one that matches what the instrument actually measured in the clinic. An accurate product price in a database is one that matches the price actually charged to customers.</p>
+
+<p>Inaccurate data arises from many sources. <em>Human error</em> during manual data entry is one of the most common — a clerk might transpose digits, misspell a name, or select the wrong option from a dropdown menu. <em>System errors</em> can corrupt data during transmission, transformation, or storage — a character encoding mismatch might turn a decimal separator into a garbled character, silently changing a numeric value. <em>Data corruption</em> can occur when storage media fails or when software bugs cause values to be overwritten incorrectly.</p>
+
+<p>Assessing accuracy typically involves comparing dataset values against a <em>trusted reference source</em> or ground truth. For example, a company might validate customer addresses in its CRM system against an authoritative postal address database, or verify financial figures against audited statements. The proportion of records that match the reference source provides a quantitative accuracy score. Consider a simple illustration:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Record ID</th>
+      <th>Stored Value</th>
+      <th>Reference Value</th>
+      <th>Accurate?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1001</td>
+      <td>$142.50</td>
+      <td>$142.50</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>1002</td>
+      <td>$1,425.00</td>
+      <td>$142.50</td>
+      <td>No — likely a decimal error</td>
+    </tr>
+    <tr>
+      <td>1003</td>
+      <td>$142.50</td>
+      <td>$142.50</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>1004</td>
+      <td>$14.25</td>
+      <td>$142.50</td>
+      <td>No — likely a missing digit</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this example, 50% of the records contain inaccurate values. Even if the actual inaccuracy rate in a real dataset were only 2% or 3%, the impact on summary statistics — means, totals, ratios — can be substantial. A single order recorded as $1,425 instead of $142.50 inflates the dataset's average by a disproportionate amount, especially in smaller datasets. This is why accuracy problems, even when rare, warrant serious attention before analysis begins.</p>
+
+<p><strong>Completeness as a Dimension of Data Quality</strong></p>
+
+<p><strong>Completeness</strong> measures the extent to which all required data values are present. A dataset is complete with respect to a given field when every record that should contain a value for that field actually does. Incompleteness — the presence of missing or null values — is one of the most common data quality problems encountered in practice.</p>
+
+<p>Missing data arises for a variety of reasons. <em>Optional form fields</em> in web applications or surveys allow users to skip questions, leaving gaps in the resulting dataset. <em>System failures</em> during data capture — a sensor going offline, a network interruption during a transaction — can result in records that are partially written. <em>Data migration errors</em> occur when moving data between systems and some records fail to transfer correctly, leaving fields empty in the destination system.</p>
+
+<p>The impact of missing data depends critically on <em>which fields are absent and how central they are to the analysis</em>. Missing values in a low-priority metadata field may be entirely inconsequential, while missing values in the primary outcome variable of a study can render the entire analysis invalid. For instance, in a clinical trial dataset, missing values for the primary efficacy endpoint cannot simply be ignored — they must be handled with statistically principled methods such as multiple imputation, or the trial results will be biased.</p>
+
+<p>Completeness is typically expressed as a percentage: the proportion of non-null values across required fields. A simple formula is:</p>
+
+<pre><code>Completeness (%) = (Number of non-null values / Total expected values) × 100</code></pre>
+
+<p>For example, if a dataset of 1,000 customer records has the following null counts per field:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Non-Null Count</th>
+      <th>Completeness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Customer ID</td>
+      <td>1000</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td>Email Address</td>
+      <td>873</td>
+      <td>87.3%</td>
+    </tr>
+    <tr>
+      <td>Date of Birth</td>
+      <td>610</td>
+      <td>61.0%</td>
+    </tr>
+    <tr>
+      <td>Purchase Amount</td>
+      <td>998</td>
+      <td>99.8%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Whether a completeness rate of 87.3% for email addresses is acceptable depends on the analysis. If the goal is simply to send a promotional email campaign, it means 127 customers cannot be reached. If the goal is to build a model predicting customer lifetime value based on communication patterns, those missing emails may introduce significant bias.</p>
+
+<p><strong>Consistency as a Dimension of Data Quality</strong></p>
+
+<p><strong>Consistency</strong> refers to the uniformity and coherence of data values across records, fields, and datasets. Consistent data represents the same entities or concepts in the same way throughout, enabling reliable comparisons and aggregations.</p>
+
+<p>Inconsistencies can occur <em>within a single dataset</em> — for example, a column for country might contain "USA," "United States," "US," and "U.S.A." all referring to the same country. If an analyst groups records by country without resolving these variants, the United States will appear as four separate groups, each with a fraction of the actual count. Inconsistencies also arise <em>across multiple integrated datasets</em> — a customer database from one system might use a numeric ID scheme for product categories while a transaction log from another system uses text labels for the same categories. Joining these datasets without resolving the mismatch produces unreliable results.</p>
+
+<p>Common consistency problems and their resolutions include:</p>
+
+<ul>
+  <li><strong>Format inconsistencies:</strong> Dates stored as "2024-01-15," "15/01/2024," and "January 15, 2024" in the same column. Resolution: standardize to a single format (e.g., ISO 8601: YYYY-MM-DD).</li>
+  <li><strong>Unit inconsistencies:</strong> A weight column containing values in both kilograms and pounds without a flag to distinguish them. Resolution: convert all values to a single unit and document the conversion.</li>
+  <li><strong>Categorical value inconsistencies:</strong> A status field containing "Active," "active," "ACTIVE," and "Activ" (a typo). Resolution: normalize all values to a canonical form using mapping tables or fuzzy matching.</li>
+  <li><strong>Logical inconsistencies:</strong> A record where the <code>order_end_date</code> is earlier than the <code>order_start_date</code>, or where a customer's age is listed as 15 but their marital status is listed as "Divorced." These violate real-world constraints and can invalidate the entire record for analysis.</li>
+</ul>
+
+<p>Logical inconsistencies deserve special emphasis because they can be subtler than format problems yet more damaging. A date where an end timestamp precedes a start timestamp means the duration of the event is negative — a nonsensical value that will corrupt any duration-based analysis. Detecting these requires defining and programmatically enforcing business rules, such as: <em>end_date must be greater than or equal to start_date for all records</em>.</p>
+
+<pre><code># Example: detecting logical date inconsistencies in Python
+import pandas as pd
+
+df = pd.read_csv("orders.csv", parse_dates=["start_date", "end_date"])
+invalid_dates = df[df["end_date"] < df["start_date"]]
+print(f"Records with end_date before start_date: {len(invalid_dates)}")</code></pre>
+
+<p><strong>Reliability as a Dimension of Data Quality</strong></p>
+
+<p><strong>Reliability</strong> concerns the trustworthiness and stability of the data source and collection process itself. Even if the data values in a snapshot look accurate, complete, and consistent, the data may still be unreliable if the process that generated it is unstable, poorly documented, or prone to producing different results under similar conditions.</p>
+
+<p>Reliable data comes from <em>stable, well-documented, and repeatable</em> collection processes. A well-maintained IoT sensor that is regularly calibrated, a carefully administered survey with standardized question wording, or a transactional database with robust write-ahead logging — these are examples of reliable data sources because the process of data generation is controlled and consistent over time.</p>
+
+<p><em>Unreliable data sources</em> might produce different results each time they are queried, making trend analysis difficult or impossible. For example, a data source that pulls "current inventory" from a system with real-time updates will return different values depending on the exact moment of the query. Without knowing whether observed changes reflect genuine inventory movement or simply different query times, it becomes impossible to construct a meaningful time series. Similarly, a manually maintained spreadsheet updated by rotating team members with no standardized entry protocol is an inherently unreliable source — the data it contains reflects the habits and interpretations of many individuals rather than a consistent methodology.</p>
+
+<p>Assessing reliability involves examining several factors:</p>
+
+<ul>
+  <li><strong>Source documentation:</strong> Is the origin of the data clearly described? Is there metadata explaining how, when, and by whom the data was collected?</li>
+  <li><strong>Collection methodology:</strong> Is the process standardized and repeatable? Are there validation checks at the point of collection?</li>
+  <li><strong>Known biases and limitations:</strong> Does the collection process systematically over- or under-represent certain groups or conditions? For example, web traffic data collected only during business hours will not reliably represent 24-hour user behavior.</li>
+  <li><strong>Historical stability:</strong> Has the source system undergone changes — schema migrations, methodology revisions, instrument replacements — that might create discontinuities in the data over time?</li>
+</ul>
+
+<p><strong>The Interrelationship of Data Quality Dimensions</strong></p>
+
+<p>A critical insight for any data practitioner is that the four dimensions of data quality — accuracy, completeness, consistency, and reliability — are <em>interdependent</em>. Addressing only one while ignoring the others does not guarantee that the data is fit for use. A dataset can be highly complete (very few missing values) but highly inaccurate (the values present are wrong). It can be consistent (all country names use the same format) but incomplete (half the records are missing the country field entirely). It can be accurate and complete yet unreliable (the collection process changed midway through the study, introducing a systematic shift in values).</p>
+
+<p>This interdependence means that data quality assessments must be <em>systematic</em>, examining each dimension before any cleaning or analysis begins. A structured data quality report might evaluate the dataset against each dimension and score the findings:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Assessment Method</th>
+      <th>Finding</th>
+      <th>Severity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Accuracy</td>
+      <td>Compared transaction amounts to audit records</td>
+      <td>2.1% of amounts incorrect</td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Completeness</td>
+      <td>Null value counts per required field</td>
+      <td>38.9% of date-of-birth values missing</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Consistency</td>
+      <td>Value standardization check on categorical fields</td>
+      <td>14 variants for country field</td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Reliability</td>
+      <td>Review of source documentation and collection history</td>
+      <td>Methodology change in Q3 — undocumented</td>
+      <td>High</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Producing this kind of structured assessment before beginning analysis serves two vital functions. First, it allows the team to <em>prioritize cleaning efforts</em> — addressing high-severity issues first, and deciding whether low-severity issues are worth the remediation cost for a given analytical goal. Second, it enables transparent <em>communication with stakeholders</em> about the limitations of the data. A stakeholder who knows that 39% of date-of-birth values are missing can interpret age-based analysis results with appropriate skepticism, rather than being misled by findings that appear more definitive than the underlying data warrants.</p>
+
+<p>In practice, documenting identified quality issues across all dimensions — rather than silently fixing them and moving on — is itself a professional and ethical obligation. It creates an audit trail, prevents the same issues from being rediscovered repeatedly, and ensures that the assumptions embedded in any cleaning decisions are visible and challengeable. Data quality work is not a hidden plumbing task; it is an integral part of responsible data analysis.</p>
+        <div class="notes"><strong>Notes</strong>Covers all seven bullet groups: definition of data quality, why it matters in analysis, and the four dimensions (accuracy, completeness, consistency, reliability) plus their interrelationship. Illustrative tables and code examples added for depth.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

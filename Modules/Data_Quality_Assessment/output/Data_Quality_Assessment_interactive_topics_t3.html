@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handling Duplicate Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Handling Duplicate Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Handling Duplicate Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data rarely arrives in a perfectly clean state. Among the many quality issues that data practitioners encounter, duplicate records stand out as particularly insidious because they are easy to overlook yet capable of causing serious damage to any analysis, machine learning pipeline, or business reporting system. A single dataset that appears well-structured and complete on the surface may contain hundreds or thousands of redundant rows — each one silently inflating counts, skewing averages, and eroding trust in conclusions drawn from the data. Understanding what duplicates are, how they arise, how to find them, and how to eliminate or manage them is therefore a foundational skill in data quality management.</p>
+
+<p><strong>What Are Duplicate Records?</strong></p>
+
+<p>A duplicate record is any row in a dataset that conveys the same real-world entity or event as another row, to a degree that causes them to be counted as distinct when they should not be. This definition immediately reveals that "duplicate" is not a single, monolithic concept — it exists on a spectrum.</p>
+
+<p>At one end of the spectrum are <strong>exact duplicates</strong>. These are rows where every single column — every field value, every character, every whitespace — is identical to another row. Consider a customer orders table where a failed API retry causes the same order to be written twice. Both rows will have the same order ID, timestamp, customer name, product code, and price. From the database's perspective they are two separate rows; from reality's perspective they represent one transaction. Detecting exact duplicates is straightforward: compare all column values simultaneously and flag any group of rows that match entirely.</p>
+
+<p>At the other end of the spectrum are <strong>partial duplicates</strong> (sometimes called near-duplicates or fuzzy duplicates). These rows represent the same real-world entity but differ in one or a handful of fields. A customer record might appear twice because the first entry was made with the name "Jennifer O'Brien" and a second entry was later created as "Jennifer Obrien" — the same person, but a slight difference in formatting makes programmatic detection far more difficult. Similarly, a log entry for the same event might carry two slightly different timestamps if it was captured by two different systems. Partial duplicates require more sophisticated detection strategies and more careful judgment about resolution.</p>
+
+<p>Even a surprisingly small number of duplicates can meaningfully distort analysis. If a dataset of 10,000 sales records contains just 200 duplicates, every aggregate metric — total revenue, average order value, conversion rate — will be off by approximately 2%. In a high-stakes business context, that margin can mean the difference between a correct strategic decision and a costly mistake.</p>
+
+<p><strong>Common Causes of Duplicate Data</strong></p>
+
+<p>Understanding why duplicates arise is crucial because it informs both the detection strategy and the prevention measures put in place afterward. Duplicates do not appear randomly; they follow predictable patterns tied to specific system behaviors and human actions.</p>
+
+<p><strong>Manual data entry errors</strong> are among the most common causes. When a user submits a web form twice because the first submission appeared to time out, or when an operator enters a record into a spreadsheet that already exists, the result is an exact or near-exact duplicate. These duplicates are especially common in transactional systems without server-side idempotency checks.</p>
+
+<p><strong>Merging datasets from multiple sources</strong> is another major culprit. Suppose a company acquires a competitor and attempts to combine both companies' customer databases. Without a reliable shared unique key — such as a national ID number or verified email address — the merge process has no way to recognize that "Robert J. Smith, 42 Oak Ave" in database A and "Bob Smith, 42 Oak Avenue" in database B are the same person. The merged dataset simply contains both records as if they were distinct customers.</p>
+
+<p><strong>ETL pipeline failures and retry logic</strong> introduce duplicates at the infrastructure level. If a data ingestion job fails halfway through loading a file and then retries from the beginning, the records that were successfully loaded in the first attempt will be written again. Without an upsert strategy or a deduplication checkpoint, the pipeline will happily write every record twice. Similarly, message queue systems that guarantee at-least-once delivery (as opposed to exactly-once delivery) can push the same event to a consumer multiple times.</p>
+
+<p><strong>System migrations</strong> are a historically common source of duplicates. When organizations move from a legacy system to a new platform, data is often exported, transformed, and re-imported in batches. If a batch runs twice, or if the legacy system continues to accept new records during the migration window, records from both the pre-migration export and the live system end up in the new database.</p>
+
+<p><strong>Inconsistent formatting</strong> creates near-duplicates that are invisible to simple equality checks. Consider the following variations that all represent the same company:</p>
+
+<ul>
+  <li><code>International Business Machines</code></li>
+  <li><code>International Business Machines Corp.</code></li>
+  <li><code>IBM</code></li>
+  <li><code>ibm</code></li>
+</ul>
+
+<p>Each of these values would be treated as a unique entity by a straightforward string comparison, yet they all refer to the same organization. This type of inconsistency is particularly prevalent in free-text fields that lack input validation.</p>
+
+<p><strong>Identifying Duplicate Records</strong></p>
+
+<p>Detection strategy should always be matched to the type of duplicate expected. Applying only one technique and assuming the dataset is clean is a common mistake.</p>
+
+<p><strong>Exact duplicate detection</strong> is the simplest form. In SQL, it typically involves grouping by all columns and filtering for groups with a count greater than one:</p>
+
+<pre><code>SELECT
+    customer_id,
+    order_id,
+    product_code,
+    order_date,
+    amount,
+    COUNT(*) AS occurrences
+FROM orders
+GROUP BY
+    customer_id,
+    order_id,
+    product_code,
+    order_date,
+    amount
+HAVING COUNT(*) > 1;
+</code></pre>
+
+<p>In Python using pandas, the <code>duplicated()</code> method makes this equally accessible:</p>
+
+<pre><code>import pandas as pd
+
+df = pd.read_csv('orders.csv')
+
+# Identify all exact duplicates
+exact_dupes = df[df.duplicated(keep=False)]
+print(f"Exact duplicate rows: {len(exact_dupes)}")
+
+# Drop duplicates, keeping the first occurrence
+df_clean = df.drop_duplicates()
+</code></pre>
+
+<p><strong>Key-based detection</strong> focuses on a subset of columns that should uniquely identify a record — a logical primary key. Even if two rows differ in a timestamp or a formatting field, they may represent the same underlying entity if their key fields match. For example, if <code>email</code> should be unique in a users table, you can detect violations like this:</p>
+
+<pre><code>import pandas as pd
+
+df = pd.read_csv('users.csv')
+
+# Find rows where the email appears more than once
+key_dupes = df[df.duplicated(subset=['email'], keep=False)]
+print(key_dupes.sort_values('email'))
+</code></pre>
+
+<p>This approach is especially useful when incoming data lacks a system-generated unique identifier, or when the unique identifier itself was duplicated due to a bug.</p>
+
+<p><strong>Fuzzy matching</strong> is required for near-duplicates. String similarity metrics such as Levenshtein distance, Jaro-Winkler similarity, or token-set ratio (from the <code>rapidfuzz</code> library) measure how "close" two strings are even when they differ in spelling, abbreviation, or punctuation. The following example demonstrates pairwise fuzzy matching on company names:</p>
+
+<pre><code>from rapidfuzz import fuzz, process
+import pandas as pd
+
+companies = [
+    "International Business Machines",
+    "International Business Machines Corp.",
+    "IBM",
+    "Apple Inc.",
+    "Apple Incorporated"
+]
+
+# Compare each company name to every other
+for i, name in enumerate(companies):
+    matches = process.extract(name, companies, scorer=fuzz.token_set_ratio, limit=5)
+    for match_name, score, idx in matches:
+        if idx != i and score > 80:
+            print(f"'{name}' ~ '{match_name}' (score: {score})")
+</code></pre>
+
+<p>Fuzzy matching is computationally expensive at scale — comparing every row to every other row is an O(n²) operation. For large datasets, blocking strategies (pre-grouping records by a shared attribute like first letter or zip code) reduce the comparison space dramatically.</p>
+
+<p><strong>Row-count comparisons and profiling</strong> offer a quick sanity check. If you expect a join between two tables to produce at most one row per customer, but the resulting row count exceeds the number of distinct customer IDs, duplicate rows have been introduced. Automated data profiling tools can surface cardinality statistics, flag columns where the number of distinct values is suspiciously low relative to row count, and compare record counts before and after transformation steps.</p>
+
+<p><strong>Strategies for Resolving Duplicates</strong></p>
+
+<p>Identifying duplicates is only half the work. The resolution strategy depends on the type of duplicate, the business rules governing the data, and the downstream consequences of each approach.</p>
+
+<p>For <strong>exact duplicates</strong>, the resolution is generally straightforward: retain one copy and discard the rest. Because all values are identical, it does not matter which copy is kept — the result is the same. In pandas, <code>df.drop_duplicates(keep='first')</code> accomplishes this in a single line. In SQL, a common pattern is:</p>
+
+<pre><code>-- Keep the row with the lowest internal rowid, delete all others
+DELETE FROM orders
+WHERE rowid NOT IN (
+    SELECT MIN(rowid)
+    FROM orders
+    GROUP BY customer_id, order_id, product_code, order_date, amount
+);
+</code></pre>
+
+<p>For <strong>partial duplicates</strong>, a merge or consolidation strategy is needed because the differing field values require a decision about which version of truth to keep. Common resolution rules include:</p>
+
+<ul>
+  <li><strong>Most recent wins:</strong> Keep the record with the latest timestamp, on the assumption that more recent data reflects an update to earlier data.</li>
+  <li><strong>Most complete wins:</strong> Keep the record with the fewest null or missing values, maximizing the amount of information retained.</li>
+  <li><strong>Field-level merge:</strong> Combine the best attributes from each duplicate — for example, taking the non-null phone number from one record and the verified email address from another — to produce a single enriched record.</li>
+</ul>
+
+<p>The following Python example demonstrates a field-level merge strategy using pandas:</p>
+
+<pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    'email': ['a@b.com', 'a@b.com'],
+    'name': ['Alice', 'Alice Smith'],
+    'phone': [None, '555-1234'],
+    'signup_date': ['2023-01-01', '2023-01-03']
+})
+
+# Keep the most recent record and fill missing values from the older one
+df_sorted = df.sort_values('signup_date', ascending=False)
+df_merged = df_sorted.groupby('email').first().reset_index()
+print(df_merged)
+</code></pre>
+
+<p>When records carry <strong>high business value or legal implications</strong> — such as financial transactions, medical records, or legal agreements — automatic deletion is risky. In these cases, the safer approach is to flag suspected duplicates in a separate column or staging table and route them to a human reviewer. This preserves the audit trail and prevents irreversible data loss.</p>
+
+<p><strong>Database-level constraints</strong> are the most durable resolution: defining a <code>UNIQUE</code> constraint or primary key on the appropriate columns means the database engine itself will reject any future attempt to insert a duplicate, regardless of the application layer's behavior.</p>
+
+<pre><code>-- Prevent future duplicate orders at the database level
+ALTER TABLE orders
+ADD CONSTRAINT uq_order UNIQUE (customer_id, order_id, order_date);
+</code></pre>
+
+<p><strong>Impact of Duplicates on Analysis</strong></p>
+
+<p>The downstream consequences of unresolved duplicates vary by use case, but they are almost universally harmful. It is worth examining the specific mechanisms by which duplicates corrupt different types of analysis.</p>
+
+<p>In <strong>aggregate reporting</strong>, duplicates inflate totals and distort averages. If a sales record appears twice, the reported total revenue is overstated. The average order value calculation uses a denominator (total number of orders) that is inflated by the duplicate, which pulls the average downward if the duplicated order is near or below the mean. Both effects simultaneously misrepresent reality in different directions.</p>
+
+<p>The following table illustrates how a single duplicate transaction affects key metrics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>True Value (No Duplicates)</th>
+      <th>Observed Value (With 1 Duplicate)</th>
+      <th>Error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Total Revenue</td>
+      <td>$50,000</td>
+      <td>$52,500</td>
+      <td>+5%</td>
+    </tr>
+    <tr>
+      <td>Number of Transactions</td>
+      <td>100</td>
+      <td>101</td>
+      <td>+1%</td>
+    </tr>
+    <tr>
+      <td>Average Order Value</td>
+      <td>$500.00</td>
+      <td>$519.80</td>
+      <td>+3.96%</td>
+    </tr>
+    <tr>
+      <td>Unique Customer Count</td>
+      <td>80</td>
+      <td>80 (if key-deduped)</td>
+      <td>0% (if caught)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In <strong>machine learning</strong>, duplicates in training data cause models to overfit to the repeated examples. When the same row appears five times in a training set, the model effectively assigns five times the weight to that pattern during gradient descent. This leads to overly confident predictions on data resembling those examples and poor generalization to unseen data. Duplicates between the training and test sets are even more damaging — they cause inflated evaluation metrics that give a false sense of model performance.</p>
+
+<p>In <strong>financial systems</strong>, duplicate transactions can trigger double-payment of invoices, incorrect revenue recognition under accounting standards, or misaligned reconciliation reports. Auditors specifically look for duplicate payment patterns as a red flag for both system errors and fraud. The regulatory and reputational consequences of duplicates in financial data make prevention especially critical in that domain.</p>
+
+<p>In <strong>exploratory data analysis</strong>, even visualizations can be misleading. A histogram built on a dataset with duplicates will show artificially tall bars at the duplicated values, suggesting that certain values are far more common than they actually are. A scatter plot will overlay identical points, making a sparse dataset appear denser than it is and potentially masking a true outlier that gets visually buried under a cluster of duplicated points.</p>
+
+<p><strong>Best Practices for Duplicate Prevention and Documentation</strong></p>
+
+<p>The most efficient approach to handling duplicates is to prevent them from entering the system in the first place, while maintaining rigorous documentation for any duplicates that slip through and must be resolved after the fact.</p>
+
+<p><strong>Define and enforce unique keys at the source.</strong> Every entity in a data model should have a stable, system-generated unique identifier — typically a UUID or a database-generated sequence. Composite unique constraints should be added wherever business rules dictate uniqueness across multiple columns. Input validation at the application layer should reject or deduplicate submissions before they reach the database.</p>
+
+<p><strong>Embed deduplication checks in every ETL workflow.</strong> Each stage of a data pipeline that ingests or transforms records should include an explicit deduplication step. For batch pipelines, this might mean running a <code>GROUP BY</code> or <code>drop_duplicates()</code> operation after every load. For streaming pipelines, an idempotency key (a hash of the record's key fields) can be stored in a cache like Redis and checked before processing each incoming message.</p>
+
+<pre><code># Streaming deduplication using an idempotency key
+import hashlib
+
+processed_keys = set()  # In production, use Redis or a persistent store
+
+def process_event(event):
+    key_string = f"{event['order_id']}:{event['customer_id']}:{event['timestamp']}"
+    idempotency_key = hashlib.sha256(key_string.encode()).hexdigest()
+
+    if idempotency_key in processed_keys:
+        print(f"Duplicate detected, skipping: {event['order_id']}")
+        return
+
+    processed_keys.add(idempotency_key)
+    # Proceed with processing...
+</code></pre>
+
+<p><strong>Document every duplicate-removal decision.</strong> When duplicates are removed from a dataset, the cleaning logic should be logged with enough detail to be fully reproducible. This documentation should include: the columns used to identify duplicates, the rule used to select which record to retain, the number of records removed, and the date and author of the cleaning operation. This creates an auditable trail that allows future analysts to understand why the data looks the way it does and to reproduce or revise the cleaning decisions if business rules change.</p>
+
+<p>A minimal cleaning log entry might look like this:</p>
+
+<pre><code># Cleaning log — orders.csv — 2024-06-15
+# Step: Remove exact duplicates
+# Columns compared: all
+# Rule: Keep first occurrence by row index
+# Records before: 10,412
+# Records after: 10,198
+# Records removed: 214
+# Analyst: J. Rivera
+# Script: dedup_orders_v2.py
+</code></pre>
+
+<p><strong>Schedule periodic re-audits.</strong> Deduplication is not a one-time task. As new data loads arrive through incremental updates, as source systems change their export logic, or as new upstream data sources are integrated, fresh duplicates can enter a dataset that was previously clean. Building automated duplicate-detection checks into a scheduled data quality monitoring job — and alerting the data team when the duplicate rate exceeds a defined threshold — ensures that the dataset remains clean over time rather than degrading gradually without anyone noticing.</p>
+
+<p>Taken together, these practices — precise identification of both exact and partial duplicates, thoughtful resolution strategies tailored to the data's business context, clear documentation, and proactive prevention — form a comprehensive framework for keeping duplicate data from undermining the integrity of any data-driven system.</p>
+        <div class="notes"><strong>Notes</strong>Covers both exact and partial/fuzzy duplicate detection with practical SQL and Python code examples. Includes a summary table showing the quantitative impact of duplicates on key business metrics. Emphasizes the distinction between detection and resolution strategies, and highlights the importance of documentation and pipeline-level prevention.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

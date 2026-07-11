@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Binomial Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>The Binomial Distribution</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Binomial Distribution</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The binomial distribution is one of the most fundamental and widely used probability distributions in statistics. It describes the number of successes in a fixed sequence of independent experiments, where each experiment has exactly two possible outcomes. Whether you are analysing how many patients respond to a drug, how many customers click an advertisement, or how many components in a batch are defective, the binomial distribution provides a precise mathematical framework for calculating the relevant probabilities. Understanding it deeply is essential for anyone working in data science, statistics, quality control, or any field that involves counting outcomes in repeated trials.</p>
+
+<p><strong>What Is the Binomial Distribution?</strong></p>
+
+<p>A binomial distribution arises whenever a random experiment is repeated a fixed number of times and, on each repetition, exactly one of two possible outcomes can occur. By convention these outcomes are called <em>success</em> and <em>failure</em>, though these labels are purely nominal — a "success" might represent a defective item, a disease diagnosis, or any event of interest. The distribution then tells us the probability that exactly <em>k</em> of those repetitions result in a success.</p>
+
+<p>Four defining characteristics pin down whether a situation genuinely follows a binomial distribution:</p>
+
+<ul>
+  <li><strong>Two outcomes per trial.</strong> Each individual trial produces one of exactly two mutually exclusive results. There is no third or partial outcome. For example, a coin flip is either heads or tails; a manufactured part either passes or fails inspection.</li>
+  <li><strong>Independence of trials.</strong> The result of any one trial has absolutely no influence on the result of any other trial. If you flip a fair coin ten times and get heads on the first nine flips, the tenth flip is still equally likely to be heads or tails. Violations of independence — such as sampling without replacement from a small population — mean the binomial model no longer applies exactly (though it remains a useful approximation when the population is large relative to the sample).</li>
+  <li><strong>Constant probability of success.</strong> The probability of success, denoted <em>p</em>, is identical for every trial. If the chance of a customer making a purchase is 0.12 when they see an advertisement, it must be 0.12 for every customer independently — not higher for the first customer and lower for the last.</li>
+  <li><strong>Fixed number of trials.</strong> The number of trials, <em>n</em>, is determined in advance and does not change based on the outcomes. You decide to survey 200 customers, flip a coin 50 times, or test 30 circuit boards — the count is fixed before the experiment begins.</li>
+</ul>
+
+<p>When all four conditions are satisfied, the random variable <em>X</em> — the count of successes — follows a binomial distribution, written <em>X ~ Binomial(n, p)</em>. The distribution is completely described by just these two parameters: <em>n</em> and <em>p</em>.</p>
+
+<p><strong>Key Conditions for Binomial Experiments</strong></p>
+
+<p>It is worth examining each condition carefully, because real-world data frequently approximates but does not perfectly satisfy them. Recognising when the binomial model is appropriate — and when it breaks down — is a critical practical skill.</p>
+
+<ul>
+  <li><strong>Fixed number of trials (n).</strong> The experiment must have a predetermined stopping point based on the number of trials, not based on outcomes. If instead you keep flipping a coin until you get five heads, the number of trials is random, and you would need a different distribution (the negative binomial). In a binomial experiment, you always decide <em>n</em> first.</li>
+  <li><strong>Mutually exclusive binary outcomes.</strong> Every trial maps onto exactly one of two categories. Medical studies code patient outcomes as "responded" or "did not respond." Quality control codes parts as "conforming" or "non-conforming." The two categories must be exhaustive (every outcome falls into one) and mutually exclusive (no outcome falls into both).</li>
+  <li><strong>Statistical independence.</strong> Independence is often satisfied when sampling with replacement, or when sampling without replacement from a very large population. A common rule of thumb is that if the sample size is less than 10% of the population, the binomial approximation to the more exact hypergeometric distribution is acceptable. True independence means knowing the result of trial 3 gives you zero additional information about the result of trial 7.</li>
+  <li><strong>Constant probability p.</strong> This condition can be violated subtly. For instance, if a salesperson becomes more skilled over time, their probability of closing each successive sale changes — violating the constant-<em>p</em> requirement. In practice, this is often handled by assuming an average or representative value of <em>p</em> and acknowledging the approximation.</li>
+</ul>
+
+<p><strong>The Binomial Probability Formula</strong></p>
+
+<p>Given that <em>X ~ Binomial(n, p)</em>, the probability that exactly <em>k</em> successes occur in <em>n</em> trials is given by the <em>probability mass function (PMF)</em>:</p>
+
+<pre><code>P(X = k) = C(n, k) * p^k * (1 - p)^(n - k)
+</code></pre>
+
+<p>where <em>k</em> can be any integer from 0 to <em>n</em>, and <em>C(n, k)</em> — read "n choose k" — is the binomial coefficient:</p>
+
+<pre><code>C(n, k) = n! / (k! * (n - k)!)
+</code></pre>
+
+<p>Let us break the formula into its three conceptual pieces:</p>
+
+<ul>
+  <li><strong>p^k — the probability of k successes.</strong> Because each trial is independent and success has probability <em>p</em>, the probability of getting successes on any specific set of <em>k</em> trials is <em>p</em> multiplied by itself <em>k</em> times.</li>
+  <li><strong>(1 − p)^(n − k) — the probability of the remaining failures.</strong> The remaining <em>(n − k)</em> trials must all be failures, each with probability <em>(1 − p)</em>. Again, by independence, these multiply together.</li>
+  <li><strong>C(n, k) — the number of distinct arrangements.</strong> Successes and failures can occur in many different orders across the <em>n</em> trials. For example, if <em>n = 3</em> and <em>k = 2</em>, the two successes could occur on trials {1,2}, {1,3}, or {2,3} — three distinct sequences. The binomial coefficient counts exactly how many such arrangements exist, and since each arrangement has the same probability (<em>p^k * (1−p)^(n−k)</em>), multiplying by <em>C(n,k)</em> gives the total probability over all arrangements.</li>
+</ul>
+
+<p><strong>Worked example.</strong> A biased coin lands heads with probability <em>p = 0.4</em>. The coin is flipped <em>n = 5</em> times. What is the probability of getting exactly <em>k = 3</em> heads?</p>
+
+<pre><code>C(5, 3) = 5! / (3! * 2!) = (5 * 4) / (2 * 1) = 10
+
+P(X = 3) = 10 * (0.4)^3 * (0.6)^2
+         = 10 * 0.064 * 0.36
+         = 10 * 0.02304
+         = 0.2304
+</code></pre>
+
+<p>There is approximately a 23% chance of observing exactly 3 heads in 5 flips. Notice that <em>C(5,3) = 10</em> accounts for all the ways three heads can be spread across five positions.</p>
+
+<p>A fundamental property of the PMF is that probabilities over all possible values of <em>k</em> must sum to exactly 1, because <em>X</em> must take some value between 0 and <em>n</em>:</p>
+
+<pre><code>Sum of P(X = k) for k = 0 to n  =  (p + (1-p))^n  =  1^n  =  1
+</code></pre>
+
+<p>This follows directly from the binomial theorem, which is the algebraic identity that gives the distribution its name.</p>
+
+<p><strong>Mean and Variance of the Binomial Distribution</strong></p>
+
+<p>Rather than computing every probability individually, two summary statistics — the mean and the variance — capture the centre and spread of the distribution efficiently.</p>
+
+<ul>
+  <li><strong>Mean (expected value): μ = n * p.</strong> This is the average number of successes you would expect over many repetitions of the entire <em>n</em>-trial experiment. If you test 100 patients and each has a 30% chance of responding, you expect μ = 100 × 0.3 = 30 responses on average. The mean is intuitive: it scales linearly with both the number of trials and the success probability.</li>
+  <li><strong>Variance: σ² = n * p * (1 − p).</strong> The variance measures how spread out the distribution is around its mean. Notice it is maximised when <em>p = 0.5</em> (equal chance of success and failure) and shrinks toward zero as <em>p</em> approaches 0 or 1 (increasingly certain outcomes). For our patient example: σ² = 100 × 0.3 × 0.7 = 21.</li>
+  <li><strong>Standard deviation: σ = √(n * p * (1 − p)).</strong> The standard deviation is in the same units as <em>X</em> (number of successes), making it easier to interpret than the variance. In the example, σ = √21 ≈ 4.58, so outcomes typically fall within about 4–5 of the mean.</li>
+  <li><strong>Shape and skewness.</strong> When <em>p = 0.5</em> the distribution is perfectly symmetric around its mean. When <em>p &lt; 0.5</em> it is positively skewed (right tail), reflecting that very high success counts are rare. When <em>p &gt; 0.5</em> it is negatively skewed (left tail). As <em>n</em> grows large, the binomial distribution approaches a normal distribution by the Central Limit Theorem — a connection exploited in many approximation methods.</li>
+</ul>
+
+<p>The table below summarises the mean and variance for several parameter combinations to illustrate how they change:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>n</th>
+      <th>p</th>
+      <th>Mean (μ = np)</th>
+      <th>Variance (σ² = np(1−p))</th>
+      <th>Std Dev (σ)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10</td>
+      <td>0.2</td>
+      <td>2.0</td>
+      <td>1.6</td>
+      <td>1.265</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>0.5</td>
+      <td>5.0</td>
+      <td>2.5</td>
+      <td>1.581</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>0.8</td>
+      <td>8.0</td>
+      <td>1.6</td>
+      <td>1.265</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>0.3</td>
+      <td>15.0</td>
+      <td>10.5</td>
+      <td>3.240</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>0.5</td>
+      <td>50.0</td>
+      <td>25.0</td>
+      <td>5.000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Observe that <em>n = 10, p = 0.2</em> and <em>n = 10, p = 0.8</em> produce identical variances (1.6) — because <em>p(1−p)</em> is symmetric around 0.5 — but opposite skews.</p>
+
+<p><strong>Computing Binomial Probabilities in Python</strong></p>
+
+<p>Python's <code>scipy.stats</code> module provides a comprehensive set of functions for working with the binomial distribution through the <code>binom</code> object. Below are the key functions along with practical examples.</p>
+
+<p><strong>Exact probability with <code>binom.pmf</code>.</strong> The probability mass function returns <em>P(X = k)</em> for a specific value of <em>k</em>.</p>
+
+<pre><code>from scipy.stats import binom
+
+n = 10   # number of trials
+p = 0.3  # probability of success
+
+# Probability of exactly 4 successes
+prob_exact = binom.pmf(4, n, p)
+print(f"P(X = 4) = {prob_exact:.4f}")   # Output: P(X = 4) = 0.2001
+
+# Probabilities for all k from 0 to n
+for k in range(n + 1):
+    print(f"P(X = {k}) = {binom.pmf(k, n, p):.4f}")
+</code></pre>
+
+<p><strong>Cumulative probability with <code>binom.cdf</code>.</strong> The cumulative distribution function returns <em>P(X ≤ k)</em>, which is the sum of all PMF values from 0 up to and including <em>k</em>. This is extremely useful for answering "at most" or "at least" questions.</p>
+
+<pre><code># P(X <= 4): probability of at most 4 successes
+prob_at_most_4 = binom.cdf(4, n, p)
+print(f"P(X <= 4) = {prob_at_most_4:.4f}")   # Output: P(X <= 4) = 0.8497
+
+# P(X >= 5): probability of at least 5 successes
+# This equals 1 - P(X <= 4)
+prob_at_least_5 = 1 - binom.cdf(4, n, p)
+print(f"P(X >= 5) = {prob_at_least_5:.4f}")  # Output: P(X >= 5) = 0.1503
+
+# P(3 <= X <= 6): probability of between 3 and 6 successes
+prob_range = binom.cdf(6, n, p) - binom.cdf(2, n, p)
+print(f"P(3 <= X <= 6) = {prob_range:.4f}")
+</code></pre>
+
+<p><strong>Generating random samples with <code>binom.rvs</code>.</strong> The <code>rvs</code> (random variates) function generates simulated observations from the binomial distribution. This is useful for Monte Carlo simulations, testing statistical procedures, or exploring what real data from such a process might look like.</p>
+
+<pre><code>import numpy as np
+
+# Generate 1000 random samples from Binomial(10, 0.3)
+samples = binom.rvs(n, p, size=1000, random_state=42)
+
+print(f"Mean of samples:     {samples.mean():.3f}")   # Should be near 3.0
+print(f"Std dev of samples:  {samples.std():.3f}")    # Should be near 1.449
+</code></pre>
+
+<p><strong>Visualising the PMF with matplotlib.</strong> Plotting the distribution is one of the best ways to build intuition about how <em>n</em> and <em>p</em> shape it.</p>
+
+<pre><code>import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import binom
+
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+
+configs = [(10, 0.2), (10, 0.5), (10, 0.8)]
+
+for ax, (n, p) in zip(axes, configs):
+    k_values = np.arange(0, n + 1)
+    probabilities = binom.pmf(k_values, n, p)
+    ax.bar(k_values, probabilities, color='steelblue', edgecolor='black')
+    ax.set_title(f"Binomial(n={n}, p={p})")
+    ax.set_xlabel("k (number of successes)")
+    ax.set_ylabel("P(X = k)")
+
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p>Running this code produces three side-by-side bar charts. The first (p=0.2) is right-skewed with most mass near 0–3. The second (p=0.5) is symmetric and bell-shaped. The third (p=0.8) is left-skewed, mirroring the first.</p>
+
+<p><strong>Practical Applications of the Binomial Distribution</strong></p>
+
+<p>The binomial distribution is not merely an abstract mathematical construction — it models a vast range of real-world phenomena wherever binary outcomes repeat independently.</p>
+
+<ul>
+  <li><strong>Healthcare and clinical trials.</strong> Suppose a medication has a known historical response rate of 60% (<em>p = 0.6</em>). In a pilot study with <em>n = 20</em> patients, what is the probability that exactly 14 respond? <em>P(X = 14) = C(20,14) × 0.6^14 × 0.4^6 ≈ 0.124</em>. The binomial model also helps researchers calculate the minimum sample size needed to detect a meaningful difference in response rates — a cornerstone of clinical trial design. Cumulative probabilities answer questions like "What is the chance that fewer than 8 patients respond, suggesting the drug is ineffective?"</li>
+  <li><strong>Marketing and e-commerce.</strong> An email campaign sends messages to 500 subscribers. Historical data shows a 4% conversion rate (<em>p = 0.04</em>). The expected number of conversions is μ = 500 × 0.04 = 20, with σ = √(500 × 0.04 × 0.96) ≈ 4.38. The binomial model lets marketers calculate the probability of achieving at least 25 conversions, helping them assess the likelihood of hitting targets and allocate budgets accordingly.</li>
+  <li><strong>Software quality assurance.</strong> Historical data from a development team shows that 5% of test cases fail on a new build (<em>p = 0.05</em>). If a test suite has 200 test cases (<em>n = 200</em>), the team can compute the probability that more than 15 tests fail — a trigger for a code review. The expected failures are μ = 10, and <em>P(X &gt; 15)</em> can be computed as <em>1 − binom.cdf(15, 200, 0.05)</em>, giving the team a probabilistic threshold for escalating concerns.</li>
+  <li><strong>Manufacturing and quality control.</strong> An assembly line produces parts where each part independently has a 2% defect rate. A batch of 50 parts is inspected. The probability of finding zero defects is <em>P(X = 0) = 0.98^50 ≈ 0.364</em>. The probability of two or fewer defects is <em>binom.cdf(2, 50, 0.02) ≈ 0.922</em>. These calculations inform acceptance sampling plans, where a batch is accepted if the number of defects does not exceed a threshold.</li>
+  <li><strong>Foundation for advanced distributions.</strong> Mastery of the binomial distribution provides direct pathways to understanding more advanced models. When <em>n</em> is very large and <em>p</em> is very small, the binomial distribution converges to the <em>Poisson distribution</em>, which models rare events per unit time or space. When <em>n</em> is large and <em>p</em> is not too close to 0 or 1, the binomial approximates the <em>normal distribution</em> with mean <em>np</em> and variance <em>np(1−p)</em> — the foundation for many hypothesis tests involving proportions.</li>
+</ul>
+
+<p>In summary, the binomial distribution is a powerful, elegant model for discrete counting problems. Its two parameters <em>n</em> and <em>p</em> fully determine all probabilities, the mean, and the variance. Python's <code>scipy.stats.binom</code> makes it straightforward to compute exact probabilities, cumulative probabilities, and simulated samples, enabling both rigorous analysis and exploratory data work. A firm grasp of the binomial distribution builds the conceptual vocabulary needed for virtually every subsequent topic in probability and inferential statistics.</p>
+        <div class="notes"><strong>Notes</strong>Students should have numpy, scipy, and matplotlib installed. Encourage them to experiment with binom.pmf and binom.cdf using different values of n and p interactively, then compare the resulting plots to reinforce the relationship between parameters and distribution shape. The approximation to the normal distribution (for large n, moderate p) can be previewed here as a motivating bridge to later modules.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relationships Between Tables</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Relationships Between Tables</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Relationships Between Tables</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>At the heart of every relational database is a deceptively simple idea: instead of cramming all information into one enormous table, you break it into smaller, focused tables and then <strong>define the relationships between them</strong>. Those relationships are what give the relational model its name, its power, and its elegance. Understanding how tables relate to one another is therefore not a peripheral concept — it is the foundation upon which every meaningful database is built.</p>
+
+<p>A <strong>table relationship</strong> is a logical connection between two tables, established through shared key values. One table exposes a <em>primary key</em> — a column (or combination of columns) whose values uniquely identify every row — and another table references that key through a <em>foreign key</em> column. When a query needs information from both tables, it can follow that link and combine the rows, a process called a <em>join</em>. Without relationships, every piece of information that belongs together would have to be repeated in full wherever it was needed, leading to bloated, inconsistent, and difficult-to-maintain data.</p>
+
+<p>Consider a simple business scenario. A company tracks customers and the orders those customers place. Without relationships, every order record would have to store the customer's full name, address, phone number, and email address. The moment a customer moves house, every one of their order rows must be updated. Miss even one and the database contains contradictory facts. With a relationship, the customer's details live in a <code>customers</code> table exactly once. Each order row in an <code>orders</code> table stores only a small <em>customer_id</em> value that points back to the one true record. Update the address in one place and every order automatically reflects the change. This reduction of redundancy — and the consistency it enforces — is the first and most practical benefit of table relationships.</p>
+
+<p>Relationships also enable the database engine to enforce <strong>referential integrity</strong>: the guarantee that a foreign key value will always point to a row that actually exists. If <code>orders.customer_id = 42</code>, then a row with <code>customers.customer_id = 42</code> must exist. The database can reject any attempt to insert an orphan order or to delete a customer who still has outstanding orders, depending on the rules you configure. This kind of automated data quality checking would be impossible to replicate reliably in application code alone.</p>
+
+<p>There are three classic patterns of relationship, each describing a different cardinality — that is, how many rows on one side of the relationship can be associated with how many rows on the other.</p>
+
+<p><strong>One-to-One Relationships</strong></p>
+
+<p>In a one-to-one relationship, each row in Table A corresponds to <em>at most one</em> row in Table B, and vice versa. This is the rarest of the three patterns because, at first glance, it seems like the two tables could simply be merged into one. The split is nevertheless useful in several practical situations.</p>
+
+<p><em>Security</em> is a common motivation. Imagine an <code>employees</code> table that all managers can query, and a separate <code>employee_salary_details</code> table that only the payroll team may access. Keeping sensitive columns in their own table makes it straightforward to grant or restrict permissions at the table level without exposing everything to everyone.</p>
+
+<p><em>Performance</em> is another reason. A <code>products</code> table might be queried millions of times per day just to display a product's name and price. Storing large binary objects — high-resolution images, detailed specification documents — in those same rows would make every routine query slower because the database engine must handle far wider rows. Splitting the large data into a <code>product_details</code> table means the main table stays lean and fast, while the bulky data is fetched only when truly needed.</p>
+
+<p><em>Optional extension</em> is a third use case. Not every employee has a company vehicle, so rather than adding nullable vehicle columns to the main <code>employees</code> table, you create a separate <code>employee_vehicles</code> table that simply has no row for employees without a vehicle.</p>
+
+<p>Mechanically, a one-to-one relationship is implemented by placing the foreign key in one of the two tables and adding a <code>UNIQUE</code> constraint to that foreign key column. The unique constraint is what makes it one-to-one rather than one-to-many: it prevents a second row from claiming the same parent record.</p>
+
+<pre><code>-- Parent table
+CREATE TABLE employees (
+    employee_id   INT          PRIMARY KEY,
+    full_name     VARCHAR(100) NOT NULL,
+    department_id INT
+);
+
+-- Extension table — one optional row per employee
+CREATE TABLE employee_salary_details (
+    employee_id   INT          PRIMARY KEY,   -- PK and FK combined
+    base_salary   DECIMAL(10,2),
+    bonus_percent DECIMAL(5,2),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+);
+</code></pre>
+
+<p>Here the primary key of <code>employee_salary_details</code> is also its foreign key, which automatically guarantees uniqueness. There can be at most one salary-details row per employee.</p>
+
+<p><strong>One-to-Many Relationships</strong></p>
+
+<p>The one-to-many relationship is by far the most common pattern in real-world databases. One row in Table A (the <em>parent</em> or <em>one</em> side) is associated with zero, one, or many rows in Table B (the <em>child</em> or <em>many</em> side). The child table stores a foreign key that references the parent's primary key. Critically, there is <em>no</em> unique constraint on that foreign key column, so multiple child rows can share the same parent value.</p>
+
+<p>The customer-and-orders example above is a textbook illustration. One customer can place many orders, but each order belongs to exactly one customer.</p>
+
+<pre><code>CREATE TABLE customers (
+    customer_id INT          PRIMARY KEY,
+    full_name   VARCHAR(100) NOT NULL,
+    email       VARCHAR(150) UNIQUE NOT NULL,
+    city        VARCHAR(80)
+);
+
+CREATE TABLE orders (
+    order_id    INT          PRIMARY KEY,
+    customer_id INT          NOT NULL,        -- FK to customers
+    order_date  DATE         NOT NULL,
+    total_amount DECIMAL(10,2),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+</code></pre>
+
+<p>Now imagine customer #7 (Alice) places three orders. The <code>customers</code> table has exactly one row for Alice. The <code>orders</code> table has three rows, each with <code>customer_id = 7</code>. Alice's city, email, and name are stored once and only once. If Alice moves, one <code>UPDATE</code> statement fixes the record for all three orders simultaneously. This is the anti-redundancy principle in action.</p>
+
+<p>Other everyday examples of one-to-many relationships include:</p>
+
+<ul>
+  <li><strong>Departments and employees</strong> — one department employs many employees, each employee belongs to one department.</li>
+  <li><strong>Products and reviews</strong> — one product can have many reviews, each review covers one product.</li>
+  <li><strong>Blog posts and comments</strong> — one post can attract many comments, each comment is attached to one post.</li>
+  <li><strong>Invoices and line items</strong> — one invoice contains many line items, each line item belongs to one invoice.</li>
+</ul>
+
+<p>Recognising the one-to-many pattern early in the design process almost always tells you exactly where to put the foreign key: it goes on the <em>many</em> side.</p>
+
+<p><strong>Many-to-Many Relationships</strong></p>
+
+<p>Sometimes the relationship between two entities is genuinely symmetrical and plural on both sides. A student can enroll in many courses, <em>and</em> a course can have many students enrolled in it. An actor can appear in many films, <em>and</em> a film can feature many actors. A product can belong to many categories, <em>and</em> a category can contain many products.</p>
+
+<p>A relational database cannot represent this directly between just two tables — there is nowhere to put a foreign key that would correctly capture the multiplicity on both sides. The solution is a <strong>junction table</strong> (also called a <em>bridge table</em>, <em>associative table</em>, or <em>linking table</em>). The junction table sits between the two main tables and contains one row for each specific pairing of a record from Table A with a record from Table B. In doing so, it transforms one unrepresentable many-to-many relationship into two perfectly ordinary one-to-many relationships.</p>
+
+<pre><code>CREATE TABLE students (
+    student_id INT          PRIMARY KEY,
+    full_name  VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE courses (
+    course_id   INT          PRIMARY KEY,
+    course_name VARCHAR(150) NOT NULL,
+    credits     TINYINT
+);
+
+-- Junction table resolves the many-to-many
+CREATE TABLE enrollments (
+    student_id    INT  NOT NULL,
+    course_id     INT  NOT NULL,
+    enrolled_date DATE NOT NULL,
+    grade         CHAR(2),
+    PRIMARY KEY (student_id, course_id),          -- composite PK
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id)  REFERENCES courses(course_id)
+);
+</code></pre>
+
+<p>With this structure, a student can appear in the <code>enrollments</code> table as many times as they have courses, and a course can appear as many times as it has students — but each <em>specific pairing</em> appears only once (enforced by the composite primary key). The relationship between <code>students</code> and <code>enrollments</code> is one-to-many, and the relationship between <code>courses</code> and <code>enrollments</code> is also one-to-many. Together, they represent the original many-to-many.</p>
+
+<p><strong>Junction Tables and How They Work</strong></p>
+
+<p>A junction table is more than a mechanical necessity — it is itself a full entity in the data model, and it deserves to be treated as such. Every row in a junction table represents a distinct, real-world <em>fact</em>: the fact that this particular student is enrolled in this particular course, that this particular actor appears in this particular film, that this particular product belongs to this particular category.</p>
+
+<p>Because each row represents a meaningful fact, the junction table is an ideal place to record <strong>attributes of the relationship itself</strong> — information that belongs neither to Table A alone nor to Table B alone, but to the association between them. In the enrollment example above, <code>enrolled_date</code> and <code>grade</code> are perfect examples. The enrollment date is not a property of the student (the same student enrolled on different dates for different courses) and not a property of the course (different students enrolled at different times). It belongs to the specific enrollment. The same logic applies to:</p>
+
+<ul>
+  <li>A <strong>quantity</strong> column in an <code>order_items</code> junction table linking orders to products — how many units of that product are in that order.</li>
+  <li>A <strong>role</strong> column in a <code>film_cast</code> junction table linking films to actors — what character the actor played in that film.</li>
+  <li>A <strong>price_at_purchase</strong> column in an <code>order_items</code> table — the price of the product at the moment of the order, which may differ from its current price.</li>
+</ul>
+
+<p>The composite primary key on a junction table — typically <code>(table_a_id, table_b_id)</code> — prevents the same pairing from being recorded twice. Some designers add a surrogate integer primary key instead (e.g., <code>enrollment_id</code>), particularly when external systems need to reference individual enrollment rows, but they still enforce a unique constraint on the pair of foreign keys to preserve the uniqueness of each association.</p>
+
+<p>To illustrate the structure concretely, consider what the data in the enrollment example might look like:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>student_id</th>
+      <th>course_id</th>
+      <th>enrolled_date</th>
+      <th>grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>101</td><td>2024-09-01</td><td>A</td></tr>
+    <tr><td>1</td><td>102</td><td>2024-09-01</td><td>B+</td></tr>
+    <tr><td>2</td><td>101</td><td>2024-09-02</td><td>A-</td></tr>
+    <tr><td>3</td><td>103</td><td>2024-09-01</td><td>NULL</td></tr>
+    <tr><td>2</td><td>103</td><td>2024-09-03</td><td>NULL</td></tr>
+  </tbody>
+</table>
+
+<p>Student 1 is in courses 101 and 102. Course 101 has students 1 and 2. Student 2 is in courses 101 and 103. No information is repeated; no row in <code>students</code> or <code>courses</code> needs to change when a new enrollment is added.</p>
+
+<p><strong>Why Relationships Are Central to Relational Databases</strong></p>
+
+<p>Relationships are not merely a feature of relational databases — they are the defining architectural principle from which everything else flows. Three consequences stand out as especially important.</p>
+
+<p>First, <strong>referential integrity</strong>. When a foreign key constraint is defined, the database engine takes responsibility for maintaining consistency between the related tables. It will refuse to insert a child row whose foreign key value does not match any existing parent row. It can also be configured to automatically cascade a deletion or update from parent to child rows, or to block the deletion of a parent that still has children, depending on the business rule. This kind of guarantee — enforced at the database level, not just hoped for at the application level — is enormously valuable for data quality.</p>
+
+<p>Second, <strong>the ability to join</strong>. SQL's <code>JOIN</code> clause is the mechanism by which queries traverse relationships, pulling together columns from multiple tables into a unified result set. Without defined relationships, there would be no principled basis for deciding which rows in two tables belong together. Relationships provide that basis, and joins give you the language to exploit it. Nearly every non-trivial query in a properly normalised database involves at least one join.</p>
+
+<pre><code>-- Retrieve each order alongside the customer's name
+SELECT
+    o.order_id,
+    o.order_date,
+    o.total_amount,
+    c.full_name     AS customer_name,
+    c.city          AS customer_city
+FROM orders       AS o
+JOIN customers    AS c ON o.customer_id = c.customer_id
+ORDER BY o.order_date DESC;
+</code></pre>
+
+<p>Third, <strong>normalization</strong>. The formal theory of normalization — first normal form, second normal form, third normal form, and beyond — is essentially the theory of managing dependencies between columns by placing related data into appropriately linked tables. Every normalization step either creates a new table or reorganises columns across tables, and every table it creates needs a relationship back to the table it came from. Relationships are therefore the connective tissue that holds a normalised schema together and allows it to be queried as a coherent whole.</p>
+
+<p>Together, these three properties — referential integrity, joinability, and support for normalization — explain why the relational model has remained the dominant paradigm for storing and querying structured data for more than five decades. No matter how sophisticated a database schema becomes, it is ultimately a collection of tables connected by well-defined relationships, and understanding those relationships at the level of cardinality, keys, and constraints is the prerequisite for designing schemas that are correct, efficient, and maintainable.</p>
+        <div class="notes"><strong>Notes</strong>Examples use standard SQL syntax compatible with MySQL, PostgreSQL, and SQL Server. The composite primary key on the junction table is highlighted as both a uniqueness mechanism and a practical design choice. The data sample table for enrollments reinforces the abstract explanation with concrete row-level data.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

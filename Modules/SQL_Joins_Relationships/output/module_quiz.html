@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Joins, Relationships, and Advanced Query Techniques — Quiz Question Bank</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.5}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+.count{color:#666}
+.q{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:14px 0}
+.qnum{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.qtype{background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 6px;margin-left:6px}
+.qtext{font-weight:600;margin:6px 0}
+ul.opts{margin:6px 0 0 4px}
+ul.opts li{margin:3px 0}
+ul.opts li.correct{color:#137333;font-weight:600}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>SQL Joins, Relationships, and Advanced Query Techniques — Quiz Question Bank</h1>
+<p class="count">20 questions</p>
+<div class="q">
+<div class="qnum">Question 1<span class="qtype">MC</span></div>
+<div class="qtext">Which statement best describes a relational database?</div>
+<ul class="opts">
+<li class="correct">It organizes data into multiple structured tables, each representing a distinct entity or concept.  ✓</li>
+<li>It stores all data in a single spreadsheet for easy access.</li>
+<li>It uses only one table with all columns needed for every record.</li>
+<li>It organizes data in hierarchical folders rather than tables.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 2<span class="qtype">MC</span></div>
+<div class="qtext">What is the primary purpose of a primary key in a database table?</div>
+<ul class="opts">
+<li class="correct">To uniquely identify each row within a table  ✓</li>
+<li>To link two tables together through a shared column</li>
+<li>To store the most frequently queried column for faster lookups</li>
+<li>To enforce that a column cannot contain any numeric values</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 3<span class="qtype">MC</span></div>
+<div class="qtext">In a database with a Customers table and an Orders table, what role does the CustomerID column in the Orders table play?</div>
+<ul class="opts">
+<li class="correct">It is a foreign key that references the primary key in the Customers table.  ✓</li>
+<li>It is a primary key that uniquely identifies each order.</li>
+<li>It is an alias used to improve query readability.</li>
+<li>It is a derived column calculated from other order fields.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 4<span class="qtype">MC</span></div>
+<div class="qtext">Why is data typically split across multiple tables in a relational database rather than stored in one large table?</div>
+<ul class="opts">
+<li class="correct">To reduce repetition, maintain consistency, and simplify updates  ✓</li>
+<li>To make queries longer and more complex for security purposes</li>
+<li>To ensure each table has exactly the same number of rows</li>
+<li>To prevent the use of aggregate functions across columns</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 5<span class="qtype">MC</span></div>
+<div class="qtext">What happens to a row in the left table when no matching record exists in the right table during an INNER JOIN?</div>
+<ul class="opts">
+<li class="correct">It is excluded from the result set entirely.  ✓</li>
+<li>It is included with NULL values in the right table&#39;s columns.</li>
+<li>It is duplicated for every row in the right table.</li>
+<li>It causes a query error and stops execution.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 6<span class="qtype">MC</span></div>
+<div class="qtext">Where is the INNER JOIN clause placed within a SELECT statement?</div>
+<ul class="opts">
+<li class="correct">In the FROM section, followed by an ON condition  ✓</li>
+<li>In the SELECT list, before the column names</li>
+<li>In the WHERE clause, after the filter conditions</li>
+<li>In the ORDER BY clause, after the GROUP BY clause</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 7<span class="qtype">MC</span></div>
+<div class="qtext">What is the main benefit of using table aliases in a SQL JOIN query?</div>
+<ul class="opts">
+<li class="correct">They simplify syntax by assigning short, readable names to tables.  ✓</li>
+<li>They permanently rename the tables in the database schema.</li>
+<li>They improve query performance by indexing the joined columns.</li>
+<li>They replace the ON condition when joining more than two tables.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 8<span class="qtype">MC</span></div>
+<div class="qtext">What is the effect of adding a WHERE clause after an INNER JOIN in a query?</div>
+<ul class="opts">
+<li class="correct">It further narrows the result set beyond the join matching condition.  ✓</li>
+<li>It replaces the ON condition and defines the join logic.</li>
+<li>It converts the INNER JOIN into a LEFT JOIN automatically.</li>
+<li>It groups the results by the specified column.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 9<span class="qtype">MC</span></div>
+<div class="qtext">Which result set does a LEFT OUTER JOIN produce?</div>
+<ul class="opts">
+<li class="correct">All rows from the left table and only matching rows from the right table, with NULLs for unmatched right columns  ✓</li>
+<li>Only rows where a match exists in both tables</li>
+<li>All rows from both tables regardless of matches</li>
+<li>All rows from the right table and only matching rows from the left table</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 10<span class="qtype">MC</span></div>
+<div class="qtext">Which statement is true about FULL OUTER JOIN in MySQL?</div>
+<ul class="opts">
+<li class="correct">MySQL does not natively support FULL OUTER JOIN; it must be simulated using a UNION of LEFT and RIGHT JOINs.  ✓</li>
+<li>MySQL supports FULL OUTER JOIN with the same syntax as other databases.</li>
+<li>MySQL replaces FULL OUTER JOIN with CROSS JOIN automatically.</li>
+<li>FULL OUTER JOIN is not a valid SQL operation in any database system.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 11<span class="qtype">MC</span></div>
+<div class="qtext">How can you use a WHERE clause after an OUTER JOIN to find records that have no match in the joined table?</div>
+<ul class="opts">
+<li class="correct">Filter with IS NULL on a column from the table that would have no matching record.  ✓</li>
+<li>Filter with = 0 on the primary key column of the right table.</li>
+<li>Use NOT IN with the entire result set of the joined table.</li>
+<li>Add a DISTINCT keyword before the SELECT to remove unmatched rows.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 12<span class="qtype">MC</span></div>
+<div class="qtext">What is a subquery in SQL?</div>
+<ul class="opts">
+<li class="correct">A SELECT statement nested inside another SQL statement, evaluated before the outer query  ✓</li>
+<li>A stored procedure that runs on a scheduled basis</li>
+<li>A JOIN operation that links more than three tables simultaneously</li>
+<li>A view that permanently stores a query result in the database</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 13<span class="qtype">MC</span></div>
+<div class="qtext">What distinguishes a correlated subquery from a non-correlated subquery?</div>
+<ul class="opts">
+<li class="correct">A correlated subquery references outer query columns and runs once per row; a non-correlated subquery runs only once.  ✓</li>
+<li>A correlated subquery runs only once; a non-correlated subquery runs once per row in the outer query.</li>
+<li>A correlated subquery is placed in the FROM clause; a non-correlated subquery is placed in the WHERE clause.</li>
+<li>A correlated subquery uses JOINs internally; a non-correlated subquery does not use any JOINs.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 14<span class="qtype">MC</span></div>
+<div class="qtext">What does the EXISTS operator test in a correlated subquery?</div>
+<ul class="opts">
+<li class="correct">Whether the correlated subquery returns at least one row  ✓</li>
+<li>Whether the correlated subquery returns a NULL value</li>
+<li>Whether all rows in the outer query have a matching row in the subquery</li>
+<li>Whether the subquery result set is sorted in ascending order</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 15<span class="qtype">MC</span></div>
+<div class="qtext">When using GROUP BY with aggregate functions in a SELECT statement, which columns must appear in the GROUP BY clause?</div>
+<ul class="opts">
+<li class="correct">Every column in the SELECT list that is not an aggregate function  ✓</li>
+<li>Only the primary key column of the main table</li>
+<li>All columns used in any JOIN condition within the query</li>
+<li>Only the columns that contain numeric values</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 16<span class="qtype">MC</span></div>
+<div class="qtext">What is the key difference between the WHERE clause and the HAVING clause in an aggregation query?</div>
+<ul class="opts">
+<li class="correct">WHERE filters individual rows before grouping; HAVING filters aggregated groups after grouping.  ✓</li>
+<li>WHERE filters aggregated groups; HAVING filters individual rows before grouping.</li>
+<li>WHERE is used only with JOINs; HAVING is used only with subqueries.</li>
+<li>WHERE and HAVING are interchangeable and can be used in place of each other.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 17<span class="qtype">MC</span></div>
+<div class="qtext">What is a derived table in the context of SQL subqueries?</div>
+<ul class="opts">
+<li class="correct">A temporary result set created by placing a subquery in the FROM clause  ✓</li>
+<li>A permanent table created automatically when an INNER JOIN is executed</li>
+<li>A table generated by the GROUP BY clause for each aggregated group</li>
+<li>A backup copy of a table created before a DELETE operation</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 18<span class="qtype">MC</span></div>
+<div class="qtext">A report requires every product to be listed with its total sales, including products that have never been sold. Which JOIN type is most appropriate?</div>
+<ul class="opts">
+<li class="correct">LEFT JOIN with the products table on the left side  ✓</li>
+<li>INNER JOIN between products and sales tables</li>
+<li>RIGHT JOIN with the sales table on the left side</li>
+<li>FULL OUTER JOIN is always required when including products with no sales</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 19<span class="qtype">MC</span></div>
+<div class="qtext">After running a complex multi-table query, which technique helps verify that the results are logically correct?</div>
+<ul class="opts">
+<li class="correct">Run simpler queries on individual tables and compare aggregate totals to the complex query results.  ✓</li>
+<li>Add an ORDER BY clause to the query to sort results alphabetically.</li>
+<li>Replace all JOINs with subqueries to verify the logic separately.</li>
+<li>Check that the number of columns in the result matches the number of tables joined.</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 20<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, what is the recommended first step before writing SQL for a complex analytical question?</div>
+<ul class="opts">
+<li class="correct">Break the question into smaller sub-problems that map to specific tables and operations.  ✓</li>
+<li>Write the SELECT clause first and add JOIN conditions afterward.</li>
+<li>Choose the aggregate function to use before identifying which tables are needed.</li>
+<li>Create a temporary table to hold all relevant data before querying it.</li>
+</ul>
+</div>
+</body>
+</html>

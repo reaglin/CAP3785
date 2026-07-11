@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INNER JOIN and Matching Records</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>INNER JOIN and Matching Records</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>INNER JOIN and Matching Records</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When working with relational databases, data is intentionally spread across multiple tables to reduce redundancy and enforce structure. A customer's personal details live in one table, their orders in another, and the products they ordered in yet another. To answer real business questions — "Which customers placed orders last month?" or "What products were included in each order?" — you need a way to bring those separate tables back together. That is precisely what <strong>JOIN</strong> operations accomplish, and the <strong>INNER JOIN</strong> is the most fundamental and widely used type among them.</p>
+
+<p>An <strong>INNER JOIN</strong> combines rows from two or more tables based on a related column and returns <em>only</em> the rows where a match is found in <em>both</em> tables simultaneously. Think of it as the intersection in a Venn diagram: the overlapping region in the middle, where both circles share common ground. Any row that exists in one table but has no corresponding match in the other is silently excluded from the result. This behaviour is what distinguishes an INNER JOIN from outer joins, which can preserve unmatched rows. Understanding this exclusion behaviour is critical — if you expect certain rows in your output but they are missing, the first thing to check is whether those rows actually have matching records on the join condition.</p>
+
+<p>Consider a simple illustration. Suppose you have a <code>Customers</code> table and an <code>Orders</code> table. Three customers exist: Alice (ID 1), Bob (ID 2), and Carol (ID 3). Only Alice and Bob have placed orders. When you perform an INNER JOIN between the two tables on the customer ID, Carol's row is omitted entirely from the result because there is no matching order record for her. The result contains only Alice's and Bob's combined data.</p>
+
+<p><strong>Basic INNER JOIN Syntax</strong></p>
+
+<p>The structure of an INNER JOIN query follows a consistent pattern. You begin with a <code>SELECT</code> statement listing the columns you want to retrieve, then specify the first (left) table in the <code>FROM</code> clause, follow it with <code>INNER JOIN</code> and the second (right) table name, and finally use the <code>ON</code> keyword to define the condition that determines how rows from the two tables are matched.</p>
+
+<pre><code>SELECT column1, column2, ...
+FROM table_one
+INNER JOIN table_two
+    ON table_one.shared_column = table_two.shared_column;</code></pre>
+
+<p>A concrete example using <code>Customers</code> and <code>Orders</code> tables:</p>
+
+<pre><code>SELECT Customers.CustomerName, Orders.OrderDate, Orders.TotalAmount
+FROM Customers
+INNER JOIN Orders
+    ON Customers.CustomerID = Orders.CustomerID;</code></pre>
+
+<p>Here the <code>ON</code> clause declares that a row from <code>Customers</code> and a row from <code>Orders</code> should be combined when their <code>CustomerID</code> values are equal. Notice how column names are prefixed with the table name — <code>Customers.CustomerID</code> versus <code>Orders.CustomerID</code>. This prefix is especially important when both tables contain a column with the same name, because without it the database engine cannot determine which table's column you are referring to and will raise an ambiguity error. As a best practice, always qualify column names in JOIN queries, even when ambiguity does not technically exist, because it makes the query far easier for another developer (or your future self) to read and maintain.</p>
+
+<p><strong>Matching on Primary and Foreign Keys</strong></p>
+
+<p>The join condition in an INNER JOIN most commonly connects a <strong>primary key</strong> in one table to a <strong>foreign key</strong> in another. A primary key is a column (or set of columns) that uniquely identifies every row in its own table. A foreign key is a column in a child table that stores the primary key value of a related row in the parent table, creating a logical link between the two.</p>
+
+<p>For example, in an e-commerce database:</p>
+
+<ul>
+  <li>The <code>Customers</code> table has <code>CustomerID</code> as its primary key.</li>
+  <li>The <code>Orders</code> table has <code>OrderID</code> as its primary key and <code>CustomerID</code> as a foreign key referencing <code>Customers</code>.</li>
+  <li>The <code>OrderItems</code> table has a foreign key <code>OrderID</code> referencing <code>Orders</code>, and a foreign key <code>ProductID</code> referencing a <code>Products</code> table.</li>
+</ul>
+
+<p>Joining on these key columns is not merely a convention — it is what makes the combined records <em>logically meaningful</em>. You are not just lining up rows arbitrarily; you are reconstructing the actual relationship that was designed into the database schema.</p>
+
+<p>One important practical concern is <strong>data type compatibility</strong>. For the database engine to find a match, the values being compared in the <code>ON</code> clause must be of compatible types. If <code>Customers.CustomerID</code> is stored as an integer but <code>Orders.CustomerID</code> was accidentally defined as a <code>VARCHAR</code>, the engine may perform an implicit type conversion — or, in stricter database systems, it may fail to find any matches at all, returning an empty result set. This is a common source of confusion when debugging a JOIN that appears syntactically correct but produces no rows. Always verify that key columns share the same data type.</p>
+
+<p>Consider sample data to make this concrete:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>CustomerID</th>
+      <th>CustomerName</th>
+      <th>City</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Alice Martin</td><td>New York</td></tr>
+    <tr><td>2</td><td>Bob Chen</td><td>Chicago</td></tr>
+    <tr><td>3</td><td>Carol Davis</td><td>Houston</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>OrderID</th>
+      <th>CustomerID</th>
+      <th>OrderDate</th>
+      <th>TotalAmount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>101</td><td>1</td><td>2024-03-01</td><td>250.00</td></tr>
+    <tr><td>102</td><td>2</td><td>2024-03-05</td><td>89.99</td></tr>
+    <tr><td>103</td><td>1</td><td>2024-03-10</td><td>430.00</td></tr>
+  </tbody>
+</table>
+
+<p>Running the INNER JOIN query above on this data produces:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>CustomerName</th>
+      <th>OrderDate</th>
+      <th>TotalAmount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Alice Martin</td><td>2024-03-01</td><td>250.00</td></tr>
+    <tr><td>Alice Martin</td><td>2024-03-10</td><td>430.00</td></tr>
+    <tr><td>Bob Chen</td><td>2024-03-05</td><td>89.99</td></tr>
+  </tbody>
+</table>
+
+<p>Carol Davis does not appear because she has no orders. Alice Martin appears twice because she has two orders — each order row is matched individually with the single matching customer row, producing one result row per match.</p>
+
+<p><strong>Using Table Aliases for Readability</strong></p>
+
+<p>As queries grow more complex and involve multiple tables, repeating full table names throughout the query quickly becomes verbose and error-prone. <strong>Table aliases</strong> provide a shorthand label you assign to a table for the duration of the query. You declare an alias using the <code>AS</code> keyword immediately after the table name, or simply by writing the alias directly after the table name without <code>AS</code> — both forms are accepted in most database systems.</p>
+
+<pre><code>SELECT c.CustomerName, o.OrderDate, o.TotalAmount
+FROM Customers AS c
+INNER JOIN Orders AS o
+    ON c.CustomerID = o.CustomerID;</code></pre>
+
+<p>Here <code>c</code> is an alias for <code>Customers</code> and <code>o</code> is an alias for <code>Orders</code>. Once defined, the alias <em>must</em> be used consistently throughout the query — you cannot mix <code>c.CustomerID</code> in one part and <code>Customers.CustomerID</code> in another within the same query, as some database systems will raise an error for the inconsistency. Aliases do not change the actual table names; they exist only within the scope of the current query.</p>
+
+<p>Aliases become especially indispensable in two scenarios. First, when working with <strong>long table names</strong> like <code>CustomerTransactionHistory</code> — an alias like <code>cth</code> saves significant typing and reduces visual clutter. Second, and more fundamentally, when performing a <strong>self-join</strong>, where a table is joined to itself. This is used when rows within a single table have a hierarchical or peer relationship, such as an <code>Employees</code> table where each employee row stores a <code>ManagerID</code> that references another employee's <code>EmployeeID</code> in the same table. Without aliases, referencing the same table twice would be impossible:</p>
+
+<pre><code>SELECT e.EmployeeName AS Employee, m.EmployeeName AS Manager
+FROM Employees AS e
+INNER JOIN Employees AS m
+    ON e.ManagerID = m.EmployeeID;</code></pre>
+
+<p>In this self-join, <code>e</code> represents each employee and <code>m</code> represents the manager — both drawn from the same underlying <code>Employees</code> table but treated as logically separate entities in the query.</p>
+
+<p><strong>Filtering INNER JOIN Results with WHERE</strong></p>
+
+<p>Once the INNER JOIN has produced its matched result set, you can apply further filtering using a <code>WHERE</code> clause to narrow down the rows returned. It is important to understand the order of operations: the JOIN runs first to combine matching rows, and then the WHERE clause filters that combined result. This means WHERE conditions operate on the already-joined data, which can reference columns from any of the joined tables.</p>
+
+<pre><code>SELECT c.CustomerName, o.OrderDate, o.TotalAmount
+FROM Customers AS c
+INNER JOIN Orders AS o
+    ON c.CustomerID = o.CustomerID
+WHERE o.TotalAmount > 200.00;</code></pre>
+
+<p>This query first joins customers to their orders, then restricts the output to only those combined rows where the order total exceeds 200. The result would include Alice's two orders (250.00 and 430.00) but exclude Bob's order (89.99).</p>
+
+<p>Multiple conditions can be chained using <code>AND</code> and <code>OR</code>:</p>
+
+<pre><code>SELECT c.CustomerName, o.OrderDate, o.TotalAmount
+FROM Customers AS c
+INNER JOIN Orders AS o
+    ON c.CustomerID = o.CustomerID
+WHERE o.TotalAmount > 100.00
+  AND o.OrderDate >= '2024-03-05';</code></pre>
+
+<p>This adds a date filter alongside the amount filter. Only rows satisfying both conditions simultaneously are returned.</p>
+
+<p>From a performance standpoint, filtering on <strong>indexed columns</strong> in the WHERE clause is significantly faster on large tables. Indexes allow the database engine to locate relevant rows without scanning the entire table. Filtering on the same columns used as join keys — which are frequently indexed as primary or foreign keys — is often the most efficient approach. When writing WHERE clauses on joined queries, be mindful of which table each filtered column belongs to and whether that column benefits from an index.</p>
+
+<p><strong>Common Use Cases for INNER JOIN</strong></p>
+
+<p>INNER JOIN underpins a vast range of real-world SQL queries. Understanding typical patterns helps you recognise when and how to apply it effectively.</p>
+
+<ul>
+  <li><strong>Reporting dashboards:</strong> Business intelligence reports routinely combine fact tables (transactional data like sales events) with dimension tables (reference data like product categories, regions, or time periods). An INNER JOIN connects each transaction to its descriptive context, enabling grouped summaries and breakdowns.</li>
+  <li><strong>E-commerce order summaries:</strong> A query might join <code>Customers</code>, <code>Orders</code>, <code>OrderItems</code>, and <code>Products</code> to produce a complete order receipt, showing each customer's name, the products they ordered, quantities, and prices all in one result set.</li>
+  <li><strong>Access control and user permissions:</strong> Joining a <code>Users</code> table to a <code>Roles</code> table via a mapping table like <code>UserRoles</code> retrieves which permissions each user has been granted.</li>
+  <li><strong>Inventory management:</strong> Combining a <code>Products</code> table with a <code>Suppliers</code> table surfaces supplier details for each stocked product, useful for restocking reports.</li>
+  <li><strong>HR systems:</strong> Joining an <code>Employees</code> table with a <code>Departments</code> table shows each employee's department name and location rather than just their department ID number.</li>
+</ul>
+
+<p>The common thread across all these cases is the need to correlate data stored in separate but related tables. Wherever a foreign key relationship exists in a schema, an INNER JOIN is almost certainly the mechanism used to bring that related data together in queries.</p>
+
+<p><strong>Joining More Than Two Tables</strong></p>
+
+<p>Real queries frequently need to draw from more than two tables at once. SQL handles this by allowing you to chain multiple <code>INNER JOIN ... ON</code> clauses one after another in the same query. Each additional JOIN appends another table to the growing combined result set, and each requires its own <code>ON</code> condition specifying how the new table connects to the already-joined data.</p>
+
+<pre><code>SELECT c.CustomerName,
+       o.OrderDate,
+       p.ProductName,
+       oi.Quantity,
+       oi.UnitPrice
+FROM Customers AS c
+INNER JOIN Orders AS o
+    ON c.CustomerID = o.CustomerID
+INNER JOIN OrderItems AS oi
+    ON o.OrderID = oi.OrderID
+INNER JOIN Products AS p
+    ON oi.ProductID = p.ProductID;</code></pre>
+
+<p>This query threads together four tables in a logical chain:</p>
+
+<ul>
+  <li><code>Customers</code> connects to <code>Orders</code> via <code>CustomerID</code>.</li>
+  <li><code>Orders</code> connects to <code>OrderItems</code> via <code>OrderID</code>.</li>
+  <li><code>OrderItems</code> connects to <code>Products</code> via <code>ProductID</code>.</li>
+</ul>
+
+<p>Notice that each JOIN condition references one column from the newly introduced table and one from a table already brought into the query. This chaining principle keeps the data flow logically coherent. A JOIN condition that referenced two columns both from tables not yet introduced, or that skipped a link in the chain, would produce incorrect or unexpected results.</p>
+
+<p>The <strong>order of JOINs</strong> in the query text generally does not affect the final result — the database engine's query optimizer is free to reorder join operations internally for efficiency. However, writing JOINs in the natural logical sequence (following the foreign key relationships through the schema) greatly improves readability and makes the query easier to debug. In some complex scenarios with very large tables and multiple join paths, the order can influence which query execution plan the optimizer selects, though modern database systems are generally very capable of finding efficient plans regardless of the written order.</p>
+
+<p>As a guard against mistakes in multi-table joins, always verify each ON clause carefully. A common error is accidentally reusing the same join condition from a previous clause or referencing the wrong column, which can produce a Cartesian-product-like explosion of rows or silently drop expected data. Testing the query incrementally — adding one JOIN at a time and checking the intermediate row counts — is an effective debugging strategy when building complex multi-table queries.</p>
+        <div class="notes"><strong>Notes</strong>Covers the INNER JOIN operation to retrieve only records with matching values in both tables. Explores common use cases and syntax for combining related data sets. Sample data tables are rendered as HTML tables to illustrate key/foreign key relationships and the effect of the join on result rows.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

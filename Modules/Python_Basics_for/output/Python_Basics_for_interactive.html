@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting Up the Analytics Environment</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Setting Up the Analytics Environment</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Setting Up the Analytics Environment</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before writing a single line of data analytics code, every analyst needs a properly configured development environment. Think of the environment as the workbench where all your tools live: the Python interpreter that executes your code, the libraries that give you powerful analytics capabilities, the virtual environment that keeps your project dependencies clean and separated, and the editor or notebook interface where you write and run everything. Getting this foundation right from the start saves countless hours of debugging mysterious errors caused by missing packages, conflicting library versions, or Python not being recognized by your terminal. This section walks through every step in detail, from downloading Python to running your first test script, so that by the end you have a fully functional analytics environment ready for real work.</p>
+
+<p><strong>Installing Python</strong></p>
+
+<p>Python is the engine that powers everything in your analytics workflow. The first step is to obtain the official installer from <em>python.org</em>, the home of the Python Software Foundation. Navigate to the Downloads section of the site and choose the latest stable Python 3 release for your operating system — Windows, macOS, or Linux. Python 3 is the modern, actively maintained version of the language. Python 2 reached its end of life in 2020 and should be avoided for any new project.</p>
+
+<p>When you run the Windows installer, you will see an options screen before the installation begins. It is critically important to <strong>check the box labelled "Add Python to PATH"</strong> on that first screen. The PATH is an environment variable that tells your operating system where to look when you type a command into the terminal. If Python is not on your PATH, typing <code>python</code> in a command prompt will return an error like <em>"'python' is not recognized as an internal or external command."</em> Checking that box during installation handles this automatically. On macOS, the installer package walks you through a similar process and will prompt you to run a certificate installation step, which is needed for Python to make secure internet connections.</p>
+
+<p>Once the installation completes, open a terminal (Command Prompt or PowerShell on Windows; Terminal on macOS or Linux) and verify that Python installed correctly by running one of the following commands:</p>
+
+<pre><code>python --version
+</code></pre>
+
+<p>or, on systems where both Python 2 and Python 3 may be present:</p>
+
+<pre><code>python3 --version
+</code></pre>
+
+<p>A successful installation will print a version string such as <code>Python 3.12.3</code>. If you see a version number beginning with 3, you are ready to proceed. If you see an error, revisit the installation and confirm the PATH option was selected, or add Python to your PATH manually through your operating system's environment variables settings.</p>
+
+<p><strong>Using Package Managers to Install Analytics Libraries</strong></p>
+
+<p>Python on its own is a general-purpose programming language. Its power for data analytics comes from an ecosystem of third-party libraries. The tool used to install, upgrade, and manage these libraries is <strong>pip</strong> — the Python package installer. pip is bundled with Python 3 installations automatically, so it is available immediately after you install Python.</p>
+
+<p>The three foundational libraries for data analytics are <strong>pandas</strong>, <strong>NumPy</strong>, and <strong>Matplotlib</strong>. pandas provides DataFrame structures for storing and manipulating tabular data. NumPy provides fast numerical array operations and mathematical functions. Matplotlib provides plotting and visualization capabilities. Install all three in a single command:</p>
+
+<pre><code>pip install pandas numpy matplotlib
+</code></pre>
+
+<p>pip will reach out to the Python Package Index (PyPI), download each library and its dependencies, and install them. You will see progress output in the terminal as each package downloads and installs. Depending on your internet speed this may take between a few seconds and a couple of minutes.</p>
+
+<p>To confirm that your libraries installed successfully, run:</p>
+
+<pre><code>pip list
+</code></pre>
+
+<p>This command prints a table of every package currently installed in your Python environment, along with its version number. Scroll through the list and verify that <code>pandas</code>, <code>numpy</code>, and <code>matplotlib</code> appear. If you want to check a specific package quickly, you can filter the output:</p>
+
+<pre><code>pip show pandas
+</code></pre>
+
+<p>This prints detailed information about the pandas package, including its version, location on disk, and its own dependencies.</p>
+
+<p>As the Python ecosystem evolves, library authors release updates that add new features, improve performance, and fix bugs or security vulnerabilities. To upgrade a specific package to its latest version, use the <code>--upgrade</code> flag:</p>
+
+<pre><code>pip install --upgrade pandas
+</code></pre>
+
+<p>It is good practice to periodically upgrade your analytics libraries so that you benefit from the latest improvements and avoid known issues that have been patched in newer versions.</p>
+
+<p><strong>Setting Up a Virtual Environment</strong></p>
+
+<p>One of the most important professional habits for any Python developer or analyst is the use of <strong>virtual environments</strong>. A virtual environment is a self-contained directory that holds its own Python interpreter and its own set of installed packages, completely isolated from Python's global installation and from every other virtual environment on your machine.</p>
+
+<p>Consider why this matters: imagine you are working on two different analytics projects simultaneously. Project A depends on pandas version 1.5, while Project B requires pandas version 2.0 because it uses a feature that was added in that release. Without virtual environments, you can only have one version of pandas installed globally, and at least one of your projects will break. Virtual environments solve this by giving each project its own isolated space where its specific dependencies live.</p>
+
+<p>Python ships with the <code>venv</code> module built in, so no extra installation is needed. To create a virtual environment, navigate in your terminal to the folder where your project lives (or where you want it to live) and run:</p>
+
+<pre><code>python -m venv env_name
+</code></pre>
+
+<p>Replace <code>env_name</code> with whatever name you want to give the environment — common conventions include <code>venv</code>, <code>env</code>, or a project-specific name like <code>analytics_env</code>. This creates a new folder with that name containing the isolated Python interpreter and the pip tool.</p>
+
+<p>Creating the environment does not automatically activate it. You need to activate it so that when you type <code>python</code> or <code>pip</code>, your terminal uses the versions inside the environment rather than the global ones. The activation command differs by operating system:</p>
+
+<ul>
+  <li><strong>Windows (Command Prompt):</strong> <code>env_name\Scripts\activate</code></li>
+  <li><strong>Windows (PowerShell):</strong> <code>env_name\Scripts\Activate.ps1</code></li>
+  <li><strong>macOS / Linux:</strong> <code>source env_name/bin/activate</code></li>
+</ul>
+
+<p>After activation, your terminal prompt changes to show the environment name in parentheses, for example <code>(analytics_env) $</code>. This visual cue confirms that the environment is active and that any <code>pip install</code> commands you run will install packages into this environment only, leaving your global Python installation and other environments untouched.</p>
+
+<p>When you are done working on a project and want to return to your global environment, simply run:</p>
+
+<pre><code>deactivate
+</code></pre>
+
+<p>It is also advisable to maintain a <code>requirements.txt</code> file for each project, which lists all the packages your project needs. You can generate this file automatically from an active environment with:</p>
+
+<pre><code>pip freeze > requirements.txt
+</code></pre>
+
+<p>Anyone else working on the project (or yourself on a new machine) can then recreate the exact same environment with:</p>
+
+<pre><code>pip install -r requirements.txt
+</code></pre>
+
+<p><strong>Choosing and Installing a Code Editor or IDE</strong></p>
+
+<p>A code editor or Integrated Development Environment (IDE) is the interface through which you write, organize, and run your Python scripts. Choosing the right tool can significantly affect your productivity. Three options are particularly popular among Python data analysts, each with its own strengths.</p>
+
+<p><strong>Visual Studio Code (VS Code)</strong> is a free, open-source, and extremely lightweight editor developed by Microsoft. It runs on Windows, macOS, and Linux and supports virtually every programming language through a rich extensions marketplace. For Python development, install the official <em>Python extension by Microsoft</em> from the VS Code Extensions panel. This extension adds syntax highlighting, intelligent code completion (IntelliSense), linting, debugging tools, and seamless support for selecting virtual environments. VS Code also has a built-in terminal, which means you can activate your virtual environment and run scripts without leaving the editor. Its low resource usage makes it comfortable to use even on modest hardware.</p>
+
+<p><strong>PyCharm</strong>, developed by JetBrains, is a dedicated Python IDE. Its Community edition is free and provides a feature set that goes well beyond what a general editor offers out of the box: sophisticated code completion that understands your project's context, a powerful visual debugger that lets you step through code line by line and inspect variable values, integrated testing tools, a database browser, and native support for creating and managing virtual environments directly from the IDE's settings. The Professional edition adds support for web frameworks, remote development, and more. PyCharm is heavier on system resources than VS Code but rewards that cost with a deeply integrated Python-first experience.</p>
+
+<p><strong>Jupyter Notebook</strong> takes a fundamentally different approach from traditional editors. Rather than writing a script that you then run from top to bottom, Jupyter lets you write code in discrete <em>cells</em> and run each cell independently, seeing its output — including charts and tables — immediately below the cell. This interactive, exploratory style is ideal for data analytics work, where you often want to load some data, examine it, transform a column, plot the result, and iterate before committing to a final approach. Jupyter Notebooks save as <code>.ipynb</code> files that interleave code, its output, and formatted text (Markdown), making them excellent for documenting your analytical thinking alongside the code that produces the results.</p>
+
+<p><strong>Installing and Launching Jupyter Notebook</strong></p>
+
+<p>Jupyter Notebook is not part of the standard Python installation and must be installed separately. Make sure your virtual environment is activated first so that Jupyter is installed within your project environment, then run:</p>
+
+<pre><code>pip install notebook
+</code></pre>
+
+<p>This installs the classic Jupyter Notebook package along with all its dependencies, including the Tornado web server that powers the browser-based interface. Once installation completes, launch Jupyter Notebook from your terminal with:</p>
+
+<pre><code>jupyter notebook
+</code></pre>
+
+<p>Jupyter starts a local web server and automatically opens a tab in your default web browser pointing to <code>http://localhost:8888</code>. What you see is the <strong>Notebook Dashboard</strong> — a file browser showing the contents of the directory from which you launched Jupyter. This is why it is good practice to navigate to your project folder in the terminal <em>before</em> running <code>jupyter notebook</code>, so the dashboard opens in the right place.</p>
+
+<p>To create a new notebook, click the <strong>New</strong> button on the right side of the dashboard and select <strong>Python 3</strong> from the dropdown menu. A new browser tab opens with a blank notebook containing one empty code cell. Click inside the cell, type your Python code, and press <strong>Shift + Enter</strong> to run it. The output appears immediately below the cell and a new empty cell is created below that, ready for your next step.</p>
+
+<p>Notebooks also support <em>Markdown cells</em> for writing formatted documentation. Change a cell's type from Code to Markdown using the dropdown menu in the toolbar, then write text using standard Markdown syntax — headings with <code>#</code>, bold with <code>**</code>, bullet lists with <code>-</code>, and so on. Running a Markdown cell renders it as formatted text, turning your notebook into a readable, self-documenting analysis report.</p>
+
+<p><strong>Verifying the Environment with a Test Script</strong></p>
+
+<p>After completing all the installation steps above, it is important to run a quick verification to confirm that your environment is fully functional before starting real analytical work. A simple test script checks that Python can find and import your key libraries and that they behave correctly.</p>
+
+<p>Open your editor or a new Jupyter Notebook cell and enter the following code:</p>
+
+<pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create a simple NumPy array
+arr = np.array([10, 20, 30, 40, 50])
+print("NumPy array:", arr)
+print("Mean:", np.mean(arr))
+
+# Create a simple pandas DataFrame
+data = {"Name": ["Alice", "Bob", "Carol"],
+        "Score": [88, 95, 72]}
+df = pd.DataFrame(data)
+print(df)
+
+# Create a simple plot
+plt.plot(arr)
+plt.title("Test Plot")
+plt.show()
+</code></pre>
+
+<p>Run this script. A successful run produces three outputs: a printed NumPy array with its mean, a printed DataFrame table showing names and scores, and a line chart window (or an inline chart in Jupyter). Each of these confirms a different library is working correctly.</p>
+
+<p>The most common issue at this stage is an <code>ImportError</code> or <code>ModuleNotFoundError</code>, which looks like this:</p>
+
+<pre><code>ModuleNotFoundError: No module named 'pandas'
+</code></pre>
+
+<p>This error means Python cannot find the package. There are two typical causes. First, you may have forgotten to activate your virtual environment before running the script, so Python is looking in the wrong location. Activate the environment and try again. Second, the package may simply not be installed in the active environment. In that case, install it with pip:</p>
+
+<pre><code>pip install pandas
+</code></pre>
+
+<p>The following table summarises all the key commands covered in this topic for quick reference:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Purpose</th>
+      <th>Command</th>
+      <th>Platform</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Verify Python installation</td>
+      <td><code>python --version</code> or <code>python3 --version</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Install analytics libraries</td>
+      <td><code>pip install pandas numpy matplotlib</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>List installed packages</td>
+      <td><code>pip list</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Upgrade a package</td>
+      <td><code>pip install --upgrade &lt;package-name&gt;</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Create a virtual environment</td>
+      <td><code>python -m venv env_name</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Activate virtual environment</td>
+      <td><code>env_name\Scripts\activate</code></td>
+      <td>Windows</td>
+    </tr>
+    <tr>
+      <td>Activate virtual environment</td>
+      <td><code>source env_name/bin/activate</code></td>
+      <td>macOS / Linux</td>
+    </tr>
+    <tr>
+      <td>Deactivate virtual environment</td>
+      <td><code>deactivate</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Save environment dependencies</td>
+      <td><code>pip freeze &gt; requirements.txt</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Install Jupyter Notebook</td>
+      <td><code>pip install notebook</code></td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Launch Jupyter Notebook</td>
+      <td><code>jupyter notebook</code></td>
+      <td>All</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With Python installed, your analytics libraries in place, a virtual environment isolating your project dependencies, a code editor configured for Python development, Jupyter Notebook running in your browser, and a successful test script confirming everything works, your analytics environment is fully operational. Every subsequent task — loading datasets, cleaning data, computing statistics, and building visualisations — builds directly on this foundation.</p>
+        <div class="notes"><strong>Notes</strong>Students should be reminded to always activate their virtual environment before running scripts or installing packages. A common beginner mistake is installing packages globally and then being confused when they cannot be found inside a virtual environment, or vice versa. Instructors may wish to demonstrate the entire workflow live from a clean machine for maximum clarity.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

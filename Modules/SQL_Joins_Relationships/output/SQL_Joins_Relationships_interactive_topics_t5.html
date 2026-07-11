@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aggregation with GROUP BY and HAVING</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Aggregation with GROUP BY and HAVING</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Aggregation with GROUP BY and HAVING</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most powerful capabilities in SQL is the ability to <strong>summarize and analyze data</strong> across many rows at once. Rather than returning every individual record, you can instruct the database engine to compute totals, averages, counts, and other statistics — either across the entire table or within logical groupings of rows. This is the domain of <strong>aggregate functions</strong>, the <strong>GROUP BY</strong> clause, and the <strong>HAVING</strong> clause. Together, these tools transform raw relational data into meaningful summaries that drive reporting, dashboards, and analytical queries of every kind.</p>
+
+<p>Understanding aggregation well requires appreciating the <em>order in which SQL processes a query</em>. Conceptually, the database engine works through the clauses in this sequence: <strong>FROM</strong> (identify the source tables) → <strong>WHERE</strong> (filter individual rows) → <strong>GROUP BY</strong> (collapse rows into groups) → <strong>aggregate functions</strong> (compute per-group statistics) → <strong>HAVING</strong> (filter groups) → <strong>SELECT</strong> (project columns) → <strong>ORDER BY</strong> (sort) → <strong>LIMIT/TOP</strong> (restrict output). This logical order explains why WHERE cannot reference aggregates and why HAVING can — a distinction that trips up many learners.</p>
+
+<p><strong>Introduction to Aggregate Functions</strong></p>
+
+<p>Aggregate functions take a <em>set</em> of rows as input and return a <em>single scalar value</em>. The most commonly used aggregate functions in SQL are <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, and <code>MAX</code>. When used in a query without any GROUP BY clause, they collapse the entire result set into one row.</p>
+
+<p><strong>COUNT</strong> comes in two important flavors that behave very differently:</p>
+<ul>
+  <li><code>COUNT(*)</code> counts <em>every row</em> in the group, including rows that contain NULL values in any column. It simply asks: how many rows exist here?</li>
+  <li><code>COUNT(column_name)</code> counts only rows where that specific column is <em>not NULL</em>. If a column has 200 rows but 40 of them contain NULL, <code>COUNT(column_name)</code> returns 160.</li>
+</ul>
+
+<p>Consider a table called <code>orders</code> with columns <code>order_id</code>, <code>customer_id</code>, <code>amount</code>, and <code>discount_code</code> (which is NULL when no discount was applied). The difference in behavior is illustrated here:</p>
+
+<pre><code>-- Counts every row in the table
+SELECT COUNT(*) AS total_orders
+FROM orders;
+
+-- Counts only rows where discount_code is not NULL
+SELECT COUNT(discount_code) AS discounted_orders
+FROM orders;
+</code></pre>
+
+<p>If the table has 500 rows and only 120 have a discount code, the first query returns 500 and the second returns 120.</p>
+
+<p><strong>SUM</strong> adds up all non-NULL values in a numeric column. If every value in the column is NULL, SUM returns NULL (not zero). <strong>AVG</strong> computes the arithmetic mean of all non-NULL values — it divides the sum by the count of non-NULL rows, not the total row count. This means NULLs are excluded from the average calculation, which can produce surprising results if NULLs are conceptually meant to represent zero.</p>
+
+<pre><code>SELECT
+    SUM(amount)   AS total_revenue,
+    AVG(amount)   AS average_order_value
+FROM orders;
+</code></pre>
+
+<p><strong>MIN</strong> and <strong>MAX</strong> work across any orderable data type — numbers, dates, and even strings (using lexicographic ordering). They return the smallest and largest non-NULL values respectively.</p>
+
+<pre><code>SELECT
+    MIN(order_date) AS first_order_date,
+    MAX(order_date) AS most_recent_order_date,
+    MIN(amount)     AS smallest_order,
+    MAX(amount)     AS largest_order
+FROM orders;
+</code></pre>
+
+<p>When used without GROUP BY, all five of these functions reduce the entire table to a single summary row. That is useful for quick statistics, but the real analytical power emerges when you combine them with GROUP BY.</p>
+
+<p><strong>Grouping Data with GROUP BY</strong></p>
+
+<p>The <strong>GROUP BY</strong> clause instructs the database to partition the rows of the result set into distinct groups based on the values in one or more columns. Each unique combination of values in the GROUP BY columns becomes exactly one output row, with aggregate functions applied independently within each group.</p>
+
+<p>Imagine a <code>sales</code> table storing individual transaction records:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>sale_id</th>
+      <th>region</th>
+      <th>salesperson</th>
+      <th>product</th>
+      <th>amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>North</td><td>Alice</td><td>Widget</td><td>200</td></tr>
+    <tr><td>2</td><td>North</td><td>Bob</td><td>Gadget</td><td>150</td></tr>
+    <tr><td>3</td><td>South</td><td>Carol</td><td>Widget</td><td>300</td></tr>
+    <tr><td>4</td><td>South</td><td>Carol</td><td>Gadget</td><td>100</td></tr>
+    <tr><td>5</td><td>North</td><td>Alice</td><td>Gadget</td><td>250</td></tr>
+    <tr><td>6</td><td>South</td><td>Bob</td><td>Widget</td><td>180</td></tr>
+  </tbody>
+</table>
+
+<p>Grouping by <code>region</code> collapses all rows sharing the same region value into one summary row:</p>
+
+<pre><code>SELECT
+    region,
+    COUNT(*)      AS num_sales,
+    SUM(amount)   AS total_sales
+FROM sales
+GROUP BY region;
+</code></pre>
+
+<p>This produces:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>region</th>
+      <th>num_sales</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>North</td><td>3</td><td>600</td></tr>
+    <tr><td>South</td><td>3</td><td>580</td></tr>
+  </tbody>
+</table>
+
+<p>You can group by <strong>more than one column</strong>, which creates a sub-group for every unique <em>combination</em> of the specified column values. Grouping the same table by both <code>region</code> and <code>salesperson</code> yields a finer-grained breakdown:</p>
+
+<pre><code>SELECT
+    region,
+    salesperson,
+    COUNT(*)    AS num_sales,
+    SUM(amount) AS total_sales
+FROM sales
+GROUP BY region, salesperson;
+</code></pre>
+
+<p>Result:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>region</th>
+      <th>salesperson</th>
+      <th>num_sales</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>North</td><td>Alice</td><td>2</td><td>450</td></tr>
+    <tr><td>North</td><td>Bob</td><td>1</td><td>150</td></tr>
+    <tr><td>South</td><td>Bob</td><td>1</td><td>180</td></tr>
+    <tr><td>South</td><td>Carol</td><td>2</td><td>400</td></tr>
+  </tbody>
+</table>
+
+<p>A critical rule: <strong>every column in the SELECT clause that is not inside an aggregate function must appear in the GROUP BY clause</strong>. If you try to SELECT <code>salesperson</code> without including it in GROUP BY, the database cannot know which salesperson's name to display for a group that may contain multiple salespeople — this is an ambiguity error in strict SQL engines (MySQL in certain modes is a notable exception, though its behavior is unreliable).</p>
+
+<p>Also important: the <strong>output order of GROUP BY results is not guaranteed</strong>. Without an explicit ORDER BY, different database engines may return grouped rows in any order, and that order can change between executions. Always add ORDER BY if you need a predictable sequence.</p>
+
+<p>The concept of <strong>cardinality</strong> matters for understanding GROUP BY output volume. A low-cardinality column like <code>region</code> (only a handful of distinct values) produces a compact summary with few rows. A high-cardinality column like <code>customer_id</code> (potentially millions of distinct values) produces many output rows — one per customer — offering a detailed but voluminous breakdown.</p>
+
+<p><strong>Combining Aggregate Functions with GROUP BY</strong></p>
+
+<p>A single SELECT statement can contain <em>multiple aggregate functions</em> applied simultaneously to the same groups, which allows rich, multi-dimensional summaries in one query. Combine this with column aliases and arithmetic expressions inside aggregates for highly readable, expressive results.</p>
+
+<pre><code>SELECT
+    region,
+    salesperson,
+    COUNT(*)                            AS num_sales,
+    SUM(amount)                         AS total_revenue,
+    AVG(amount)                         AS avg_sale_value,
+    MIN(amount)                         AS min_sale,
+    MAX(amount)                         AS max_sale
+FROM sales
+GROUP BY region, salesperson
+ORDER BY region, total_revenue DESC;
+</code></pre>
+
+<p><strong>Aliases</strong> (introduced with the AS keyword) are essential for readability. Column headers like <code>COUNT(*)</code> or <code>SUM(amount)</code> are awkward in reports and application code; names like <code>num_sales</code> and <code>total_revenue</code> communicate intent clearly.</p>
+
+<p>Aggregate functions can also wrap <strong>arithmetic expressions</strong>. Suppose a table called <code>order_items</code> has columns <code>quantity</code> and <code>unit_price</code>. You can compute revenue per product directly inside the aggregate:</p>
+
+<pre><code>SELECT
+    product_id,
+    SUM(quantity * unit_price)          AS total_revenue,
+    SUM(quantity)                       AS units_sold,
+    AVG(unit_price)                     AS avg_unit_price
+FROM order_items
+GROUP BY product_id
+ORDER BY total_revenue DESC;
+</code></pre>
+
+<p>Here <code>SUM(quantity * unit_price)</code> multiplies the two column values for each row first, then sums those products across all rows in the group. This is different from — and generally more useful than — <code>SUM(quantity) * AVG(unit_price)</code>, which would produce a different (mathematically incorrect) result.</p>
+
+<p><strong>Filtering Grouped Results with HAVING</strong></p>
+
+<p>Once rows have been grouped and aggregated, you often want to show only the groups that meet some criterion — for example, only regions with more than ten sales, or only products whose total revenue exceeds $50,000. This is exactly what <strong>HAVING</strong> is for.</p>
+
+<p>HAVING is evaluated <em>after</em> GROUP BY and aggregation, which means it can reference aggregate function results directly. WHERE, by contrast, is evaluated <em>before</em> grouping and cannot reference aggregates at all — attempting to write <code>WHERE COUNT(*) &gt; 5</code> will produce an error in every standard SQL engine.</p>
+
+<pre><code>-- Show only salesperson-region combinations with total sales above 300
+SELECT
+    region,
+    salesperson,
+    SUM(amount) AS total_revenue
+FROM sales
+GROUP BY region, salesperson
+HAVING SUM(amount) > 300
+ORDER BY total_revenue DESC;
+</code></pre>
+
+<p>Result from the earlier dataset:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>region</th>
+      <th>salesperson</th>
+      <th>total_revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>North</td><td>Alice</td><td>450</td></tr>
+    <tr><td>South</td><td>Carol</td><td>400</td></tr>
+  </tbody>
+</table>
+
+<p>North/Bob (150) and South/Bob (180) are excluded because their totals do not exceed 300.</p>
+
+<p>Multiple conditions can be combined in HAVING using AND and OR:</p>
+
+<pre><code>SELECT
+    product_id,
+    COUNT(*)            AS num_orders,
+    SUM(amount)         AS total_revenue
+FROM order_items
+GROUP BY product_id
+HAVING COUNT(*) >= 10
+   AND SUM(amount) > 5000;
+</code></pre>
+
+<p>This returns only products that appear in at least 10 orders <em>and</em> whose total revenue exceeds 5,000.</p>
+
+<p>Regarding <strong>aliases in HAVING</strong>: the SQL standard requires the full aggregate expression in HAVING rather than the alias defined in SELECT, because SELECT is logically processed after HAVING. Most strict engines (PostgreSQL, SQL Server, Oracle) enforce this. Writing <code>HAVING total_revenue &gt; 5000</code> may work in MySQL and SQLite as a convenience extension, but for portability you should write <code>HAVING SUM(amount) &gt; 5000</code>.</p>
+
+<p>An unusual but valid edge case: <strong>HAVING without GROUP BY</strong>. In this situation, the entire result set is treated as a single group, and HAVING filters that one group. This is rarely written intentionally but is sometimes useful for existence checks:</p>
+
+<pre><code>-- Returns one row only if the table has more than 1000 rows total
+SELECT COUNT(*) AS total_rows
+FROM orders
+HAVING COUNT(*) > 1000;
+</code></pre>
+
+<p><strong>WHERE vs. HAVING: Knowing When to Use Each</strong></p>
+
+<p>The distinction between WHERE and HAVING is one of the most commonly misunderstood aspects of SQL aggregation. The rule is straightforward once you internalize the logical processing order:</p>
+
+<ul>
+  <li><strong>WHERE</strong> filters <em>individual rows</em> from the base table(s) <em>before</em> any grouping or aggregation takes place. It cannot reference aggregate functions.</li>
+  <li><strong>HAVING</strong> filters <em>groups</em> <em>after</em> GROUP BY and aggregation. It can — and typically does — reference aggregate functions.</li>
+</ul>
+
+<p>A query can contain both clauses, applying filtering at two separate stages:</p>
+
+<pre><code>SELECT
+    region,
+    salesperson,
+    COUNT(*)    AS num_sales,
+    SUM(amount) AS total_revenue
+FROM sales
+WHERE amount > 100                   -- pre-filter: exclude individual sales of 100 or less
+GROUP BY region, salesperson
+HAVING SUM(amount) > 300             -- post-filter: exclude groups with total <= 300
+ORDER BY total_revenue DESC;
+</code></pre>
+
+<p>The WHERE clause here removes the South/Bob/Widget row (amount = 180 — wait, 180 &gt; 100, so it stays; imagine if that row had amount = 80) before any grouping happens. The HAVING clause then removes any salesperson-region groups whose combined total is 300 or less after aggregation.</p>
+
+<p>Using WHERE to <strong>pre-filter before aggregation</strong> is not just logically correct — it is an important <em>performance optimization</em>. Filtering with WHERE reduces the number of rows that the database engine must process during the GROUP BY and aggregation phases. If you have a sales table with 10 million rows but are only interested in sales from the current year, placing <code>WHERE YEAR(sale_date) = 2024</code> in your query means the engine aggregates perhaps 800,000 rows rather than all 10 million. This can make a dramatic difference in execution time, especially if the WHERE column is indexed.</p>
+
+<p>A common mistake is trying to use WHERE where HAVING is needed:</p>
+
+<pre><code>-- WRONG: Cannot use aggregate in WHERE
+SELECT region, SUM(amount) AS total
+FROM sales
+WHERE SUM(amount) > 500    -- ERROR
+GROUP BY region;
+
+-- CORRECT: Use HAVING for aggregate conditions
+SELECT region, SUM(amount) AS total
+FROM sales
+GROUP BY region
+HAVING SUM(amount) > 500;
+</code></pre>
+
+<p>Conversely, filtering a plain (non-aggregated) column condition in HAVING instead of WHERE is legal but wasteful:</p>
+
+<pre><code>-- Legal but inefficient: this should be in WHERE
+SELECT region, SUM(amount) AS total
+FROM sales
+GROUP BY region
+HAVING region = 'North';   -- works, but forces all regions to be aggregated first
+
+-- Better: filter before grouping
+SELECT region, SUM(amount) AS total
+FROM sales
+WHERE region = 'North'
+GROUP BY region;
+</code></pre>
+
+<p><strong>Ordering and Presenting Aggregated Results</strong></p>
+
+<p>ORDER BY is applied as the <em>last logical step</em> before the result set is returned to the client (and before any LIMIT/TOP restriction is applied). Because it runs after SELECT, ORDER BY can freely reference column aliases defined in the SELECT clause, which is a convenience most SQL engines support.</p>
+
+<pre><code>SELECT
+    department,
+    COUNT(*)        AS headcount,
+    AVG(salary)     AS avg_salary
+FROM employees
+GROUP BY department
+ORDER BY avg_salary DESC;    -- ordering by alias: supported in most engines
+</code></pre>
+
+<p>You can also order by the full aggregate expression, which is unambiguous across all SQL dialects:</p>
+
+<pre><code>ORDER BY AVG(salary) DESC
+</code></pre>
+
+<p>Sorting aggregated results in <strong>descending order</strong> is an extremely common pattern for "top-N" reporting. Combined with LIMIT (or TOP in SQL Server / T-SQL), this enables queries that surface the highest-performing groups:</p>
+
+<pre><code>-- Top 5 products by total revenue
+SELECT
+    product_id,
+    SUM(quantity * unit_price) AS total_revenue
+FROM order_items
+GROUP BY product_id
+ORDER BY total_revenue DESC
+LIMIT 5;
+</code></pre>
+
+<p>In SQL Server the equivalent syntax uses TOP in the SELECT clause:</p>
+
+<pre><code>SELECT TOP 5
+    product_id,
+    SUM(quantity * unit_price) AS total_revenue
+FROM order_items
+GROUP BY product_id
+ORDER BY total_revenue DESC;
+</code></pre>
+
+<p>These top-N aggregation queries are the backbone of leaderboard reports, sales rankings, inventory analyses, and countless other business intelligence use cases.</p>
+
+<p>A complete, realistic example pulling all concepts together: find the top 3 salespeople by total revenue in the current year, considering only transactions above $50, and only including salespeople who have made at least 5 qualifying sales:</p>
+
+<pre><code>SELECT
+    salesperson,
+    COUNT(*)            AS qualifying_sales,
+    SUM(amount)         AS total_revenue,
+    AVG(amount)         AS avg_sale_value
+FROM sales
+WHERE amount > 50
+  AND YEAR(sale_date) = 2024
+GROUP BY salesperson
+HAVING COUNT(*) >= 5
+ORDER BY total_revenue DESC
+LIMIT 3;
+</code></pre>
+
+<p>Walking through the execution:</p>
+<ul>
+  <li><strong>FROM sales</strong>: start with the full sales table.</li>
+  <li><strong>WHERE</strong>: keep only rows where <code>amount &gt; 50</code> and the sale occurred in 2024.</li>
+  <li><strong>GROUP BY salesperson</strong>: collapse remaining rows into one group per salesperson.</li>
+  <li><strong>Aggregate functions</strong>: compute COUNT, SUM, and AVG per group.</li>
+  <li><strong>HAVING</strong>: discard groups where the salesperson has fewer than 5 qualifying sales.</li>
+  <li><strong>SELECT</strong>: project the four named columns.</li>
+  <li><strong>ORDER BY total_revenue DESC</strong>: rank remaining groups by descending revenue.</li>
+  <li><strong>LIMIT 3</strong>: return only the top three rows.</li>
+</ul>
+
+<p>Mastering this full pipeline — aggregate functions, GROUP BY, HAVING, WHERE, and ORDER BY working together — gives you the tools to answer virtually any summarization question against a relational database.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full GROUP BY and HAVING topic including aggregate functions (COUNT, SUM, AVG, MIN, MAX), multi-column grouping, combining multiple aggregates, HAVING for post-aggregation filtering, WHERE vs HAVING distinction with performance implications, and ORDER BY with LIMIT for top-N queries. All tabular data rendered as HTML tables. Examples use consistent sample datasets for continuity.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choosing the Right Chart Type</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Choosing the Right Chart Type</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Choosing the Right Chart Type</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Choosing the right chart type is one of the most consequential decisions in data visualization. A well-chosen chart transforms raw numbers into an instantly understood story, while a poorly chosen one can confuse, mislead, or obscure the very patterns it was meant to reveal. The choice is not primarily aesthetic — it is analytical. Every chart type is engineered around a specific kind of data relationship, and matching that type to your data and your communication goal is what separates effective visualization from decoration.</p>
+
+<p>Before selecting any chart, you must answer one foundational question: <strong>what am I trying to communicate?</strong> Data communication goals generally fall into four broad categories — <em>comparison</em> (how do things rank or differ?), <em>composition</em> (what share does each part hold?), <em>distribution</em> (how is a variable spread across a range?), and <em>relationship</em> (do two or more variables move together?). Identifying which of these goals your visualization must serve narrows the field of appropriate chart types immediately. Skipping this step and reaching for a familiar or visually impressive chart first is the root cause of most chart-type mismatches.</p>
+
+<p>The consequences of a mismatched chart type go beyond aesthetics. Even when the underlying data is perfectly accurate, presenting it through the wrong chart can cause audiences to draw incorrect conclusions. A pie chart used to compare six regions' sales figures, for instance, forces readers to judge angles and arc lengths — tasks the human visual system does poorly — when a simple bar chart would let them compare lengths directly and accurately. The chart becomes an obstacle to understanding rather than an aid.</p>
+
+<p><strong>Bar and Column Charts for Comparisons</strong></p>
+
+<p>Bar and column charts are the workhorses of comparison visualization. They exploit one of the most reliable perceptual abilities humans have: judging the relative length of parallel bars anchored on a common baseline. This makes differences between categories immediately and accurately readable, even for small numerical gaps.</p>
+
+<p><strong>Column charts</strong> (bars running vertically) are best suited to comparing a modest number of discrete categories — typically fewer than eight — where category labels are short enough to fit beneath each bar. A classic use case is monthly sales figures across regions. Placing four regions side by side for January, February, and March lets a viewer immediately see which region outperformed others and whether that ranking held across months.</p>
+
+<p><strong>Horizontal bar charts</strong> rotate the orientation so bars extend left to right. This single change dramatically improves readability in two situations: when category names are long (product names, survey response text, geographic regions written in full), and when the number of categories grows beyond six or eight. Vertical column charts become cramped and hard to read as categories increase; horizontal bars scale gracefully because the chart simply grows taller, and labels sit naturally beside each bar without overlap or rotation.</p>
+
+<p>Both grouped and stacked variants extend the basic bar chart to handle secondary comparisons. A <strong>grouped bar chart</strong> places multiple bars side by side within each category — for example, showing actual versus target sales for each of five regions. A <strong>stacked bar chart</strong> divides a single bar into colored segments, each representing a subcategory, so the total bar height represents the sum while the segments show composition. Stacked bars must be used carefully: only the bottom segment shares a common baseline, making all upper segments harder to compare accurately across categories. Reserve stacking for situations where the total and rough proportions matter more than precise subcategory comparison.</p>
+
+<p><strong>Line Charts for Trends Over Time</strong></p>
+
+<p>The defining feature of a line chart is the line itself — a continuous connector between successive data points. That line is not merely decorative; it communicates that values change progressively from one point to the next, and its slope makes the <em>rate</em> of that change immediately visible. A steep upward slope means rapid increase; a nearly flat line means near-stagnation; a line that oscillates signals cyclical behavior. No other chart type conveys these dynamics as naturally or efficiently.</p>
+
+<p>Line charts are therefore the correct choice whenever your data represents measurements taken at successive, ordered points in time — weekly website visits, monthly temperature readings, quarterly revenue over five years. The viewer's eye follows the line and perceives the story of change without any additional explanation needed.</p>
+
+<p>Multiple lines can be plotted on the same chart to compare trends across different groups — for example, three product lines' revenue growth over 24 months. This works well provided the number of lines remains manageable, typically no more than four or five, and each line is visually distinct through color or dash pattern. Beyond that threshold, the chart becomes a tangled mass that is harder to parse than a table would be.</p>
+
+<p>A critical caution: <strong>never use a line chart for unordered categorical data.</strong> If your categories are colors, countries listed alphabetically, or survey options, there is no meaningful progression between them — the line implies a connection and a trend that simply does not exist. Plotting "red, blue, green, yellow" product sales as a line chart suggests that moving from red to blue to green is a continuous journey, which is nonsense. Use a bar chart instead.</p>
+
+<p><strong>Pie and Donut Charts for Part-to-Whole Composition</strong></p>
+
+<p>Pie charts represent a single, unified whole divided into proportional slices. The entire circle equals 100%, and each slice's area and arc length reflect its share. This makes pie charts appropriate for one specific purpose: showing how a total is divided among its parts when the part-to-whole relationship is the central message.</p>
+
+<p>The strict requirement is that the slices must logically and mathematically sum to a complete, meaningful whole. Market share among all competitors in an industry qualifies. Budget allocation across all departments qualifies. A selection of five out of thirty product categories does <em>not</em> qualify — the remaining twenty-five categories are missing, so the "whole" is not actually represented, and the chart is misleading.</p>
+
+<p>Pie charts struggle when slices are numerous (more than five or six becomes visually cluttered), when slices are similar in size (humans are poor at discriminating between angles of, say, 28% and 32%), or when the goal is precise comparison rather than a general sense of proportion. In all these cases, a <strong>stacked bar chart</strong> is a more accurate and readable alternative. A single stacked bar representing 100% — where each segment is a proportional band with a shared baseline — allows much easier comparison of similar-sized segments than a pie does.</p>
+
+<p>The <strong>donut chart</strong> is structurally identical to a pie chart, with the center cut away to create a ring. The hollow center is purely a design feature, but a useful one: it provides space for a central label that can display the total value, a key metric, or a category name. This can reinforce context — showing "Total: $4.2M" in the center while the slices show each department's share, for instance. The same rules and limitations that apply to pie charts apply equally to donut charts.</p>
+
+<p><strong>Scatter Plots for Relationships Between Variables</strong></p>
+
+<p>A scatter plot places each individual observation as a single point in a two-dimensional space, where the point's horizontal position reflects its value on one variable and its vertical position reflects its value on a second variable. The resulting cloud of points reveals the nature of the relationship — or lack of relationship — between those two variables in a way that no summary statistic alone can fully capture.</p>
+
+<p>Scatter plots are the correct choice when your question is relational: <em>Does advertising spend correlate with revenue? Does employee tenure predict performance scores? Does temperature affect energy consumption?</em> If you have two continuous variables measured on the same observations and you want to understand how they relate, a scatter plot is almost always the appropriate starting point.</p>
+
+<p>The patterns that emerge carry specific meanings. A cloud of points that rises from lower-left to upper-right indicates a <strong>positive correlation</strong> — as one variable increases, the other tends to increase as well. A cloud that falls from upper-left to lower-right indicates a <strong>negative correlation</strong>. A roughly circular or structureless cloud indicates little or no linear relationship. Points that sit far from the main cluster are <strong>outliers</strong> — observations that break the general pattern and often warrant further investigation, since they may represent data errors, exceptional cases, or the most interesting stories in the dataset.</p>
+
+<p>A best-fit trend line (regression line) is frequently added to a scatter plot to make the direction and strength of the relationship even more explicit. Color or shape encoding can add a third dimension — for example, coloring each point by product category to see whether the correlation between spend and revenue holds across all categories or only some.</p>
+
+<p><strong>A Decision Framework for Chart Selection</strong></p>
+
+<p>Bringing these principles together into a practical framework makes chart selection faster and more consistent. The framework routes you to the right chart family by first identifying your communication goal, then considering your data's characteristics and your audience's familiarity.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Communication Goal</th>
+      <th>Typical Question</th>
+      <th>Recommended Chart Types</th>
+      <th>When to Prefer Each</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Comparison</td>
+      <td>Which category is largest? How do values rank?</td>
+      <td>Column chart, Horizontal bar chart, Line chart</td>
+      <td>Column for few categories; horizontal bar for many or long labels; line when categories are time-ordered</td>
+    </tr>
+    <tr>
+      <td>Composition</td>
+      <td>What share does each part hold of the total?</td>
+      <td>Pie chart, Donut chart, Stacked bar chart</td>
+      <td>Pie/donut for simple, few-part wholes; stacked bar when precise comparison of segments matters</td>
+    </tr>
+    <tr>
+      <td>Distribution</td>
+      <td>How is this variable spread? Where are values clustered?</td>
+      <td>Histogram, Box plot</td>
+      <td>Histogram for overall shape; box plot when comparing distributions across groups</td>
+    </tr>
+    <tr>
+      <td>Relationship</td>
+      <td>Do two variables move together? Is there a correlation?</td>
+      <td>Scatter plot, Bubble chart</td>
+      <td>Scatter for two variables; bubble when a third quantitative dimension adds meaning</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Using this framework, a question like "Which of our five sales regions generated the most revenue last quarter?" immediately points to a column or horizontal bar chart — it is a comparison question with five discrete categories. The question "What percentage of our total costs come from each expense type?" is a composition question pointing to a pie, donut, or stacked bar chart. "Is there a relationship between the number of customer support calls and customer churn rate?" is a relationship question pointing directly to a scatter plot.</p>
+
+<p>One final consideration deserves emphasis: <strong>audience familiarity.</strong> A technically superior chart that confuses its readers has failed its fundamental purpose, regardless of how correctly it encodes the data. Histograms, box plots, and scatter plots are second nature to analysts but unfamiliar to many general audiences. When presenting to a non-technical audience, a clear and somewhat simple bar chart will communicate more effectively than a sophisticated visualization that requires explanation. Complexity should be introduced only when the audience is prepared for it and when simpler alternatives genuinely cannot serve the communication goal. The best chart is not the most elaborate one — it is the one that conveys the right message to the right audience with the least friction.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six major chart types listed in the subtopics (bar/column, line, pie/donut, scatter plot) plus brief mention of histograms and box plots to complete the distribution quadrant of the decision framework. The decision table provides a scannable reference anchoring the framework section. Audience consideration is foregrounded as a practical reality check that overrides purely technical correctness.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

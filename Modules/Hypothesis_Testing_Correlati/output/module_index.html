@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hypothesis Testing, Correlation, and Regression Analysis — CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2d3d;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #25547a 60%, #1e7a8c 100%);
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #d6eaf8;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #c8dff0;
+      max-width: 720px;
+      line-height: 1.65;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a7a99;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #dde4ed;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde4ed;
+      border-radius: 10px;
+      padding: 1.3rem 1.4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(26, 58, 92, 0.11);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Meta Row ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.22rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #e8f0fa;
+      color: #2a5f9e;
+      border: 1px solid #c5d8f5;
+    }
+
+    .badge-filetype {
+      background: #eef6f0;
+      color: #2a7a46;
+      border: 1px solid #b6dfc4;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-filetype.pptx  { background: #fef3ec; color: #b04a00; border-color: #f5c9a3; }
+    .badge-filetype.json  { background: #fdf8ec; color: #8a6a00; border-color: #f0dfa0; }
+    .badge-filetype.html  { background: #eef6f0; color: #2a7a46; border-color: #b6dfc4; }
+
+    /* ── Card Title Row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-name {
+      font-size: 0.975rem;
+      font-weight: 700;
+      color: #1e2d3d;
+      line-height: 1.35;
+    }
+
+    .card-name a {
+      color: #1a5fa8;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .card-name a:hover {
+      color: #0d3f7a;
+      border-bottom-color: #1a5fa8;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7a99;
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 0.18rem 0.5rem;
+      border: 1px solid #b8ccdd;
+      border-radius: 4px;
+      background: #f0f5fa;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .source-link:hover {
+      background: #daeaf7;
+      color: #1a3a5c;
+      border-color: #80aed0;
+    }
+
+    /* ── Card Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #3d5166;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.78rem;
+      color: #8fa8be;
+      border-top: 1px solid #dde4ed;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 2rem 1.25rem 1.75rem; }
+      main { margin-top: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CAP3785 — Data Analytics and Visualization</span>
+      <h1>Hypothesis Testing, Correlation, and Regression Analysis</h1>
+      <p>
+        This module builds your foundation in inferential statistics — from formulating null and alternative
+        hypotheses to interpreting p-values, designing A/B tests, measuring correlation, and constructing
+        regression models. Use the artifacts below to study core concepts, review slide decks, complete
+        interactive readings, and test your understanding.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-title">Module Artifacts — 10 items</p>
+
+    <div class="card-grid">
+
+      <!-- 1. Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype json">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">A structured outline of the module's learning topics, covering hypothesis testing foundations, p-values, A/B testing, correlation analysis, and regression, used by instructors to plan lessons and by learners to preview what the module addresses.</p>
+      </div>
+
+      <!-- 2. Presentation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype pptx">.pptx</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="../presentations/Hypothesis_Testing_Correlati_generated.pptx">Hypothesis_Testing_Correlati_generated.pptx</a>
+          </span>
+        </div>
+        <p class="card-desc">A slide deck introducing inferential statistics concepts including null and alternative hypotheses, p-values, A/B testing design, correlation, and regression analysis, used by instructors to deliver lectures or by learners to review core concepts and definitions.</p>
+      </div>
+
+      <!-- 3. Foundations of Hypothesis Testing -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype html">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Hypothesis_Testing_Correlati_interactive_topics_t1.html">Foundations of Hypothesis Testing</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading introduces statistical inference and hypothesis testing fundamentals — including null and alternative hypotheses, Type I and Type II errors, and the logic of sampling — serving as the conceptual foundation learners need before conducting any formal statistical test.</p>
+      </div>
+
+      <!-- 4. P-Values and Statistical Significance -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype html">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Hypothesis_Testing_Correlati_interactive_topics_t2.html">P-Values and Statistical Significance</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading explains what p-values actually measure, how to interpret statistical significance correctly, and common misconceptions surrounding both concepts, helping learners and instructors ground hypothesis testing decisions in sound reasoning rather than mechanical thresholds.</p>
+      </div>
+
+      <!-- 5. A/B Testing in Practice -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype html">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Hypothesis_Testing_Correlati_interactive_topics_t3.html">A/B Testing in Practice</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading covers how to design, run, and interpret A/B tests in real-world settings — including defining metrics, randomizing treatment groups, and avoiding common pitfalls — giving learners a practical framework for applying hypothesis testing to product and marketing decisions.</p>
+      </div>
+
+      <!-- 6. Correlation Analysis -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype html">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Hypothesis_Testing_Correlati_interactive_topics_t4.html">Correlation Analysis</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading explains how to measure and interpret the relationship between two variables using correlation coefficients such as Pearson's r, addresses the distinction between correlation and causation, and guides learners on when and how to apply correlation analysis appropriately.</p>
+      </div>
+
+      <!-- 7. Simple Linear Regression -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype html">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Hypothesis_Testing_Correlati_interactive_topics_t5.html">Simple Linear Regression</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading explains how to build and interpret a simple linear regression model — covering the least-squares line, slope and intercept interpretation, R-squared, and residual analysis — so learners can quantify and predict the relationship between one predictor and one outcome variable.</p>
+      </div>
+
+      <!-- 8. Multiple Linear Regression -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype html">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Hypothesis_Testing_Correlati_interactive_topics_t6.html">Multiple Linear Regression</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading extends regression to models with multiple predictor variables, covering coefficient interpretation, multicollinearity, model fit assessment, and variable selection, enabling learners to analyze and predict outcomes influenced by several factors simultaneously.</p>
+      </div>
+
+      <!-- 9. Drawing Data-Driven Conclusions -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype html">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Hypothesis_Testing_Correlati_interactive_topics_t7.html">Drawing Data-Driven Conclusions</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading synthesizes the module by explaining how to translate statistical outputs from hypothesis tests, correlation, and regression into sound, defensible conclusions, guiding learners on validating assumptions, avoiding overinterpretation, and communicating findings responsibly.</p>
+      </div>
+
+      <!-- 10. Quiz Question Bank -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype json">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="source-link" href="../quiz_questions.json">source file</a>
+        </div>
+        <p class="card-desc">A 20-question quiz bank assessing learners' understanding of hypothesis testing fundamentals such as statistical inference, null hypotheses, test statistics, Type I errors, and p-value interpretation, used by instructors to build graded assessments or practice quizzes.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; Hypothesis Testing, Correlation, and Regression Analysis
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

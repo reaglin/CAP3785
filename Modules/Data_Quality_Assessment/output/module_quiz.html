@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 - Data Quality Assessment and Data Cleaning Fundamentals — Quiz Question Bank</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.5}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+.count{color:#666}
+.q{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:14px 0}
+.qnum{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.qtype{background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 6px;margin-left:6px}
+.qtext{font-weight:600;margin:6px 0}
+ul.opts{margin:6px 0 0 4px}
+ul.opts li{margin:3px 0}
+ul.opts li.correct{color:#137333;font-weight:600}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>3 - Data Quality Assessment and Data Cleaning Fundamentals — Quiz Question Bank</h1>
+<p class="count">20 questions</p>
+<div class="q">
+<div class="qnum">Question 1<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following best defines data quality?</div>
+<ul class="opts">
+<li class="correct">The degree to which a dataset is fit for its intended purpose in analysis, decision-making, or reporting  ✓</li>
+<li>The total number of rows and columns contained within a dataset</li>
+<li>The speed at which data can be retrieved from a database system</li>
+<li>The format in which data is stored across different file types</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 2<span class="qtype">MC</span></div>
+<div class="qtext">Which principle best captures why data quality matters in analysis?</div>
+<ul class="opts">
+<li class="correct">Garbage in, garbage out  ✓</li>
+<li>Less is more</li>
+<li>Occam&#39;s razor</li>
+<li>The law of large numbers</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 3<span class="qtype">MC</span></div>
+<div class="qtext">What does the accuracy dimension of data quality specifically measure?</div>
+<ul class="opts">
+<li class="correct">How closely dataset values reflect true, real-world values they represent  ✓</li>
+<li>Whether all required data values are present in the dataset</li>
+<li>Whether values are uniform and non-contradictory across records</li>
+<li>The trustworthiness and stability of a data source over time</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 4<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following is an example of a data consistency issue?</div>
+<ul class="opts">
+<li class="correct">A product labeled &#39;USA&#39;, &#39;U.S.A.&#39;, and &#39;United States&#39; in different records  ✓</li>
+<li>A customer database missing date-of-birth values for 30% of records</li>
+<li>A salary field containing a value of $1,000,000 among mostly $30,000–$80,000 values</li>
+<li>A survey tool that randomly fails to record responses for some participants</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 5<span class="qtype">MC</span></div>
+<div class="qtext">What best describes the reliability dimension of data quality?</div>
+<ul class="opts">
+<li class="correct">The trustworthiness and stability of a data source producing consistent values under the same conditions  ✓</li>
+<li>The percentage of records that contain no missing values in a dataset</li>
+<li>The degree to which data values match their true real-world counterparts</li>
+<li>The absence of duplicate records across integrated data systems</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 6<span class="qtype">MC</span></div>
+<div class="qtext">Which of the following is a common placeholder used to encode missing values that analysis tools may not automatically recognize?</div>
+<ul class="opts">
+<li class="correct">-999  ✓</li>
+<li>0.00</li>
+<li>FALSE</li>
+<li>1</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 7<span class="qtype">MC</span></div>
+<div class="qtext">Which scenario best illustrates Missing Not At Random (MNAR)?</div>
+<ul class="opts">
+<li class="correct">High earners deliberately skip an income field because of their high earnings  ✓</li>
+<li>A sensor randomly fails, causing some temperature readings to be absent</li>
+<li>Older respondents skip income questions, but the pattern is explained by age</li>
+<li>A data entry operator accidentally omits values for a random subset of records</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 8<span class="qtype">MC</span></div>
+<div class="qtext">According to a common rule of thumb, at what missing data threshold should an analyst consider dropping a column rather than imputing it?</div>
+<ul class="opts">
+<li class="correct">40–50% of values missing  ✓</li>
+<li>5–10% of values missing</li>
+<li>60–70% of values missing</li>
+<li>More than 90% of values missing</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 9<span class="qtype">MC</span></div>
+<div class="qtext">What is identified as a frequent cause of duplicate data in enterprise environments?</div>
+<ul class="opts">
+<li class="correct">Data integration pipelines merging sources without deduplication logic  ✓</li>
+<li>Analysts manually entering data into spreadsheets</li>
+<li>Using outdated database software that lacks indexing features</li>
+<li>Applying log transformation to right-skewed data distributions</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 10<span class="qtype">MC</span></div>
+<div class="qtext">Which Python pandas methods are specifically mentioned for detecting and removing duplicate records?</div>
+<ul class="opts">
+<li class="correct">duplicated() and drop_duplicates()  ✓</li>
+<li>isnull() and dropna()</li>
+<li>merge() and concat()</li>
+<li>describe() and info()</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 11<span class="qtype">MC</span></div>
+<div class="qtext">According to the module, for which type of data distribution is the Z-score method for outlier detection best suited?</div>
+<ul class="opts">
+<li class="correct">Normally distributed data  ✓</li>
+<li>Right-skewed data</li>
+<li>Bimodal data distributions</li>
+<li>Categorical data with many unique values</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 12<span class="qtype">MC</span></div>
+<div class="qtext">Why should outliers never be removed when building a fraud detection model?</div>
+<ul class="opts">
+<li class="correct">Outliers represent the fraudulent transactions the model is designed to detect  ✓</li>
+<li>Outliers always indicate data entry errors that would mislead the model</li>
+<li>Removing outliers violates standard machine learning preprocessing rules</li>
+<li>Outliers improve the statistical power of logistic regression models</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 13<span class="qtype">MC</span></div>
+<div class="qtext">What is the primary purpose of Winsorization as an outlier treatment technique?</div>
+<ul class="opts">
+<li class="correct">To retain a data point while limiting its influence by capping extreme values  ✓</li>
+<li>To permanently remove all values beyond three standard deviations</li>
+<li>To replace outliers with the column mean or median value</li>
+<li>To apply a logarithmic scale to normalize right-skewed distributions</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 14<span class="qtype">MC</span></div>
+<div class="qtext">Which example best illustrates a conflicting value in a dataset?</div>
+<ul class="opts">
+<li class="correct">A record where Date of Birth indicates age 10 but Employment Status says Full-Time Employed  ✓</li>
+<li>A phone number stored as &#39;555-1234&#39; in one record and &#39;5551234&#39; in another</li>
+<li>A country field containing &#39;USA&#39; and &#39;United States&#39; in different rows</li>
+<li>A dataset where income values are missing for 25% of respondents</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 15<span class="qtype">MC</span></div>
+<div class="qtext">Which step is part of a common standardization workflow for categorical and text data?</div>
+<ul class="opts">
+<li class="correct">Converting text to uniform case and stripping leading/trailing whitespace  ✓</li>
+<li>Applying Z-score normalization to all string fields</li>
+<li>Replacing all categorical values with numeric codes using random assignment</li>
+<li>Dropping any column that contains more than two unique string values</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 16<span class="qtype">MC</span></div>
+<div class="qtext">What is the primary purpose of maintaining a data cleaning log during the cleaning process?</div>
+<ul class="opts">
+<li class="correct">To ensure reproducibility and allow auditors to understand what was changed and why  ✓</li>
+<li>To automatically revert datasets to their original state if errors are found</li>
+<li>To store backup copies of the raw dataset before any transformations</li>
+<li>To calculate summary statistics before and after cleaning operations</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 17<span class="qtype">MC</span></div>
+<div class="qtext">Which pandas methods are specifically mentioned as common starting points for an initial dataset assessment?</div>
+<ul class="opts">
+<li class="correct">.info() and .describe()  ✓</li>
+<li>.duplicated() and .drop_duplicates()</li>
+<li>.merge() and .groupby()</li>
+<li>.replace() and .map()</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 18<span class="qtype">MC</span></div>
+<div class="qtext">Which libraries are mentioned as tools for automating data validation after cleaning?</div>
+<ul class="opts">
+<li class="correct">Great Expectations and pandera  ✓</li>
+<li>NumPy and SciPy</li>
+<li>Matplotlib and Seaborn</li>
+<li>Scikit-learn and TensorFlow</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 19<span class="qtype">MC</span></div>
+<div class="qtext">Why is data lineage tracking particularly important in regulated industries?</div>
+<ul class="opts">
+<li class="correct">It records data origins, transformations, and changes enabling accountability and auditability  ✓</li>
+<li>It automatically corrects formatting errors found during data ingestion</li>
+<li>It reduces the computational cost of processing large datasets</li>
+<li>It prevents unauthorized users from accessing raw data files</li>
+</ul>
+</div>
+<div class="q">
+<div class="qnum">Question 20<span class="qtype">MC</span></div>
+<div class="qtext">For machine learning pipelines, what specific formatting step is mentioned as part of final data preparation?</div>
+<ul class="opts">
+<li class="correct">Splitting data into training and test sets  ✓</li>
+<li>Applying log transformation to all numerical columns</li>
+<li>Converting all categorical variables to binary dummy codes</li>
+<li>Removing all columns with more than five unique values</li>
+</ul>
+</div>
+</body>
+</html>

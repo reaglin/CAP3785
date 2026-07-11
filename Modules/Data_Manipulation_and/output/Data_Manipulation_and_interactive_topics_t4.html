@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merging, Joining, and Concatenating Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Merging, Joining, and Concatenating Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Merging, Joining, and Concatenating Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Combining data from multiple sources is one of the most frequent and consequential tasks in any data analysis workflow. Real-world data rarely arrives pre-assembled into a single, tidy table. Instead, you might have customer records in one file, transaction histories in another, and product details in a third. Pandas provides a rich toolkit for unifying these scattered datasets: <code>pd.concat()</code> for stacking DataFrames together, <code>pd.merge()</code> for SQL-style relational joins on key columns, and the <code>.join()</code> method for index-based joining. Understanding when and how to use each tool — and how to verify that the resulting combined dataset is correct — is essential for trustworthy data analysis.</p>
+
+<p><strong>Concatenating DataFrames with pd.concat()</strong></p>
+
+<p>Concatenation is the simplest form of combination: you are physically gluing DataFrames together either vertically (stacking rows) or horizontally (placing columns side by side). The <code>pd.concat()</code> function accepts a list of DataFrames and a handful of parameters that control exactly how the gluing works.</p>
+
+<p><strong>Vertical concatenation with axis=0</strong> appends the rows of one DataFrame below another. This is conceptually the same as running a SQL <code>UNION ALL</code>. It is the default behavior of <code>pd.concat()</code>.</p>
+
+<pre><code>import pandas as pd
+
+df1 = pd.DataFrame({
+    'employee_id': [101, 102],
+    'name': ['Alice', 'Bob'],
+    'department': ['Engineering', 'Marketing']
+})
+
+df2 = pd.DataFrame({
+    'employee_id': [103, 104],
+    'name': ['Carol', 'David'],
+    'department': ['Finance', 'Engineering']
+})
+
+result = pd.concat([df1, df2], axis=0)
+print(result)
+#    employee_id   name   department
+# 0          101  Alice  Engineering
+# 1          102    Bob    Marketing
+# 0          103  Carol      Finance
+# 1          104  David  Engineering
+</code></pre>
+
+<p>Notice that the index values from both original DataFrames are preserved, which means the resulting DataFrame can contain duplicate index labels (0 and 1 appear twice). To reset the index to a clean 0-based sequence, pass <code>ignore_index=True</code>.</p>
+
+<p><strong>Horizontal concatenation with axis=1</strong> places DataFrames side by side, aligning rows by their index values. This is useful when you have two DataFrames that describe different attributes of the same set of observations and share the same index.</p>
+
+<pre><code>scores = pd.DataFrame({
+    'math_score': [88, 92, 79]
+}, index=['Alice', 'Bob', 'Carol'])
+
+grades = pd.DataFrame({
+    'letter_grade': ['B', 'A', 'C']
+}, index=['Alice', 'Bob', 'Carol'])
+
+combined = pd.concat([scores, grades], axis=1)
+print(combined)
+#        math_score letter_grade
+# Alice          88            B
+# Bob            92            A
+# Carol          79            C
+</code></pre>
+
+<p><strong>The keys parameter</strong> creates a hierarchical (MultiIndex) index in the result, which labels which source DataFrame each row came from. This is invaluable when you need to trace data provenance after concatenation.</p>
+
+<pre><code>result = pd.concat([df1, df2], axis=0, keys=['batch_1', 'batch_2'])
+print(result)
+#                  employee_id   name   department
+# batch_1 0               101  Alice  Engineering
+#         1               102    Bob    Marketing
+# batch_2 0               103  Carol      Finance
+#         1               104  David  Engineering
+</code></pre>
+
+<p>You can later use <code>result.loc['batch_1']</code> to retrieve only the rows from the first source.</p>
+
+<p><strong>Mismatched columns</strong> during vertical concatenation produce <code>NaN</code> values for the missing entries. If <code>df1</code> has a column that <code>df2</code> does not, every row contributed by <code>df2</code> will have <code>NaN</code> in that column, and vice versa. This behavior mirrors a SQL <code>UNION ALL</code> with differing column sets.</p>
+
+<pre><code>df_a = pd.DataFrame({'id': [1, 2], 'color': ['red', 'blue']})
+df_b = pd.DataFrame({'id': [3, 4], 'size': ['small', 'large']})
+
+result = pd.concat([df_a, df_b], axis=0, ignore_index=True)
+print(result)
+#    id color   size
+# 0   1   red    NaN
+# 1   2  blue    NaN
+# 2   3   NaN  small
+# 3   4   NaN  large
+</code></pre>
+
+<p>To suppress this and keep only shared columns, pass <code>join='inner'</code> to <code>pd.concat()</code>.</p>
+
+<p><strong>Merging DataFrames with pd.merge()</strong></p>
+
+<p>While concatenation simply glues DataFrames together structurally, merging performs a relational join — it matches rows from two DataFrames based on shared key values. This is conceptually identical to SQL <code>JOIN</code> operations and is the right tool when rows need to be aligned by the content of one or more columns, not by their position or index.</p>
+
+<p><strong>The <code>on</code> parameter</strong> specifies the column name (or list of column names) that act as the join key. Both DataFrames must contain a column with exactly that name.</p>
+
+<pre><code>orders = pd.DataFrame({
+    'order_id': [1, 2, 3],
+    'customer_id': [201, 202, 201],
+    'amount': [150.0, 200.0, 75.0]
+})
+
+customers = pd.DataFrame({
+    'customer_id': [201, 202, 203],
+    'name': ['Alice', 'Bob', 'Carol'],
+    'city': ['New York', 'London', 'Paris']
+})
+
+merged = pd.merge(orders, customers, on='customer_id')
+print(merged)
+#    order_id  customer_id  amount   name      city
+# 0         1          201   150.0  Alice  New York
+# 1         3          201    75.0  Alice  New York
+# 2         2          202   200.0    Bob    London
+</code></pre>
+
+<p><strong>The <code>left_on</code> and <code>right_on</code> parameters</strong> handle the common real-world situation where the same conceptual key has different column names in each DataFrame. For example, one table might call it <code>customer_id</code> while the other calls it <code>cust_no</code>.</p>
+
+<pre><code>invoices = pd.DataFrame({
+    'invoice_id': [1001, 1002],
+    'cust_no': [201, 202],
+    'total': [300.0, 450.0]
+})
+
+merged = pd.merge(invoices, customers, left_on='cust_no', right_on='customer_id')
+print(merged)
+#    invoice_id  cust_no  total  customer_id   name      city
+# 0        1001      201  300.0          201  Alice  New York
+# 1        1002      202  450.0          202    Bob    London
+</code></pre>
+
+<p>Note that both the <code>cust_no</code> and <code>customer_id</code> columns appear in the result because they were treated as separate (though equal-valued) columns. You may wish to drop one afterwards.</p>
+
+<p><strong>The <code>how</code> parameter</strong> controls which rows survive the join. The four options — <code>'inner'</code>, <code>'outer'</code>, <code>'left'</code>, and <code>'right'</code> — correspond directly to standard SQL join semantics and are explained in depth in the next section.</p>
+
+<p><strong>Types of Joins: Inner, Outer, Left, and Right</strong></p>
+
+<p>The choice of join type determines the shape and completeness of the merged result. Each type makes a different decision about what to do with keys that exist in one DataFrame but not the other.</p>
+
+<p><strong>Inner join</strong> (<code>how='inner'</code>) — the default — returns only the rows whose key value appears in <em>both</em> DataFrames. It is the intersection of keys. Rows from either side that have no match in the other are silently dropped.</p>
+
+<pre><code>left = pd.DataFrame({'key': ['A', 'B', 'C'], 'val_left': [1, 2, 3]})
+right = pd.DataFrame({'key': ['B', 'C', 'D'], 'val_right': [10, 20, 30]})
+
+inner = pd.merge(left, right, on='key', how='inner')
+print(inner)
+#   key  val_left  val_right
+# 0   B         2         10
+# 1   C         3         20
+</code></pre>
+
+<p>Key <code>'A'</code> exists only in <code>left</code> and key <code>'D'</code> exists only in <code>right</code>; both are excluded from the result.</p>
+
+<p><strong>Outer join</strong> (<code>how='outer'</code>) returns all rows from both DataFrames — the union of keys. Where a key is missing on one side, the corresponding columns are filled with <code>NaN</code>.</p>
+
+<pre><code>outer = pd.merge(left, right, on='key', how='outer')
+print(outer)
+#   key  val_left  val_right
+# 0   A       1.0        NaN
+# 1   B       2.0       10.0
+# 2   C       3.0       20.0
+# 3   D       NaN       30.0
+</code></pre>
+
+<p><strong>Left join</strong> (<code>how='left'</code>) keeps every row from the left DataFrame and brings in matching data from the right where possible. Unmatched right rows are discarded; unmatched left rows receive <code>NaN</code> in the right DataFrame's columns.</p>
+
+<pre><code>left_join = pd.merge(left, right, on='key', how='left')
+print(left_join)
+#   key  val_left  val_right
+# 0   A         1        NaN
+# 1   B         2       10.0
+# 2   C         3       20.0
+</code></pre>
+
+<p>This is the most common join type in practice because it preserves the completeness of a "primary" dataset while enriching it with optional supplementary information.</p>
+
+<p><strong>Right join</strong> (<code>how='right'</code>) is the mirror image: it keeps every row from the right DataFrame and fills from the left where possible.</p>
+
+<pre><code>right_join = pd.merge(left, right, on='key', how='right')
+print(right_join)
+#   key  val_left  val_right
+# 0   B       2.0         10
+# 1   C       3.0         20
+# 2   D       NaN         30
+</code></pre>
+
+<p>The following table summarizes which rows are retained under each join type:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Join Type</th>
+      <th>Rows from Left</th>
+      <th>Rows from Right</th>
+      <th>Unmatched Handling</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inner</td>
+      <td>Only matched</td>
+      <td>Only matched</td>
+      <td>Unmatched rows dropped from both sides</td>
+    </tr>
+    <tr>
+      <td>outer</td>
+      <td>All</td>
+      <td>All</td>
+      <td>NaN filled for missing columns on either side</td>
+    </tr>
+    <tr>
+      <td>left</td>
+      <td>All</td>
+      <td>Only matched</td>
+      <td>NaN filled in right columns for unmatched left rows</td>
+    </tr>
+    <tr>
+      <td>right</td>
+      <td>Only matched</td>
+      <td>All</td>
+      <td>NaN filled in left columns for unmatched right rows</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Joining DataFrames Using the .join() Method</strong></p>
+
+<p>The <code>.join()</code> method is a convenience wrapper around <code>pd.merge()</code> that is specifically optimized for index-based joining. It is called on a DataFrame instance and joins it against another DataFrame (or list of DataFrames) by default using their indices.</p>
+
+<pre><code>df_info = pd.DataFrame(
+    {'department': ['Engineering', 'Marketing', 'Finance']},
+    index=['Alice', 'Bob', 'Carol']
+)
+
+df_salary = pd.DataFrame(
+    {'salary': [95000, 72000, 85000]},
+    index=['Alice', 'Bob', 'Carol']
+)
+
+result = df_info.join(df_salary)
+print(result)
+#        department  salary
+# Alice  Engineering   95000
+# Bob      Marketing   72000
+# Carol      Finance   85000
+</code></pre>
+
+<p><strong>The default behavior is a left join</strong>: all rows from the calling DataFrame are preserved, and only matching index values from the other DataFrame are brought in. The <code>how</code> parameter works the same as in <code>pd.merge()</code> and can be set to <code>'inner'</code>, <code>'outer'</code>, or <code>'right'</code>.</p>
+
+<p><strong>The <code>on</code> parameter</strong> in <code>.join()</code> changes the behavior: instead of joining on the calling DataFrame's index, it joins on a specified column of the calling DataFrame against the other DataFrame's index. This bridges the gap between index-based and column-based joining.</p>
+
+<pre><code>employees = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Carol'],
+    'dept_code': ['ENG', 'MKT', 'FIN']
+})
+
+dept_info = pd.DataFrame(
+    {'full_name': ['Engineering', 'Finance', 'Marketing']},
+    index=['ENG', 'FIN', 'MKT']
+)
+
+result = employees.join(dept_info, on='dept_code')
+print(result)
+#     name dept_code    full_name
+# 0  Alice       ENG  Engineering
+# 1    Bob       MKT    Marketing
+# 2  Carol       FIN      Finance
+</code></pre>
+
+<p><strong>The <code>lsuffix</code> and <code>rsuffix</code> parameters</strong> resolve naming conflicts when both DataFrames share non-key column names. Without specifying them, Pandas raises a <code>ValueError</code> if there are overlapping column names.</p>
+
+<pre><code>df_x = pd.DataFrame({'score': [80, 90]}, index=['Alice', 'Bob'])
+df_y = pd.DataFrame({'score': [75, 95]}, index=['Alice', 'Bob'])
+
+result = df_x.join(df_y, lsuffix='_exam1', rsuffix='_exam2')
+print(result)
+#        score_exam1  score_exam2
+# Alice           80           75
+# Bob             90           95
+</code></pre>
+
+<p><strong>Joining multiple DataFrames at once</strong> is possible by passing a list to <code>.join()</code>. Pandas performs sequential left joins across all DataFrames in the list, making it a compact way to combine many index-aligned tables.</p>
+
+<pre><code>df_a = pd.DataFrame({'col_a': [1, 2]}, index=['r1', 'r2'])
+df_b = pd.DataFrame({'col_b': [3, 4]}, index=['r1', 'r2'])
+df_c = pd.DataFrame({'col_c': [5, 6]}, index=['r1', 'r2'])
+
+result = df_a.join([df_b, df_c])
+print(result)
+#     col_a  col_b  col_c
+# r1      1      3      5
+# r2      2      4      6
+</code></pre>
+
+<p><strong>Merging on Multiple Keys</strong></p>
+
+<p>A single key column is often not sufficient to uniquely identify matching rows between two DataFrames. For example, a sales table and a quota table might both require matching on <em>both</em> the salesperson ID and the year to find the correct corresponding row. In such cases, you define a <em>composite key</em> by passing a list of column names to the <code>on</code> parameter.</p>
+
+<pre><code>sales = pd.DataFrame({
+    'rep_id': [1, 1, 2, 2],
+    'year':   [2022, 2023, 2022, 2023],
+    'revenue': [120000, 135000, 98000, 110000]
+})
+
+quotas = pd.DataFrame({
+    'rep_id': [1, 1, 2, 2],
+    'year':   [2022, 2023, 2022, 2023],
+    'quota':  [100000, 130000, 95000, 105000]
+})
+
+merged = pd.merge(sales, quotas, on=['rep_id', 'year'])
+print(merged)
+#    rep_id  year  revenue   quota
+# 0       1  2022   120000  100000
+# 1       1  2023   135000  130000
+# 2       2  2022    98000   95000
+# 3       2  2023   110000  105000
+</code></pre>
+
+<p>Without the composite key, a merge on <code>rep_id</code> alone would produce a cartesian-product-like result where each rep's 2022 row is matched with both their 2022 and 2023 quota, doubling the rows erroneously.</p>
+
+<p><strong>All key columns must appear in both DataFrames</strong> when using <code>on</code>. If the column names differ between the two DataFrames, use <code>left_on</code> and <code>right_on</code> with lists of column names in matching positional order.</p>
+
+<pre><code>sales_renamed = sales.rename(columns={'rep_id': 'salesperson', 'year': 'fiscal_year'})
+
+merged = pd.merge(
+    sales_renamed, quotas,
+    left_on=['salesperson', 'fiscal_year'],
+    right_on=['rep_id', 'year']
+)
+</code></pre>
+
+<p><strong>Every key column must match simultaneously</strong> for a row pair to be included in an inner merge. A row from the left with <code>rep_id=1, year=2022</code> will only match a row from the right that also has exactly <code>rep_id=1</code> AND <code>year=2022</code>. Partial matches on a subset of composite keys are not treated as matches.</p>
+
+<p><strong>Handling Duplicate Columns and Suffixes After Merging</strong></p>
+
+<p>When two DataFrames share column names that are <em>not</em> part of the join key, those columns will both appear in the merged result. By default, Pandas disambiguates them by appending <code>_x</code> to the column from the left DataFrame and <code>_y</code> to the column from the right DataFrame.</p>
+
+<pre><code>products = pd.DataFrame({
+    'product_id': [10, 20],
+    'name': ['Widget', 'Gadget'],
+    'price': [9.99, 24.99]
+})
+
+reviews = pd.DataFrame({
+    'product_id': [10, 20],
+    'name': ['Widget', 'Gadget'],
+    'rating': [4.5, 3.8]
+})
+
+merged = pd.merge(products, reviews, on='product_id')
+print(merged.columns.tolist())
+# ['product_id', 'name_x', 'price', 'name_y', 'rating']
+</code></pre>
+
+<p>The generic <code>_x</code> and <code>_y</code> suffixes can be confusing in complex pipelines. The <strong><code>suffixes</code> parameter</strong> lets you assign meaningful labels:</p>
+
+<pre><code>merged = pd.merge(products, reviews, on='product_id', suffixes=('_product', '_review'))
+print(merged.columns.tolist())
+# ['product_id', 'name_product', 'price', 'name_review', 'rating']
+</code></pre>
+
+<p>After merging, it is good practice to <strong>inspect and clean up duplicate columns</strong>. You might verify that the duplicated columns contain identical values (implying they are truly redundant) and then drop one:</p>
+
+<pre><code># Verify they are identical
+assert (merged['name_product'] == merged['name_review']).all()
+
+# Drop the redundant column
+merged = merged.drop(columns=['name_review'])
+merged = merged.rename(columns={'name_product': 'name'})
+</code></pre>
+
+<p>Failing to handle duplicate columns creates downstream hazards: aggregations may operate on the wrong column, filters may silently reference an ambiguous name, and exported reports become confusing for stakeholders.</p>
+
+<p><strong>Validating and Verifying Merge Results</strong></p>
+
+<p>A merge operation can silently produce a result that looks plausible but is subtly wrong — for example, row counts may balloon due to one-to-many relationships, or shrink unexpectedly due to unmatched keys. Systematic verification is therefore not optional; it is a professional discipline.</p>
+
+<p><strong>Check the shape of the merged DataFrame.</strong> Before and after the merge, reason about what the row count should be. In a one-to-one inner join between tables of length <em>n</em> and <em>m</em>, the result should have at most <code>min(n, m)</code> rows. A row count larger than either input table is a strong signal of an unintended one-to-many or many-to-many join.</p>
+
+<pre><code>print(f"Left rows: {len(orders)}, Right rows: {len(customers)}, Merged rows: {len(merged)}")
+</code></pre>
+
+<p><strong>The <code>validate</code> parameter</strong> enforces the expected relationship cardinality and raises a <code>MergeError</code> if it is violated. The accepted values are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>validate value</th>
+      <th>Enforced relationship</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'1:1'</code></td>
+      <td>Each key appears at most once in both DataFrames</td>
+    </tr>
+    <tr>
+      <td><code>'1:m'</code></td>
+      <td>Each key appears at most once in the left DataFrame</td>
+    </tr>
+    <tr>
+      <td><code>'m:1'</code></td>
+      <td>Each key appears at most once in the right DataFrame</td>
+    </tr>
+    <tr>
+      <td><code>'m:m'</code></td>
+      <td>No uniqueness constraint enforced (default behavior)</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code># This will raise MergeError if customer_id is not unique in customers
+merged = pd.merge(orders, customers, on='customer_id', validate='m:1')
+</code></pre>
+
+<p><strong>Inspect NaN counts</strong> in the merged columns to identify keys that failed to match. This is particularly useful after a left or outer join, where unmatched rows are retained but filled with <code>NaN</code>.</p>
+
+<pre><code>nan_counts = merged.isnull().sum()
+print(nan_counts)
+# Columns with high NaN counts indicate poor join key overlap
+</code></pre>
+
+<p><strong>The <code>indicator=True</code> parameter</strong> adds a special column called <code>_merge</code> to the result. Each row is labeled with one of three string values: <code>'left_only'</code> (the key existed only in the left DataFrame), <code>'right_only'</code> (only in the right), or <code>'both'</code> (matched in both). This makes it trivial to audit which rows matched and which did not.</p>
+
+<pre><code>merged = pd.merge(left, right, on='key', how='outer', indicator=True)
+print(merged)
+#   key  val_left  val_right      _merge
+# 0   A       1.0        NaN   left_only
+# 1   B       2.0       10.0        both
+# 2   C       3.0       20.0        both
+# 3   D       NaN       30.0  right_only
+
+# Count by category
+print(merged['_merge'].value_counts())
+# both          2
+# left_only     1
+# right_only    1
+</code></pre>
+
+<p>You can filter the <code>_merge</code> column to extract the unmatched rows for investigation — for instance, to find orders referencing a <code>customer_id</code> that does not exist in the customer master table, which would indicate a data quality problem. Once the indicator column has served its diagnostic purpose, drop it with <code>merged.drop(columns=['_merge'])</code> before proceeding with analysis.</p>
+        <div class="notes"><strong>Notes</strong>Covers all seven subtopic groups: pd.concat() with axis, keys, and NaN behavior; pd.merge() with on/left_on/right_on/how; all four join types with examples and summary table; .join() with default left join, on parameter, lsuffix/rsuffix, and multi-DataFrame list; composite keys with motivation and left_on/right_on list usage; duplicate column suffixes with inspection and cleanup; and merge validation using shape checks, validate parameter (with table), NaN inspection, and indicator=True.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indexing and Selecting Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Indexing and Selecting Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Indexing and Selecting Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Efficiently accessing, selecting, and modifying subsets of data is one of the most fundamental skills in any data analysis workflow. Pandas provides a rich and expressive set of tools for indexing and selecting data from DataFrames and Series. Whether you need a single cell, a range of rows, a handful of columns, or rows that satisfy a complex logical condition, Pandas has a precise mechanism for it. Understanding the distinctions between label-based indexing, position-based indexing, and boolean filtering — and knowing when to use each — is what separates confident, bug-free data manipulation from brittle, unpredictable code.</p>
+
+<p>A DataFrame can be thought of as a two-dimensional labeled table where every row has an <strong>index label</strong> and every column has a <strong>column name</strong>. Indexing operations let you reach into that table along both axes simultaneously. The three primary gateways into a DataFrame are <code>loc</code> (label-based), <code>iloc</code> (position-based), and boolean filtering with conditional expressions. Each has its own rules, and mixing them up is one of the most common sources of subtle bugs in pandas code.</p>
+
+<p><strong>Label-Based Indexing with <code>loc</code></strong></p>
+
+<p><code>loc</code> is Pandas' label-based indexer. It always works with the <em>actual index labels</em> of the DataFrame — the values you see in the index, not their physical positions in memory. This distinction matters enormously when your index contains strings, dates, or non-sequential integers.</p>
+
+<p>The general syntax is <code>df.loc[row_selector, column_selector]</code>. Each selector can be:</p>
+<ul>
+  <li>A single label — e.g., <code>df.loc[3, 'name']</code> retrieves the value in row labeled <code>3</code> and column <code>'name'</code>.</li>
+  <li>A list of labels — e.g., <code>df.loc[[1, 3, 5], ['name', 'age']]</code> returns a DataFrame with those specific rows and columns.</li>
+  <li>A label-based slice — e.g., <code>df.loc['a':'d', :]</code> returns all rows whose labels fall between <code>'a'</code> and <code>'d'</code> <em>inclusive</em>.</li>
+  <li>A boolean array or Series — passed as the row selector to filter rows based on a condition.</li>
+</ul>
+
+<p>The most important rule about <code>loc</code> slicing: <strong>the stop label is inclusive</strong>. This is unlike Python's built-in slicing where <code>list[0:3]</code> gives you elements at positions 0, 1, and 2 (not 3). With <code>loc</code>, <code>df.loc[0:3]</code> returns rows labeled 0, 1, 2, <em>and</em> 3.</p>
+
+<pre><code>import pandas as pd
+
+data = {
+    'name': ['Alice', 'Bob', 'Carol', 'David', 'Eve'],
+    'age':  [25, 30, 35, 40, 45],
+    'score': [88, 92, 79, 95, 84]
+}
+df = pd.DataFrame(data, index=['a', 'b', 'c', 'd', 'e'])
+
+# Single row and column
+print(df.loc['b', 'age'])      # 30
+
+# List of rows, single column
+print(df.loc[['a', 'c', 'e'], 'score'])
+# a    88
+# c    79
+# e    84
+
+# Label slice — 'b' through 'd' inclusive
+print(df.loc['b':'d', 'name':'age'])
+#     name  age
+# b    Bob   30
+# c  Carol   35
+# d  David   40
+</code></pre>
+
+<p>When the column selector is omitted — written as <code>df.loc['b':'d']</code> — all columns are returned, equivalent to writing <code>df.loc['b':'d', :]</code>. Using <code>loc</code> with a boolean Series is covered in detail under conditional filtering below.</p>
+
+<p><strong>Position-Based Indexing with <code>iloc</code></strong></p>
+
+<p><code>iloc</code> is the positional counterpart to <code>loc</code>. It works exclusively with <strong>zero-based integer positions</strong>, completely ignoring whatever labels the index or columns happen to carry. This makes it behave exactly like indexing a NumPy array or a Python list.</p>
+
+<p>The syntax is <code>df.iloc[row_selector, column_selector]</code> where selectors are integers, lists of integers, or integer slices. Critically, <strong><code>iloc</code> slicing follows standard Python exclusive-stop rules</strong>: <code>df.iloc[0:3]</code> gives rows at positions 0, 1, and 2, but <em>not</em> position 3.</p>
+
+<pre><code># Using the same df from above (index: 'a','b','c','d','e')
+
+# Row at position 0, column at position 1
+print(df.iloc[0, 1])    # 25  (Alice's age)
+
+# First three rows, last two columns
+print(df.iloc[0:3, 1:3])
+#    age  score
+# a   25     88
+# b   30     92
+# c   35     79
+
+# Specific rows and columns by position
+print(df.iloc[[0, 2, 4], [0, 2]])
+#     name  score
+# a  Alice     88
+# c  Carol     79
+# e    Eve     84
+</code></pre>
+
+<p><code>iloc</code> shines in programmatic contexts — looping over rows in chunks, selecting every other row with a step (<code>df.iloc[::2]</code>), or writing general-purpose functions that should not depend on specific label names. It is also the correct tool when you receive a DataFrame with a non-default index (for instance, one set to customer IDs) and you still want to access the literal first row regardless of its label.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th><code>loc</code> (label-based)</th>
+      <th><code>iloc</code> (position-based)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Selector type</td>
+      <td>Index labels, column names</td>
+      <td>Integer positions (0-based)</td>
+    </tr>
+    <tr>
+      <td>Slice stop</td>
+      <td>Inclusive</td>
+      <td>Exclusive (Python standard)</td>
+    </tr>
+    <tr>
+      <td>Works with string index?</td>
+      <td>Yes — naturally</td>
+      <td>Yes — ignores labels entirely</td>
+    </tr>
+    <tr>
+      <td>Boolean array support</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Best use case</td>
+      <td>Named, meaningful labels</td>
+      <td>Positional / programmatic access</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Conditional (Boolean) Filtering</strong></p>
+
+<p>Boolean filtering is how you select rows that satisfy logical criteria — the pandas equivalent of a SQL <code>WHERE</code> clause. The mechanism has two steps: first, create a boolean Series by applying a condition to a column; second, pass that Series back into the DataFrame to keep only the rows where the value is <code>True</code>.</p>
+
+<pre><code># Rows where age is greater than 30
+mask = df['age'] > 30
+print(mask)
+# a    False
+# b    False
+# c     True
+# d     True
+# e     True
+# Name: age, dtype: bool
+
+filtered = df[mask]
+# equivalently: df[df['age'] > 30]
+print(filtered)
+#     name  age  score
+# c  Carol   35     79
+# d  David   40     95
+# e    Eve   45     84
+</code></pre>
+
+<p>When you need to combine multiple conditions, each individual condition must be <strong>wrapped in parentheses</strong>, and you join them with the bitwise operators <code>&</code> (AND) or <code>|</code> (OR). Using Python's <code>and</code> / <code>or</code> keywords will raise a <code>ValueError</code> because they cannot operate element-wise on Series.</p>
+
+<pre><code># Rows where age > 30 AND score >= 85
+print(df[(df['age'] > 30) & (df['score'] >= 85)])
+#     name  age  score
+# d  David   40     95
+
+# Rows where age < 28 OR score > 90
+print(df[(df['age'] < 28) | (df['score'] > 90)])
+#     name  age  score
+# a  Alice   25     88
+# b    Bob   30     92
+# d  David   40     95
+</code></pre>
+
+<p>The <code>isin()</code> method provides a clean shorthand when you want to match against a set of values, replacing a long chain of <code>|</code> conditions:</p>
+
+<pre><code># Rows where name is Alice or Eve
+print(df[df['name'].isin(['Alice', 'Eve'])])
+#     name  age  score
+# a  Alice   25     88
+# e    Eve   45     84
+</code></pre>
+
+<p>To <strong>negate</strong> a condition — selecting rows that do <em>not</em> match — use the tilde <code>~</code> operator. It inverts every <code>True</code> to <code>False</code> and vice versa in the boolean mask:</p>
+
+<pre><code># Rows where name is NOT Alice or Eve
+print(df[~df['name'].isin(['Alice', 'Eve'])])
+#     name  age  score
+# b    Bob   30     92
+# c  Carol   35     79
+# d  David   40     95
+</code></pre>
+
+<p><strong>Selecting Single Columns and Rows</strong></p>
+
+<p>Accessing a single column with <strong>single-bracket notation</strong> — <code>df['col']</code> — returns a <em>Pandas Series</em>. The Series carries the same index as the DataFrame but represents only one dimension of data. Using <strong>double-bracket notation</strong> — <code>df[['col']]</code> — wraps the result in a list, which signals to Pandas to return a <em>single-column DataFrame</em> instead. This distinction has real consequences: many DataFrame methods are not available on a Series, so choosing the right return type matters.</p>
+
+<pre><code>print(type(df['age']))        # &lt;class 'pandas.core.series.Series'&gt;
+print(type(df[['age']]))      # &lt;class 'pandas.core.frame.DataFrame'&gt;
+
+# Selecting multiple columns always requires double brackets (a list)
+print(df[['name', 'score']])
+#     name  score
+# a  Alice     88
+# b    Bob     92
+# c  Carol     79
+# d  David     95
+# e    Eve     84
+</code></pre>
+
+<p><strong>Dot notation</strong> (<code>df.col</code>) is a syntactic shortcut that works for column names that are valid Python identifiers and do not conflict with existing DataFrame attributes or methods. It reads cleanly in exploratory code but should be avoided in production pipelines because it silently fails (returning a method object instead of a column) when the column name collides with a built-in like <code>df.count</code> or contains spaces.</p>
+
+<pre><code>print(df.age)       # Works fine — returns the 'age' Series
+# df.score works too, but df.name would return the DataFrame's .name attribute, not the column!
+</code></pre>
+
+<p><strong>Setting and Resetting the Index</strong></p>
+
+<p>By default, Pandas assigns a RangeIndex (0, 1, 2, …) to a DataFrame. You can replace this with any existing column using <code>set_index()</code>, which turns that column into the row labels. Once set, that column is no longer visible among the regular columns — it becomes the index.</p>
+
+<pre><code>df2 = df.reset_index()   # bring label index back as a column first
+df2.columns = ['label', 'name', 'age', 'score']
+
+df_indexed = df2.set_index('name')
+print(df_indexed)
+#        label  age  score
+# name
+# Alice      a   25     88
+# Bob        b   30     92
+# Carol      c   35     79
+# David      d   40     95
+# Eve        e   45     84
+
+# Now loc with the name is intuitive
+print(df_indexed.loc['Carol', 'score'])   # 79
+</code></pre>
+
+<p><code>reset_index()</code> reverses this operation. By default it moves the current index back into a column and replaces it with the default integer range. Pass <code>drop=True</code> to discard the old index entirely rather than re-inserting it:</p>
+
+<pre><code>df_reset = df_indexed.reset_index()         # 'name' becomes a column again
+df_dropped = df_indexed.reset_index(drop=True)  # 'name' discarded, plain 0,1,2… index restored
+</code></pre>
+
+<p>A <strong>MultiIndex</strong> (hierarchical index) is created by passing a list of column names to <code>set_index()</code>. This is useful for data with natural grouping — for example, a dataset indexed by both country and city. MultiIndex DataFrames are accessed with tuples inside <code>loc</code>:</p>
+
+<pre><code>multi_data = {
+    'country': ['USA', 'USA', 'UK', 'UK'],
+    'city':    ['New York', 'Los Angeles', 'London', 'Manchester'],
+    'pop_m':   [8.3, 4.0, 9.0, 2.8]
+}
+mdf = pd.DataFrame(multi_data).set_index(['country', 'city'])
+print(mdf.loc[('USA', 'New York'), 'pop_m'])   # 8.3
+</code></pre>
+
+<p><strong>Slicing Rows with Basic Bracket Notation</strong></p>
+
+<p>When you pass a slice directly to square brackets — <code>df[0:3]</code> — Pandas interprets it as a <em>row slice by position</em>, following standard Python exclusive-stop rules. This is a quirky exception: normally <code>df[something]</code> selects columns, but a slice object triggers row selection instead.</p>
+
+<pre><code>print(df[1:3])
+#     name  age  score
+# b    Bob   30     92
+# c  Carol   35     79
+# (rows at positions 1 and 2; position 3 excluded)
+</code></pre>
+
+<p>This shorthand is convenient for quick inspection but comes with caveats. It operates on <em>positional indices</em> even when the DataFrame has a custom label-based index — meaning <code>df['b':'d']</code> works only if the index contains string labels, while <code>df[1:3]</code> always picks the second and third rows by position. For anything beyond simple exploration, prefer <code>loc</code> or <code>iloc</code> for clarity and reliability.</p>
+
+<p><strong>Combining Indexing with Data Manipulation</strong></p>
+
+<p>Indexing is not just for reading data — it is equally important for <em>writing</em> data. Assigning a value to a <code>loc</code> or <code>iloc</code> selection modifies the DataFrame in place:</p>
+
+<pre><code># Correct way to update a specific cell
+df.loc['c', 'score'] = 99
+print(df.loc['c', 'score'])   # 99
+
+# Update an entire column subset matching a condition
+df.loc[df['age'] >= 40, 'score'] = df.loc[df['age'] >= 40, 'score'] + 5
+</code></pre>
+
+<p>One of the most dangerous pitfalls in Pandas is <strong>chained indexing</strong> — accessing data through two consecutive bracket operations, such as <code>df['score'][2]</code>. This first produces a temporary Series, then indexes into it. Pandas may or may not propagate an assignment through the chain, producing the infamous <code>SettingWithCopyWarning</code> and silently failing to update the original DataFrame. Always use a single <code>loc</code> or <code>iloc</code> call for any write operation:</p>
+
+<pre><code># AVOID — chained indexing, assignment may not work:
+df['score'][2] = 50   # unreliable
+
+# CORRECT — single loc call:
+df.loc['c', 'score'] = 50   # guaranteed to modify df
+</code></pre>
+
+<p>When you need a standalone copy of a subset to work with independently — without affecting the original DataFrame — call <code>.copy()</code> explicitly:</p>
+
+<pre><code>subset = df[df['age'] > 30].copy()
+subset['score'] = 0    # modifies only subset, not df
+</code></pre>
+
+<p>Without <code>.copy()</code>, Pandas may create a <em>view</em> rather than a new object depending on the operation. Modifying the view can silently modify the original, or you may receive a warning. Using <code>.copy()</code> removes all ambiguity.</p>
+
+<p>Combining conditional filtering with targeted column assignment is among the most powerful patterns for data cleaning. For example, capping outlier scores, recoding categorical values, or flagging records — all can be done in a single expressive <code>loc</code> statement:</p>
+
+<pre><code># Recode: anyone with score below 80 gets a 'needs_review' flag
+df['flag'] = ''
+df.loc[df['score'] < 80, 'flag'] = 'needs_review'
+print(df[['name', 'score', 'flag']])
+#     name  score          flag
+# a  Alice     88
+# b    Bob     92
+# c  Carol     50  needs_review
+# d  David    100
+# e    Eve     89
+</code></pre>
+
+<p>Mastering these indexing tools — understanding not just their syntax but their underlying rules about labels versus positions, inclusive versus exclusive stops, views versus copies, and chained versus atomic assignments — is the foundation for writing correct, efficient, and readable data manipulation code in Pandas.</p>
+        <div class="notes"><strong>Notes</strong>Covers all subtopics: loc (inclusive slicing, label-based, boolean support), iloc (exclusive slicing, zero-based positions), conditional filtering (single/multiple conditions, isin, negation with ~), column selection (single vs double brackets, dot notation), set_index/reset_index/MultiIndex, basic bracket row slicing, and combining indexing with in-place assignment including chained indexing warnings and .copy() usage. Includes a comparison table for loc vs iloc and multiple illustrative code examples throughout.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

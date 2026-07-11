@@ -4,25 +4,25 @@
   "Description": "This course gives a broad overview of the various aspects of data analytics and visualizations. Students will learn ways of accessing data from various sources such as web APIs and repositories, techniques of cleaning data and organizing data for analysis, using analytical methods to solve real-world problems, and create visualizations to aid the interpretation of analysis results. Students will have hands on training using relevant programming languages, and analytics and visualization tools",
   "CreatedBy": "",
   "CreatedDate": "2026-07-03T11:17:00.6105024-04:00",
-  "LastModifiedDate": "2026-07-03T11:17:00.7426174-04:00",
+  "LastModifiedDate": "2026-07-05T20:28:35.4171982-04:00",
   "Modules": [
     {
-      "ModuleName": "Introduction to Data Analytics and the Analytics Lifecycle",
+      "ModuleName": "1 - Introduction to Data Analytics and the Analytics Lifecycle",
       "FolderName": "Introduction_to_Data",
       "Order": 1
     },
     {
-      "ModuleName": "Ethics, Data Types, and Data Sources in Analytics",
+      "ModuleName": "2 - Ethics, Data Types, and Data Sources in Analytics",
       "FolderName": "Ethics_Data_Types",
       "Order": 2
     },
     {
-      "ModuleName": "Data Quality Assessment and Data Cleaning Fundamentals",
+      "ModuleName": "3 - Data Quality Assessment and Data Cleaning Fundamentals",
       "FolderName": "Data_Quality_Assessment",
       "Order": 3
     },
     {
-      "ModuleName": "Database Basics and Relational Data Concepts",
+      "ModuleName": "4 - Database Basics and Relational Data Concepts",
       "FolderName": "Database_Basics_and",
       "Order": 4
     },

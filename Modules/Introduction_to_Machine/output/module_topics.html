@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Machine Learning for Business Analytics — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Introduction to Machine Learning for Business Analytics — Module Topics</h1>
+<h2>Foundations of Machine Learning</h2>
+<div class="summary">Introduces core machine learning concepts and terminology, establishing the foundational knowledge students need before exploring specific techniques. Covers what machine learning is, how it differs from traditional programming, and its role in modern business analytics.</div>
+<ul>
+<li><strong>What Is Machine Learning?</strong> <span class="el-body">— Machine learning is a branch of artificial intelligence in which systems learn patterns from data and improve their performance on tasks without being explicitly programmed for each scenario.</span></li>
+<li><strong>Machine Learning vs. Traditional Programming</strong> <span class="el-body">— Traditional programming requires humans to define explicit rules; machine learning inverts this by deriving rules automatically from data.</span></li>
+<li><strong>Core Terminology</strong> <span class="el-body">— A shared vocabulary is essential for discussing machine learning concepts precisely and communicating findings to business stakeholders.</span></li>
+<li><strong>Types of Machine Learning</strong> <span class="el-body">— Machine learning problems are broadly categorized by whether the training data includes labeled outcomes, which determines the class of algorithms that can be applied.</span></li>
+<li><strong>The Role of Machine Learning in Business Analytics</strong> <span class="el-body">— Machine learning extends traditional business analytics by enabling organizations to generate predictions and automate decisions at scale, rather than only describing what has already happened.</span></li>
+<li><strong>The Machine Learning Workflow</strong> <span class="el-body">— Solving a business problem with machine learning follows a structured end-to-end process, from problem definition through model deployment and monitoring.</span></li>
+</ul>
+<h2>Supervised vs. Unsupervised Learning</h2>
+<div class="summary">Explores the two primary paradigms of machine learning, distinguishing between supervised learning (labeled data, prediction) and unsupervised learning (unlabeled data, pattern discovery). Students learn when and why each approach is applied in business contexts.</div>
+<ul>
+<li><strong>What Is Supervised Learning?</strong> <span class="el-body">— Supervised learning is a machine learning paradigm in which algorithms are trained on labeled datasets, where each input example is paired with a known output or target value.</span></li>
+<li><strong>What Is Unsupervised Learning?</strong> <span class="el-body">— Unsupervised learning involves training algorithms on datasets that contain no pre-assigned labels, with the goal of discovering hidden structure or patterns within the data.</span></li>
+<li><strong>The Role of Labeled vs. Unlabeled Data</strong> <span class="el-body">— The presence or absence of labeled data is the defining distinction between supervised and unsupervised learning, and it fundamentally shapes what questions each approach can answer.</span></li>
+<li><strong>Choosing Between Supervised and Unsupervised Learning</strong> <span class="el-body">— Selecting the right paradigm depends on the business question being asked, the availability of labeled data, and the desired type of output from the model.</span></li>
+<li><strong>Business Applications of Supervised Learning</strong> <span class="el-body">— Supervised learning powers many of the most directly actionable business analytics use cases, enabling organizations to make data-driven predictions tied to specific outcomes.</span></li>
+<li><strong>Business Applications of Unsupervised Learning</strong> <span class="el-body">— Unsupervised learning is especially valuable in business when analysts need to understand the structure of data before a formal prediction problem has been defined.</span></li>
+<li><strong>Evaluating the Success of Each Paradigm</strong> <span class="el-body">— Because their goals differ fundamentally, supervised and unsupervised learning require very different approaches to measuring whether a model is performing well.</span></li>
+</ul>
+<h2>Common Machine Learning Algorithms</h2>
+<div class="summary">Provides an overview of widely used ML algorithms including linear regression, decision trees, and k-means clustering. Students learn the mechanics of each algorithm and the types of problems they are best suited to solve.</div>
+<ul>
+<li><strong>Linear Regression</strong> <span class="el-body">— Linear regression is a supervised learning algorithm that models the relationship between a continuous target variable and one or more predictor variables using a straight-line equation.</span></li>
+<li><strong>Decision Trees</strong> <span class="el-body">— A decision tree is a supervised learning algorithm that splits data into branches based on feature values, forming a tree-like structure that leads to a predicted outcome at each leaf node.</span></li>
+<li><strong>K-Means Clustering</strong> <span class="el-body">— K-means clustering is an unsupervised learning algorithm that partitions data points into k distinct groups based on similarity, without using pre-labeled outcomes.</span></li>
+<li><strong>Supervised vs. Unsupervised Algorithm Selection</strong> <span class="el-body">— Choosing the right algorithm depends on whether the training data includes labeled outcomes and what type of business question needs to be answered.</span></li>
+<li><strong>Practical Business Applications of Each Algorithm</strong> <span class="el-body">— Each algorithm has a distinct set of business scenarios where it delivers the most value, and recognizing these use cases helps analysts select appropriate tools efficiently.</span></li>
+</ul>
+<h2>Model Evaluation and Performance Metrics</h2>
+<div class="summary">Covers the methods and metrics used to assess how well a machine learning model performs, such as accuracy, precision, recall, and error measures. Students learn how to interpret evaluation results to make informed modeling decisions.</div>
+<ul>
+<li><strong>Why Model Evaluation Matters in Business Analytics</strong> <span class="el-body">— Model evaluation is the process of measuring how well a machine learning model performs on data it has not seen during training. In a business context, choosing the wrong metric can lead to costly decisions, such as deploying a model that looks accurate on paper but fails in practice.</span></li>
+<li><strong>Accuracy as a Performance Metric</strong> <span class="el-body">— Accuracy is the most straightforward classification metric, measuring the proportion of total predictions that the model got correct. It is a useful starting point but can be misleading when classes in the dataset are imbalanced.</span></li>
+<li><strong>Precision and Recall: Balancing Error Types</strong> <span class="el-body">— Precision and recall address two distinct types of prediction errors: false positives and false negatives. Understanding the trade-off between them is essential for tailoring a model to specific business requirements.</span></li>
+<li><strong>Error Measures for Regression Models</strong> <span class="el-body">— When a model predicts continuous numerical values — such as sales revenue or customer lifetime value — classification metrics like accuracy do not apply. Instead, error measures quantify how far predictions deviate from actual values.</span></li>
+<li><strong>The Confusion Matrix: A Detailed View of Classification Results</strong> <span class="el-body">— A confusion matrix is a table that summarizes the performance of a classification model by showing the counts of true positives, true negatives, false positives, and false negatives. It provides the foundation for computing precision, recall, accuracy, and other metrics.</span></li>
+<li><strong>Train-Test Split and Cross-Validation</strong> <span class="el-body">— To generate reliable evaluation metrics, models must be tested on data they were not trained on. Train-test splitting and cross-validation are standard techniques for ensuring evaluation results reflect true model performance.</span></li>
+<li><strong>Interpreting Evaluation Results to Make Modeling Decisions</strong> <span class="el-body">— Raw metric values only become useful when interpreted in the context of business goals and compared across competing models. Evaluation results should drive iterative decisions about model selection, tuning, and deployment.</span></li>
+</ul>
+<h2>Machine Learning Applications in Business</h2>
+<div class="summary">Connects ML techniques to real-world business use cases such as customer segmentation, sales forecasting, and risk analysis. Students explore how organizations leverage machine learning to drive strategic decisions and competitive advantage.</div>
+<ul>
+<li><strong>Customer Segmentation with Clustering</strong> <span class="el-body">— Machine learning enables businesses to automatically group customers into meaningful segments based on shared behaviors, demographics, or purchasing patterns.</span></li>
+<li><strong>Sales Forecasting with Supervised Learning</strong> <span class="el-body">— Supervised learning models analyze historical sales data to predict future demand, helping businesses plan inventory, staffing, and budgets with greater accuracy.</span></li>
+<li><strong>Risk Analysis and Fraud Detection</strong> <span class="el-body">— Machine learning models assess risk by identifying patterns associated with default, fraud, or adverse outcomes across large volumes of transactional data.</span></li>
+<li><strong>Driving Strategic Decisions with ML Insights</strong> <span class="el-body">— Beyond individual use cases, machine learning creates a competitive advantage by embedding data-driven insight into the core of organizational strategy and decision-making.</span></li>
+<li><strong>Selecting the Right Algorithm for a Business Problem</strong> <span class="el-body">— Matching a machine learning algorithm to the business problem at hand is a critical skill that determines whether a model delivers actionable value.</span></li>
+</ul>
+<h2>End-to-End Exploratory Analytics Project</h2>
+<div class="summary">Guides students through a complete analytics workflow from data preparation and model selection to evaluation and insight communication. This hands-on project integrates all module concepts and simulates a realistic business analytics scenario.</div>
+<ul>
+<li><strong>Defining the Business Problem and Data Requirements</strong> <span class="el-body">— Every analytics project begins by clearly articulating the business question and identifying what data is needed to answer it.</span></li>
+<li><strong>Data Collection and Preparation</strong> <span class="el-body">— Raw business data is rarely ready for modeling; preparation is often the most time-consuming phase of an analytics project.</span></li>
+<li><strong>Exploratory Data Analysis (EDA)</strong> <span class="el-body">— EDA uncovers patterns, anomalies, and relationships in the data that inform model selection and feature engineering choices.</span></li>
+<li><strong>Model Selection and Training</strong> <span class="el-body">— Choosing the right algorithm depends on the problem type, data characteristics, and the interpretability required by business stakeholders.</span></li>
+<li><strong>Model Evaluation Using Business-Relevant Metrics</strong> <span class="el-body">— Evaluation metrics must be chosen to reflect business impact, not just statistical performance.</span></li>
+<li><strong>Communicating Insights to Stakeholders</strong> <span class="el-body">— A technically sound model delivers value only when its findings are communicated clearly and drive action among decision-makers.</span></li>
+<li><strong>Reflecting on the End-to-End Workflow</strong> <span class="el-body">— Reviewing the complete project lifecycle consolidates learning and prepares students to apply the workflow independently in real business settings.</span></li>
+</ul>
+</body>
+</html>

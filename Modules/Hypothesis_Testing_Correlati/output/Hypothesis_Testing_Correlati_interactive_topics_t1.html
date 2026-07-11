@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Hypothesis Testing</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Foundations of Hypothesis Testing</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of Hypothesis Testing</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Statistical inference is the bridge between what we can directly observe — a sample — and what we want to know about the broader world — a population. Because it is rarely feasible to measure every individual in a population, researchers collect data from a representative subset and use that data to draw conclusions that extend beyond the sample itself. Hypothesis testing is the most structured and widely used mechanism for doing this. It provides a formal, reproducible procedure for deciding whether an observed pattern in data reflects a genuine phenomenon in the population or whether it could plausibly have arisen by random chance alone. Critically, the conclusions produced by hypothesis testing are always probabilistic in nature: no matter how rigorous the procedure, there remains some possibility that the conclusion is wrong. Understanding this uncertainty — and learning to quantify and manage it — is at the heart of applied statistics.</p>
+
+<p>To appreciate why this probabilistic framing is necessary, consider a simple example. A pharmaceutical company tests a new drug by giving it to 60 patients and a placebo to 60 others. The drug group recovers, on average, 3 days faster. Is that difference real, or could it have occurred simply because of the natural variability in recovery times across individuals? The answer is never certain, but hypothesis testing gives us a principled way to assess how surprised we should be by this result if the drug truly had no effect at all.</p>
+
+<p>Every hypothesis test begins with the explicit statement of two competing claims about the population: the <strong>null hypothesis</strong> and the <strong>alternative hypothesis</strong>. The <strong>null hypothesis (H₀)</strong> is the default or skeptical position. It typically asserts that nothing interesting is happening — there is no effect, no difference, no relationship. In the drug example, H₀ would state that the drug has no effect on recovery time; any observed difference between groups is due to chance. The null hypothesis is not a claim the researcher believes to be true; rather, it is the claim that the researcher intends to challenge with evidence.</p>
+
+<p>The <strong>alternative hypothesis (H₁ or Hₐ)</strong> represents the researcher's actual claim — the effect or difference they are trying to detect. In the drug example, H₁ might state that the drug does reduce recovery time. Crucially, H₀ and H₁ must be <em>mutually exclusive</em> (they cannot both be true at the same time) and <em>collectively exhaustive</em> (together they cover all possible states of reality). This means exactly one of them must be true, and the test is designed to determine which one the data support more strongly.</p>
+
+<p>The alternative hypothesis can take different forms depending on the research question. A <strong>two-tailed (two-sided) test</strong> is used when the researcher is interested in any difference from the null value, regardless of direction — for example, H₁: the drug changes recovery time (either speeds it up or slows it down). A <strong>one-tailed (one-sided) test</strong> is used when the direction of the effect is specified in advance — for example, H₁: the drug reduces recovery time. The choice between these must be made before looking at the data, as choosing it afterward introduces bias.</p>
+
+<p>Once the hypotheses are stated, the researcher follows a structured sequence of steps to reach a decision. This sequence must be specified in advance to ensure the test is objective and reproducible.</p>
+
+<p><strong>Step 1: State the hypotheses.</strong> Write out H₀ and H₁ explicitly and in terms of a population parameter. For example:</p>
+<ul>
+  <li>H₀: μ₁ − μ₂ = 0 (the population means of two groups are equal)</li>
+  <li>H₁: μ₁ − μ₂ ≠ 0 (the population means differ)</li>
+</ul>
+
+<p><strong>Step 2: Choose the significance level (α).</strong> The significance level is the threshold probability below which the observed data would be considered too unlikely under H₀, leading to rejection of H₀. It is set <em>before</em> data collection. The most commonly used value is α = 0.05, meaning the researcher is willing to accept a 5% chance of incorrectly rejecting a true null hypothesis. In contexts demanding greater caution — such as medical device testing or particle physics — α might be set at 0.01 or even 0.001.</p>
+
+<p><strong>Step 3: Compute the test statistic.</strong> The <strong>test statistic</strong> is a single numerical value computed from the sample data. Its purpose is to translate the raw observed difference (or relationship) into a standardized scale that can be compared against a well-known probability distribution. The general form is often expressed as:</p>
+
+<pre><code>Test Statistic = (Observed value − Null hypothesis value) / Standard error</code></pre>
+
+<p>For instance, when testing a population mean with a known population standard deviation, the appropriate test statistic is the <strong>z-score</strong>:</p>
+
+<pre><code>z = (x̄ − μ₀) / (σ / √n)</code></pre>
+
+<p>where x̄ is the sample mean, μ₀ is the hypothesized population mean under H₀, σ is the population standard deviation, and n is the sample size. When the population standard deviation is unknown (the far more common real-world scenario), the <strong>t-statistic</strong> is used instead, which accounts for the additional uncertainty introduced by estimating the standard deviation from the sample.</p>
+
+<p>The <strong>magnitude</strong> of the test statistic carries the key information: a larger absolute value means the observed data are farther from what H₀ predicted, making H₀ look less plausible. A test statistic of z = 0.3 suggests the sample result is very close to what we'd expect under H₀; a test statistic of z = 4.1 suggests the result is highly inconsistent with H₀.</p>
+
+<p>The choice of test statistic depends on several factors, including the type of data (continuous, binary, count), the number of groups being compared, whether the observations are independent or paired, the sample size, and whether the population variance is known. Common examples include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Situation</th>
+      <th>Appropriate Test Statistic</th>
+      <th>Reference Distribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>One mean, σ known</td>
+      <td>z-statistic</td>
+      <td>Standard Normal (Z)</td>
+    </tr>
+    <tr>
+      <td>One mean, σ unknown</td>
+      <td>t-statistic</td>
+      <td>t-distribution (df = n − 1)</td>
+    </tr>
+    <tr>
+      <td>Two independent means</td>
+      <td>Two-sample t-statistic</td>
+      <td>t-distribution</td>
+    </tr>
+    <tr>
+      <td>Paired means</td>
+      <td>Paired t-statistic</td>
+      <td>t-distribution (df = n − 1)</td>
+    </tr>
+    <tr>
+      <td>Proportions</td>
+      <td>z-statistic for proportions</td>
+      <td>Standard Normal (Z)</td>
+    </tr>
+    <tr>
+      <td>Categorical association</td>
+      <td>Chi-square statistic</td>
+      <td>Chi-square distribution</td>
+    </tr>
+    <tr>
+      <td>Multiple group means</td>
+      <td>F-statistic</td>
+      <td>F-distribution</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Step 4: Make a decision.</strong> Once the test statistic is computed, it is compared to the reference distribution to determine how likely such a result would be if H₀ were true. This comparison can be done in two equivalent ways: via the <strong>p-value</strong> or via <strong>critical values</strong>.</p>
+
+<p>The <strong>p-value</strong> is the probability of obtaining a test statistic at least as extreme as the one computed from the sample, <em>assuming H₀ is true</em>. It answers the question: "If the null hypothesis were correct, how often would we see data this unusual or more unusual just by chance?" A small p-value (below α) means the observed result is rare under H₀ — we reject H₀. A large p-value means the result is consistent with H₀ — we fail to reject H₀.</p>
+
+<ul>
+  <li>If p-value ≤ α → <strong>Reject H₀</strong>. The result is statistically significant.</li>
+  <li>If p-value > α → <strong>Fail to reject H₀</strong>. The result is not statistically significant.</li>
+</ul>
+
+<p>For example, if the computed z-statistic is 2.45 and the significance level is α = 0.05 for a two-tailed test, the corresponding p-value is approximately 0.014. Since 0.014 < 0.05, we reject H₀. The data provide sufficient evidence against the null hypothesis.</p>
+
+<p>A critical point about the language of decisions: researchers say they <em>reject</em> or <em>fail to reject</em> H₀. They do <strong>not</strong> say they "accept H₁" or "prove" the alternative hypothesis. Failing to reject H₀ does not mean H₀ is true — it only means the data did not provide sufficient evidence to overturn it. The asymmetry in this language reflects the fundamental asymmetry in the logic of hypothesis testing: H₀ is assumed true until evidence is strong enough to reject it, much like the presumption of innocence in a courtroom.</p>
+
+<p>Because hypothesis testing is a probabilistic procedure, it is subject to two types of decision errors, which can never be fully eliminated — only managed through careful design.</p>
+
+<p>A <strong>Type I error</strong> (also called a <em>false positive</em>) occurs when the null hypothesis is rejected even though it is actually true. In other words, the researcher concludes there is an effect when in reality there is none. The probability of committing a Type I error is exactly equal to the chosen significance level α. If α = 0.05, then in a world where H₀ is true, 5% of all properly conducted tests would still produce a result extreme enough to reject H₀ by chance. This is the price paid for using a probabilistic decision rule.</p>
+
+<p>A <strong>Type II error</strong> (also called a <em>false negative</em>) occurs when the null hypothesis is <em>not</em> rejected even though it is actually false. The researcher concludes there is no effect when in fact a real effect exists. The probability of a Type II error is denoted β. Unlike α, β is not directly set by the researcher — it depends on the true size of the effect, the sample size, the variability in the data, and the chosen α.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>H₀ is Actually True</th>
+      <th>H₀ is Actually False</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Decision: Reject H₀</strong></td>
+      <td>Type I Error (probability = α)</td>
+      <td>Correct Decision — True Positive (probability = 1 − β)</td>
+    </tr>
+    <tr>
+      <td><strong>Decision: Fail to Reject H₀</strong></td>
+      <td>Correct Decision — True Negative (probability = 1 − α)</td>
+      <td>Type II Error (probability = β)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>There is an inherent trade-off between these two error types. If a researcher lowers α (say, from 0.05 to 0.01) to reduce the risk of false positives, the critical threshold for rejection becomes harder to meet. As a result, the test becomes more conservative and more likely to miss a true effect — β increases. Conversely, raising α makes it easier to reject H₀ (reducing Type II errors) but increases the risk of false positives.</p>
+
+<p>The concept of <strong>statistical power</strong>, defined as 1 − β, quantifies the test's ability to correctly detect a true effect when one genuinely exists in the population. A test with power of 0.80 will correctly reject a false H₀ 80% of the time under the assumed conditions. Power is influenced by four interrelated factors:</p>
+
+<ul>
+  <li><strong>Effect size:</strong> Larger true effects are easier to detect. A drug that cuts recovery time by 10 days is much easier to detect than one that cuts it by half a day.</li>
+  <li><strong>Sample size:</strong> Larger samples reduce sampling variability, making it easier to distinguish a true effect from random noise. Increasing n is the most direct way to increase power.</li>
+  <li><strong>Significance level (α):</strong> A higher α makes rejection easier, increasing power at the cost of more Type I errors.</li>
+  <li><strong>Variability in the data:</strong> Less variability (smaller standard deviation) makes effects easier to detect.</li>
+</ul>
+
+<p>In practice, researchers often conduct a <strong>power analysis</strong> before collecting data to determine the sample size required to achieve a desired level of power (commonly 0.80 or 0.90) for a realistic effect size. This planning step helps ensure that a study is neither underpowered (and likely to miss a real effect) nor unnecessarily large (and wasteful of resources).</p>
+
+<p>To bring all of these concepts together, consider a complete worked example. A university administrator claims that the average student completes a registration form in 12 minutes. A researcher suspects students take longer and wants to test this claim using a random sample of 36 students, who took an average of 13.5 minutes, with a sample standard deviation of 4.2 minutes.</p>
+
+<ul>
+  <li><strong>H₀:</strong> μ = 12 minutes (the administrator's claim is correct)</li>
+  <li><strong>H₁:</strong> μ > 12 minutes (students take longer than claimed) — one-tailed test</li>
+  <li><strong>α = 0.05</strong></li>
+  <li><strong>Test statistic:</strong> t = (13.5 − 12) / (4.2 / √36) = 1.5 / 0.7 ≈ 2.14, with df = 35</li>
+  <li><strong>p-value:</strong> For t = 2.14 with 35 degrees of freedom (one-tailed), p ≈ 0.019</li>
+  <li><strong>Decision:</strong> Since 0.019 < 0.05, we reject H₀.</li>
+  <li><strong>Conclusion:</strong> The data provide statistically significant evidence that students take longer than 12 minutes on average to complete the registration form.</li>
+</ul>
+
+<p>Note that this conclusion does not say the null hypothesis is proven false — it says the data are inconsistent enough with H₀ that we are justified in rejecting it at the 5% significance level. There remains a small but non-zero probability (approximately 1.9%) that H₀ is true and we simply observed an unusually large sample mean by chance. This irreducible uncertainty is what makes hypothesis testing a tool of <em>evidence</em>, not <em>proof</em>.</p>
+        <div class="notes"><strong>Notes</strong>Introduces the core framework of hypothesis testing, including null and alternative hypotheses, test statistics, and the logic of statistical inference. Students learn how to structure a hypothesis test and interpret its components. The worked example at the end ties together all four steps of a hypothesis test in a single coherent narrative.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

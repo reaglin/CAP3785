@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL Joins, Relationships, and Advanced Query Techniques — CAP3785</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1e2a38;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0d3b6e 0%, #1565a8 60%, #1a78c2 100%);
+      color: #fff;
+      padding: 2.8rem 2rem 2.2rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 0.25rem 0.85rem;
+      margin-bottom: 1rem;
+      color: #d6e9ff;
+    }
+
+    header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 800px;
+      margin: 0 auto 1.1rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p.intro {
+      font-size: 1rem;
+      max-width: 680px;
+      margin: 0 auto;
+      color: #c8dff5;
+      font-weight: 400;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    .section-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #5a7190;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde4ee;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde4ee;
+      border-radius: 10px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(13,59,110,0.10);
+      transform: translateY(-2px);
+    }
+
+    /* ── Type Badge ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* Badge colour map */
+    .badge-module-topics    { background: #e3f0ff; color: #0d5aa7; }
+    .badge-presentation     { background: #eaf4eb; color: #2a7a35; }
+    .badge-topic-detail     { background: #f3eeff; color: #6433b8; }
+    .badge-text-content     { background: #fff4e3; color: #a05c00; }
+    .badge-quiz             { background: #ffeaea; color: #b52525; }
+    .badge-default          { background: #eef1f5; color: #3a4f66; }
+
+    .filetype-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #8095ae;
+      background: #f0f3f8;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Card Title Row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-title {
+      font-size: 0.985rem;
+      font-weight: 700;
+      color: #1e2a38;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .card-title a {
+      color: #1255a0;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .card-title a:hover {
+      color: #0b3f7a;
+      border-bottom-color: #1255a0;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      background: #5a7190;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .source-link:hover {
+      background: #3a5068;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5f76;
+      line-height: 1.58;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.8rem;
+      color: #8095ae;
+      border-top: 1px solid #dde4ee;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 2rem 1.25rem 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="course-label">CAP3785 — Data Analytics and Visualization</div>
+    <h1>SQL Joins, Relationships, and Advanced Query Techniques</h1>
+    <p class="intro">
+      Explore relational database foundations, master JOIN operations, and build advanced queries
+      using subqueries and aggregation. This module equips you with the analytical SQL skills needed
+      to extract meaningful insights from multi-table datasets.
+    </p>
+  </header>
+
+  <main>
+    <p class="section-heading">Module Artifacts &mdash; 10 items</p>
+
+    <div class="card-grid">
+
+      <!-- 1. Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-module-topics">Module Topics</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">A structured outline listing the module's core topics—relational database foundations, INNER and OUTER JOINs, and subqueries—used by instructors to plan lessons and by learners to navigate what will be covered.</p>
+      </div>
+
+      <!-- 2. Presentation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-presentation">Presentation</span>
+          <span class="filetype-tag">.pptx</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="../presentations/SQL_Joins_Relationships_generated.pptx">SQL_Joins_Relationships_generated.pptx</a>
+          </span>
+        </div>
+        <p class="card-description">A slide deck introducing SQL joins, relationships, and advanced query techniques—covering relational database concepts, JOIN types, subqueries, and aggregation—used by instructors to deliver lectures or by learners to review key concepts and examples.</p>
+      </div>
+
+      <!-- 3. Relational Database Foundations -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="SQL_Joins_Relationships_interactive_topics_t1.html">Relational Database Foundations</a>
+          </span>
+        </div>
+        <p class="card-description">This reading introduces relational database concepts including the mathematical basis of relations, how tables are structured, and how foreign keys link tables together, serving as foundational background before learners work with JOIN operations.</p>
+      </div>
+
+      <!-- 4. INNER JOIN -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="SQL_Joins_Relationships_interactive_topics_t2.html">INNER JOIN and Matching Records</a>
+          </span>
+        </div>
+        <p class="card-description">This reading explains how INNER JOIN works to combine rows from multiple tables based on matching key values, covering syntax, filtering logic, and practical business query examples so learners can retrieve related data across tables.</p>
+      </div>
+
+      <!-- 5. Outer JOINs -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="SQL_Joins_Relationships_interactive_topics_t3.html">Outer JOINs: LEFT, RIGHT, and FULL</a>
+          </span>
+        </div>
+        <p class="card-description">This reading covers LEFT, RIGHT, and FULL OUTER JOIN operations, explaining when and why each is used to retain unmatched rows from one or both tables, with examples that contrast their behavior against INNER JOIN.</p>
+      </div>
+
+      <!-- 6. Subqueries -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="SQL_Joins_Relationships_interactive_topics_t4.html">Subqueries and Nested SELECT Statements</a>
+          </span>
+        </div>
+        <p class="card-description">This reading explains how to write and use subqueries — SELECT statements nested inside other queries — covering scalar, row, and table subqueries as well as correlated subqueries, so learners can build complex multi-step filtering and comparison logic.</p>
+      </div>
+
+      <!-- 7. Aggregation -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="SQL_Joins_Relationships_interactive_topics_t5.html">Aggregation with GROUP BY and HAVING</a>
+          </span>
+        </div>
+        <p class="card-description">This reading covers SQL aggregation using GROUP BY to segment data into logical groups and HAVING to filter those groups, explaining aggregate functions such as COUNT, SUM, and AVG so learners can produce summary statistics from large datasets.</p>
+      </div>
+
+      <!-- 8. Solving Multi-Table (Topic Detail) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="SQL_Joins_Relationships_interactive_topics_t6.html">Solving Multi-Table Analytical Problems</a>
+          </span>
+        </div>
+        <p class="card-description">This reading walks learners through a structured methodology for tackling complex analytical questions that span multiple tables, combining JOINs, subqueries, and aggregation into cohesive queries that address real-world business scenarios.</p>
+      </div>
+
+      <!-- 9. Solving Multi-Table (Text Content) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-text-content">Text Content</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="SQL_Joins_Relationships_interactive.html">Solving Multi-Table Analytical Problems</a>
+          </span>
+        </div>
+        <p class="card-description">This reading walks learners through a structured methodology for tackling complex analytical questions that span multiple tables, combining JOINs, subqueries, and aggregation into cohesive queries that address real-world business scenarios.</p>
+      </div>
+
+      <!-- 10. Quiz -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-quiz">Quiz</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_quiz.html">Quiz Question Bank (20 questions)</a>
+          </span>
+          <a class="source-link" href="../quiz_questions.json">source file</a>
+        </div>
+        <p class="card-description">A 20-question quiz bank assessing learners' understanding of relational database concepts, primary and foreign keys, JOIN behavior, and related query logic, used by instructors to build graded assessments or knowledge checks.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CAP3785 — Data Analytics and Visualization &nbsp;|&nbsp; SQL Joins, Relationships, and Advanced Query Techniques
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

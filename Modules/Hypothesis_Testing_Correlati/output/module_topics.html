@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hypothesis Testing, Correlation, and Regression Analysis — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Hypothesis Testing, Correlation, and Regression Analysis — Module Topics</h1>
+<h2>Foundations of Hypothesis Testing</h2>
+<div class="summary">Introduces the core framework of hypothesis testing, including null and alternative hypotheses, test statistics, and the logic of statistical inference. Students learn how to structure a hypothesis test and interpret its components.</div>
+<ul>
+<li><strong>The Purpose of Statistical Inference</strong> <span class="el-body">— Statistical inference allows us to draw conclusions about a population based on sample data, rather than examining every individual observation.</span></li>
+<li><strong>The Null and Alternative Hypotheses</strong> <span class="el-body">— Every hypothesis test begins with two competing statements: the null hypothesis and the alternative hypothesis, which together frame the question being investigated.</span></li>
+<li><strong>Structuring a Hypothesis Test</strong> <span class="el-body">— A well-formed hypothesis test follows a consistent logical structure that guides the researcher from question formulation through to a final decision.</span></li>
+<li><strong>Test Statistics and Their Role</strong> <span class="el-body">— A test statistic is a numerical value calculated from sample data that summarizes how far the observed result is from what would be expected under the null hypothesis.</span></li>
+<li><strong>The Logic of Rejecting or Retaining the Null Hypothesis</strong> <span class="el-body">— Hypothesis testing operates on the logic of contradiction — if the observed data would be very unlikely under H₀, we have evidence to reject it.</span></li>
+<li><strong>Types of Errors in Hypothesis Testing</strong> <span class="el-body">— Because hypothesis testing relies on probability, there is always a risk of reaching an incorrect conclusion, categorized as Type I or Type II errors.</span></li>
+</ul>
+<h2>P-Values and Statistical Significance</h2>
+<div class="summary">Explores how p-values are calculated and used to determine statistical significance in hypothesis testing. Covers significance thresholds, Type I and Type II errors, and common misconceptions about p-values.</div>
+<ul>
+<li><strong>What Is a P-Value?</strong> <span class="el-body">— A p-value is the probability of obtaining a test result at least as extreme as the observed result, assuming the null hypothesis is true.</span></li>
+<li><strong>Significance Thresholds (Alpha Level)</strong> <span class="el-body">— The significance threshold, denoted alpha (α), is a pre-defined cutoff used to decide whether a p-value is small enough to reject the null hypothesis.</span></li>
+<li><strong>Type I Errors (False Positives)</strong> <span class="el-body">— A Type I error occurs when the null hypothesis is true but is incorrectly rejected, leading to a false positive conclusion.</span></li>
+<li><strong>Type II Errors (False Negatives)</strong> <span class="el-body">— A Type II error occurs when the null hypothesis is false but is not rejected, meaning a real effect goes undetected.</span></li>
+<li><strong>Calculating P-Values from Test Statistics</strong> <span class="el-body">— P-values are derived by computing a test statistic from sample data and then finding the probability of that statistic under the null distribution.</span></li>
+<li><strong>Common Misconceptions About P-Values</strong> <span class="el-body">— P-values are widely misunderstood, and several persistent misconceptions can lead to flawed conclusions in data analysis.</span></li>
+<li><strong>Interpreting and Reporting Statistical Significance</strong> <span class="el-body">— Proper interpretation and reporting of statistical significance requires context, effect sizes, and confidence intervals alongside p-values.</span></li>
+</ul>
+<h2>A/B Testing in Practice</h2>
+<div class="summary">Applies hypothesis testing principles to real-world A/B testing scenarios used in business and product experimentation. Students learn how to design experiments, select appropriate tests, and interpret results to support data-driven decisions.</div>
+<ul>
+<li><strong>What is A/B Testing?</strong> <span class="el-body">— A/B testing is a controlled experiment that compares two versions of a variable — a control (A) and a treatment (B) — to determine which performs better on a defined metric.</span></li>
+<li><strong>Designing a Valid A/B Experiment</strong> <span class="el-body">— Proper experimental design is critical to obtaining reliable, actionable results from an A/B test. Key decisions include defining the hypothesis, identifying the metric, and determining sample size before data collection begins.</span></li>
+<li><strong>Selecting the Appropriate Statistical Test</strong> <span class="el-body">— Choosing the right test depends on the type of metric being measured and the distribution of the data collected during the experiment.</span></li>
+<li><strong>Interpreting P-Values and Statistical Significance</strong> <span class="el-body">— Once the test is run, the p-value indicates the probability of observing the data if the null hypothesis were true, and is compared against a pre-set significance threshold (alpha).</span></li>
+<li><strong>Effect Size and Practical Significance</strong> <span class="el-body">— Effect size quantifies the magnitude of the difference between groups, providing context that p-values alone cannot supply for business decision-making.</span></li>
+<li><strong>Common Pitfalls in A/B Testing</strong> <span class="el-body">— Even well-intentioned A/B tests can yield misleading conclusions due to methodological errors that inflate false-positive or false-negative rates.</span></li>
+<li><strong>Translating Results into Data-Driven Decisions</strong> <span class="el-body">— The final step in A/B testing is interpreting results within the business context and communicating findings clearly to stakeholders to drive action.</span></li>
+</ul>
+<h2>Correlation Analysis</h2>
+<div class="summary">Examines the concept of correlation as a measure of the relationship between two variables, including Pearson and Spearman correlation coefficients. Emphasizes the distinction between correlation and causation and how to interpret correlation in context.</div>
+<ul>
+<li><strong>What Is Correlation?</strong> <span class="el-body">— Correlation is a statistical measure that quantifies the strength and direction of the linear relationship between two variables.</span></li>
+<li><strong>Pearson Correlation Coefficient</strong> <span class="el-body">— The Pearson correlation coefficient (r) is the most commonly used measure of linear correlation, appropriate for continuous, normally distributed data.</span></li>
+<li><strong>Spearman Rank Correlation Coefficient</strong> <span class="el-body">— The Spearman correlation coefficient (ρ) is a non-parametric alternative to Pearson&#39;s r, based on the ranked order of data rather than raw values.</span></li>
+<li><strong>Choosing Between Pearson and Spearman</strong> <span class="el-body">— Selecting the appropriate correlation method depends on the nature of the data, the distribution of variables, and the presence of outliers.</span></li>
+<li><strong>Interpreting Correlation Coefficients in Context</strong> <span class="el-body">— A correlation coefficient must always be interpreted within the context of the domain and research question, not just by its numerical magnitude alone.</span></li>
+<li><strong>Correlation Does Not Imply Causation</strong> <span class="el-body">— One of the most critical principles in data analysis is that a correlation between two variables does not mean that one variable causes the other.</span></li>
+</ul>
+<h2>Simple Linear Regression</h2>
+<div class="summary">Introduces simple linear regression as a method for modeling the relationship between one predictor variable and a continuous outcome. Students learn to estimate regression coefficients, assess model fit, and make predictions from a fitted model.</div>
+<ul>
+<li><strong>What Is Simple Linear Regression?</strong> <span class="el-body">— Simple linear regression is a statistical method that models the linear relationship between one predictor (independent) variable and one continuous outcome (dependent) variable.</span></li>
+<li><strong>Estimating Regression Coefficients</strong> <span class="el-body">— The regression coefficients β₀ and β₁ are estimated from sample data using the method of Ordinary Least Squares (OLS), which minimizes the sum of squared differences between observed and predicted values.</span></li>
+<li><strong>Assessing Model Fit with R&#178;</strong> <span class="el-body">— The coefficient of determination, R&#178;, measures how well the regression model explains the variability in the outcome variable, ranging from 0 to 1.</span></li>
+<li><strong>Testing the Statistical Significance of the Slope</strong> <span class="el-body">— A hypothesis test is conducted on the slope coefficient β₁ to determine whether the predictor variable has a statistically significant linear relationship with the outcome.</span></li>
+<li><strong>Making Predictions from the Fitted Model</strong> <span class="el-body">— Once the regression model is fitted, it can be used to predict the value of the outcome variable for given values of the predictor variable.</span></li>
+<li><strong>Checking Regression Assumptions</strong> <span class="el-body">— Simple linear regression relies on several key assumptions that must be verified to ensure the validity and reliability of the model&#39;s estimates and inferences.</span></li>
+</ul>
+<h2>Multiple Linear Regression</h2>
+<div class="summary">Extends simple linear regression to models with multiple predictor variables, enabling more complex and realistic analyses. Covers interpretation of coefficients, model assumptions, and strategies for evaluating and improving model performance.</div>
+<ul>
+<li><strong>From Simple to Multiple Linear Regression</strong> <span class="el-body">— Multiple linear regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single outcome variable.</span></li>
+<li><strong>Interpreting Regression Coefficients</strong> <span class="el-body">— Each coefficient (β) in a multiple regression model represents the estimated change in the outcome variable for a one-unit increase in that predictor, holding all other predictors constant.</span></li>
+<li><strong>Model Assumptions in Multiple Regression</strong> <span class="el-body">— Multiple linear regression relies on several key assumptions that must be satisfied for the model&#39;s estimates and inferences to be valid.</span></li>
+<li><strong>Evaluating Model Performance</strong> <span class="el-body">— Assessing how well a multiple regression model fits the data requires several statistical measures that quantify explained variance and overall model significance.</span></li>
+<li><strong>Multicollinearity: Detection and Impact</strong> <span class="el-body">— Multicollinearity occurs when two or more predictor variables are highly correlated, making it difficult to isolate each variable&#39;s individual effect on the outcome.</span></li>
+<li><strong>Strategies for Improving Model Performance</strong> <span class="el-body">— Building an effective multiple regression model involves iterative refinement, including variable selection, transformation, and validation techniques.</span></li>
+</ul>
+<h2>Drawing Data-Driven Conclusions</h2>
+<div class="summary">Synthesizes all module techniques to guide students in applying inferential statistics to real datasets and communicating findings effectively. Focuses on selecting the appropriate method, validating assumptions, and translating statistical results into actionable insights.</div>
+<ul>
+<li><strong>Selecting the Appropriate Statistical Method</strong> <span class="el-body">— Choosing the right inferential technique depends on the research question, the type of data, and the number of variables involved.</span></li>
+<li><strong>Validating Statistical Assumptions</strong> <span class="el-body">— Every inferential technique rests on a set of assumptions that must be checked before results can be trusted.</span></li>
+<li><strong>Interpreting p-Values and Statistical Significance</strong> <span class="el-body">— The p-value quantifies the probability of observing results at least as extreme as those obtained, assuming the null hypothesis is true.</span></li>
+<li><strong>Translating Regression and Correlation Results into Insights</strong> <span class="el-body">— Statistical outputs such as regression coefficients and correlation coefficients must be converted into plain-language statements that answer the original business or research question.</span></li>
+<li><strong>Applying Findings to Real Datasets and A/B Testing Contexts</strong> <span class="el-body">— Applying inferential statistics to real data requires integrating data cleaning, exploratory analysis, and formal testing into a coherent workflow.</span></li>
+<li><strong>Communicating Statistical Results Effectively</strong> <span class="el-body">— Translating statistical findings into clear, actionable insights for diverse audiences is as important as the analysis itself.</span></li>
+</ul>
+</body>
+</html>

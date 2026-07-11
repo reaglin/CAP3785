@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawing Data-Driven Conclusions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Drawing Data-Driven Conclusions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Drawing Data-Driven Conclusions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Drawing data-driven conclusions is the ultimate goal of any statistical analysis. It is the stage where raw numbers, test outputs, and model summaries are transformed into actionable knowledge. Yet this transformation is far from automatic. Every step of the journey — from choosing the right method, to checking whether the method's assumptions hold, to communicating what the numbers actually mean — demands careful, deliberate thinking. A poorly chosen test, an unchecked assumption, or a misread p-value can send an entire organisation in the wrong direction. This section synthesises the core techniques of inferential statistics into a coherent, practical workflow that can be applied to real datasets, A/B experiments, and business problems alike.</p>
+
+<p><strong>Selecting the Appropriate Statistical Method</strong></p>
+
+<p>Before running a single calculation, an analyst must answer a fundamental question: <em>what is the analysis trying to accomplish?</em> The three broad goals are <strong>comparison</strong> (does Group A differ from Group B?), <strong>relationship detection</strong> (are two variables associated with each other?), and <strong>prediction</strong> (given certain inputs, what outcome can we expect?). Each goal maps naturally to a family of methods, and choosing the wrong family invalidates the conclusion even when the arithmetic is flawless.</p>
+
+<p>The nature of the data further narrows the choice. A useful mental checklist runs as follows:</p>
+
+<ul>
+  <li><strong>Outcome type matters first.</strong> If the outcome variable is categorical — for example, whether a customer churned (yes/no) or which product category was purchased — then methods designed for continuous outcomes are inappropriate. A <em>chi-square test of independence</em> evaluates whether two categorical variables are associated. Logistic regression predicts a binary or multinomial categorical outcome. Applying a t-test to a proportion-based outcome, for instance, can produce misleading results because the underlying distributional assumptions are violated from the outset.</li>
+  <li><strong>Continuous outcomes open a wider toolkit.</strong> When the outcome is a numeric measurement — revenue, temperature, test score — comparison questions are well served by <em>independent-samples t-tests</em> (two groups), <em>paired t-tests</em> (repeated measures on the same subjects), or <em>ANOVA</em> (three or more groups). Relationship and prediction questions involving a single continuous predictor call for <em>simple linear regression</em>, while two or more predictors simultaneously call for <em>multiple linear regression</em>.</li>
+  <li><strong>The number of predictors shapes the regression choice.</strong> Simple linear regression fits a straight line through a scatter plot of one predictor and one outcome: <code>ŷ = β₀ + β₁x</code>. Multiple regression extends this to <code>ŷ = β₀ + β₁x₁ + β₂x₂ + … + βₖxₖ</code>, allowing the analyst to control for confounding variables and estimate the independent contribution of each predictor. Using simple regression when multiple confounders are present leads to <em>omitted variable bias</em> — an overstatement or understatement of the true effect.</li>
+  <li><strong>Mismatching method to question type corrupts conclusions.</strong> Consider a researcher who wants to know whether a training programme improved employee performance ratings. If they use a correlation coefficient between "attended programme (yes/no)" and "rating" rather than a t-test or logistic regression, the coefficient will be technically computable but will not answer whether the difference in means is statistically meaningful. Method selection is therefore not a bureaucratic formality; it is the analytical foundation on which all later inferences rest.</li>
+</ul>
+
+<p>A concise reference for matching goals, data types, and methods is shown in the table below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Analytical Goal</th>
+      <th>Outcome Type</th>
+      <th>Predictor / Group Structure</th>
+      <th>Recommended Method</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Comparison</td>
+      <td>Continuous</td>
+      <td>Two independent groups</td>
+      <td>Independent-samples t-test</td>
+    </tr>
+    <tr>
+      <td>Comparison</td>
+      <td>Continuous</td>
+      <td>Two paired/repeated measures</td>
+      <td>Paired t-test</td>
+    </tr>
+    <tr>
+      <td>Comparison</td>
+      <td>Continuous</td>
+      <td>Three or more groups</td>
+      <td>One-way ANOVA</td>
+    </tr>
+    <tr>
+      <td>Comparison</td>
+      <td>Categorical</td>
+      <td>Two or more groups</td>
+      <td>Chi-square test</td>
+    </tr>
+    <tr>
+      <td>Relationship detection</td>
+      <td>Continuous</td>
+      <td>One continuous predictor</td>
+      <td>Pearson correlation / Simple regression</td>
+    </tr>
+    <tr>
+      <td>Prediction</td>
+      <td>Continuous</td>
+      <td>One predictor</td>
+      <td>Simple linear regression</td>
+    </tr>
+    <tr>
+      <td>Prediction</td>
+      <td>Continuous</td>
+      <td>Multiple predictors</td>
+      <td>Multiple linear regression</td>
+    </tr>
+    <tr>
+      <td>Prediction</td>
+      <td>Binary categorical</td>
+      <td>One or more predictors</td>
+      <td>Logistic regression</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Validating Statistical Assumptions</strong></p>
+
+<p>Every parametric statistical method is built on a set of assumptions about the data-generating process. These assumptions are not arbitrary mathematical conveniences; they are the conditions under which the test's stated error rates and confidence levels are actually accurate. When they are violated, the test may be anti-conservative (reporting false significance too often) or overly conservative (missing real effects), and regression coefficients may be biased or inefficient.</p>
+
+<ul>
+  <li><strong>Independence of observations</strong> is the most fundamental assumption and the hardest to rescue after the fact. It requires that the value of one observation does not influence another. This assumption is violated whenever data contain repeated measures from the same individual, clustered observations (students within schools, transactions within customers), or time-series autocorrelation. The remedy depends on the structure: mixed-effects models handle clustered data; time-series models handle autocorrelation.</li>
+  <li><strong>Approximate normality</strong> refers to the distribution of the outcome (or residuals, in regression). Hypothesis tests like the t-test are remarkably robust to moderate departures from normality when sample sizes are large, because the Central Limit Theorem ensures the sampling distribution of the mean approaches normality regardless of the population distribution. However, with small samples and skewed distributions, non-parametric alternatives such as the <em>Mann-Whitney U test</em> (a rank-based counterpart to the independent-samples t-test) are safer. Normality can be assessed visually with a histogram or Q-Q plot, or formally with a Shapiro-Wilk test.</li>
+  <li><strong>Homogeneity of variance</strong> (homoscedasticity) requires that the variance of the outcome is roughly equal across groups (for t-tests and ANOVA) or across the range of fitted values (for regression). When group variances are unequal, Welch's t-test — which does not assume equal variances — is preferred over the classic Student's t-test. In regression, heteroscedasticity does not bias the coefficients but makes standard errors unreliable; <em>robust standard errors</em> (also called sandwich estimators) correct this without discarding data.</li>
+  <li><strong>Linearity</strong> is an additional requirement for regression: the relationship between each predictor and the outcome must be approximately linear after accounting for the other predictors. A residual-versus-fitted plot that shows a curved pattern signals nonlinearity. Remedies include adding polynomial terms (e.g., <code>x²</code>), applying a logarithmic or square-root transformation to skewed variables, or switching to a nonlinear modelling approach.</li>
+  <li><strong>Absence of severe multicollinearity</strong> is specific to multiple regression. When two or more predictors are highly correlated with each other, the model cannot reliably separate their individual effects; coefficient estimates become unstable and standard errors balloon. The <em>Variance Inflation Factor (VIF)</em> quantifies this: a VIF above 5–10 is commonly treated as problematic. Solutions include removing one of the correlated predictors, combining them into a composite index, or using regularisation methods such as Ridge regression that tolerate correlated predictors by penalising large coefficients.</li>
+</ul>
+
+<p>A helpful discipline is to treat assumption checking as a formal stage in the analysis workflow — not something done only when results look suspicious. Document which checks were performed, what was found, and what action was taken. This transparency allows others to evaluate the validity of conclusions independently.</p>
+
+<p><strong>Interpreting p-Values and Statistical Significance</strong></p>
+
+<p>The p-value is simultaneously one of the most widely used and most frequently misunderstood quantities in statistics. It is defined as the probability of observing a test statistic at least as extreme as the one computed from the data, <em>assuming the null hypothesis is true</em>. It is emphatically <em>not</em> the probability that the null hypothesis is true, nor the probability that the result occurred by chance.</p>
+
+<ul>
+  <li><strong>The decision rule.</strong> When the p-value falls below the pre-specified significance level α (most commonly 0.05, though 0.01 and 0.10 are also used depending on the domain), the analyst rejects the null hypothesis and concludes the result is statistically significant. The choice of α should be made <em>before</em> seeing the data to avoid post-hoc threshold manipulation. In high-stakes contexts — pharmaceutical trials, for instance — α = 0.01 or even 0.001 may be warranted to limit false positives. In exploratory analyses, a more lenient threshold may be acceptable.</li>
+  <li><strong>Statistical significance ≠ practical importance.</strong> This distinction is critical and is routinely overlooked. With a very large sample, even a trivially small effect produces a very small p-value. Suppose an e-commerce platform tests a homepage redesign on one million users and finds that the new design increases average order value by $0.04 with p = 0.0001. The result is highly statistically significant, but an increase of four cents per order is almost certainly not worth the engineering and design investment. Practical significance asks: <em>is the effect large enough to matter in the real world?</em></li>
+  <li><strong>Report actual p-values, not binary labels.</strong> Reporting "p < 0.05" conveys far less information than reporting "p = 0.032" or "p = 0.004." Two results both described as "significant" can carry very different evidential weight. Journals and professional bodies increasingly require exact p-values precisely because binary labelling loses information and encourages cliff-edge thinking around arbitrary thresholds.</li>
+  <li><strong>Confidence intervals add richer context.</strong> A 95% confidence interval (CI) for a parameter estimate gives the range of values that would contain the true parameter in 95% of repeated experiments conducted the same way. If a regression coefficient is 3.2 with a 95% CI of [1.1, 5.3], the analyst can convey both statistical significance (the interval excludes zero) and practical magnitude (the effect is between roughly 1 and 5 units). A CI that is narrow signals a precise estimate; a wide CI signals uncertainty that warrants caution before acting on the finding.</li>
+</ul>
+
+<p>Consider the following example. A healthcare provider wants to know whether a wellness programme reduces average sick days taken per year. In a study of 60 employees:</p>
+
+<pre><code>Group            n     Mean Sick Days    SD
+Control          30        8.4           3.1
+Programme        30        6.9           2.8
+
+t-statistic = 1.98,  df = 58,  p = 0.052
+95% CI for difference in means: [-0.03, 3.03]
+</code></pre>
+
+<p>The p-value of 0.052 narrowly misses the α = 0.05 threshold. A binary "not significant" label might lead management to abandon the programme. But the confidence interval tells a more nuanced story: the true reduction could be anywhere from essentially zero to three full sick days per year. The honest conclusion is that the study lacked statistical power to detect this plausible effect reliably — not that no effect exists. Reporting the CI invites a conversation about increasing the sample size in a follow-up study.</p>
+
+<p><strong>Translating Regression and Correlation Results into Insights</strong></p>
+
+<p>Statistical output from regression and correlation analyses is dense with numbers, but decision-makers need plain-language interpretations of what those numbers mean for their specific problem.</p>
+
+<ul>
+  <li><strong>Correlation coefficients (r).</strong> Pearson's r measures the strength and direction of the <em>linear</em> relationship between two continuous variables, ranging from −1 (perfect negative linear relationship) to +1 (perfect positive linear relationship), with 0 indicating no linear association. A correlation of r = 0.72 between advertising spend and monthly revenue is a strong positive association. However, correlation does not establish causation. A third variable — seasonality, for instance — might be driving both advertising spend and revenue upward simultaneously. Always ask: could a confounding variable explain this correlation?</li>
+  <li><strong>Regression coefficients (β).</strong> Each coefficient in a regression model is interpreted as: "holding all other predictors constant, a one-unit increase in this predictor is associated with a β-unit change in the outcome." This <em>ceteris paribus</em> interpretation is one of regression's greatest strengths — it isolates the contribution of each variable. For example, if a multiple regression of employee performance score on hours of training and years of experience yields β₁ = 2.3 for training hours, the interpretation is: each additional hour of training is associated with a 2.3-point increase in performance score, after accounting for years of experience. This gives managers a directly actionable number.</li>
+  <li><strong>R-squared (R²) and Adjusted R².</strong> R² is the proportion of variance in the outcome explained by the model. An R² of 0.68 means that 68% of the variability in the outcome is accounted for by the predictors in the model. The remaining 32% is due to factors not captured — measurement error, omitted variables, or inherent randomness. In business forecasting, an R² of 0.7 might be considered strong; in social science research where human behaviour is notoriously variable, R² values of 0.3 are often acceptable. Adjusted R² penalises the addition of predictors that do not meaningfully improve the model, making it a better criterion when comparing models with different numbers of variables.</li>
+  <li><strong>Pairing estimates with uncertainty measures.</strong> A regression coefficient without a standard error or confidence interval is an incomplete result. If β = 5.1 with SE = 4.9, the coefficient is highly uncertain — the true effect could plausibly be near zero. If β = 5.1 with SE = 0.4, the estimate is precise and reliable. Standard errors and confidence intervals should always accompany point estimates in reports, tables, and presentations so that stakeholders can calibrate their confidence in the findings appropriately.</li>
+</ul>
+
+<p><strong>Applying Findings to Real Datasets and A/B Testing Contexts</strong></p>
+
+<p>Theoretical knowledge about statistical methods becomes genuinely valuable only when it is applied carefully to messy, real-world data. Two practical contexts — working with observational datasets and running A/B tests — illustrate the full analytical workflow.</p>
+
+<ul>
+  <li><strong>Exploratory Data Analysis (EDA) as the essential first step.</strong> Before applying any formal test, spend time understanding the data's structure. Compute descriptive statistics (means, medians, standard deviations, ranges). Plot distributions for every key variable. Identify outliers — single data points that are implausibly far from the rest — which can distort regression coefficients dramatically. Check for missing values and decide on a principled strategy: listwise deletion, mean imputation, or multiple imputation depending on the pattern and extent of missingness. EDA is not merely housekeeping; it frequently reveals patterns, anomalies, or sub-group differences that change the entire analytical direction.</li>
+  <li><strong>A/B testing fundamentals.</strong> An A/B test is a controlled experiment in which units (users, customers, patients) are randomly assigned to a control condition (A) or a treatment condition (B). Random assignment is the mechanism that makes causal inference legitimate: because assignment is random, the two groups are expected to be similar on all characteristics — observed and unobserved — before the treatment is applied. Any systematic difference observed after the treatment can therefore be attributed to the treatment itself. Critical design elements include: <strong>random assignment</strong> (not self-selection), <strong>adequate sample size</strong> determined by a power analysis before data collection begins, and a pre-specified primary metric and significance threshold. Running the test until it reaches significance ("peeking") inflates the Type I error rate and should be avoided.</li>
+  <li><strong>Documenting analytical decisions.</strong> Every choice made during an analysis — which test was used and why, how outliers were handled, whether a transformation was applied, what significance threshold was adopted — should be documented in a clear analysis log or methods section. This documentation serves two purposes: it makes the analysis <em>reproducible</em> (another analyst can replicate the results exactly) and <em>transparent</em> (stakeholders can evaluate whether the choices were reasonable). Undocumented analyses are essentially unauditable and should be treated with scepticism.</li>
+  <li><strong>Validating results before high-stakes decisions.</strong> A single analysis on a single dataset is vulnerable to overfitting, sampling idiosyncrasies, and data errors. When results will inform major resource allocation, policy, or product decisions, validate them through independent replication on a holdout dataset, a second A/B test, or a review by a second analyst who was not involved in the original analysis. The replication crisis in science has repeatedly demonstrated that results which appear robust in one dataset often fail to hold in independent samples. Healthy scepticism about one's own findings is a mark of statistical maturity.</li>
+</ul>
+
+<p><strong>Communicating Statistical Results Effectively</strong></p>
+
+<p>An analysis that is technically impeccable but communicated poorly fails to deliver value. The final — and often underestimated — skill in drawing data-driven conclusions is translating findings into language and formats that different audiences can understand and act upon.</p>
+
+<ul>
+  <li><strong>Tailoring technical depth to the audience.</strong> A chief executive making a budget decision needs to know: what did we find, how confident are we, and what should we do? A data science team reviewing a colleague's model needs to know: what assumptions were checked, are the residuals well-behaved, and are the standard errors robust? Presenting a p-value table to an executive or omitting methodology from a technical audience are both failures of communication. Prepare a layered report — executive summary up front, technical appendix at the back — so each audience finds what they need without wading through material that does not serve them.</li>
+  <li><strong>Replacing statistical jargon with plain language.</strong> Phrases like "we reject the null hypothesis at the 5% significance level" are precise but opaque to non-statisticians. Equivalent plain-language formulations are more effective in practice: "the data provide strong evidence that customers who received the email promotion spent more on average than those who did not" or "we are 95% confident that the true improvement in satisfaction scores lies between 4 and 11 points." These formulations preserve the epistemic content while making it immediately accessible. Precision and clarity are not opposites; achieving both is simply more demanding.</li>
+  <li><strong>Contextualising within the domain problem.</strong> Statistics are a means to an end, not the end itself. After reporting that a regression model explains 61% of the variance in customer lifetime value, add: "This means the model can help the marketing team identify, before a customer's third purchase, which customers are likely to become high-value, allowing personalised retention campaigns to be targeted at the right moment." The number gains meaning only when it is anchored to a real decision or action.</li>
+  <li><strong>Acknowledging limitations honestly.</strong> No analysis is perfect. Sample sizes may be smaller than desired, limiting statistical power. The data may be observational rather than experimental, preventing causal claims. Key confounding variables may be unmeasured. Assumptions may be approximately but not perfectly met. Stating these limitations explicitly is not a sign of weakness; it is a sign of analytical rigour and intellectual honesty. It also calibrates stakeholders' expectations appropriately, reducing the risk that they will over-invest in a finding that turns out not to generalise. A results section that says "we are confident in the direction of this effect but note that the wide confidence interval means the magnitude is uncertain" builds far more long-term credibility than one that overstates certainty and is later contradicted by events.</li>
+</ul>
+
+<p>Drawing data-driven conclusions is ultimately a discipline of integrated thinking: methodological rigour in selecting and applying statistical tools, mathematical care in checking assumptions and interpreting outputs, and communicative skill in translating abstract results into concrete knowledge. Mastering each component individually is necessary; bringing them together seamlessly is what distinguishes a statistical analyst who produces reports from one who genuinely advances understanding and decision-making.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six subtopic clusters from the module outline. The worked numeric example under p-values (sick days study) is illustrative and fictional but internally consistent. The method-selection table provides a structured reference that complements the prose explanations. Emphasis throughout on the distinction between statistical and practical significance, and on honest communication of uncertainty, reflects current best practice in applied statistics and data science communication.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

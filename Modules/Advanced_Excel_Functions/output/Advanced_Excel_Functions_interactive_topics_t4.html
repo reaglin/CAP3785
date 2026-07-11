@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Summarization Techniques</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Data Summarization Techniques</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Data Summarization Techniques</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When working with large datasets in Excel, raw data alone rarely tells a complete story. A spreadsheet containing thousands of rows of sales transactions, survey responses, or inventory records needs to be condensed, grouped, and measured before patterns and insights can emerge. <strong>Data summarization techniques</strong> are the tools and methods that transform that raw data into meaningful, digestible information. Excel provides a powerful suite of features for this purpose, chief among them the PivotTable, structured Excel Tables, conditional aggregation functions, and interactive filtering controls like slicers. Together, these capabilities allow analysts to answer complex questions about their data without writing a single line of code.</p>
+
+<p>Understanding how and when to use each of these tools — and how they complement one another — is the foundation of effective data analysis in Excel. This topic covers each technique in depth, from the mechanics of creating a PivotTable to the syntax of conditional aggregation functions, with examples that show how these tools work together in realistic scenarios.</p>
+
+<p><strong>Introduction to PivotTables</strong></p>
+
+<p>A <strong>PivotTable</strong> is one of Excel's most powerful features. At its core, it is an interactive summary table that automatically groups, counts, sums, averages, or otherwise aggregates data from a source range or table. The defining characteristic of a PivotTable is that it performs these calculations without requiring the user to write any formulas. Instead, the user simply defines what they want to see — which fields go where — and Excel computes the summary instantly.</p>
+
+<p>PivotTables are built from <strong>structured data</strong>, meaning the source data should be organized in a tabular format: one row per record, one column per attribute, and a header row at the top identifying each column. For example, a sales dataset might have columns for Date, Region, Salesperson, Product, Quantity, and Revenue. A PivotTable can take that flat list of transactions and produce a compact summary showing total revenue by region, broken down by product, filtered to a specific quarter — all from the same source data.</p>
+
+<p>To create a PivotTable, select any cell within the source data and navigate to <strong>Insert &gt; PivotTable</strong>. Excel will prompt you to confirm the data range and choose where to place the PivotTable — typically on a new worksheet. Once created, the <strong>PivotTable Field List</strong> panel appears on the right side of the screen, displaying all available column headers as fields that can be dragged into four distinct areas:</p>
+
+<ul>
+  <li><strong>Rows:</strong> Fields placed here define the row labels — for example, placing "Region" in the Rows area creates one row per unique region in the data.</li>
+  <li><strong>Columns:</strong> Fields here create column headers — placing "Quarter" in the Columns area adds a column for each quarter, creating a cross-tabulation.</li>
+  <li><strong>Values:</strong> This is where numeric fields are placed for aggregation — for example, dragging "Revenue" into Values sums all revenue figures for each row/column combination.</li>
+  <li><strong>Filters:</strong> Fields here appear as a drop-down above the PivotTable, allowing the entire table to be filtered by a selected value — for example, filtering by "Product Category" to show only Electronics.</li>
+</ul>
+
+<p>The true power of the PivotTable lies in its <strong>drag-and-drop flexibility</strong>. The same dataset can answer entirely different questions just by rearranging fields. Moving "Salesperson" from Rows to Columns, or swapping out "Revenue" for "Quantity" in the Values area, instantly recalculates the entire summary. This makes PivotTables exceptionally efficient for exploratory analysis, where the analyst doesn't yet know exactly which view of the data will be most informative.</p>
+
+<p>PivotTables <strong>do not update automatically</strong> when the source data changes. They must be refreshed — a distinction covered in detail later in this topic. However, when the source is an Excel Table (rather than a plain range), refreshing is especially reliable because newly added rows are automatically captured.</p>
+
+<p><strong>Structuring Data as Excel Tables</strong></p>
+
+<p>Before building a PivotTable or writing conditional aggregation formulas, it is best practice to convert the source data into an <strong>Excel Table</strong>. An Excel Table is a named, formatted data structure that Excel recognizes as a self-contained dataset. It brings several advantages for summarization work.</p>
+
+<p>To create an Excel Table, click any cell within the data range and press <strong>Ctrl+T</strong>, or go to <strong>Insert &gt; Table</strong>. Excel will detect the boundaries of the data, confirm whether it has headers, and convert the range into a Table. The Table is assigned a default name such as <em>Table1</em>, which can be renamed to something descriptive (like <em>SalesData</em>) in the <strong>Table Design</strong> tab.</p>
+
+<p>Once converted, the Table gains several important properties:</p>
+
+<ul>
+  <li><strong>Automatic expansion:</strong> When new rows are added directly below the last row of the Table, Excel automatically expands the Table boundaries to include them. This means any PivotTable or formula referencing the Table will capture new data upon the next refresh or recalculation.</li>
+  <li><strong>Structured references:</strong> Instead of referencing cells by address (like <code>C2:C500</code>), formulas can reference Table columns by name. For example, <code>=SUM(SalesData[Revenue])</code> sums every value in the Revenue column of the SalesData table, regardless of how many rows exist. This syntax is called a <strong>structured reference</strong> and is far more readable and resilient than standard cell references.</li>
+  <li><strong>Named column headers:</strong> Each column header in a Table becomes a recognized name within structured references. If the column header is renamed, any formulas using that structured reference update automatically.</li>
+  <li><strong>Built-in filtering and sorting:</strong> Tables automatically add filter drop-downs to every column header, making it easy to explore the data before formal summarization begins.</li>
+  <li><strong>Consistent formatting:</strong> Tables apply alternating row colors and border styles that make large datasets easier to read visually.</li>
+</ul>
+
+<p>Consider this example. A dataset has columns: Date, Region, Salesperson, Product, Quantity, Revenue. After converting to a Table named <em>SalesData</em>, a formula like <code>=AVERAGEIF(SalesData[Region],"North",SalesData[Revenue])</code> calculates the average revenue for the North region specifically, and it will always cover the full column — even if 500 new rows are added tomorrow.</p>
+
+<p>Structured references also make formulas more understandable to other users reviewing the spreadsheet. A formula reading <code>=SUMIFS(SalesData[Revenue], SalesData[Region], "East", SalesData[Quarter], "Q1")</code> communicates its purpose plainly, while an equivalent formula like <code>=SUMIFS(F2:F1000, C2:C1000, "East", D2:D1000, "Q1")</code> requires the reader to inspect each cell reference to understand what it's doing.</p>
+
+<p><strong>Grouping and Aggregating Data in PivotTables</strong></p>
+
+<p>Once a PivotTable is created, the next step is configuring how the data is aggregated and organized. This is done through <strong>Value Field Settings</strong> and <strong>grouping options</strong>.</p>
+
+<p>By default, when a numeric field is dragged into the Values area, Excel applies a SUM aggregation. But Excel supports many aggregation types. To change the aggregation, right-click any value cell in the PivotTable and select <strong>Value Field Settings</strong>, or click the field name in the Values box in the Field List. The available summary functions include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aggregation Function</th>
+      <th>What It Calculates</th>
+      <th>Common Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SUM</td>
+      <td>Total of all values</td>
+      <td>Total revenue, total units sold</td>
+    </tr>
+    <tr>
+      <td>COUNT</td>
+      <td>Number of non-empty entries</td>
+      <td>Number of transactions, number of responses</td>
+    </tr>
+    <tr>
+      <td>AVERAGE</td>
+      <td>Arithmetic mean of values</td>
+      <td>Average order value, average rating</td>
+    </tr>
+    <tr>
+      <td>MAX</td>
+      <td>Largest value in the group</td>
+      <td>Highest single sale, peak temperature</td>
+    </tr>
+    <tr>
+      <td>MIN</td>
+      <td>Smallest value in the group</td>
+      <td>Lowest price, minimum delivery time</td>
+    </tr>
+    <tr>
+      <td>PRODUCT</td>
+      <td>Multiplication of all values</td>
+      <td>Compound growth rates (rare in PivotTables)</td>
+    </tr>
+    <tr>
+      <td>STDEV</td>
+      <td>Standard deviation of values</td>
+      <td>Variability analysis, quality control</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Adding multiple value fields</strong> is a common technique for comparative analysis. For instance, placing "Revenue" in the Values area twice — once configured as SUM and once as AVERAGE — allows the PivotTable to show both total revenue and average revenue per transaction side by side for each row category. To rename these fields for clarity, simply change the "Custom Name" in the Value Field Settings dialog (the field name cannot exactly match the source column name, so a small change like adding a space works).</p>
+
+<p><strong>Grouping date fields</strong> is one of the most practical PivotTable features. When a date column is placed in the Rows or Columns area, Excel may automatically group dates by Year, Quarter, and Month — three separate row fields that can be expanded or collapsed. To manually control grouping, right-click a date value in the PivotTable and choose <strong>Group</strong>. From there, you can select grouping by Days, Months, Quarters, or Years, and even set the number of days for custom groupings. For example, grouping by Month and Year lets you track monthly trends across multiple years without the dates collapsing into a single year.</p>
+
+<p>Beyond dates, numeric fields can also be grouped. If a PivotTable has "Age" in the Rows area, right-clicking and grouping by intervals of 10 will create age bands (0–9, 10–19, 20–29, etc.) automatically, turning a granular numeric field into a categorical one for analysis.</p>
+
+<p><strong>Percentage calculations</strong> add another layer of insight. In Value Field Settings, the <strong>Show Values As</strong> tab provides options to display values not as raw numbers but as calculated percentages or differences. Common options include:</p>
+
+<ul>
+  <li><strong>% of Grand Total:</strong> Each cell is shown as a percentage of the overall total, revealing each group's contribution to the whole.</li>
+  <li><strong>% of Column Total:</strong> Each cell is shown as a percentage of its column's subtotal — useful for comparing distributions within each column.</li>
+  <li><strong>% of Row Total:</strong> Each cell is shown as a percentage of its row's subtotal — useful for seeing how a category splits across columns.</li>
+  <li><strong>Difference From:</strong> Shows how each value differs from a base value, such as the change from the previous month.</li>
+  <li><strong>Running Total In:</strong> Displays a cumulative running total, useful for tracking progress toward goals over time.</li>
+</ul>
+
+<p>For example, a PivotTable showing product sales by region could have a second "Revenue" field set to <em>% of Column Total</em>, instantly showing which products account for the largest share of each region's revenue — a much more revealing comparison than raw dollar figures alone.</p>
+
+<p><strong>Using Conditional Aggregation Functions</strong></p>
+
+<p>While PivotTables are excellent for interactive exploration, <strong>conditional aggregation functions</strong> provide formula-driven summaries that embed directly into a worksheet and recalculate automatically as data changes. These functions evaluate one or more conditions and perform an aggregation only on the rows that meet those conditions.</p>
+
+<p>The four primary conditional aggregation functions in Excel are <strong>SUMIF</strong>, <strong>SUMIFS</strong>, <strong>COUNTIF</strong>/<strong>COUNTIFS</strong>, and <strong>AVERAGEIF</strong>/<strong>AVERAGEIFS</strong>. Each follows a consistent logical structure: define where to look for the condition, specify the condition itself, and (for SUM and AVERAGE) identify the range of values to aggregate.</p>
+
+<p><strong>SUMIF</strong> sums values in one range based on a condition in another range. Its syntax is:</p>
+<pre><code>=SUMIF(range, criteria, [sum_range])</code></pre>
+<p>Where <em>range</em> is the column to check, <em>criteria</em> is the condition to match, and <em>sum_range</em> is the column of values to add up when the condition is met. If <em>sum_range</em> is omitted, Excel sums the <em>range</em> itself. Example:</p>
+<pre><code>=SUMIF(SalesData[Region], "North", SalesData[Revenue])</code></pre>
+<p>This formula scans the Region column, and for every row where Region equals "North", it adds the corresponding Revenue value. The result is the total revenue from the North region.</p>
+
+<p><strong>SUMIFS</strong> extends SUMIF to support multiple conditions simultaneously. Its syntax is:</p>
+<pre><code>=SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)</code></pre>
+<p>Note that unlike SUMIF, the sum_range comes first in SUMIFS. Example:</p>
+<pre><code>=SUMIFS(SalesData[Revenue], SalesData[Region], "North", SalesData[Quarter], "Q1")</code></pre>
+<p>This totals revenue where Region is "North" AND Quarter is "Q1" — both conditions must be true for a row to be included. SUMIFS can handle up to 127 condition pairs, making it highly flexible for multi-dimensional filtering.</p>
+
+<p><strong>COUNTIF</strong> counts the number of cells in a range that match a condition:</p>
+<pre><code>=COUNTIF(range, criteria)</code></pre>
+<p>Example:</p>
+<pre><code>=COUNTIF(SalesData[Region], "North")</code></pre>
+<p>This counts how many records are from the North region — essentially showing the transaction count for that region. <strong>COUNTIFS</strong> adds multiple conditions, just as SUMIFS does for SUMIF.</p>
+
+<p><strong>AVERAGEIF</strong> calculates the mean of values that match a condition:</p>
+<pre><code>=AVERAGEIF(range, criteria, [average_range])</code></pre>
+<p>Example:</p>
+<pre><code>=AVERAGEIF(SalesData[Region], "North", SalesData[Revenue])</code></pre>
+<p>This finds the average revenue per transaction for North region records specifically. The corresponding <strong>AVERAGEIFS</strong> function supports multiple conditions.</p>
+
+<p>Criteria in these functions support several formats beyond exact text matches. Wildcards (<code>*</code> for any sequence of characters, <code>?</code> for a single character) enable partial matching. Comparison operators allow numeric thresholds:</p>
+
+<ul>
+  <li><code>"&gt;1000"</code> — matches values greater than 1000</li>
+  <li><code>"&lt;&gt;North"</code> — matches anything that is not "North"</li>
+  <li><code>"&gt;="&amp;B2</code> — matches values greater than or equal to whatever is in cell B2 (useful for dynamic criteria)</li>
+  <li><code>"Nor*"</code> — matches any text starting with "Nor", such as "North" or "Normandy"</li>
+</ul>
+
+<p>These functions complement PivotTables well. A summary dashboard might use SUMIFS formulas to populate a fixed-layout report table that automatically updates as new data is added to the source Table, while the PivotTable on another sheet handles ad hoc exploration. The two approaches serve different purposes and are often used together in professional Excel workbooks.</p>
+
+<p><strong>Slicers and Filters for Interactive Summarization</strong></p>
+
+<p>For reports that will be used by others — managers, clients, or colleagues who may not be comfortable editing PivotTable fields — <strong>slicers</strong> provide an intuitive, visual way to filter the data. A slicer is a set of clickable buttons, each representing a unique value in a field, that filters a connected PivotTable when clicked.</p>
+
+<p>To insert a slicer, click anywhere in a PivotTable, then go to <strong>PivotTable Analyze &gt; Insert Slicer</strong>. A dialog appears listing all available fields. Selecting "Region" and clicking OK places a slicer panel in the workbook with one button per unique region value. Clicking "North" filters the PivotTable to show only North data. Holding Ctrl while clicking allows multi-select filtering (e.g., North and East simultaneously). Clicking the clear-filter icon in the slicer's corner resets the filter.</p>
+
+<p>Slicers can be resized, repositioned, and formatted to match a report's visual design. They are far more user-friendly than the traditional filter drop-downs in PivotTable headers, making them the preferred choice for polished, presentation-ready dashboards.</p>
+
+<p><strong>Timeline slicers</strong> are a specialized variant designed for date fields. Instead of individual buttons for each date value, a Timeline slicer presents a horizontal scrollable bar where the user can select a time period — a single month, a range of months, a quarter, or a year — by clicking and dragging. The time granularity (Days, Months, Quarters, or Years) can be switched using a drop-down in the Timeline's upper right corner. Timelines are inserted via <strong>PivotTable Analyze &gt; Insert Timeline</strong> and only appear if a date field exists in the PivotTable's source data.</p>
+
+<p>One of the most valuable features of slicers is <strong>multi-PivotTable connectivity</strong>. A single slicer can control multiple PivotTables at once, which is essential for dashboard design. If a workbook has three PivotTables — one for revenue by region, one for units sold by product, and one for top salespersons — a single Region slicer can filter all three simultaneously. To connect a slicer to additional PivotTables, right-click the slicer and choose <strong>Report Connections</strong> (or <strong>PivotTable Connections</strong>), then check the boxes for each PivotTable that should respond to the slicer.</p>
+
+<p><strong>Report Filters</strong> are the older, built-in alternative to slicers. When a field is dragged into the Filters area of a PivotTable, it appears as a drop-down above the table. Selecting a value from that drop-down filters the entire PivotTable to show only matching records. Report Filters are less visually prominent than slicers but are available in all Excel versions and take up less screen space. They can also filter by multiple values simultaneously by enabling the "Select Multiple Items" option in the drop-down.</p>
+
+<p><strong>Refreshing and Maintaining Summarized Data</strong></p>
+
+<p>A critical operational consideration when using PivotTables is that they do not automatically update when the source data changes. If rows are added, values are edited, or data is deleted in the source range, the PivotTable will continue to show the old summary until it is explicitly refreshed.</p>
+
+<p>To refresh a PivotTable manually, right-click anywhere inside it and choose <strong>Refresh</strong>, or go to <strong>PivotTable Analyze &gt; Refresh</strong>. To refresh all PivotTables in a workbook at once, use <strong>Refresh All</strong> from the Data tab. For workbooks that are checked regularly, this manual step is straightforward. However, for reports that must always be current, it's possible to configure automatic refresh on file open: go to <strong>PivotTable Analyze &gt; PivotTable Options &gt; Data tab</strong> and check <strong>"Refresh data when opening the file"</strong>.</p>
+
+<p>Using an <strong>Excel Table as the PivotTable source</strong> is the most reliable approach to ensure new data is captured. With a plain cell range (e.g., A1:F500) as the source, if the dataset grows to 600 rows, those new rows are outside the defined range and will be ignored even after a refresh. With an Excel Table, the PivotTable's source is the Table object itself, which expands automatically as rows are added. A simple refresh then picks up all new data without needing to manually adjust the source range.</p>
+
+<p>If the source data does change location — moved to a different sheet or expanded into a different range that falls outside the Table — the <strong>Change Data Source</strong> option (found under <strong>PivotTable Analyze &gt; Change Data Source</strong>) allows the user to point the PivotTable to a new range or Table. This is also useful when building a PivotTable from an external data connection that needs to be updated to a new file path.</p>
+
+<p>Conditional aggregation formulas (SUMIFS, COUNTIFS, etc.) behave differently in terms of maintenance. Because they are standard worksheet formulas, they recalculate automatically every time the source data changes — there is no manual refresh step. This makes them particularly useful in scenarios where the summary must always reflect the current state of the data without any user intervention. However, they lack the flexibility of a PivotTable; restructuring the summary layout requires rewriting the formulas, whereas a PivotTable layout can be reorganized in seconds by dragging fields.</p>
+
+<p>The table below summarizes the key differences between PivotTable summaries and conditional aggregation formula summaries to help guide the choice between them in different analytical contexts:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>PivotTable</th>
+      <th>Conditional Aggregation Formulas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Requires manual refresh</td>
+      <td>Yes (or on-open setting)</td>
+      <td>No — recalculates automatically</td>
+    </tr>
+    <tr>
+      <td>Layout flexibility</td>
+      <td>Very high — drag-and-drop reorganization</td>
+      <td>Fixed — requires rewriting formulas to change layout</td>
+    </tr>
+    <tr>
+      <td>Formula writing required</td>
+      <td>None</td>
+      <td>Yes — formulas must be written and maintained</td>
+    </tr>
+    <tr>
+      <td>Handles new data rows automatically</td>
+      <td>Only with Excel Table source</td>
+      <td>Yes, when referencing a Table column</td>
+    </tr>
+    <tr>
+      <td>Interactive filtering</td>
+      <td>Yes — via slicers, timeline, report filters</td>
+      <td>Limited — criteria must be changed in formula or linked cell</td>
+    </tr>
+    <tr>
+      <td>Best for</td>
+      <td>Exploratory analysis, interactive dashboards</td>
+      <td>Fixed reports, embedded summaries, automation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In practice, professional Excel workbooks often use both approaches together: a PivotTable-driven dashboard for exploration and high-level reporting, alongside SUMIFS-based summary cells embedded in a formatted report template that management receives as a static snapshot. Understanding the strengths and limitations of each technique allows the analyst to design the right solution for the task at hand.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth including PivotTable creation, Excel Tables with structured references, value field settings, grouping, percentage calculations, SUMIF/SUMIFS/COUNTIF/AVERAGEIF with syntax and examples, slicers, timelines, multi-PivotTable slicer connections, report filters, refresh mechanics, and a comparison table of PivotTables vs. formula-based summarization.</div>
+      </div>
+    </details>
+  </main>
+</body></html>
